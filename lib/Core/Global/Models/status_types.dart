@@ -2,4 +2,6 @@ enum PlayerStatusTypes { turn, idle, none }
 
 enum GameStatusTypes { none }
 
-enum PeaceTypes { none }
+enum PeaceStatusTypes { selected, canSelected, none }
+
+enum GameTypes { tictactoe, none }

@@ -1,4 +1,4 @@
-
+import 'package:kafehfekr/Core/Global/Models/peace_model.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
@@ -9,7 +9,6 @@ import '../../../Core/Base/base_controller.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class TicTacToeController extends BaseController {
-
   TicTacToeController();
 
   RxString logText = RxString('');
@@ -17,12 +16,11 @@ class TicTacToeController extends BaseController {
   late Socket socket;
   // List<PlayerModel> players = [
   RxList<Rx<PlayerModel>> players = RxList();
+  RxList<Rx<PeaceModel>> peaces = RxList();
 
   int? myId = 1;
 
-
   Rx<GameStatusTypes> gameStatus = Rx(GameStatusTypes.none);
-
 
   PlayerModel returnPlayerById(int index) {
     switch (index) {
@@ -51,6 +49,10 @@ class TicTacToeController extends BaseController {
     socket.emit(SocketChannels.userCommand, data);
   }
 
+  void onEachButtonTap(PeaceModel peace) {
+    print(peace.id);
+  }
+
   void initSocket() {
     socket = io(ServerRoutes.gameSocket, <String, dynamic>{
       'autoConnect': false,
@@ -72,6 +74,9 @@ class TicTacToeController extends BaseController {
   @override
   void onInit() async {
     initSocket();
+    for (var i = 0; i < 9; i++) {
+      peaces.add(Rx(PeaceModel(id: i, currentStatuses: [])));
+    }
     super.onInit();
   }
 }

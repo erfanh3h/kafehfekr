@@ -1,6 +1,9 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Controllers/tictactoe_controller.dart';
+import 'package:kafehfekr/Feature/TicTacToe/Widgets/tictactoe_button.dart';
 
 class TicTacToePage extends BaseView<TicTacToeController> {
   const TicTacToePage({super.key});
@@ -8,24 +11,27 @@ class TicTacToePage extends BaseView<TicTacToeController> {
   @override
   Widget body(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // GridView.builder(
-        //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //     crossAxisCount: 4,
-        //     crossAxisSpacing: 25,
-        //     mainAxisSpacing: 10,
-        //   ),
-        //   itemBuilder: (ctx, index) => InkWell(
-        //     onTap: () {
-        //       onEachTap(index + 1);
-        //     },
-        //     child: Image.asset(
-        //       ReactionIcons().reactionIconsPath(index + 1),
-        //       color: Colors.amber,
-        //     ),
-        //   ),
-        //   itemCount: ReactionIcons.reactionsCount,
-        // ),
+        Center(
+          child: Container(
+            padding: AppSpacings.s20All,
+            height: 300.w,
+            width: 300.w,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+              ),
+              itemBuilder: (ctx, index) => TicTacToeButton(
+                peaceData: controller.peaces[index].value,
+                onTap: controller.onEachButtonTap,
+              ),
+              itemCount: controller.peaces.length,
+            ),
+          ),
+        ),
         // Expanded(
         //   child: Container(
         //     color: AppColors.cardLight,
