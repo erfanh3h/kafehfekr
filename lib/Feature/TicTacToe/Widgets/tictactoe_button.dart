@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/peace_model.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class TicTacToeButton extends StatelessWidget {
   const TicTacToeButton({
@@ -18,13 +20,19 @@ class TicTacToeButton extends StatelessWidget {
         onTap(peaceData);
       },
       child: Container(
+        padding: AppSpacings.s15All,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(
             color: Colors.black,
+            width: 2,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(8),
         ),
+        // child: Image.asset(
+        //   GeneralIcons.circle1,
+        //   color: Colors.blue,
+        // ),
       ),
     );
   }

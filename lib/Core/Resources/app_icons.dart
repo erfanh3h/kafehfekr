@@ -1,23 +1,22 @@
 class ReactionIcons {
-  String reactionIconsPath(int id) => "assets/Icons/Reactions/$id.png";
+  String generalIconsPath(int id) => "assets/Icons/Reactions/$id.png";
   static const reactionsCount = 72;
 }
 
 class GeneralIcons {
-  static const reactionIconsPath = "assets/Icons/General";
-  static const challenge = "$reactionIconsPath/challenge.png";
-  static const death = "$reactionIconsPath/death.png";
-  static const first = "$reactionIconsPath/first.png";
-  static const second = "$reactionIconsPath/second.png";
-  static const third = "$reactionIconsPath/third.png";
-  static const leaderboard = "$reactionIconsPath/leaderboard.png";
-  static const time = "$reactionIconsPath/time.png";
-  static const timecounter = "$reactionIconsPath/timecounter.png";
-  static const challengeTalk = "$reactionIconsPath/challenge_talk.png";
-  static const normalTalk = "$reactionIconsPath/normal_talk.png";
-  static const defendTalk = "$reactionIconsPath/defend_talk.png";
-  static const aim = "$reactionIconsPath/aim.png";
-  static const check = "$reactionIconsPath/check.png";
-  static const cross = "$reactionIconsPath/cross.png";
-  static const stop = "$reactionIconsPath/stop.png";
+  static const generalIconsPath = "assets/Icons/General";
+  static const death = "$generalIconsPath/death.png";
+  static const first = "$generalIconsPath/first.png";
+  static const second = "$generalIconsPath/second.png";
+  static const third = "$generalIconsPath/third.png";
+  static const leaderboard = "$generalIconsPath/leaderboard.png";
+  static const time = "$generalIconsPath/time.png";
+  static const timecounter = "$generalIconsPath/timecounter.png";
+  static const sound = "$generalIconsPath/sound.png";
+  static const aim = "$generalIconsPath/aim.png";
+  static const check = "$generalIconsPath/check.png";
+  static const cross = "$generalIconsPath/cross.png";
+  static const circle1 = "$generalIconsPath/circle1.png";
+  static const circle2 = "$generalIconsPath/circle2.png";
+  static const circle3 = "$generalIconsPath/circle3.png";
 }

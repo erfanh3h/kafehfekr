@@ -25,7 +25,7 @@ class ReactionsBox extends StatelessWidget {
             onEachTap(index + 1);
           },
           child: Image.asset(
-            ReactionIcons().reactionIconsPath(index + 1),
+            ReactionIcons().generalIconsPath(index + 1),
             color: Colors.amber,
           ),
         ),

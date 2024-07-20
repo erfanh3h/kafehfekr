@@ -88,7 +88,7 @@ class _ReactionBoxState extends State<ReactionBox>
           child: FadeTransition(
             opacity: _fadeInFadeOut,
             child: Image.asset(
-              ReactionIcons().reactionIconsPath(widget.reactionId!),
+              ReactionIcons().generalIconsPath(widget.reactionId!),
               width: 25.r,
               height: 25.r,
               color: Colors.amber,
