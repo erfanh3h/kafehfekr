@@ -8,4 +8,6 @@ abstract class AppRoutes {
   static const daysShow = '/days_show';
   static const entry = '/entry';
   static const gameBoard = '/gameBoard';
+  static const tictactoe = '/tictactoe';
+
 }

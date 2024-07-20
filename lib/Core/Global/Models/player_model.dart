@@ -1,4 +1,4 @@
-import 'package:kafehfekr/Feature/Game/Models/status_types.dart';
+import 'package:kafehfekr/Core/Global/Models/status_types.dart';
 
 class PlayerModel {
   final int id;
