@@ -52,11 +52,11 @@ class AppColors {
   static const disabledButton = Color(0xffb9e0de); //for strong pass
   static const transparent = Colors.transparent; //for strong pass
 
-  static const playerNormalBackground = Color.fromARGB(255, 29, 117, 158);
-  static const playerDeadBackground = Color.fromARGB(255, 160, 36, 27);
-  static const playerTalkTurnBackground = Color.fromARGB(255, 115, 187, 128);
-  static const playerTalkingBackground = Color.fromARGB(255, 50, 134, 65);
-  static const playerChallengingBackground = Color.fromARGB(255, 156, 158, 56);
+  static const peaceLightColor = Color.fromARGB(255, 219, 214, 214);
+  
+  static const imageRedColor = Color.fromARGB(255, 138, 49, 49);
+  static const imageBlueColor = Color.fromARGB(255, 36, 48, 156);
+
   static const playerCanSelected = Color.fromARGB(255, 208, 221, 90);
 
   static const theme = Color.fromARGB(255, 57, 67, 158);

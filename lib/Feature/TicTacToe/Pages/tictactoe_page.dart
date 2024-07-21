@@ -1,4 +1,3 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -33,9 +32,11 @@ class TicTacToePage extends BaseView<TicTacToeController> {
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 5,
                 ),
-                itemBuilder: (ctx, index) => TicTacToeButton(
-                  peaceData: controller.peaces[index].value,
-                  onTap: controller.onEachButtonTap,
+                itemBuilder: (ctx, index) => Obx(
+                  () => TicTacToeButton(
+                    peaceData: controller.peaces[index].value,
+                    onTap: controller.onEachButtonTap,
+                  ),
                 ),
                 itemCount: controller.peaces.length,
               ),
