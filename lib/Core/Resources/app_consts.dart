@@ -4,3 +4,8 @@ class GameWaitTimes {
   static const challengeRequestTime = 13;
   static const challengeAcceptTime = 13;
 }
+
+class FontFamilies {
+  static const vazir = "Vazir";
+  static const dastnevis = "Dastnevis";
+}
