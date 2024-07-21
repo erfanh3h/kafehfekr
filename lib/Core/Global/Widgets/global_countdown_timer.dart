@@ -1,34 +1,31 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:refreshed/refreshed.dart';
 
 class CountdownTimerWidget extends StatelessWidget {
-  const CountdownTimerWidget({super.key});
+  const CountdownTimerWidget({
+    super.key,
+    this.color,
+  });
 
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     final TimerCompanent controller = Get.find<TimerCompanent>();
     return Obx(
       () => controller.isCounting.value
-          ? Stack(
-              children: [
-                CircularProgressIndicator(
-                  value: controller.percent.value,
-                  color: AppColors.theme,
-                  backgroundColor: Colors.grey,
-                ),
-                Positioned(
-                  right: 10,
-                  top: 10,
-                  child: Text(
-                    controller.timerLabel.value,
-                    textAlign: TextAlign.end,
-                  ),
-                )
-              ],
+          ? CircularProgressIndicator(
+              value: controller.percent.value,
+              color: color ?? AppColors.theme,
+              backgroundColor: Colors.grey,
+              strokeWidth: 20,
             )
-          : Container(),
+          : SizedBox(
+              width: 30.w,
+              height: 30.w,
+            ),
     );
   }
 }

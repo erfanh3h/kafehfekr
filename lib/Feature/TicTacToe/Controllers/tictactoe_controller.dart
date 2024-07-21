@@ -1,9 +1,9 @@
+import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Models/status_types.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Models/tictactoe_peace_model.dart';
-import 'package:refreshed/get_rx/get_rx.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../../../Core/Base/base_controller.dart';
@@ -24,6 +24,11 @@ class TicTacToeController extends BaseController {
   RxInt currentRound = RxInt(1);
   int maxRound = 2;
 
+  RxInt player1Score = RxInt(0);
+  RxInt player2Score = RxInt(0);
+
+  RxInt currentTurn = RxInt(0);
+
   Rx<GameStatusTypes> gameStatus = Rx(GameStatusTypes.none);
 
   void setPlayerData(int index, PlayerModel playerData) {
@@ -35,15 +40,20 @@ class TicTacToeController extends BaseController {
     switch (commandId) {
       case GameCommands.gameData:
         Map gameData = data['data'];
-        print(gameData);
+        List gamers = gameData['gamers'];
+        for (var gamerData in gamers) {
+          players.add(Rx(PlayerModel.fromJson(gamerData)));
+        }
         break;
       case GameCommands.currentTurn:
-        int currentTurn = data['data'];
-        if (currentTurn == myId) {
+        int turn = data['data'];
+        currentTurn.value = turn;
+        if (turn == myId) {
           canSelectPeace.value = true;
         } else {
           canSelectPeace.value = false;
         }
+        changetimerValue(GameTimes.tictactoeRoundTime);
         break;
       case GameCommands.peaceSelected:
         Map peaceData = data['data'];
@@ -64,15 +74,31 @@ class TicTacToeController extends BaseController {
       case GameCommands.finishRound:
         Map newData = data['data'];
         int roundWinner = int.parse(newData['Winner'] ?? "0");
+        if (roundWinner == 0) {
+          player1Score.value += 1;
+        } else {
+          player2Score.value += 1;
+        }
+        Get.find<TimerCompanent>().stopTimer();
         print('$roundWinner is this round winner');
         break;
       case GameCommands.finishGame:
         Map newData = data['data'];
         int gameWinner = int.parse(newData['Winner'] ?? "0");
         print('$gameWinner is this game winner');
+        Get.find<TimerCompanent>().stopTimer();
+
         break;
       default:
     }
+  }
+
+  bool isThisUserTurn(int userId) {
+    return currentTurn.value == userId;
+  }
+
+  void changetimerValue(int value) {
+    Get.find<TimerCompanent>().startTimer(value);
   }
 
   void resetPeaces() {

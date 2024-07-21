@@ -57,6 +57,8 @@ class AppColors {
   static const imageRedColor = Color.fromARGB(255, 138, 49, 49);
   static const imageBlueColor = Color.fromARGB(255, 36, 48, 156);
 
+  static const topPlayersBoxColor = Color.fromARGB(255, 175, 103, 21);
+
   static const playerCanSelected = Color.fromARGB(255, 208, 221, 90);
 
   static const theme = Color.fromARGB(255, 57, 67, 158);
