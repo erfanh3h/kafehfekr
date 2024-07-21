@@ -19,4 +19,12 @@ class TicTacToePeaceModel extends PeaceModel {
       selectedUser: newSelectedUser,
     );
   }
+
+  TicTacToePeaceModel resetPeace() {
+    return TicTacToePeaceModel(
+      id: id,
+      currentStatuses: [],
+      selectedUser: null,
+    );
+  }
 }

@@ -8,6 +8,8 @@ abstract class GameCommands {
   static const currentTurn = "CurrentTurn";
   static const selectPeace = "SelectPeace";
   static const peaceSelected = "PeaceSelected";
+  static const newRound = "NewRound";
+  static const finishRound = "FinishRound";
   static const finishGame = "FinishGame";
 }
 

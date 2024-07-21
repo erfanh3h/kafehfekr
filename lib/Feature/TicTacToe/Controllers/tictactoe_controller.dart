@@ -3,14 +3,13 @@ import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Models/status_types.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Models/tictactoe_peace_model.dart';
+import 'package:refreshed/get_rx/get_rx.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../../../Core/Base/base_controller.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class TicTacToeController extends BaseController {
-  TicTacToeController();
-
   RxString logText = RxString('');
 
   late Socket socket;
@@ -22,16 +21,10 @@ class TicTacToeController extends BaseController {
 
   RxBool canSelectPeace = RxBool(false);
 
-  Rx<GameStatusTypes> gameStatus = Rx(GameStatusTypes.none);
+  RxInt currentRound = RxInt(1);
+  int maxRound = 2;
 
-  PlayerModel returnPlayerById(int index) {
-    switch (index) {
-      case 0:
-        return players.value[0].value;
-      default:
-        return players.value[0].value;
-    }
-  }
+  Rx<GameStatusTypes> gameStatus = Rx(GameStatusTypes.none);
 
   void setPlayerData(int index, PlayerModel playerData) {
     switch (index) {}
@@ -63,7 +56,28 @@ class TicTacToeController extends BaseController {
           }
         }
         break;
+      case GameCommands.newRound:
+        int newRound = data['data'];
+        currentRound.value = newRound;
+        resetPeaces();
+        break;
+      case GameCommands.finishRound:
+        Map newData = data['data'];
+        int roundWinner = int.parse(newData['Winner'] ?? "0");
+        print('$roundWinner is this round winner');
+        break;
+      case GameCommands.finishGame:
+        Map newData = data['data'];
+        int gameWinner = int.parse(newData['Winner'] ?? "0");
+        print('$gameWinner is this game winner');
+        break;
       default:
+    }
+  }
+
+  void resetPeaces() {
+    for (var i = 0; i < peaces.length; i++) {
+      peaces[i].value = peaces[i].value.resetPeace();
     }
   }
 
