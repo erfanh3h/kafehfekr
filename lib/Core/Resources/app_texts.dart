@@ -4,6 +4,7 @@ abstract class SocketChannels {
 
 abstract class GameCommands {
   static const gameData = "GameData";
+  static const reconnectData = "ReconnectData";
   static const reaction = "Reaction";
   static const currentTurn = "CurrentTurn";
   static const selectPeace = "SelectPeace";

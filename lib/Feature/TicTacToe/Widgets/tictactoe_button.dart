@@ -21,11 +21,11 @@ class TicTacToeButton extends StatelessWidget {
     Color? imageColor;
     String? image;
     switch (peaceData.selectedUser) {
-      case 0:
+      case 1:
         imageColor = AppColors.imageRedColor;
         image = GeneralIcons.circle1;
         break;
-      case 1:
+      case 2:
         imageColor = AppColors.imageBlueColor;
         image = GeneralIcons.cross;
         break;

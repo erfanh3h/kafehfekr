@@ -17,7 +17,9 @@ class TicTacToeController extends BaseController {
   RxList<Rx<PlayerModel>> players = RxList();
   RxList<Rx<TicTacToePeaceModel>> peaces = RxList();
 
-  int? myId = 1;
+  int myId = 1;
+  int myGameId = 2;
+  String gameId = "gameId";
 
   RxBool canSelectPeace = RxBool(false);
 
@@ -27,7 +29,7 @@ class TicTacToeController extends BaseController {
   RxInt player1Score = RxInt(0);
   RxInt player2Score = RxInt(0);
 
-  RxInt currentTurn = RxInt(0);
+  RxInt currentTurn = RxInt(1);
 
   Rx<GameStatusTypes> gameStatus = Rx(GameStatusTypes.none);
 
@@ -45,10 +47,29 @@ class TicTacToeController extends BaseController {
           players.add(Rx(PlayerModel.fromJson(gamerData)));
         }
         break;
+      case GameCommands.reconnectData:
+        Map newData = data['data'];
+        List gamers = newData['gamers'];
+        Map gameData = newData['game_data'];
+        List boardData = gameData['board'];
+        for (var gamerData in gamers) {
+          players.add(Rx(PlayerModel.fromJson(gamerData)));
+        }
+        for (var i = 0; i < boardData.length; i++) {
+          if (boardData[i] == 0) {
+            continue;
+          }
+          peaces[i].value =
+              peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
+        }
+        currentRound.value = gameData['current_round'];
+        player1Score.value = gameData['scores'][0];
+        player2Score.value = gameData['scores'][1];
+        break;
       case GameCommands.currentTurn:
         int turn = data['data'];
         currentTurn.value = turn;
-        if (turn == myId) {
+        if (turn == myGameId) {
           canSelectPeace.value = true;
         } else {
           canSelectPeace.value = false;
@@ -74,8 +95,8 @@ class TicTacToeController extends BaseController {
         break;
       case GameCommands.finishRound:
         Map newData = data['data'];
-        int roundWinner = int.parse(newData['Winner'] ?? "0");
-        if (roundWinner == 0) {
+        int roundWinner = newData['Winner'] ?? 0;
+        if (roundWinner == 1) {
           player1Score.value += 1;
         } else {
           player2Score.value += 1;
@@ -85,7 +106,7 @@ class TicTacToeController extends BaseController {
         break;
       case GameCommands.finishGame:
         Map newData = data['data'];
-        int gameWinner = int.parse(newData['Winner'] ?? "0");
+        int gameWinner = newData['Winner'] ?? 0;
         print('$gameWinner is this game winner');
         Get.find<TimerCompanent>().stopTimer();
 
@@ -94,8 +115,8 @@ class TicTacToeController extends BaseController {
     }
   }
 
-  bool isThisUserTurn(int userId) {
-    return currentTurn.value == userId;
+  bool isThisUserTurn(int gamerId) {
+    return currentTurn.value == gamerId;
   }
 
   void changetimerValue(int value) {
@@ -149,7 +170,7 @@ class TicTacToeController extends BaseController {
     socket = io(ServerRoutes.gameSocket, <String, dynamic>{
       'autoConnect': false,
       'transports': ['websocket'],
-      'auth': {'name': 'mobile'},
+      'auth': {'user_id': myId, 'game_id': gameId},
     });
     socket.connect();
     socket.onConnect((_) {

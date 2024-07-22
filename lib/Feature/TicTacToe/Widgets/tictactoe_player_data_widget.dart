@@ -27,7 +27,7 @@ class TicTacToePlayerDataWidget extends StatelessWidget {
               child: UserRowData(
                 playerName: controller.players[0].value.name,
                 playerScore: controller.player1Score.value,
-                isThisUserTurn: controller.isThisUserTurn(0),
+                isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
               ),
             ),
@@ -48,7 +48,7 @@ class TicTacToePlayerDataWidget extends StatelessWidget {
                 child: UserRowData(
                   playerName: controller.players[1].value.name,
                   playerScore: controller.player2Score.value,
-                  isThisUserTurn: controller.isThisUserTurn(1),
+                  isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
                 ),
               ),
