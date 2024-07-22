@@ -1,6 +1,7 @@
 class ServerRoutes {
   // static const baseUrl = 'http://192.168.1.6:5000/api/v1';
   static const gameSocket = 'http://10.0.2.2:5000';
+  // static const gameSocket = 'http://192.168.1.6:5000';
   static const appwriteProjectId = '66054f475f92582f7687';
   static const baseUrl = 'http://185.204.197.77:5000/api/v1';
   static const enterPhone = '$baseUrl/enter';

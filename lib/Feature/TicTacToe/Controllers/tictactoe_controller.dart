@@ -186,9 +186,9 @@ class TicTacToeController extends BaseController {
       print("selected before !");
       return;
     }
+    canSelectPeace.value = false;
     sendCommand({"id": 'SelectPeace', "data": peace.id});
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-    print(peace.id);
   }
 
   void initSocket() {
