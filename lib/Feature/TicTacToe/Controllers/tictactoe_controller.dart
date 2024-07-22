@@ -82,21 +82,29 @@ class TicTacToeController extends BaseController {
       case GameCommands.finishRound:
         Map newData = data['data'];
         int roundWinner = newData['Winner'] ?? 0;
-        if (roundWinner == 1) {
-          player1Score.value += 1;
-        } else {
-          player2Score.value += 1;
-        }
         Get.find<TimerCompanent>().stopTimer();
-        DialogComponent().showDialog('پایان دور', 'بازیکن $roundWinner برنده ی این راند شد');
-        // print('$roundWinner is this round winner');
+        if (roundWinner == 0) {
+          DialogComponent().showDialog('پایان دور', 'این دور مساوی شد');
+        } else {
+          if (roundWinner == 1) {
+            player1Score.value += 1;
+          } else if (roundWinner == 2) {
+            player2Score.value += 1;
+          }
+          DialogComponent().showDialog(
+              'پایان دور', 'بازیکن $roundWinner برنده ی این راند شد');
+        }
         break;
       case GameCommands.finishGame:
         Map newData = data['data'];
         int gameWinner = newData['Winner'] ?? 0;
-        print('$gameWinner is this game winner');
         Get.find<TimerCompanent>().stopTimer();
-        DialogComponent().showDialog('پایان دور', 'بازیکن $gameWinner برنده بازی شد');
+        if (gameWinner == 0) {
+          DialogComponent().showDialog('پایان بازی', 'بازی مساوی شد');
+        } else {
+          DialogComponent()
+              .showDialog('پایان بازی', 'بازیکن $gameWinner برنده بازی شد');
+        }
         break;
       default:
     }
