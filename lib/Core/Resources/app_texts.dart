@@ -15,7 +15,7 @@ abstract class GameCommands {
 }
 
 abstract class GameTimes {
-  static const tictactoeRoundTime = 10;
+  static const int tictactoeRoundTime = 10;
 }
 
 abstract class GameLogs {
