@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
@@ -41,7 +42,7 @@ class AppTheme {
     ),
     dialogBackgroundColor: AppColors.secondary,
     primaryColor: AppColors.primaryLight,
-    fontFamily: 'vazir',
+    fontFamily: FontFamilies.vazir,
     useMaterial3: true,
   );
 
@@ -79,7 +80,7 @@ class AppTheme {
     dialogBackgroundColor: AppColors.primaryDark,
     cardTheme: CardTheme(color: AppColors.primaryDark.withOpacity(.5)),
     primaryColor: AppColors.primaryDark,
-    fontFamily: 'vazir',
+    fontFamily: FontFamilies.vazir,
     useMaterial3: true,
   );
 }

@@ -15,17 +15,13 @@ class CountdownTimerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final TimerCompanent controller = Get.find<TimerCompanent>();
     return Obx(
-      () => controller.isCounting.value
-          ? CircularProgressIndicator(
-              value: controller.percent.value,
-              color: color ?? AppColors.theme,
-              backgroundColor: Colors.grey,
-              strokeWidth: 20,
-            )
-          : SizedBox(
-              width: 30.w,
-              height: 30.w,
-            ),
+      () => CircularProgressIndicator(
+        value: controller.percent.value,
+        color: color ?? AppColors.theme,
+        backgroundColor: Colors.grey,
+        strokeWidth: 14.w,
+        strokeAlign: -.5,
+      ),
     );
   }
 }

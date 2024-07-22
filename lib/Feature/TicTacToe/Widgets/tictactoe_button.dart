@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Models/status_types.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -46,12 +48,14 @@ class TicTacToeButton extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: image != null
-            ? Image.asset(
-                image,
-                color: imageColor,
-              )
-            : Container(),
+        child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
+            ? const GlobalLoadingWidget()
+            : image != null
+                ? Image.asset(
+                    image,
+                    color: imageColor,
+                  )
+                : Container(),
       ),
     );
   }

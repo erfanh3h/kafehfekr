@@ -19,8 +19,11 @@ class TimerCompanent extends GetxController {
     _timer = Timer.periodic(
       oneSec,
       (Timer timer) {
-        if (_start < 1) {
+        if (_start < .1) {
           timer.cancel();
+          _start.value = 0;
+          timerLabel.value = _start.toString();
+          percent.value = _start.value;
           isCounting.value = false;
           try {
             endFunction!();

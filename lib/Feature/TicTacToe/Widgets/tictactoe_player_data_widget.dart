@@ -17,56 +17,18 @@ class TicTacToePlayerDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: AppColors.topPlayersBoxColor,
-      child: Obx(
-        () => Row(
+    return Obx(
+      () => Padding(
+        padding: AppSpacings.s10Horizental,
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 25.r,
-                          child: controller.isThisUserTurn(0)
-                              ? const CountdownTimerWidget(
-                                  color: AppColors.imageRedColor,
-                                )
-                              : const Icon(
-                                  Icons.person_2,
-                                  color: Colors.white,
-                                ),
-                        ),
-                        SizedBox(
-                          height: 3.h,
-                        ),
-                        Text(
-                          controller.players[0].value.name,
-                          style: TextStyle(
-                            fontFamily: FontFamilies.vazir,
-                            fontSize: 15.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Spacer(flex: 1),
-                  Text(
-                    controller.player1Score.toString(),
-                    style: TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 30.sp,
-                      color: AppColors.imageRedColor,
-                    ),
-                  ),
-                  const Spacer(flex: 3),
-                ],
+              child: UserRowData(
+                playerName: controller.players[0].value.name,
+                playerScore: controller.player1Score.value,
+                isThisUserTurn: controller.isThisUserTurn(0),
+                color: AppColors.imageRedColor,
               ),
             ),
             Padding(
@@ -76,57 +38,103 @@ class TicTacToePlayerDataWidget extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: FontFamilies.dastnevis,
                   fontSize: 30.sp,
+                  color: Colors.white,
                 ),
               ),
             ),
             Expanded(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Spacer(flex: 3),
-                  Text(
-                    controller.player2Score.toString(),
-                    style: TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 30.sp,
-                      color: AppColors.imageBlueColor,
-                    ),
-                  ),
-                  const Spacer(flex: 1),
-                  Expanded(
-                    flex: 5,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          radius: 25.r,
-                          child: controller.isThisUserTurn(1)
-                              ? const CountdownTimerWidget(
-                                  color: AppColors.imageBlueColor,
-                                )
-                              : const Icon(
-                                  Icons.person_2,
-                                  color: Colors.white,
-                                ),
-                        ),
-                        SizedBox(
-                          height: 3.h,
-                        ),
-                        Text(
-                          controller.players[1].value.name,
-                          style: TextStyle(
-                            fontFamily: FontFamilies.vazir,
-                            fontSize: 15.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              child: Directionality(
+                textDirection: TextDirection.ltr,
+                child: UserRowData(
+                  playerName: controller.players[1].value.name,
+                  playerScore: controller.player2Score.value,
+                  isThisUserTurn: controller.isThisUserTurn(1),
+                  color: AppColors.imageBlueColor,
+                ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class UserRowData extends StatelessWidget {
+  const UserRowData({
+    super.key,
+    required this.playerName,
+    required this.playerScore,
+    required this.isThisUserTurn,
+    required this.color,
+  });
+
+  final String playerName;
+  final int playerScore;
+  final bool isThisUserTurn;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: AppSpacings.s5All,
+      decoration: BoxDecoration(
+        color: AppColors.peaceLightColor,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: isThisUserTurn ? color : Colors.white,
+          width: 3,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Flexible(
+            flex: 5,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 20.r,
+                  backgroundColor: color,
+                  child: isThisUserTurn
+                      ? CountdownTimerWidget(
+                          color: color,
+                        )
+                      : const Icon(
+                          Icons.person_2,
+                          color: Colors.white,
+                        ),
+                ),
+                SizedBox(
+                  height: 3.h,
+                ),
+                Text(
+                  playerName,
+                  style: TextStyle(
+                    fontFamily: FontFamilies.vazir,
+                    fontSize: 15.sp,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+          Flexible(
+            flex: 1,
+            child: Text(
+              playerScore.toString(),
+              style: TextStyle(
+                fontFamily: FontFamilies.dastnevis,
+                fontSize: 30.sp,
+                color: color,
+              ),
+            ),
+          ),
+          // const Spacer(flex: 3),
+        ],
       ),
     );
   }

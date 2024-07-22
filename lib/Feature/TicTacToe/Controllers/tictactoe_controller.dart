@@ -62,6 +62,7 @@ class TicTacToeController extends BaseController {
           if (peace.value.id == peaceId) {
             peace.value = peace.value
                 .changeSelectedUser(newSelectedUser: peaceData["user"]);
+            removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
             break;
           }
         }
@@ -107,6 +108,25 @@ class TicTacToeController extends BaseController {
     }
   }
 
+  addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
+    for (var i = 0; i < peaces.length; i++) {
+      if (peaces[i].value.id == peaceId) {
+        peaces.value[i].value = peaces.value[i].value.addStatus(status: status);
+        break;
+      }
+    }
+  }
+
+  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
+    for (var i = 0; i < peaces.length; i++) {
+      if (peaces[i].value.id == peaceId) {
+        peaces.value[i].value =
+            peaces.value[i].value.removeStatus(status: status);
+        break;
+      }
+    }
+  }
+
   void sendCommand(Map data) {
     socket.emit(SocketChannels.userCommand, data);
   }
@@ -121,6 +141,7 @@ class TicTacToeController extends BaseController {
       return;
     }
     sendCommand({"id": 'SelectPeace', "data": peace.id});
+    addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
     print(peace.id);
   }
 

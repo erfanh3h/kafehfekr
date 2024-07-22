@@ -13,9 +13,10 @@ class TicTacToePeaceModel extends PeaceModel {
   TicTacToePeaceModel changeSelectedUser({
     int? newSelectedUser,
   }) {
+    final data = super.addStatus(status: PeaceStatusTypes.selected);
     return TicTacToePeaceModel(
       id: id,
-      currentStatuses: [PeaceStatusTypes.selected],
+      currentStatuses: data.currentStatuses,
       selectedUser: newSelectedUser,
     );
   }
@@ -25,6 +26,26 @@ class TicTacToePeaceModel extends PeaceModel {
       id: id,
       currentStatuses: [],
       selectedUser: null,
+    );
+  }
+
+  @override
+  TicTacToePeaceModel addStatus({required PeaceStatusTypes status}) {
+    final data = super.addStatus(status: status);
+    return TicTacToePeaceModel(
+      id: data.id,
+      currentStatuses: data.currentStatuses,
+      selectedUser: selectedUser,
+    );
+  }
+
+  @override
+  TicTacToePeaceModel removeStatus({required PeaceStatusTypes status}) {
+    final data = super.removeStatus(status: status);
+    return TicTacToePeaceModel(
+      id: data.id,
+      currentStatuses: data.currentStatuses,
+      selectedUser: selectedUser,
     );
   }
 }

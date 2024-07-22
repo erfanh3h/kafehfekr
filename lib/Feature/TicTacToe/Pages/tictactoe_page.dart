@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -22,14 +23,15 @@ class TicTacToePage extends BaseView<TicTacToeController> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            flex: 1,
+          const Spacer(flex: 1),
+          SizedBox(
+            height: 85.h,
             child: controller.players.length > 1
                 ? TicTacToePlayerDataWidget(controller: controller)
                 : Container(),
           ),
           Expanded(
-            flex: 4,
+            flex: 20,
             child: Center(
               child: Container(
                 padding: AppSpacings.s20All,
@@ -53,9 +55,10 @@ class TicTacToePage extends BaseView<TicTacToeController> {
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 4,
             child: Container(),
           ),
+          const Spacer(flex: 1),
           // Expanded(
           //   child: Container(
           //     color: AppColors.cardLight,
