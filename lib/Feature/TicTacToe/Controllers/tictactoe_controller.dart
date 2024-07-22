@@ -1,3 +1,4 @@
+import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
@@ -87,14 +88,15 @@ class TicTacToeController extends BaseController {
           player2Score.value += 1;
         }
         Get.find<TimerCompanent>().stopTimer();
-        print('$roundWinner is this round winner');
+        DialogComponent().showDialog('پایان دور', 'بازیکن $roundWinner برنده ی این راند شد');
+        // print('$roundWinner is this round winner');
         break;
       case GameCommands.finishGame:
         Map newData = data['data'];
         int gameWinner = newData['Winner'] ?? 0;
         print('$gameWinner is this game winner');
         Get.find<TimerCompanent>().stopTimer();
-
+        DialogComponent().showDialog('پایان دور', 'بازیکن $gameWinner برنده بازی شد');
         break;
       default:
     }

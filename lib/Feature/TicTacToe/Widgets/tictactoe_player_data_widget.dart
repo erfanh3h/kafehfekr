@@ -79,7 +79,7 @@ class UserRowData extends StatelessWidget {
     return Container(
       padding: AppSpacings.s5All,
       decoration: BoxDecoration(
-        color: AppColors.peaceLightColor,
+        color: AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: isThisUserTurn ? color : Colors.white,

@@ -52,14 +52,15 @@ class AppColors {
   static const disabledButton = Color(0xffb9e0de); //for strong pass
   static const transparent = Colors.transparent; //for strong pass
 
-  static const peaceLightColor = Color.fromARGB(255, 219, 214, 214);
-  
+  static const lightColor = Color.fromARGB(255, 219, 214, 214);
+
   static const imageRedColor = Color.fromARGB(255, 138, 49, 49);
   static const imageBlueColor = Color.fromARGB(255, 36, 48, 156);
 
   static const topPlayersBoxColor = Color.fromARGB(255, 175, 103, 21);
 
   static const playerCanSelected = Color.fromARGB(255, 208, 221, 90);
+  static const blueWarmColor = Color.fromARGB(255, 69, 71, 158);
 
   static const theme = Color.fromARGB(255, 57, 67, 158);
 }
