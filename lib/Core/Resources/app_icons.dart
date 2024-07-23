@@ -1,6 +1,6 @@
 class ReactionIcons {
   String generalIconsPath(int id) => "assets/Icons/Reactions/$id.png";
-  static const reactionsCount = 72;
+  static const reactionsCount = 44;
 }
 
 class GeneralIcons {
