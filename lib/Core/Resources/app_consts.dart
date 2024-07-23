@@ -17,4 +17,5 @@ abstract class GameCommands {
   static const newRound = "NewRound";
   static const finishRound = "FinishRound";
   static const finishGame = "FinishGame";
+  static const surrender = "Surrender";
 }

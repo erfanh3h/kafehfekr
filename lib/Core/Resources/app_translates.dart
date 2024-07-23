@@ -13,7 +13,13 @@ class AppTranslations extends Translations {
           AppTexts.youLoseThisRound: 'این راند رو باختی!',
           AppTexts.youWinGame: 'تبریک برنده ی بازی شدی!',
           AppTexts.youWinThisRound: 'این راند رو بردی!',
+          AppTexts.enemySurrenderGame: 'حریف تسلیم شد و پیروز شدی!',
+          AppTexts.youSurrenderGame: 'تسلیم شدی و شکست خوردی!',
+          AppTexts.wanaSurrenderGame: 'مطمئنی میخوای تسلیم شی؟',
+          AppTexts.surrender: 'تسلیم شدن',
           AppTexts.ok: 'بسیار خب',
+          AppTexts.accept: 'آره می پذیرم',
+          AppTexts.cancel: 'نه بیخیالش',
         },
         'en': {
           AppTexts.endGame: 'Game Finished',
@@ -24,7 +30,13 @@ class AppTranslations extends Translations {
           AppTexts.youLoseThisRound: 'You lost this round!',
           AppTexts.youWinGame: 'Congratulations, you won the game!',
           AppTexts.youWinThisRound: 'You won this round!',
+          AppTexts.wanaSurrenderGame: '',
+          AppTexts.enemySurrenderGame: '',
+          AppTexts.youSurrenderGame: '',
+          AppTexts.surrender: '',
           AppTexts.ok: 'Ok',
+          AppTexts.accept: 'Accept',
+          AppTexts.cancel: 'Cancel',
         },
       };
 }

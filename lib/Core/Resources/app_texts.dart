@@ -7,5 +7,11 @@ abstract class AppTexts {
   static const gameDrawed = "gameDrawed";
   static const youWinGame = "youWinGame";
   static const youLoseGame = "youLoseGame";
+  static const youSurrenderGame = "youSurrenderGame";
+  static const wanaSurrenderGame = "wanaSurrenderGame";
+  static const enemySurrenderGame = "enemySurrenderGame";
+  static const surrender = "surrender";
   static const ok = "ok";
+  static const accept = "accept";
+  static const cancel = "cancel";
 }

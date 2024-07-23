@@ -15,9 +15,6 @@ import 'package:refreshed/refreshed.dart';
 import '../../../Core/Base/base_controller.dart';
 
 class TicTacToeController extends BaseController {
-  RxString logText = RxString('');
-
-  // List<PlayerModel> players = [
   RxList<Rx<PlayerModel>> players = RxList();
   RxList<Rx<TicTacToePeaceModel>> peaces = RxList();
 
@@ -38,12 +35,6 @@ class TicTacToeController extends BaseController {
   RxInt player2Score = RxInt(0);
 
   RxInt currentTurn = RxInt(1);
-
-  Rx<GameStatusTypes> gameStatus = Rx(GameStatusTypes.none);
-
-  void setPlayerData(int index, PlayerModel playerData) {
-    switch (index) {}
-  }
 
   void reactionHandler(dynamic data) {
     final Map reactionData = data;
@@ -95,72 +86,18 @@ class TicTacToeController extends BaseController {
         break;
       case GameCommands.finishRound:
         Map newData = data['data'];
-        int roundWinner = newData['Winner'] ?? 0;
         Get.find<TimerCompanent>().stopTimer();
-        if (roundWinner == 0) {
-          DialogComponent().showIconicDialog(
-            AppTexts.endRound.tr,
-            AppTexts.roundDrawed.tr,
-            GeneralIcons.drawRound,
-            AppColors.drawColor,
-          );
-        } else {
-          String dialogMessage = "";
-          String dialogIcon = "";
-          Color dialogColor = Colors.white;
-          if (roundWinner == 1) {
-            player1Score.value += 1;
-          } else if (roundWinner == 2) {
-            player2Score.value += 1;
-          }
-          if (roundWinner == myGameId) {
-            dialogMessage = AppTexts.youWinThisRound.tr;
-            dialogIcon = GeneralIcons.happy;
-            dialogColor = AppColors.winColor;
-          } else {
-            dialogMessage = AppTexts.youLoseThisRound.tr;
-            dialogIcon = GeneralIcons.sad;
-            dialogColor = AppColors.loseColor;
-          }
-          DialogComponent().showIconicDialog(
-            'پایان دور',
-            dialogMessage,
-            dialogIcon,
-            dialogColor,
-          );
-        }
+        showFinishRoundDialog(newData);
         break;
       case GameCommands.finishGame:
         Map newData = data['data'];
-        int gameWinner = newData['Winner'] ?? 0;
         Get.find<TimerCompanent>().stopTimer();
-        if (gameWinner == 0) {
-          DialogComponent().showIconicDialog(
-            AppTexts.endGame.tr,
-            AppTexts.gameDrawed.tr,
-            GeneralIcons.draw,
-            AppColors.drawColor,
-          );
-        } else {
-          String dialogMessage = "";
-          String dialogIcon = "";
-          Color dialogColor = Colors.white;
-          if (gameWinner == myGameId) {
-            dialogMessage = AppTexts.youWinGame.tr;
-            dialogIcon = GeneralIcons.win;
-            dialogColor = AppColors.winColor;
-          } else {
-            dialogMessage = AppTexts.youLoseGame.tr;
-            dialogIcon = GeneralIcons.lose;
-            dialogColor = AppColors.loseColor;
-          }
-          DialogComponent().showIconicDialog(
-            AppTexts.endGame.tr,
-            dialogMessage,
-            dialogIcon,
-            dialogColor,
-          );
-        }
+        showFinishGameDialog(newData);
+        break;
+      case GameCommands.surrender:
+        Map newData = data['data'];
+        Get.find<TimerCompanent>().stopTimer();
+        showSurrenderDialog(newData);
         break;
       default:
     }
@@ -233,8 +170,10 @@ class TicTacToeController extends BaseController {
   changePlayerReaction(int? playerId, int? reactionId, {int? removeTimer}) {
     for (var i = 0; i < players.length; i++) {
       if (players[i].value.id == playerId) {
-        players.value[i].value =
-            players.value[i].value.changeReactionId(newReactionId: reactionId);
+        if (showReactions.value) {
+          players.value[i].value = players.value[i].value
+              .changeReactionId(newReactionId: reactionId);
+        }
         Future.delayed(Duration(seconds: removeTimer ?? 5)).then((_) {
           players.value[i].value = players.value[i].value.changeReactionId();
           letSendReaction.value = true;
@@ -262,7 +201,22 @@ class TicTacToeController extends BaseController {
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
   }
 
-  void surrenderFnction() {}
+  void surrenderFnction() {
+    DialogComponent().showIconicSelectionDialog(
+      AppTexts.surrender.tr,
+      AppTexts.wanaSurrenderGame.tr,
+      GeneralIcons.death,
+      AppColors.loseColor,
+      () {
+        Get.find<GameSocketManager>()
+            .sendCommand({"id": GameCommands.surrender});
+        Get.closeAllDialogs();
+      },
+      () {
+        Get.closeAllDialogs();
+      },
+    );
+  }
 
   void showReactionBox() {
     if (letSendReaction.value) {
@@ -274,6 +228,95 @@ class TicTacToeController extends BaseController {
         ),
       );
     }
+  }
+
+  void showFinishRoundDialog(Map newData) {
+    int roundWinner = newData['Winner'] ?? 0;
+    if (roundWinner == 0) {
+      DialogComponent().showIconicDialog(
+        AppTexts.endRound.tr,
+        AppTexts.roundDrawed.tr,
+        GeneralIcons.drawRound,
+        AppColors.drawColor,
+      );
+    } else {
+      String dialogMessage = "";
+      String dialogIcon = "";
+      Color dialogColor = Colors.white;
+      if (roundWinner == 1) {
+        player1Score.value += 1;
+      } else if (roundWinner == 2) {
+        player2Score.value += 1;
+      }
+      if (roundWinner == myGameId) {
+        dialogMessage = AppTexts.youWinThisRound.tr;
+        dialogIcon = GeneralIcons.happy;
+        dialogColor = AppColors.winColor;
+      } else {
+        dialogMessage = AppTexts.youLoseThisRound.tr;
+        dialogIcon = GeneralIcons.sad;
+        dialogColor = AppColors.loseColor;
+      }
+      DialogComponent().showIconicDialog(
+        'پایان دور',
+        dialogMessage,
+        dialogIcon,
+        dialogColor,
+      );
+    }
+  }
+
+  void showFinishGameDialog(Map newData) {
+    int gameWinner = newData['Winner'] ?? 0;
+    if (gameWinner == 0) {
+      DialogComponent().showIconicDialog(
+        AppTexts.endGame.tr,
+        AppTexts.gameDrawed.tr,
+        GeneralIcons.draw,
+        AppColors.drawColor,
+      );
+    } else {
+      String dialogMessage = "";
+      String dialogIcon = "";
+      Color dialogColor = Colors.white;
+      if (gameWinner == myGameId) {
+        dialogMessage = AppTexts.youWinGame.tr;
+        dialogIcon = GeneralIcons.win;
+        dialogColor = AppColors.winColor;
+      } else {
+        dialogMessage = AppTexts.youLoseGame.tr;
+        dialogIcon = GeneralIcons.lose;
+        dialogColor = AppColors.loseColor;
+      }
+      DialogComponent().showIconicDialog(
+        AppTexts.endGame.tr,
+        dialogMessage,
+        dialogIcon,
+        dialogColor,
+      );
+    }
+  }
+
+  void showSurrenderDialog(Map newData) {
+    int gamerId = newData['gamer_id'] ?? 1;
+    String dialogMessage = "";
+    String dialogIcon = "";
+    Color dialogColor = Colors.white;
+    if (gamerId == myGameId) {
+      dialogMessage = AppTexts.youSurrenderGame.tr;
+      dialogIcon = GeneralIcons.lose;
+      dialogColor = AppColors.loseColor;
+    } else {
+      dialogMessage = AppTexts.enemySurrenderGame.tr;
+      dialogIcon = GeneralIcons.win;
+      dialogColor = AppColors.winColor;
+    }
+    DialogComponent().showIconicDialog(
+      AppTexts.endGame.tr,
+      dialogMessage,
+      dialogIcon,
+      dialogColor,
+    );
   }
 
   void changeShowReactionStatus() {

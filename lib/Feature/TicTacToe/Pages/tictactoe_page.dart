@@ -65,18 +65,6 @@ class TicTacToePage extends BaseView<TicTacToeController> {
             ),
           ),
           const Spacer(flex: 1),
-          // Expanded(
-          //   child: Container(
-          //     color: AppColors.cardLight,
-          //     child: Row(
-          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //       children: [
-          //         const CountdownTimerWidget(),
-          //         Center(child: Text(controller.logText.value)),
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
