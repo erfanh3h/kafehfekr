@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_countdown_timer.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -29,6 +30,7 @@ class TicTacToePlayerDataWidget extends StatelessWidget {
                 playerScore: controller.player1Score.value,
                 isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
+                reactionId: controller.players[0].value.reactionId,
               ),
             ),
             Padding(
@@ -50,6 +52,7 @@ class TicTacToePlayerDataWidget extends StatelessWidget {
                   playerScore: controller.player2Score.value,
                   isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
+                  reactionId: controller.players[1].value.reactionId,
                 ),
               ),
             ),
@@ -67,12 +70,14 @@ class UserRowData extends StatelessWidget {
     required this.playerScore,
     required this.isThisUserTurn,
     required this.color,
+    required this.reactionId,
   });
 
   final String playerName;
   final int playerScore;
   final bool isThisUserTurn;
   final Color color;
+  final int? reactionId;
 
   @override
   Widget build(BuildContext context) {
@@ -86,54 +91,63 @@ class UserRowData extends StatelessWidget {
           width: 3,
         ),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Stack(
         children: [
-          Flexible(
-            flex: 5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  radius: 20.r,
-                  backgroundColor: color,
-                  child: isThisUserTurn
-                      ? CountdownTimerWidget(
-                          color: color,
-                        )
-                      : const Icon(
-                          Icons.person_2,
-                          color: Colors.white,
-                        ),
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                Text(
-                  playerName,
-                  style: TextStyle(
-                    fontFamily: FontFamilies.vazir,
-                    fontSize: 15.sp,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+          if (reactionId != null)
+            GlobalReactionBox(
+              reactionId: reactionId,
+              color: color,
             ),
-          ),
-          Flexible(
-            flex: 1,
-            child: Text(
-              playerScore.toString(),
-              style: TextStyle(
-                fontFamily: FontFamilies.dastnevis,
-                fontSize: 30.sp,
-                color: color,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Flexible(
+                flex: 5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 20.r,
+                      backgroundColor: color,
+                      child: isThisUserTurn
+                          ? CountdownTimerWidget(
+                              color: color,
+                            )
+                          : const Icon(
+                              Icons.person_2,
+                              color: Colors.white,
+                            ),
+                    ),
+                    SizedBox(
+                      height: 3.h,
+                    ),
+                    Text(
+                      playerName,
+                      style: TextStyle(
+                        fontFamily: FontFamilies.vazir,
+                        fontSize: 15.sp,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
-            ),
+              Flexible(
+                flex: 1,
+                child: Text(
+                  playerScore.toString(),
+                  style: TextStyle(
+                    fontFamily: FontFamilies.dastnevis,
+                    fontSize: 30.sp,
+                    color: color,
+                  ),
+                ),
+              ),
+              // const Spacer(flex: 3),
+            ],
           ),
-          // const Spacer(flex: 3),
         ],
       ),
     );

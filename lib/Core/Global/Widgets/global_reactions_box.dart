@@ -1,14 +1,16 @@
+import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:flutter/material.dart';
+import 'package:refreshed/refreshed.dart';
 
-class ReactionsBox extends StatelessWidget {
-  const ReactionsBox({
+class GlobalReactionsBox extends StatelessWidget {
+  const GlobalReactionsBox({
     super.key,
-    required this.onEachTap,
+    this.onTap,
   });
 
-  final Function(int) onEachTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,11 @@ class ReactionsBox extends StatelessWidget {
         ),
         itemBuilder: (ctx, index) => InkWell(
           onTap: () {
-            onEachTap(index + 1);
+            Get.find<GameSocketManager>().sendReaction(index + 1);
+            Get.closeAllBottomSheets();
+            if (onTap != null) {
+              onTap!();
+            }
           },
           child: Image.asset(
             ReactionIcons().generalIconsPath(index + 1),

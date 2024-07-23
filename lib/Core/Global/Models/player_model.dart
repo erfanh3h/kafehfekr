@@ -1,4 +1,4 @@
-import 'package:kafehfekr/Core/Global/Models/status_types.dart';
+import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 
 class PlayerModel {
   final int id;
@@ -31,12 +31,12 @@ class PlayerModel {
       );
 
   PlayerModel changeReactionId({
-    int? reactionId,
+    int? newReactionId,
   }) {
     return PlayerModel(
       id: id,
       name: name,
-      reactionId: reactionId,
+      reactionId: newReactionId,
     );
   }
 }

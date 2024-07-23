@@ -1,4 +1,4 @@
-import 'package:kafehfekr/Core/Global/Models/status_types.dart';
+import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 
 class PeaceModel {
   final int id;

@@ -15,4 +15,7 @@ class ServerRoutes {
 
 abstract class SocketChannels {
   static const userCommand = "userCommand";
+  static const serverCommand = "command";
+  static const userReaction = "userReaction";
+  static const serverReaction = "reaction";
 }

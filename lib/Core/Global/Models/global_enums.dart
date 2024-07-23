@@ -5,3 +5,5 @@ enum GameStatusTypes { none }
 enum PeaceStatusTypes { isLoading, selected, canSelected, none }
 
 enum GameTypes { tictactoe, none }
+
+enum PlayerPositionOnBoard { left, center, right }

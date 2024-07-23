@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_reactions_box.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
-import 'package:kafehfekr/Core/Global/Models/status_types.dart';
+import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Models/tictactoe_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -28,6 +29,8 @@ class TicTacToeController extends BaseController {
 
   RxBool showReactions = RxBool(true);
 
+  RxBool letSendReaction = RxBool(true);
+
   RxInt currentRound = RxInt(1);
   int maxRound = 2;
 
@@ -40,6 +43,13 @@ class TicTacToeController extends BaseController {
 
   void setPlayerData(int index, PlayerModel playerData) {
     switch (index) {}
+  }
+
+  void reactionHandler(dynamic data) {
+    final Map reactionData = data;
+    final playerId = reactionData['playerId'];
+    final reactionId = reactionData['reactionId'];
+    changePlayerReaction(playerId, reactionId);
   }
 
   void commandHandler(dynamic data) {
@@ -220,6 +230,20 @@ class TicTacToeController extends BaseController {
     }
   }
 
+  changePlayerReaction(int? playerId, int? reactionId, {int? removeTimer}) {
+    for (var i = 0; i < players.length; i++) {
+      if (players[i].value.id == playerId) {
+        players.value[i].value =
+            players.value[i].value.changeReactionId(newReactionId: reactionId);
+        Future.delayed(Duration(seconds: removeTimer ?? 5)).then((_) {
+          players.value[i].value = players.value[i].value.changeReactionId();
+          letSendReaction.value = true;
+        });
+        break;
+      }
+    }
+  }
+
   void sendCommand(Map data) {
     Get.find<GameSocketManager>().sendCommand(data);
   }
@@ -240,7 +264,17 @@ class TicTacToeController extends BaseController {
 
   void surrenderFnction() {}
 
-  void showReaction() {}
+  void showReactionBox() {
+    if (letSendReaction.value) {
+      Get.bottomSheet(
+        GlobalReactionsBox(
+          onTap: () {
+            letSendReaction.value = false;
+          },
+        ),
+      );
+    }
+  }
 
   void changeShowReactionStatus() {
     showReactions.value = !showReactions.value;
@@ -248,7 +282,10 @@ class TicTacToeController extends BaseController {
 
   @override
   void onInit() async {
-    Get.find<GameSocketManager>().initSocket(commandHandler: commandHandler);
+    Get.find<GameSocketManager>().initSocket(
+      commandHandler: commandHandler,
+      reactionHandler: reactionHandler,
+    );
     for (var i = 0; i < 9; i++) {
       peaces.add(Rx(TicTacToePeaceModel(id: i, currentStatuses: [])));
     }

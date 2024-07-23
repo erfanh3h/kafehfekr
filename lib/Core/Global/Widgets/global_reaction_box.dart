@@ -1,22 +1,24 @@
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-class ReactionBox extends StatefulWidget {
-  const ReactionBox({
+class GlobalReactionBox extends StatefulWidget {
+  const GlobalReactionBox({
     super.key,
     required this.reactionId,
+    this.color,
   });
 
   final int? reactionId;
+  final Color? color;
 
   @override
-  State<ReactionBox> createState() => _ReactionBoxState();
+  State<GlobalReactionBox> createState() => _GlobalReactionBoxState();
 }
 
-class _ReactionBoxState extends State<ReactionBox>
+class _GlobalReactionBoxState extends State<GlobalReactionBox>
     with TickerProviderStateMixin {
   late AnimationController animation;
   late Animation<double> _fadeInFadeOut;
@@ -58,7 +60,7 @@ class _ReactionBoxState extends State<ReactionBox>
   @override
   Widget build(BuildContext context) {
     double dx = 0;
-    double dy = 0;
+    double dy = 55.h;
     // switch (widget.playerPosition) {
     //   case PlayerPositionOnBoard.center:
     //     dy = -40;
@@ -79,9 +81,9 @@ class _ReactionBoxState extends State<ReactionBox>
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            color: AppColors.lightColor,
             border: Border.all(
-              color: Colors.black,
+              color: widget.color ?? Colors.black,
               width: 2,
             ),
           ),
@@ -89,9 +91,9 @@ class _ReactionBoxState extends State<ReactionBox>
             opacity: _fadeInFadeOut,
             child: Image.asset(
               ReactionIcons().generalIconsPath(widget.reactionId!),
-              width: 25.r,
-              height: 25.r,
-              color: Colors.amber,
+              width: 35.r,
+              height: 35.r,
+              color: widget.color ?? Colors.black,
             ),
           ),
         ),

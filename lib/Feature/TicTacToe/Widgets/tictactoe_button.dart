@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Models/status_types.dart';
+import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';

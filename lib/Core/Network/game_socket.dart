@@ -7,6 +7,7 @@ class GameSocketManager extends GlobalController {
 
   void initSocket({
     required Function(dynamic) commandHandler,
+    required Function(dynamic) reactionHandler,
     int myId = 1,
     String gameId = "gameId",
   }) {
@@ -19,8 +20,12 @@ class GameSocketManager extends GlobalController {
     socket.onConnect((_) {
       print('connect');
     });
-    socket.on('message', (data) => print(data));
-    socket.on('command', (data) {
+    socket.on(SocketChannels.serverReaction, (data) {
+      print(data);
+      reactionHandler(data);
+    });
+
+    socket.on(SocketChannels.serverCommand, (data) {
       print(data);
       commandHandler(data);
     });
@@ -29,6 +34,10 @@ class GameSocketManager extends GlobalController {
 
   void sendCommand(Map data) {
     socket.emit(SocketChannels.userCommand, data);
+  }
+
+  void sendReaction(int data) {
+    socket.emit(SocketChannels.userReaction, data);
   }
 
   void disconnect() {
