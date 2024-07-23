@@ -274,25 +274,35 @@ class TicTacToeController extends BaseController {
         AppTexts.gameDrawed.tr,
         GeneralIcons.draw,
         AppColors.drawColor,
+        coin: 0,
+        cup: 0,
       );
     } else {
       String dialogMessage = "";
       String dialogIcon = "";
       Color dialogColor = Colors.white;
+      int cup = 0;
+      int coin = 0;
       if (gameWinner == myGameId) {
         dialogMessage = AppTexts.youWinGame.tr;
         dialogIcon = GeneralIcons.win;
         dialogColor = AppColors.winColor;
+        cup = CupsCount.tictactoeWin;
+        coin = CoinsCount.tictactoeWin;
       } else {
         dialogMessage = AppTexts.youLoseGame.tr;
         dialogIcon = GeneralIcons.lose;
         dialogColor = AppColors.loseColor;
+        cup = CupsCount.tictactoeLose;
+        coin = CoinsCount.tictactoeLose;
       }
       DialogComponent().showIconicDialog(
         AppTexts.endGame.tr,
         dialogMessage,
         dialogIcon,
         dialogColor,
+        coin: coin,
+        cup: cup,
       );
     }
   }
@@ -302,20 +312,28 @@ class TicTacToeController extends BaseController {
     String dialogMessage = "";
     String dialogIcon = "";
     Color dialogColor = Colors.white;
+    int cup = 0;
+    int coin = 0;
     if (gamerId == myGameId) {
       dialogMessage = AppTexts.youSurrenderGame.tr;
       dialogIcon = GeneralIcons.lose;
       dialogColor = AppColors.loseColor;
+      cup = CupsCount.tictactoeLose;
+      coin = CoinsCount.tictactoeLose;
     } else {
       dialogMessage = AppTexts.enemySurrenderGame.tr;
       dialogIcon = GeneralIcons.win;
       dialogColor = AppColors.winColor;
+      cup = CupsCount.tictactoeWin;
+      coin = CoinsCount.tictactoeWin;
     }
     DialogComponent().showIconicDialog(
       AppTexts.endGame.tr,
       dialogMessage,
       dialogIcon,
       dialogColor,
+      coin: coin,
+      cup: cup,
     );
   }
 

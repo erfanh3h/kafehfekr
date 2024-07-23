@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
@@ -70,8 +72,10 @@ class DialogComponent {
     String title,
     String message,
     String icon,
-    Color iconColor,
-  ) {
+    Color iconColor, {
+    int? cup,
+    int? coin,
+  }) {
     Get.dialog(
       barrierDismissible: false,
       Dialog(
@@ -94,7 +98,7 @@ class DialogComponent {
               Row(
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +106,11 @@ class DialogComponent {
                         Text(
                           title,
                           style: TextStyle(
-                            fontSize: 12.sp,
+                            fontSize: 13.sp,
+                            foreground: Paint()
+                              ..strokeWidth = 2
+                              ..color = Colors.black
+                              ..style = PaintingStyle.stroke,
                           ),
                         ),
                         SizedBox(
@@ -111,17 +119,78 @@ class DialogComponent {
                         Text(
                           message,
                           style: TextStyle(
-                            fontSize: 20.sp,
+                            fontSize: 18.sp,
+                            foreground: Paint()
+                              ..strokeWidth = 1.5
+                              ..color = Colors.black
+                              ..style = PaintingStyle.stroke,
                           ),
                         ),
                       ],
                     ),
                   ),
                   Expanded(
-                    flex: 1,
-                    child: Image.asset(
-                      icon,
-                      color: iconColor,
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        if (cup != null || coin != null)
+                          Padding(
+                            padding: AppSpacings.s10Bottom,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                if (cup != null)
+                                  Center(
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          GeneralIcons.cup,
+                                          width: 20.w,
+                                          height: 20.w,
+                                          color: AppColors.goldenColor,
+                                        ),
+                                        const SizedBox(width: 1),
+                                        Text(
+                                          cup.toString(),
+                                          style: TextStyle(
+                                            fontFamily: FontFamilies.dastnevis,
+                                            color: iconColor,
+                                            fontSize: 20.sp,
+                                          ),
+                                          textDirection: TextDirection.ltr,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                if (coin != null)
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        GeneralIcons.coin,
+                                        width: 20.w,
+                                        height: 20.w,
+                                        color: AppColors.goldenColor,
+                                      ),
+                                      const SizedBox(width: 1),
+                                      Text(
+                                        coin.toString(),
+                                        style: TextStyle(
+                                          fontFamily: FontFamilies.dastnevis,
+                                          color: iconColor,
+                                          fontSize: 20.sp,
+                                        ),
+                                        textDirection: TextDirection.ltr,
+                                      )
+                                    ],
+                                  ),
+                              ],
+                            ),
+                          ),
+                        Image.asset(
+                          icon,
+                          color: iconColor,
+                        ),
+                      ],
                     ),
                   ),
                 ],

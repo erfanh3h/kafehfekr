@@ -19,3 +19,13 @@ abstract class GameCommands {
   static const finishGame = "FinishGame";
   static const surrender = "Surrender";
 }
+
+class CupsCount {
+  static const tictactoeWin = 1;
+  static const tictactoeLose = -1;
+}
+
+class CoinsCount {
+  static const tictactoeWin = 2;
+  static const tictactoeLose = -2;
+}

@@ -21,6 +21,7 @@ class GeneralIcons {
   static const circle3 = "$generalIconsPath/circle3.png";
   static const circle4 = "$generalIconsPath/circle3.png";
   static const cup = "$generalIconsPath/cup.png";
+  static const coin = "$generalIconsPath/coin.png";
   static const happy = "$generalIconsPath/happy.png";
   static const lose = "$generalIconsPath/lose.png";
   static const drawRound = "$generalIconsPath/drawRound.png";
