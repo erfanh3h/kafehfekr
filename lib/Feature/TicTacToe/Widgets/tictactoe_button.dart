@@ -43,8 +43,8 @@ class TicTacToeButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.lightColor,
           border: Border.all(
-            color: Colors.black,
-            width: 2,
+            color: imageColor ?? AppColors.peaceBorderColor,
+            width: 4,
           ),
           borderRadius: BorderRadius.circular(8),
         ),

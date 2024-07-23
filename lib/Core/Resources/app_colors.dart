@@ -57,10 +57,14 @@ class AppColors {
   static const imageRedColor = Color.fromARGB(255, 138, 49, 49);
   static const imageBlueColor = Color.fromARGB(255, 36, 48, 156);
 
-  static const topPlayersBoxColor = Color.fromARGB(255, 175, 103, 21);
+  static const peaceBorderColor = Color.fromRGBO(201, 160, 66, 1);
 
   static const playerCanSelected = Color.fromARGB(255, 208, 221, 90);
   static const blueWarmColor = Color.fromARGB(255, 69, 71, 158);
+
+  static const winColor = Color.fromRGBO(0, 155, 119, 1);
+  static const loseColor = Color.fromRGBO(221, 65, 36, 1);
+  static const drawColor = Color.fromARGB(255, 207, 199, 79);
 
   static const theme = Color.fromARGB(255, 57, 67, 158);
 }

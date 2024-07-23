@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
@@ -84,15 +87,36 @@ class TicTacToeController extends BaseController {
         int roundWinner = newData['Winner'] ?? 0;
         Get.find<TimerCompanent>().stopTimer();
         if (roundWinner == 0) {
-          DialogComponent().showDialog('پایان دور', 'این دور مساوی شد');
+          DialogComponent().showIconicDialog(
+            'پایان دور',
+            'این دور مساوی شد',
+            GeneralIcons.drawRound,
+            AppColors.drawColor,
+          );
         } else {
+          String dialogMessage = "";
+          String dialogIcon = "";
+          Color dialogColor = Colors.white;
           if (roundWinner == 1) {
             player1Score.value += 1;
           } else if (roundWinner == 2) {
             player2Score.value += 1;
           }
-          DialogComponent().showDialog(
-              'پایان دور', 'بازیکن $roundWinner برنده ی این راند شد');
+          if (roundWinner == myGameId) {
+            dialogMessage = "این راند رو بردی";
+            dialogIcon = GeneralIcons.happy;
+            dialogColor = AppColors.winColor;
+          } else {
+            dialogMessage = "این راند رو باختی";
+            dialogIcon = GeneralIcons.sad;
+            dialogColor = AppColors.loseColor;
+          }
+          DialogComponent().showIconicDialog(
+            'پایان دور',
+            dialogMessage,
+            dialogIcon,
+            dialogColor,
+          );
         }
         break;
       case GameCommands.finishGame:
@@ -100,10 +124,31 @@ class TicTacToeController extends BaseController {
         int gameWinner = newData['Winner'] ?? 0;
         Get.find<TimerCompanent>().stopTimer();
         if (gameWinner == 0) {
-          DialogComponent().showDialog('پایان بازی', 'بازی مساوی شد');
+          DialogComponent().showIconicDialog(
+            'پایان بازی',
+            'بازی مساوی شد',
+            GeneralIcons.draw,
+            AppColors.drawColor,
+          );
         } else {
-          DialogComponent()
-              .showDialog('پایان بازی', 'بازیکن $gameWinner برنده بازی شد');
+          String dialogMessage = "";
+          String dialogIcon = "";
+          Color dialogColor = Colors.white;
+          if (gameWinner == myGameId) {
+            dialogMessage = "تبریک برنده ی بازی شدی!";
+            dialogIcon = GeneralIcons.win;
+            dialogColor = AppColors.winColor;
+          } else {
+            dialogMessage = "متاسفانه بازی رو باختی!";
+            dialogIcon = GeneralIcons.lose;
+            dialogColor = AppColors.loseColor;
+          }
+          DialogComponent().showIconicDialog(
+            'پایان بازی',
+            dialogMessage,
+            dialogIcon,
+            dialogColor,
+          );
         }
         break;
       default:

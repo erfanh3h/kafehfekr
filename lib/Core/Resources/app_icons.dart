@@ -19,4 +19,13 @@ class GeneralIcons {
   static const circle1 = "$generalIconsPath/circle1.png";
   static const circle2 = "$generalIconsPath/circle2.png";
   static const circle3 = "$generalIconsPath/circle3.png";
+  static const circle4 = "$generalIconsPath/circle3.png";
+  static const cup = "$generalIconsPath/cup.png";
+  static const happy = "$generalIconsPath/happy.png";
+  static const lose = "$generalIconsPath/lose.png";
+  static const drawRound = "$generalIconsPath/drawRound.png";
+  static const draw = "$generalIconsPath/draw.png";
+  static const sad = "$generalIconsPath/sad.png";
+  static const upset = "$generalIconsPath/upset.png";
+  static const win = "$generalIconsPath/win.png";
 }
