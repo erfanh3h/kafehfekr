@@ -28,4 +28,6 @@ class GeneralIcons {
   static const sad = "$generalIconsPath/sad.png";
   static const upset = "$generalIconsPath/upset.png";
   static const win = "$generalIconsPath/win.png";
+  static const enableReaction = "$generalIconsPath/enableReaction.png";
+  static const disableReaction = "$generalIconsPath/disableReaction.png";
 }

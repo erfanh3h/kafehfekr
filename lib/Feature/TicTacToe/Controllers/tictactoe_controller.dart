@@ -26,6 +26,8 @@ class TicTacToeController extends BaseController {
 
   RxBool canSelectPeace = RxBool(false);
 
+  RxBool showReactions = RxBool(true);
+
   RxInt currentRound = RxInt(1);
   int maxRound = 2;
 
@@ -234,6 +236,14 @@ class TicTacToeController extends BaseController {
     canSelectPeace.value = false;
     sendCommand({"id": 'SelectPeace', "data": peace.id});
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+  }
+
+  void surrenderFnction() {}
+
+  void showReaction() {}
+
+  void changeShowReactionStatus() {
+    showReactions.value = !showReactions.value;
   }
 
   @override

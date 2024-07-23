@@ -57,7 +57,12 @@ class TicTacToePage extends BaseView<TicTacToeController> {
           ),
           Expanded(
             flex: 4,
-            child: GlobalActivityBox(surrenderFunction: () {}),
+            child: GlobalActivityBox(
+              surrenderFunction: controller.surrenderFnction,
+              reactionFunction: controller.showReaction,
+              changeShowReactionFunction: controller.changeShowReactionStatus,
+              showReaction: controller.showReactions.value,
+            ),
           ),
           const Spacer(flex: 1),
           // Expanded(
