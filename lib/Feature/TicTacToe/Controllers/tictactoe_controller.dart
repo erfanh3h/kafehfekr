@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
@@ -63,7 +64,7 @@ class TicTacToeController extends BaseController {
         } else {
           canSelectPeace.value = false;
         }
-        changetimerValue(GameTimes.tictactoeRoundTime);
+        changetimerValue(GameWaitTimes.tictactoeRoundTime);
         break;
       case GameCommands.peaceSelected:
         Map peaceData = data['data'];
@@ -88,8 +89,8 @@ class TicTacToeController extends BaseController {
         Get.find<TimerCompanent>().stopTimer();
         if (roundWinner == 0) {
           DialogComponent().showIconicDialog(
-            'پایان دور',
-            'این دور مساوی شد',
+            AppTexts.endRound.tr,
+            AppTexts.roundDrawed.tr,
             GeneralIcons.drawRound,
             AppColors.drawColor,
           );
@@ -103,11 +104,11 @@ class TicTacToeController extends BaseController {
             player2Score.value += 1;
           }
           if (roundWinner == myGameId) {
-            dialogMessage = "این راند رو بردی";
+            dialogMessage = AppTexts.youWinThisRound.tr;
             dialogIcon = GeneralIcons.happy;
             dialogColor = AppColors.winColor;
           } else {
-            dialogMessage = "این راند رو باختی";
+            dialogMessage = AppTexts.youLoseThisRound.tr;
             dialogIcon = GeneralIcons.sad;
             dialogColor = AppColors.loseColor;
           }
@@ -125,8 +126,8 @@ class TicTacToeController extends BaseController {
         Get.find<TimerCompanent>().stopTimer();
         if (gameWinner == 0) {
           DialogComponent().showIconicDialog(
-            'پایان بازی',
-            'بازی مساوی شد',
+            AppTexts.endGame.tr,
+            AppTexts.gameDrawed.tr,
             GeneralIcons.draw,
             AppColors.drawColor,
           );
@@ -135,16 +136,16 @@ class TicTacToeController extends BaseController {
           String dialogIcon = "";
           Color dialogColor = Colors.white;
           if (gameWinner == myGameId) {
-            dialogMessage = "تبریک برنده ی بازی شدی!";
+            dialogMessage = AppTexts.youWinGame.tr;
             dialogIcon = GeneralIcons.win;
             dialogColor = AppColors.winColor;
           } else {
-            dialogMessage = "متاسفانه بازی رو باختی!";
+            dialogMessage = AppTexts.youLoseGame.tr;
             dialogIcon = GeneralIcons.lose;
             dialogColor = AppColors.loseColor;
           }
           DialogComponent().showIconicDialog(
-            'پایان بازی',
+            AppTexts.endGame.tr,
             dialogMessage,
             dialogIcon,
             dialogColor,
@@ -213,7 +214,8 @@ class TicTacToeController extends BaseController {
       canSelectPeace.value = false;
     }
     if (timerData['is_user_turn']) {
-      final int time = GameTimes.tictactoeRoundTime - timerData['time'] as int;
+      final int time =
+          GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
       changetimerValue(time.clamp(0, time));
     }
   }

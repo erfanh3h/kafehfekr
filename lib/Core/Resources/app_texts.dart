@@ -1,23 +1,11 @@
-abstract class SocketChannels {
-  static const userCommand = "userCommand";
-}
-
-abstract class GameCommands {
-  static const gameData = "GameData";
-  static const reconnectData = "ReconnectData";
-  static const reaction = "Reaction";
-  static const currentTurn = "CurrentTurn";
-  static const selectPeace = "SelectPeace";
-  static const peaceSelected = "PeaceSelected";
-  static const newRound = "NewRound";
-  static const finishRound = "FinishRound";
-  static const finishGame = "FinishGame";
-}
-
-abstract class GameTimes {
-  static const int tictactoeRoundTime = 10;
-}
-
-abstract class GameLogs {
-  static const challenge = 'چالش ؟';
+abstract class AppTexts {
+  static const endGame = "endGame";
+  static const endRound = "endRound";
+  static const roundDrawed = "roundDrawed";
+  static const youWinThisRound = "youWinThisRound";
+  static const youLoseThisRound = "youLoseThisRound";
+  static const gameDrawed = "gameDrawed";
+  static const youWinGame = "youWinGame";
+  static const youLoseGame = "youLoseGame";
+  static const ok = "ok";
 }

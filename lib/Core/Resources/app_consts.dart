@@ -1,11 +1,24 @@
 class GameWaitTimes {
-  static const talkTime = 18;
-  static const challengeTime = 15;
-  static const challengeRequestTime = 13;
-  static const challengeAcceptTime = 13;
+  static const int tictactoeRoundTime = 10;
 }
 
 class FontFamilies {
   static const vazir = "Vazir";
   static const dastnevis = "Dastnevis";
+}
+
+abstract class SocketChannels {
+  static const userCommand = "userCommand";
+}
+
+abstract class GameCommands {
+  static const gameData = "GameData";
+  static const reconnectData = "ReconnectData";
+  static const reaction = "Reaction";
+  static const currentTurn = "CurrentTurn";
+  static const selectPeace = "SelectPeace";
+  static const peaceSelected = "PeaceSelected";
+  static const newRound = "NewRound";
+  static const finishRound = "FinishRound";
+  static const finishGame = "FinishGame";
 }
