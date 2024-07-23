@@ -1,6 +1,7 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Controllers/tictactoe_controller.dart';
@@ -56,7 +57,7 @@ class TicTacToePage extends BaseView<TicTacToeController> {
           ),
           Expanded(
             flex: 4,
-            child: Container(),
+            child: GlobalActivityBox(surrenderFunction: () {}),
           ),
           const Spacer(flex: 1),
           // Expanded(

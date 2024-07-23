@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
+import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Models/status_types.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Models/tictactoe_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../../../Core/Base/base_controller.dart';
-import 'package:socket_io_client/socket_io_client.dart';
 
 class TicTacToeController extends BaseController {
   RxString logText = RxString('');
 
-  late Socket socket;
   // List<PlayerModel> players = [
   RxList<Rx<PlayerModel>> players = RxList();
   RxList<Rx<TicTacToePeaceModel>> peaces = RxList();
@@ -221,7 +219,7 @@ class TicTacToeController extends BaseController {
   }
 
   void sendCommand(Map data) {
-    socket.emit(SocketChannels.userCommand, data);
+    Get.find<GameSocketManager>().sendCommand(data);
   }
 
   void onEachButtonTap(TicTacToePeaceModel peace) {
@@ -238,27 +236,9 @@ class TicTacToeController extends BaseController {
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
   }
 
-  void initSocket() {
-    socket = io(ServerRoutes.gameSocket, <String, dynamic>{
-      'autoConnect': false,
-      'transports': ['websocket'],
-      'auth': {'user_id': myId, 'game_id': gameId},
-    });
-    socket.connect();
-    socket.onConnect((_) {
-      print('connect');
-    });
-    socket.on('message', (data) => print(data));
-    socket.on('command', (data) {
-      print(data);
-      commandHandler(data);
-    });
-    socket.onDisconnect((_) => print('disconnect'));
-  }
-
   @override
   void onInit() async {
-    initSocket();
+    Get.find<GameSocketManager>().initSocket(commandHandler: commandHandler);
     for (var i = 0; i < 9; i++) {
       peaces.add(Rx(TicTacToePeaceModel(id: i, currentStatuses: [])));
     }

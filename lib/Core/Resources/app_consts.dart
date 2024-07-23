@@ -7,10 +7,6 @@ class FontFamilies {
   static const dastnevis = "Dastnevis";
 }
 
-abstract class SocketChannels {
-  static const userCommand = "userCommand";
-}
-
 abstract class GameCommands {
   static const gameData = "GameData";
   static const reconnectData = "ReconnectData";
