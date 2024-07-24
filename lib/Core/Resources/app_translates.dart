@@ -20,6 +20,7 @@ class AppTranslations extends Translations {
           AppTexts.ok: 'بسیار خب',
           AppTexts.accept: 'تایید',
           AppTexts.cancel: 'نه بیخیالش',
+          AppTexts.wait: 'منتظر بمانید ...',
           AppTexts.selectOneOption: 'یکی رو انتخاب کن',
         },
         'en': {
@@ -38,6 +39,7 @@ class AppTranslations extends Translations {
           AppTexts.ok: 'Ok',
           AppTexts.accept: 'Accept',
           AppTexts.cancel: 'Cancel',
+          AppTexts.wait: '',
           AppTexts.selectOneOption: '',
         },
       };

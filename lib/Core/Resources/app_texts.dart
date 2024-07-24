@@ -14,5 +14,6 @@ abstract class AppTexts {
   static const ok = "ok";
   static const accept = "accept";
   static const cancel = "cancel";
+  static const wait = "wait";
   static const selectOneOption = "selectOneOption";
 }

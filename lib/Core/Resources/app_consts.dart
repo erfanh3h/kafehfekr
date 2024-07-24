@@ -1,5 +1,7 @@
 class GameWaitTimes {
   static const int tictactoeRoundTime = 10;
+  static const int rpcRoundTime = 5;
+  static const int rpcSleepRoundTime = 3;
 }
 
 class FontFamilies {

@@ -27,7 +27,8 @@ class RPCPlayerDataWidget extends StatelessWidget {
             Expanded(
               child: UserRowData(
                 playerName: controller.players[0].value.name,
-                playerScore: controller.player1TotalScore.value,
+                playerTotalScore: controller.player1TotalScore.value,
+                playerRoundScore: controller.player1RoundScore.value,
                 color: AppColors.imageRedColor,
                 reactionId: controller.players[0].value.reactionId,
               ),
@@ -45,15 +46,6 @@ class RPCPlayerDataWidget extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5.h),
-                  Text(
-                    "${controller.player1RoundScore.value}  -  ${controller.player2RoundScore.value}",
-                    style: TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 30.sp,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 5.h),
                   const CountdownTimerWidget(),
                 ],
               ),
@@ -63,7 +55,8 @@ class RPCPlayerDataWidget extends StatelessWidget {
                 textDirection: TextDirection.ltr,
                 child: UserRowData(
                   playerName: controller.players[1].value.name,
-                  playerScore: controller.player2TotalScore.value,
+                  playerTotalScore: controller.player2TotalScore.value,
+                  playerRoundScore: controller.player2RoundScore.value,
                   color: AppColors.imageBlueColor,
                   reactionId: controller.players[1].value.reactionId,
                 ),
@@ -80,13 +73,15 @@ class UserRowData extends StatelessWidget {
   const UserRowData({
     super.key,
     required this.playerName,
-    required this.playerScore,
+    required this.playerRoundScore,
+    required this.playerTotalScore,
     required this.color,
     required this.reactionId,
   });
 
   final String playerName;
-  final int playerScore;
+  final int playerRoundScore;
+  final int playerTotalScore;
   final Color color;
   final int? reactionId;
 
@@ -110,11 +105,10 @@ class UserRowData extends StatelessWidget {
               color: color,
             ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(
-                flex: 5,
+              Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -141,18 +135,29 @@ class UserRowData extends StatelessWidget {
                   ],
                 ),
               ),
-              Flexible(
-                flex: 1,
-                child: Text(
-                  playerScore.toString(),
-                  style: TextStyle(
-                    fontFamily: FontFamilies.dastnevis,
-                    fontSize: 30.sp,
-                    color: color,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    playerRoundScore.toString(),
+                    style: TextStyle(
+                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 30.sp,
+                      color: color,
+                    ),
                   ),
-                ),
+                  Text(
+                    playerTotalScore.toString(),
+                    style: TextStyle(
+                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 20.sp,
+                      color: color,
+                    ),
+                  ),
+                ],
               ),
-              // const Spacer(flex: 3),
+              SizedBox(width: 5.w),
             ],
           ),
         ],

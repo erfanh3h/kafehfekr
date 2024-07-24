@@ -22,7 +22,7 @@ class RPCController extends BaseController {
   int myGameId = 2;
   String gameId = "gameId";
 
-  RxBool canSelectPeace = RxBool(false);
+  RxBool peaceSelected = RxBool(false);
 
   RxBool showReactions = RxBool(true);
 
@@ -63,42 +63,34 @@ class RPCController extends BaseController {
         Map newData = data['data'];
         getReconnectData(newData);
         break;
-      case GameCommands.currentTurn:
-        int turn = data['data'];
-        if (turn == myGameId) {
-          canSelectPeace.value = true;
-        } else {
-          canSelectPeace.value = false;
-        }
-        changetimerValue(GameWaitTimes.tictactoeRoundTime);
-        break;
-      case GameCommands.peaceSelected:
-        Map peaceData = data['data'];
-        int peaceId = peaceData['target_peace'];
-        for (final peace in peaces) {
-          if (peace.value.id == peaceId) {
-            peace.value = peace.value
-                .changeSelectedUser(newSelectedUser: peaceData["user"]);
-            removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-            break;
-          }
-        }
-        break;
-      case GameCommands.newRound:
-        int newRound = data['data'];
-        currentRound.value = newRound;
+      case GameCommands.newTurnRound:
         resetPeaces();
         break;
+      case GameCommands.finishTurnRound:
+        peaceSelected.value = true;
+        Map turnData = data['data'];
+        int turnRoundWinner = turnData['Winner'];
+        changetimerValue(GameWaitTimes.rpcSleepRoundTime);
+        currentTurnRound.value += 1;
+        if (turnRoundWinner == 1) {
+          player1RoundScore.value += 1;
+        } else if (turnRoundWinner == 2) {
+          player2RoundScore.value += 1;
+        }
+        break;
       case GameCommands.finishRound:
-        Map newData = data['data'];
-        Get.find<TimerCompanent>().stopTimer();
-        int roundWinner = newData['Winner'] ?? 0;
-        // if (roundWinner == 1) {
-        //   player1Score.value += 1;
-        // } else if (roundWinner == 2) {
-        //   player2Score.value += 1;
-        // }
+        int roundWinner = data['data']['Winner'];
+        changetimerValue(GameWaitTimes.rpcSleepRoundTime);
+        player1RoundScore.value = 0;
+        player2RoundScore.value = 0;
+        currentRound.value += 1;
+        currentTurnRound.value = 1;
         showFinishRoundDialog(roundWinner);
+        if (roundWinner == 1) {
+          player1TotalScore.value += 1;
+        } else if (roundWinner == 2) {
+          player2TotalScore.value += 1;
+        }
         break;
       case GameCommands.finishGame:
         Map newData = data['data'];
@@ -119,25 +111,18 @@ class RPCController extends BaseController {
   }
 
   void resetPeaces() {
-    for (var i = 0; i < peaces.length; i++) {
-      peaces[i].value = peaces[i].value.resetPeace();
-    }
+    peaceSelected.value = false;
+    clearStatusFromPeaces(PeaceStatusTypes.selected);
+    addPeaceStatus(0, PeaceStatusTypes.selected);
+    selectedPeace.value = RPCPeaceTypes.rock;
+    peaceSelected.value = false;
+    changetimerValue(GameWaitTimes.rpcRoundTime);
   }
 
   addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       if (peaces[i].value.id == peaceId) {
         peaces.value[i].value = peaces.value[i].value.addStatus(status: status);
-        break;
-      }
-    }
-  }
-
-  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
-    for (var i = 0; i < peaces.length; i++) {
-      if (peaces[i].value.id == peaceId) {
-        peaces.value[i].value =
-            peaces.value[i].value.removeStatus(status: status);
         break;
       }
     }
@@ -168,7 +153,7 @@ class RPCController extends BaseController {
       peaces[i].value =
           peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
     }
-    canSelectPeace.value = true;
+    // canSelectPeace.value = true;
     if (timerData['is_user_turn']) {
       final int time =
           GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
@@ -202,7 +187,7 @@ class RPCController extends BaseController {
     //   return;
     // }
     // canSelectPeace.value = false;
-    sendCommand({"id": 'SelectPeace', "data": peace.peaceType.toString()});
+    // sendCommand({"id": 'SelectPeace', "data": peace.peaceType.toString()});
     clearStatusFromPeaces(PeaceStatusTypes.selected);
     addPeaceStatus(peace.id, PeaceStatusTypes.selected);
     selectedPeace.value = peace.peaceType;
@@ -210,7 +195,8 @@ class RPCController extends BaseController {
   }
 
   void acceptSelection() {
-    sendCommand({"id": 'SelectPeace', "data": selectedPeace.value.toString()});
+    sendCommand({"id": 'SelectPeace', "data": selectedPeace.value.name});
+    peaceSelected.value = true;
   }
 
   void surrenderFnction() {
