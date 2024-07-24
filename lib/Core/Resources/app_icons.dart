@@ -34,4 +34,7 @@ class GeneralIcons {
   static const soundOff = "$generalIconsPath/soundOff.png";
   static const enableReaction = "$generalIconsPath/enableReaction.png";
   static const disableReaction = "$generalIconsPath/disableReaction.png";
+  static const rock = "$generalIconsPath/rock.png";
+  static const paper = "$generalIconsPath/paper.png";
+  static const cutter = "$generalIconsPath/cutter.png";
 }

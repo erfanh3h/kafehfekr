@@ -20,17 +20,20 @@ class RPCButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? imageColor;
     String? image;
-    switch (peaceData.selectedUser) {
-      case 1:
-        imageColor = AppColors.imageRedColor;
-        image = GeneralIcons.circle1;
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.selected)) {
+      imageColor = AppColors.peaceBorderColor;
+    }
+    switch (peaceData.peaceType) {
+      case RPCPeaceTypes.rock:
+        image = GeneralIcons.rock;
         break;
-      case 2:
-        imageColor = AppColors.imageBlueColor;
-        image = GeneralIcons.cross;
+      case RPCPeaceTypes.paper:
+        image = GeneralIcons.paper;
+        break;
+      case RPCPeaceTypes.cutter:
+        image = GeneralIcons.cutter;
         break;
       default:
-        imageColor = null;
         image = null;
         break;
     }
@@ -43,7 +46,7 @@ class RPCButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.lightColor,
           border: Border.all(
-            color: imageColor ?? AppColors.peaceBorderColor,
+            color: imageColor ?? AppColors.white,
             width: 4,
           ),
           borderRadius: BorderRadius.circular(8),

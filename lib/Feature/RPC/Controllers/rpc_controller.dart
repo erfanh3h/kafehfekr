@@ -34,6 +34,8 @@ class RPCController extends BaseController {
   RxInt player1Score = RxInt(0);
   RxInt player2Score = RxInt(0);
 
+  Rx<RPCPeaceTypes> selectedPeace = Rx(RPCPeaceTypes.rock);
+
   RxInt currentTurn = RxInt(1);
 
   void reactionHandler(dynamic data) {
@@ -136,6 +138,13 @@ class RPCController extends BaseController {
     }
   }
 
+  clearStatusFromPeaces(PeaceStatusTypes status) {
+    for (var i = 0; i < peaces.length; i++) {
+      peaces.value[i].value =
+          peaces.value[i].value.removeStatus(status: status);
+    }
+  }
+
   void getReconnectData(Map newData) {
     List gamers = newData['gamers'];
     Map gameData = newData['game_data'];
@@ -188,17 +197,20 @@ class RPCController extends BaseController {
   }
 
   void onEachButtonTap(RPCPeaceModel peace) {
-    if (!canSelectPeace.value) {
-      print("not your turn");
-      return;
-    }
-    if (peace.selectedUser != null) {
-      print("selected before !");
-      return;
-    }
-    canSelectPeace.value = false;
-    sendCommand({"id": 'SelectPeace', "data": peace.id});
-    addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+    // if (!canSelectPeace.value) {
+    //   print("not your turn");
+    //   return;
+    // }
+    // canSelectPeace.value = false;
+    sendCommand({"id": 'SelectPeace', "data": peace.peaceType.toString()});
+    clearStatusFromPeaces(PeaceStatusTypes.selected);
+    addPeaceStatus(peace.id, PeaceStatusTypes.selected);
+    selectedPeace.value = peace.peaceType;
+    // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+  }
+
+  void acceptSelection() {
+    sendCommand({"id": 'SelectPeace', "data": selectedPeace.value.toString()});
   }
 
   void surrenderFnction() {

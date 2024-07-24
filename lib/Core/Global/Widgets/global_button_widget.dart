@@ -21,7 +21,7 @@ class GlobalButtonWidget extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: AppSpacings.s10Vertical,
+        padding: AppSpacings.s5Vertical,
         decoration: BoxDecoration(
           color: color ?? AppColors.blueWarmColor,
           borderRadius: BorderRadius.circular(8),

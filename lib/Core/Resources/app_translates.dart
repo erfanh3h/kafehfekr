@@ -18,8 +18,9 @@ class AppTranslations extends Translations {
           AppTexts.wanaSurrenderGame: 'مطمئنی میخوای تسلیم شی؟',
           AppTexts.surrender: 'تسلیم شدن',
           AppTexts.ok: 'بسیار خب',
-          AppTexts.accept: 'آره می پذیرم',
+          AppTexts.accept: 'تایید',
           AppTexts.cancel: 'نه بیخیالش',
+          AppTexts.selectOneOption: 'یکی رو انتخاب کن',
         },
         'en': {
           AppTexts.endGame: 'Game Finished',
@@ -37,6 +38,7 @@ class AppTranslations extends Translations {
           AppTexts.ok: 'Ok',
           AppTexts.accept: 'Accept',
           AppTexts.cancel: 'Cancel',
+          AppTexts.selectOneOption: '',
         },
       };
 }

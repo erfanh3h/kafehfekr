@@ -2,8 +2,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/RPC/Controllers/rpc_controller.dart';
 import 'package:kafehfekr/Feature/RPC/Widgets/rpc_button.dart';
 import 'package:kafehfekr/Feature/RPC/Widgets/rpc_player_data_widget.dart';
@@ -31,38 +34,57 @@ class RPCPage extends BaseView<RPCController> {
                 ? RPCPlayerDataWidget(controller: controller)
                 : Container(),
           ),
-          Expanded(
-            flex: 20,
-            child: Center(
-              child: Container(
-                padding: AppSpacings.s20All,
-                height: Get.size.width * .95,
-                width: Get.size.width * .95,
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
-                  ),
-                  itemBuilder: (ctx, index) => Obx(
-                    () => RPCButton(
-                      peaceData: controller.peaces[index].value,
-                      onTap: controller.onEachButtonTap,
+          const Spacer(flex: 4),
+          Center(
+            child: Container(
+              padding: AppSpacings.s20All,
+              width: Get.size.width * .95,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppTexts.selectOneOption.tr,
+                    style: TextStyle(
+                      color: AppColors.peaceBorderColor,
+                      fontSize: 16.sp,
                     ),
                   ),
-                  itemCount: controller.peaces.length,
-                ),
+                  SizedBox(height: 15.h),
+                  GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                    ),
+                    itemBuilder: (ctx, index) => Obx(
+                      () => RPCButton(
+                        peaceData: controller.peaces[index].value,
+                        onTap: controller.onEachButtonTap,
+                      ),
+                    ),
+                    itemCount: controller.peaces.length,
+                  ),
+                  SizedBox(height: 20.h),
+                  SizedBox(
+                    height: 40.h,
+                    child: GlobalButtonWidget(
+                      onTap: controller.acceptSelection,
+                      text: AppTexts.accept.tr,
+                      color: AppColors.peaceBorderColor,
+                    ),
+                  )
+                ],
               ),
             ),
           ),
-          Expanded(
-            flex: 4,
-            child: GlobalActivityBox(
-              surrenderFunction: controller.surrenderFnction,
-              reactionFunction: controller.showReactionBox,
-              changeShowReactionFunction: controller.changeShowReactionStatus,
-              showReaction: controller.showReactions.value,
-            ),
+          const Spacer(flex: 4),
+          GlobalActivityBox(
+            surrenderFunction: controller.surrenderFnction,
+            reactionFunction: controller.showReactionBox,
+            changeShowReactionFunction: controller.changeShowReactionStatus,
+            showReaction: controller.showReactions.value,
           ),
           const Spacer(flex: 1),
         ],
