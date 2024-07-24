@@ -87,7 +87,13 @@ class TicTacToeController extends BaseController {
       case GameCommands.finishRound:
         Map newData = data['data'];
         Get.find<TimerCompanent>().stopTimer();
-        showFinishRoundDialog(newData);
+        int roundWinner = newData['Winner'] ?? 0;
+        if (roundWinner == 1) {
+          player1Score.value += 1;
+        } else if (roundWinner == 2) {
+          player2Score.value += 1;
+        }
+        showFinishRoundDialog(roundWinner);
         break;
       case GameCommands.finishGame:
         Map newData = data['data'];
@@ -230,8 +236,7 @@ class TicTacToeController extends BaseController {
     }
   }
 
-  void showFinishRoundDialog(Map newData) {
-    int roundWinner = newData['Winner'] ?? 0;
+  void showFinishRoundDialog(int roundWinner) {
     if (roundWinner == 0) {
       DialogComponent().showIconicDialog(
         AppTexts.endRound.tr,
@@ -243,11 +248,6 @@ class TicTacToeController extends BaseController {
       String dialogMessage = "";
       String dialogIcon = "";
       Color dialogColor = Colors.white;
-      if (roundWinner == 1) {
-        player1Score.value += 1;
-      } else if (roundWinner == 2) {
-        player2Score.value += 1;
-      }
       if (roundWinner == myGameId) {
         dialogMessage = AppTexts.youWinThisRound.tr;
         dialogIcon = GeneralIcons.happy;

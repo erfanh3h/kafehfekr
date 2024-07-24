@@ -27,21 +27,35 @@ class RPCPlayerDataWidget extends StatelessWidget {
             Expanded(
               child: UserRowData(
                 playerName: controller.players[0].value.name,
-                playerScore: controller.player1Score.value,
-                isThisUserTurn: controller.isThisUserTurn(1),
+                playerScore: controller.player1TotalScore.value,
                 color: AppColors.imageRedColor,
                 reactionId: controller.players[0].value.reactionId,
               ),
             ),
-            Padding(
-              padding: AppSpacings.s10Horizental,
-              child: Text(
-                "${controller.maxRound} / ${controller.currentRound}",
-                style: TextStyle(
-                  fontFamily: FontFamilies.dastnevis,
-                  fontSize: 30.sp,
-                  color: Colors.white,
-                ),
+            Container(
+              margin: AppSpacings.s10Horizental,
+              child: Column(
+                children: [
+                  Text(
+                    "${controller.maxTurnRound} / ${controller.currentTurnRound.value}",
+                    style: TextStyle(
+                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 25.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 5.h),
+                  Text(
+                    "${controller.player1RoundScore.value}  -  ${controller.player2RoundScore.value}",
+                    style: TextStyle(
+                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 30.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 5.h),
+                  const CountdownTimerWidget(),
+                ],
               ),
             ),
             Expanded(
@@ -49,8 +63,7 @@ class RPCPlayerDataWidget extends StatelessWidget {
                 textDirection: TextDirection.ltr,
                 child: UserRowData(
                   playerName: controller.players[1].value.name,
-                  playerScore: controller.player2Score.value,
-                  isThisUserTurn: controller.isThisUserTurn(2),
+                  playerScore: controller.player2TotalScore.value,
                   color: AppColors.imageBlueColor,
                   reactionId: controller.players[1].value.reactionId,
                 ),
@@ -68,14 +81,12 @@ class UserRowData extends StatelessWidget {
     super.key,
     required this.playerName,
     required this.playerScore,
-    required this.isThisUserTurn,
     required this.color,
     required this.reactionId,
   });
 
   final String playerName;
   final int playerScore;
-  final bool isThisUserTurn;
   final Color color;
   final int? reactionId;
 
@@ -87,7 +98,7 @@ class UserRowData extends StatelessWidget {
         color: AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: isThisUserTurn ? color : Colors.white,
+          color: color,
           width: 3,
         ),
       ),
@@ -110,14 +121,10 @@ class UserRowData extends StatelessWidget {
                     CircleAvatar(
                       radius: 20.r,
                       backgroundColor: color,
-                      child: isThisUserTurn
-                          ? CountdownTimerWidget(
-                              color: color,
-                            )
-                          : const Icon(
-                              Icons.person_2,
-                              color: Colors.white,
-                            ),
+                      child: const Icon(
+                        Icons.person_2,
+                        color: Colors.white,
+                      ),
                     ),
                     SizedBox(
                       height: 3.h,

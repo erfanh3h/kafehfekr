@@ -31,12 +31,16 @@ class RPCController extends BaseController {
   RxInt currentRound = RxInt(1);
   int maxRound = 2;
 
-  RxInt player1Score = RxInt(0);
-  RxInt player2Score = RxInt(0);
+  RxInt currentTurnRound = RxInt(1);
+  int maxTurnRound = 5;
+
+  RxInt player1TotalScore = RxInt(0);
+  RxInt player2TotalScore = RxInt(0);
+
+  RxInt player1RoundScore = RxInt(0);
+  RxInt player2RoundScore = RxInt(0);
 
   Rx<RPCPeaceTypes> selectedPeace = Rx(RPCPeaceTypes.rock);
-
-  RxInt currentTurn = RxInt(1);
 
   void reactionHandler(dynamic data) {
     final Map reactionData = data;
@@ -61,7 +65,6 @@ class RPCController extends BaseController {
         break;
       case GameCommands.currentTurn:
         int turn = data['data'];
-        currentTurn.value = turn;
         if (turn == myGameId) {
           canSelectPeace.value = true;
         } else {
@@ -89,7 +92,13 @@ class RPCController extends BaseController {
       case GameCommands.finishRound:
         Map newData = data['data'];
         Get.find<TimerCompanent>().stopTimer();
-        showFinishRoundDialog(newData);
+        int roundWinner = newData['Winner'] ?? 0;
+        // if (roundWinner == 1) {
+        //   player1Score.value += 1;
+        // } else if (roundWinner == 2) {
+        //   player2Score.value += 1;
+        // }
+        showFinishRoundDialog(roundWinner);
         break;
       case GameCommands.finishGame:
         Map newData = data['data'];
@@ -103,10 +112,6 @@ class RPCController extends BaseController {
         break;
       default:
     }
-  }
-
-  bool isThisUserTurn(int gamerId) {
-    return currentTurn.value == gamerId;
   }
 
   void changetimerValue(int value) {
@@ -151,9 +156,8 @@ class RPCController extends BaseController {
     Map timerData = newData['timer_data'];
     List boardData = gameData['board'];
     currentRound.value = gameData['current_round'];
-    player1Score.value = gameData['scores'][0];
-    player2Score.value = gameData['scores'][1];
-    currentTurn.value = gameData['current_turn'];
+    // player1Score.value = gameData['scores'][0];
+    // player2Score.value = gameData['scores'][1];
     for (var gamerData in gamers) {
       players.add(Rx(PlayerModel.fromJson(gamerData)));
     }
@@ -164,11 +168,7 @@ class RPCController extends BaseController {
       peaces[i].value =
           peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
     }
-    if (currentTurn.value == myGameId) {
-      canSelectPeace.value = true;
-    } else {
-      canSelectPeace.value = false;
-    }
+    canSelectPeace.value = true;
     if (timerData['is_user_turn']) {
       final int time =
           GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
@@ -242,8 +242,7 @@ class RPCController extends BaseController {
     }
   }
 
-  void showFinishRoundDialog(Map newData) {
-    int roundWinner = newData['Winner'] ?? 0;
+  void showFinishRoundDialog(int roundWinner) {
     if (roundWinner == 0) {
       DialogComponent().showIconicDialog(
         AppTexts.endRound.tr,
@@ -255,11 +254,6 @@ class RPCController extends BaseController {
       String dialogMessage = "";
       String dialogIcon = "";
       Color dialogColor = Colors.white;
-      if (roundWinner == 1) {
-        player1Score.value += 1;
-      } else if (roundWinner == 2) {
-        player2Score.value += 1;
-      }
       if (roundWinner == myGameId) {
         dialogMessage = AppTexts.youWinThisRound.tr;
         dialogIcon = GeneralIcons.happy;
