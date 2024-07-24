@@ -75,6 +75,7 @@ class DialogComponent {
     Color iconColor, {
     int? cup,
     int? coin,
+    int? star,
   }) {
     Get.dialog(
       barrierDismissible: false,
@@ -96,107 +97,112 @@ class DialogComponent {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      foreground: Paint()
+                        ..strokeWidth = 2
+                        ..color = Colors.black
+                        ..style = PaintingStyle.stroke,
+                    ),
+                  ),
+                  if (cup != null)
+                    Center(
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            GeneralIcons.cup,
+                            width: 20.w,
+                            height: 20.w,
+                            color: AppColors.goldenColor,
+                          ),
+                          const SizedBox(width: 1),
+                          Text(
+                            cup.toString(),
+                            style: TextStyle(
+                              fontFamily: FontFamilies.dastnevis,
+                              color: AppColors.goldenColor,
+                              fontSize: 20.sp,
+                            ),
+                            textDirection: TextDirection.ltr,
+                          )
+                        ],
+                      ),
+                    ),
+                  if (coin != null)
+                    Row(
+                      children: [
+                        Image.asset(
+                          GeneralIcons.coin,
+                          width: 20.w,
+                          height: 20.w,
+                          color: AppColors.goldenColor,
+                        ),
+                        const SizedBox(width: 1),
+                        Text(
+                          coin.toString(),
+                          style: TextStyle(
+                            fontFamily: FontFamilies.dastnevis,
+                            color: AppColors.goldenColor,
+                            fontSize: 20.sp,
+                          ),
+                          textDirection: TextDirection.ltr,
+                        )
+                      ],
+                    ),
+                  if (star != null)
+                    Row(
+                      children: [
+                        Image.asset(
+                          GeneralIcons.star,
+                          width: 20.w,
+                          height: 20.w,
+                          color: AppColors.goldenColor,
+                        ),
+                        const SizedBox(width: 1),
+                        Text(
+                          star.toString(),
+                          style: TextStyle(
+                            fontFamily: FontFamilies.dastnevis,
+                            color: AppColors.goldenColor,
+                            fontSize: 20.sp,
+                          ),
+                          textDirection: TextDirection.ltr,
+                        )
+                      ],
+                    ),
+                ],
+              ),
+              SizedBox(height: 15.h),
+              Row(
                 children: [
                   Expanded(
                     flex: 3,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            foreground: Paint()
-                              ..strokeWidth = 2
-                              ..color = Colors.black
-                              ..style = PaintingStyle.stroke,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.h,
-                        ),
-                        Text(
-                          message,
-                          style: TextStyle(
-                            fontSize: 18.sp,
-                            foreground: Paint()
-                              ..strokeWidth = 1.5
-                              ..color = Colors.black
-                              ..style = PaintingStyle.stroke,
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      message,
+                      style: TextStyle(
+                        fontSize: 22.sp,
+                        foreground: Paint()
+                          ..strokeWidth = 1.5
+                          ..color = Colors.black
+                          ..style = PaintingStyle.stroke,
+                      ),
                     ),
                   ),
                   Expanded(
                     flex: 2,
-                    child: Column(
-                      children: [
-                        if (cup != null || coin != null)
-                          Padding(
-                            padding: AppSpacings.s10Bottom,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                if (cup != null)
-                                  Center(
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          GeneralIcons.cup,
-                                          width: 20.w,
-                                          height: 20.w,
-                                          color: AppColors.goldenColor,
-                                        ),
-                                        const SizedBox(width: 1),
-                                        Text(
-                                          cup.toString(),
-                                          style: TextStyle(
-                                            fontFamily: FontFamilies.dastnevis,
-                                            color: iconColor,
-                                            fontSize: 20.sp,
-                                          ),
-                                          textDirection: TextDirection.ltr,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                if (coin != null)
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        GeneralIcons.coin,
-                                        width: 20.w,
-                                        height: 20.w,
-                                        color: AppColors.goldenColor,
-                                      ),
-                                      const SizedBox(width: 1),
-                                      Text(
-                                        coin.toString(),
-                                        style: TextStyle(
-                                          fontFamily: FontFamilies.dastnevis,
-                                          color: iconColor,
-                                          fontSize: 20.sp,
-                                        ),
-                                        textDirection: TextDirection.ltr,
-                                      )
-                                    ],
-                                  ),
-                              ],
-                            ),
-                          ),
-                        Image.asset(
-                          icon,
-                          color: iconColor,
-                        ),
-                      ],
+                    child: Image.asset(
+                      icon,
+                      color: iconColor,
                     ),
                   ),
                 ],
               ),
               SizedBox(
-                height: 20.h,
+                height: 10.h,
               ),
               SizedBox(
                 width: Get.size.width / 2,
