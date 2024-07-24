@@ -14,7 +14,9 @@ abstract class GameCommands {
   static const currentTurn = "CurrentTurn";
   static const selectPeace = "SelectPeace";
   static const peaceSelected = "PeaceSelected";
+  static const newTurnRound = "NewTurnRound";
   static const newRound = "NewRound";
+  static const finishTurnRound = "FinishTurnRound";
   static const finishRound = "FinishRound";
   static const finishGame = "FinishGame";
   static const surrender = "Surrender";

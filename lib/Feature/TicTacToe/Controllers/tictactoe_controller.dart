@@ -188,21 +188,12 @@ class TicTacToeController extends BaseController {
   }
 
   void onEachButtonTap(TicTacToePeaceModel peace) {
-    DialogComponent().showIconicDialog(
-        AppTexts.endGame.tr,
-        AppTexts.gameDrawed.tr,
-        GeneralIcons.draw,
-        AppColors.drawColor,
-        coin: 0,
-        cup: 0,
-        star: 10,
-      );
     if (!canSelectPeace.value) {
-      print("not your turn");
+      // print("not your turn");
       return;
     }
     if (peace.selectedUser != null) {
-      print("selected before !");
+      // print("selected before !");
       return;
     }
     canSelectPeace.value = false;
