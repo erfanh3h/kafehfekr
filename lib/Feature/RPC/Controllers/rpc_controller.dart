@@ -42,6 +42,10 @@ class RPCController extends BaseController {
 
   Rx<RPCPeaceTypes> selectedPeace = Rx(RPCPeaceTypes.rock);
 
+  Rx<RPCPeaceTypes?> player1SelectedPeace = Rx(null);
+  Rx<RPCPeaceTypes?> player2SelectedPeace = Rx(null);
+  RxInt thisTurnRoundWinner = RxInt(0);
+
   void reactionHandler(dynamic data) {
     final Map reactionData = data;
     final playerId = reactionData['playerId'];
@@ -70,8 +74,14 @@ class RPCController extends BaseController {
         peaceSelected.value = true;
         Map turnData = data['data'];
         int turnRoundWinner = turnData['Winner'];
+        player1SelectedPeace.value = RPCPeaceTypes.values
+            .byName(turnData['P1_selection'] ?? RPCPeaceTypes.rock.name);
+        player2SelectedPeace.value = RPCPeaceTypes.values
+            .byName(turnData['P2_selection'] ?? RPCPeaceTypes.rock.name);
+        thisTurnRoundWinner.value = turnRoundWinner;
         changetimerValue(GameWaitTimes.rpcSleepRoundTime);
-        currentTurnRound.value += 1;
+        currentTurnRound.value = (currentTurnRound.value + 1)
+            .clamp(currentTurnRound.value + 1, maxTurnRound);
         if (turnRoundWinner == 1) {
           player1RoundScore.value += 1;
         } else if (turnRoundWinner == 2) {
@@ -112,6 +122,9 @@ class RPCController extends BaseController {
 
   void resetPeaces() {
     peaceSelected.value = false;
+    player1SelectedPeace.value = null;
+    player2SelectedPeace.value = null;
+    thisTurnRoundWinner.value = 0;
     clearStatusFromPeaces(PeaceStatusTypes.selected);
     addPeaceStatus(0, PeaceStatusTypes.selected);
     selectedPeace.value = RPCPeaceTypes.rock;
@@ -228,6 +241,10 @@ class RPCController extends BaseController {
     }
   }
 
+  bool isThisGamerIdThisTurnRoundWinner(int gamerId) {
+    return gamerId == thisTurnRoundWinner.value;
+  }
+
   void showFinishRoundDialog(int roundWinner) {
     if (roundWinner == 0) {
       DialogComponent().showIconicDialog(
@@ -268,6 +285,7 @@ class RPCController extends BaseController {
         AppColors.drawColor,
         coin: 0,
         cup: 0,
+        star: 0,
       );
     } else {
       String dialogMessage = "";
@@ -295,6 +313,7 @@ class RPCController extends BaseController {
         dialogColor,
         coin: coin,
         cup: cup,
+        star: 0,
       );
     }
   }

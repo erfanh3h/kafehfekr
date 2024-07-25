@@ -6,6 +6,7 @@ import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/RPC/Controllers/rpc_controller.dart';
 import 'package:kafehfekr/Feature/RPC/Widgets/rpc_button.dart';
+import 'package:kafehfekr/Feature/RPC/Widgets/rpc_log_peace.dart';
 import 'package:refreshed/refreshed.dart';
 
 class RPCMainWidget extends StatelessWidget {
@@ -25,15 +26,38 @@ class RPCMainWidget extends StatelessWidget {
         height: Get.size.width * .95,
         child: Obx(
           () => controller.peaceSelected.value
-              ? Center(
-                  child: Text(
-                    AppTexts.wait.tr,
-                    style: TextStyle(
-                      color: AppColors.peaceBorderColor,
-                      fontSize: 22.sp,
-                    ),
-                  ),
-                )
+              ? (controller.player1SelectedPeace.value != null &&
+                      controller.player2SelectedPeace.value != null)
+                  ? Row(
+                      children: [
+                        Expanded(
+                          child: RpcLogPeace(
+                            peaceType: controller.player1SelectedPeace.value!,
+                            imageColor: AppColors.imageRedColor,
+                            isThisWinner:
+                                controller.isThisGamerIdThisTurnRoundWinner(1),
+                          ),
+                        ),
+                        SizedBox(width: 40.w),
+                        Expanded(
+                          child: RpcLogPeace(
+                            peaceType: controller.player2SelectedPeace.value!,
+                            imageColor: AppColors.imageBlueColor,
+                            isThisWinner:
+                                controller.isThisGamerIdThisTurnRoundWinner(2),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Center(
+                      child: Text(
+                        AppTexts.wait.tr,
+                        style: TextStyle(
+                          color: AppColors.peaceBorderColor,
+                          fontSize: 22.sp,
+                        ),
+                      ),
+                    )
               : Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
