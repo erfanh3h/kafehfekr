@@ -241,6 +241,7 @@ class TicTacToeController extends BaseController {
             letSendReaction.value = false;
           },
         ),
+        backgroundColor: AppColors.lightColor,
       );
     }
   }

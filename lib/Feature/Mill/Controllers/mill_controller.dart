@@ -230,6 +230,7 @@ class MillController extends BaseController {
             letSendReaction.value = false;
           },
         ),
+        backgroundColor: AppColors.lightColor,
       );
     }
   }
@@ -345,7 +346,7 @@ class MillController extends BaseController {
       commandHandler: commandHandler,
       reactionHandler: reactionHandler,
     );
-    for (var i = 0; i < 9; i++) {
+    for (var i = 0; i < 24; i++) {
       peaces.add(Rx(MillPeaceModel(id: i, currentStatuses: [])));
     }
     super.onInit();

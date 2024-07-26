@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -40,14 +41,15 @@ class MillButton extends StatelessWidget {
       },
       child: Container(
         padding: AppSpacings.s15All,
+        width: 35.w,
+        height: 35.w,
         decoration: BoxDecoration(
-          color: AppColors.lightColor,
-          border: Border.all(
-            color: imageColor ?? AppColors.peaceBorderColor,
-            width: 4,
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
+            color: AppColors.lightColor,
+            border: Border.all(
+              color: imageColor ?? AppColors.peaceBorderColor,
+              width: 2,
+            ),
+            shape: BoxShape.circle),
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
             : image != null

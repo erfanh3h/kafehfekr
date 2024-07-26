@@ -1,4 +1,5 @@
 import 'package:kafehfekr/Core/Network/game_socket.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class GlobalReactionsBox extends StatelessWidget {
           },
           child: Image.asset(
             ReactionIcons().generalIconsPath(index + 1),
-            color: Colors.amber,
+            color: AppColors.blueWarmColor,
           ),
         ),
         itemCount: ReactionIcons.reactionsCount,

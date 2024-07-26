@@ -3,11 +3,9 @@ import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
-import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Mill/Controllers/mill_controller.dart';
-import 'package:kafehfekr/Feature/Mill/Widgets/mill_button.dart';
+import 'package:kafehfekr/Feature/Mill/Widgets/mill_board_widget.dart';
 import 'package:kafehfekr/Feature/Mill/Widgets/mill_player_data_widget.dart';
-import 'package:refreshed/refreshed.dart';
 
 class MillPage extends BaseView<MillController> {
   const MillPage({super.key});
@@ -33,27 +31,7 @@ class MillPage extends BaseView<MillController> {
           ),
           Expanded(
             flex: 20,
-            child: Center(
-              child: Container(
-                padding: AppSpacings.s20All,
-                height: Get.size.width * .95,
-                width: Get.size.width * .95,
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
-                  ),
-                  itemBuilder: (ctx, index) => Obx(
-                    () => MillButton(
-                      peaceData: controller.peaces[index].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ),
-                  itemCount: controller.peaces.length,
-                ),
-              ),
-            ),
+            child: Center(child: MillBoardWidget(controller: controller)),
           ),
           Expanded(
             flex: 4,
