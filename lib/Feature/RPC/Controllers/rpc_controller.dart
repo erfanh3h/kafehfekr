@@ -153,26 +153,18 @@ class RPCController extends BaseController {
     List gamers = newData['gamers'];
     Map gameData = newData['game_data'];
     Map timerData = newData['timer_data'];
-    List boardData = gameData['board'];
     currentRound.value = gameData['current_round'];
-    // player1Score.value = gameData['scores'][0];
-    // player2Score.value = gameData['scores'][1];
+    currentTurnRound.value = gameData['current_turn__round'];
+    player1RoundScore.value = gameData['round_scores'][0];
+    player2RoundScore.value = gameData['round_scores'][1];
+    player1TotalScore.value = gameData['total_scores'][0];
+    player2TotalScore.value = gameData['total_scores'][1];
     for (var gamerData in gamers) {
       players.add(Rx(PlayerModel.fromJson(gamerData)));
     }
-    for (var i = 0; i < boardData.length; i++) {
-      if (boardData[i] == 0) {
-        continue;
-      }
-      peaces[i].value =
-          peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
-    }
-    // canSelectPeace.value = true;
-    if (timerData['is_user_turn']) {
-      final int time =
-          GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
-      changetimerValue(time.clamp(0, time));
-    }
+    final int time =
+        GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
+    changetimerValue(time.clamp(0, time));
   }
 
   changePlayerReaction(int? playerId, int? reactionId, {int? removeTimer}) {
