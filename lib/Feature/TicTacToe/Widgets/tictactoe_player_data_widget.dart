@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_countdown_timer.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -33,15 +33,24 @@ class TicTacToePlayerDataWidget extends StatelessWidget {
                 reactionId: controller.players[0].value.reactionId,
               ),
             ),
-            Padding(
+            Container(
               padding: AppSpacings.s10Horizental,
-              child: Text(
-                "${controller.maxRound} / ${controller.currentRound}",
-                style: TextStyle(
-                  fontFamily: FontFamilies.dastnevis,
-                  fontSize: 30.sp,
-                  color: Colors.white,
-                ),
+              width: 100.w,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    "${controller.maxRound} / ${controller.currentRound}",
+                    style: TextStyle(
+                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 30.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                  GlobalShowTimerWidget(
+                    color: controller.returnTimerColor(),
+                  )
+                ],
               ),
             ),
             Expanded(
@@ -110,14 +119,10 @@ class UserRowData extends StatelessWidget {
                     CircleAvatar(
                       radius: 20.r,
                       backgroundColor: color,
-                      child: isThisUserTurn
-                          ? CountdownTimerWidget(
-                              color: color,
-                            )
-                          : const Icon(
-                              Icons.person_2,
-                              color: Colors.white,
-                            ),
+                      child: const Icon(
+                        Icons.person_4,
+                        color: Colors.white,
+                      ),
                     ),
                     SizedBox(
                       height: 3.h,
@@ -125,8 +130,9 @@ class UserRowData extends StatelessWidget {
                     Text(
                       playerName,
                       style: TextStyle(
-                        fontFamily: FontFamilies.vazir,
-                        fontSize: 15.sp,
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 12.sp,
+                        color: color,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,

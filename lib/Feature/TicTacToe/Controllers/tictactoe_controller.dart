@@ -113,6 +113,15 @@ class TicTacToeController extends BaseController {
     return currentTurn.value == gamerId;
   }
 
+  Color? returnTimerColor() {
+    if (currentTurn.value == 1) {
+      return AppColors.imageRedColor;
+    } else if (currentTurn.value == 2) {
+      return AppColors.imageBlueColor;
+    }
+    return null;
+  }
+
   void changetimerValue(int value) {
     Get.find<TimerCompanent>().startTimer(value);
   }

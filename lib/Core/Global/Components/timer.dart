@@ -22,7 +22,7 @@ class TimerCompanent extends GetxController {
         if (_start < .1) {
           timer.cancel();
           _start.value = 0;
-          timerLabel.value = _start.toString();
+          timerLabel.value = _start.toInt().toString();
           percent.value = _start.value;
           isCounting.value = false;
           try {
@@ -33,7 +33,7 @@ class TimerCompanent extends GetxController {
           timerLabel.value = _start.toInt().toString();
           percent.value = _start.value / (timerDuration ?? 1).toDouble();
           // timerLabel.value =
-          //     DateActionsComponent.formatSecondsToMinutes(_start.value);
+          //     DateActionsComponent.formatSecondsToMinutes(_start.value.toInt());
         }
       },
     );

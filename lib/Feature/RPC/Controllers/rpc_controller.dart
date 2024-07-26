@@ -80,8 +80,9 @@ class RPCController extends BaseController {
             .byName(turnData['P2_selection'] ?? RPCPeaceTypes.rock.name);
         thisTurnRoundWinner.value = turnRoundWinner;
         changetimerValue(GameWaitTimes.rpcSleepRoundTime);
-        currentTurnRound.value = (currentTurnRound.value + 1)
-            .clamp(currentTurnRound.value + 1, maxTurnRound);
+        if (currentTurnRound.value + 1 <= maxTurnRound) {
+          currentTurnRound.value = currentTurnRound.value + 1;
+        }
         if (turnRoundWinner == 1) {
           player1RoundScore.value += 1;
         } else if (turnRoundWinner == 2) {

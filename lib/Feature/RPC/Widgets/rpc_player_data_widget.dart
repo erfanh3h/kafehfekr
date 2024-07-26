@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_countdown_timer.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -35,7 +36,9 @@ class RPCPlayerDataWidget extends StatelessWidget {
             ),
             Container(
               margin: AppSpacings.s10Horizental,
+              width: 90.w,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     "${controller.maxTurnRound} / ${controller.currentTurnRound.value}",
@@ -45,8 +48,8 @@ class RPCPlayerDataWidget extends StatelessWidget {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 5.h),
-                  const CountdownTimerWidget(),
+                  SizedBox(height: 3.h),
+                  const GlobalShowTimerWidget()
                 ],
               ),
             ),
@@ -126,8 +129,8 @@ class UserRowData extends StatelessWidget {
                     Text(
                       playerName,
                       style: TextStyle(
-                        fontFamily: FontFamilies.vazir,
-                        fontSize: 15.sp,
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 12.sp,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
