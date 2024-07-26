@@ -142,10 +142,10 @@ class MillController extends BaseController {
   }
 
   void getReconnectData(Map newData) {
-    List gamers = newData['gamers'];
-    Map gameData = newData['game_data'];
-    Map timerData = newData['timer_data'];
-    List boardData = gameData['board'];
+    // List gamers = newData['gamers'];
+    // Map gameData = newData['game_data'];
+    // Map timerData = newData['timer_data'];
+    // List boardData = gameData['board'];
     // player1Score.value = gameData['scores'][0];
     // player2Score.value = gameData['scores'][1];
     // currentTurn.value = gameData['current_turn'];
