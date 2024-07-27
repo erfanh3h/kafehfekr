@@ -212,7 +212,7 @@ class TicTacToeController extends BaseController {
       return;
     }
     canSelectPeace.value = false;
-    sendCommand({"id": 'SelectPeace', "data": peace.id});
+    sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
   }
 

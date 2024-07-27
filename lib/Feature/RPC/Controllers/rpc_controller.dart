@@ -193,7 +193,7 @@ class RPCController extends BaseController {
     //   return;
     // }
     // canSelectPeace.value = false;
-    // sendCommand({"id": 'SelectPeace', "data": peace.peaceType.toString()});
+    // sendCommand({"id": GameCommands.selectPeace, "data": peace.peaceType.toString()});
     clearStatusFromPeaces(PeaceStatusTypes.selected);
     addPeaceStatus(peace.id, PeaceStatusTypes.selected);
     selectedPeace.value = peace.peaceType;
@@ -201,7 +201,8 @@ class RPCController extends BaseController {
   }
 
   void acceptSelection() {
-    sendCommand({"id": 'SelectPeace', "data": selectedPeace.value.name});
+    sendCommand(
+        {"id": GameCommands.selectPeace, "data": selectedPeace.value.name});
     peaceSelected.value = true;
   }
 

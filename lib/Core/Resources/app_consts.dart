@@ -2,6 +2,9 @@ class GameWaitTimes {
   static const int tictactoeRoundTime = 10;
   static const int rpcRoundTime = 5;
   static const int rpcSleepRoundTime = 3;
+  static const int millSelectTime = 15;
+  static const int millRemoveTime = 15;
+
 }
 
 class FontFamilies {
@@ -15,7 +18,11 @@ abstract class GameCommands {
   static const reaction = "Reaction";
   static const currentTurn = "CurrentTurn";
   static const selectPeace = "SelectPeace";
+  static const swapPeace = "SwapPeace";
+  static const selectRemovePeace = "SelectRemovePeace";
   static const peaceSelected = "PeaceSelected";
+  static const peaceSwaped = "PeaceSwaped";
+  static const peaceRemoved= "PeaceRemoved";
   static const newTurnRound = "NewTurnRound";
   static const newRound = "NewRound";
   static const finishTurnRound = "FinishTurnRound";
