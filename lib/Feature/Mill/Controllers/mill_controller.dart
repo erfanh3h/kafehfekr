@@ -28,8 +28,8 @@ class MillController extends BaseController {
 
   RxBool letSendReaction = RxBool(true);
 
-  RxInt player1Peaces = RxInt(10);
-  RxInt player2Peaces = RxInt(10);
+  RxInt player1Peaces = RxInt(3);
+  RxInt player2Peaces = RxInt(3);
 
   RxInt player1PlayedPeaces = RxInt(0);
   RxInt player2PlayedPeaces = RxInt(0);
@@ -101,6 +101,7 @@ class MillController extends BaseController {
           canSelectPeace.value = false;
         }
         changetimerValue(GameWaitTimes.millSelectTime);
+        resetAllPeacesStates();
         break;
       case GameCommands.peaceSelected:
         Map peaceData = data['data'];
@@ -160,6 +161,9 @@ class MillController extends BaseController {
         if (removerId == myGameId) {
           letRemovePeace.value = true;
           canSelectPeace.value = true;
+          for (var neighborId in getEnemyPeacesIndexes()) {
+            addPeaceStatus(neighborId, PeaceStatusTypes.canSelected);
+          }
         }
         // Get.find<TimerCompanent>().stopTimer();
         // showFinishGameDialog(newData);
@@ -202,21 +206,16 @@ class MillController extends BaseController {
   }
 
   addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
-    for (var i = 0; i < peaces.length; i++) {
-      if (peaces[i].value.id == peaceId) {
-        peaces.value[i].value = peaces.value[i].value.addStatus(status: status);
-        break;
-      }
+    if (peaceId != null) {
+      peaces.value[peaceId].value =
+          peaces.value[peaceId].value.addStatus(status: status);
     }
   }
 
   removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
-    for (var i = 0; i < peaces.length; i++) {
-      if (peaces[i].value.id == peaceId) {
-        peaces.value[i].value =
-            peaces.value[i].value.removeStatus(status: status);
-        break;
-      }
+    if (peaceId != null) {
+      peaces.value[peaceId].value =
+          peaces.value[peaceId].value.removeStatus(status: status);
     }
   }
 
@@ -278,13 +277,18 @@ class MillController extends BaseController {
 
     if (letRemovePeace.value) {
       //remove
-      if (peace.selectedUser == null || peace.selectedUser == myGameId) {
+      if (checkPeaceIsEmpty(peace.id) || peace.selectedUser == myGameId) {
         print("wrong selection");
         return;
       }
       canSelectPeace.value = false;
+      letRemovePeace.value = false;
       sendCommand({"id": GameCommands.selectRemovePeace, "data": peace.id});
       addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+      removePeaceStatus(peace.id, PeaceStatusTypes.canSelected);
+      for (var neighborId in getEnemyPeacesIndexes()) {
+        removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
+      }
     } else {
       if (checkAllOfMyPeacesPlaced()) {
         //swap
@@ -294,8 +298,19 @@ class MillController extends BaseController {
             return;
           }
           equippedPeaceIndex.value = peace.id;
+          print(equippedPeaceIndex.value);
+          addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
+          for (var neighborId in neighborsData[peace.id] ?? []) {
+            if (checkPeaceIsEmpty(neighborId)) {
+              addPeaceStatus(neighborId, PeaceStatusTypes.canSelected);
+            }
+          }
         } else {
-          if (peace.selectedUser != null) {
+          if (equippedPeaceIndex.value == peace.id) {
+            clearEquipedPeace(peace.id);
+            return;
+          }
+          if (!checkPeaceIsEmpty(peace.id)) {
             print("selected before !");
             return;
           }
@@ -313,11 +328,11 @@ class MillController extends BaseController {
           });
           addPeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.isLoading);
           addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-          equippedPeaceIndex.value = -1;
+          clearEquipedPeace(equippedPeaceIndex.value);
         }
       } else {
         //normal select
-        if (peace.selectedUser != null) {
+        if (!checkPeaceIsEmpty(peace.id)) {
           print("selected before !");
           return;
         }
@@ -349,6 +364,46 @@ class MillController extends BaseController {
       } else {
         return true;
       }
+    }
+  }
+
+  bool checkPeaceIsEmpty(int index) {
+    return peaces.value[index].value.selectedUser == null;
+  }
+
+  void clearEquipedPeace(int index) {
+    equippedPeaceIndex.value = -1;
+    removePeaceStatus(index, PeaceStatusTypes.equiped);
+    for (var neighborId in neighborsData[index] ?? []) {
+      removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
+    }
+  }
+
+  List<int> getEnemyPeacesIndexes() {
+    List<int> result = [];
+    for (var peaceData in peaces.value) {
+      if (peaceData.value.selectedUser != null &&
+          peaceData.value.selectedUser != myGameId) {
+        result.add(peaceData.value.id);
+      }
+    }
+    return result;
+  }
+
+  void resetAllPeacesStates() {
+    for (var neighborId in getEnemyPeacesIndexes()) {
+      removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
+    }
+    letRemovePeace.value = false;
+    print(equippedPeaceIndex.value);
+    if (equippedPeaceIndex.value != -1) {
+      removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
+      for (var neighborId in neighborsData[equippedPeaceIndex.value] ?? []) {
+        if (checkPeaceIsEmpty(neighborId)) {
+          addPeaceStatus(neighborId, PeaceStatusTypes.canSelected);
+        }
+      }
+      clearEquipedPeace(equippedPeaceIndex.value);
     }
   }
 

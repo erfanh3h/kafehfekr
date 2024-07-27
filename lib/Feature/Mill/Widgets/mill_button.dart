@@ -35,8 +35,9 @@ class MillButton extends StatelessWidget {
         image = null;
         break;
     }
-    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      borderWidth = 5;
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected) ||
+        peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
+      borderWidth = 6;
     } else {
       borderWidth = 2;
     }
