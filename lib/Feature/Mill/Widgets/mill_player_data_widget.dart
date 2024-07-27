@@ -27,8 +27,6 @@ class MillPlayerDataWidget extends StatelessWidget {
             Expanded(
               child: UserRowData(
                 playerName: controller.players[0].value.name,
-                playerLivePeaces: controller.player1Peaces.value -
-                    controller.player1RemovedPeaces.value,
                 isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
                 reactionId: controller.players[0].value.reactionId,
@@ -46,8 +44,6 @@ class MillPlayerDataWidget extends StatelessWidget {
                 textDirection: TextDirection.ltr,
                 child: UserRowData(
                   playerName: controller.players[1].value.name,
-                  playerLivePeaces: controller.player2Peaces.value -
-                      controller.player2RemovedPeaces.value,
                   isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
                   reactionId: controller.players[1].value.reactionId,
@@ -65,14 +61,12 @@ class UserRowData extends StatelessWidget {
   const UserRowData({
     super.key,
     required this.playerName,
-    required this.playerLivePeaces,
     required this.isThisUserTurn,
     required this.color,
     required this.reactionId,
   });
 
   final String playerName;
-  final int playerLivePeaces;
   final bool isThisUserTurn;
   final Color color;
   final int? reactionId;
@@ -101,43 +95,27 @@ class UserRowData extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Flexible(
-                flex: 5,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 20.r,
-                      backgroundColor: color,
-                      child: const Icon(
-                        Icons.person_4,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 3.h,
-                    ),
-                    Text(
-                      playerName,
-                      style: TextStyle(
-                        fontFamily: FontFamilies.dastnevis,
-                        fontSize: 12.sp,
-                        color: color,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                flex: 1,
+                child: CircleAvatar(
+                  radius: 20.r,
+                  backgroundColor: color,
+                  child: const Icon(
+                    Icons.person_4,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              Flexible(
+              Expanded(
                 flex: 1,
                 child: Text(
-                  playerLivePeaces.toString(),
+                  playerName,
                   style: TextStyle(
                     fontFamily: FontFamilies.dastnevis,
-                    fontSize: 30.sp,
+                    fontSize: 12.sp,
                     color: color,
                   ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),
               ),
               // const Spacer(flex: 3),
