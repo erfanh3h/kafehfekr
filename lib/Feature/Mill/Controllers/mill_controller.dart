@@ -220,33 +220,36 @@ class MillController extends BaseController {
   }
 
   void getReconnectData(Map newData) {
-    // List gamers = newData['gamers'];
-    // Map gameData = newData['game_data'];
-    // Map timerData = newData['timer_data'];
-    // List boardData = gameData['board'];
-    // player1Score.value = gameData['scores'][0];
-    // player2Score.value = gameData['scores'][1];
-    // currentTurn.value = gameData['current_turn'];
-    // for (var gamerData in gamers) {
-    //   players.add(Rx(PlayerModel.fromJson(gamerData)));
-    // }
-    // for (var i = 0; i < boardData.length; i++) {
-    //   if (boardData[i] == 0) {
-    //     continue;
-    //   }
-    //   peaces[i].value =
-    //       peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
-    // }
-    // if (currentTurn.value == myGameId) {
-    //   canSelectPeace.value = true;
-    // } else {
-    //   canSelectPeace.value = false;
-    // }
-    // if (timerData['is_user_turn']) {
-    //   final int time =
-    //       GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
-    //   changetimerValue(time.clamp(0, time));
-    // }
+    List gamers = newData['gamers'];
+    Map gameData = newData['game_data'];
+    Map timerData = newData['timer_data'];
+    List boardData = gameData['board'];
+    player1PlayedPeaces.value = gameData['played_peaces'][0];
+    player2PlayedPeaces.value = gameData['played_peaces'][1];
+    player1RemovedPeaces.value = gameData['removed_peaces'][0];
+    player2RemovedPeaces.value = gameData['removed_peaces'][1];
+    currentTurn.value = gameData['current_turn'];
+    currentRemover.value = gameData['current_remover'];
+    for (var gamerData in gamers) {
+      players.add(Rx(PlayerModel.fromJson(gamerData)));
+    }
+    for (var i = 0; i < boardData.length; i++) {
+      if (boardData[i] == 0) {
+        continue;
+      }
+      peaces[i].value =
+          peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
+    }
+    if (currentTurn.value == myGameId) {
+      canSelectPeace.value = true;
+    } else {
+      canSelectPeace.value = false;
+    }
+    if (timerData['is_user_turn']) {
+      final int time =
+          GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
+      changetimerValue(time.clamp(0, time));
+    }
   }
 
   changePlayerReaction(int? playerId, int? reactionId, {int? removeTimer}) {
@@ -395,12 +398,11 @@ class MillController extends BaseController {
       removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
     }
     letRemovePeace.value = false;
-    print(equippedPeaceIndex.value);
     if (equippedPeaceIndex.value != -1) {
       removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
       for (var neighborId in neighborsData[equippedPeaceIndex.value] ?? []) {
         if (checkPeaceIsEmpty(neighborId)) {
-          addPeaceStatus(neighborId, PeaceStatusTypes.canSelected);
+          removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
         }
       }
       clearEquipedPeace(equippedPeaceIndex.value);
