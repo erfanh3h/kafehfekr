@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reactions_box.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
@@ -273,6 +274,7 @@ class MillController extends BaseController {
   }
 
   void onEachButtonTap(MillPeaceModel peace) {
+    Get.find<SoundPlayerComponent>().playExplode();
     if (!canSelectPeace.value) {
       // print("not your turn");
       return;
