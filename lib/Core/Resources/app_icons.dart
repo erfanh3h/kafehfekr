@@ -38,4 +38,8 @@ class GeneralIcons {
   static const paper = "$generalIconsPath/paper.png";
   static const cutter = "$generalIconsPath/cutter.png";
   static const timeCounter = "$generalIconsPath/time-counter.png";
+  static const brain = "$generalIconsPath/brain.png";
+  static const bomb = "$generalIconsPath/bomb.png";
+  static const bombExplode = "$generalIconsPath/bomb-explode.png";
+
 }

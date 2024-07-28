@@ -89,6 +89,9 @@ flutter:
     - family: Dastnevis
       fonts:
         - asset: assets/Fonts/Dastnevis.OTF
+    - family: Typo
+      fonts:
+        - asset: assets/Fonts/Typo.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -28,8 +28,8 @@ class MillController extends BaseController {
 
   RxBool letSendReaction = RxBool(true);
 
-  RxInt player1Peaces = RxInt(3);
-  RxInt player2Peaces = RxInt(3);
+  RxInt player1Peaces = RxInt(10);
+  RxInt player2Peaces = RxInt(10);
 
   RxInt player1PlayedPeaces = RxInt(0);
   RxInt player2PlayedPeaces = RxInt(0);
@@ -274,14 +274,14 @@ class MillController extends BaseController {
 
   void onEachButtonTap(MillPeaceModel peace) {
     if (!canSelectPeace.value) {
-      print("not your turn");
+      // print("not your turn");
       return;
     }
 
     if (letRemovePeace.value) {
       //remove
       if (checkPeaceIsEmpty(peace.id) || peace.selectedUser == myGameId) {
-        print("wrong selection");
+        // print("wrong selection");
         return;
       }
       canSelectPeace.value = false;
@@ -297,11 +297,10 @@ class MillController extends BaseController {
         //swap
         if (equippedPeaceIndex.value == -1) {
           if (peace.selectedUser != myGameId) {
-            print("selected before !");
+            // print("selected before !");
             return;
           }
           equippedPeaceIndex.value = peace.id;
-          print(equippedPeaceIndex.value);
           addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
           for (var neighborId in neighborsData[peace.id] ?? []) {
             if (checkPeaceIsEmpty(neighborId)) {
@@ -314,11 +313,11 @@ class MillController extends BaseController {
             return;
           }
           if (!checkPeaceIsEmpty(peace.id)) {
-            print("selected before !");
+            // print("selected before !");
             return;
           }
           if (!checkSelectedPeaceIsNeighborOfSource(peace.id)) {
-            print("not neighbor!");
+            // print("not neighbor!");
             return;
           }
           canSelectPeace.value = false;
@@ -336,7 +335,7 @@ class MillController extends BaseController {
       } else {
         //normal select
         if (!checkPeaceIsEmpty(peace.id)) {
-          print("selected before !");
+          // print("selected before !");
           return;
         }
         canSelectPeace.value = false;

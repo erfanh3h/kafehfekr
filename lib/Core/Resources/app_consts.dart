@@ -4,12 +4,12 @@ class GameWaitTimes {
   static const int rpcSleepRoundTime = 3;
   static const int millSelectTime = 15;
   static const int millRemoveTime = 15;
-
 }
 
 class FontFamilies {
   static const vazir = "Vazir";
   static const dastnevis = "Dastnevis";
+  static const typo = "Typo";
 }
 
 abstract class GameCommands {
@@ -22,7 +22,7 @@ abstract class GameCommands {
   static const selectRemovePeace = "SelectRemovePeace";
   static const peaceSelected = "PeaceSelected";
   static const peaceSwaped = "PeaceSwaped";
-  static const peaceRemoved= "PeaceRemoved";
+  static const peaceRemoved = "PeaceRemoved";
   static const newTurnRound = "NewTurnRound";
   static const newRound = "NewRound";
   static const finishTurnRound = "FinishTurnRound";
@@ -34,9 +34,17 @@ abstract class GameCommands {
 class CupsCount {
   static const tictactoeWin = 1;
   static const tictactoeLose = -1;
+  static const rpcWin = 1;
+  static const rpcLose = -1;
+  static const millWin = 1;
+  static const millLose = -1;
 }
 
 class CoinsCount {
   static const tictactoeWin = 2;
   static const tictactoeLose = -2;
+  static const rpcWin = 1;
+  static const rpcLose = -1;
+  static const millWin = 1;
+  static const millLose = -1;
 }

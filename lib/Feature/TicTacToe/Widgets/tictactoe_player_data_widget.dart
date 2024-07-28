@@ -130,7 +130,7 @@ class UserRowData extends StatelessWidget {
                     Text(
                       playerName,
                       style: TextStyle(
-                        fontFamily: FontFamilies.dastnevis,
+                        fontFamily: FontFamilies.typo,
                         fontSize: 12.sp,
                         color: color,
                       ),
