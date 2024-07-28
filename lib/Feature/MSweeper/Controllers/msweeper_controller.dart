@@ -9,6 +9,7 @@ import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Feature/MSweeper/Models/enums.dart';
 import 'package:kafehfekr/Feature/MSweeper/Models/msweeper_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -23,18 +24,19 @@ class MSweeperController extends BaseController {
   String gameId = "gameId";
 
   RxBool canSelectPeace = RxBool(false);
+  RxBool canSelectMine = RxBool(false);
 
   RxBool showReactions = RxBool(true);
 
   RxBool letSendReaction = RxBool(true);
 
-  RxInt currentRound = RxInt(1);
-  int maxRound = 2;
-
   RxInt player1Score = RxInt(0);
   RxInt player2Score = RxInt(0);
 
-  RxInt currentTurn = RxInt(1);
+  RxInt selectPeaceRemainingCount = RxInt(52);
+  RxInt selectMineRemainingCount = RxInt(12);
+
+  RxBool isBombHitted = RxBool(false);
 
   void reactionHandler(dynamic data) {
     final Map reactionData = data;
@@ -57,42 +59,67 @@ class MSweeperController extends BaseController {
         Map newData = data['data'];
         getReconnectData(newData);
         break;
-      case GameCommands.currentTurn:
-        int turn = data['data'];
-        currentTurn.value = turn;
-        if (turn == myGameId) {
-          canSelectPeace.value = true;
-        } else {
+      case GameCommands.startGame:
+        canSelectPeace.value = true;
+        canSelectMine.value = true;
+        changetimerValue(GameWaitTimes.msweeperGameTime);
+        break;
+      case GameCommands.selectPeaceResult:
+        Map peaceData = data['data'];
+        int peaceId = peaceData['peace_number'];
+        peaces.value[peaceId].value = peaces.value[peaceId].value
+            .changeValue(newValue: peaceData["value"]);
+        addPeaceStatus(peaceId, PeaceStatusTypes.selected);
+        removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
+        selectPeaceRemainingCount.value -= 1;
+        if (selectPeaceRemainingCount.value == 0) {
           canSelectPeace.value = false;
         }
-        changetimerValue(GameWaitTimes.tictactoeRoundTime);
         break;
-      case GameCommands.peaceSelected:
+      case GameCommands.mineSelected:
         Map peaceData = data['data'];
-        int peaceId = peaceData['target_peace'];
-        for (final peace in peaces) {
-          if (peace.value.id == peaceId) {
-            peace.value = peace.value.changeValue(newValue: peaceData["user"]);
-            removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-            break;
-          }
+        int peaceId = peaceData['peace_number'];
+        addSweeperPeaceStatus(peaceId, MineSweeperStatusTypes.isExplodedMine);
+        removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
+        selectPeaceRemainingCount.value = 0;
+        selectMineRemainingCount.value = 0;
+        canSelectPeace.value = false;
+        canSelectMine.value = false;
+        isBombHitted.value = true;
+        break;
+      case GameCommands.selectMineCorrect:
+        Map peaceData = data['data'];
+        int peaceId = peaceData['peace_number'];
+        addSweeperPeaceStatus(
+            peaceId, MineSweeperStatusTypes.isCorrectlySelectedAsMine);
+        removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
+        addPeaceStatus(peaceId, PeaceStatusTypes.selected);
+        selectMineRemainingCount.value -= 1;
+        if (selectMineRemainingCount.value == 0) {
+          canSelectMine.value = false;
         }
         break;
-      case GameCommands.newRound:
-        int newRound = data['data'];
-        currentRound.value = newRound;
-        resetPeaces();
-        break;
-      case GameCommands.finishRound:
-        Map newData = data['data'];
-        Get.find<TimerCompanent>().stopTimer();
-        int roundWinner = newData['Winner'] ?? 0;
-        if (roundWinner == 1) {
-          player1Score.value += 1;
-        } else if (roundWinner == 2) {
-          player2Score.value += 1;
+      case GameCommands.selectMineWrong:
+        Map peaceData = data['data'];
+        int peaceId = peaceData['peace_number'];
+        addSweeperPeaceStatus(
+            peaceId, MineSweeperStatusTypes.isWronglySelectedAsMine);
+        removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
+        addPeaceStatus(peaceId, PeaceStatusTypes.selected);
+        selectMineRemainingCount.value -= 1;
+        if (selectMineRemainingCount.value == 0) {
+          canSelectMine.value = false;
         }
-        showFinishRoundDialog(roundWinner);
+        break;
+      case GameCommands.playerScore:
+        Map scoreData = data['data'];
+        int score = scoreData['value'];
+        int gamerId = scoreData['gamer_id'];
+        if (gamerId == 1) {
+          player1Score.value = score;
+        } else {
+          player2Score.value = score;
+        }
         break;
       case GameCommands.finishGame:
         Map newData = data['data'];
@@ -108,17 +135,8 @@ class MSweeperController extends BaseController {
     }
   }
 
-  bool isThisUserTurn(int gamerId) {
-    return currentTurn.value == gamerId;
-  }
-
   Color? returnTimerColor() {
-    if (currentTurn.value == 1) {
-      return AppColors.imageRedColor;
-    } else if (currentTurn.value == 2) {
-      return AppColors.imageBlueColor;
-    }
-    return null;
+    return AppColors.goldenColor;
   }
 
   void changetimerValue(int value) {
@@ -131,13 +149,9 @@ class MSweeperController extends BaseController {
     }
   }
 
-  addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
-    for (var i = 0; i < peaces.length; i++) {
-      if (peaces[i].value.id == peaceId) {
-        peaces.value[i].value = peaces.value[i].value.addStatus(status: status);
-        break;
-      }
-    }
+  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+    peaces.value[peaceId].value =
+        peaces.value[peaceId].value.addStatus(status: status);
   }
 
   removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
@@ -150,15 +164,18 @@ class MSweeperController extends BaseController {
     }
   }
 
+  addSweeperPeaceStatus(int peaceId, MineSweeperStatusTypes status) {
+    peaces.value[peaceId].value =
+        peaces.value[peaceId].value.addSweeperStatus(newStatus: status);
+  }
+
   void getReconnectData(Map newData) {
     List gamers = newData['gamers'];
     Map gameData = newData['game_data'];
     Map timerData = newData['timer_data'];
     List boardData = gameData['board'];
-    currentRound.value = gameData['current_round'];
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
-    currentTurn.value = gameData['current_turn'];
     for (var gamerData in gamers) {
       players.add(Rx(PlayerModel.fromJson(gamerData)));
     }
@@ -166,13 +183,7 @@ class MSweeperController extends BaseController {
       if (boardData[i] == 0) {
         continue;
       }
-      peaces[i].value =
-          peaces[i].value.changeValue(newValue: boardData[i]);
-    }
-    if (currentTurn.value == myGameId) {
-      canSelectPeace.value = true;
-    } else {
-      canSelectPeace.value = false;
+      peaces[i].value = peaces[i].value.changeValue(newValue: boardData[i]);
     }
     if (timerData['is_user_turn']) {
       final int time =
@@ -210,23 +221,21 @@ class MSweeperController extends BaseController {
       // print("selected before !");
       return;
     }
-    canSelectPeace.value = false;
     sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
   }
 
   void onEachButtonHold(MSweeperPeaceModel peace) {
-    // if (!canSelectPeace.value) {
-    //   // print("not your turn");
-    //   return;
-    // }
-    // if (peace.selectedUser != null) {
-    //   // print("selected before !");
-    //   return;
-    // }
-    // canSelectPeace.value = false;
-    // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-    // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+    if (!canSelectMine.value) {
+      // print("not your turn");
+      return;
+    }
+    if (peace.value != null) {
+      // print("selected before !");
+      return;
+    }
+    sendCommand({"id": GameCommands.selectMine, "data": peace.id});
+    addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
   }
 
   void surrenderFnction() {
@@ -371,7 +380,15 @@ class MSweeperController extends BaseController {
       reactionHandler: reactionHandler,
     );
     for (var i = 0; i < 64; i++) {
-      peaces.add(Rx(MSweeperPeaceModel(id: i, currentStatuses: [])));
+      peaces.add(
+        Rx(
+          MSweeperPeaceModel(
+            id: i,
+            currentStatuses: [],
+            sweeperStatuses: [],
+          ),
+        ),
+      );
     }
     super.onInit();
   }

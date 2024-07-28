@@ -37,6 +37,7 @@ class AppColors {
   static const transparent = Colors.transparent; //for strong pass
 
   static const lightColor = Color.fromARGB(255, 219, 214, 214);
+  static const lightColor2 = Color.fromARGB(255, 209, 193, 193);
   static const darkColor = Color.fromARGB(255, 48, 5, 5);
 
   static const imageRedColor = Color.fromARGB(255, 138, 49, 49);

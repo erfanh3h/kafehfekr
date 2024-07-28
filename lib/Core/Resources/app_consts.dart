@@ -19,6 +19,7 @@ abstract class GameCommands {
   static const reaction = "Reaction";
   static const currentTurn = "CurrentTurn";
   static const selectPeace = "SelectPeace";
+  static const selectPeaceResult = "SelectPeaceResult";
   static const swapPeace = "SwapPeace";
   static const selectRemovePeace = "SelectRemovePeace";
   static const peaceSelected = "PeaceSelected";
@@ -28,7 +29,13 @@ abstract class GameCommands {
   static const newRound = "NewRound";
   static const finishTurnRound = "FinishTurnRound";
   static const finishRound = "FinishRound";
+  static const startGame = "StartGame";
   static const finishGame = "FinishGame";
+  static const selectMine = "SelectMine";
+  static const selectMineCorrect = "SelectMineCorrect";
+  static const selectMineWrong = "SelectMineWrong";
+  static const mineSelected = "MineSelected";
+  static const playerScore = "PlayerScore";
   static const surrender = "Surrender";
 }
 
