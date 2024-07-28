@@ -4,6 +4,7 @@ class GameWaitTimes {
   static const int rpcSleepRoundTime = 3;
   static const int millSelectTime = 15;
   static const int millRemoveTime = 15;
+  static const int msweeperGameTime = 600;
 }
 
 class FontFamilies {
@@ -38,6 +39,8 @@ class CupsCount {
   static const rpcLose = -1;
   static const millWin = 1;
   static const millLose = -1;
+  static const msweeperWin = 1;
+  static const msweeperLose = -1;
 }
 
 class CoinsCount {
@@ -47,4 +50,6 @@ class CoinsCount {
   static const rpcLose = -1;
   static const millWin = 1;
   static const millLose = -1;
+  static const msweeperWin = 1;
+  static const msweeperLose = -1;
 }
