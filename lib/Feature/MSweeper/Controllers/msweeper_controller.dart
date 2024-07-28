@@ -72,8 +72,7 @@ class MSweeperController extends BaseController {
         int peaceId = peaceData['target_peace'];
         for (final peace in peaces) {
           if (peace.value.id == peaceId) {
-            peace.value = peace.value
-                .changeSelectedUser(newSelectedUser: peaceData["user"]);
+            peace.value = peace.value.changeValue(newValue: peaceData["user"]);
             removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
             break;
           }
@@ -168,7 +167,7 @@ class MSweeperController extends BaseController {
         continue;
       }
       peaces[i].value =
-          peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
+          peaces[i].value.changeValue(newValue: boardData[i]);
     }
     if (currentTurn.value == myGameId) {
       canSelectPeace.value = true;
@@ -207,13 +206,27 @@ class MSweeperController extends BaseController {
       // print("not your turn");
       return;
     }
-    if (peace.selectedUser != null) {
+    if (peace.value != null) {
       // print("selected before !");
       return;
     }
     canSelectPeace.value = false;
     sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+  }
+
+  void onEachButtonHold(MSweeperPeaceModel peace) {
+    // if (!canSelectPeace.value) {
+    //   // print("not your turn");
+    //   return;
+    // }
+    // if (peace.selectedUser != null) {
+    //   // print("selected before !");
+    //   return;
+    // }
+    // canSelectPeace.value = false;
+    // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
+    // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
   }
 
   void surrenderFnction() {
@@ -357,7 +370,7 @@ class MSweeperController extends BaseController {
       commandHandler: commandHandler,
       reactionHandler: reactionHandler,
     );
-    for (var i = 0; i < 9; i++) {
+    for (var i = 0; i < 64; i++) {
       peaces.add(Rx(MSweeperPeaceModel(id: i, currentStatuses: [])));
     }
     super.onInit();

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
-import 'package:kafehfekr/Feature/MSweeper/Controllers/MSweeper_controller.dart';
+import 'package:kafehfekr/Feature/MSweeper/Controllers/msweeper_controller.dart';
 import 'package:kafehfekr/Feature/MSweeper/Widgets/msweeper_button.dart';
 import 'package:kafehfekr/Feature/MSweeper/Widgets/msweeper_player_data_widget.dart';
 import 'package:refreshed/refreshed.dart';
@@ -35,20 +35,19 @@ class MSweeperPage extends BaseView<MSweeperController> {
             flex: 20,
             child: Center(
               child: Container(
-                padding: AppSpacings.s20All,
+                padding: AppSpacings.s5All,
                 height: Get.size.width * .95,
                 width: Get.size.width * .95,
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
+                    crossAxisCount: 8,
+                    crossAxisSpacing: 2,
+                    mainAxisSpacing: 2,
                   ),
-                  itemBuilder: (ctx, index) => Obx(
-                    () => MSweeperButton(
-                      peaceData: controller.peaces[index].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
+                  itemBuilder: (ctx, index) => MSweeperButton(
+                    peaceData: controller.peaces[index].value,
+                    onTap: controller.onEachButtonTap,
+                    onHold: controller.onEachButtonHold,
                   ),
                   itemCount: controller.peaces.length,
                 ),

@@ -5,7 +5,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
-import 'package:kafehfekr/Feature/MSweeper/Controllers/MSweeper_controller.dart';
+import 'package:kafehfekr/Feature/MSweeper/Controllers/msweeper_controller.dart';
 import 'package:refreshed/refreshed.dart';
 
 class MSweeperPlayerDataWidget extends StatelessWidget {
@@ -28,7 +28,6 @@ class MSweeperPlayerDataWidget extends StatelessWidget {
               child: UserRowData(
                 playerName: controller.players[0].value.name,
                 playerScore: controller.player1Score.value,
-                isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
                 reactionId: controller.players[0].value.reactionId,
               ),
@@ -59,7 +58,6 @@ class MSweeperPlayerDataWidget extends StatelessWidget {
                 child: UserRowData(
                   playerName: controller.players[1].value.name,
                   playerScore: controller.player2Score.value,
-                  isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
                   reactionId: controller.players[1].value.reactionId,
                 ),
@@ -77,14 +75,12 @@ class UserRowData extends StatelessWidget {
     super.key,
     required this.playerName,
     required this.playerScore,
-    required this.isThisUserTurn,
     required this.color,
     required this.reactionId,
   });
 
   final String playerName;
   final int playerScore;
-  final bool isThisUserTurn;
   final Color color;
   final int? reactionId;
 
@@ -96,7 +92,7 @@ class UserRowData extends StatelessWidget {
         color: AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: isThisUserTurn ? color : Colors.white,
+          color: color,
           width: 3,
         ),
       ),

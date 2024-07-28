@@ -5,19 +5,31 @@ class MSweeperPeaceModel extends PeaceModel {
   MSweeperPeaceModel({
     required super.id,
     required super.currentStatuses,
-    this.selectedUser,
+    this.value,
+    this.isMine= false,
   });
 
-  int? selectedUser;
+  int? value;
+  bool isMine;
 
-  MSweeperPeaceModel changeSelectedUser({
-    int? newSelectedUser,
+  MSweeperPeaceModel changeValue({
+    int? newValue,
   }) {
     final data = super.addStatus(status: PeaceStatusTypes.selected);
     return MSweeperPeaceModel(
       id: id,
       currentStatuses: data.currentStatuses,
-      selectedUser: newSelectedUser,
+      value: newValue,
+    );
+  }
+
+  MSweeperPeaceModel changeMineValue({
+    required bool isMineValue,
+  }) {
+    return MSweeperPeaceModel(
+      id: id,
+      currentStatuses: currentStatuses,
+      isMine: isMineValue,
     );
   }
 
@@ -25,7 +37,7 @@ class MSweeperPeaceModel extends PeaceModel {
     return MSweeperPeaceModel(
       id: id,
       currentStatuses: [],
-      selectedUser: null,
+      value: null,
     );
   }
 
@@ -35,7 +47,7 @@ class MSweeperPeaceModel extends PeaceModel {
     return MSweeperPeaceModel(
       id: data.id,
       currentStatuses: data.currentStatuses,
-      selectedUser: selectedUser,
+      value: value,
     );
   }
 
@@ -45,7 +57,7 @@ class MSweeperPeaceModel extends PeaceModel {
     return MSweeperPeaceModel(
       id: data.id,
       currentStatuses: data.currentStatuses,
-      selectedUser: selectedUser,
+      value: value,
     );
   }
 }
