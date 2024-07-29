@@ -2,6 +2,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/MSweeper/Controllers/msweeper_controller.dart';
@@ -15,6 +16,9 @@ class MSweeperPage extends BaseView<MSweeperController> {
   @override
   Widget body(BuildContext context) {
     return Container(
+      // constraints: const BoxConstraints(
+      //   maxWidth: 500,
+      // ),
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(AppImages.background1),
@@ -35,9 +39,16 @@ class MSweeperPage extends BaseView<MSweeperController> {
             flex: 20,
             child: Center(
               child: Container(
+                constraints: const BoxConstraints(
+                  maxWidth: GeneralGameConsts.maxGameWidth,
+                ),
                 padding: AppSpacings.s5All,
-                height: Get.size.width * .95,
-                width: Get.size.width * .95,
+                height: (Get.size.width)
+                        .clamp(100, GeneralGameConsts.maxGameWidth) *
+                    .95,
+                width: (Get.size.width)
+                        .clamp(100, GeneralGameConsts.maxGameWidth) *
+                    .95,
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 8,
@@ -58,11 +69,13 @@ class MSweeperPage extends BaseView<MSweeperController> {
           ),
           Expanded(
             flex: 3,
-            child: GlobalActivityBox(
-              surrenderFunction: controller.surrenderFnction,
-              reactionFunction: controller.showReactionBox,
-              changeShowReactionFunction: controller.changeShowReactionStatus,
-              showReaction: controller.showReactions.value,
+            child: Center(
+              child: GlobalActivityBox(
+                surrenderFunction: controller.surrenderFnction,
+                reactionFunction: controller.showReactionBox,
+                changeShowReactionFunction: controller.changeShowReactionStatus,
+                showReaction: controller.showReactions.value,
+              ),
             ),
           ),
           const Spacer(flex: 1),

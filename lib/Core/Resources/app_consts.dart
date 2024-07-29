@@ -60,3 +60,7 @@ class CoinsCount {
   static const msweeperWin = 1;
   static const msweeperLose = -1;
 }
+
+class GeneralGameConsts {
+  static const double maxGameWidth = 500;
+}

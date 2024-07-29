@@ -19,8 +19,11 @@ class MSweeperPlayerDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Padding(
+      () => Container(
         padding: AppSpacings.s10Horizental,
+        constraints: const BoxConstraints(
+          maxWidth: GeneralGameConsts.maxGameWidth,
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -34,7 +37,7 @@ class MSweeperPlayerDataWidget extends StatelessWidget {
             ),
             Container(
               padding: AppSpacings.s10Horizental,
-              width: 100.w,
+              width: 90,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -43,9 +46,9 @@ class MSweeperPlayerDataWidget extends StatelessWidget {
                   ),
                   Text(
                     controller.selectMineRemainingCount.value.toString(),
-                    style: TextStyle(
-                      fontFamily: FontFamilies.typo,
-                      fontSize: 18.sp,
+                    style: const TextStyle(
+                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 22,
                       color: AppColors.goldenColor,
                     ),
                     maxLines: 1,
@@ -115,7 +118,7 @@ class UserRowData extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 20.r,
+                      radius: 25,
                       backgroundColor: color,
                       child: const Icon(
                         Icons.person_4,
@@ -129,7 +132,7 @@ class UserRowData extends StatelessWidget {
                       playerName,
                       style: TextStyle(
                         fontFamily: FontFamilies.typo,
-                        fontSize: 12.sp,
+                        fontSize: 12,
                         color: color,
                       ),
                       maxLines: 1,
@@ -144,7 +147,7 @@ class UserRowData extends StatelessWidget {
                   playerScore.toString(),
                   style: TextStyle(
                     fontFamily: FontFamilies.dastnevis,
-                    fontSize: 30.sp,
+                    fontSize: 30,
                     color: color,
                   ),
                 ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
@@ -24,8 +23,8 @@ class GlobalActivityButton extends StatelessWidget {
         ),
         child: Image.asset(
           icon,
-          width: 50.w,
-          height: 50.w,
+          width: 50,
+          height: 50,
           color: AppColors.lightColor,
         ),
       ),

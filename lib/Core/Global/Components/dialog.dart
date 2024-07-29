@@ -27,20 +27,20 @@ class DialogComponent {
               Center(
                 child: Text(
                   title,
-                  style: TextStyle(fontSize: 12.sp),
+                  style: const TextStyle(fontSize: 12),
                 ),
               ),
-              SizedBox(
-                height: 20.h,
+              const SizedBox(
+                height: 20,
               ),
               Center(
                 child: Text(
                   message,
-                  style: TextStyle(fontSize: 20.sp),
+                  style: const TextStyle(fontSize: 20),
                 ),
               ),
-              SizedBox(
-                height: 20.h,
+              const SizedBox(
+                height: 20,
               ),
               InkWell(
                 onTap: () {
@@ -52,14 +52,14 @@ class DialogComponent {
                     color: AppColors.blueWarmColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text(
+                  child: const Text(
                     'باشه',
-                    style: TextStyle(fontSize: 18.sp, color: Colors.white),
+                    style: TextStyle(fontSize: 18, color: Colors.white),
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10.h,
+              const SizedBox(
+                height: 10,
               ),
             ],
           ),
@@ -83,6 +83,8 @@ class DialogComponent {
         backgroundColor: Colors.transparent,
         child: Container(
           padding: AppSpacings.s20All,
+          width: Get.size.width.w.clamp(100, GeneralGameConsts.maxGameWidth),
+          height: Get.size.height * 3 / 10,
           decoration: BoxDecoration(
             color: AppColors.lightColor,
             borderRadius: BorderRadius.circular(20),
@@ -102,7 +104,7 @@ class DialogComponent {
                   Text(
                     title,
                     style: TextStyle(
-                      fontSize: 13.sp,
+                      fontSize: 13,
                       foreground: Paint()
                         ..strokeWidth = 2
                         ..color = Colors.black
@@ -115,17 +117,17 @@ class DialogComponent {
                         children: [
                           Image.asset(
                             GeneralIcons.cup,
-                            width: 20.w,
-                            height: 20.w,
+                            width: 20,
+                            height: 20,
                             color: AppColors.goldenColor,
                           ),
                           const SizedBox(width: 1),
                           Text(
                             cup.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: FontFamilies.dastnevis,
                               color: AppColors.goldenColor,
-                              fontSize: 20.sp,
+                              fontSize: 20,
                             ),
                             textDirection: TextDirection.ltr,
                           )
@@ -137,17 +139,17 @@ class DialogComponent {
                       children: [
                         Image.asset(
                           GeneralIcons.coin,
-                          width: 20.w,
-                          height: 20.w,
+                          width: 20,
+                          height: 20,
                           color: AppColors.goldenColor,
                         ),
                         const SizedBox(width: 1),
                         Text(
                           coin.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: FontFamilies.dastnevis,
                             color: AppColors.goldenColor,
-                            fontSize: 20.sp,
+                            fontSize: 20,
                           ),
                           textDirection: TextDirection.ltr,
                         )
@@ -158,17 +160,17 @@ class DialogComponent {
                       children: [
                         Image.asset(
                           GeneralIcons.star,
-                          width: 20.w,
-                          height: 20.w,
+                          width: 20,
+                          height: 20,
                           color: AppColors.goldenColor,
                         ),
                         const SizedBox(width: 1),
                         Text(
                           star.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontFamily: FontFamilies.dastnevis,
                             color: AppColors.goldenColor,
-                            fontSize: 20.sp,
+                            fontSize: 20,
                           ),
                           textDirection: TextDirection.ltr,
                         )
@@ -176,33 +178,36 @@ class DialogComponent {
                     ),
                 ],
               ),
-              SizedBox(height: 15.h),
+              const SizedBox(height: 15),
               Row(
                 children: [
                   Expanded(
-                    flex: 3,
                     child: Text(
                       message,
                       style: TextStyle(
-                        fontSize: 22.sp,
+                        fontSize: 22,
                         foreground: Paint()
                           ..strokeWidth = 1.5
                           ..color = Colors.black
                           ..style = PaintingStyle.stroke,
                       ),
+                      maxLines: 2,
                     ),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: Image.asset(
-                      icon,
-                      color: iconColor,
-                    ),
+                  Image.asset(
+                    icon,
+                    color: iconColor,
+                    width: Get.size.width.w
+                            .clamp(100, GeneralGameConsts.maxGameWidth) /
+                        5,
+                    height: Get.size.width.w
+                            .clamp(100, GeneralGameConsts.maxGameWidth) /
+                        5,
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10.h,
+              const SizedBox(
+                height: 10,
               ),
               SizedBox(
                 width: Get.size.width / 2,
@@ -235,6 +240,8 @@ class DialogComponent {
         backgroundColor: Colors.transparent,
         child: Container(
           padding: AppSpacings.s20All,
+          width: Get.size.width.w.clamp(100, GeneralGameConsts.maxGameWidth),
+          height: Get.size.height / 4,
           decoration: BoxDecoration(
             color: AppColors.lightColor,
             borderRadius: BorderRadius.circular(20),
@@ -259,7 +266,11 @@ class DialogComponent {
                         Text(
                           title,
                           style: TextStyle(
-                            fontSize: 12.sp,
+                            fontSize: 12,
+                            foreground: Paint()
+                              ..strokeWidth = 2
+                              ..color = Colors.black
+                              ..style = PaintingStyle.stroke,
                           ),
                         ),
                         SizedBox(
@@ -267,8 +278,8 @@ class DialogComponent {
                         ),
                         Text(
                           message,
-                          style: TextStyle(
-                            fontSize: 20.sp,
+                          style: const TextStyle(
+                            fontSize: 20,
                           ),
                         ),
                       ],
@@ -279,12 +290,18 @@ class DialogComponent {
                     child: Image.asset(
                       icon,
                       color: iconColor,
+                      width: Get.size.width.w
+                              .clamp(100, GeneralGameConsts.maxGameWidth) /
+                          5,
+                      height: Get.size.width.w
+                              .clamp(100, GeneralGameConsts.maxGameWidth) /
+                          5,
                     ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 20.h,
+              const SizedBox(
+                height: 20,
               ),
               Row(
                 children: [
@@ -294,7 +311,7 @@ class DialogComponent {
                       text: AppTexts.accept.tr,
                     ),
                   ),
-                  SizedBox(width: 4.w),
+                  const SizedBox(width: 4),
                   Expanded(
                     child: GlobalButtonWidget(
                       onTap: onCancelTap,

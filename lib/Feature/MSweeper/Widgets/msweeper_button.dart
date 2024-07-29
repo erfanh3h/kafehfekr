@@ -66,7 +66,8 @@ class MSweeperButton extends StatelessWidget {
                               ? Text(
                                   peaceData.value.toString(),
                                   style: const TextStyle(
-                                    fontFamily: FontFamilies.typo,
+                                    fontFamily: FontFamilies.dastnevis,
+                                    fontSize: 20,
                                   ),
                                 )
                               : Container(),

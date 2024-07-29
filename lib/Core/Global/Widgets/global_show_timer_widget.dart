@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:refreshed/refreshed.dart';
@@ -37,15 +37,16 @@ class GlobalShowTimerWidget extends StatelessWidget {
               controller.timerLabel.value,
               style: TextStyle(
                 color: color ?? AppColors.darkColor,
-                fontSize: 18.sp,
+                fontFamily: FontFamilies.dastnevis,
+                fontSize: 15,
               ),
             ),
-            SizedBox(width: 3.w),
+            const SizedBox(width: 3),
             Image.asset(
               GeneralIcons.timeCounter,
               color: color ?? AppColors.darkColor,
-              width: 24.w,
-              height: 24.w,
+              width: 20,
+              height: 20,
             ),
           ],
         ),
