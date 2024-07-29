@@ -274,7 +274,7 @@ class MillController extends BaseController {
   }
 
   void onEachButtonTap(MillPeaceModel peace) {
-    Get.find<SoundPlayerComponent>().playExplode();
+    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.explode);
     if (!canSelectPeace.value) {
       // print("not your turn");
       return;

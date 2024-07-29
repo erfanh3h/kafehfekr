@@ -70,8 +70,6 @@ flutter:
     - assets/Images/
     - assets/Fonts/
     - assets/Sounds/
-    - assets/Sounds/Explode/
-    - assets/Sounds/Tap/
     - assets/Icons/Reactions/
     - assets/Icons/General/
     - assets/Icons/Dice/

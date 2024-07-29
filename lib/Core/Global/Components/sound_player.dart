@@ -1,22 +1,68 @@
-import 'dart:math';
-
 import 'package:just_audio/just_audio.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Resources/app_sounds.dart';
+
+enum GameSoundTypes {
+  addPeace,
+  explode,
+  missTurn,
+  movePeace,
+  removePeace,
+  startGame,
+  startTurn,
+  tap,
+  tapButton,
+  tapWrong,
+  time
+}
 
 class SoundPlayerComponent extends GlobalController {
   final _actionPlayer = AudioPlayer();
   final _musicPlayer = AudioPlayer();
 
-  void playExplode() {
-    int index = Random().nextInt(AppSounds.explodes.length);
-    _actionPlayer.setAsset(AppSounds.explodes[index],preload: false).then((_) {
+  void playGameSound(GameSoundTypes soundType) {
+    String sound = "";
+    switch (soundType) {
+      case GameSoundTypes.addPeace:
+        sound = AppSounds.addPeace;
+        break;
+      case GameSoundTypes.explode:
+        sound = AppSounds.explode;
+        break;
+      case GameSoundTypes.missTurn:
+        sound = AppSounds.missTurn;
+        break;
+      case GameSoundTypes.movePeace:
+        sound = AppSounds.movePeace;
+        break;
+      case GameSoundTypes.removePeace:
+        sound = AppSounds.removePeace;
+        break;
+      case GameSoundTypes.startGame:
+        sound = AppSounds.startGame;
+        break;
+      case GameSoundTypes.startTurn:
+        sound = AppSounds.startTurn;
+        break;
+      case GameSoundTypes.tap:
+        sound = AppSounds.tap;
+        break;
+      case GameSoundTypes.tapButton:
+        sound = AppSounds.tapButton;
+        break;
+      case GameSoundTypes.tapWrong:
+        sound = AppSounds.tapWrong;
+        break;
+      case GameSoundTypes.time:
+        sound = AppSounds.time;
+        break;
+
+      default:
+        sound = AppSounds.addPeace;
+    }
+    _actionPlayer.setAsset(sound, preload: false).then((_) {
       _actionPlayer.play();
     });
-
-    // _musicPlayer.setAsset(AppSounds.explodes[index],preload: false).then((_) {
-    //   _musicPlayer.play();
-    // });
   }
 
   @override
