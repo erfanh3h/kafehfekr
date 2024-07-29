@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -19,8 +18,11 @@ class RPCPlayerDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Padding(
+      () => Container(
         padding: AppSpacings.s10Horizental,
+        constraints: const BoxConstraints(
+          maxWidth: GeneralGameConsts.maxGameWidth,
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -35,20 +37,19 @@ class RPCPlayerDataWidget extends StatelessWidget {
             ),
             Container(
               margin: AppSpacings.s10Horizental,
-              width: 90.w,
+              width: 100,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  const GlobalShowTimerWidget(),
                   Text(
                     "${controller.maxTurnRound} / ${controller.currentTurnRound.value}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: FontFamilies.dastnevis,
-                      fontSize: 25.sp,
+                      fontSize: 25,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 3.h),
-                  const GlobalShowTimerWidget()
                 ],
               ),
             ),
@@ -115,21 +116,21 @@ class UserRowData extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 20.r,
+                      radius: 25,
                       backgroundColor: color,
                       child: const Icon(
                         Icons.person_2,
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(
-                      height: 3.h,
+                    const SizedBox(
+                      height: 3,
                     ),
                     Text(
                       playerName,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: FontFamilies.typo,
-                        fontSize: 12.sp,
+                        fontSize: 12,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -145,7 +146,7 @@ class UserRowData extends StatelessWidget {
                     playerRoundScore.toString(),
                     style: TextStyle(
                       fontFamily: FontFamilies.dastnevis,
-                      fontSize: 30.sp,
+                      fontSize: 30,
                       color: color,
                     ),
                   ),
@@ -153,13 +154,13 @@ class UserRowData extends StatelessWidget {
                     playerTotalScore.toString(),
                     style: TextStyle(
                       fontFamily: FontFamilies.dastnevis,
-                      fontSize: 20.sp,
+                      fontSize: 20,
                       color: color,
                     ),
                   ),
                 ],
               ),
-              SizedBox(width: 5.w),
+              const SizedBox(width: 5),
             ],
           ),
         ],

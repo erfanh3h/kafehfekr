@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Mill/Controllers/mill_controller.dart';
@@ -30,135 +29,135 @@ class MillBoardWidget extends StatelessWidget {
     return Obx(() {
       return Container(
         padding: AppSpacings.s5All,
-        height: Get.size.width * .95,
-        width: Get.size.width * .95,
+        height: 300,
+        width: 300,
         child: Stack(
           children: [
             Positioned(
-              top: 45.w,
-              left: 13.w,
+              top: 40,
+              left: 13,
               child: SizedBox(
-                height: 110.w,
+                height: 90,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 180.w,
-              left: 13.w,
+              bottom: 40,
+              left: 13,
               child: SizedBox(
-                height: 110.w,
+                height: 90,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 45.w,
-              right: 13.w,
+              top: 40,
+              right: 13,
               child: SizedBox(
-                height: 110.w,
+                height: 90,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 180.w,
-              right: 13.w,
+              bottom: 40,
+              right: 13,
               child: SizedBox(
-                height: 110.w,
+                height: 90,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 90.w,
-              left: 70.w,
+              top: 80,
+              left: 57,
               child: SizedBox(
-                height: 60.w,
+                height: 50,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 180.w,
-              left: 70.w,
+              bottom: 80,
+              left: 57,
               child: SizedBox(
-                height: 65.w,
+                height: 50,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 90.w,
-              right: 70.w,
+              top: 80,
+              right: 57,
               child: SizedBox(
-                height: 60.w,
+                height: 50,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 180.w,
-              right: 70.w,
+              bottom: 80,
+              right: 57,
               child: SizedBox(
-                height: 65.w,
+                height: 50,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 138.w,
-              right: 120.w,
+              top: 40,
+              left: 140,
               child: SizedBox(
-                height: 15.w,
+                height: 8,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 181.w,
-              right: 120.w,
+              top: 80,
+              left: 140,
               child: SizedBox(
-                height: 15.w,
+                height: 8,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 138.w,
-              left: 120.w,
+              bottom: 40,
+              left: 140,
               child: SizedBox(
-                height: 15.w,
+                height: 8,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 181.w,
-              left: 120.w,
+              bottom: 80,
+              left: 140,
               child: SizedBox(
-                height: 15.w,
+                height: 8,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 45.w,
-              left: 162.w,
+              top: 120,
+              left: 98,
               child: SizedBox(
-                height: 15.w,
+                height: 8,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              top: 90.w,
-              left: 162.w,
+              top: 162,
+              left: 98,
               child: SizedBox(
-                height: 15.w,
+                height: 8,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              bottom: 45.w,
-              left: 162.w,
+              top: 120,
+              right: 98,
               child: SizedBox(
-                height: 15.w,
+                height: 8,
                 child: verticalDivider,
               ),
             ),
             Positioned(
-              bottom: 90.w,
-              left: 162.w,
+              top: 162,
+              right: 98,
               child: SizedBox(
-                height: 15.w,
+                height: 8,
                 child: verticalDivider,
               ),
             ),
@@ -213,7 +212,7 @@ class MillBoardWidget extends StatelessWidget {
                       onTap: controller.onEachButtonTap,
                     ),
                     SizedBox(
-                      width: 5.w,
+                      width: 5,
                       child: horizentalDivider,
                     ),
                     MillButton(
@@ -221,7 +220,7 @@ class MillBoardWidget extends StatelessWidget {
                       onTap: controller.onEachButtonTap,
                     ),
                     SizedBox(
-                      width: 5.w,
+                      width: 5,
                       child: horizentalDivider,
                     ),
                     MillButton(
@@ -247,7 +246,7 @@ class MillBoardWidget extends StatelessWidget {
                       peaceData: controller.peaces[11].value,
                       onTap: controller.onEachButtonTap,
                     ),
-                    const Spacer(flex: 5),
+                    const SizedBox(width: 50),
                     MillButton(
                       peaceData: controller.peaces[12].value,
                       onTap: controller.onEachButtonTap,
@@ -271,12 +270,12 @@ class MillBoardWidget extends StatelessWidget {
                       peaceData: controller.peaces[15].value,
                       onTap: controller.onEachButtonTap,
                     ),
-                    SizedBox(width: 5.w, child: horizentalDivider),
+                    SizedBox(width: 5, child: horizentalDivider),
                     MillButton(
                       peaceData: controller.peaces[16].value,
                       onTap: controller.onEachButtonTap,
                     ),
-                    SizedBox(width: 5.w, child: horizentalDivider),
+                    SizedBox(width: 5, child: horizentalDivider),
                     MillButton(
                       peaceData: controller.peaces[17].value,
                       onTap: controller.onEachButtonTap,

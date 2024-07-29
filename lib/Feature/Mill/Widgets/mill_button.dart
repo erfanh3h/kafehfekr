@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -46,8 +45,8 @@ class MillButton extends StatelessWidget {
         onTap(peaceData);
       },
       child: Container(
-        width: 35.w,
-        height: 35.w,
+        width: 35,
+        height: 35,
         decoration: BoxDecoration(
             color: AppColors.lightColor,
             border: Border.all(

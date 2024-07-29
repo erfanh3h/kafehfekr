@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -19,8 +18,11 @@ class MillPlayerDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Padding(
+      () => Container(
         padding: AppSpacings.s10Horizental,
+        constraints: const BoxConstraints(
+          maxWidth: GeneralGameConsts.maxGameWidth,
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -34,7 +36,7 @@ class MillPlayerDataWidget extends StatelessWidget {
             ),
             Container(
               padding: AppSpacings.s10Horizental,
-              width: 100.w,
+              width: 100,
               child: GlobalShowTimerWidget(
                 color: controller.returnTimerColor(),
               ),
@@ -75,6 +77,9 @@ class UserRowData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: AppSpacings.s5All,
+      constraints: const BoxConstraints(
+        maxWidth: GeneralGameConsts.maxGameWidth,
+      ),
       decoration: BoxDecoration(
         color: AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
@@ -97,7 +102,7 @@ class UserRowData extends StatelessWidget {
               Flexible(
                 flex: 1,
                 child: CircleAvatar(
-                  radius: 20.r,
+                  radius: 25,
                   backgroundColor: color,
                   child: const Icon(
                     Icons.person_4,
@@ -111,7 +116,7 @@ class UserRowData extends StatelessWidget {
                   playerName,
                   style: TextStyle(
                     fontFamily: FontFamilies.typo,
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     color: color,
                   ),
                   overflow: TextOverflow.ellipsis,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/RPC/Controllers/rpc_controller.dart';
@@ -21,9 +21,11 @@ class RPCMainWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: AppSpacings.s20All,
-        width: Get.size.width * .95,
-        height: Get.size.width * .95,
+        padding: AppSpacings.s10All,
+        height:
+            (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
+        width:
+            (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
         child: Obx(
           () => controller.peaceSelected.value
               ? (controller.player1SelectedPeace.value != null &&
@@ -38,7 +40,7 @@ class RPCMainWidget extends StatelessWidget {
                                 controller.isThisGamerIdThisTurnRoundWinner(1),
                           ),
                         ),
-                        SizedBox(width: 40.w),
+                        const SizedBox(width: 40),
                         Expanded(
                           child: RpcLogPeace(
                             peaceType: controller.player2SelectedPeace.value!,
@@ -52,9 +54,9 @@ class RPCMainWidget extends StatelessWidget {
                   : Center(
                       child: Text(
                         AppTexts.wait.tr,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: AppColors.peaceBorderColor,
-                          fontSize: 22.sp,
+                          fontSize: 22,
                         ),
                       ),
                     )
@@ -65,12 +67,12 @@ class RPCMainWidget extends StatelessWidget {
                     children: [
                       Text(
                         AppTexts.selectOneOption.tr,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: AppColors.peaceBorderColor,
-                          fontSize: 16.sp,
+                          fontSize: 16,
                         ),
                       ),
-                      SizedBox(height: 15.h),
+                      const SizedBox(height: 15),
                       GridView.builder(
                         shrinkWrap: true,
                         gridDelegate:
@@ -87,9 +89,9 @@ class RPCMainWidget extends StatelessWidget {
                         ),
                         itemCount: controller.peaces.length,
                       ),
-                      SizedBox(height: 20.h),
+                      const SizedBox(height: 20),
                       SizedBox(
-                        height: 40.h,
+                        height: 40,
                         child: GlobalButtonWidget(
                           onTap: controller.acceptSelection,
                           text: AppTexts.accept.tr,

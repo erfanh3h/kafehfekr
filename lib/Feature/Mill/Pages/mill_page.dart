@@ -1,4 +1,3 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
@@ -16,6 +15,7 @@ class MillPage extends BaseView<MillController> {
   @override
   Widget body(BuildContext context) {
     return Container(
+      width: double.maxFinite,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(AppImages.background1),
@@ -27,7 +27,7 @@ class MillPage extends BaseView<MillController> {
         children: [
           const Spacer(flex: 1),
           SizedBox(
-            height: 70.h,
+            height: 80,
             child: controller.players.length > 1
                 ? MillPlayerDataWidget(controller: controller)
                 : Container(),

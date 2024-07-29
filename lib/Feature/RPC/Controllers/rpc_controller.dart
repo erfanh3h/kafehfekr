@@ -133,13 +133,9 @@ class RPCController extends BaseController {
     changetimerValue(GameWaitTimes.rpcRoundTime);
   }
 
-  addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
-    for (var i = 0; i < peaces.length; i++) {
-      if (peaces[i].value.id == peaceId) {
-        peaces.value[i].value = peaces.value[i].value.addStatus(status: status);
-        break;
-      }
-    }
+  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+    peaces.value[peaceId].value =
+        peaces.value[peaceId].value.addStatus(status: status);
   }
 
   clearStatusFromPeaces(PeaceStatusTypes status) {
