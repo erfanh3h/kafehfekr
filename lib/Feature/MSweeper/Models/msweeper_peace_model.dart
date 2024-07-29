@@ -13,6 +13,34 @@ class MSweeperPeaceModel extends PeaceModel {
   int? value;
   List<MineSweeperStatusTypes> sweeperStatuses;
 
+  factory MSweeperPeaceModel.fromJson(Map data, int id) {
+    List<PeaceStatusTypes> peaceStatusList = [];
+    List<MineSweeperStatusTypes> sweeperStatusList = [];
+    int? newValue;
+    if (data['selected']) {
+      peaceStatusList.add(PeaceStatusTypes.selected);
+      newValue = data['value'];
+    }
+    if (data['correctly_selected_mine']) {
+      sweeperStatusList.add(MineSweeperStatusTypes.isCorrectlySelectedAsMine);
+    }
+    if (data['wrongly_selected_mine']) {
+      sweeperStatusList.add(MineSweeperStatusTypes.isWronglySelectedAsMine);
+    }
+    if (data['hitted_mine']) {
+      sweeperStatusList.add(MineSweeperStatusTypes.isExplodedMine);
+    }
+    if (data['mine']) {
+      newValue = -1;
+      sweeperStatusList.add(MineSweeperStatusTypes.isMine);
+    }
+    return MSweeperPeaceModel(
+      id: id,
+      currentStatuses: peaceStatusList,
+      sweeperStatuses: sweeperStatusList,
+      value: newValue,
+    );
+  }
   MSweeperPeaceModel changeValue({
     int? newValue,
   }) {
@@ -28,7 +56,7 @@ class MSweeperPeaceModel extends PeaceModel {
   MSweeperPeaceModel addSweeperStatus({
     required MineSweeperStatusTypes newStatus,
   }) {
-    List<MineSweeperStatusTypes> newSweeperStatuses =[];
+    List<MineSweeperStatusTypes> newSweeperStatuses = [];
     for (var status in sweeperStatuses) {
       newSweeperStatuses.add(status);
     }
@@ -43,7 +71,7 @@ class MSweeperPeaceModel extends PeaceModel {
   MSweeperPeaceModel removeSweeperStatus({
     required MineSweeperStatusTypes newStatus,
   }) {
-    List<MineSweeperStatusTypes> newSweeperStatuses =[];
+    List<MineSweeperStatusTypes> newSweeperStatuses = [];
     for (var status in sweeperStatuses) {
       newSweeperStatuses.add(status);
     }

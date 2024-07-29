@@ -178,20 +178,23 @@ class MSweeperController extends BaseController {
     List boardData = gameData['board'];
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
+    selectPeaceRemainingCount.value = gameData["remaining_selectable_peaces"];
+    selectMineRemainingCount.value = gameData["remaining_selectable_mines"];
+    if (selectMineRemainingCount.value > 0) {
+      canSelectMine.value = true;
+    }
+    if (selectPeaceRemainingCount.value > 0) {
+      canSelectPeace.value = true;
+    }
     for (var gamerData in gamers) {
       players.add(Rx(PlayerModel.fromJson(gamerData)));
     }
     for (var i = 0; i < boardData.length; i++) {
-      if (boardData[i] == 0) {
-        continue;
-      }
-      peaces[i].value = peaces[i].value.changeValue(newValue: boardData[i]);
+      print(boardData[i]);
+      peaces[i].value = MSweeperPeaceModel.fromJson(boardData[i], i);
     }
-    if (timerData['is_user_turn']) {
-      final int time =
-          GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
-      changetimerValue(time.clamp(0, time));
-    }
+    final int time = GameWaitTimes.msweeperGameTime - timerData['time'] as int;
+    changetimerValue(time.clamp(0, time));
   }
 
   changePlayerReaction(int? playerId, int? reactionId, {int? removeTimer}) {
