@@ -57,7 +57,7 @@ class MSweeperPage extends BaseView<MSweeperController> {
             ),
           ),
           Expanded(
-            flex: 4,
+            flex: 3,
             child: GlobalActivityBox(
               surrenderFunction: controller.surrenderFnction,
               reactionFunction: controller.showReactionBox,

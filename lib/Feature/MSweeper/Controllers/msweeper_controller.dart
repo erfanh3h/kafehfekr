@@ -33,8 +33,8 @@ class MSweeperController extends BaseController {
   RxInt player1Score = RxInt(0);
   RxInt player2Score = RxInt(0);
 
-  RxInt selectPeaceRemainingCount = RxInt(52);
-  RxInt selectMineRemainingCount = RxInt(12);
+  RxInt selectPeaceRemainingCount = RxInt(54);
+  RxInt selectMineRemainingCount = RxInt(10);
 
   RxBool isBombHitted = RxBool(false);
 
@@ -80,6 +80,7 @@ class MSweeperController extends BaseController {
         Map peaceData = data['data'];
         int peaceId = peaceData['peace_number'];
         addSweeperPeaceStatus(peaceId, MineSweeperStatusTypes.isExplodedMine);
+        addSweeperPeaceStatus(peaceId, MineSweeperStatusTypes.isMine);
         removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
         selectPeaceRemainingCount.value = 0;
         selectMineRemainingCount.value = 0;
@@ -92,6 +93,7 @@ class MSweeperController extends BaseController {
         int peaceId = peaceData['peace_number'];
         addSweeperPeaceStatus(
             peaceId, MineSweeperStatusTypes.isCorrectlySelectedAsMine);
+        addSweeperPeaceStatus(peaceId, MineSweeperStatusTypes.isMine);
         removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
         addPeaceStatus(peaceId, PeaceStatusTypes.selected);
         selectMineRemainingCount.value -= 1;
@@ -214,11 +216,18 @@ class MSweeperController extends BaseController {
 
   void onEachButtonTap(MSweeperPeaceModel peace) {
     if (!canSelectPeace.value) {
-      // print("not your turn");
       return;
     }
-    if (peace.value != null) {
-      // print("selected before !");
+    if (!canSelectMine.value) {
+      return;
+    }
+    if (peace.value != null ||
+        peace.sweeperStatuses.contains(
+          MineSweeperStatusTypes.isMine,
+        ) ||
+        peace.sweeperStatuses.contains(
+          MineSweeperStatusTypes.isWronglySelectedAsMine,
+        )) {
       return;
     }
     sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
@@ -227,11 +236,10 @@ class MSweeperController extends BaseController {
 
   void onEachButtonHold(MSweeperPeaceModel peace) {
     if (!canSelectMine.value) {
-      // print("not your turn");
       return;
     }
-    if (peace.value != null) {
-      // print("selected before !");
+    if (peace.value != null ||
+        peace.currentStatuses.contains(PeaceStatusTypes.selected)) {
       return;
     }
     sendCommand({"id": GameCommands.selectMine, "data": peace.id});

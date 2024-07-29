@@ -4,7 +4,6 @@ import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
-import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/MSweeper/Models/enums.dart';
 import 'package:kafehfekr/Feature/MSweeper/Models/msweeper_peace_model.dart';
 
@@ -24,7 +23,13 @@ class MSweeperButton extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isSelectedAsBombCorrect = peaceData.sweeperStatuses
         .contains(MineSweeperStatusTypes.isCorrectlySelectedAsMine);
-    Color? imageColor = AppColors.goldenColor;
+    bool isSelectedAsBombWrong = peaceData.sweeperStatuses
+        .contains(MineSweeperStatusTypes.isWronglySelectedAsMine);
+    bool isLoading =
+        peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading);
+    bool isExplodedMine = peaceData.sweeperStatuses
+        .contains(MineSweeperStatusTypes.isExplodedMine);
+    Color? borderColor = AppColors.goldenColor;
     return GestureDetector(
       onTap: () {
         onTap(peaceData);
@@ -33,28 +38,38 @@ class MSweeperButton extends StatelessWidget {
         onHold(peaceData);
       },
       child: Container(
-        padding: AppSpacings.s5All,
+        // padding: AppSpacings.s5All,
         decoration: BoxDecoration(
           color: AppColors.lightColor2,
-          border: Border.all(color: imageColor, width: 2),
+          border: Border.all(color: borderColor, width: 1.5),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Center(
-          child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
+          child: isLoading
               ? const GlobalLoadingWidget()
-              : peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)
+              : isExplodedMine
                   ? Image.asset(
-                      GeneralIcons.first,
-                      color: imageColor,
+                      GeneralIcons.bombExplode,
+                      color: AppColors.buttonRed,
                     )
-                  : peaceData.value != null
-                      ? Text(
-                          peaceData.value.toString(),
-                          style: const TextStyle(
-                            fontFamily: FontFamilies.typo,
-                          ),
+                  : isSelectedAsBombWrong
+                      ? Image.asset(
+                          GeneralIcons.cross,
+                          color: AppColors.buttonRed,
                         )
-                      : Container(),
+                      : isSelectedAsBombCorrect
+                          ? Image.asset(
+                              GeneralIcons.bomb,
+                              color: AppColors.buttonGreen,
+                            )
+                          : peaceData.value != null
+                              ? Text(
+                                  peaceData.value.toString(),
+                                  style: const TextStyle(
+                                    fontFamily: FontFamilies.typo,
+                                  ),
+                                )
+                              : Container(),
         ),
       ),
     );

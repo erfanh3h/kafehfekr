@@ -35,8 +35,23 @@ class MSweeperPlayerDataWidget extends StatelessWidget {
             Container(
               padding: AppSpacings.s10Horizental,
               width: 100.w,
-              child: GlobalShowTimerWidget(
-                color: controller.returnTimerColor(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GlobalShowTimerWidget(
+                    color: controller.returnTimerColor(),
+                  ),
+                  Text(
+                    controller.selectMineRemainingCount.value.toString(),
+                    style: TextStyle(
+                      fontFamily: FontFamilies.typo,
+                      fontSize: 18.sp,
+                      color: AppColors.goldenColor,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ),
             Expanded(
