@@ -98,6 +98,8 @@ class MillController extends BaseController {
         currentTurn.value = turn;
         if (turn == myGameId) {
           canSelectPeace.value = true;
+          Get.find<SoundPlayerComponent>()
+              .playGameSound(GameSoundTypes.startTurn);
         } else {
           canSelectPeace.value = false;
         }
@@ -247,9 +249,8 @@ class MillController extends BaseController {
       canSelectPeace.value = false;
     }
     if (timerData['is_user_turn']) {
-      final int time =
-          GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
-      changetimerValue(time.clamp(0, time));
+      final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
+      changetimerValue(time.clamp(1, GameWaitTimes.millSelectTime));
     }
   }
 
@@ -274,16 +275,15 @@ class MillController extends BaseController {
   }
 
   void onEachButtonTap(MillPeaceModel peace) {
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.explode);
     if (!canSelectPeace.value) {
-      // print("not your turn");
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
 
     if (letRemovePeace.value) {
       //remove
       if (checkPeaceIsEmpty(peace.id) || peace.selectedUser == myGameId) {
-        // print("wrong selection");
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
         return;
       }
       canSelectPeace.value = false;
@@ -294,12 +294,15 @@ class MillController extends BaseController {
       for (var neighborId in getEnemyPeacesIndexes()) {
         removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
       }
+      Get.find<SoundPlayerComponent>()
+          .playGameSound(GameSoundTypes.removePeace);
     } else {
       if (checkAllOfMyPeacesPlaced()) {
         //swap
         if (equippedPeaceIndex.value == -1) {
           if (peace.selectedUser != myGameId) {
-            // print("selected before !");
+            Get.find<SoundPlayerComponent>()
+                .playGameSound(GameSoundTypes.tapWrong);
             return;
           }
           equippedPeaceIndex.value = peace.id;
@@ -309,17 +312,21 @@ class MillController extends BaseController {
               addPeaceStatus(neighborId, PeaceStatusTypes.canSelected);
             }
           }
+          Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
         } else {
           if (equippedPeaceIndex.value == peace.id) {
-            clearEquipedPeace(peace.id);
+            Get.find<SoundPlayerComponent>()
+                .playGameSound(GameSoundTypes.removePeace);
             return;
           }
           if (!checkPeaceIsEmpty(peace.id)) {
-            // print("selected before !");
+            Get.find<SoundPlayerComponent>()
+                .playGameSound(GameSoundTypes.tapWrong);
             return;
           }
           if (!checkSelectedPeaceIsNeighborOfSource(peace.id)) {
-            // print("not neighbor!");
+            Get.find<SoundPlayerComponent>()
+                .playGameSound(GameSoundTypes.tapWrong);
             return;
           }
           canSelectPeace.value = false;
@@ -333,16 +340,20 @@ class MillController extends BaseController {
           addPeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.isLoading);
           addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
           clearEquipedPeace(equippedPeaceIndex.value);
+          Get.find<SoundPlayerComponent>()
+              .playGameSound(GameSoundTypes.movePeace);
         }
       } else {
         //normal select
         if (!checkPeaceIsEmpty(peace.id)) {
-          // print("selected before !");
+          Get.find<SoundPlayerComponent>()
+              .playGameSound(GameSoundTypes.tapWrong);
           return;
         }
         canSelectPeace.value = false;
         sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
         addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
       }
     }
 
@@ -491,14 +502,14 @@ class MillController extends BaseController {
         dialogMessage = AppTexts.youWinGame.tr;
         dialogIcon = GeneralIcons.win;
         dialogColor = AppColors.winColor;
-        cup = CupsCount.tictactoeWin;
-        coin = CoinsCount.tictactoeWin;
+        cup = CupsCount.millWin;
+        coin = CoinsCount.millWin;
       } else {
         dialogMessage = AppTexts.youLoseGame.tr;
         dialogIcon = GeneralIcons.lose;
         dialogColor = AppColors.loseColor;
-        cup = CupsCount.tictactoeLose;
-        coin = CoinsCount.tictactoeLose;
+        cup = CupsCount.millLose;
+        coin = CoinsCount.millLose;
       }
       DialogComponent().showIconicDialog(
         AppTexts.endGame.tr,
@@ -522,14 +533,14 @@ class MillController extends BaseController {
       dialogMessage = AppTexts.youSurrenderGame.tr;
       dialogIcon = GeneralIcons.lose;
       dialogColor = AppColors.loseColor;
-      cup = CupsCount.tictactoeLose;
-      coin = CoinsCount.tictactoeLose;
+      cup = CupsCount.millLose;
+      coin = CoinsCount.millLose;
     } else {
       dialogMessage = AppTexts.enemySurrenderGame.tr;
       dialogIcon = GeneralIcons.win;
       dialogColor = AppColors.winColor;
-      cup = CupsCount.tictactoeWin;
-      coin = CoinsCount.tictactoeWin;
+      cup = CupsCount.millWin;
+      coin = CoinsCount.millWin;
     }
     DialogComponent().showIconicDialog(
       AppTexts.endGame.tr,

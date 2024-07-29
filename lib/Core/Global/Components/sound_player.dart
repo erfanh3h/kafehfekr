@@ -21,6 +21,7 @@ class SoundPlayerComponent extends GlobalController {
   final _musicPlayer = AudioPlayer();
 
   void playGameSound(GameSoundTypes soundType) {
+    return;
     String sound = "";
     switch (soundType) {
       case GameSoundTypes.addPeace:
@@ -60,14 +61,14 @@ class SoundPlayerComponent extends GlobalController {
       default:
         sound = AppSounds.addPeace;
     }
-    _actionPlayer.setAsset(sound, preload: false).then((_) {
+    _actionPlayer.setAsset(sound).then((_) {
       _actionPlayer.play();
     });
   }
 
   @override
   void onInit() {
-    _actionPlayer.setVolume(.25);
+    _actionPlayer.setVolume(.2);
     _musicPlayer.setLoopMode(LoopMode.all);
     super.onInit();
   }

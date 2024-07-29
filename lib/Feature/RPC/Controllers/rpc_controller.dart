@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reactions_box.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
@@ -68,6 +69,7 @@ class RPCController extends BaseController {
         getReconnectData(newData);
         break;
       case GameCommands.newTurnRound:
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
         resetPeaces();
         break;
       case GameCommands.finishTurnRound:
@@ -193,6 +195,7 @@ class RPCController extends BaseController {
     clearStatusFromPeaces(PeaceStatusTypes.selected);
     addPeaceStatus(peace.id, PeaceStatusTypes.selected);
     selectedPeace.value = peace.peaceType;
+    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
     // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
   }
 

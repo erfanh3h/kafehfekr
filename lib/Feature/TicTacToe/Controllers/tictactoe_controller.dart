@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reactions_box.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
@@ -62,6 +63,8 @@ class TicTacToeController extends BaseController {
         currentTurn.value = turn;
         if (turn == myGameId) {
           canSelectPeace.value = true;
+          Get.find<SoundPlayerComponent>()
+              .playGameSound(GameSoundTypes.startTurn);
         } else {
           canSelectPeace.value = false;
         }
@@ -195,16 +198,17 @@ class TicTacToeController extends BaseController {
 
   void onEachButtonTap(TicTacToePeaceModel peace) {
     if (!canSelectPeace.value) {
-      // print("not your turn");
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
     if (peace.selectedUser != null) {
-      // print("selected before !");
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
     canSelectPeace.value = false;
     sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
   }
 
   void surrenderFnction() {
