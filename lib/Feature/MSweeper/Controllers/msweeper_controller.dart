@@ -190,7 +190,6 @@ class MSweeperController extends BaseController {
       players.add(Rx(PlayerModel.fromJson(gamerData)));
     }
     for (var i = 0; i < boardData.length; i++) {
-      print(boardData[i]);
       peaces[i].value = MSweeperPeaceModel.fromJson(boardData[i], i);
     }
     final int time = GameWaitTimes.msweeperGameTime - timerData['time'] as int;

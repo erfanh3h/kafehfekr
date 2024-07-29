@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -19,7 +18,10 @@ class TicTacToePlayerDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Padding(
+      () => Container(
+        constraints: const BoxConstraints(
+          maxWidth: GeneralGameConsts.maxGameWidth,
+        ),
         padding: AppSpacings.s10Horizental,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,21 +37,21 @@ class TicTacToePlayerDataWidget extends StatelessWidget {
             ),
             Container(
               padding: AppSpacings.s10Horizental,
-              width: 100.w,
+              width: 100,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  GlobalShowTimerWidget(
+                    color: controller.returnTimerColor(),
+                  ),
                   Text(
                     "${controller.maxRound} / ${controller.currentRound}",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: FontFamilies.dastnevis,
-                      fontSize: 30.sp,
+                      fontSize: 30,
                       color: Colors.white,
                     ),
                   ),
-                  GlobalShowTimerWidget(
-                    color: controller.returnTimerColor(),
-                  )
                 ],
               ),
             ),
@@ -117,21 +119,21 @@ class UserRowData extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircleAvatar(
-                      radius: 20.r,
+                      radius: 25,
                       backgroundColor: color,
                       child: const Icon(
                         Icons.person_4,
                         color: Colors.white,
                       ),
                     ),
-                    SizedBox(
-                      height: 3.h,
+                    const SizedBox(
+                      height: 3,
                     ),
                     Text(
                       playerName,
                       style: TextStyle(
                         fontFamily: FontFamilies.typo,
-                        fontSize: 12.sp,
+                        fontSize: 12,
                         color: color,
                       ),
                       maxLines: 1,
@@ -146,7 +148,7 @@ class UserRowData extends StatelessWidget {
                   playerScore.toString(),
                   style: TextStyle(
                     fontFamily: FontFamilies.dastnevis,
-                    fontSize: 30.sp,
+                    fontSize: 30,
                     color: color,
                   ),
                 ),

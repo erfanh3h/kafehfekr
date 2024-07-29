@@ -2,6 +2,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Controllers/tictactoe_controller.dart';
@@ -36,8 +37,12 @@ class TicTacToePage extends BaseView<TicTacToeController> {
             child: Center(
               child: Container(
                 padding: AppSpacings.s20All,
-                height: Get.size.width * .95,
-                width: Get.size.width * .95,
+                height: (Get.size.width)
+                        .clamp(100, GeneralGameConsts.maxGameWidth) *
+                    .95,
+                width: (Get.size.width)
+                        .clamp(100, GeneralGameConsts.maxGameWidth) *
+                    .95,
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
@@ -56,7 +61,7 @@ class TicTacToePage extends BaseView<TicTacToeController> {
             ),
           ),
           Expanded(
-            flex: 4,
+            flex: 3,
             child: GlobalActivityBox(
               surrenderFunction: controller.surrenderFnction,
               reactionFunction: controller.showReactionBox,
