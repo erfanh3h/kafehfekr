@@ -69,7 +69,8 @@ class RPCController extends BaseController {
         getReconnectData(newData);
         break;
       case GameCommands.newTurnRound:
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+        Get.find<SoundPlayerComponent>()
+            .playGameSound(GameSoundTypes.startTurn);
         resetPeaces();
         break;
       case GameCommands.finishTurnRound:
@@ -247,6 +248,7 @@ class RPCController extends BaseController {
         GeneralIcons.drawRound,
         AppColors.drawColor,
       );
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.draw);
     } else {
       String dialogMessage = "";
       String dialogIcon = "";
@@ -255,10 +257,12 @@ class RPCController extends BaseController {
         dialogMessage = AppTexts.youWinThisRound.tr;
         dialogIcon = GeneralIcons.happy;
         dialogColor = AppColors.winColor;
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
       } else {
         dialogMessage = AppTexts.youLoseThisRound.tr;
         dialogIcon = GeneralIcons.sad;
         dialogColor = AppColors.loseColor;
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
       }
       DialogComponent().showIconicDialog(
         'پایان دور',
@@ -272,6 +276,7 @@ class RPCController extends BaseController {
   void showFinishGameDialog(Map newData) {
     int gameWinner = newData['Winner'] ?? 0;
     if (gameWinner == 0) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.draw);
       DialogComponent().showIconicDialog(
         AppTexts.endGame.tr,
         AppTexts.gameDrawed.tr,
@@ -293,12 +298,14 @@ class RPCController extends BaseController {
         dialogColor = AppColors.winColor;
         cup = CupsCount.tictactoeWin;
         coin = CoinsCount.tictactoeWin;
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
       } else {
         dialogMessage = AppTexts.youLoseGame.tr;
         dialogIcon = GeneralIcons.lose;
         dialogColor = AppColors.loseColor;
         cup = CupsCount.tictactoeLose;
         coin = CoinsCount.tictactoeLose;
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
       }
       DialogComponent().showIconicDialog(
         AppTexts.endGame.tr,
@@ -325,12 +332,14 @@ class RPCController extends BaseController {
       dialogColor = AppColors.loseColor;
       cup = CupsCount.tictactoeLose;
       coin = CoinsCount.tictactoeLose;
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
     } else {
       dialogMessage = AppTexts.enemySurrenderGame.tr;
       dialogIcon = GeneralIcons.win;
       dialogColor = AppColors.winColor;
       cup = CupsCount.tictactoeWin;
       coin = CoinsCount.tictactoeWin;
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
     }
     DialogComponent().showIconicDialog(
       AppTexts.endGame.tr,

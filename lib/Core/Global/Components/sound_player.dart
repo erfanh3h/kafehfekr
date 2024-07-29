@@ -13,7 +13,10 @@ enum GameSoundTypes {
   tap,
   tapButton,
   tapWrong,
-  time
+  time,
+  draw,
+  win,
+  lose
 }
 
 class SoundPlayerComponent extends GlobalController {
@@ -56,6 +59,15 @@ class SoundPlayerComponent extends GlobalController {
         break;
       case GameSoundTypes.time:
         sound = AppSounds.time;
+        break;
+      case GameSoundTypes.draw:
+        sound = AppSounds.draw;
+        break;
+      case GameSoundTypes.win:
+        sound = AppSounds.win;
+        break;
+      case GameSoundTypes.lose:
+        sound = AppSounds.lose;
         break;
 
       default:

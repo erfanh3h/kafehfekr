@@ -492,6 +492,7 @@ class MillController extends BaseController {
         coin: 0,
         cup: 0,
       );
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.draw);
     } else {
       String dialogMessage = "";
       String dialogIcon = "";
@@ -504,12 +505,14 @@ class MillController extends BaseController {
         dialogColor = AppColors.winColor;
         cup = CupsCount.millWin;
         coin = CoinsCount.millWin;
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
       } else {
         dialogMessage = AppTexts.youLoseGame.tr;
         dialogIcon = GeneralIcons.lose;
         dialogColor = AppColors.loseColor;
         cup = CupsCount.millLose;
         coin = CoinsCount.millLose;
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
       }
       DialogComponent().showIconicDialog(
         AppTexts.endGame.tr,
@@ -535,12 +538,14 @@ class MillController extends BaseController {
       dialogColor = AppColors.loseColor;
       cup = CupsCount.millLose;
       coin = CoinsCount.millLose;
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
     } else {
       dialogMessage = AppTexts.enemySurrenderGame.tr;
       dialogIcon = GeneralIcons.win;
       dialogColor = AppColors.winColor;
       cup = CupsCount.millWin;
       coin = CoinsCount.millWin;
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
     }
     DialogComponent().showIconicDialog(
       AppTexts.endGame.tr,

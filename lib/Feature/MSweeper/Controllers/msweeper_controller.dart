@@ -322,6 +322,7 @@ class MSweeperController extends BaseController {
   void showFinishGameDialog(Map newData) {
     int gameWinner = newData['Winner'] ?? 0;
     if (gameWinner == 0) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.draw);
       DialogComponent().showIconicDialog(
         AppTexts.endGame.tr,
         AppTexts.gameDrawed.tr,
@@ -342,12 +343,14 @@ class MSweeperController extends BaseController {
         dialogColor = AppColors.winColor;
         cup = CupsCount.tictactoeWin;
         coin = CoinsCount.tictactoeWin;
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
       } else {
         dialogMessage = AppTexts.youLoseGame.tr;
         dialogIcon = GeneralIcons.lose;
         dialogColor = AppColors.loseColor;
         cup = CupsCount.tictactoeLose;
         coin = CoinsCount.tictactoeLose;
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
       }
       DialogComponent().showIconicDialog(
         AppTexts.endGame.tr,
@@ -373,12 +376,14 @@ class MSweeperController extends BaseController {
       dialogColor = AppColors.loseColor;
       cup = CupsCount.tictactoeLose;
       coin = CoinsCount.tictactoeLose;
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
     } else {
       dialogMessage = AppTexts.enemySurrenderGame.tr;
       dialogIcon = GeneralIcons.win;
       dialogColor = AppColors.winColor;
       cup = CupsCount.tictactoeWin;
       coin = CoinsCount.tictactoeWin;
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
     }
     DialogComponent().showIconicDialog(
       AppTexts.endGame.tr,

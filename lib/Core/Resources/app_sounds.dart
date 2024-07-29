@@ -11,4 +11,7 @@ class AppSounds {
   static const tapButton = '$_baseSound/tap_button.m4a';
   static const tapWrong = '$_baseSound/tap_wrong.m4a';
   static const time = '$_baseSound/time.m4a';
+  static const draw = '$_baseSound/draw.m4a';
+  static const win = '$_baseSound/win.m4a';
+  static const lose = '$_baseSound/lose.m4a';
 }
