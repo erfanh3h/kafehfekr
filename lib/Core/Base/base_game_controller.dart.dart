@@ -26,6 +26,8 @@ class BaseGameController extends BaseController {
   RxInt player2Score = RxInt(0);
   RxInt currentTurn = RxInt(1);
 
+  GameTypes gameType = GameTypes.none;
+
   void commandHandler(dynamic data) {
     final commandId = data['id'];
     switch (commandId) {
@@ -44,8 +46,14 @@ class BaseGameController extends BaseController {
       case GameCommands.newRound:
         newRoundFunction(data);
         break;
+      case GameCommands.newTurnRound:
+        newTurnRoundFunction(data);
+        break;
       case GameCommands.finishRound:
         finishRoundFunction(data);
+        break;
+      case GameCommands.finishTurnRound:
+        finishTurnRoundFunction(data);
         break;
       case GameCommands.finishGame:
         finishGameFunction(data);
@@ -85,7 +93,11 @@ class BaseGameController extends BaseController {
 
   void newRoundFunction(Map data) {}
 
+  void newTurnRoundFunction(Map data) {}
+
   void finishRoundFunction(Map data) {}
+
+  void finishTurnRoundFunction(Map data) {}
 
   void finishGameFunction(Map data) {
     Map newData = data['data'];
@@ -93,7 +105,7 @@ class BaseGameController extends BaseController {
     FunctionsLibraryClass.showFinishGameDialog(
       newData['Winner'],
       myGameId,
-      GameTypes.tictactoe,
+      gameType,
     );
   }
 
@@ -103,7 +115,7 @@ class BaseGameController extends BaseController {
     FunctionsLibraryClass.showSurrenderDialog(
       newData['gamer_id'],
       myGameId,
-      GameTypes.tictactoe,
+      gameType,
     );
   }
 

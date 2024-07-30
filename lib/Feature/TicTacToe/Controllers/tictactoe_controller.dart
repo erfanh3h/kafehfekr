@@ -8,7 +8,6 @@ import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Models/tictactoe_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
-
 class TicTacToeController extends BaseGameController {
   RxList<Rx<TicTacToePeaceModel>> peaces = RxList();
   int maxRound = 2;
@@ -125,6 +124,7 @@ class TicTacToeController extends BaseGameController {
 
   @override
   void onInit() async {
+    gameType = GameTypes.tictactoe;
     Get.find<GameSocketManager>().initSocket(
       commandHandler: commandHandler,
       reactionHandler: reactionHandler,
