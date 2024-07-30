@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reactions_box.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
-import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Models/tictactoe_peace_model.dart';
@@ -96,17 +94,25 @@ class TicTacToeController extends BaseController {
         } else if (roundWinner == 2) {
           player2Score.value += 1;
         }
-        showFinishRoundDialog(roundWinner);
+        FunctionsLibraryClass.showFinishRoundDialog(roundWinner, myGameId);
         break;
       case GameCommands.finishGame:
         Map newData = data['data'];
         Get.find<TimerCompanent>().stopTimer();
-        showFinishGameDialog(newData);
+        FunctionsLibraryClass.showSurrenderDialog(
+          newData['Winner'],
+          myGameId,
+          GameTypes.tictactoe,
+        );
         break;
       case GameCommands.surrender:
         Map newData = data['data'];
         Get.find<TimerCompanent>().stopTimer();
-        showSurrenderDialog(newData);
+        FunctionsLibraryClass.showSurrenderDialog(
+          newData['gamer_id'],
+          myGameId,
+          GameTypes.tictactoe,
+        );
         break;
       default:
     }
@@ -211,22 +217,7 @@ class TicTacToeController extends BaseController {
     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
   }
 
-  void surrenderFnction() {
-    DialogComponent().showIconicSelectionDialog(
-      AppTexts.surrender.tr,
-      AppTexts.wanaSurrenderGame.tr,
-      GeneralIcons.death,
-      AppColors.loseColor,
-      () {
-        Get.find<GameSocketManager>()
-            .sendCommand({"id": GameCommands.surrender});
-        Get.closeAllDialogs();
-      },
-      () {
-        Get.closeAllDialogs();
-      },
-    );
-  }
+  
 
   void showReactionBox() {
     if (letSendReaction.value) {
@@ -239,112 +230,6 @@ class TicTacToeController extends BaseController {
         backgroundColor: AppColors.lightColor,
       );
     }
-  }
-
-  void showFinishRoundDialog(int roundWinner) {
-    if (roundWinner == 0) {
-      DialogComponent().showIconicDialog(
-        AppTexts.endRound.tr,
-        AppTexts.roundDrawed.tr,
-        GeneralIcons.drawRound,
-        AppColors.drawColor,
-      );
-    } else {
-      String dialogMessage = "";
-      String dialogIcon = "";
-      Color dialogColor = Colors.white;
-      if (roundWinner == myGameId) {
-        dialogMessage = AppTexts.youWinThisRound.tr;
-        dialogIcon = GeneralIcons.happy;
-        dialogColor = AppColors.winColor;
-      } else {
-        dialogMessage = AppTexts.youLoseThisRound.tr;
-        dialogIcon = GeneralIcons.sad;
-        dialogColor = AppColors.loseColor;
-      }
-      DialogComponent().showIconicDialog(
-        'پایان دور',
-        dialogMessage,
-        dialogIcon,
-        dialogColor,
-      );
-    }
-  }
-
-  void showFinishGameDialog(Map newData) {
-    int gameWinner = newData['Winner'] ?? 0;
-    if (gameWinner == 0) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.draw);
-      DialogComponent().showIconicDialog(
-        AppTexts.endGame.tr,
-        AppTexts.gameDrawed.tr,
-        GeneralIcons.draw,
-        AppColors.drawColor,
-        coin: 0,
-        cup: 0,
-      );
-    } else {
-      String dialogMessage = "";
-      String dialogIcon = "";
-      Color dialogColor = Colors.white;
-      int cup = 0;
-      int coin = 0;
-      if (gameWinner == myGameId) {
-        dialogMessage = AppTexts.youWinGame.tr;
-        dialogIcon = GeneralIcons.win;
-        dialogColor = AppColors.winColor;
-        cup = CupsCount.tictactoeWin;
-        coin = CoinsCount.tictactoeWin;
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
-      } else {
-        dialogMessage = AppTexts.youLoseGame.tr;
-        dialogIcon = GeneralIcons.lose;
-        dialogColor = AppColors.loseColor;
-        cup = CupsCount.tictactoeLose;
-        coin = CoinsCount.tictactoeLose;
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
-      }
-      DialogComponent().showIconicDialog(
-        AppTexts.endGame.tr,
-        dialogMessage,
-        dialogIcon,
-        dialogColor,
-        coin: coin,
-        cup: cup,
-      );
-    }
-  }
-
-  void showSurrenderDialog(Map newData) {
-    int gamerId = newData['gamer_id'] ?? 1;
-    String dialogMessage = "";
-    String dialogIcon = "";
-    Color dialogColor = Colors.white;
-    int cup = 0;
-    int coin = 0;
-    if (gamerId == myGameId) {
-      dialogMessage = AppTexts.youSurrenderGame.tr;
-      dialogIcon = GeneralIcons.lose;
-      dialogColor = AppColors.loseColor;
-      cup = CupsCount.tictactoeLose;
-      coin = CoinsCount.tictactoeLose;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
-    } else {
-      dialogMessage = AppTexts.enemySurrenderGame.tr;
-      dialogIcon = GeneralIcons.win;
-      dialogColor = AppColors.winColor;
-      cup = CupsCount.tictactoeWin;
-      coin = CoinsCount.tictactoeWin;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
-    }
-    DialogComponent().showIconicDialog(
-      AppTexts.endGame.tr,
-      dialogMessage,
-      dialogIcon,
-      dialogColor,
-      coin: coin,
-      cup: cup,
-    );
   }
 
   void changeShowReactionStatus() {

@@ -1,5 +1,6 @@
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -62,7 +63,7 @@ class MillPage extends BaseView<MillController> {
           Expanded(
             flex: 3,
             child: GlobalActivityBox(
-              surrenderFunction: controller.surrenderFnction,
+              surrenderFunction: FunctionsLibraryClass.surrenderFunction,
               reactionFunction: controller.showReactionBox,
               changeShowReactionFunction: controller.changeShowReactionStatus,
               showReaction: controller.showReactions.value,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reactions_box.dart';
@@ -174,12 +175,20 @@ class MillController extends BaseController {
       case GameCommands.finishGame:
         Map newData = data['data'];
         Get.find<TimerCompanent>().stopTimer();
-        showFinishGameDialog(newData);
+        FunctionsLibraryClass.showSurrenderDialog(
+          newData['Winner'],
+          myGameId,
+          GameTypes.mill,
+        );
         break;
       case GameCommands.surrender:
         Map newData = data['data'];
         Get.find<TimerCompanent>().stopTimer();
-        showSurrenderDialog(newData);
+        FunctionsLibraryClass.showSurrenderDialog(
+          newData['gamer_id'],
+          myGameId,
+          GameTypes.mill,
+        );
         break;
       default:
     }
@@ -421,23 +430,6 @@ class MillController extends BaseController {
     }
   }
 
-  void surrenderFnction() {
-    DialogComponent().showIconicSelectionDialog(
-      AppTexts.surrender.tr,
-      AppTexts.wanaSurrenderGame.tr,
-      GeneralIcons.death,
-      AppColors.loseColor,
-      () {
-        Get.find<GameSocketManager>()
-            .sendCommand({"id": GameCommands.surrender});
-        Get.closeAllDialogs();
-      },
-      () {
-        Get.closeAllDialogs();
-      },
-    );
-  }
-
   void showReactionBox() {
     if (letSendReaction.value) {
       Get.bottomSheet(
@@ -477,50 +469,6 @@ class MillController extends BaseController {
         dialogMessage,
         dialogIcon,
         dialogColor,
-      );
-    }
-  }
-
-  void showFinishGameDialog(Map newData) {
-    int gameWinner = newData['Winner'] ?? 0;
-    if (gameWinner == 0) {
-      DialogComponent().showIconicDialog(
-        AppTexts.endGame.tr,
-        AppTexts.gameDrawed.tr,
-        GeneralIcons.draw,
-        AppColors.drawColor,
-        coin: 0,
-        cup: 0,
-      );
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.draw);
-    } else {
-      String dialogMessage = "";
-      String dialogIcon = "";
-      Color dialogColor = Colors.white;
-      int cup = 0;
-      int coin = 0;
-      if (gameWinner == myGameId) {
-        dialogMessage = AppTexts.youWinGame.tr;
-        dialogIcon = GeneralIcons.win;
-        dialogColor = AppColors.winColor;
-        cup = CupsCount.millWin;
-        coin = CoinsCount.millWin;
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
-      } else {
-        dialogMessage = AppTexts.youLoseGame.tr;
-        dialogIcon = GeneralIcons.lose;
-        dialogColor = AppColors.loseColor;
-        cup = CupsCount.millLose;
-        coin = CoinsCount.millLose;
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
-      }
-      DialogComponent().showIconicDialog(
-        AppTexts.endGame.tr,
-        dialogMessage,
-        dialogIcon,
-        dialogColor,
-        coin: coin,
-        cup: cup,
       );
     }
   }

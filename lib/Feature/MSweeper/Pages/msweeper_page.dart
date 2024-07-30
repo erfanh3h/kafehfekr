@@ -1,6 +1,7 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -71,7 +72,7 @@ class MSweeperPage extends BaseView<MSweeperController> {
             flex: 3,
             child: Center(
               child: GlobalActivityBox(
-                surrenderFunction: controller.surrenderFnction,
+                surrenderFunction: FunctionsLibraryClass.surrenderFunction,
                 reactionFunction: controller.showReactionBox,
                 changeShowReactionFunction: controller.changeShowReactionStatus,
                 showReaction: controller.showReactions.value,
