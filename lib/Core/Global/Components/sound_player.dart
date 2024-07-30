@@ -24,7 +24,7 @@ class SoundPlayerComponent extends GlobalController {
   final _musicPlayer = AudioPlayer();
 
   void playGameSound(GameSoundTypes soundType) {
-    return;
+    // return;
     String sound = "";
     switch (soundType) {
       case GameSoundTypes.addPeace:

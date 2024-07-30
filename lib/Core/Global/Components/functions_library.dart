@@ -10,7 +10,7 @@ import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
 
 class FunctionsLibraryClass {
-  void showFinishGameDialog(int gameWinner, int myGameId, GameTypes gameType) {
+  static void showFinishGameDialog(int gameWinner, int myGameId, GameTypes gameType) {
     if (gameWinner == 0) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.draw);
       DialogComponent().showIconicDialog(
