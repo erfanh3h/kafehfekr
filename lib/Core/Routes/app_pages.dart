@@ -1,6 +1,6 @@
 import 'package:kafehfekr/Core/Global/Core/global_binding.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
-import 'package:kafehfekr/Feature/Mill/Pages/mill_page.dart';
+import 'package:kafehfekr/Feature/MNumbers/Pages/mnumbers_page.dart';
 import 'package:refreshed/refreshed.dart';
 
 abstract class AppPages {
@@ -12,7 +12,7 @@ abstract class AppPages {
     // ),
     GetPage(
       name: AppRoutes.main,
-      page: MillPage.new,
+      page: MNumbersPage.new,
       binding: GlobalBinding(),
     ),
     // GetPage(
