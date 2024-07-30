@@ -75,23 +75,4 @@ class TicTacToePage extends BaseView<TicTacToeController> {
       ),
     );
   }
-
-  // @override
-  // Widget? floatingActionButton() {
-  //   return Visibility(
-  //     visible: controller.isButtonVisible.value,
-  //     child: FloatingActionButton(
-  //       onPressed: controller.onGeneralButtonFunction.value,
-  //       child: Opacity(
-  //         opacity: controller.buttonOpacity.value,
-  //         child: Image.asset(
-  //           controller.buttonIcon.value,
-  //           color: AppColors.white,
-  //           width: 30.r,
-  //           height: 30.r,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }

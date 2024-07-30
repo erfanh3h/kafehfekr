@@ -107,6 +107,8 @@ class BaseGameController extends BaseController {
 
   void playerScoreFunction(Map data) {}
 
+  void onEachButtonTap(dynamic tappedPeace) {}
+
   void gameDataFunction(Map data) {
     Map gameData = data['data'];
     List gamers = gameData['gamers'];
@@ -185,8 +187,6 @@ class BaseGameController extends BaseController {
   void sendCommand(Map data) {
     Get.find<GameSocketManager>().sendCommand(data);
   }
-
-  void onEachButtonTap(dynamic tappedPeace) {}
 
   void showReactionBox() {
     if (letSendReaction.value) {
