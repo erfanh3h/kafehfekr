@@ -37,11 +37,26 @@ class BaseGameController extends BaseController {
       case GameCommands.reconnectData:
         reconnectDataFuntcion(data);
         break;
+      case GameCommands.startGame:
+        startGameFunction(data);
+        break;
       case GameCommands.currentTurn:
         currentTurnFunction(data);
         break;
+      case GameCommands.selectPeaceResult:
+        selectPeaceResult(data);
+        break;
       case GameCommands.peaceSelected:
         peaceSelectedFunction(data);
+        break;
+      case GameCommands.peaceSwaped:
+        peaceSwapedFunction(data);
+        break;
+      case GameCommands.peaceRemoved:
+        peaceRemovedFunction(data);
+        break;
+      case GameCommands.selectRemovePeace:
+        selectRemovePeaceFunction(data);
         break;
       case GameCommands.newRound:
         newRoundFunction(data);
@@ -61,9 +76,36 @@ class BaseGameController extends BaseController {
       case GameCommands.surrender:
         surrenderFunction(data);
         break;
+      case GameCommands.playerScore:
+        playerScoreFunction(data);
+        break;
       default:
     }
   }
+
+  void currentTurnFunction(Map data) {}
+
+  void startGameFunction(Map data) {}
+
+  void peaceSelectedFunction(Map data) {}
+
+  void peaceSwapedFunction(Map data) {}
+
+  void peaceRemovedFunction(Map data) {}
+
+  void selectRemovePeaceFunction(Map data) {}
+
+  void newRoundFunction(Map data) {}
+
+  void newTurnRoundFunction(Map data) {}
+
+  void selectPeaceResult(Map data) {}
+
+  void finishRoundFunction(Map data) {}
+
+  void finishTurnRoundFunction(Map data) {}
+
+  void playerScoreFunction(Map data) {}
 
   void gameDataFunction(Map data) {
     Map gameData = data['data'];
@@ -86,18 +128,6 @@ class BaseGameController extends BaseController {
     final reactionId = data['reactionId'];
     changePlayerReaction(playerId, reactionId);
   }
-
-  void currentTurnFunction(Map data) {}
-
-  void peaceSelectedFunction(Map data) {}
-
-  void newRoundFunction(Map data) {}
-
-  void newTurnRoundFunction(Map data) {}
-
-  void finishRoundFunction(Map data) {}
-
-  void finishTurnRoundFunction(Map data) {}
 
   void finishGameFunction(Map data) {
     Map newData = data['data'];

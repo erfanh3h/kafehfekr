@@ -133,7 +133,7 @@ class RPCController extends BaseGameController {
 
   @override
   void onInit() async {
-    gameType = GameTypes.tictactoe;
+    gameType = GameTypes.rpc;
     Get.find<GameSocketManager>().initSocket(
       commandHandler: commandHandler,
       reactionHandler: reactionHandler,
