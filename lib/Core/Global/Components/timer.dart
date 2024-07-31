@@ -13,13 +13,13 @@ class TimerCompanent extends GetxController {
     pauseTimer();
 
     _start.value = (timerDuration ?? 0).toDouble();
-
+    timerLabel.value = _start.toInt().toString();
     isCounting.value = true;
-    const oneSec = Duration(milliseconds: 100);
+    const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
       oneSec,
       (Timer timer) {
-        if (_start < .1) {
+        if (_start.value == 0) {
           timer.cancel();
           _start.value = 0;
           timerLabel.value = _start.toInt().toString();
@@ -29,7 +29,7 @@ class TimerCompanent extends GetxController {
             endFunction!();
           } catch (_) {}
         } else {
-          _start.value = _start.value - .1;
+          _start.value = _start.value - 1;
           timerLabel.value = _start.toInt().toString();
           // timerLabel.value = _start.value.toStringAsFixed(1);
           percent.value = _start.value / (timerDuration ?? 1).toDouble();

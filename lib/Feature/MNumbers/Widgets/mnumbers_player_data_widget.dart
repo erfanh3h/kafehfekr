@@ -19,16 +19,17 @@ class MNumbersPlayerDataWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Container(
-        padding: AppSpacings.s10Horizental,
         constraints: const BoxConstraints(
           maxWidth: GeneralGameConsts.maxGameWidth,
         ),
+        padding: AppSpacings.s10Horizental,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: UserRowData(
                 playerName: controller.players[0].value.name,
+                playerScore: controller.player1Score.value,
                 isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
                 reactionId: controller.players[0].value.reactionId,
@@ -46,6 +47,7 @@ class MNumbersPlayerDataWidget extends StatelessWidget {
                 textDirection: TextDirection.ltr,
                 child: UserRowData(
                   playerName: controller.players[1].value.name,
+                  playerScore: controller.player2Score.value,
                   isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
                   reactionId: controller.players[1].value.reactionId,
@@ -63,12 +65,14 @@ class UserRowData extends StatelessWidget {
   const UserRowData({
     super.key,
     required this.playerName,
+    required this.playerScore,
     required this.isThisUserTurn,
     required this.color,
     required this.reactionId,
   });
 
   final String playerName;
+  final int playerScore;
   final bool isThisUserTurn;
   final Color color;
   final int? reactionId;
@@ -77,9 +81,6 @@ class UserRowData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: AppSpacings.s5All,
-      constraints: const BoxConstraints(
-        maxWidth: GeneralGameConsts.maxGameWidth,
-      ),
       decoration: BoxDecoration(
         color: AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
@@ -100,27 +101,43 @@ class UserRowData extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Flexible(
-                flex: 1,
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundColor: color,
-                  child: const Icon(
-                    Icons.person_4,
-                    color: Colors.white,
-                  ),
+                flex: 5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundColor: color,
+                      child: const Icon(
+                        Icons.person_4,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    Text(
+                      playerName,
+                      style: TextStyle(
+                        fontFamily: FontFamilies.typo,
+                        fontSize: 12,
+                        color: color,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
+              Flexible(
                 flex: 1,
                 child: Text(
-                  playerName,
+                  playerScore.toString(),
                   style: TextStyle(
-                    fontFamily: FontFamilies.typo,
-                    fontSize: 12,
+                    fontFamily: FontFamilies.dastnevis,
+                    fontSize: 30,
                     color: color,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
                 ),
               ),
               // const Spacer(flex: 3),

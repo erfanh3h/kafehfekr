@@ -16,25 +16,27 @@ class MNumbersBoardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return Container(
-        padding: AppSpacings.s10All,
-        height:
-            (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
-        width:
-            (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 6,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
-          ),
-          itemBuilder: (ctx, index) => Obx(
-            () => MNumbersButton(
-              peaceData: controller.peaces[index].value,
-              onTap: controller.onEachButtonTap,
+      return Center(
+        child: Container(
+          padding: AppSpacings.s10All,
+          height:
+              (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
+          width:
+              (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 6,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
             ),
+            itemBuilder: (ctx, index) => Obx(
+              () => MNumbersButton(
+                peaceData: controller.peaces[index].value,
+                onTap: controller.onEachButtonTap,
+              ),
+            ),
+            itemCount: controller.peaces.length,
           ),
-          itemCount: controller.peaces.length,
         ),
       );
     });

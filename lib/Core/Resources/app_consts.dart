@@ -5,6 +5,7 @@ class GameWaitTimes {
   static const int millSelectTime = 15;
   static const int millRemoveTime = 15;
   static const int msweeperGameTime = 600;
+  static const int mnumbersTurnTime = 5;
 }
 
 class FontFamilies {

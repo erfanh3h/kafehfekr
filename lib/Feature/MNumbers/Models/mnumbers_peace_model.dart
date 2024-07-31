@@ -6,18 +6,38 @@ class MNumbersPeaceModel extends PeaceModel {
     required super.id,
     required super.currentStatuses,
     this.selectedUser,
+    this.value,
   });
 
   int? selectedUser;
+  int? value;
 
   MNumbersPeaceModel changeSelectedUser({
     int? newSelectedUser,
   }) {
-    final data = super.addStatus(status: PeaceStatusTypes.selected);
+    late PeaceModel data;
+    if (newSelectedUser != null) {
+      data = super.addStatus(status: PeaceStatusTypes.selected);
+    } else {
+      data = super.removeStatus(status: PeaceStatusTypes.selected);
+    }
+
     return MNumbersPeaceModel(
       id: id,
       currentStatuses: data.currentStatuses,
       selectedUser: newSelectedUser,
+      value: value,
+    );
+  }
+
+  MNumbersPeaceModel changeValue({
+    int? newValue,
+  }) {
+    return MNumbersPeaceModel(
+      id: id,
+      currentStatuses: currentStatuses,
+      value: newValue,
+      selectedUser: selectedUser,
     );
   }
 
@@ -26,6 +46,7 @@ class MNumbersPeaceModel extends PeaceModel {
       id: id,
       currentStatuses: [],
       selectedUser: null,
+      value: null,
     );
   }
 
@@ -36,6 +57,7 @@ class MNumbersPeaceModel extends PeaceModel {
       id: data.id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
+      value: value,
     );
   }
 
@@ -46,6 +68,7 @@ class MNumbersPeaceModel extends PeaceModel {
       id: data.id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
+      value: value,
     );
   }
 }

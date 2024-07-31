@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
-import 'package:kafehfekr/Feature/Mill/Models/mill_peace_model.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Feature/MNumbers/Models/mnumbers_peace_model.dart';
 
 class MNumbersButton extends StatelessWidget {
   const MNumbersButton({
@@ -12,31 +12,32 @@ class MNumbersButton extends StatelessWidget {
     required this.onTap,
   });
 
-  final MillPeaceModel peaceData;
-  final Function(MillPeaceModel) onTap;
+  final MNumbersPeaceModel peaceData;
+  final Function(MNumbersPeaceModel) onTap;
 
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
-    String? image;
+    String? text;
     late double borderWidth;
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
-        image = GeneralIcons.circle3;
+        text = peaceData.value.toString();
         break;
       case 2:
+        print(peaceData.value.toString());
         imageColor = AppColors.imageBlueColor;
-        image = GeneralIcons.circle3;
+        text = peaceData.value.toString();
         break;
       default:
         imageColor = null;
-        image = null;
+        text = null;
         break;
     }
-    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected) ||
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.selected) ||
         peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
-      borderWidth = 6;
+      borderWidth = 5;
     } else {
       borderWidth = 2;
     }
@@ -45,8 +46,8 @@ class MNumbersButton extends StatelessWidget {
         onTap(peaceData);
       },
       child: Container(
-        width: 35,
-        height: 35,
+        // width: 35,
+        // height: 35,
         decoration: BoxDecoration(
             color: AppColors.lightColor,
             border: Border.all(
@@ -56,10 +57,15 @@ class MNumbersButton extends StatelessWidget {
             shape: BoxShape.circle),
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
-            : image != null
-                ? Image.asset(
-                    image,
-                    color: imageColor,
+            : text != null
+                ? Center(
+                    child: Text(
+                      text,
+                      style: const TextStyle(
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 25,
+                      ),
+                    ),
                   )
                 : Container(),
       ),

@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
@@ -25,7 +26,7 @@ class MNumbersPage extends BaseView<MNumbersController> {
         children: [
           const Spacer(flex: 1),
           SizedBox(
-            height: 80,
+            height: 85.h,
             child: controller.players.length > 1
                 ? MNumbersPlayerDataWidget(controller: controller)
                 : Container(),
