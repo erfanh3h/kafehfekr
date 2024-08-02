@@ -56,6 +56,7 @@ class AppColors {
 
   static const buttonRed = Color(0xffBF283A);
   static const buttonGreen = Color(0xff28BF64);
+  static const guideGreen = Color.fromARGB(255, 21, 112, 57);
 
   static const goldenColor = Color.fromARGB(255, 165, 157, 52);
 }

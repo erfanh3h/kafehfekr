@@ -14,13 +14,14 @@ class CheckersPeaceModel extends PeaceModel {
 
   CheckersPeaceModel changeSelectedUser({
     int? newSelectedUser,
+    bool? newIsSuperPawn,
   }) {
     final data = super.addStatus(status: PeaceStatusTypes.selected);
     return CheckersPeaceModel(
       id: id,
       currentStatuses: data.currentStatuses,
       selectedUser: newSelectedUser,
-      isSuperPawn: isSuperPawn,
+      isSuperPawn: newIsSuperPawn ?? false,
     );
   }
 

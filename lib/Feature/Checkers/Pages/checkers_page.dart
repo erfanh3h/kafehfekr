@@ -47,8 +47,8 @@ class CheckersPage extends BaseView<CheckersController> {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 8,
-                    crossAxisSpacing: 1,
-                    mainAxisSpacing: 1,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 0,
                   ),
                   itemBuilder: (ctx, index) => Obx(
                     () => CheckersButton(

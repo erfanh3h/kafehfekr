@@ -37,22 +37,9 @@ class CheckersPlayerDataWidget extends StatelessWidget {
             ),
             Container(
               padding: AppSpacings.s10Horizental,
-              width: 100,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GlobalShowTimerWidget(
-                    color: controller.returnTimerColor(),
-                  ),
-                  Text(
-                    "${controller.maxRound} / ${controller.currentRound}",
-                    style: const TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 30,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+              width: 90,
+              child: GlobalShowTimerWidget(
+                color: controller.returnTimerColor(),
               ),
             ),
             Expanded(

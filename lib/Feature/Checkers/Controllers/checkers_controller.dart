@@ -1,7 +1,5 @@
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
-import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
@@ -10,7 +8,8 @@ import 'package:refreshed/refreshed.dart';
 
 class CheckersController extends BaseGameController {
   RxList<Rx<CheckersPeaceModel>> peaces = RxList();
-  int maxRound = 2;
+  RxInt player1Pawns = RxInt(0);
+  RxInt player2Pawns = RxInt(0);
 
   @override
   void currentTurnFunction(Map data) {
@@ -22,7 +21,7 @@ class CheckersController extends BaseGameController {
     } else {
       canSelectPeace.value = false;
     }
-    changetimerValue(GameWaitTimes.tictactoeRoundTime);
+    changetimerValue(GameWaitTimes.checkersTurnTime);
   }
 
   @override
@@ -37,26 +36,6 @@ class CheckersController extends BaseGameController {
     //     break;
     //   }
     // }
-  }
-
-  @override
-  void newRoundFunction(Map data) {
-    int newRound = data['data'];
-    currentRound.value = newRound;
-    resetPeaces();
-  }
-
-  @override
-  void finishRoundFunction(Map data) {
-    Map newData = data['data'];
-    Get.find<TimerCompanent>().stopTimer();
-    int roundWinner = newData['Winner'] ?? 0;
-    if (roundWinner == 1) {
-      player1Score.value += 1;
-    } else if (roundWinner == 2) {
-      player2Score.value += 1;
-    }
-    FunctionsLibraryClass.showFinishRoundDialog(roundWinner, myGameId);
   }
 
   @override
@@ -78,18 +57,54 @@ class CheckersController extends BaseGameController {
 
   void resetPeaces() {
     for (var i = 0; i < peaces.length; i++) {
-      // peaces[i].value = peaces[i].value.resetPeace();
+      peaces[i].value = peaces[i].value.resetPeace();
     }
   }
 
+  changePeaceSelectedUser(int peaceId, int? selectedUser, {bool? isSuperPawn}) {
+    peaces.value[peaceId].value = peaces.value[peaceId].value
+        .changeSelectedUser(
+            newSelectedUser: selectedUser, newIsSuperPawn: isSuperPawn);
+  }
+
   addPeaceStatus(int peaceId, PeaceStatusTypes status) {
-    // peaces.value[peaceId].value =
-    // peaces.value[peaceId].value.addStatus(status: status);
+    peaces.value[peaceId].value =
+        peaces.value[peaceId].value.addStatus(status: status);
   }
 
   removePeaceStatus(int peaceId, PeaceStatusTypes status) {
-    // peaces.value[peaceId].value =
-    // peaces.value[peaceId].value.removeStatus(status: status);
+    peaces.value[peaceId].value =
+        peaces.value[peaceId].value.removeStatus(status: status);
+  }
+
+  initPeaces() {
+    for (var i = 0; i < 64; i++) {
+      peaces.add(Rx(CheckersPeaceModel(id: i, currentStatuses: [])));
+    }
+    changePeaceSelectedUser(0, 1);
+    changePeaceSelectedUser(2, 1);
+    changePeaceSelectedUser(4, 1);
+    changePeaceSelectedUser(6, 1);
+    changePeaceSelectedUser(9, 1);
+    changePeaceSelectedUser(11, 1);
+    changePeaceSelectedUser(13, 1);
+    changePeaceSelectedUser(15, 1);
+    changePeaceSelectedUser(16, 1);
+    changePeaceSelectedUser(18, 1);
+    changePeaceSelectedUser(20, 1);
+    changePeaceSelectedUser(22, 1);
+    changePeaceSelectedUser(41, 2);
+    changePeaceSelectedUser(43, 2);
+    changePeaceSelectedUser(45, 2);
+    changePeaceSelectedUser(47, 2);
+    changePeaceSelectedUser(48, 2);
+    changePeaceSelectedUser(50, 2);
+    changePeaceSelectedUser(52, 2);
+    changePeaceSelectedUser(54, 2);
+    changePeaceSelectedUser(57, 2);
+    changePeaceSelectedUser(59, 2);
+    changePeaceSelectedUser(61, 2);
+    changePeaceSelectedUser(63, 2);
   }
 
   @override
@@ -99,9 +114,7 @@ class CheckersController extends BaseGameController {
       commandHandler: commandHandler,
       reactionHandler: reactionHandler,
     );
-    for (var i = 0; i < 64; i++) {
-      peaces.add(Rx(CheckersPeaceModel(id: i, currentStatuses: [])));
-    }
+    initPeaces();
     super.onInit();
   }
 }

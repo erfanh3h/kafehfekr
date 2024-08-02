@@ -22,10 +22,10 @@ class CheckersButton extends StatelessWidget {
     Color? borderColor;
     String? image;
     double borderSize = 2;
+    double imageScale = 1;
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
-        borderColor = AppColors.imageRedColor;
         if (peaceData.isSuperPawn) {
           image = GeneralIcons.checkers2;
         } else {
@@ -34,7 +34,6 @@ class CheckersButton extends StatelessWidget {
         break;
       case 2:
         imageColor = AppColors.imageBlueColor;
-        borderColor = AppColors.imageBlueColor;
         if (peaceData.isSuperPawn) {
           image = GeneralIcons.checkers2;
         } else {
@@ -57,6 +56,12 @@ class CheckersButton extends StatelessWidget {
       borderColor = AppColors.goldenColor;
       borderSize = 5;
     }
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
+      borderColor = AppColors.guideGreen;
+      imageColor = AppColors.guideGreen;
+      imageScale = .5;
+      borderSize = 5;
+    }
     return InkWell(
       onTap: () {
         onTap(peaceData);
@@ -65,20 +70,23 @@ class CheckersButton extends StatelessWidget {
         padding: AppSpacings.s5All,
         decoration: BoxDecoration(
           color: (peaceData.id % 2 + peaceData.id ~/ 8) % 2 == 0
-              ? AppColors.lightColor
-              : const Color.fromARGB(255, 190, 121, 96),
+              ? const Color.fromARGB(255, 190, 121, 96)
+              : AppColors.lightColor,
           border: Border.all(
-            color: borderColor ?? AppColors.peaceBorderColor,
+            color: borderColor ?? AppColors.black,
             width: borderSize,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(6),
         ),
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
             : image != null
-                ? Image.asset(
-                    image,
-                    color: imageColor,
+                ? Transform.scale(
+                    scale: imageScale,
+                    child: Image.asset(
+                      image,
+                      color: imageColor,
+                    ),
                   )
                 : Container(),
       ),
