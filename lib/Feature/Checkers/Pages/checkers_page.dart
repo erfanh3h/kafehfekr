@@ -44,19 +44,23 @@ class CheckersPage extends BaseView<CheckersController> {
                 width: (Get.size.width)
                         .clamp(100, GeneralGameConsts.maxGameWidth) *
                     .95,
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 8,
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 0,
-                  ),
-                  itemBuilder: (ctx, index) => Obx(
-                    () => CheckersButton(
-                      peaceData: controller.peaces[index].value,
-                      onTap: controller.onEachButtonTap,
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 8,
+                      crossAxisSpacing: 0,
+                      mainAxisSpacing: 0,
                     ),
+                    itemBuilder: (ctx, index) => Obx(
+                      () => CheckersButton(
+                        peaceData: controller.peaces[index].value,
+                        onTap: controller.onEachButtonTap,
+                      ),
+                    ),
+                    itemCount: controller.peaces.length,
                   ),
-                  itemCount: controller.peaces.length,
                 ),
               ),
             ),

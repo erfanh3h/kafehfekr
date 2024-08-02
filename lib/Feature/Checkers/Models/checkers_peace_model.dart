@@ -42,7 +42,7 @@ class CheckersPeaceModel extends PeaceModel {
       id: id,
       currentStatuses: [],
       selectedUser: null,
-      isSuperPawn: isSuperPawn,
+      isSuperPawn: false,
     );
   }
 

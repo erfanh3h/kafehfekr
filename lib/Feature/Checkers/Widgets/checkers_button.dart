@@ -57,10 +57,13 @@ class CheckersButton extends StatelessWidget {
       borderSize = 5;
     }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      borderColor = AppColors.guideGreen;
+      if (peaceData.isSuperPawn) {
+        image = GeneralIcons.checkers2;
+      } else {
+        image = GeneralIcons.checkers1;
+      }
       imageColor = AppColors.guideGreen;
-      imageScale = .5;
-      borderSize = 5;
+      imageScale = .33;
     }
     return InkWell(
       onTap: () {

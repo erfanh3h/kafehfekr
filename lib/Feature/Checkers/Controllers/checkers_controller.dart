@@ -11,6 +11,21 @@ class CheckersController extends BaseGameController {
   RxInt player1Pawns = RxInt(0);
   RxInt player2Pawns = RxInt(0);
 
+  RxInt equippedPeaceIndex = RxInt(-1);
+
+  List checkMoveList = [];
+
+  List<int> indexToCoordinate(int index) {
+    final x = index % 8;
+    final y = index ~/ 8;
+    return [x, y];
+  }
+
+  int coordinateToIndex(int x, int y) {
+    final index = y * 8 + x;
+    return index;
+  }
+
   @override
   void currentTurnFunction(Map data) {
     int turn = data['data'];
@@ -41,18 +56,53 @@ class CheckersController extends BaseGameController {
   @override
   void onEachButtonTap(dynamic tappedPeace) {
     CheckersPeaceModel peace = tappedPeace as CheckersPeaceModel;
-    if (!canSelectPeace.value) {
+    // if (!canSelectPeace.value) {
+    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+    //   return;
+    // }
+    // if (peace.selectedUser == null) {
+    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+    //   return;
+    // }
+    // canSelectPeace.value = false;
+    // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
+    // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+    // Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+    if (peace.selectedUser != myGameId) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
-    if (peace.selectedUser != null) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-      return;
+    if (equippedPeaceIndex.value != -1) {
+      if (equippedPeaceIndex.value == peace.id) {
+        releasePeace();
+      } else if (peace.selectedUser == myGameId) {
+        releasePeace();
+        equipPeace(peace.id);
+      } else {}
+    } else {
+      equipPeace(peace.id);
     }
-    canSelectPeace.value = false;
-    sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-    addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+  }
+
+  void equipPeace(int index) {
+    equippedPeaceIndex.value = index;
+    addPeaceStatus(index, PeaceStatusTypes.equiped);
+    List coordinates = indexToCoordinate(index);
+    List movesPossibleList =
+        getPossibleMovesOfPeace(coordinates[0], coordinates[1], myGameId);
+    for (var dataRaw in movesPossibleList) {
+      List? coordinates = dataRaw[0];
+      if (coordinates != null) {
+        final peaceId = coordinateToIndex(coordinates[0], coordinates[1]);
+        addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
+      }
+    }
+  }
+
+  void releasePeace() {
+    removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
+    removeAllPeacesStatus(PeaceStatusTypes.canSelected);
+    equippedPeaceIndex.value = -1;
   }
 
   void resetPeaces() {
@@ -75,6 +125,13 @@ class CheckersController extends BaseGameController {
   removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.removeStatus(status: status);
+  }
+
+  removeAllPeacesStatus(PeaceStatusTypes status) {
+    for (var i = 0; i < peaces.length; i++) {
+      peaces.value[i].value =
+          peaces.value[i].value.removeStatus(status: status);
+    }
   }
 
   initPeaces() {
@@ -105,6 +162,176 @@ class CheckersController extends BaseGameController {
     changePeaceSelectedUser(59, 2);
     changePeaceSelectedUser(61, 2);
     changePeaceSelectedUser(63, 2);
+  }
+
+  bool isTargetPeaceEmpty(int rIndex, int cIndex) {
+    int index = coordinateToIndex(rIndex, cIndex);
+    return peaces[index].value.selectedUser == null;
+  }
+
+  bool isTargetPeaceEnemy(int rIndex, int cIndex, int gamerId) {
+    int index = coordinateToIndex(rIndex, cIndex);
+    return peaces[index].value.selectedUser != gamerId;
+  }
+
+  List getRightPawnMove(int rIndex, int cIndex, int gamerId, int direction,
+      {bool isMultiMove = false}) {
+    int newRIndex = 0;
+    int newCIndex = 0;
+    if (direction == 1) {
+      newRIndex = rIndex - 1;
+      newCIndex = cIndex + 1;
+    } else {
+      newRIndex = rIndex + 1;
+      newCIndex = cIndex - 1;
+    }
+    final nullResult = [null, null, null, false];
+    if (newRIndex < 0 || newRIndex > 7 || newCIndex < 0 || newCIndex > 7) {
+      return nullResult;
+    }
+    if (isTargetPeaceEmpty(newRIndex, newCIndex) && !isMultiMove) {
+      return [
+        [newRIndex, newCIndex],
+        null,
+        null,
+        false
+      ];
+    } else {
+      if (isTargetPeaceEnemy(newRIndex, newCIndex, gamerId)) {
+        int newR1Index = 0;
+        int newC1Index = 0;
+        if (direction == 1) {
+          newR1Index = newRIndex - 1;
+          newC1Index = newCIndex + 1;
+        } else {
+          newR1Index = newRIndex + 1;
+          newC1Index = newCIndex - 1;
+        }
+        if (newR1Index >= 0 &&
+            newR1Index <= 7 &&
+            newC1Index <= 7 &&
+            newC1Index >= 0 &&
+            isTargetPeaceEmpty(newR1Index, newC1Index)) {
+          checkMoveList.add(
+            [
+              [newR1Index, newC1Index],
+              [newRIndex, newCIndex],
+              [rIndex, cIndex],
+              true
+            ],
+          );
+        }
+        return nullResult;
+      } else {
+        return nullResult;
+      }
+    }
+  }
+
+  List getLeftPawnMove(int rIndex, int cIndex, int gamerId, int direction,
+      {bool isMultiMove = false}) {
+    int newRIndex = 0;
+    int newCIndex = 0;
+    if (direction == 1) {
+      newRIndex = rIndex + 1;
+      newCIndex = cIndex + 1;
+    } else {
+      newRIndex = rIndex - 1;
+      newCIndex = cIndex - 1;
+    }
+    final nullResult = [null, null, null, false];
+    if (newRIndex < 0 || newRIndex > 7 || newCIndex < 0 || newCIndex > 7) {
+      return nullResult;
+    }
+    if (isTargetPeaceEmpty(newRIndex, newCIndex) && !isMultiMove) {
+      return [
+        [newRIndex, newCIndex],
+        null,
+        null,
+        false
+      ];
+    } else {
+      if (isTargetPeaceEnemy(newRIndex, newCIndex, gamerId)) {
+        int newR1Index = 0;
+        int newC1Index = 0;
+        if (direction == 1) {
+          newR1Index = newRIndex + 1;
+          newC1Index = newCIndex + 1;
+        } else {
+          newR1Index = newRIndex - 1;
+          newC1Index = newCIndex - 1;
+        }
+        if (newR1Index >= 0 &&
+            newR1Index <= 7 &&
+            newC1Index <= 7 &&
+            newC1Index >= 0 &&
+            isTargetPeaceEmpty(newR1Index, newC1Index)) {
+          checkMoveList.add(
+            [
+              [newR1Index, newC1Index],
+              [newRIndex, newCIndex],
+              [rIndex, cIndex],
+              true
+            ],
+          );
+        }
+        return nullResult;
+      } else {
+        return nullResult;
+      }
+    }
+  }
+
+  List getDirectionMovesList(
+      int rIndex, int cIndex, int gamerId, int direction) {
+    List<List> tempList = [];
+    List rightResult = getRightPawnMove(rIndex, cIndex, gamerId, direction);
+    List leftResult = getLeftPawnMove(rIndex, cIndex, gamerId, direction);
+    tempList.add([rightResult[0], rightResult[1], rightResult[2]]);
+    tempList.add([leftResult[0], leftResult[1], leftResult[2]]);
+    while (checkMoveList.isNotEmpty) {
+      List? indexes = checkMoveList[0][0];
+      List? removedPeace = checkMoveList[0][1];
+      List? sourceStart = checkMoveList[0][2];
+      bool isMultiMove = checkMoveList[0][3];
+      tempList.add([indexes, removedPeace, sourceStart]);
+      if (removedPeace != null) {
+        rightResult = getRightPawnMove(
+            indexes![0], indexes[1], gamerId, direction,
+            isMultiMove: isMultiMove);
+        leftResult = getLeftPawnMove(indexes[0], indexes[1], gamerId, direction,
+            isMultiMove: isMultiMove);
+        checkMoveList.add(rightResult);
+        checkMoveList.add(leftResult);
+      }
+      checkMoveList.removeAt(0);
+    }
+    return tempList;
+  }
+
+  List getPossibleMovesOfPeace(int rIndex, int cIndex, int gamerId) {
+    List tempList = [];
+    List result = [];
+    int index = coordinateToIndex(rIndex, cIndex);
+    if (peaces[index].value.isSuperPawn) {
+      final List list1 = getDirectionMovesList(rIndex, cIndex, gamerId, 1);
+      final List list2 = getDirectionMovesList(rIndex, cIndex, gamerId, 2);
+      tempList.addAll(list1);
+      tempList.addAll(list2);
+    } else if (gamerId == 1) {
+      final List list1 = getDirectionMovesList(rIndex, cIndex, gamerId, 1);
+      tempList.addAll(list1);
+    } else {
+      final List list1 = getDirectionMovesList(rIndex, cIndex, gamerId, 2);
+      tempList.addAll(list1);
+    }
+    // print(tempList);
+    for (var dataRaw in tempList) {
+      if (dataRaw[0] != null) {
+        result.add(dataRaw);
+      }
+    }
+    return result;
   }
 
   @override
