@@ -9,7 +9,7 @@ import 'package:kafehfekr/Feature/Checkers/Models/checkers_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class CheckersController extends BaseGameController {
-  RxList<RxList<Rx<CheckersPeaceModel>>> peaces = RxList();
+  RxList<Rx<CheckersPeaceModel>> peaces = RxList();
   int maxRound = 2;
 
   @override
@@ -23,36 +23,6 @@ class CheckersController extends BaseGameController {
       canSelectPeace.value = false;
     }
     changetimerValue(GameWaitTimes.tictactoeRoundTime);
-  }
-
-  @override
-  void reconnectDataFuntcion(Map data) {
-    super.reconnectDataFuntcion(data);
-    // Map newData = data['data'];
-    // Map gameData = newData['game_data'];
-    // Map timerData = newData['timer_data'];
-    // List boardData = gameData['board'];
-    // currentRound.value = gameData['current_round'];
-    // player1Score.value = gameData['scores'][0];
-    // player2Score.value = gameData['scores'][1];
-    // currentTurn.value = gameData['current_turn'];
-    // for (var i = 0; i < boardData.length; i++) {
-    //   if (boardData[i] == 0) {
-    //     continue;
-    //   }
-    //   peaces[i].value =
-    //       peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
-    // }
-    // if (currentTurn.value == myGameId) {
-    //   canSelectPeace.value = true;
-    // } else {
-    //   canSelectPeace.value = false;
-    // }
-    // if (timerData['is_user_turn']) {
-    //   final int time =
-    //       GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
-    //   changetimerValue(time.clamp(0, time));
-    // }
   }
 
   @override
@@ -129,10 +99,8 @@ class CheckersController extends BaseGameController {
       commandHandler: commandHandler,
       reactionHandler: reactionHandler,
     );
-    for (var i = 0; i < 8; i++) {
-      for (var j = 0; i < 8; i++) {
-        peaces[i].add(Rx(CheckersPeaceModel(id: i, currentStatuses: [])));
-      }
+    for (var i = 0; i < 64; i++) {
+      peaces.add(Rx(CheckersPeaceModel(id: i, currentStatuses: [])));
     }
     super.onInit();
   }

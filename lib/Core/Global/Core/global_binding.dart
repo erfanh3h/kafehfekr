@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
+import 'package:kafehfekr/Feature/Checkers/Core/checkers_binding.dart';
 import 'package:kafehfekr/Feature/MNumbers/Core/mnumbers_binding.dart';
 import 'package:kafehfekr/Feature/MSweeper/Core/msweeper_binding.dart';
 import 'package:kafehfekr/Feature/Mill/Core/mill_binding.dart';
@@ -20,6 +21,7 @@ class GlobalBinding implements BindingsInterface {
         MillBinding().dependencies(),
         MSweeperBinding().dependencies(),
         MNumbersBinding().dependencies(),
+        CheckersBinding().dependencies(),
         Get.lazyPut<TimerCompanent>(TimerCompanent.new, fenix: true),
         Get.lazyPut<SoundPlayerComponent>(
           SoundPlayerComponent.new,

@@ -41,5 +41,6 @@ class GeneralIcons {
   static const brain = "$generalIconsPath/brain.png";
   static const bomb = "$generalIconsPath/bomb.png";
   static const bombExplode = "$generalIconsPath/bomb-explode.png";
-
+  static const checkers1 = "$generalIconsPath/checkers1.png";
+  static const checkers2 = "$generalIconsPath/checkers2.png";
 }

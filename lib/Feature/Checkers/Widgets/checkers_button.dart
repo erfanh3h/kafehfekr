@@ -19,34 +19,59 @@ class CheckersButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
+    Color? borderColor;
     String? image;
+    double borderSize = 2;
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
-        image = GeneralIcons.circle1;
+        borderColor = AppColors.imageRedColor;
+        if (peaceData.isSuperPawn) {
+          image = GeneralIcons.checkers2;
+        } else {
+          image = GeneralIcons.checkers1;
+        }
         break;
       case 2:
         imageColor = AppColors.imageBlueColor;
-        image = GeneralIcons.cross;
+        borderColor = AppColors.imageBlueColor;
+        if (peaceData.isSuperPawn) {
+          image = GeneralIcons.checkers2;
+        } else {
+          image = GeneralIcons.checkers1;
+        }
         break;
       default:
         imageColor = null;
         image = null;
         break;
     }
+    // imageColor = AppColors.imageBlueColor;
+    // borderColor = AppColors.imageRedColor;
+    // if (peaceData.isSuperPawn) {
+    //   image = GeneralIcons.checkers1;
+    // } else {
+    //   image = GeneralIcons.checkers1;
+    // }
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
+      borderColor = AppColors.goldenColor;
+      borderSize = 5;
+    }
     return InkWell(
       onTap: () {
         onTap(peaceData);
       },
       child: Container(
-        padding: AppSpacings.s15All,
+        padding: AppSpacings.s5All,
         decoration: BoxDecoration(
-          color: AppColors.lightColor,
+          color: (peaceData.id % 2 + peaceData.id ~/ 8) % 2 == 0
+              ? AppColors.lightColor
+              : const Color.fromARGB(255, 190, 121, 96),
           border: Border.all(
-            color: imageColor ?? AppColors.peaceBorderColor,
-            width: 4,
+            color: borderColor ?? AppColors.peaceBorderColor,
+            width: borderSize,
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(4),
         ),
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
