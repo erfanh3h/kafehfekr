@@ -26,7 +26,6 @@ class MNumbersButton extends StatelessWidget {
         text = peaceData.value.toString();
         break;
       case 2:
-        print(peaceData.value.toString());
         imageColor = AppColors.imageBlueColor;
         text = peaceData.value.toString();
         break;
