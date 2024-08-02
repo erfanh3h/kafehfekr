@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
@@ -14,6 +15,7 @@ class CheckersController extends BaseGameController {
   RxInt equippedPeaceIndex = RxInt(-1);
 
   List checkMoveList = [];
+  List currentPossibleMoves = [];
 
   List<int> indexToCoordinate(int index) {
     final x = index % 8;
@@ -68,19 +70,38 @@ class CheckersController extends BaseGameController {
     // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
     // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
     // Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-    if (peace.selectedUser != myGameId) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-      return;
-    }
+    // if (peace.selectedUser != myGameId) {
+    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+    //   return;
+    // }
     if (equippedPeaceIndex.value != -1) {
       if (equippedPeaceIndex.value == peace.id) {
         releasePeace();
       } else if (peace.selectedUser == myGameId) {
         releasePeace();
         equipPeace(peace.id);
-      } else {}
+      } else {
+        if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
+          Get.find<SoundPlayerComponent>()
+              .playGameSound(GameSoundTypes.tapWrong);
+          return;
+        }
+        final List sourceData = indexToCoordinate(equippedPeaceIndex.value);
+        final sourceRIndex = sourceData[0];
+        final sourceCIndex = sourceData[1];
+        final List targetData = indexToCoordinate(peace.id);
+        final targetRIndex = targetData[0];
+        final targetCIndex = targetData[1];
+        final moveResult = movePawn(
+            sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, myGameId);
+        if (moveResult) {
+          releasePeace();
+        }
+      }
     } else {
-      equipPeace(peace.id);
+      if (peace.selectedUser != null && peace.selectedUser == myGameId) {
+        equipPeace(peace.id);
+      }
     }
   }
 
@@ -95,6 +116,7 @@ class CheckersController extends BaseGameController {
       if (coordinates != null) {
         final peaceId = coordinateToIndex(coordinates[0], coordinates[1]);
         addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
+        currentPossibleMoves.add(dataRaw);
       }
     }
   }
@@ -103,6 +125,7 @@ class CheckersController extends BaseGameController {
     removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);
     equippedPeaceIndex.value = -1;
+    currentPossibleMoves.clear();
   }
 
   void resetPeaces() {
@@ -332,6 +355,67 @@ class CheckersController extends BaseGameController {
       }
     }
     return result;
+  }
+
+  bool checkIsLastPeace(cIndex, gamerId) {
+    if (gamerId == 1) {
+      if (cIndex == 7) {
+        return true;
+      }
+      return false;
+    } else {
+      if (cIndex == 0) {
+        return true;
+      }
+      return false;
+    }
+  }
+
+  void removePawn(int rIndex, int cIndex, int gamerId) {
+    int index = coordinateToIndex(rIndex, cIndex);
+    changePeaceSelectedUser(index, null);
+    if (gamerId == 1) {
+      player2Pawns.value -= 1;
+    } else {
+      player1Pawns.value -= 1;
+    }
+  }
+
+  bool movePawn(int sourceCIndex, int sourceRIndex, int targetCIndex,
+      int targetRIndex, int gamerId) {
+    for (var moveData in currentPossibleMoves) {
+      if (moveData[0] != null &&
+          listEquals(moveData[0], [targetRIndex, targetCIndex])) {
+        int sourceIndex = coordinateToIndex(sourceRIndex, sourceCIndex);
+        int targetIndex = coordinateToIndex(targetRIndex, targetCIndex);
+        if (checkIsLastPeace(targetCIndex, gamerId) ||
+            peaces[sourceIndex].value.isSuperPawn) {
+          changePeaceSelectedUser(targetIndex, gamerId, isSuperPawn: true);
+        } else {
+          changePeaceSelectedUser(targetIndex, gamerId, isSuperPawn: false);
+        }
+        changePeaceSelectedUser(sourceIndex, null);
+
+        if (moveData[1] != null) {
+          List? removePoint = moveData[1];
+          List sourcePeaceIndex = moveData[2];
+          while (removePoint != null) {
+            removePawn(removePoint[0], removePoint[1], gamerId);
+            removePoint = null;
+            for (var rawMoveData in currentPossibleMoves) {
+              if (listEquals(
+                  rawMoveData[0], [sourcePeaceIndex[0], sourcePeaceIndex[1]])) {
+                removePoint = rawMoveData[1];
+                sourcePeaceIndex = rawMoveData[2];
+                break;
+              }
+            }
+          }
+        }
+        return true;
+      }
+    }
+    return false;
   }
 
   @override
