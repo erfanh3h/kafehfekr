@@ -12,6 +12,21 @@ class CheckersPeaceModel extends PeaceModel {
   int? selectedUser;
   bool isSuperPawn;
 
+  CheckersPeaceModel getFromJson(Map data, int id) {
+    int? newSelectedUser;
+    bool? newIsSuperPawn;
+    if (data['pawn_gamer_id'] != null) {
+      newSelectedUser = data['pawn_gamer_id'];
+    }
+    newIsSuperPawn = data['is_super_pawn'];
+    return CheckersPeaceModel(
+      id: id,
+      currentStatuses: currentStatuses,
+      selectedUser: newSelectedUser,
+      isSuperPawn: newIsSuperPawn ?? false,
+    );
+  }
+
   CheckersPeaceModel changeSelectedUser({
     int? newSelectedUser,
     bool? newIsSuperPawn,

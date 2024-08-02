@@ -29,7 +29,7 @@ class CheckersPlayerDataWidget extends StatelessWidget {
             Expanded(
               child: UserRowData(
                 playerName: controller.players[0].value.name,
-                playerScore: controller.player1Score.value,
+                playerScore: controller.player1Pawns.value,
                 isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
                 reactionId: controller.players[0].value.reactionId,
@@ -47,7 +47,7 @@ class CheckersPlayerDataWidget extends StatelessWidget {
                 textDirection: TextDirection.ltr,
                 child: UserRowData(
                   playerName: controller.players[1].value.name,
-                  playerScore: controller.player2Score.value,
+                  playerScore: controller.player2Pawns.value,
                   isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
                   reactionId: controller.players[1].value.reactionId,

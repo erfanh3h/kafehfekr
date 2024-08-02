@@ -9,8 +9,8 @@ import 'package:refreshed/refreshed.dart';
 
 class CheckersController extends BaseGameController {
   RxList<Rx<CheckersPeaceModel>> peaces = RxList();
-  RxInt player1Pawns = RxInt(0);
-  RxInt player2Pawns = RxInt(0);
+  RxInt player1Pawns = RxInt(12);
+  RxInt player2Pawns = RxInt(12);
 
   RxInt equippedPeaceIndex = RxInt(-1);
 
@@ -39,29 +39,57 @@ class CheckersController extends BaseGameController {
       canSelectPeace.value = false;
     }
     changetimerValue(GameWaitTimes.checkersTurnTime);
+    releasePeace();
   }
 
   @override
   void peaceSelectedFunction(Map data) {
-    // Map peaceData = data['data'];
-    // int peaceId = peaceData['target_peace'];
-    // for (final peace in peaces) {
-    //   if (peace.value.id == peaceId) {
-    //     peace.value =
-    //         peace.value.changeSelectedUser(newSelectedUser: peaceData["user"]);
-    //     removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-    //     break;
-    //   }
-    // }
+    Map selectionData = data['data']['select_data'];
+    final sourceRIndex = selectionData['s_r_index'];
+    final sourceCIndex = selectionData['s_c_index'];
+    final targetRIndex = selectionData['t_r_index'];
+    final targetCIndex = selectionData['t_c_index'];
+    final int gamerId = selectionData['gamer_id'];
+    final index = coordinateToIndex(sourceRIndex, sourceCIndex);
+    addPossibleMoves(index);
+    final moveResult = movePawn(
+        sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, gamerId);
+    if (moveResult) {
+      releasePeace();
+    }
+  }
+
+  @override
+  void reconnectDataFuntcion(Map data) {
+    super.reconnectDataFuntcion(data);
+    Map newData = data['data'];
+    Map gameData = newData['game_data'];
+    Map timerData = newData['timer_data'];
+    List boardData = gameData['board'];
+    currentTurn.value = gameData['current_turn'];
+    player1Pawns.value = gameData['pawns_count'][0];
+    player2Pawns.value = gameData['pawns_count'][1];
+    for (var i = 0; i < boardData.length; i++) {
+      peaces[i].value = peaces[i].value.getFromJson(boardData[i], i);
+    }
+    if (currentTurn.value == myGameId) {
+      canSelectPeace.value = true;
+    } else {
+      canSelectPeace.value = false;
+    }
+    if (timerData['is_user_turn']) {
+      final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
+      changetimerValue(time.clamp(1, GameWaitTimes.millSelectTime));
+    }
   }
 
   @override
   void onEachButtonTap(dynamic tappedPeace) {
     CheckersPeaceModel peace = tappedPeace as CheckersPeaceModel;
-    // if (!canSelectPeace.value) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
-    // }
+    if (!canSelectPeace.value) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      return;
+    }
     // if (peace.selectedUser == null) {
     //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
     //   return;
@@ -92,14 +120,24 @@ class CheckersController extends BaseGameController {
         final List targetData = indexToCoordinate(peace.id);
         final targetRIndex = targetData[0];
         final targetCIndex = targetData[1];
-        final moveResult = movePawn(
-            sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, myGameId);
-        if (moveResult) {
-          releasePeace();
-        }
+        sendCommand({
+          "id": GameCommands.selectPeace,
+          "data": {
+            's_c_index': sourceCIndex,
+            's_r_index': sourceRIndex,
+            't_c_index': targetCIndex,
+            't_r_index': targetRIndex,
+          }
+        });
+        releasePeace();
+        // final moveResult = movePawn(
+        //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, myGameId);
+        // if (moveResult) {
+        //   releasePeace();
+        // }
       }
     } else {
-      if (peace.selectedUser != null && peace.selectedUser == myGameId) {
+      if (peace.selectedUser != 0 && peace.selectedUser == myGameId) {
         equipPeace(peace.id);
       }
     }
@@ -108,6 +146,19 @@ class CheckersController extends BaseGameController {
   void equipPeace(int index) {
     equippedPeaceIndex.value = index;
     addPeaceStatus(index, PeaceStatusTypes.equiped);
+    addPossibleMoves(index);
+  }
+
+  void releasePeace() {
+    try {
+      removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
+    } catch (_) {}
+    removeAllPeacesStatus(PeaceStatusTypes.canSelected);
+    equippedPeaceIndex.value = -1;
+    currentPossibleMoves.clear();
+  }
+
+  void addPossibleMoves(int index) {
     List coordinates = indexToCoordinate(index);
     List movesPossibleList =
         getPossibleMovesOfPeace(coordinates[0], coordinates[1], myGameId);
@@ -119,13 +170,6 @@ class CheckersController extends BaseGameController {
         currentPossibleMoves.add(dataRaw);
       }
     }
-  }
-
-  void releasePeace() {
-    removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
-    removeAllPeacesStatus(PeaceStatusTypes.canSelected);
-    equippedPeaceIndex.value = -1;
-    currentPossibleMoves.clear();
   }
 
   void resetPeaces() {
@@ -159,7 +203,8 @@ class CheckersController extends BaseGameController {
 
   initPeaces() {
     for (var i = 0; i < 64; i++) {
-      peaces.add(Rx(CheckersPeaceModel(id: i, currentStatuses: [])));
+      peaces.add(
+          Rx(CheckersPeaceModel(id: i, currentStatuses: [], selectedUser: 0)));
     }
     changePeaceSelectedUser(0, 1);
     changePeaceSelectedUser(2, 1);
@@ -189,7 +234,7 @@ class CheckersController extends BaseGameController {
 
   bool isTargetPeaceEmpty(int rIndex, int cIndex) {
     int index = coordinateToIndex(rIndex, cIndex);
-    return peaces[index].value.selectedUser == null;
+    return peaces[index].value.selectedUser == 0;
   }
 
   bool isTargetPeaceEnemy(int rIndex, int cIndex, int gamerId) {
@@ -348,7 +393,6 @@ class CheckersController extends BaseGameController {
       final List list1 = getDirectionMovesList(rIndex, cIndex, gamerId, 2);
       tempList.addAll(list1);
     }
-    // print(tempList);
     for (var dataRaw in tempList) {
       if (dataRaw[0] != null) {
         result.add(dataRaw);
