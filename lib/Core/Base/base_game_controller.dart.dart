@@ -77,6 +77,12 @@ class BaseGameController extends BaseController {
       case GameCommands.surrender:
         surrenderFunction(data);
         break;
+      case GameCommands.userDisconnected:
+        onUserDisconnectedFunction(data);
+        break;
+      case GameCommands.userReconnected:
+        onUserReconnectedFunction(data);
+        break;
       case GameCommands.finishReconnectTime:
         finishReconnectTimerFunction(data);
         break;
@@ -171,6 +177,40 @@ class BaseGameController extends BaseController {
       myId,
       gameType,
     );
+  }
+
+  void onUserDisconnectedFunction(Map data) {
+    Map newData = data['data'];
+    String userId = newData['user_id'];
+    for (var i = 0; i < players.length; i++) {
+      if (players[i].value.userId == userId) {
+        players[i].value = players[0].value.copyWith(isDisconnected: true);
+        break;
+        // int maxTime = players[i].value.disconnectTime;
+        // while (maxTime >= 0) {
+        //   if (players[i].value.isDisconnected) {
+        //     Future.delayed(Duration(seconds: 1));
+        //   }
+        // }
+      }
+    }
+  }
+
+  void onUserReconnectedFunction(Map data) {
+    Map newData = data['data'];
+    String userId = newData['user_id'];
+    for (var i = 0; i < players.length; i++) {
+      if (players[i].value.userId == userId) {
+        players[i].value = players[0].value.copyWith(isDisconnected: false);
+        break;
+        // int maxTime = players[i].value.disconnectTime;
+        // while (maxTime >= 0) {
+        //   if (players[i].value.isDisconnected) {
+        //     Future.delayed(Duration(seconds: 1));
+        //   }
+        // }
+      }
+    }
   }
 
   bool isThisUserTurn(int gamerId) {

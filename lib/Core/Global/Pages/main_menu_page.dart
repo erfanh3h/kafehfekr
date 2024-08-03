@@ -47,8 +47,6 @@ class MainMenuPage extends BaseView<GlobalController> {
           const SizedBox(height: 10),
           Expanded(
             child: GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 15,

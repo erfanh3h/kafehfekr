@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -28,11 +29,10 @@ class RPCPlayerDataWidget extends StatelessWidget {
           children: [
             Expanded(
               child: UserRowData(
-                playerName: controller.players[0].value.name,
+                playerData: controller.players[0].value,
                 playerTotalScore: controller.player1TotalScore.value,
                 playerRoundScore: controller.player1RoundScore.value,
                 color: AppColors.imageRedColor,
-                reactionId: controller.players[0].value.reactionId,
               ),
             ),
             Container(
@@ -57,11 +57,10 @@ class RPCPlayerDataWidget extends StatelessWidget {
               child: Directionality(
                 textDirection: TextDirection.ltr,
                 child: UserRowData(
-                  playerName: controller.players[1].value.name,
+                  playerData: controller.players[1].value,
                   playerTotalScore: controller.player2TotalScore.value,
                   playerRoundScore: controller.player2RoundScore.value,
                   color: AppColors.imageBlueColor,
-                  reactionId: controller.players[1].value.reactionId,
                 ),
               ),
             ),
@@ -75,18 +74,16 @@ class RPCPlayerDataWidget extends StatelessWidget {
 class UserRowData extends StatelessWidget {
   const UserRowData({
     super.key,
-    required this.playerName,
+    required this.playerData,
     required this.playerRoundScore,
     required this.playerTotalScore,
     required this.color,
-    required this.reactionId,
   });
 
-  final String playerName;
+  final PlayerModel playerData;
   final int playerRoundScore;
   final int playerTotalScore;
   final Color color;
-  final int? reactionId;
 
   @override
   Widget build(BuildContext context) {
@@ -102,9 +99,9 @@ class UserRowData extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          if (reactionId != null)
+          if (playerData.reactionId != null)
             GlobalReactionBox(
-              reactionId: reactionId,
+              reactionId: playerData.reactionId,
               color: color,
             ),
           Row(
@@ -118,8 +115,10 @@ class UserRowData extends StatelessWidget {
                     CircleAvatar(
                       radius: 25,
                       backgroundColor: color,
-                      child: const Icon(
-                        Icons.person_2,
+                      child: Icon(
+                        playerData.isDisconnected
+                            ? Icons.desktop_access_disabled
+                            : Icons.person_4,
                         color: Colors.white,
                       ),
                     ),
@@ -127,7 +126,7 @@ class UserRowData extends StatelessWidget {
                       height: 3,
                     ),
                     Text(
-                      playerName,
+                      playerData.name,
                       style: const TextStyle(
                         fontFamily: FontFamilies.typo,
                         fontSize: 12,

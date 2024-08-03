@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -28,10 +29,9 @@ class MillPlayerDataWidget extends StatelessWidget {
           children: [
             Expanded(
               child: UserRowData(
-                playerName: controller.players[0].value.name,
+                playerData: controller.players[0].value,
                 isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
-                reactionId: controller.players[0].value.reactionId,
               ),
             ),
             Container(
@@ -45,10 +45,9 @@ class MillPlayerDataWidget extends StatelessWidget {
               child: Directionality(
                 textDirection: TextDirection.ltr,
                 child: UserRowData(
-                  playerName: controller.players[1].value.name,
+                  playerData: controller.players[1].value,
                   isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
-                  reactionId: controller.players[1].value.reactionId,
                 ),
               ),
             ),
@@ -62,16 +61,14 @@ class MillPlayerDataWidget extends StatelessWidget {
 class UserRowData extends StatelessWidget {
   const UserRowData({
     super.key,
-    required this.playerName,
+    required this.playerData,
     required this.isThisUserTurn,
     required this.color,
-    required this.reactionId,
   });
 
-  final String playerName;
   final bool isThisUserTurn;
   final Color color;
-  final int? reactionId;
+  final PlayerModel playerData;
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +87,9 @@ class UserRowData extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          if (reactionId != null)
+          if (playerData.reactionId != null)
             GlobalReactionBox(
-              reactionId: reactionId,
+              reactionId: playerData.reactionId,
               color: color,
             ),
           Row(
@@ -104,8 +101,10 @@ class UserRowData extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 25,
                   backgroundColor: color,
-                  child: const Icon(
-                    Icons.person_4,
+                  child: Icon(
+                    playerData.isDisconnected
+                        ? Icons.desktop_access_disabled
+                        : Icons.person_4,
                     color: Colors.white,
                   ),
                 ),
@@ -113,7 +112,7 @@ class UserRowData extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Text(
-                  playerName,
+                  playerData.name,
                   style: TextStyle(
                     fontFamily: FontFamilies.typo,
                     fontSize: 12,
