@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:refreshed/refreshed.dart';
 
 // import '../Core/global_repository.dart';
 
-class GlobalController extends GetxController {
+class GlobalController extends BaseController {
   // final AuthRepository authRepo;
   // final GlobalRepository globalRepo;
 
@@ -11,6 +12,8 @@ class GlobalController extends GetxController {
 
   // GlobalController(this.globalRepo);
 
+  TextEditingController idController = TextEditingController(text: "1");
+  TextEditingController gameIdController = TextEditingController(text: "gameId");
   final Rx<String?> _userId = Rx(null);
   String? get userId => _userId.value;
   set user(String? userId) {

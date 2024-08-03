@@ -1,6 +1,5 @@
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Feature/MNumbers/Models/mnumbers_peace_model.dart';
@@ -180,14 +179,10 @@ class MNumbersController extends BaseGameController {
 
   @override
   void onInit() async {
+    super.onInit();
     gameType = GameTypes.mill;
-    Get.find<GameSocketManager>().initSocket(
-      commandHandler: commandHandler,
-      reactionHandler: reactionHandler,
-    );
     for (var i = 0; i < 36; i++) {
       peaces.add(Rx(MNumbersPeaceModel(id: i, currentStatuses: [])));
     }
-    super.onInit();
   }
 }

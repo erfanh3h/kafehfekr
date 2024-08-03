@@ -8,8 +8,8 @@ class GameSocketManager extends GlobalController {
   void initSocket({
     required Function(dynamic) commandHandler,
     required Function(dynamic) reactionHandler,
-    int myId = 1,
-    String gameId = "gameId",
+    required String myId,
+    required String gameId
   }) {
     socket = io(ServerRoutes.gameSocket, <String, dynamic>{
       'autoConnect': false,

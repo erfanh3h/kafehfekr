@@ -14,9 +14,9 @@ import '../../../Core/Base/base_controller.dart';
 class BaseGameController extends BaseController {
   RxList<Rx<PlayerModel>> players = RxList();
 
-  int myId = 1;
-  int myGameId = 2;
-  String gameId = "gameId";
+  late String myId;
+  int myGameId = 0;
+  late String gameId;
   RxBool canSelectPeace = RxBool(false);
   RxBool showReactions = RxBool(true);
   RxBool letSendReaction = RxBool(true);
@@ -113,7 +113,11 @@ class BaseGameController extends BaseController {
     Map gameData = data['data'];
     List gamers = gameData['gamers'];
     for (var gamerData in gamers) {
-      players.add(Rx(PlayerModel.fromJson(gamerData)));
+      PlayerModel newPlayer = PlayerModel.fromJson(gamerData);
+      players.add(Rx(newPlayer));
+      if (newPlayer.userId == myId) {
+        myGameId = newPlayer.gamerId;
+      }
     }
   }
 
@@ -168,9 +172,9 @@ class BaseGameController extends BaseController {
     Get.find<TimerCompanent>().startTimer(value);
   }
 
-  changePlayerReaction(int? playerId, int? reactionId, {int? removeTimer}) {
+  changePlayerReaction(int? gamerId, int? reactionId, {int? removeTimer}) {
     for (var i = 0; i < players.length; i++) {
-      if (players[i].value.id == playerId) {
+      if (players[i].value.gamerId == gamerId) {
         if (showReactions.value) {
           players.value[i].value = players.value[i].value
               .changeReactionId(newReactionId: reactionId);
@@ -203,5 +207,23 @@ class BaseGameController extends BaseController {
 
   void changeShowReactionStatus() {
     showReactions.value = !showReactions.value;
+  }
+
+  @override
+  void onInit() {
+    if (Get.arguments != null) {
+      myId = Get.arguments[0];
+      gameId = Get.arguments[1];
+    } else {
+      myId = "1";
+      gameId = "gameId";
+    }
+    Get.find<GameSocketManager>().initSocket(
+      commandHandler: commandHandler,
+      reactionHandler: reactionHandler,
+      gameId: gameId,
+      myId: myId,
+    );
+    super.onInit();
   }
 }

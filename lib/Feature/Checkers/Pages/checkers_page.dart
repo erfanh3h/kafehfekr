@@ -3,13 +3,10 @@ import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
-import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
-import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Checkers/Controllers/checkers_controller.dart';
-import 'package:kafehfekr/Feature/Checkers/Widgets/checkers_button.dart';
+import 'package:kafehfekr/Feature/Checkers/Widgets/checkers_board_widget.dart';
 import 'package:kafehfekr/Feature/Checkers/Widgets/checkers_player_data_widget.dart';
-import 'package:refreshed/refreshed.dart';
 
 class CheckersPage extends BaseView<CheckersController> {
   const CheckersPage({super.key});
@@ -35,35 +32,7 @@ class CheckersPage extends BaseView<CheckersController> {
           ),
           Expanded(
             flex: 20,
-            child: Center(
-              child: Container(
-                padding: AppSpacings.s10All,
-                height: (Get.size.width)
-                        .clamp(100, GeneralGameConsts.maxGameWidth) *
-                    .95,
-                width: (Get.size.width)
-                        .clamp(100, GeneralGameConsts.maxGameWidth) *
-                    .95,
-                child: Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 8,
-                      crossAxisSpacing: 0,
-                      mainAxisSpacing: 0,
-                    ),
-                    itemBuilder: (ctx, index) => Obx(
-                      () => CheckersButton(
-                        peaceData: controller.peaces[index].value,
-                        onTap: controller.onEachButtonTap,
-                      ),
-                    ),
-                    itemCount: controller.peaces.length,
-                  ),
-                ),
-              ),
-            ),
+            child: CheckersBoarWidget(controller: controller),
           ),
           Expanded(
             flex: 3,
@@ -80,3 +49,4 @@ class CheckersPage extends BaseView<CheckersController> {
     );
   }
 }
+

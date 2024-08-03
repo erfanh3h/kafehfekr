@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Feature/Checkers/Models/checkers_peace_model.dart';
@@ -464,12 +463,8 @@ class CheckersController extends BaseGameController {
 
   @override
   void onInit() async {
-    gameType = GameTypes.tictactoe;
-    Get.find<GameSocketManager>().initSocket(
-      commandHandler: commandHandler,
-      reactionHandler: reactionHandler,
-    );
-    initPeaces();
     super.onInit();
+    gameType = GameTypes.tictactoe;
+    initPeaces();
   }
 }

@@ -1,7 +1,6 @@
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Feature/RPC/Models/rpc_peace_model.dart';
@@ -133,11 +132,8 @@ class RPCController extends BaseGameController {
 
   @override
   void onInit() async {
+    super.onInit();
     gameType = GameTypes.rpc;
-    Get.find<GameSocketManager>().initSocket(
-      commandHandler: commandHandler,
-      reactionHandler: reactionHandler,
-    );
     peaces.add(
       Rx(
         RPCPeaceModel(
@@ -165,6 +161,5 @@ class RPCController extends BaseGameController {
         ),
       ),
     );
-    super.onInit();
   }
 }

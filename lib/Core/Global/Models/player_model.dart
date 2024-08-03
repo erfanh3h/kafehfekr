@@ -1,31 +1,33 @@
-import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-
 class PlayerModel {
-  final int id;
+  final String userId;
+  final int gamerId;
   final String name;
   final int? reactionId;
 
   PlayerModel({
-    required this.id,
+    required this.userId,
+    required this.gamerId,
     required this.name,
     this.reactionId,
   });
 
   factory PlayerModel.fromJson(Map data) {
     return PlayerModel(
-      id: data['id'],
+      userId: data['user_id'],
+      gamerId: data['gamer_id'],
       name: data['name'],
     );
   }
 
   PlayerModel copyWith({
-    final int? id,
+    final String? userId,
+    final int? gamerId,
     final String? name,
-    final List<PlayerStatusTypes>? currentStatuses,
     final int? reactionId,
   }) =>
       PlayerModel(
-        id: id ?? this.id,
+        userId: userId ?? this.userId,
+        gamerId: gamerId ?? this.gamerId,
         name: name ?? this.name,
         reactionId: reactionId ?? this.reactionId,
       );
@@ -34,7 +36,8 @@ class PlayerModel {
     int? newReactionId,
   }) {
     return PlayerModel(
-      id: id,
+      userId: userId,
+      gamerId: gamerId,
       name: name,
       reactionId: newReactionId,
     );
