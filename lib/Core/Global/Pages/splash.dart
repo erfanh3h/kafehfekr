@@ -10,7 +10,7 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final globalController = Get.find<GlobalController>();
-    Future.delayed(const Duration(seconds: 1)).then((_) {
+    Future.delayed(const Duration(milliseconds: 50)).then((_) {
       Get.offAllNamed(AppRoutes.main);
     });
     // globalController.fetchUserData().then(

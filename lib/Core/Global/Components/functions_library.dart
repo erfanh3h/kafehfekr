@@ -10,7 +10,8 @@ import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
 
 class FunctionsLibraryClass {
-  static void showFinishGameDialog(int gameWinner, int myGameId, GameTypes gameType) {
+  static void showFinishGameDialog(
+      int gameWinner, int myGameId, GameTypes gameType) {
     if (gameWinner == 0) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.draw);
       DialogComponent().showIconicDialog(
@@ -49,6 +50,14 @@ class FunctionsLibraryClass {
             cup = CupsCount.msweeperWin;
             coin = CoinsCount.msweeperWin;
             break;
+          case GameTypes.mnumber:
+            cup = CupsCount.mnumbersWin;
+            coin = CoinsCount.mnumbersWin;
+            break;
+          case GameTypes.checkers:
+            cup = CupsCount.checkersWin;
+            coin = CoinsCount.checkersWin;
+            break;
           default:
         }
       } else {
@@ -72,6 +81,14 @@ class FunctionsLibraryClass {
           case GameTypes.msweeper:
             cup = CupsCount.msweeperLose;
             coin = CoinsCount.msweeperLose;
+            break;
+          case GameTypes.mnumber:
+            cup = CupsCount.mnumbersWin;
+            coin = CoinsCount.mnumbersWin;
+            break;
+          case GameTypes.checkers:
+            cup = CupsCount.checkersWin;
+            coin = CoinsCount.checkersWin;
             break;
           default:
         }
@@ -116,6 +133,14 @@ class FunctionsLibraryClass {
           cup = CupsCount.msweeperLose;
           coin = CoinsCount.msweeperLose;
           break;
+        case GameTypes.mnumber:
+          cup = CupsCount.mnumbersWin;
+          coin = CoinsCount.mnumbersWin;
+          break;
+        case GameTypes.checkers:
+          cup = CupsCount.checkersWin;
+          coin = CoinsCount.checkersWin;
+          break;
         default:
       }
     } else {
@@ -139,6 +164,14 @@ class FunctionsLibraryClass {
         case GameTypes.msweeper:
           cup = CupsCount.msweeperWin;
           coin = CoinsCount.msweeperWin;
+          break;
+        case GameTypes.mnumber:
+          cup = CupsCount.mnumbersWin;
+          coin = CoinsCount.mnumbersWin;
+          break;
+        case GameTypes.checkers:
+          cup = CupsCount.checkersWin;
+          coin = CoinsCount.checkersWin;
           break;
         default:
       }

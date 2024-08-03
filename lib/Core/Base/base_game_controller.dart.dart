@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
+import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reactions_box.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -26,7 +27,7 @@ class BaseGameController extends BaseController {
   RxInt player2Score = RxInt(0);
   RxInt currentTurn = RxInt(1);
 
-  GameTypes gameType = GameTypes.none;
+  late GameTypes gameType;
 
   void commandHandler(dynamic data) {
     final commandId = data['id'];
@@ -125,7 +126,11 @@ class BaseGameController extends BaseController {
     Map newData = data['data'];
     List gamers = newData['gamers'];
     for (var gamerData in gamers) {
-      players.add(Rx(PlayerModel.fromJson(gamerData)));
+      PlayerModel newPlayer = PlayerModel.fromJson(gamerData);
+      players.add(Rx(newPlayer));
+      if (newPlayer.userId == myId) {
+        myGameId = newPlayer.gamerId;
+      }
     }
   }
 
@@ -211,13 +216,8 @@ class BaseGameController extends BaseController {
 
   @override
   void onInit() {
-    if (Get.arguments != null) {
-      myId = Get.arguments[0];
-      gameId = Get.arguments[1];
-    } else {
-      myId = "1";
-      gameId = "gameId";
-    }
+    myId = Get.find<GlobalController>().idController.text;
+    gameId = Get.find<GlobalController>().gameIdController.text;
     Get.find<GameSocketManager>().initSocket(
       commandHandler: commandHandler,
       reactionHandler: reactionHandler,

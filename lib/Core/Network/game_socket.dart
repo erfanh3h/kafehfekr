@@ -5,12 +5,11 @@ import 'package:socket_io_client/socket_io_client.dart';
 class GameSocketManager extends GlobalController {
   late Socket socket;
 
-  void initSocket({
-    required Function(dynamic) commandHandler,
-    required Function(dynamic) reactionHandler,
-    required String myId,
-    required String gameId
-  }) {
+  void initSocket(
+      {required Function(dynamic) commandHandler,
+      required Function(dynamic) reactionHandler,
+      required String myId,
+      required String gameId}) {
     socket = io(ServerRoutes.gameSocket, <String, dynamic>{
       'autoConnect': false,
       'transports': ['websocket'],
@@ -42,5 +41,12 @@ class GameSocketManager extends GlobalController {
 
   void disconnect() {
     socket.disconnect();
+  }
+
+  @override
+  // ignore: invalid_override_of_non_virtual_member
+  void onDelete() {
+    socket.destroy();
+    super.onDelete();
   }
 }

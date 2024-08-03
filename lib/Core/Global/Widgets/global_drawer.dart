@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Routes/app_routes.dart';
 
 class GlobalDrawer extends StatelessWidget {
   const GlobalDrawer({
@@ -93,21 +92,21 @@ class GlobalDrawer extends StatelessWidget {
                 ],
               ),
             ),
-            Positioned(
-              bottom: 10,
-              left: 0,
-              right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.support_agent, size: 30),
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed(AppRoutes.entry),
-                  ),
-                ],
-              ),
-            )
+            // Positioned(
+            //   bottom: 10,
+            //   left: 0,
+            //   right: 0,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       IconButton(
+            //         icon: const Icon(Icons.support_agent, size: 30),
+            //         onPressed: () =>
+            //             Navigator.of(context).pushNamed(AppRoutes.entry),
+            //       ),
+            //     ],
+            //   ),
+            // )
           ],
         ),
       ),
