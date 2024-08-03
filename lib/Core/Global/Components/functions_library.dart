@@ -59,6 +59,9 @@ class FunctionsLibraryClass {
             coin = CoinsCount.checkersWin;
             break;
           default:
+            cup = CupsCount.tictactoeWin;
+            coin = CoinsCount.tictactoeWin;
+            break;
         }
       } else {
         Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
@@ -91,6 +94,9 @@ class FunctionsLibraryClass {
             coin = CoinsCount.checkersWin;
             break;
           default:
+            cup = CupsCount.tictactoeLose;
+            coin = CoinsCount.tictactoeLose;
+            break;
         }
       }
       DialogComponent().showIconicDialog(
@@ -142,6 +148,9 @@ class FunctionsLibraryClass {
           coin = CoinsCount.checkersWin;
           break;
         default:
+          cup = CupsCount.tictactoeLose;
+          coin = CoinsCount.tictactoeLose;
+          break;
       }
     } else {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
@@ -174,6 +183,9 @@ class FunctionsLibraryClass {
           coin = CoinsCount.checkersWin;
           break;
         default:
+          cup = CupsCount.tictactoeWin;
+          coin = CoinsCount.tictactoeWin;
+          break;
       }
     }
     DialogComponent().showIconicDialog(
@@ -224,6 +236,9 @@ class FunctionsLibraryClass {
           coin = CoinsCount.checkersWin;
           break;
         default:
+          cup = CupsCount.tictactoeLose;
+          coin = CoinsCount.tictactoeLose;
+          break;
       }
     } else {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
@@ -256,6 +271,9 @@ class FunctionsLibraryClass {
           coin = CoinsCount.checkersWin;
           break;
         default:
+          cup = CupsCount.tictactoeWin;
+          coin = CoinsCount.tictactoeWin;
+          break;
       }
     }
     DialogComponent().showIconicDialog(

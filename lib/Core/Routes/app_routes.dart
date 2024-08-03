@@ -8,4 +8,5 @@ abstract class AppRoutes {
   static const mnumbers = '/mnumbers';
   static const mill = '/mill';
   static const checkers = '/checkers';
+  static const ten = '/ten';
 }
