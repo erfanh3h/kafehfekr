@@ -77,6 +77,9 @@ class BaseGameController extends BaseController {
       case GameCommands.surrender:
         surrenderFunction(data);
         break;
+      case GameCommands.finishReconnectTime:
+        finishReconnectTimerFunction(data);
+        break;
       case GameCommands.playerScore:
         playerScoreFunction(data);
         break;
@@ -156,6 +159,16 @@ class BaseGameController extends BaseController {
     FunctionsLibraryClass.showSurrenderDialog(
       newData['gamer_id'],
       myGameId,
+      gameType,
+    );
+  }
+
+  void finishReconnectTimerFunction(Map data) {
+    Map newData = data['data'];
+    Get.find<TimerCompanent>().stopTimer();
+    FunctionsLibraryClass.showFinishReconnectTimeDialog(
+      newData['user_id'],
+      myId,
       gameType,
     );
   }

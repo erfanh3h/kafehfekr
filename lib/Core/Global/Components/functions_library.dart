@@ -186,6 +186,88 @@ class FunctionsLibraryClass {
     );
   }
 
+  static void showFinishReconnectTimeDialog(
+      String userId, String myId, GameTypes gameType) {
+    String dialogMessage = "";
+    String dialogIcon = "";
+    Color dialogColor = Colors.white;
+    int cup = 0;
+    int coin = 0;
+    if (userId == myId) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
+      dialogMessage = AppTexts.youSurrenderGame.tr;
+      dialogIcon = GeneralIcons.lose;
+      dialogColor = AppColors.loseColor;
+      switch (gameType) {
+        case GameTypes.tictactoe:
+          cup = CupsCount.tictactoeLose;
+          coin = CoinsCount.tictactoeLose;
+          break;
+        case GameTypes.rpc:
+          cup = CupsCount.rpcLose;
+          coin = CoinsCount.rpcLose;
+          break;
+        case GameTypes.mill:
+          cup = CupsCount.millLose;
+          coin = CoinsCount.millLose;
+          break;
+        case GameTypes.msweeper:
+          cup = CupsCount.msweeperLose;
+          coin = CoinsCount.msweeperLose;
+          break;
+        case GameTypes.mnumber:
+          cup = CupsCount.mnumbersWin;
+          coin = CoinsCount.mnumbersWin;
+          break;
+        case GameTypes.checkers:
+          cup = CupsCount.checkersWin;
+          coin = CoinsCount.checkersWin;
+          break;
+        default:
+      }
+    } else {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
+      dialogMessage = AppTexts.enemySurrenderGame.tr;
+      dialogIcon = GeneralIcons.win;
+      dialogColor = AppColors.winColor;
+      switch (gameType) {
+        case GameTypes.tictactoe:
+          cup = CupsCount.tictactoeWin;
+          coin = CoinsCount.tictactoeWin;
+          break;
+        case GameTypes.rpc:
+          cup = CupsCount.rpcWin;
+          coin = CoinsCount.rpcWin;
+          break;
+        case GameTypes.mill:
+          cup = CupsCount.millWin;
+          coin = CoinsCount.millWin;
+          break;
+        case GameTypes.msweeper:
+          cup = CupsCount.msweeperWin;
+          coin = CoinsCount.msweeperWin;
+          break;
+        case GameTypes.mnumber:
+          cup = CupsCount.mnumbersWin;
+          coin = CoinsCount.mnumbersWin;
+          break;
+        case GameTypes.checkers:
+          cup = CupsCount.checkersWin;
+          coin = CoinsCount.checkersWin;
+          break;
+        default:
+      }
+    }
+    DialogComponent().showIconicDialog(
+      AppTexts.endGame.tr,
+      dialogMessage,
+      dialogIcon,
+      dialogColor,
+      coin: coin,
+      cup: cup,
+    );
+  }
+
   static void showFinishRoundDialog(int roundWinner, int myGameId) {
     if (roundWinner == 0) {
       DialogComponent().showIconicDialog(

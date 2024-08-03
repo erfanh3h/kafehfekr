@@ -39,6 +39,9 @@ abstract class GameCommands {
   static const mineSelected = "MineSelected";
   static const playerScore = "PlayerScore";
   static const surrender = "Surrender";
+  static const userDisconnected = "UserDisconnected";
+  static const userReconnected = "UserReconnected";
+  static const finishReconnectTime = "FinishReconnectTime";
 }
 
 class CupsCount {
@@ -73,4 +76,5 @@ class CoinsCount {
 
 class GeneralGameConsts {
   static const double maxGameWidth = 500;
+  static const int maxDisconnectTime = 120;
 }
