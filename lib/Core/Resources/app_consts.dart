@@ -7,6 +7,8 @@ class GameWaitTimes {
   static const int msweeperGameTime = 600;
   static const int mnumbersTurnTime = 5;
   static const int checkersTurnTime = 20;
+  static const int tenSleepRoundTime = 5;
+  static const int tenRoundTime = 300;
 }
 
 class FontFamilies {
@@ -34,6 +36,7 @@ abstract class GameCommands {
   static const startGame = "StartGame";
   static const finishGame = "FinishGame";
   static const selectMine = "SelectMine";
+  static const solve = "Solve";
   static const selectMineCorrect = "SelectMineCorrect";
   static const selectMineWrong = "SelectMineWrong";
   static const mineSelected = "MineSelected";

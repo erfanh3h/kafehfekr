@@ -1,4 +1,5 @@
 import 'package:kafehfekr/Core/Global/Core/global_binding.dart';
+import 'package:kafehfekr/Core/Global/Pages/main_menu_page.dart';
 import 'package:kafehfekr/Core/Global/Pages/splash.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Feature/Checkers/Pages/checkers_page.dart';
@@ -18,7 +19,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.main,
-      page: TenPage.new,
+      page: MainMenuPage.new,
       binding: GlobalBinding(),
     ),
     GetPage(

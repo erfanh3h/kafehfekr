@@ -15,10 +15,6 @@ class TenDraggableNumberWidget extends StatelessWidget {
       feedback: SizedBox(
         width: 50,
         height: 50,
-        // decoration: BoxDecoration(
-        //   borderRadius: BorderRadius.circular(5),
-        //   color: Colors.white.withOpacity(0.5),
-        // ),
         child: Center(
           child: Text(
             value.toString(),
@@ -26,6 +22,7 @@ class TenDraggableNumberWidget extends StatelessWidget {
               color: Colors.white,
               fontSize: 20,
             ),
+            textDirection: TextDirection.ltr,
           ),
         ),
       ),
@@ -37,10 +34,7 @@ class TenDraggableNumberWidget extends StatelessWidget {
         width: 50,
         height: 50,
       ),
-      // onDragCompleted: () => print("Ss"),
-      onDraggableCanceled: (_, __) {
-        // print('Drag Canceled');
-      },
+      onDraggableCanceled: (_, __) {},
       child: Container(
         width: 50,
         height: 50,
@@ -52,6 +46,7 @@ class TenDraggableNumberWidget extends StatelessWidget {
           child: Text(
             value.toString(),
             style: const TextStyle(color: Colors.white, fontSize: 20),
+            textDirection: TextDirection.ltr,
           ),
         ),
       ),

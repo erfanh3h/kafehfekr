@@ -21,7 +21,7 @@ class TenDragTargetNumberWidget extends StatelessWidget {
         return InkWell(
           onTap: () => onRemove(index),
           child: Container(
-            padding: AppSpacings.s10All,
+            padding: AppSpacings.s5All,
             // width: 50,
             // height: 50,
             decoration: BoxDecoration(
@@ -32,7 +32,7 @@ class TenDragTargetNumberWidget extends StatelessWidget {
               child: Text(
                 value >= 0 ? value.toString() : "",
                 style: const TextStyle(
-                  fontSize: 25,
+                  fontSize: 17,
                   color: Colors.white,
                 ),
               ),

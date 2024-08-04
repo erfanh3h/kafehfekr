@@ -16,24 +16,25 @@ class TenController extends BaseGameController {
 
   int maxRound = 3;
 
+  RxBool letSendResult = RxBool(false);
+  RxDouble result = RxDouble(0);
+
+  List<int> currentNumbers = [];
+
   @override
   void currentTurnFunction(Map data) {
-    int turn = data['data'];
-    currentTurn.value = turn;
-    if (turn == myGameId) {
-      canSelectPeace.value = true;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
-    } else {
-      canSelectPeace.value = false;
-    }
-    changetimerValue(GameWaitTimes.tictactoeRoundTime);
+    List<int> listNumbers = List<int>.from(data['data']);
+    currentNumbers = listNumbers;
+    setNumbers();
+    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+    changetimerValue(GameWaitTimes.tenRoundTime);
   }
 
   @override
   void newRoundFunction(Map data) {
     int newRound = data['data'];
     currentRound.value = newRound;
-    resetPeaces();
+    resetValues();
   }
 
   @override
@@ -47,12 +48,13 @@ class TenController extends BaseGameController {
       player2Score.value += 1;
     }
     FunctionsLibraryClass.showFinishRoundDialog(roundWinner, myGameId);
+    changetimerValue(GameWaitTimes.tenSleepRoundTime);
   }
 
   bool checkOperatorsHaveValue(String value) {
     bool result = false;
     for (var dataRaw in operatorValues) {
-      if (dataRaw.value == value) {
+      if (dataRaw.value.contains(value)) {
         result = true;
         break;
       }
@@ -60,15 +62,32 @@ class TenController extends BaseGameController {
     return result;
   }
 
+  @override
+  void reconnectDataFuntcion(Map data) {
+    super.reconnectDataFuntcion(data);
+    Map newData = data['data'];
+    Map gameData = newData['game_data'];
+    Map timerData = newData['timer_data'];
+    List<int> listNumbers = List<int>.from(gameData['current_numbers']);
+    currentNumbers = listNumbers;
+    setNumbers();
+    currentRound.value = gameData['current_round'];
+    player1Score.value = gameData['scores'][0];
+    player2Score.value = gameData['scores'][1];
+    final int time = GameWaitTimes.tenRoundTime - timerData['time'] as int;
+    changetimerValue(time.clamp(0, time));
+  }
+
   onOperatorRemove(int index) {
     operatorValues[index].value = "";
+    calculateResult();
   }
 
   onOperatorAccept(String value, int index) {
     if (index == 4 && value != ')') {
       return;
     }
-    if (index == 0 && value != '(') {
+    if (index == 0 && value != '(' && value != '-') {
       return;
     }
     if (value == ')') {
@@ -98,14 +117,37 @@ class TenController extends BaseGameController {
         operatorValues[index].value = value;
       }
     }
+    calculateResult();
+  }
+
+  bool checkRepeatedNumberCanEnter(int number) {
+    int repeatCount = 0;
+    for (var num in currentNumbers) {
+      if (num == number) {
+        repeatCount += 1;
+      }
+    }
+    int numbersRepeatCount = 0;
+
+    for (var num in numberValues) {
+      if (num.value == number) {
+        numbersRepeatCount += 1;
+      }
+    }
+    if (numbersRepeatCount < repeatCount) {
+      return true;
+    }
+    return false;
   }
 
   bool checkNumbersHaveValue(int value) {
     bool result = false;
     for (var dataRaw in numberValues) {
       if (dataRaw.value == value) {
-        result = true;
-        break;
+        if (!checkRepeatedNumberCanEnter(value)) {
+          result = true;
+          break;
+        }
       }
     }
     return result;
@@ -113,57 +155,99 @@ class TenController extends BaseGameController {
 
   onNumberRemove(int index) {
     numberValues[index].value = -1;
+    calculateResult();
   }
 
   onNumberAccept(int value, int index) {
     if (!checkNumbersHaveValue(value)) {
       numberValues[index].value = value;
     }
+    calculateResult();
+  }
+
+  String calculateExpression() {
+    String expression = "";
+    if (operatorValues[0].value != "") {
+      expression +=
+          operatorValues[0].value.replaceAll("x", "*").replaceAll('÷', "/");
+    }
+    if (numberValues[0].value != -1) {
+      expression += numberValues[0].value.toString();
+    }
+    if (operatorValues[1].value != "") {
+      expression +=
+          operatorValues[1].value.replaceAll("x", "*").replaceAll('÷', "/");
+    } else {
+      return expression;
+    }
+    if (numberValues[1].value != -1) {
+      expression += numberValues[1].value.toString();
+    }
+    if (operatorValues[2].value != "") {
+      expression +=
+          operatorValues[2].value.replaceAll("x", "*").replaceAll('÷', "/");
+    } else {
+      return expression;
+    }
+    if (numberValues[2].value != -1) {
+      expression += numberValues[2].value.toString();
+    }
+    if (operatorValues[3].value != "") {
+      expression +=
+          operatorValues[3].value.replaceAll("x", "*").replaceAll('÷', "/");
+    } else {
+      return expression;
+    }
+    if (numberValues[3].value != -1) {
+      expression += numberValues[3].value.toString();
+    }
+    if (operatorValues[4].value != "") {
+      expression +=
+          operatorValues[4].value.replaceAll("x", "*").replaceAll('÷', "/");
+    }
+    return expression;
   }
 
   calculateResult() {
-    final expressionsExample = [
-      '-(2*4)-2+2',
-      '(3 + 2)^3',
-      '3 * pi / 4',
-      '3 * sin(5 * pi / 6)',
-      'e^(-1)'
-    ];
-    for (final expression in expressionsExample) {
-      print("'$expression' -> ${expression.interpret()}");
+    final String expression = calculateExpression();
+    try {
+      result.value = expression.interpret().toDouble();
+    } catch (_) {}
+    for (var dataRaw in numberValues) {
+      if (dataRaw.value == -1) {
+        letSendResult.value = false;
+        return;
+      }
+    }
+    if (result.value == 10) {
+      letSendResult.value = true;
+    } else {
+      letSendResult.value = false;
     }
   }
-  // @override
-  // void onEachButtonTap(dynamic tappedPeace) {
-  //   TicTacToePeaceModel peace = tappedPeace as TicTacToePeaceModel;
-  //   if (!canSelectPeace.value) {
-  //     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-  //     return;
-  //   }
-  //   if (peace.selectedUser != null) {
-  //     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-  //     return;
-  //   }
-  //   canSelectPeace.value = false;
-  //   sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-  //   addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-  //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-  // }
 
-  void resetPeaces() {
-    // for (var i = 0; i < peaces.length; i++) {
-    //   peaces[i].value = peaces[i].value.resetPeace();
-    // }
+  sendResult() {
+    if (!letSendResult.value) {
+      return;
+    }
+    sendCommand({"id": GameCommands.solve});
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
-    // peaces.value[peaceId].value =
-    //     peaces.value[peaceId].value.addStatus(status: status);
+  void resetValues() {
+    for (var i = 0; i < operatorValues.length; i++) {
+      operatorValues[i].value = "";
+    }
+    for (var i = 0; i < numberValues.length; i++) {
+      numberValues[i].value = -1;
+    }
+    result.value = 0;
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
-    // peaces.value[peaceId].value =
-    //     peaces.value[peaceId].value.removeStatus(status: status);
+  setNumbers() {
+    numbers[0].value = currentNumbers[0];
+    numbers[1].value = currentNumbers[1];
+    numbers[2].value = currentNumbers[2];
+    numbers[3].value = currentNumbers[3];
   }
 
   addOperators() {
@@ -181,10 +265,10 @@ class TenController extends BaseGameController {
   }
 
   addNumbers() {
-    numbers.add(RxInt(1));
-    numbers.add(RxInt(2));
-    numbers.add(RxInt(3));
-    numbers.add(RxInt(4));
+    numbers.add(RxInt(-1));
+    numbers.add(RxInt(-1));
+    numbers.add(RxInt(-1));
+    numbers.add(RxInt(-1));
     numberValues.add(RxInt(-1));
     numberValues.add(RxInt(-1));
     numberValues.add(RxInt(-1));
