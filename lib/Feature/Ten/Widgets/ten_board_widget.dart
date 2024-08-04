@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/Ten/Controllers/ten_controller.dart';
-import 'package:kafehfekr/Feature/TicTacToe/Widgets/tictactoe_button.dart';
+import 'package:kafehfekr/Feature/Ten/Widgets/ten_drag_target_number.dart';
+import 'package:kafehfekr/Feature/Ten/Widgets/ten_drag_target_operator.dart';
+import 'package:kafehfekr/Feature/Ten/Widgets/ten_draggable_number_widget.dart';
+import 'package:kafehfekr/Feature/Ten/Widgets/ten_draggable_operator_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 class TenBoardWidget extends StatelessWidget {
@@ -15,26 +20,145 @@ class TenBoardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
+    return Obx(
+      () => Container(
         padding: AppSpacings.s20All,
         height:
             (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
         width:
             (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
-        child: Obx(
-          () => GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: TenDragTargetOperatorWidget(
+                      value: controller.operatorValues[0].value,
+                      onAccept: controller.onOperatorAccept,
+                      onRemove: controller.onOperatorRemove,
+                      index: 0,
+                    ),
+                  ),
+                  const SizedBox(width: 3),
+                  Expanded(
+                    child: TenDragTargetNumberWidget(
+                      value: controller.numberValues[0].value,
+                      onAccept: controller.onNumberAccept,
+                      onRemove: controller.onNumberRemove,
+                      index: 0,
+                    ),
+                  ),
+                  const SizedBox(width: 3),
+                  Expanded(
+                    child: TenDragTargetOperatorWidget(
+                      value: controller.operatorValues[1].value,
+                      onAccept: controller.onOperatorAccept,
+                      onRemove: controller.onOperatorRemove,
+                      index: 1,
+                    ),
+                  ),
+                  const SizedBox(width: 3),
+                  Expanded(
+                    child: TenDragTargetNumberWidget(
+                      value: controller.numberValues[1].value,
+                      onAccept: controller.onNumberAccept,
+                      onRemove: controller.onNumberRemove,
+                      index: 1,
+                    ),
+                  ),
+                  const SizedBox(width: 3),
+                  Expanded(
+                    child: TenDragTargetOperatorWidget(
+                      value: controller.operatorValues[2].value,
+                      onAccept: controller.onOperatorAccept,
+                      onRemove: controller.onOperatorRemove,
+                      index: 2,
+                    ),
+                  ),
+                  const SizedBox(width: 3),
+                  Expanded(
+                    child: TenDragTargetNumberWidget(
+                      value: controller.numberValues[2].value,
+                      onAccept: controller.onNumberAccept,
+                      onRemove: controller.onNumberRemove,
+                      index: 2,
+                    ),
+                  ),
+                  const SizedBox(width: 3),
+                  Expanded(
+                    child: TenDragTargetOperatorWidget(
+                      value: controller.operatorValues[3].value,
+                      onAccept: controller.onOperatorAccept,
+                      onRemove: controller.onOperatorRemove,
+                      index: 3,
+                    ),
+                  ),
+                  const SizedBox(width: 3),
+                  Expanded(
+                    child: TenDragTargetNumberWidget(
+                      value: controller.numberValues[3].value,
+                      onAccept: controller.onNumberAccept,
+                      onRemove: controller.onNumberRemove,
+                      index: 3,
+                    ),
+                  ),
+                  const SizedBox(width: 3),
+                  Expanded(
+                    child: TenDragTargetOperatorWidget(
+                      value: controller.operatorValues[4].value,
+                      onAccept: controller.onOperatorAccept,
+                      onRemove: controller.onOperatorRemove,
+                      index: 4,
+                    ),
+                  ),
+                ],
+              ),
             ),
-            itemBuilder: (ctx, index) => TicTacToeButton(
-              peaceData: controller.peaces[index].value,
-              onTap: controller.onEachButtonTap,
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TenDraggableNumberWidget(value: controller.numbers[0].value),
+                TenDraggableNumberWidget(value: controller.numbers[1].value),
+                TenDraggableNumberWidget(value: controller.numbers[2].value),
+                TenDraggableNumberWidget(value: controller.numbers[3].value),
+              ],
             ),
-            itemCount: controller.peaces.length,
-          ),
+            const SizedBox(height: 10),
+            Directionality(
+              textDirection: TextDirection.ltr,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TenDraggableOperatorWidget(
+                      value: controller.operators[0].value),
+                  TenDraggableOperatorWidget(
+                      value: controller.operators[1].value),
+                  TenDraggableOperatorWidget(
+                      value: controller.operators[2].value),
+                  TenDraggableOperatorWidget(
+                      value: controller.operators[3].value),
+                  TenDraggableOperatorWidget(
+                      value: controller.operators[4].value),
+                  TenDraggableOperatorWidget(
+                      value: controller.operators[5].value),
+                ],
+              ),
+            ),
+            const SizedBox(height: 25),
+            SizedBox(
+              width: 100,
+              height: 50,
+              child: GlobalButtonWidget(
+                onTap: controller.calculateResult,
+                text: AppTexts.accept.tr,
+              ),
+            ),
+          ],
         ),
       ),
     );
