@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 
 class TenDraggableNumberWidget extends StatelessWidget {
   const TenDraggableNumberWidget({
@@ -20,7 +21,9 @@ class TenDraggableNumberWidget extends StatelessWidget {
             value.toString(),
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 20,
+              fontSize: 25,
+              fontFamily: FontFamilies.dastnevis,
+              decoration: TextDecoration.none,
             ),
             textDirection: TextDirection.ltr,
           ),
@@ -45,7 +48,11 @@ class TenDraggableNumberWidget extends StatelessWidget {
         child: Center(
           child: Text(
             value.toString(),
-            style: const TextStyle(color: Colors.white, fontSize: 20),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+              fontFamily: FontFamilies.dastnevis,
+            ),
             textDirection: TextDirection.ltr,
           ),
         ),

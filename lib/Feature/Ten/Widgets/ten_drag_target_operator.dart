@@ -21,9 +21,7 @@ class TenDragTargetOperatorWidget extends StatelessWidget {
         return InkWell(
           onTap: () => onRemove(index),
           child: Container(
-            padding: AppSpacings.s5All,
-            // width: 50,
-            // height: 50,
+            padding: AppSpacings.s15Vertical5Horizental,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Colors.white.withOpacity(0.25),

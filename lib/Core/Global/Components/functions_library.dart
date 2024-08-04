@@ -50,7 +50,7 @@ class FunctionsLibraryClass {
             cup = CupsCount.msweeperWin;
             coin = CoinsCount.msweeperWin;
             break;
-          case GameTypes.mnumber:
+          case GameTypes.mnumbers:
             cup = CupsCount.mnumbersWin;
             coin = CoinsCount.mnumbersWin;
             break;
@@ -85,7 +85,7 @@ class FunctionsLibraryClass {
             cup = CupsCount.msweeperLose;
             coin = CoinsCount.msweeperLose;
             break;
-          case GameTypes.mnumber:
+          case GameTypes.mnumbers:
             cup = CupsCount.mnumbersWin;
             coin = CoinsCount.mnumbersWin;
             break;
@@ -139,7 +139,7 @@ class FunctionsLibraryClass {
           cup = CupsCount.msweeperLose;
           coin = CoinsCount.msweeperLose;
           break;
-        case GameTypes.mnumber:
+        case GameTypes.mnumbers:
           cup = CupsCount.mnumbersWin;
           coin = CoinsCount.mnumbersWin;
           break;
@@ -174,7 +174,7 @@ class FunctionsLibraryClass {
           cup = CupsCount.msweeperWin;
           coin = CoinsCount.msweeperWin;
           break;
-        case GameTypes.mnumber:
+        case GameTypes.mnumbers:
           cup = CupsCount.mnumbersWin;
           coin = CoinsCount.mnumbersWin;
           break;
@@ -227,7 +227,7 @@ class FunctionsLibraryClass {
           cup = CupsCount.msweeperLose;
           coin = CoinsCount.msweeperLose;
           break;
-        case GameTypes.mnumber:
+        case GameTypes.mnumbers:
           cup = CupsCount.mnumbersWin;
           coin = CoinsCount.mnumbersWin;
           break;
@@ -262,7 +262,7 @@ class FunctionsLibraryClass {
           cup = CupsCount.msweeperWin;
           coin = CoinsCount.msweeperWin;
           break;
-        case GameTypes.mnumber:
+        case GameTypes.mnumbers:
           cup = CupsCount.mnumbersWin;
           coin = CoinsCount.mnumbersWin;
           break;

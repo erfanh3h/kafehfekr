@@ -17,25 +17,28 @@ class CheckersBoarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: AppSpacings.s10All,
-        height:
-            (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
-        width:
-            (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
+        padding: AppSpacings.s5All,
+        height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
+        width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
         child: Obx(
           () => Directionality(
             textDirection: TextDirection.ltr,
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 8,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0,
+            child: Card(
+              child: Padding(
+                padding: AppSpacings.s15All,
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 8,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 0,
+                  ),
+                  itemBuilder: (ctx, index) => CheckersButton(
+                    peaceData: controller.peaces[index].value,
+                    onTap: controller.onEachButtonTap,
+                  ),
+                  itemCount: controller.peaces.length,
+                ),
               ),
-              itemBuilder: (ctx, index) => CheckersButton(
-                peaceData: controller.peaces[index].value,
-                onTap: controller.onEachButtonTap,
-              ),
-              itemCount: controller.peaces.length,
             ),
           ),
         ),

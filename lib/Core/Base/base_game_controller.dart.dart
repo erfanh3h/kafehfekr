@@ -136,7 +136,6 @@ class BaseGameController extends BaseController {
     List gamers = newData['gamers'];
     for (var gamerData in gamers) {
       PlayerModel newPlayer = PlayerModel.fromJson(gamerData);
-      print(newPlayer.gamerId);
       players.add(Rx(newPlayer));
       if (newPlayer.userId == myId) {
         myGameId = newPlayer.gamerId;
@@ -233,14 +232,11 @@ class BaseGameController extends BaseController {
 
   changePlayerReaction(int? gamerId, int? reactionId, {int? removeTimer}) {
     for (var i = 0; i < players.length; i++) {
-      print(players[i].value.gamerId);
-
       if (players[i].value.gamerId == gamerId) {
         if (showReactions.value) {
           players.value[i].value = players.value[i].value
               .changeReactionId(newReactionId: reactionId);
         }
-
         Future.delayed(Duration(seconds: removeTimer ?? 5)).then((_) {
           players.value[i].value = players.value[i].value.changeReactionId();
           letSendReaction.value = true;

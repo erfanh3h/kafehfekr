@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class TenDragTargetNumberWidget extends StatelessWidget {
@@ -21,9 +22,7 @@ class TenDragTargetNumberWidget extends StatelessWidget {
         return InkWell(
           onTap: () => onRemove(index),
           child: Container(
-            padding: AppSpacings.s5All,
-            // width: 50,
-            // height: 50,
+            padding: AppSpacings.s15Vertical5Horizental,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Colors.white.withOpacity(0.5),
@@ -32,8 +31,9 @@ class TenDragTargetNumberWidget extends StatelessWidget {
               child: Text(
                 value >= 0 ? value.toString() : "",
                 style: const TextStyle(
-                  fontSize: 17,
+                  fontSize: 22,
                   color: Colors.white,
+                  fontFamily: FontFamilies.dastnevis,
                 ),
               ),
             ),

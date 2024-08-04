@@ -21,23 +21,26 @@ class MSweeperBoardWidget extends StatelessWidget {
           maxWidth: GeneralGameConsts.maxGameWidth,
         ),
         padding: AppSpacings.s5All,
-        height:
-            (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
-        width:
-            (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
+        height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
+        width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
         child: Obx(
-          () => GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 8,
-              crossAxisSpacing: 2,
-              mainAxisSpacing: 2,
+          () => Card(
+            child: Padding(
+              padding: AppSpacings.s15All,
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 8,
+                  crossAxisSpacing: 2,
+                  mainAxisSpacing: 2,
+                ),
+                itemBuilder: (ctx, index) => MSweeperButton(
+                  peaceData: controller.peaces[index].value,
+                  onTap: controller.onEachButtonTap,
+                  onHold: controller.onEachButtonHold,
+                ),
+                itemCount: controller.peaces.length,
+              ),
             ),
-            itemBuilder: (ctx, index) => MSweeperButton(
-              peaceData: controller.peaces[index].value,
-              onTap: controller.onEachButtonTap,
-              onHold: controller.onEachButtonHold,
-            ),
-            itemCount: controller.peaces.length,
           ),
         ),
       ),

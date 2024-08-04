@@ -24,6 +24,10 @@ class AppSpacings {
     vertical: 5,
     horizontal: 3,
   );
+  static const EdgeInsets s15Vertical5Horizental = EdgeInsets.symmetric(
+    vertical: 15,
+    horizontal: 5,
+  );
 
   static const EdgeInsets s20Horizental10Vertical = EdgeInsets.symmetric(
     horizontal: 20,

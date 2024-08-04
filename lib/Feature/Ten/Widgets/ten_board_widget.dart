@@ -36,11 +36,12 @@ class TenBoardWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: AppColors.lightColor,
-                fontSize: 25,
+                fontSize: 45,
+                fontFamily: FontFamilies.dastnevis,
               ),
               textDirection: TextDirection.ltr,
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 15),
             Directionality(
               textDirection: TextDirection.ltr,
               child: Card(

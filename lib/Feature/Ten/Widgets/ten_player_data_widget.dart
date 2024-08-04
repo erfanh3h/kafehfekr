@@ -31,7 +31,6 @@ class TenPlayerDataWidget extends StatelessWidget {
               child: UserRowData(
                 playerData: controller.players[0].value,
                 playerScore: controller.player1Score.value,
-                isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
               ),
             ),
@@ -41,8 +40,8 @@ class TenPlayerDataWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  GlobalShowTimerWidget(
-                    color: controller.returnTimerColor(),
+                  const GlobalShowTimerWidget(
+                    color: AppColors.darkColor,
                   ),
                   Text(
                     "${controller.maxRound} / ${controller.currentRound}",
@@ -61,7 +60,6 @@ class TenPlayerDataWidget extends StatelessWidget {
                 child: UserRowData(
                   playerData: controller.players[1].value,
                   playerScore: controller.player2Score.value,
-                  isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
                 ),
               ),
@@ -78,13 +76,11 @@ class UserRowData extends StatelessWidget {
     super.key,
     required this.playerData,
     required this.playerScore,
-    required this.isThisUserTurn,
     required this.color,
   });
 
   final PlayerModel playerData;
   final int playerScore;
-  final bool isThisUserTurn;
   final Color color;
 
   @override
@@ -95,7 +91,7 @@ class UserRowData extends StatelessWidget {
         color: AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
-          color: isThisUserTurn ? color : Colors.white,
+          color: color,
           width: 3,
         ),
       ),
