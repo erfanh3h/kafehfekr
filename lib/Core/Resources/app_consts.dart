@@ -81,3 +81,10 @@ class GeneralGameConsts {
   static const double maxGameWidth = 500;
   static const int maxDisconnectTime = 120;
 }
+
+class GameRoundCounts {
+  static const int tictactoeRoundCount = 4;
+  static const int rpcRoundCount = 3;
+  static const int rpcTurnRoundCount = 5;
+  static const int tenRoundCount = 3;
+}

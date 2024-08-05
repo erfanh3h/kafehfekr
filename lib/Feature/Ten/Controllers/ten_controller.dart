@@ -14,7 +14,7 @@ class TenController extends BaseGameController {
   RxList<RxString> operatorValues = RxList();
   RxList<RxInt> numberValues = RxList();
 
-  int maxRound = 3;
+  int maxRound = GameRoundCounts.tenRoundCount;
 
   RxBool letSendResult = RxBool(false);
   RxDouble result = RxDouble(0);

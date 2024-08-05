@@ -42,12 +42,29 @@ class RPCPlayerDataWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const GlobalShowTimerWidget(),
-                  Text(
-                    "${controller.maxTurnRound} / ${controller.currentTurnRound.value}",
-                    style: const TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 25,
-                      color: Colors.white,
+                  Card(
+                    child: Padding(
+                      padding: AppSpacings.s5All,
+                      child: Column(
+                        children: [
+                          Text(
+                            "${controller.maxTurnRound} / ${controller.currentTurnRound.value}",
+                            style: const TextStyle(
+                              fontFamily: FontFamilies.dastnevis,
+                              fontSize: 25,
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            "${controller.maxRound} / ${controller.currentRound.value}",
+                            style: const TextStyle(
+                              fontFamily: FontFamilies.dastnevis,
+                              fontSize: 15,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

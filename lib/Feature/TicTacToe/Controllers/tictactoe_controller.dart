@@ -9,7 +9,7 @@ import 'package:refreshed/refreshed.dart';
 
 class TicTacToeController extends BaseGameController {
   RxList<Rx<TicTacToePeaceModel>> peaces = RxList();
-  int maxRound = 2;
+  int maxRound = GameRoundCounts.tictactoeRoundCount;
 
   @override
   void currentTurnFunction(Map data) {

@@ -11,9 +11,10 @@ class RPCController extends BaseGameController {
 
   RxBool peaceSelected = RxBool(false);
 
-  int maxRound = 2;
   RxInt currentTurnRound = RxInt(1);
-  int maxTurnRound = 5;
+
+  int maxRound = GameRoundCounts.rpcRoundCount;
+  int maxTurnRound = GameRoundCounts.rpcTurnRoundCount;
 
   RxInt player1TotalScore = RxInt(0);
   RxInt player2TotalScore = RxInt(0);

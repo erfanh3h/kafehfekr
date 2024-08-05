@@ -3,13 +3,10 @@ import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Feature/Mill/Controllers/mill_controller.dart';
 import 'package:kafehfekr/Feature/Mill/Widgets/mill_board_widget.dart';
-import 'package:kafehfekr/Feature/Mill/Widgets/mill_not_played_peaces_box.dart';
 import 'package:kafehfekr/Feature/Mill/Widgets/mill_player_data_widget.dart';
-import 'package:kafehfekr/Feature/Mill/Widgets/mill_removed_peaces_box.dart';
 
 class MillPage extends BaseView<MillController> {
   const MillPage({super.key});
