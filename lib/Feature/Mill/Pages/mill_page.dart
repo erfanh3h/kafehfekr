@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
@@ -28,46 +29,21 @@ class MillPage extends BaseView<MillController> {
         children: [
           const Spacer(flex: 1),
           SizedBox(
-            height: 80,
+            height: 85.h,
             child: controller.players.length > 1
                 ? MillPlayerDataWidget(controller: controller)
                 : Container(),
           ),
-          Expanded(
-            flex: 20,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: MillNotPlayedPeacesBox(
-                    player1Count: controller.player1Peaces.value -
-                        controller.player1PlayedPeaces.value,
-                    player2Count: controller.player2Peaces.value -
-                        controller.player2PlayedPeaces.value,
-                    player1Color: AppColors.imageRedColor,
-                    player2Color: AppColors.imageBlueColor,
-                  ),
-                ),
-                MillBoardWidget(controller: controller),
-                Expanded(
-                  child: MillRemovedPeacesBox(
-                    player1Count: controller.player1RemovedPeaces.value,
-                    player2Count: controller.player2RemovedPeaces.value,
-                    player1Color: AppColors.imageRedColor,
-                    player2Color: AppColors.imageBlueColor,
-                  ),
-                ),
-              ],
-            ),
+          const Spacer(flex: 4),
+          Center(
+            child: MillBoardWidget(controller: controller),
           ),
-          Expanded(
-            flex: 3,
-            child: GlobalActivityBox(
-              surrenderFunction: FunctionsLibraryClass.surrenderFunction,
-              reactionFunction: controller.showReactionBox,
-              changeShowReactionFunction: controller.changeShowReactionStatus,
-              showReaction: controller.showReactions.value,
-            ),
+          const Spacer(flex: 4),
+          GlobalActivityBox(
+            surrenderFunction: FunctionsLibraryClass.surrenderFunction,
+            reactionFunction: controller.showReactionBox,
+            changeShowReactionFunction: controller.changeShowReactionStatus,
+            showReaction: controller.showReactions.value,
           ),
           const Spacer(flex: 1),
         ],

@@ -145,7 +145,7 @@ class UserRowData extends StatelessWidget {
                     playerRoundScore.toString(),
                     style: TextStyle(
                       fontFamily: FontFamilies.dastnevis,
-                      fontSize: 30,
+                      fontSize: 40,
                       color: color,
                     ),
                   ),
@@ -153,7 +153,7 @@ class UserRowData extends StatelessWidget {
                     playerTotalScore.toString(),
                     style: TextStyle(
                       fontFamily: FontFamilies.dastnevis,
-                      fontSize: 20,
+                      fontSize: 17,
                       color: color,
                     ),
                   ),

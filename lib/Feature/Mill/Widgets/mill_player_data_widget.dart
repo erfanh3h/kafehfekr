@@ -32,6 +32,9 @@ class MillPlayerDataWidget extends StatelessWidget {
                 playerData: controller.players[0].value,
                 isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
+                playerScore: controller.player2RemovedPeaces.value,
+                playerRemainPeace: controller.player1Peaces.value -
+                    controller.player1PlayedPeaces.value,
               ),
             ),
             Container(
@@ -48,6 +51,9 @@ class MillPlayerDataWidget extends StatelessWidget {
                   playerData: controller.players[1].value,
                   isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
+                  playerScore: controller.player1RemovedPeaces.value,
+                  playerRemainPeace: controller.player2Peaces.value -
+                      controller.player2PlayedPeaces.value,
                 ),
               ),
             ),
@@ -64,11 +70,15 @@ class UserRowData extends StatelessWidget {
     required this.playerData,
     required this.isThisUserTurn,
     required this.color,
+    required this.playerScore,
+    required this.playerRemainPeace,
   });
 
   final bool isThisUserTurn;
   final Color color;
   final PlayerModel playerData;
+  final int playerScore;
+  final int playerRemainPeace;
 
   @override
   Widget build(BuildContext context) {
@@ -96,33 +106,57 @@ class UserRowData extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Flexible(
-                flex: 1,
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundColor: color,
-                  child: Icon(
-                    playerData.isDisconnected
-                        ? Icons.desktop_access_disabled
-                        : Icons.person_4,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
               Expanded(
-                flex: 1,
-                child: Text(
-                  playerData.name,
-                  style: TextStyle(
-                    fontFamily: FontFamilies.typo,
-                    fontSize: 12,
-                    color: color,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundColor: color,
+                      child: Icon(
+                        playerData.isDisconnected
+                            ? Icons.desktop_access_disabled
+                            : Icons.person_4,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      playerData.name,
+                      style: TextStyle(
+                        fontFamily: FontFamilies.typo,
+                        fontSize: 12,
+                        color: color,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ],
                 ),
               ),
-              // const Spacer(flex: 3),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    playerScore.toString(),
+                    style: TextStyle(
+                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 40,
+                      color: color,
+                    ),
+                  ),
+                  Text(
+                    playerRemainPeace.toString(),
+                    style: TextStyle(
+                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 17,
+                      color: color,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 5),
             ],
           ),
         ],

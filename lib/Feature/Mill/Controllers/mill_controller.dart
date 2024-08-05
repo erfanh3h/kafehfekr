@@ -192,49 +192,50 @@ class MillController extends BaseGameController {
     } else {
       if (checkAllOfMyPeacesPlaced()) {
         //swap
-        if (equippedPeaceIndex.value == -1) {
+        if (equippedPeaceIndex.value != -1) {
+          if (equippedPeaceIndex.value == peace.id) {
+            releasePeace();
+          } else if (peace.selectedUser == myGameId) {
+            releasePeace();
+            equipPeace(peace.id);
+          } else {
+            if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
+              Get.find<SoundPlayerComponent>()
+                  .playGameSound(GameSoundTypes.tapWrong);
+              return;
+            }
+            if (equippedPeaceIndex.value == peace.id) {
+              Get.find<SoundPlayerComponent>()
+                  .playGameSound(GameSoundTypes.removePeace);
+              return;
+            }
+            if (!checkPeaceIsEmpty(peace.id)) {
+              Get.find<SoundPlayerComponent>()
+                  .playGameSound(GameSoundTypes.tapWrong);
+              return;
+            }
+            canSelectPeace.value = false;
+            sendCommand({
+              "id": GameCommands.swapPeace,
+              "data": {
+                "source": equippedPeaceIndex.value,
+                "target": peace.id,
+              },
+            });
+            addPeaceStatus(
+                equippedPeaceIndex.value, PeaceStatusTypes.isLoading);
+            addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+            releasePeace();
+            Get.find<SoundPlayerComponent>()
+                .playGameSound(GameSoundTypes.movePeace);
+          }
           if (peace.selectedUser != myGameId) {
             Get.find<SoundPlayerComponent>()
                 .playGameSound(GameSoundTypes.tapWrong);
             return;
           }
-          equippedPeaceIndex.value = peace.id;
-          addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
-          for (var neighborId in neighborsData[peace.id] ?? []) {
-            if (checkPeaceIsEmpty(neighborId)) {
-              addPeaceStatus(neighborId, PeaceStatusTypes.canSelected);
-            }
-          }
-          Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
         } else {
-          if (equippedPeaceIndex.value == peace.id) {
-            Get.find<SoundPlayerComponent>()
-                .playGameSound(GameSoundTypes.removePeace);
-            return;
-          }
-          if (!checkPeaceIsEmpty(peace.id)) {
-            Get.find<SoundPlayerComponent>()
-                .playGameSound(GameSoundTypes.tapWrong);
-            return;
-          }
-          if (!checkSelectedPeaceIsNeighborOfSource(peace.id)) {
-            Get.find<SoundPlayerComponent>()
-                .playGameSound(GameSoundTypes.tapWrong);
-            return;
-          }
-          canSelectPeace.value = false;
-          sendCommand({
-            "id": GameCommands.swapPeace,
-            "data": {
-              "source": equippedPeaceIndex.value,
-              "target": peace.id,
-            },
-          });
-          addPeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.isLoading);
-          addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-          clearEquipedPeace(equippedPeaceIndex.value);
-          Get.find<SoundPlayerComponent>()
-              .playGameSound(GameSoundTypes.movePeace);
+          equipPeace(peace.id);
         }
       } else {
         //normal select
@@ -249,6 +250,45 @@ class MillController extends BaseGameController {
         Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
       }
     }
+  }
+
+  void equipPeace(int index) {
+    if (peaces[index].value.selectedUser != myGameId) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      return;
+    }
+    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+    equippedPeaceIndex.value = index;
+    addPeaceStatus(index, PeaceStatusTypes.equiped);
+    int currentPeaceLeft = 0;
+    if (myGameId == 1) {
+      currentPeaceLeft = player1Peaces.value - player1RemovedPeaces.value;
+    } else {
+      currentPeaceLeft = player2Peaces.value - player2RemovedPeaces.value;
+    }
+    if (currentPeaceLeft <= 3) {
+      for (var peace in peaces.value) {
+        final index = peace.value.id;
+        if (checkPeaceIsEmpty(index)) {
+          addPeaceStatus(index, PeaceStatusTypes.canSelected);
+        }
+      }
+    } else {
+      for (var neighborId in neighborsData[index] ?? []) {
+        if (checkPeaceIsEmpty(neighborId)) {
+          addPeaceStatus(neighborId, PeaceStatusTypes.canSelected);
+        }
+      }
+    }
+  }
+
+  void releasePeace() {
+    removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
+    try {
+      removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
+    } catch (_) {}
+    removeAllPeacesStatus(PeaceStatusTypes.canSelected);
+    equippedPeaceIndex.value = -1;
   }
 
   bool checkSelectedPeaceIsNeighborOfSource(int targetId) {
@@ -275,14 +315,6 @@ class MillController extends BaseGameController {
     return peaces.value[index].value.selectedUser == null;
   }
 
-  void clearEquipedPeace(int index) {
-    equippedPeaceIndex.value = -1;
-    removePeaceStatus(index, PeaceStatusTypes.equiped);
-    for (var neighborId in neighborsData[index] ?? []) {
-      removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
-    }
-  }
-
   List<int> getEnemyPeacesIndexes() {
     List<int> result = [];
     for (var peaceData in peaces.value) {
@@ -300,13 +332,7 @@ class MillController extends BaseGameController {
     }
     letRemovePeace.value = false;
     if (equippedPeaceIndex.value != -1) {
-      removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
-      for (var neighborId in neighborsData[equippedPeaceIndex.value] ?? []) {
-        if (checkPeaceIsEmpty(neighborId)) {
-          removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
-        }
-      }
-      clearEquipedPeace(equippedPeaceIndex.value);
+      releasePeace();
     }
   }
 
@@ -327,6 +353,13 @@ class MillController extends BaseGameController {
     if (peaceId != null) {
       peaces.value[peaceId].value =
           peaces.value[peaceId].value.removeStatus(status: status);
+    }
+  }
+
+  removeAllPeacesStatus(PeaceStatusTypes status) {
+    for (var i = 0; i < peaces.length; i++) {
+      peaces.value[i].value =
+          peaces.value[i].value.removeStatus(status: status);
     }
   }
 
