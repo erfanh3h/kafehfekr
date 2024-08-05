@@ -9,4 +9,5 @@ abstract class AppRoutes {
   static const mill = '/mill';
   static const checkers = '/checkers';
   static const ten = '/ten';
+  static const othello = '/othello';
 }

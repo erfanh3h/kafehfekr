@@ -6,6 +6,7 @@ import 'package:kafehfekr/Feature/Checkers/Pages/checkers_page.dart';
 import 'package:kafehfekr/Feature/MNumbers/Pages/mnumbers_page.dart';
 import 'package:kafehfekr/Feature/MSweeper/Pages/msweeper_page.dart';
 import 'package:kafehfekr/Feature/Mill/Pages/mill_page.dart';
+import 'package:kafehfekr/Feature/Othello/Pages/othello_page.dart';
 import 'package:kafehfekr/Feature/RPC/Pages/rpc_page.dart';
 import 'package:kafehfekr/Feature/Ten/Pages/ten_page.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Pages/tictactoe_page.dart';
@@ -49,6 +50,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.ten,
       page: TenPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.othello,
+      page: OthelloPage.new,
     ),
   ];
 }
