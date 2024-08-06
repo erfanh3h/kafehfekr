@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
-import 'package:kafehfekr/Feature/Checkers/Widgets/checkers_button.dart';
 import 'package:kafehfekr/Feature/Othello/Controllers/othello_controller.dart';
+import 'package:kafehfekr/Feature/Othello/Widgets/othello_button.dart';
 import 'package:refreshed/refreshed.dart';
 
 class OthelloBoarWidget extends StatelessWidget {
@@ -32,7 +32,7 @@ class OthelloBoarWidget extends StatelessWidget {
                     crossAxisSpacing: 0,
                     mainAxisSpacing: 0,
                   ),
-                  itemBuilder: (ctx, index) => CheckersButton(
+                  itemBuilder: (ctx, index) => OthelloButton(
                     peaceData: controller.peaces[index].value,
                     onTap: controller.onEachButtonTap,
                   ),

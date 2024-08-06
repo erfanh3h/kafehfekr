@@ -180,7 +180,7 @@ class MNumbersController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.mill;
+    gameType = GameTypes.mnumbers;
     for (var i = 0; i < 36; i++) {
       peaces.add(Rx(MNumbersPeaceModel(id: i, currentStatuses: [])));
     }

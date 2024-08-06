@@ -9,6 +9,8 @@ class GameWaitTimes {
   static const int checkersTurnTime = 20;
   static const int tenSleepRoundTime = 5;
   static const int tenRoundTime = 300;
+  static const int othelloTurnTime = 20;
+
 }
 
 class FontFamilies {

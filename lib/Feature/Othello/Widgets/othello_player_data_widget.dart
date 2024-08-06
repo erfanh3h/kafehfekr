@@ -29,7 +29,7 @@ class OthelloPlayerDataWidget extends StatelessWidget {
           children: [
             Expanded(
               child: UserRowData(
-                playerScore: controller.player1Pawns.value,
+                playerScore: controller.player1Score.value,
                 isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
                 playerData: controller.players[0].value,
@@ -46,7 +46,7 @@ class OthelloPlayerDataWidget extends StatelessWidget {
               child: Directionality(
                 textDirection: TextDirection.ltr,
                 child: UserRowData(
-                  playerScore: controller.player2Pawns.value,
+                  playerScore: controller.player2Score.value,
                   isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
                   playerData: controller.players[1].value,

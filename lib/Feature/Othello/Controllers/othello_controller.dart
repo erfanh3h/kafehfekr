@@ -1,17 +1,14 @@
-import 'package:flutter/foundation.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Feature/Checkers/Models/checkers_peace_model.dart';
+import 'package:kafehfekr/Feature/Othello/Models/othello_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class OthelloController extends BaseGameController {
-  RxList<Rx<CheckersPeaceModel>> peaces = RxList();
+  RxList<Rx<OthelloPeaceModel>> peaces = RxList();
   RxInt player1Pawns = RxInt(12);
   RxInt player2Pawns = RxInt(12);
-
-  RxInt equippedPeaceIndex = RxInt(-1);
 
   List checkMoveList = [];
   List currentPossibleMoves = [];
@@ -37,138 +34,38 @@ class OthelloController extends BaseGameController {
     } else {
       canSelectPeace.value = false;
     }
-    changetimerValue(GameWaitTimes.checkersTurnTime);
-    releasePeace();
+    changetimerValue(GameWaitTimes.othelloTurnTime);
   }
 
   @override
   void peaceSelectedFunction(Map data) {
     Map selectionData = data['data']['select_data'];
-    final sourceRIndex = selectionData['s_r_index'];
-    final sourceCIndex = selectionData['s_c_index'];
-    final targetRIndex = selectionData['t_r_index'];
-    final targetCIndex = selectionData['t_c_index'];
-    final int gamerId = selectionData['gamer_id'];
-    final index = coordinateToIndex(sourceRIndex, sourceCIndex);
-    addPossibleMoves(index);
-    final moveResult = movePawn(
-        sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, gamerId);
-    if (moveResult) {
-      releasePeace();
-    }
-  }
-
-  @override
-  void reconnectDataFuntcion(Map data) {
-    super.reconnectDataFuntcion(data);
-    Map newData = data['data'];
-    Map gameData = newData['game_data'];
-    Map timerData = newData['timer_data'];
-    List boardData = gameData['board'];
-    currentTurn.value = gameData['current_turn'];
-    player1Pawns.value = gameData['pawns_count'][0];
-    player2Pawns.value = gameData['pawns_count'][1];
-    for (var i = 0; i < boardData.length; i++) {
-      peaces[i].value = peaces[i].value.getFromJson(boardData[i], i);
-    }
-    if (currentTurn.value == myGameId) {
-      canSelectPeace.value = true;
-    } else {
-      canSelectPeace.value = false;
-    }
-    if (timerData['is_user_turn']) {
-      final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.millSelectTime));
-    }
+    final rIndex = selectionData['r_index'];
+    final cIndex = selectionData['c_index'];
+    final index = coordinateToIndex(rIndex, cIndex);
+    removePeaceStatus(index, PeaceStatusTypes.isLoading);
   }
 
   @override
   void onEachButtonTap(dynamic tappedPeace) {
-    CheckersPeaceModel peace = tappedPeace as CheckersPeaceModel;
+    OthelloPeaceModel peace = tappedPeace as OthelloPeaceModel;
     if (!canSelectPeace.value) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
-    // if (peace.selectedUser == null) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
-    // }
-    // canSelectPeace.value = false;
-    // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-    // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-    // Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-    // if (peace.selectedUser != myGameId) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
-    // }
-    if (equippedPeaceIndex.value != -1) {
-      if (equippedPeaceIndex.value == peace.id) {
-        releasePeace();
-      } else if (peace.selectedUser == myGameId) {
-        releasePeace();
-        equipPeace(peace.id);
-      } else {
-        if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-          Get.find<SoundPlayerComponent>()
-              .playGameSound(GameSoundTypes.tapWrong);
-          return;
-        }
-        final List sourceData = indexToCoordinate(equippedPeaceIndex.value);
-        final sourceRIndex = sourceData[0];
-        final sourceCIndex = sourceData[1];
-        final List targetData = indexToCoordinate(peace.id);
-        final targetRIndex = targetData[0];
-        final targetCIndex = targetData[1];
-        sendCommand({
-          "id": GameCommands.selectPeace,
-          "data": {
-            's_c_index': sourceCIndex,
-            's_r_index': sourceRIndex,
-            't_c_index': targetCIndex,
-            't_r_index': targetRIndex,
-          }
-        });
-        releasePeace();
-        // final moveResult = movePawn(
-        //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, myGameId);
-        // if (moveResult) {
-        //   releasePeace();
-        // }
-      }
-    } else {
-      if (peace.selectedUser != 0 && peace.selectedUser == myGameId) {
-        equipPeace(peace.id);
-      }
+    if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      return;
     }
-  }
-
-  void equipPeace(int index) {
-    equippedPeaceIndex.value = index;
-    addPeaceStatus(index, PeaceStatusTypes.equiped);
-    addPossibleMoves(index);
-  }
-
-  void releasePeace() {
-    try {
-      removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
-    } catch (_) {}
+    final List targetData = indexToCoordinate(peace.id);
+    final rIndex = targetData[0];
+    final cIndex = targetData[1];
+    sendCommand({
+      "id": GameCommands.selectPeace,
+      "data": {'c_index': cIndex, 'r_index': rIndex}
+    });
+    addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);
-    equippedPeaceIndex.value = -1;
-    currentPossibleMoves.clear();
-  }
-
-  void addPossibleMoves(int index) {
-    List coordinates = indexToCoordinate(index);
-    List movesPossibleList =
-        getPossibleMovesOfPeace(coordinates[0], coordinates[1], myGameId);
-    for (var dataRaw in movesPossibleList) {
-      List? coordinates = dataRaw[0];
-      if (coordinates != null) {
-        final peaceId = coordinateToIndex(coordinates[0], coordinates[1]);
-        addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
-        currentPossibleMoves.add(dataRaw);
-      }
-    }
   }
 
   void resetPeaces() {
@@ -203,12 +100,12 @@ class OthelloController extends BaseGameController {
   initPeaces() {
     for (var i = 0; i < 64; i++) {
       peaces.add(
-          Rx(CheckersPeaceModel(id: i, currentStatuses: [], selectedUser: 0)));
+          Rx(OthelloPeaceModel(id: i, currentStatuses: [], selectedUser: 0)));
     }
-    changePeaceSelectedUser(0, 1);
-    changePeaceSelectedUser(2, 1);
-    changePeaceSelectedUser(61, 2);
-    changePeaceSelectedUser(63, 2);
+    changePeaceSelectedUser(27, 1);
+    changePeaceSelectedUser(36, 1);
+    changePeaceSelectedUser(28, 2);
+    changePeaceSelectedUser(35, 2);
   }
 
   bool isTargetPeaceEmpty(int rIndex, int cIndex) {
@@ -219,226 +116,6 @@ class OthelloController extends BaseGameController {
   bool isTargetPeaceEnemy(int rIndex, int cIndex, int gamerId) {
     int index = coordinateToIndex(rIndex, cIndex);
     return peaces[index].value.selectedUser != gamerId;
-  }
-
-  List getRightPawnMove(int rIndex, int cIndex, int gamerId, int direction,
-      {bool isMultiMove = false}) {
-    int newRIndex = 0;
-    int newCIndex = 0;
-    if (direction == 1) {
-      newRIndex = rIndex - 1;
-      newCIndex = cIndex + 1;
-    } else {
-      newRIndex = rIndex + 1;
-      newCIndex = cIndex - 1;
-    }
-    final nullResult = [null, null, null, false];
-    if (newRIndex < 0 || newRIndex > 7 || newCIndex < 0 || newCIndex > 7) {
-      return nullResult;
-    }
-    if (isTargetPeaceEmpty(newRIndex, newCIndex) && !isMultiMove) {
-      return [
-        [newRIndex, newCIndex],
-        null,
-        null,
-        false
-      ];
-    } else {
-      if (isTargetPeaceEnemy(newRIndex, newCIndex, gamerId)) {
-        int newR1Index = 0;
-        int newC1Index = 0;
-        if (direction == 1) {
-          newR1Index = newRIndex - 1;
-          newC1Index = newCIndex + 1;
-        } else {
-          newR1Index = newRIndex + 1;
-          newC1Index = newCIndex - 1;
-        }
-        if (newR1Index >= 0 &&
-            newR1Index <= 7 &&
-            newC1Index <= 7 &&
-            newC1Index >= 0 &&
-            isTargetPeaceEmpty(newR1Index, newC1Index)) {
-          checkMoveList.add(
-            [
-              [newR1Index, newC1Index],
-              [newRIndex, newCIndex],
-              [rIndex, cIndex],
-              true
-            ],
-          );
-        }
-        return nullResult;
-      } else {
-        return nullResult;
-      }
-    }
-  }
-
-  List getLeftPawnMove(int rIndex, int cIndex, int gamerId, int direction,
-      {bool isMultiMove = false}) {
-    int newRIndex = 0;
-    int newCIndex = 0;
-    if (direction == 1) {
-      newRIndex = rIndex + 1;
-      newCIndex = cIndex + 1;
-    } else {
-      newRIndex = rIndex - 1;
-      newCIndex = cIndex - 1;
-    }
-    final nullResult = [null, null, null, false];
-    if (newRIndex < 0 || newRIndex > 7 || newCIndex < 0 || newCIndex > 7) {
-      return nullResult;
-    }
-    if (isTargetPeaceEmpty(newRIndex, newCIndex) && !isMultiMove) {
-      return [
-        [newRIndex, newCIndex],
-        null,
-        null,
-        false
-      ];
-    } else {
-      if (isTargetPeaceEnemy(newRIndex, newCIndex, gamerId)) {
-        int newR1Index = 0;
-        int newC1Index = 0;
-        if (direction == 1) {
-          newR1Index = newRIndex + 1;
-          newC1Index = newCIndex + 1;
-        } else {
-          newR1Index = newRIndex - 1;
-          newC1Index = newCIndex - 1;
-        }
-        if (newR1Index >= 0 &&
-            newR1Index <= 7 &&
-            newC1Index <= 7 &&
-            newC1Index >= 0 &&
-            isTargetPeaceEmpty(newR1Index, newC1Index)) {
-          checkMoveList.add(
-            [
-              [newR1Index, newC1Index],
-              [newRIndex, newCIndex],
-              [rIndex, cIndex],
-              true
-            ],
-          );
-        }
-        return nullResult;
-      } else {
-        return nullResult;
-      }
-    }
-  }
-
-  List getDirectionMovesList(
-      int rIndex, int cIndex, int gamerId, int direction) {
-    List<List> tempList = [];
-    List rightResult = getRightPawnMove(rIndex, cIndex, gamerId, direction);
-    List leftResult = getLeftPawnMove(rIndex, cIndex, gamerId, direction);
-    tempList.add([rightResult[0], rightResult[1], rightResult[2]]);
-    tempList.add([leftResult[0], leftResult[1], leftResult[2]]);
-    while (checkMoveList.isNotEmpty) {
-      List? indexes = checkMoveList[0][0];
-      List? removedPeace = checkMoveList[0][1];
-      List? sourceStart = checkMoveList[0][2];
-      bool isMultiMove = checkMoveList[0][3];
-      tempList.add([indexes, removedPeace, sourceStart]);
-      if (removedPeace != null) {
-        rightResult = getRightPawnMove(
-            indexes![0], indexes[1], gamerId, direction,
-            isMultiMove: isMultiMove);
-        leftResult = getLeftPawnMove(indexes[0], indexes[1], gamerId, direction,
-            isMultiMove: isMultiMove);
-        checkMoveList.add(rightResult);
-        checkMoveList.add(leftResult);
-      }
-      checkMoveList.removeAt(0);
-    }
-    return tempList;
-  }
-
-  List getPossibleMovesOfPeace(int rIndex, int cIndex, int gamerId) {
-    List tempList = [];
-    List result = [];
-    int index = coordinateToIndex(rIndex, cIndex);
-    if (peaces[index].value.isSuperPawn) {
-      final List list1 = getDirectionMovesList(rIndex, cIndex, gamerId, 1);
-      final List list2 = getDirectionMovesList(rIndex, cIndex, gamerId, 2);
-      tempList.addAll(list1);
-      tempList.addAll(list2);
-    } else if (gamerId == 1) {
-      final List list1 = getDirectionMovesList(rIndex, cIndex, gamerId, 1);
-      tempList.addAll(list1);
-    } else {
-      final List list1 = getDirectionMovesList(rIndex, cIndex, gamerId, 2);
-      tempList.addAll(list1);
-    }
-    for (var dataRaw in tempList) {
-      if (dataRaw[0] != null) {
-        result.add(dataRaw);
-      }
-    }
-    return result;
-  }
-
-  bool checkIsLastPeace(cIndex, gamerId) {
-    if (gamerId == 1) {
-      if (cIndex == 7) {
-        return true;
-      }
-      return false;
-    } else {
-      if (cIndex == 0) {
-        return true;
-      }
-      return false;
-    }
-  }
-
-  void removePawn(int rIndex, int cIndex, int gamerId) {
-    int index = coordinateToIndex(rIndex, cIndex);
-    changePeaceSelectedUser(index, null);
-    if (gamerId == 1) {
-      player2Pawns.value -= 1;
-    } else {
-      player1Pawns.value -= 1;
-    }
-  }
-
-  bool movePawn(int sourceCIndex, int sourceRIndex, int targetCIndex,
-      int targetRIndex, int gamerId) {
-    for (var moveData in currentPossibleMoves) {
-      if (moveData[0] != null &&
-          listEquals(moveData[0], [targetRIndex, targetCIndex])) {
-        int sourceIndex = coordinateToIndex(sourceRIndex, sourceCIndex);
-        int targetIndex = coordinateToIndex(targetRIndex, targetCIndex);
-        if (checkIsLastPeace(targetCIndex, gamerId) ||
-            peaces[sourceIndex].value.isSuperPawn) {
-          changePeaceSelectedUser(targetIndex, gamerId, isSuperPawn: true);
-        } else {
-          changePeaceSelectedUser(targetIndex, gamerId, isSuperPawn: false);
-        }
-        changePeaceSelectedUser(sourceIndex, null);
-
-        if (moveData[1] != null) {
-          List? removePoint = moveData[1];
-          List sourcePeaceIndex = moveData[2];
-          while (removePoint != null) {
-            removePawn(removePoint[0], removePoint[1], gamerId);
-            removePoint = null;
-            for (var rawMoveData in currentPossibleMoves) {
-              if (listEquals(
-                  rawMoveData[0], [sourcePeaceIndex[0], sourcePeaceIndex[1]])) {
-                removePoint = rawMoveData[1];
-                sourcePeaceIndex = rawMoveData[2];
-                break;
-              }
-            }
-          }
-        }
-        return true;
-      }
-    }
-    return false;
   }
 
   @override

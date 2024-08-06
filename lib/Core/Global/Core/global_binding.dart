@@ -6,6 +6,7 @@ import 'package:kafehfekr/Feature/Checkers/Core/checkers_binding.dart';
 import 'package:kafehfekr/Feature/MNumbers/Core/mnumbers_binding.dart';
 import 'package:kafehfekr/Feature/MSweeper/Core/msweeper_binding.dart';
 import 'package:kafehfekr/Feature/Mill/Core/mill_binding.dart';
+import 'package:kafehfekr/Feature/Othello/Core/othello_binding.dart';
 import 'package:kafehfekr/Feature/RPC/Core/rpc_binding.dart';
 import 'package:kafehfekr/Feature/Ten/Core/ten_binding.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Core/tictactoe_binding.dart';
@@ -24,6 +25,7 @@ class GlobalBinding implements BindingsInterface {
         MNumbersBinding().dependencies(),
         CheckersBinding().dependencies(),
         TenBinding().dependencies(),
+        OthelloBinding().dependencies(),
         Get.lazyPut<TimerCompanent>(TimerCompanent.new, fenix: true),
         Get.lazyPut<SoundPlayerComponent>(
           SoundPlayerComponent.new,

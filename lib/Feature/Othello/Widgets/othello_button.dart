@@ -73,7 +73,7 @@ class OthelloButton extends StatelessWidget {
         padding: AppSpacings.s5All,
         decoration: BoxDecoration(
           color: (peaceData.id % 2 + peaceData.id ~/ 8) % 2 == 0
-              ? const Color.fromARGB(255, 190, 121, 96)
+              ? Colors.grey
               : AppColors.lightColor,
           border: Border.all(
             color: borderColor ?? AppColors.black,

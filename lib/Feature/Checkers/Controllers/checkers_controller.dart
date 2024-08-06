@@ -464,7 +464,7 @@ class CheckersController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.tictactoe;
+    gameType = GameTypes.checkers;
     initPeaces();
   }
 }
