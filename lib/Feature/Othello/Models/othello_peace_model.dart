@@ -6,37 +6,30 @@ class OthelloPeaceModel extends PeaceModel {
     required super.id,
     required super.currentStatuses,
     this.selectedUser,
-    this.isSuperPawn = false,
   });
 
   int? selectedUser;
-  bool isSuperPawn;
 
   OthelloPeaceModel getFromJson(Map data, int id) {
     int? newSelectedUser;
-    bool? newIsSuperPawn;
     if (data['pawn_gamer_id'] != null) {
       newSelectedUser = data['pawn_gamer_id'];
     }
-    newIsSuperPawn = data['is_super_pawn'];
     return OthelloPeaceModel(
       id: id,
       currentStatuses: currentStatuses,
       selectedUser: newSelectedUser,
-      isSuperPawn: newIsSuperPawn ?? false,
     );
   }
 
   OthelloPeaceModel changeSelectedUser({
     int? newSelectedUser,
-    bool? newIsSuperPawn,
   }) {
     final data = super.addStatus(status: PeaceStatusTypes.selected);
     return OthelloPeaceModel(
       id: id,
       currentStatuses: data.currentStatuses,
       selectedUser: newSelectedUser,
-      isSuperPawn: newIsSuperPawn ?? false,
     );
   }
 
@@ -48,7 +41,6 @@ class OthelloPeaceModel extends PeaceModel {
       id: id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
-      isSuperPawn: newIsSuperPawn,
     );
   }
 
@@ -57,7 +49,6 @@ class OthelloPeaceModel extends PeaceModel {
       id: id,
       currentStatuses: [],
       selectedUser: null,
-      isSuperPawn: false,
     );
   }
 
@@ -68,7 +59,6 @@ class OthelloPeaceModel extends PeaceModel {
       id: data.id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
-      isSuperPawn: isSuperPawn,
     );
   }
 
@@ -79,7 +69,6 @@ class OthelloPeaceModel extends PeaceModel {
       id: data.id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
-      isSuperPawn: isSuperPawn,
     );
   }
 }

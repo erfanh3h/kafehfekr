@@ -45,8 +45,8 @@ class GameSocketManager extends GlobalController {
 
   @override
   // ignore: invalid_override_of_non_virtual_member
-  void onDelete() {
-    socket.destroy();
+  void onClose() {
+    disconnect();
     super.onDelete();
   }
 }

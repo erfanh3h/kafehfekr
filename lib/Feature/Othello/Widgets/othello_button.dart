@@ -26,42 +26,19 @@ class OthelloButton extends StatelessWidget {
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
-        if (peaceData.isSuperPawn) {
-          image = GeneralIcons.checkers2;
-        } else {
-          image = GeneralIcons.checkers1;
-        }
+        image = GeneralIcons.checkers1;
         break;
       case 2:
         imageColor = AppColors.imageBlueColor;
-        if (peaceData.isSuperPawn) {
-          image = GeneralIcons.checkers2;
-        } else {
-          image = GeneralIcons.checkers1;
-        }
+        image = GeneralIcons.checkers1;
         break;
       default:
         imageColor = null;
         image = null;
         break;
     }
-    // imageColor = AppColors.imageBlueColor;
-    // borderColor = AppColors.imageRedColor;
-    // if (peaceData.isSuperPawn) {
-    //   image = GeneralIcons.checkers1;
-    // } else {
-    //   image = GeneralIcons.checkers1;
-    // }
-    if (peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
-      borderColor = AppColors.goldenColor;
-      borderSize = 5;
-    }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      if (peaceData.isSuperPawn) {
-        image = GeneralIcons.checkers2;
-      } else {
-        image = GeneralIcons.checkers1;
-      }
+      image = GeneralIcons.checkers1;
       imageColor = AppColors.guideGreen;
       imageScale = .33;
     }
