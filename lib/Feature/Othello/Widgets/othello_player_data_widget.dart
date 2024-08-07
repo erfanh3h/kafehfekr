@@ -33,6 +33,7 @@ class OthelloPlayerDataWidget extends StatelessWidget {
                 isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
                 playerData: controller.players[0].value,
+                playerPawns: controller.player1Pawns.value,
               ),
             ),
             Container(
@@ -50,6 +51,7 @@ class OthelloPlayerDataWidget extends StatelessWidget {
                   isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
                   playerData: controller.players[1].value,
+                  playerPawns: controller.player2Pawns.value,
                 ),
               ),
             ),
@@ -64,12 +66,14 @@ class UserRowData extends StatelessWidget {
   const UserRowData({
     super.key,
     required this.playerScore,
+    required this.playerPawns,
     required this.isThisUserTurn,
     required this.color,
     required this.playerData,
   });
 
   final int playerScore;
+  final int playerPawns;
   final bool isThisUserTurn;
   final Color color;
   final PlayerModel playerData;
@@ -132,13 +136,26 @@ class UserRowData extends StatelessWidget {
               ),
               Flexible(
                 flex: 1,
-                child: Text(
-                  playerScore.toString(),
-                  style: TextStyle(
-                    fontFamily: FontFamilies.dastnevis,
-                    fontSize: 30,
-                    color: color,
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      playerScore.toString(),
+                      style: TextStyle(
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 28,
+                        color: color,
+                      ),
+                    ),
+                    Text(
+                      playerPawns.toString(),
+                      style: TextStyle(
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 16,
+                        color: color,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               // const Spacer(flex: 3),

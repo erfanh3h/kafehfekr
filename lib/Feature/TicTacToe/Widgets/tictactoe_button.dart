@@ -44,7 +44,7 @@ class TicTacToeButton extends StatelessWidget {
           color: AppColors.lightColor,
           border: Border.all(
             color: imageColor ?? AppColors.peaceBorderColor,
-            width: 4,
+            width: 3,
           ),
           borderRadius: BorderRadius.circular(8),
         ),

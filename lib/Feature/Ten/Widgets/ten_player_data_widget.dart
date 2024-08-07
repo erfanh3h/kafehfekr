@@ -88,7 +88,9 @@ class UserRowData extends StatelessWidget {
     return Container(
       padding: AppSpacings.s5All,
       decoration: BoxDecoration(
-        color: AppColors.lightColor,
+        color: playerData.isDisconnected
+            ? AppColors.dcColor
+            : AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: color,

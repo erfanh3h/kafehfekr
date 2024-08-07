@@ -62,6 +62,11 @@ class OthelloController extends BaseGameController {
     final cIndex = selectionData['c_index'];
     final int gamerId = selectionData['gamer_id'];
     List<int> scores = List<int>.from(data['data']['scores']);
+    if (gamerId == 1) {
+      player1Pawns.value -= 1;
+    } else {
+      player2Pawns.value -= 1;
+    }
     final index = coordinateToIndex(rIndex, cIndex);
     removePeaceStatus(index, PeaceStatusTypes.isLoading);
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);

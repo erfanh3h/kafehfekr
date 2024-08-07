@@ -88,7 +88,9 @@ class UserRowData extends StatelessWidget {
         maxWidth: GeneralGameConsts.maxGameWidth,
       ),
       decoration: BoxDecoration(
-        color: AppColors.lightColor,
+        color: playerData.isDisconnected
+            ? AppColors.dcColor
+            : AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: isThisUserTurn ? color : Colors.white,

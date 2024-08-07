@@ -76,23 +76,25 @@ class TicTacToePlayerDataWidget extends StatelessWidget {
 class UserRowData extends StatelessWidget {
   const UserRowData({
     super.key,
-    required this.playerData,
     required this.playerScore,
     required this.isThisUserTurn,
     required this.color,
+    required this.playerData,
   });
 
-  final PlayerModel playerData;
   final int playerScore;
   final bool isThisUserTurn;
   final Color color;
+  final PlayerModel playerData;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: AppSpacings.s5All,
       decoration: BoxDecoration(
-        color: AppColors.lightColor,
+        color: playerData.isDisconnected
+            ? AppColors.dcColor
+            : AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: isThisUserTurn ? color : Colors.white,
