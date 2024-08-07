@@ -2,26 +2,13 @@ import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Feature/DotBox/Models/dotbox_peace_model.dart';
 import 'package:kafehfekr/Feature/Mill/Models/mill_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class DotBoxController extends BaseGameController {
-  RxList<Rx<MillPeaceModel>> peaces = RxList();
-
-  RxInt player1Peaces = RxInt(10);
-  RxInt player2Peaces = RxInt(10);
-
-  RxInt player1PlayedPeaces = RxInt(0);
-  RxInt player2PlayedPeaces = RxInt(0);
-
-  RxInt player1RemovedPeaces = RxInt(0);
-  RxInt player2RemovedPeaces = RxInt(0);
-
-  RxInt equippedPeaceIndex = RxInt(-1);
-
-  RxInt currentRemover = RxInt(0);
-
-  RxBool letRemovePeace = RxBool(false);
+  RxList<Rx<DotBoxPeaceModel>> linePeaces = RxList();
+  RxList<Rx<DotBoxPeaceModel>> boxPeaces = RxList();
 
   Map<int, List<int>> neighborsData = {
     0: [1, 9],
@@ -61,7 +48,6 @@ class DotBoxController extends BaseGameController {
       canSelectPeace.value = false;
     }
     changetimerValue(GameWaitTimes.millSelectTime);
-    resetAllPeacesStates();
   }
 
   @override
@@ -69,18 +55,18 @@ class DotBoxController extends BaseGameController {
     Map peaceData = data['data'];
     int peaceId = peaceData['target_peace'];
     int gamerId = peaceData['user'];
-    if (gamerId == 1) {
-      player1PlayedPeaces.value += 1;
-    } else {
-      player2PlayedPeaces.value += 1;
-    }
-    for (final peace in peaces) {
-      if (peace.value.id == peaceId) {
-        peace.value = peace.value.changeSelectedUser(newSelectedUser: gamerId);
-        removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-        break;
-      }
-    }
+    // if (gamerId == 1) {
+    //   player1PlayedPeaces.value += 1;
+    // } else {
+    //   player2PlayedPeaces.value += 1;
+    // }
+    // for (final peace in peaces) {
+    //   if (peace.value.id == peaceId) {
+    //     peace.value = peace.value.changeSelectedUser(newSelectedUser: gamerId);
+    //     removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
+    //     break;
+    //   }
+    // }
   }
 
   @override
@@ -90,79 +76,23 @@ class DotBoxController extends BaseGameController {
     Map gameData = newData['game_data'];
     Map timerData = newData['timer_data'];
     List boardData = gameData['board'];
-    player1PlayedPeaces.value = gameData['played_peaces'][0];
-    player2PlayedPeaces.value = gameData['played_peaces'][1];
-    player1RemovedPeaces.value = gameData['removed_peaces'][0];
-    player2RemovedPeaces.value = gameData['removed_peaces'][1];
     currentTurn.value = gameData['current_turn'];
-    currentRemover.value = gameData['current_remover'];
-    for (var i = 0; i < boardData.length; i++) {
-      if (boardData[i] == 0) {
-        continue;
-      }
-      peaces[i].value =
-          peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
-    }
-    if (currentTurn.value == myGameId) {
-      canSelectPeace.value = true;
-    } else {
-      canSelectPeace.value = false;
-    }
-    if (timerData['is_user_turn']) {
-      final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.millSelectTime));
-    }
-  }
-
-  @override
-  void peaceSwapedFunction(Map data) {
-    Map peaceData = data['data'];
-    int sourcePeaceId = peaceData['source_peace'];
-    int targetPeaceId = peaceData['target_peace'];
-    int gamerId = peaceData['user'];
-    for (final peace in peaces) {
-      if (peace.value.id == sourcePeaceId) {
-        peace.value = peace.value.changeSelectedUser(newSelectedUser: null);
-        removePeaceStatus(sourcePeaceId, PeaceStatusTypes.isLoading);
-      } else if (peace.value.id == targetPeaceId) {
-        peace.value = peace.value.changeSelectedUser(newSelectedUser: gamerId);
-        removePeaceStatus(targetPeaceId, PeaceStatusTypes.isLoading);
-      }
-    }
-  }
-
-  @override
-  void peaceRemovedFunction(Map data) {
-    Map peaceData = data['data'];
-    int peaceId = peaceData['target_peace'];
-    int gamerId = peaceData['user'];
-    if (gamerId == 1) {
-      player2RemovedPeaces.value += 1;
-    } else {
-      player1RemovedPeaces.value += 1;
-    }
-    for (final peace in peaces) {
-      if (peace.value.id == peaceId) {
-        peace.value = peace.value.changeSelectedUser(newSelectedUser: null);
-        removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-        break;
-      }
-    }
-    currentRemover.value = 0;
-  }
-
-  @override
-  void selectRemovePeaceFunction(Map data) {
-    int removerId = data['data'];
-    currentRemover.value = removerId;
-    changetimerValue(GameWaitTimes.millRemoveTime);
-    if (removerId == myGameId) {
-      letRemovePeace.value = true;
-      canSelectPeace.value = true;
-      for (var neighborId in getEnemyPeacesIndexes()) {
-        addPeaceStatus(neighborId, PeaceStatusTypes.canSelected);
-      }
-    }
+    // for (var i = 0; i < boardData.length; i++) {
+    //   if (boardData[i] == 0) {
+    //     continue;
+    //   }
+    //   peaces[i].value =
+    //       peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
+    // }
+    // if (currentTurn.value == myGameId) {
+    //   canSelectPeace.value = true;
+    // } else {
+    //   canSelectPeace.value = false;
+    // }
+    // if (timerData['is_user_turn']) {
+    //   final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
+    //   changetimerValue(time.clamp(1, GameWaitTimes.millSelectTime));
+    // }
   }
 
   @override
@@ -172,203 +102,79 @@ class DotBoxController extends BaseGameController {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
-
-    if (letRemovePeace.value) {
-      //remove
-      if (checkPeaceIsEmpty(peace.id) || peace.selectedUser == myGameId) {
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-        return;
-      }
-      canSelectPeace.value = false;
-      letRemovePeace.value = false;
-      sendCommand({"id": GameCommands.selectRemovePeace, "data": peace.id});
-      addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-      removePeaceStatus(peace.id, PeaceStatusTypes.canSelected);
-      for (var neighborId in getEnemyPeacesIndexes()) {
-        removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
-      }
-      Get.find<SoundPlayerComponent>()
-          .playGameSound(GameSoundTypes.removePeace);
-    } else {
-      if (checkAllOfMyPeacesPlaced()) {
-        //swap
-        if (equippedPeaceIndex.value != -1) {
-          if (equippedPeaceIndex.value == peace.id) {
-            releasePeace();
-          } else if (peace.selectedUser == myGameId) {
-            releasePeace();
-            equipPeace(peace.id);
-          } else {
-            if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-              Get.find<SoundPlayerComponent>()
-                  .playGameSound(GameSoundTypes.tapWrong);
-              return;
-            }
-            if (equippedPeaceIndex.value == peace.id) {
-              Get.find<SoundPlayerComponent>()
-                  .playGameSound(GameSoundTypes.removePeace);
-              return;
-            }
-            if (!checkPeaceIsEmpty(peace.id)) {
-              Get.find<SoundPlayerComponent>()
-                  .playGameSound(GameSoundTypes.tapWrong);
-              return;
-            }
-            canSelectPeace.value = false;
-            sendCommand({
-              "id": GameCommands.swapPeace,
-              "data": {
-                "source": equippedPeaceIndex.value,
-                "target": peace.id,
-              },
-            });
-            addPeaceStatus(
-                equippedPeaceIndex.value, PeaceStatusTypes.isLoading);
-            addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-            releasePeace();
-            Get.find<SoundPlayerComponent>()
-                .playGameSound(GameSoundTypes.movePeace);
-          }
-          if (peace.selectedUser != myGameId) {
-            Get.find<SoundPlayerComponent>()
-                .playGameSound(GameSoundTypes.tapWrong);
-            return;
-          }
-        } else {
-          equipPeace(peace.id);
-        }
-      } else {
-        //normal select
-        if (!checkPeaceIsEmpty(peace.id)) {
-          Get.find<SoundPlayerComponent>()
-              .playGameSound(GameSoundTypes.tapWrong);
-          return;
-        }
-        canSelectPeace.value = false;
-        sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-        addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-      }
-    }
-  }
-
-  void equipPeace(int index) {
-    if (peaces[index].value.selectedUser != myGameId) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-      return;
-    }
+    sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
+    addLinePeaceStatus(peace.id, PeaceStatusTypes.isLoading);
     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-    equippedPeaceIndex.value = index;
-    addPeaceStatus(index, PeaceStatusTypes.equiped);
-    int currentPeaceLeft = 0;
-    if (myGameId == 1) {
-      currentPeaceLeft = player1Peaces.value - player1RemovedPeaces.value;
-    } else {
-      currentPeaceLeft = player2Peaces.value - player2RemovedPeaces.value;
-    }
-    if (currentPeaceLeft <= 3) {
-      for (var peace in peaces.value) {
-        final index = peace.value.id;
-        if (checkPeaceIsEmpty(index)) {
-          addPeaceStatus(index, PeaceStatusTypes.canSelected);
-        }
-      }
-    } else {
-      for (var neighborId in neighborsData[index] ?? []) {
-        if (checkPeaceIsEmpty(neighborId)) {
-          addPeaceStatus(neighborId, PeaceStatusTypes.canSelected);
-        }
-      }
-    }
   }
 
-  void releasePeace() {
-    removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
-    try {
-      removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
-    } catch (_) {}
-    removeAllPeacesStatus(PeaceStatusTypes.canSelected);
-    equippedPeaceIndex.value = -1;
-  }
 
   bool checkSelectedPeaceIsNeighborOfSource(int targetId) {
-    return (neighborsData[equippedPeaceIndex.value] ?? []).contains(targetId);
+    return (neighborsData[0] ?? []).contains(targetId);
   }
 
-  bool checkAllOfMyPeacesPlaced() {
-    if (myGameId == 1) {
-      if (player1PlayedPeaces.value < player1Peaces.value) {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      if (player2PlayedPeaces.value < player2Peaces.value) {
-        return false;
-      } else {
-        return true;
-      }
-    }
-  }
 
   bool checkPeaceIsEmpty(int index) {
-    return peaces.value[index].value.selectedUser == null;
+    return linePeaces.value[index].value.selectedUser == null;
   }
 
-  List<int> getEnemyPeacesIndexes() {
-    List<int> result = [];
-    for (var peaceData in peaces.value) {
-      if (peaceData.value.selectedUser != null &&
-          peaceData.value.selectedUser != myGameId) {
-        result.add(peaceData.value.id);
-      }
-    }
-    return result;
-  }
-
-  void resetAllPeacesStates() {
-    for (var neighborId in getEnemyPeacesIndexes()) {
-      removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
-    }
-    letRemovePeace.value = false;
-    if (equippedPeaceIndex.value != -1) {
-      releasePeace();
-    }
-  }
 
   void resetPeaces() {
-    for (var i = 0; i < peaces.length; i++) {
-      peaces[i].value = peaces[i].value.resetPeace();
+    for (var i = 0; i < linePeaces.length; i++) {
+      linePeaces[i].value = linePeaces[i].value.resetPeace();
+    }
+    for (var i = 0; i < boxPeaces.length; i++) {
+      boxPeaces[i].value = boxPeaces[i].value.resetPeace();
     }
   }
 
-  addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  addLinePeaceStatus(int? peaceId, PeaceStatusTypes status) {
     if (peaceId != null) {
-      peaces.value[peaceId].value =
-          peaces.value[peaceId].value.addStatus(status: status);
+      linePeaces.value[peaceId].value =
+          linePeaces.value[peaceId].value.addStatus(status: status);
     }
   }
 
-  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  removeLinePeaceStatus(int? peaceId, PeaceStatusTypes status) {
     if (peaceId != null) {
-      peaces.value[peaceId].value =
-          peaces.value[peaceId].value.removeStatus(status: status);
+      linePeaces.value[peaceId].value =
+          linePeaces.value[peaceId].value.removeStatus(status: status);
+    }
+  }
+
+  addBoxPeaceStatus(int? peaceId, PeaceStatusTypes status) {
+    if (peaceId != null) {
+      boxPeaces.value[peaceId].value =
+          boxPeaces.value[peaceId].value.addStatus(status: status);
+    }
+  }
+
+  removeBoxPeaceStatus(int? peaceId, PeaceStatusTypes status) {
+    if (peaceId != null) {
+      boxPeaces.value[peaceId].value =
+          boxPeaces.value[peaceId].value.removeStatus(status: status);
     }
   }
 
   removeAllPeacesStatus(PeaceStatusTypes status) {
-    for (var i = 0; i < peaces.length; i++) {
-      peaces.value[i].value =
-          peaces.value[i].value.removeStatus(status: status);
+    for (var i = 0; i < linePeaces.length; i++) {
+      linePeaces.value[i].value =
+          linePeaces.value[i].value.removeStatus(status: status);
+    }
+    for (var i = 0; i < boxPeaces.length; i++) {
+      boxPeaces.value[i].value =
+          boxPeaces.value[i].value.removeStatus(status: status);
     }
   }
 
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.mill;
-    for (var i = 0; i < 24; i++) {
-      peaces.add(Rx(MillPeaceModel(id: i, currentStatuses: [])));
+    gameType = GameTypes.dotbox;
+    for (var i = 0; i < 60; i++) {
+      linePeaces.add(Rx(DotBoxPeaceModel(id: i, currentStatuses: [])));
+    }
+    for (var i = 0; i < 25; i++) {
+      boxPeaces.add(Rx(DotBoxPeaceModel(id: i, currentStatuses: [])));
     }
   }
 }

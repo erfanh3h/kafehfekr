@@ -5,8 +5,8 @@ import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Feature/DotBox/Controllers/dotbox_controller.dart';
-import 'package:kafehfekr/Feature/DotBox/Widgets/mill_board_widget.dart';
-import 'package:kafehfekr/Feature/DotBox/Widgets/mill_player_data_widget.dart';
+import 'package:kafehfekr/Feature/DotBox/Widgets/dotbox_board_widget.dart';
+import 'package:kafehfekr/Feature/DotBox/Widgets/dotbox_player_data_widget.dart';
 
 class DotBoxPage extends BaseView<DotBoxController> {
   const DotBoxPage({super.key});

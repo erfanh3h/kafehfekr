@@ -32,9 +32,7 @@ class DotBoxPlayerDataWidget extends StatelessWidget {
                 playerData: controller.players[0].value,
                 isThisUserTurn: controller.isThisUserTurn(1),
                 color: AppColors.imageRedColor,
-                playerScore: controller.player2RemovedPeaces.value,
-                playerRemainPeace: controller.player1Peaces.value -
-                    controller.player1PlayedPeaces.value,
+                playerScore: controller.player1Score.value,
               ),
             ),
             Container(
@@ -51,9 +49,7 @@ class DotBoxPlayerDataWidget extends StatelessWidget {
                   playerData: controller.players[1].value,
                   isThisUserTurn: controller.isThisUserTurn(2),
                   color: AppColors.imageBlueColor,
-                  playerScore: controller.player1RemovedPeaces.value,
-                  playerRemainPeace: controller.player2Peaces.value -
-                      controller.player2PlayedPeaces.value,
+                  playerScore: controller.player2Score.value,
                 ),
               ),
             ),
@@ -71,14 +67,12 @@ class UserRowData extends StatelessWidget {
     required this.isThisUserTurn,
     required this.color,
     required this.playerScore,
-    required this.playerRemainPeace,
   });
 
   final bool isThisUserTurn;
   final Color color;
   final PlayerModel playerData;
   final int playerScore;
-  final int playerRemainPeace;
 
   @override
   Widget build(BuildContext context) {
@@ -134,27 +128,13 @@ class UserRowData extends StatelessWidget {
                   ],
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    playerScore.toString(),
-                    style: TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 40,
-                      color: color,
-                    ),
-                  ),
-                  Text(
-                    playerRemainPeace.toString(),
-                    style: TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 17,
-                      color: color,
-                    ),
-                  ),
-                ],
+              Text(
+                playerScore.toString(),
+                style: TextStyle(
+                  fontFamily: FontFamilies.dastnevis,
+                  fontSize: 20,
+                  color: color,
+                ),
               ),
               const SizedBox(width: 5),
             ],

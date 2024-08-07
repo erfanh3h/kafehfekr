@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/DotBox/Models/dotbox_peace_model.dart';
 
-class DotBoxButton extends StatelessWidget {
-  const DotBoxButton({
+class DotBoxVerticalLineWidget extends StatelessWidget {
+  const DotBoxVerticalLineWidget({
     super.key,
     required this.peaceData,
     required this.onTap,
@@ -18,50 +18,35 @@ class DotBoxButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
-    String? image;
-    late double borderWidth;
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
-        image = GeneralIcons.circle3;
-        break;
       case 2:
         imageColor = AppColors.imageBlueColor;
-        image = GeneralIcons.circle3;
         break;
       default:
         imageColor = null;
-        image = null;
         break;
-    }
-    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected) ||
-        peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
-      borderWidth = 6;
-    } else {
-      borderWidth = 2;
     }
     return InkWell(
       onTap: () {
         onTap(peaceData);
       },
       child: Container(
-        width: 35,
-        height: 35,
+        width: 10,
+        height: 45,
+        margin: AppSpacings.s2All,
         decoration: BoxDecoration(
-            color: AppColors.lightColor,
-            border: Border.all(
-              color: imageColor ?? AppColors.peaceBorderColor,
-              width: borderWidth,
-            ),
-            shape: BoxShape.circle),
+          color: imageColor ?? AppColors.transparent,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: Colors.black,
+            width: 2,
+          ),
+        ),
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
-            : image != null
-                ? Image.asset(
-                    image,
-                    color: imageColor,
-                  )
-                : Container(),
+            : Container(),
       ),
     );
   }
