@@ -271,6 +271,7 @@ class BaseGameController extends BaseController {
   void onInit() {
     myId = Get.find<GlobalController>().idController.text;
     gameId = Get.find<GlobalController>().gameIdController.text;
+    Get.put(GameSocketManager());
     Get.find<GameSocketManager>().initSocket(
       commandHandler: commandHandler,
       reactionHandler: reactionHandler,
@@ -278,5 +279,11 @@ class BaseGameController extends BaseController {
       myId: myId,
     );
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    dispose();
+    super.onClose();
   }
 }

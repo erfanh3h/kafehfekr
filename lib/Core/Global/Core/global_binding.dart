@@ -1,3 +1,4 @@
+import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
@@ -33,6 +34,6 @@ class GlobalBinding implements BindingsInterface {
           SoundPlayerComponent.new,
           fenix: true,
         ),
-        Get.lazyPut<GameSocketManager>(GameSocketManager.new, fenix: true),
+        // Get.lazyPut<BaseGameController>(BaseGameController.new, fenix: true),
       ];
 }
