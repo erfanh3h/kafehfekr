@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
@@ -16,6 +17,7 @@ class GlobalGameDataWidget extends StatelessWidget {
     this.player1Number2,
     this.player2Number1,
     this.player2Number2,
+    this.roundText,
   });
 
   final int? player1Number1;
@@ -25,6 +27,7 @@ class GlobalGameDataWidget extends StatelessWidget {
   final int? player2Number2;
   final PlayerModel player2Data;
   final Color timerColor;
+  final String? roundText;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class GlobalGameDataWidget extends StatelessWidget {
           children: [
             Container(
               padding: AppSpacings.s10Horizental,
-              width: 100,
+              width: 110.w,
               child: GlobalShowTimerWidget(color: timerColor),
             ),
             const SizedBox(height: 5),
@@ -148,17 +151,18 @@ class GlobalGameDataWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-              margin: AppSpacings.s5Top,
-              child: const Text(
-                "1 / 1",
-                style: TextStyle(
-                  fontFamily: FontFamilies.dastnevis,
-                  fontSize: 30,
-                  color: Colors.white,
+            if (roundText != null)
+              Container(
+                margin: AppSpacings.s5Top,
+                child: Text(
+                  roundText!,
+                  style: const TextStyle(
+                    fontFamily: FontFamilies.dastnevis,
+                    fontSize: 30,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),

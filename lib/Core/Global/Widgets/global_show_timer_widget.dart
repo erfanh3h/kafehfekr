@@ -40,12 +40,12 @@ class GlobalShowTimerWidget extends StatelessWidget {
                   color: AppColors.lightColor,
                   fontFamily: FontFamilies.dastnevis,
                   fontSize: 25,
-                  height: .5,
+                  height: .7,
                 ),
                 textAlign: TextAlign.left,
               ),
             ),
-            const SizedBox(width: 2),
+            const SizedBox(width: 1),
             Expanded(
               child: Image.asset(
                 GeneralIcons.timeCounter,

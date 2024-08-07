@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:function_tree/function_tree.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:refreshed/refreshed.dart';
@@ -76,6 +78,11 @@ class TenController extends BaseGameController {
     player2Score.value = gameData['scores'][1];
     final int time = GameWaitTimes.tenRoundTime - timerData['time'] as int;
     changetimerValue(time.clamp(0, time));
+  }
+
+  @override
+  Color returnTimerColor() {
+    return AppColors.darkColor;
   }
 
   onOperatorRemove(int index) {

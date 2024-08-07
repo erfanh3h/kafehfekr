@@ -22,10 +22,12 @@ class TenBoardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => SizedBox(
+      () => Container(
         // padding: AppSpacings.s20All,
-        height:
-            (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
+        constraints: BoxConstraints(
+          minHeight:
+              (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
+        ),
         width:
             (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
         child: Column(
