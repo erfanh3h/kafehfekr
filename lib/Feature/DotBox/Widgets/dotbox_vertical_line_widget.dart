@@ -20,9 +20,9 @@ class DotBoxVerticalLineWidget extends StatelessWidget {
     Color? imageColor;
     switch (peaceData.selectedUser) {
       case 1:
-        imageColor = AppColors.imageRedColor;
+        imageColor = AppColors.darkColor;
       case 2:
-        imageColor = AppColors.imageBlueColor;
+        imageColor = AppColors.darkColor;
         break;
       default:
         imageColor = null;

@@ -15,35 +15,37 @@ class DotBoxBoardWidget extends StatelessWidget {
   final DotBoxController controller;
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Card(
-        child: Container(
-          padding: AppSpacings.s5All,
-          margin: AppSpacings.s10All,
-          height: 325,
-          width: 300,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 10,
-                  child: Transform.translate(
-                    offset: const Offset(3, 0),
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (ctx, index) => DotBoxHorizentalLineWidget(
+    return Card(
+      child: Container(
+        padding: AppSpacings.s5All,
+        margin: AppSpacings.s10All,
+        height: 325,
+        width: 300,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 10,
+                child: Transform.translate(
+                  offset: const Offset(3, 0),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (ctx, index) => Obx(
+                      () => DotBoxHorizentalLineWidget(
                         peaceData: controller.linePeaces.value[index].value,
                         onTap: controller.onEachButtonTap,
                       ),
-                      separatorBuilder: (_, __) => const SizedBox(width: 14),
-                      itemCount: 5,
-                      scrollDirection: Axis.horizontal,
                     ),
+                    separatorBuilder: (_, __) => const SizedBox(width: 14),
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
-                Row(
+              ),
+              Obx(
+                () => Row(
                   children: [
                     DotBoxVerticalLineWidget(
                       peaceData: controller.linePeaces.value[5].value,
@@ -81,25 +83,29 @@ class DotBoxBoardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                  child: Transform.translate(
-                    offset: const Offset(3, 0),
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (ctx, index) => DotBoxHorizentalLineWidget(
+              ),
+              SizedBox(
+                height: 10,
+                child: Transform.translate(
+                  offset: const Offset(3, 0),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (ctx, index) => Obx(
+                      () => DotBoxHorizentalLineWidget(
                         peaceData:
                             controller.linePeaces.value[index + 11].value,
                         onTap: controller.onEachButtonTap,
                       ),
-                      separatorBuilder: (_, __) => const SizedBox(width: 14),
-                      itemCount: 5,
-                      scrollDirection: Axis.horizontal,
                     ),
+                    separatorBuilder: (_, __) => const SizedBox(width: 14),
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
-                Row(
+              ),
+              Obx(
+                () => Row(
                   children: [
                     DotBoxVerticalLineWidget(
                       peaceData: controller.linePeaces.value[16].value,
@@ -137,25 +143,29 @@ class DotBoxBoardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                  child: Transform.translate(
-                    offset: const Offset(3, 0),
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (ctx, index) => DotBoxHorizentalLineWidget(
+              ),
+              SizedBox(
+                height: 10,
+                child: Transform.translate(
+                  offset: const Offset(3, 0),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (ctx, index) => Obx(
+                      () => DotBoxHorizentalLineWidget(
                         peaceData:
                             controller.linePeaces.value[index + 22].value,
                         onTap: controller.onEachButtonTap,
                       ),
-                      separatorBuilder: (_, __) => const SizedBox(width: 14),
-                      itemCount: 5,
-                      scrollDirection: Axis.horizontal,
                     ),
+                    separatorBuilder: (_, __) => const SizedBox(width: 14),
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
-                Row(
+              ),
+              Obx(
+                () => Row(
                   children: [
                     DotBoxVerticalLineWidget(
                       peaceData: controller.linePeaces.value[27].value,
@@ -193,25 +203,29 @@ class DotBoxBoardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                  child: Transform.translate(
-                    offset: const Offset(3, 0),
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (ctx, index) => DotBoxHorizentalLineWidget(
+              ),
+              SizedBox(
+                height: 10,
+                child: Transform.translate(
+                  offset: const Offset(3, 0),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (ctx, index) => Obx(
+                      () => DotBoxHorizentalLineWidget(
                         peaceData:
                             controller.linePeaces.value[index + 33].value,
                         onTap: controller.onEachButtonTap,
                       ),
-                      separatorBuilder: (_, __) => const SizedBox(width: 14),
-                      itemCount: 5,
-                      scrollDirection: Axis.horizontal,
                     ),
+                    separatorBuilder: (_, __) => const SizedBox(width: 14),
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
-                Row(
+              ),
+              Obx(
+                () => Row(
                   children: [
                     DotBoxVerticalLineWidget(
                       peaceData: controller.linePeaces.value[38].value,
@@ -249,25 +263,29 @@ class DotBoxBoardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                  child: Transform.translate(
-                    offset: const Offset(3, 0),
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (ctx, index) => DotBoxHorizentalLineWidget(
+              ),
+              SizedBox(
+                height: 10,
+                child: Transform.translate(
+                  offset: const Offset(3, 0),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (ctx, index) => Obx(
+                      () => DotBoxHorizentalLineWidget(
                         peaceData:
                             controller.linePeaces.value[index + 44].value,
                         onTap: controller.onEachButtonTap,
                       ),
-                      separatorBuilder: (_, __) => const SizedBox(width: 14),
-                      itemCount: 5,
-                      scrollDirection: Axis.horizontal,
                     ),
+                    separatorBuilder: (_, __) => const SizedBox(width: 14),
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
-                Row(
+              ),
+              Obx(
+                () => Row(
                   children: [
                     DotBoxVerticalLineWidget(
                       peaceData: controller.linePeaces.value[49].value,
@@ -305,29 +323,31 @@ class DotBoxBoardWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 10,
-                  child: Transform.translate(
-                    offset: const Offset(3, 0),
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (ctx, index) => DotBoxHorizentalLineWidget(
+              ),
+              SizedBox(
+                height: 10,
+                child: Transform.translate(
+                  offset: const Offset(3, 0),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (ctx, index) => Obx(
+                      () => DotBoxHorizentalLineWidget(
                         peaceData:
                             controller.linePeaces.value[index + 55].value,
                         onTap: controller.onEachButtonTap,
                       ),
-                      separatorBuilder: (_, __) => const SizedBox(width: 14),
-                      itemCount: 5,
-                      scrollDirection: Axis.horizontal,
                     ),
+                    separatorBuilder: (_, __) => const SizedBox(width: 14),
+                    itemCount: 5,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }

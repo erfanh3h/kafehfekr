@@ -63,26 +63,25 @@ class DotBoxPlayerDataWidget extends StatelessWidget {
 class UserRowData extends StatelessWidget {
   const UserRowData({
     super.key,
-    required this.playerData,
+    required this.playerScore,
     required this.isThisUserTurn,
     required this.color,
-    required this.playerScore,
+    required this.playerData,
   });
 
+  final int playerScore;
   final bool isThisUserTurn;
   final Color color;
   final PlayerModel playerData;
-  final int playerScore;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: AppSpacings.s5All,
-      constraints: const BoxConstraints(
-        maxWidth: GeneralGameConsts.maxGameWidth,
-      ),
       decoration: BoxDecoration(
-        color: AppColors.lightColor,
+        color: playerData.isDisconnected
+            ? AppColors.dcColor
+            : AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: isThisUserTurn ? color : Colors.white,
@@ -100,7 +99,8 @@ class UserRowData extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Expanded(
+              Flexible(
+                flex: 5,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -114,7 +114,9 @@ class UserRowData extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 3),
+                    const SizedBox(
+                      height: 3,
+                    ),
                     Text(
                       playerData.name,
                       style: TextStyle(
@@ -122,21 +124,24 @@ class UserRowData extends StatelessWidget {
                         fontSize: 12,
                         color: color,
                       ),
+                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
                     ),
                   ],
                 ),
               ),
-              Text(
-                playerScore.toString(),
-                style: TextStyle(
-                  fontFamily: FontFamilies.dastnevis,
-                  fontSize: 20,
-                  color: color,
+              Flexible(
+                flex: 1,
+                child: Text(
+                  playerScore.toString(),
+                  style: TextStyle(
+                    fontFamily: FontFamilies.dastnevis,
+                    fontSize: 30,
+                    color: color,
+                  ),
                 ),
               ),
-              const SizedBox(width: 5),
+              // const Spacer(flex: 3),
             ],
           ),
         ],

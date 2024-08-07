@@ -32,6 +32,9 @@ class DotBoxWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: imageColor ?? AppColors.lightColor,
         borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: AppColors.darkColor,
+        ),
       ),
       child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
           ? const GlobalLoadingWidget()
