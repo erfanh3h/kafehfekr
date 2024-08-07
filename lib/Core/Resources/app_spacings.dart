@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppSpacings {
+  static final EdgeInsets s5Top = EdgeInsets.only(top: 5.h);
   static final EdgeInsets s10Top = EdgeInsets.only(top: 10.h);
   static final EdgeInsets s5Bottom = EdgeInsets.only(bottom: 5.h);
   static final EdgeInsets s10Bottom = EdgeInsets.only(bottom: 10.h);

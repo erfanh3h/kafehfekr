@@ -45,8 +45,8 @@ class MSweeperController extends BaseGameController {
   }
 
   @override
-  Color? returnTimerColor() {
-    return AppColors.goldenColor;
+  Color returnTimerColor() {
+    return AppColors.darkColor;
   }
 
   @override

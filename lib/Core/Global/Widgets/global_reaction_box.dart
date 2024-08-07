@@ -2,7 +2,6 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GlobalReactionBox extends StatefulWidget {
   const GlobalReactionBox({
@@ -59,42 +58,25 @@ class _GlobalReactionBoxState extends State<GlobalReactionBox>
 
   @override
   Widget build(BuildContext context) {
-    double dx = 0;
-    double dy = 55.h;
-    // switch (widget.playerPosition) {
-    //   case PlayerPositionOnBoard.center:
-    //     dy = -40;
-    //     break;
-    //   case PlayerPositionOnBoard.left:
-    //     dx = -40;
-    //     break;
-    //   case PlayerPositionOnBoard.right:
-    //     dx = 40;
-    //     break;
-    //   default:
-    // }
-    return Transform.translate(
-      offset: Offset(dx, dy),
-      child: Center(
-        child: Container(
-          padding: AppSpacings.s5All,
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.circular(10),
-            color: AppColors.lightColor,
-            border: Border.all(
-              color: widget.color ?? Colors.black,
-              width: 2,
-            ),
+    return Center(
+      child: Container(
+        padding: AppSpacings.s5All,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(10),
+          color: AppColors.lightColor,
+          border: Border.all(
+            color: widget.color ?? Colors.black,
+            width: 2,
           ),
-          child: FadeTransition(
-            opacity: _fadeInFadeOut,
-            child: Image.asset(
-              ReactionIcons().generalIconsPath(widget.reactionId!),
-              width: 35.r,
-              height: 35.r,
-              color: widget.color ?? Colors.black,
-            ),
+        ),
+        child: FadeTransition(
+          opacity: _fadeInFadeOut,
+          child: Image.asset(
+            ReactionIcons().generalIconsPath(widget.reactionId!),
+            width: 25,
+            height: 25,
+            color: widget.color ?? Colors.black,
           ),
         ),
       ),

@@ -217,13 +217,13 @@ class BaseGameController extends BaseController {
     return currentTurn.value == gamerId;
   }
 
-  Color? returnTimerColor() {
+  Color returnTimerColor() {
     if (currentTurn.value == 1) {
       return AppColors.imageRedColor;
     } else if (currentTurn.value == 2) {
       return AppColors.imageBlueColor;
     }
-    return null;
+    return AppColors.darkColor;
   }
 
   void changetimerValue(int value) {

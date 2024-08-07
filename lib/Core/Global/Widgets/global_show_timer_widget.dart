@@ -22,31 +22,37 @@ class GlobalShowTimerWidget extends StatelessWidget {
       () => Container(
         padding: AppSpacings.s5All,
         decoration: BoxDecoration(
-          color: AppColors.lightColor,
+          color: color ?? AppColors.darkColor,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: color ?? AppColors.darkColor,
-            width: 5,
+            color: AppColors.white,
+            width: 3,
           ),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(
-              controller.timerLabel.value,
-              style: TextStyle(
-                color: color ?? AppColors.darkColor,
-                fontFamily: FontFamilies.dastnevis,
-                fontSize: 15,
+            Expanded(
+              child: Text(
+                controller.timerLabel.value,
+                style: const TextStyle(
+                  color: AppColors.lightColor,
+                  fontFamily: FontFamilies.dastnevis,
+                  fontSize: 25,
+                  height: .5,
+                ),
+                textAlign: TextAlign.left,
               ),
             ),
-            const SizedBox(width: 3),
-            Image.asset(
-              GeneralIcons.timeCounter,
-              color: color ?? AppColors.darkColor,
-              width: 20,
-              height: 20,
+            const SizedBox(width: 2),
+            Expanded(
+              child: Image.asset(
+                GeneralIcons.timeCounter,
+                color: AppColors.lightColor,
+                width: 22,
+                height: 22,
+              ),
             ),
           ],
         ),
