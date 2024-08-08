@@ -41,7 +41,7 @@ class MSweeperButton extends StatelessWidget {
         // padding: AppSpacings.s5All,
         decoration: BoxDecoration(
           color: AppColors.lightColor2,
-          border: Border.all(color: borderColor, width: 1.5),
+          border: Border.all(color: borderColor, width: 1),
           borderRadius: BorderRadius.circular(6),
         ),
         child: Center(
@@ -60,7 +60,7 @@ class MSweeperButton extends StatelessWidget {
                       : isSelectedAsBombCorrect
                           ? Image.asset(
                               GeneralIcons.bomb,
-                              color: AppColors.buttonGreen,
+                              color: AppColors.darkGreen,
                             )
                           : peaceData.value != null
                               ? Text(

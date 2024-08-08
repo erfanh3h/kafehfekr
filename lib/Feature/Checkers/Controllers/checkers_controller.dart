@@ -416,7 +416,7 @@ class CheckersController extends BaseGameController {
 
   void removePawn(int rIndex, int cIndex, int gamerId) {
     int index = coordinateToIndex(rIndex, cIndex);
-    changePeaceSelectedUser(index, null);
+    changePeaceSelectedUser(index, 0);
     if (gamerId == 1) {
       player2Pawns.value -= 1;
     } else {
@@ -437,7 +437,7 @@ class CheckersController extends BaseGameController {
         } else {
           changePeaceSelectedUser(targetIndex, gamerId, isSuperPawn: false);
         }
-        changePeaceSelectedUser(sourceIndex, null);
+        changePeaceSelectedUser(sourceIndex, 0);
 
         if (moveData[1] != null) {
           List? removePoint = moveData[1];

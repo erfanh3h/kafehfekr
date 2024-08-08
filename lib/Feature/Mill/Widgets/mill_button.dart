@@ -36,9 +36,9 @@ class MillButton extends StatelessWidget {
     }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected) ||
         peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
-      borderWidth = 6;
+      borderWidth = 5;
     } else {
-      borderWidth = 2;
+      borderWidth = 1;
     }
     return InkWell(
       onTap: () {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
@@ -41,7 +40,7 @@ class GlobalGameDataWidget extends StatelessWidget {
           children: [
             Container(
               padding: AppSpacings.s10Horizental,
-              width: 110.w,
+              width: 130,
               child: GlobalShowTimerWidget(color: timerColor),
             ),
             const SizedBox(height: 5),

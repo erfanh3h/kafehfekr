@@ -32,6 +32,7 @@ class MNumbersController extends BaseGameController {
     int index2 = peaceData['index2'];
     int value1 = peaceData['value1'];
     int value2 = peaceData['value2'];
+    changetimerValue(GameWaitTimes.mnumbersShowResultTime);
     removePeaceStatus(index1, PeaceStatusTypes.isLoading);
     removePeaceStatus(index2, PeaceStatusTypes.isLoading);
     clearEquipStatus();

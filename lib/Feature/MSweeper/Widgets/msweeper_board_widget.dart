@@ -33,10 +33,12 @@ class MSweeperBoardWidget extends StatelessWidget {
                   crossAxisSpacing: 2,
                   mainAxisSpacing: 2,
                 ),
-                itemBuilder: (ctx, index) => MSweeperButton(
-                  peaceData: controller.peaces[index].value,
-                  onTap: controller.onEachButtonTap,
-                  onHold: controller.onEachButtonHold,
+                itemBuilder: (ctx, index) => Obx(
+                  () => MSweeperButton(
+                    peaceData: controller.peaces[index].value,
+                    onTap: controller.onEachButtonTap,
+                    onHold: controller.onEachButtonHold,
+                  ),
                 ),
                 itemCount: controller.peaces.length,
               ),
