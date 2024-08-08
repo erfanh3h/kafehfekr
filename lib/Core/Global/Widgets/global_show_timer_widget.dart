@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -20,41 +19,28 @@ class GlobalShowTimerWidget extends StatelessWidget {
     final TimerCompanent controller = Get.find<TimerCompanent>();
     return Obx(
       () => Container(
-        padding: AppSpacings.s5All,
+        padding: AppSpacings.s10All,
+        width: 75,
         decoration: BoxDecoration(
-          color: color ?? AppColors.darkColor,
+          color: color ?? AppColors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: AppColors.white,
-            width: 3,
+            width: 1,
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(
-              child: Text(
-                controller.timerLabel.value,
-                style: const TextStyle(
-                  color: AppColors.lightColor,
-                  fontFamily: FontFamilies.dastnevis,
-                  fontSize: 25,
-                  height: .7,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            const SizedBox(width: 1),
-            Expanded(
-              child: Image.asset(
-                GeneralIcons.timeCounter,
-                color: AppColors.lightColor,
-                width: 22,
-                height: 22,
-              ),
-            ),
-          ],
+        child: Text(
+          controller.timerLabel.value,
+          style: TextStyle(
+            fontFamily: FontFamilies.dastnevis,
+            fontSize: 26,
+            height: .7,
+            foreground: Paint()
+              ..strokeWidth = 1.5
+              ..color = AppColors.lightColor
+              ..style = PaintingStyle.stroke,
+          ),
+          textAlign: TextAlign.center,
         ),
       ),
     );

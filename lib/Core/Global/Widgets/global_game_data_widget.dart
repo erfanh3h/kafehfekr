@@ -38,11 +38,7 @@ class GlobalGameDataWidget extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            Container(
-              padding: AppSpacings.s10Horizental,
-              width: 130,
-              child: GlobalShowTimerWidget(color: timerColor),
-            ),
+            GlobalShowTimerWidget(color: timerColor),
             const SizedBox(height: 5),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -155,10 +151,13 @@ class GlobalGameDataWidget extends StatelessWidget {
                 margin: AppSpacings.s5Top,
                 child: Text(
                   roundText!,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: FontFamilies.dastnevis,
                     fontSize: 30,
-                    color: Colors.white,
+                    foreground: Paint()
+                      ..strokeWidth = 1.5
+                      ..color = AppColors.lightColor
+                      ..style = PaintingStyle.stroke,
                   ),
                 ),
               ),
