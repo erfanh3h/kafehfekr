@@ -22,35 +22,14 @@ class ChessButton extends StatelessWidget {
     String? image;
     double borderSize = 2;
     double imageScale = 1;
-    // switch (peaceData.selectedUser) {
-    //   case 1:
-    //     imageColor = AppColors.imageRedColor;
-    //     if (peaceData.isSuperPawn) {
-    //       image = GeneralIcons.checkers2;
-    //     } else {
-    //       image = GeneralIcons.checkers1;
-    //     }
-    //     break;
-    //   case 2:
-    //     imageColor = AppColors.imageBlueColor;
-    //     if (peaceData.isSuperPawn) {
-    //       image = GeneralIcons.checkers2;
-    //     } else {
-    //       image = GeneralIcons.checkers1;
-    //     }
-    //     break;
-    //   default:
-    //     imageColor = null;
-    //     image = null;
-    //     break;
-    // }
-    // imageColor = AppColors.imageBlueColor;
-    // borderColor = AppColors.imageRedColor;
-    // if (peaceData.isSuperPawn) {
-    //   image = GeneralIcons.checkers1;
-    // } else {
-    //   image = GeneralIcons.checkers1;
-    // }
+    if (peaceData.piece.gamerId != 0) {
+      image = peaceData.piece.image;
+      if (peaceData.piece.gamerId == 1) {
+        imageColor = AppColors.imageRedColor;
+      } else {
+        imageColor = AppColors.imageBlueColor;
+      }
+    }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
       borderColor = AppColors.goldenColor;
       borderSize = 5;
@@ -72,7 +51,7 @@ class ChessButton extends StatelessWidget {
         padding: AppSpacings.s5All,
         decoration: BoxDecoration(
           color: (peaceData.id % 2 + peaceData.id ~/ 8) % 2 == 0
-              ? const Color.fromARGB(255, 190, 121, 96)
+              ? Colors.grey
               : AppColors.lightColor,
           border: Border.all(
             color: borderColor ?? AppColors.black,

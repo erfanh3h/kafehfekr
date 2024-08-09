@@ -43,4 +43,10 @@ class GeneralIcons {
   static const bombExplode = "$generalIconsPath/bomb-explode.png";
   static const checkers1 = "$generalIconsPath/checkers1.png";
   static const checkers2 = "$generalIconsPath/checkers2.png";
+  static const pawn = "$generalIconsPath/chess-pawn.png";
+  static const rook = "$generalIconsPath/chess-rook.png";
+  static const knight = "$generalIconsPath/chess-knight.png";
+  static const bishop = "$generalIconsPath/chess-bishop.png";
+  static const queen = "$generalIconsPath/chess-queen.png";
+  static const king = "$generalIconsPath/chess-king.png";
 }

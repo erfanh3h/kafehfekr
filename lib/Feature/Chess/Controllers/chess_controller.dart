@@ -2,7 +2,12 @@ import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Feature/Checkers/Models/checkers_peace_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/bishop_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/king_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/knight_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/pawn_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/queen_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/rook_piece_model.dart';
 import 'package:kafehfekr/Feature/Chess/Models/chess_piece_model.dart';
 import 'package:kafehfekr/Feature/Chess/Models/chess_spot_piece_model.dart';
 import 'package:refreshed/refreshed.dart';
@@ -85,62 +90,50 @@ class ChessController extends BaseGameController {
 
   @override
   void onEachButtonTap(dynamic tappedPeace) {
-    CheckersPeaceModel peace = tappedPeace as CheckersPeaceModel;
+    ChessSpotModel peace = tappedPeace as ChessSpotModel;
     if (!canSelectPeace.value) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
-    // if (peace.selectedUser == null) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
+    // if (equippedPeaceIndex.value != -1) {
+    //   if (equippedPeaceIndex.value == peace.id) {
+    //     releasePeace();
+    //   } else if (peace.selectedUser == myGameId) {
+    //     releasePeace();
+    //     equipPeace(peace.id);
+    //   } else {
+    //     if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
+    //       Get.find<SoundPlayerComponent>()
+    //           .playGameSound(GameSoundTypes.tapWrong);
+    //       return;
+    //     }
+    //     final List sourceData = indexToCoordinate(equippedPeaceIndex.value);
+    //     final sourceRIndex = sourceData[0];
+    //     final sourceCIndex = sourceData[1];
+    //     final List targetData = indexToCoordinate(peace.id);
+    //     final targetRIndex = targetData[0];
+    //     final targetCIndex = targetData[1];
+    //     sendCommand({
+    //       "id": GameCommands.selectPeace,
+    //       "data": {
+    //         's_c_index': sourceCIndex,
+    //         's_r_index': sourceRIndex,
+    //         't_c_index': targetCIndex,
+    //         't_r_index': targetRIndex,
+    //       }
+    //     });
+    //     releasePeace();
+    //     // final moveResult = movePawn(
+    //     //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, myGameId);
+    //     // if (moveResult) {
+    //     //   releasePeace();
+    //     // }
+    //   }
+    // } else {
+    //   if (peace.selectedUser != 0 && peace.selectedUser == myGameId) {
+    //     equipPeace(peace.id);
+    //   }
     // }
-    // canSelectPeace.value = false;
-    // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-    // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-    // Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-    // if (peace.selectedUser != myGameId) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
-    // }
-    if (equippedPeaceIndex.value != -1) {
-      if (equippedPeaceIndex.value == peace.id) {
-        releasePeace();
-      } else if (peace.selectedUser == myGameId) {
-        releasePeace();
-        equipPeace(peace.id);
-      } else {
-        if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-          Get.find<SoundPlayerComponent>()
-              .playGameSound(GameSoundTypes.tapWrong);
-          return;
-        }
-        final List sourceData = indexToCoordinate(equippedPeaceIndex.value);
-        final sourceRIndex = sourceData[0];
-        final sourceCIndex = sourceData[1];
-        final List targetData = indexToCoordinate(peace.id);
-        final targetRIndex = targetData[0];
-        final targetCIndex = targetData[1];
-        sendCommand({
-          "id": GameCommands.selectPeace,
-          "data": {
-            's_c_index': sourceCIndex,
-            's_r_index': sourceRIndex,
-            't_c_index': targetCIndex,
-            't_r_index': targetRIndex,
-          }
-        });
-        releasePeace();
-        // final moveResult = movePawn(
-        //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, myGameId);
-        // if (moveResult) {
-        //   releasePeace();
-        // }
-      }
-    } else {
-      if (peace.selectedUser != 0 && peace.selectedUser == myGameId) {
-        equipPeace(peace.id);
-      }
-    }
   }
 
   void equipPeace(int index) {
@@ -201,12 +194,59 @@ class ChessController extends BaseGameController {
     }
   }
 
+  addSpotPiece(int peaceId, ChessPieceModel piece) {
+    peaces.value[peaceId].value =
+        peaces.value[peaceId].value.changePiece(newPiece: piece);
+  }
+
   initPeaces() {
     for (var i = 0; i < 64; i++) {
-      peaces.add(Rx(ChessSpotModel(
-          id: i, currentStatuses: [], piece: ChessPieceModel())));
+      peaces.add(
+        Rx(ChessSpotModel(
+            id: i, currentStatuses: [], piece: ChessPieceModel())),
+      );
     }
-    // changePeaceSelectedUser(0, 1);
+    int index = 0;
+    addSpotPiece(index, RookPieceModel(gamerId: 1));
+    index += 1;
+    addSpotPiece(index, KnightPieceModel(gamerId: 1));
+    index += 1;
+    addSpotPiece(index, BishopPieceModel(gamerId: 1));
+    index += 1;
+    addSpotPiece(index, QueenPieceModel(gamerId: 1));
+    index += 1;
+    addSpotPiece(index, KingPieceModel(gamerId: 1));
+    index += 1;
+    addSpotPiece(index, BishopPieceModel(gamerId: 1));
+    index += 1;
+    addSpotPiece(index, KnightPieceModel(gamerId: 1));
+    index += 1;
+    addSpotPiece(index, RookPieceModel(gamerId: 1));
+    index += 1;
+    for (var i = 0; i < 8; i++) {
+      addSpotPiece(index, PawnPieceModel(gamerId: 1));
+      index += 1;
+    }
+    index += 32;
+    for (var i = 0; i < 8; i++) {
+      addSpotPiece(index, PawnPieceModel(gamerId: 2));
+      index += 1;
+    }
+    addSpotPiece(index, RookPieceModel(gamerId: 2));
+    index += 1;
+    addSpotPiece(index, KnightPieceModel(gamerId: 2));
+    index += 1;
+    addSpotPiece(index, BishopPieceModel(gamerId: 2));
+    index += 1;
+    addSpotPiece(index, QueenPieceModel(gamerId: 2));
+    index += 1;
+    addSpotPiece(index, KingPieceModel(gamerId: 2));
+    index += 1;
+    addSpotPiece(index, BishopPieceModel(gamerId: 2));
+    index += 1;
+    addSpotPiece(index, KnightPieceModel(gamerId: 2));
+    index += 1;
+    addSpotPiece(index, RookPieceModel(gamerId: 2));
   }
 
   bool isTargetPeaceEmpty(int rIndex, int cIndex) {
