@@ -3,6 +3,7 @@ import 'package:kafehfekr/Core/Global/Pages/main_menu_page.dart';
 import 'package:kafehfekr/Core/Global/Pages/splash.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Feature/Checkers/Pages/checkers_page.dart';
+import 'package:kafehfekr/Feature/Chess/Pages/chess_page.dart';
 import 'package:kafehfekr/Feature/DotBox/Pages/dotbox_page.dart';
 import 'package:kafehfekr/Feature/MNumbers/Pages/mnumbers_page.dart';
 import 'package:kafehfekr/Feature/MSweeper/Pages/msweeper_page.dart';
@@ -59,6 +60,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.dotbox,
       page: DotBoxPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.chess,
+      page: ChessPage.new,
     ),
   ];
 }
