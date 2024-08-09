@@ -4,10 +4,11 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Feature/Checkers/Models/checkers_peace_model.dart';
 import 'package:kafehfekr/Feature/Chess/Models/chess_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/chess_spot_piece_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class ChessController extends BaseGameController {
-  RxList<Rx<ChessPieceModel>> peaces = RxList();
+  RxList<Rx<ChessSpotModel>> peaces = RxList();
   RxInt player1Pawns = RxInt(16);
   RxInt player2Pawns = RxInt(16);
 
@@ -177,11 +178,11 @@ class ChessController extends BaseGameController {
     }
   }
 
-  changePeaceSelectedUser(int peaceId, int? selectedUser, {bool? isSuperPawn}) {
-    peaces.value[peaceId].value = peaces.value[peaceId].value
-        .changeSelectedUser(
-            newSelectedUser: selectedUser, newIsSuperPawn: isSuperPawn);
-  }
+  // changePeaceSelectedUser(int peaceId, int? selectedUser, {bool? isSuperPawn}) {
+  //   peaces.value[peaceId].value = peaces.value[peaceId].value.changePiece(
+  //     newPiece: selectedUser,
+  //   );
+  // }
 
   addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
@@ -202,20 +203,20 @@ class ChessController extends BaseGameController {
 
   initPeaces() {
     for (var i = 0; i < 64; i++) {
-      peaces.add(
-          Rx(ChessPieceModel(id: i, currentStatuses: [], selectedUser: 0)));
+      peaces.add(Rx(ChessSpotModel(
+          id: i, currentStatuses: [], piece: ChessPieceModel())));
     }
     // changePeaceSelectedUser(0, 1);
   }
 
   bool isTargetPeaceEmpty(int rIndex, int cIndex) {
     int index = coordinateToIndex(rIndex, cIndex);
-    return peaces[index].value.selectedUser == 0;
+    return peaces[index].value.piece.gamerId == 0;
   }
 
   bool isTargetPeaceEnemy(int rIndex, int cIndex, int gamerId) {
     int index = coordinateToIndex(rIndex, cIndex);
-    return peaces[index].value.selectedUser != gamerId;
+    return peaces[index].value.piece.gamerId != gamerId;
   }
 
   List getDirectionMovesList(
@@ -247,7 +248,7 @@ class ChessController extends BaseGameController {
 
   void removePawn(int rIndex, int cIndex, int gamerId) {
     int index = coordinateToIndex(rIndex, cIndex);
-    changePeaceSelectedUser(index, 0);
+    // changePeaceSelectedUser(index, 0);
     if (gamerId == 1) {
       player2Pawns.value -= 1;
     } else {

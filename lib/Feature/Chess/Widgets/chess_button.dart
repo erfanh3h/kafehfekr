@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
-import 'package:kafehfekr/Feature/Chess/Models/chess_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/chess_spot_piece_model.dart';
 
 class ChessButton extends StatelessWidget {
   const ChessButton({
@@ -13,8 +12,8 @@ class ChessButton extends StatelessWidget {
     required this.onTap,
   });
 
-  final ChessPieceModel peaceData;
-  final Function(ChessPieceModel) onTap;
+  final ChessSpotModel peaceData;
+  final Function(ChessSpotModel) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,28 +22,28 @@ class ChessButton extends StatelessWidget {
     String? image;
     double borderSize = 2;
     double imageScale = 1;
-    switch (peaceData.selectedUser) {
-      case 1:
-        imageColor = AppColors.imageRedColor;
-        if (peaceData.isSuperPawn) {
-          image = GeneralIcons.checkers2;
-        } else {
-          image = GeneralIcons.checkers1;
-        }
-        break;
-      case 2:
-        imageColor = AppColors.imageBlueColor;
-        if (peaceData.isSuperPawn) {
-          image = GeneralIcons.checkers2;
-        } else {
-          image = GeneralIcons.checkers1;
-        }
-        break;
-      default:
-        imageColor = null;
-        image = null;
-        break;
-    }
+    // switch (peaceData.selectedUser) {
+    //   case 1:
+    //     imageColor = AppColors.imageRedColor;
+    //     if (peaceData.isSuperPawn) {
+    //       image = GeneralIcons.checkers2;
+    //     } else {
+    //       image = GeneralIcons.checkers1;
+    //     }
+    //     break;
+    //   case 2:
+    //     imageColor = AppColors.imageBlueColor;
+    //     if (peaceData.isSuperPawn) {
+    //       image = GeneralIcons.checkers2;
+    //     } else {
+    //       image = GeneralIcons.checkers1;
+    //     }
+    //     break;
+    //   default:
+    //     imageColor = null;
+    //     image = null;
+    //     break;
+    // }
     // imageColor = AppColors.imageBlueColor;
     // borderColor = AppColors.imageRedColor;
     // if (peaceData.isSuperPawn) {
@@ -57,11 +56,11 @@ class ChessButton extends StatelessWidget {
       borderSize = 5;
     }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      if (peaceData.isSuperPawn) {
-        image = GeneralIcons.checkers2;
-      } else {
-        image = GeneralIcons.checkers1;
-      }
+      // if (peaceData.isSuperPawn) {
+      //   image = GeneralIcons.checkers2;
+      // } else {
+      //   image = GeneralIcons.checkers1;
+      // }
       imageColor = AppColors.guideGreen;
       imageScale = .33;
     }
