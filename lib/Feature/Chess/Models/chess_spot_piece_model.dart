@@ -1,5 +1,11 @@
 import 'package:kafehfekr/Core/Global/Models/peace_model.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/bishop_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/king_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/knight_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/pawn_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/queen_piece_model.dart';
+import 'package:kafehfekr/Feature/Chess/Models/Pieces/rook_piece_model.dart';
 import 'package:kafehfekr/Feature/Chess/Models/chess_piece_model.dart';
 
 class ChessSpotModel extends PeaceModel {
@@ -13,10 +19,31 @@ class ChessSpotModel extends PeaceModel {
 
   ChessSpotModel getFromJson(Map data, int id) {
     late ChessPieceModel newPiece;
-    if (data['pawn_gamer_id'] != null) {
-      newPiece = data['pawn_gamer_id'];
-    } else {
-      newPiece = ChessPieceModel();
+    int gamerId = data['gamer_id'];
+    bool isFirstMove = data['is_first_move'];
+    String pieceName = data['name'];
+    switch (pieceName) {
+      case "Pawn":
+        newPiece = PawnPieceModel(gamerId: gamerId, isFirstMove: isFirstMove);
+        break;
+      case "Rook":
+        newPiece = RookPieceModel(gamerId: gamerId, isFirstMove: isFirstMove);
+        break;
+      case "Knight":
+        newPiece = KnightPieceModel(gamerId: gamerId, isFirstMove: isFirstMove);
+        break;
+      case "Bishop":
+        newPiece = BishopPieceModel(gamerId: gamerId, isFirstMove: isFirstMove);
+        break;
+      case "Queen":
+        newPiece = QueenPieceModel(gamerId: gamerId, isFirstMove: isFirstMove);
+        break;
+      case "King":
+        newPiece = KingPieceModel(gamerId: gamerId, isFirstMove: isFirstMove);
+        break;
+      default:
+        newPiece = PawnPieceModel(gamerId: gamerId, isFirstMove: isFirstMove);
+        break;
     }
     return ChessSpotModel(
       id: id,
@@ -30,7 +57,7 @@ class ChessSpotModel extends PeaceModel {
   }) {
     return ChessSpotModel(
       id: id,
-      currentStatuses:currentStatuses,
+      currentStatuses: currentStatuses,
       piece: newPiece,
     );
   }

@@ -50,12 +50,14 @@ class ChessController extends BaseGameController {
   @override
   void peaceSelectedFunction(Map data) {
     Map selectionData = data['data']['select_data'];
-    final sourceRIndex = selectionData['s_r_index'];
     final sourceCIndex = selectionData['s_c_index'];
-    final targetRIndex = selectionData['t_r_index'];
+    final sourceRIndex = selectionData['s_r_index'];
     final targetCIndex = selectionData['t_c_index'];
+    final targetRIndex = selectionData['t_r_index'];
+    final (int, int) sourcePosition = (sourceCIndex, sourceRIndex);
+    final (int, int) targetPosition = (targetCIndex, targetRIndex);
     final int gamerId = selectionData['gamer_id'];
-    // final index = coordinateToIndex(sourceRIndex, sourceCIndex);
+    movePiece(sourcePosition, targetPosition, gamerId);
     // addPossibleMoves(index);
     // final moveResult = movePiece(
     //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, gamerId);
@@ -70,10 +72,10 @@ class ChessController extends BaseGameController {
     Map newData = data['data'];
     Map gameData = newData['game_data'];
     Map timerData = newData['timer_data'];
-    List boardData = gameData['board'];
+    List boardData = gameData['board_data'];
     currentTurn.value = gameData['current_turn'];
-    player1Pawns.value = gameData['pawns_count'][0];
-    player2Pawns.value = gameData['pawns_count'][1];
+    // player1Pawns.value = gameData['pawns_count'][0];
+    // player2Pawns.value = gameData['pawns_count'][1];
     for (var i = 0; i < boardData.length; i++) {
       peaces[i].value = peaces[i].value.getFromJson(boardData[i], i);
     }
@@ -90,12 +92,12 @@ class ChessController extends BaseGameController {
 
   @override
   void onEachButtonTap(dynamic tappedPeace) {
-    myGameId = 2;
+    // myGameId = 2;
     ChessSpotModel peace = tappedPeace as ChessSpotModel;
-    // if (!canSelectPeace.value) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
-    // }
+    if (!canSelectPeace.value) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      return;
+    }
     if (equippedPeaceIndex.value != -1) {
       if (equippedPeaceIndex.value == peace.id) {
         releasePeace();
@@ -109,32 +111,19 @@ class ChessController extends BaseGameController {
               .playGameSound(GameSoundTypes.tapWrong);
           return;
         }
-
         final sourcePosition = indexToCoordinate(equippedPeaceIndex.value);
         final targetPosition = indexToCoordinate(peace.id);
-        movePiece(sourcePosition, targetPosition, 2);
+        // movePiece(sourcePosition, targetPosition, myGameId);
+        sendCommand({
+          "id": GameCommands.selectPeace,
+          "data": {
+            's_c_index': sourcePosition.$1,
+            's_r_index': sourcePosition.$2,
+            't_c_index': targetPosition.$1,
+            't_r_index': targetPosition.$2,
+          }
+        });
         releasePeace();
-        // final List sourceData = indexToCoordinate(equippedPeaceIndex.value);
-        // final sourceRIndex = sourceData[0];
-        // final sourceCIndex = sourceData[1];s
-        // final List targetData = indexToCoordinate(peace.id);
-        // final targetRIndex = targetData[0];
-        // final targetCIndex = targetData[1];
-        // sendCommand({
-        //   "id": GameCommands.selectPeace,
-        //   "data": {
-        //     's_c_index': sourceCIndex,
-        //     's_r_index': sourceRIndex,
-        //     't_c_index': targetCIndex,
-        //     't_r_index': targetRIndex,
-        //   }
-        // });
-        // releasePeace();
-        // final moveResult = movePiece(
-        //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, myGameId);
-        // if (moveResult) {
-        //   releasePeace();
-        // }
       }
     } else {
       if (peace.piece.gamerId != 0 && peace.piece.gamerId == myGameId) {
