@@ -35,4 +35,16 @@ class PawnPieceModel extends ChessPieceModel {
     }
     return result;
   }
+
+  @override
+  ChessPieceModel copyWith({
+    final int? gamerId,
+    final bool? isFirstMove,
+  }) =>
+      PawnPieceModel(
+        gamerId: gamerId ?? this.gamerId,
+        isMultiMove: isMultiMove,
+        isFirstMove: isFirstMove ?? this.isFirstMove,
+        image: image,
+      );
 }

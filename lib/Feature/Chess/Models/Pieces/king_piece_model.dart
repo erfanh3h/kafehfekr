@@ -10,7 +10,9 @@ class KingPieceModel extends ChessPieceModel {
   });
   @override
   String get image => GeneralIcons.king;
-  
+
+  @override
+  bool get isMultiMove => false;
   @override
   List<(int, int)> getMovesList() {
     List<(int, int)> result = [
@@ -25,4 +27,16 @@ class KingPieceModel extends ChessPieceModel {
     ];
     return result;
   }
+
+  @override
+  ChessPieceModel copyWith({
+    final int? gamerId,
+    final bool? isFirstMove,
+  }) =>
+      KingPieceModel(
+        gamerId: gamerId??this.gamerId,
+        isMultiMove: isMultiMove,
+        isFirstMove: isFirstMove ?? this.isFirstMove,
+        image: image,
+      );
 }

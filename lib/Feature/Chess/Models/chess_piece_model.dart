@@ -18,6 +18,17 @@ class ChessPieceModel {
   List<(int, int)> getHitsList() {
     return getMovesList();
   }
+
+  ChessPieceModel copyWith({
+    final int? gamerId,
+    final bool? isFirstMove,
+  }) =>
+      ChessPieceModel(
+        gamerId: gamerId??this.gamerId,
+        isMultiMove: isMultiMove,
+        isFirstMove: isFirstMove ?? this.isFirstMove,
+        image: image,
+      );
   // ChessPieceModel getFromJson(Map data, int id) {
   //   int? newSelectedUser;
   //   if (data['pawn_gamer_id'] != null) {

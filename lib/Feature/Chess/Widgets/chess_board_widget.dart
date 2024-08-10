@@ -32,9 +32,11 @@ class ChessBoardWidget extends StatelessWidget {
                     crossAxisSpacing: 0,
                     mainAxisSpacing: 0,
                   ),
-                  itemBuilder: (ctx, index) => ChessButton(
-                    peaceData: controller.peaces[index].value,
-                    onTap: controller.onEachButtonTap,
+                  itemBuilder: (ctx, index) => Obx(
+                    () => ChessButton(
+                      peaceData: controller.peaces[index].value,
+                      onTap: controller.onEachButtonTap,
+                    ),
                   ),
                   itemCount: controller.peaces.length,
                 ),

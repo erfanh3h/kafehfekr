@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Chess/Models/chess_spot_piece_model.dart';
 
@@ -40,6 +41,7 @@ class ChessButton extends StatelessWidget {
       // } else {
       //   image = GeneralIcons.checkers1;
       // }
+      image = GeneralIcons.checkers1;
       imageColor = AppColors.guideGreen;
       imageScale = .33;
     }

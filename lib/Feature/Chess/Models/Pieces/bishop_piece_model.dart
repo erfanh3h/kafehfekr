@@ -16,4 +16,16 @@ class BishopPieceModel extends ChessPieceModel {
     List<(int, int)> result = [(-1, 1), (1, 1), (1, -1), (-1, -1)];
     return result;
   }
+
+  @override
+  ChessPieceModel copyWith({
+    final int? gamerId,
+    final bool? isFirstMove,
+  }) =>
+      BishopPieceModel(
+        gamerId: gamerId??this.gamerId,
+        isMultiMove: isMultiMove,
+        isFirstMove: isFirstMove ?? this.isFirstMove,
+        image: image,
+      );
 }

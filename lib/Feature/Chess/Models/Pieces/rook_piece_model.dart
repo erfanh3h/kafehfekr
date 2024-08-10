@@ -16,4 +16,16 @@ class RookPieceModel extends ChessPieceModel {
     List<(int, int)> result = [(1, 0), (-1, 0), (0, 1), (0, -1)];
     return result;
   }
+
+  @override
+  ChessPieceModel copyWith({
+    final int? gamerId,
+    final bool? isFirstMove,
+  }) =>
+      RookPieceModel(
+        gamerId: gamerId ?? this.gamerId,
+        isMultiMove: isMultiMove,
+        isFirstMove: isFirstMove ?? this.isFirstMove,
+        image: image,
+      );
 }

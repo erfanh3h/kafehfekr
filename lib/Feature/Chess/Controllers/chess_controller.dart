@@ -57,7 +57,7 @@ class ChessController extends BaseGameController {
     final int gamerId = selectionData['gamer_id'];
     // final index = coordinateToIndex(sourceRIndex, sourceCIndex);
     // addPossibleMoves(index);
-    // final moveResult = movePawn(
+    // final moveResult = movePiece(
     //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, gamerId);
     // if (moveResult) {
     //   releasePeace();
@@ -90,52 +90,56 @@ class ChessController extends BaseGameController {
 
   @override
   void onEachButtonTap(dynamic tappedPeace) {
+    myGameId = 2;
     ChessSpotModel peace = tappedPeace as ChessSpotModel;
     // if (!canSelectPeace.value) {
     //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
     //   return;
     // }
-    final (int, int) position = indexToCoordinate(peace.id);
-    final result = getPossibleMovesOfPeace(position, myGameId);
-    // if (equippedPeaceIndex.value != -1) {
-    //   if (equippedPeaceIndex.value == peace.id) {
-    //     releasePeace();
-    //   } else if (peace.selectedUser == myGameId) {
-    //     releasePeace();
-    //     equipPeace(peace.id);
-    //   } else {
-    //     if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-    //       Get.find<SoundPlayerComponent>()
-    //           .playGameSound(GameSoundTypes.tapWrong);
-    //       return;
-    //     }
-    //     final List sourceData = indexToCoordinate(equippedPeaceIndex.value);
-    //     final sourceRIndex = sourceData[0];
-    //     final sourceCIndex = sourceData[1];
-    //     final List targetData = indexToCoordinate(peace.id);
-    //     final targetRIndex = targetData[0];
-    //     final targetCIndex = targetData[1];
-    //     sendCommand({
-    //       "id": GameCommands.selectPeace,
-    //       "data": {
-    //         's_c_index': sourceCIndex,
-    //         's_r_index': sourceRIndex,
-    //         't_c_index': targetCIndex,
-    //         't_r_index': targetRIndex,
-    //       }
-    //     });
-    //     releasePeace();
-    //     // final moveResult = movePawn(
-    //     //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, myGameId);
-    //     // if (moveResult) {
-    //     //   releasePeace();
-    //     // }
-    //   }
-    // } else {
-    //   if (peace.selectedUser != 0 && peace.selectedUser == myGameId) {
-    //     equipPeace(peace.id);
-    //   }
-    // }
+    if (equippedPeaceIndex.value != -1) {
+      if (equippedPeaceIndex.value == peace.id) {
+        releasePeace();
+      } else if (peace.piece.gamerId == myGameId) {
+        releasePeace();
+        equipPeace(peace.id);
+      } else {
+        if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
+          Get.find<SoundPlayerComponent>()
+              .playGameSound(GameSoundTypes.tapWrong);
+          return;
+        }
+
+        final sourcePosition = indexToCoordinate(equippedPeaceIndex.value);
+        final targetPosition = indexToCoordinate(peace.id);
+        movePiece(sourcePosition, targetPosition, 2);
+        releasePeace();
+        // final List sourceData = indexToCoordinate(equippedPeaceIndex.value);
+        // final sourceRIndex = sourceData[0];
+        // final sourceCIndex = sourceData[1];s
+        // final List targetData = indexToCoordinate(peace.id);
+        // final targetRIndex = targetData[0];
+        // final targetCIndex = targetData[1];
+        // sendCommand({
+        //   "id": GameCommands.selectPeace,
+        //   "data": {
+        //     's_c_index': sourceCIndex,
+        //     's_r_index': sourceRIndex,
+        //     't_c_index': targetCIndex,
+        //     't_r_index': targetRIndex,
+        //   }
+        // });
+        // releasePeace();
+        // final moveResult = movePiece(
+        //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, myGameId);
+        // if (moveResult) {
+        //   releasePeace();
+        // }
+      }
+    } else {
+      if (peace.piece.gamerId != 0 && peace.piece.gamerId == myGameId) {
+        equipPeace(peace.id);
+      }
+    }
   }
 
   void equipPeace(int index) {
@@ -154,17 +158,15 @@ class ChessController extends BaseGameController {
   }
 
   void addPossibleMoves(int index) {
-    // List coordinates = indexToCoordinate(index);
-    // List movesPossibleList =
-    //     getPossibleMovesOfPeace(coordinates[0], coordinates[1], myGameId);
-    // for (var dataRaw in movesPossibleList) {
-    //   List? coordinates = dataRaw[0];
-    //   if (coordinates != null) {
-    //     final peaceId = coordinateToIndex(coordinates[0], coordinates[1]);
-    //     addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
-    //     currentPossibleMoves.add(dataRaw);
-    //   }
-    // }
+    (int, int) position = indexToCoordinate(index);
+    List<(int, int)> movesPossibleList =
+        getPossibleMovesOfPeace(position, myGameId);
+    for (var dataRaw in movesPossibleList) {
+      (int, int) coordinates = dataRaw;
+      final peaceId = coordinateToIndex(coordinates);
+      addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
+      currentPossibleMoves.add(dataRaw);
+    }
   }
 
   void resetPeaces() {
@@ -172,12 +174,6 @@ class ChessController extends BaseGameController {
       peaces[i].value = peaces[i].value.resetPeace();
     }
   }
-
-  // changePeaceSelectedUser(int peaceId, int? selectedUser, {bool? isSuperPawn}) {
-  //   peaces.value[peaceId].value = peaces.value[peaceId].value.changePiece(
-  //     newPiece: selectedUser,
-  //   );
-  // }
 
   addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
@@ -271,7 +267,7 @@ class ChessController extends BaseGameController {
     return x >= 0 && x < 8 && y >= 0 && y < 8;
   }
 
-  List getPossibleMovesOfPeace((int, int) position, int gamerId) {
+  List<(int, int)> getPossibleMovesOfPeace((int, int) position, int gamerId) {
     List<(int, int)> result = [];
     int spotIndex = coordinateToIndex(position);
     if (!isTargetPieceEmpty(position)) {
@@ -325,7 +321,7 @@ class ChessController extends BaseGameController {
             int y = position.$1 + (move.$1 * i);
             int x = position.$2 + (move.$2 * i);
             if (isValidCoordinate(y, x)) {
-              if (isTargetPieceEnemy((y, x) , gamerId)) {
+              if (isTargetPieceEnemy((y, x), gamerId)) {
                 result.add((y, x));
                 break;
               } else {
@@ -340,7 +336,7 @@ class ChessController extends BaseGameController {
         for (var move in pieceMoveList) {
           int y = position.$1 + move.$1;
           int x = position.$2 + move.$2;
-          if (isValidCoordinate(y, x) && isTargetPieceEnemy((y, x) , gamerId)) {
+          if (isValidCoordinate(y, x) && isTargetPieceEnemy((y, x), gamerId)) {
             result.add((y, x));
           }
         }
@@ -363,9 +359,17 @@ class ChessController extends BaseGameController {
     }
   }
 
-  bool movePawn(int sourceCIndex, int sourceRIndex, int targetCIndex,
-      int targetRIndex, int gamerId) {
-    return false;
+  bool movePiece(
+      (int, int) sourcePosition, (int, int) targetPosition, int gamerId) {
+    final sourceIndex = coordinateToIndex(sourcePosition);
+    final targetIndex = coordinateToIndex(targetPosition);
+    final newPiece =
+        peaces.value[sourceIndex].value.piece.copyWith(isFirstMove: false);
+    peaces.value[targetIndex].value =
+        peaces.value[targetIndex].value.changePiece(newPiece: newPiece);
+    peaces.value[sourceIndex].value = peaces.value[sourceIndex].value
+        .changePiece(newPiece: ChessPieceModel());
+    return true;
   }
 
   @override

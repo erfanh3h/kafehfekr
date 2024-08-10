@@ -28,4 +28,16 @@ class KnightPieceModel extends ChessPieceModel {
     ];
     return result;
   }
+
+  @override
+  ChessPieceModel copyWith({
+    final int? gamerId,
+    final bool? isFirstMove,
+  }) =>
+      KnightPieceModel(
+        gamerId: gamerId??this.gamerId,
+        isMultiMove: isMultiMove,
+        isFirstMove: isFirstMove ?? this.isFirstMove,
+        image: image,
+      );
 }

@@ -28,10 +28,9 @@ class ChessSpotModel extends PeaceModel {
   ChessSpotModel changePiece({
     required ChessPieceModel newPiece,
   }) {
-    final data = super.addStatus(status: PeaceStatusTypes.selected);
     return ChessSpotModel(
       id: id,
-      currentStatuses: data.currentStatuses,
+      currentStatuses:currentStatuses,
       piece: newPiece,
     );
   }
