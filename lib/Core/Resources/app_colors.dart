@@ -62,4 +62,6 @@ class AppColors {
   static const dcColor = Color.fromARGB(255, 223, 166, 101);
 
   static const darkGreen = Color.fromARGB(255, 22, 112, 58);
+
+  static const hitColor = Color.fromARGB(255, 92, 28, 9);
 }

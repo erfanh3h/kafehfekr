@@ -25,6 +25,10 @@ class KingPieceModel extends ChessPieceModel {
       (1, -1),
       (-1, -1)
     ];
+    if (isFirstMove) {
+      result.add((0, 2));
+      result.add((0, -2));
+    }
     return result;
   }
 
@@ -34,7 +38,7 @@ class KingPieceModel extends ChessPieceModel {
     final bool? isFirstMove,
   }) =>
       KingPieceModel(
-        gamerId: gamerId??this.gamerId,
+        gamerId: gamerId ?? this.gamerId,
         isMultiMove: isMultiMove,
         isFirstMove: isFirstMove ?? this.isFirstMove,
         image: image,

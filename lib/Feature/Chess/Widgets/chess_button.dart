@@ -36,14 +36,13 @@ class ChessButton extends StatelessWidget {
       borderSize = 5;
     }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      // if (peaceData.isSuperPawn) {
-      //   image = GeneralIcons.checkers2;
-      // } else {
-      //   image = GeneralIcons.checkers1;
-      // }
       image = GeneralIcons.checkers1;
       imageColor = AppColors.guideGreen;
       imageScale = .33;
+    }
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
+      borderColor = AppColors.hitColor;
+      borderSize = 5;
     }
     return InkWell(
       onTap: () {

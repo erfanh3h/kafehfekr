@@ -19,8 +19,14 @@ class PawnPieceModel extends ChessPieceModel {
     List<(int, int)> result = [];
     if (gamerId == 1) {
       result.add((1, 0));
+      if (isFirstMove) {
+        result.add((2, 0));
+      }
     } else {
       result.add((-1, 0));
+      if (isFirstMove) {
+        result.add((-2, 0));
+      }
     }
     return result;
   }

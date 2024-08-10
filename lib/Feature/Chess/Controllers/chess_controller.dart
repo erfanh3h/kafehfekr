@@ -103,7 +103,8 @@ class ChessController extends BaseGameController {
         releasePeace();
         equipPeace(peace.id);
       } else {
-        if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
+        if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected) &&
+            !peace.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
           Get.find<SoundPlayerComponent>()
               .playGameSound(GameSoundTypes.tapWrong);
           return;
@@ -146,6 +147,7 @@ class ChessController extends BaseGameController {
     equippedPeaceIndex.value = index;
     addPeaceStatus(index, PeaceStatusTypes.equiped);
     addPossibleMoves(index);
+    addPossibleHits(index);
   }
 
   void releasePeace() {
@@ -153,6 +155,7 @@ class ChessController extends BaseGameController {
       removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
     } catch (_) {}
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);
+    removeAllPeacesStatus(PeaceStatusTypes.canHitted);
     equippedPeaceIndex.value = -1;
     currentPossibleMoves.clear();
   }
@@ -165,6 +168,18 @@ class ChessController extends BaseGameController {
       (int, int) coordinates = dataRaw;
       final peaceId = coordinateToIndex(coordinates);
       addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
+      currentPossibleMoves.add(dataRaw);
+    }
+  }
+
+  void addPossibleHits(int index) {
+    (int, int) position = indexToCoordinate(index);
+    List<(int, int)> movesPossibleList =
+        getPossibleHitsOfPeace(position, myGameId);
+    for (var dataRaw in movesPossibleList) {
+      (int, int) coordinates = dataRaw;
+      final peaceId = coordinateToIndex(coordinates);
+      addPeaceStatus(peaceId, PeaceStatusTypes.canHitted);
       currentPossibleMoves.add(dataRaw);
     }
   }
@@ -254,7 +269,8 @@ class ChessController extends BaseGameController {
 
   bool isTargetPieceEnemy((int, int) position, int gamerId) {
     int index = coordinateToIndex(position);
-    return peaces[index].value.piece.gamerId != gamerId;
+    return peaces[index].value.piece.gamerId != 0 &&
+        peaces[index].value.piece.gamerId != gamerId;
   }
 
   List getDirectionMovesList(
@@ -306,7 +322,7 @@ class ChessController extends BaseGameController {
     return result;
   }
 
-  List getPossibleHitsOfPeace((int, int) position, int gamerId) {
+  List<(int, int)> getPossibleHitsOfPeace((int, int) position, int gamerId) {
     List<(int, int)> result = [];
     int spotIndex = coordinateToIndex(position);
     if (!isTargetPieceEmpty(position)) {
@@ -369,6 +385,12 @@ class ChessController extends BaseGameController {
         peaces.value[targetIndex].value.changePiece(newPiece: newPiece);
     peaces.value[sourceIndex].value = peaces.value[sourceIndex].value
         .changePiece(newPiece: ChessPieceModel());
+    if (sourceIndex == 60 && targetIndex == 58) {
+      movePiece((7, 0), (7, 3), gamerId);
+    }
+    if (sourceIndex == 60 && targetIndex == 62) {
+      movePiece((7, 7), (7, 5), gamerId);
+    }
     return true;
   }
 
