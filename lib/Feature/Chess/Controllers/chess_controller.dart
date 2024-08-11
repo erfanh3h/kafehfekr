@@ -14,19 +14,14 @@ import 'package:refreshed/refreshed.dart';
 
 class ChessController extends BaseGameController {
   RxList<Rx<ChessSpotModel>> peaces = RxList();
-  RxInt player1Pawns = RxInt(16);
-  RxInt player2Pawns = RxInt(16);
 
   RxInt equippedPeaceIndex = RxInt(-1);
-
-  List checkMoveList = [];
-  List currentPossibleMoves = [];
 
   late (int, int) king1Position;
   late (int, int) king2Position;
 
-  List<(int, int)> king1Checks = [];
-  List<(int, int)> king2Checks = [];
+  Map<int, List<(int, int)>> currentPiecesMoves = {};
+  Map<int, List<(int, int)>> currentPiecesHites = {};
 
   (int, int) indexToCoordinate(int index) {
     final x = index % 8;
@@ -41,11 +36,13 @@ class ChessController extends BaseGameController {
 
   @override
   void currentTurnFunction(Map data) {
+    currentPiecesMoves.clear();
     int turn = data['data'];
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+      setPiecesMovements();
     } else {
       canSelectPeace.value = false;
     }
@@ -64,7 +61,6 @@ class ChessController extends BaseGameController {
     final (int, int) targetPosition = (targetCIndex, targetRIndex);
     final int gamerId = selectionData['gamer_id'];
     movePiece(sourcePosition, targetPosition, gamerId);
-    getKingChecks(gamerId);
     // addPossibleMoves(index);
     // final moveResult = movePiece(
     //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, gamerId);
@@ -81,13 +77,12 @@ class ChessController extends BaseGameController {
     Map timerData = newData['timer_data'];
     List boardData = gameData['board_data'];
     currentTurn.value = gameData['current_turn'];
-    // player1Pawns.value = gameData['pawns_count'][0];
-    // player2Pawns.value = gameData['pawns_count'][1];
     for (var i = 0; i < boardData.length; i++) {
       peaces[i].value = peaces[i].value.getFromJson(boardData[i], i);
     }
     if (currentTurn.value == myGameId) {
       canSelectPeace.value = true;
+      setPiecesMovements();
     } else {
       canSelectPeace.value = false;
     }
@@ -96,6 +91,36 @@ class ChessController extends BaseGameController {
       changetimerValue(time.clamp(1, GameWaitTimes.chessTurnTime));
     }
   }
+
+  // @override
+  // void onEachButtonTap(dynamic tappedPeace) {
+  //   myGameId = 2;
+  //   ChessSpotModel peace = tappedPeace as ChessSpotModel;
+
+  //   if (equippedPeaceIndex.value != -1) {
+  //     if (equippedPeaceIndex.value == peace.id) {
+  //       releasePeace();
+  //     } else if (peace.piece.gamerId == myGameId) {
+  //       releasePeace();
+  //       equipPeace(peace.id);
+  //     } else {
+  //       if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected) &&
+  //           !peace.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
+  //         Get.find<SoundPlayerComponent>()
+  //             .playGameSound(GameSoundTypes.tapWrong);
+  //         return;
+  //       }
+  //       final sourcePosition = indexToCoordinate(equippedPeaceIndex.value);
+  //       final targetPosition = indexToCoordinate(peace.id);
+  //       movePiece(sourcePosition, targetPosition, myGameId);
+  //       releasePeace();
+  //     }
+  //   } else {
+  //     if (peace.piece.gamerId != 0) {
+  //       equipPeace(peace.id);
+  //     }
+  //   }
+  // }
 
   @override
   void onEachButtonTap(dynamic tappedPeace) {
@@ -141,10 +166,21 @@ class ChessController extends BaseGameController {
   }
 
   void equipPeace(int index) {
+    if (!currentPiecesMoves.keys.contains(index)) {
+      return;
+    }
     equippedPeaceIndex.value = index;
     addPeaceStatus(index, PeaceStatusTypes.equiped);
-    addPossibleMoves(index);
-    addPossibleHits(index);
+    for (var rawIndex in currentPiecesMoves[index]!) {
+      int position = coordinateToIndex(rawIndex);
+      addPeaceStatus(position, PeaceStatusTypes.canSelected);
+    }
+    for (var rawIndex in currentPiecesHites[index]!) {
+      int position = coordinateToIndex(rawIndex);
+      addPeaceStatus(position, PeaceStatusTypes.canHitted);
+    }
+    // addPossibleMoves(index);
+    // addPossibleHits(index);
   }
 
   void releasePeace() {
@@ -154,30 +190,92 @@ class ChessController extends BaseGameController {
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);
     removeAllPeacesStatus(PeaceStatusTypes.canHitted);
     equippedPeaceIndex.value = -1;
-    currentPossibleMoves.clear();
   }
 
   void addPossibleMoves(int index) {
+    int enemyId = 2;
+    if (myGameId == 2) {
+      enemyId = 1;
+    }
+    late (int, int) kingPosition;
+    if (enemyId == 1) {
+      kingPosition = king2Position;
+    } else {
+      kingPosition = king1Position;
+    }
+    List<(int, int)> enemyPieces = getEnemyPositions(enemyId);
     (int, int) position = indexToCoordinate(index);
     List<(int, int)> movesPossibleList =
         getPossibleMovesOfPeace(position, myGameId);
     for (var dataRaw in movesPossibleList) {
-      (int, int) coordinates = dataRaw;
-      final peaceId = coordinateToIndex(coordinates);
-      addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
-      currentPossibleMoves.add(dataRaw);
+      (int, int) newPosition = dataRaw;
+      final peaceId = coordinateToIndex(newPosition);
+      bool canSelected = true;
+      for (var checkPosition in enemyPieces) {
+        final result = getPossibleHitsOfPeaceWithChangedPosition(
+            checkPosition, enemyId, position, newPosition);
+        if (position == kingPosition) {
+          if (result.contains(newPosition)) {
+            // if (newPosition == checkPosition) {
+            //   addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
+            //   break;
+            // }
+            canSelected = false;
+            break;
+          }
+        } else {
+          if (result.contains(kingPosition)) {
+            // if (newPosition == checkPosition) {
+            //   addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
+            //   break;
+            // }
+            canSelected = false;
+            break;
+          }
+        }
+      }
+      if (canSelected) {
+        addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
+      }
     }
   }
 
   void addPossibleHits(int index) {
+    int enemyId = 2;
+    if (myGameId == 2) {
+      enemyId = 1;
+    }
+    late (int, int) kingPosition;
+    if (enemyId == 1) {
+      kingPosition = king2Position;
+    } else {
+      kingPosition = king1Position;
+    }
+    List<(int, int)> enemyPieces = getEnemyPositions(enemyId);
     (int, int) position = indexToCoordinate(index);
     List<(int, int)> movesPossibleList =
         getPossibleHitsOfPeace(position, myGameId);
     for (var dataRaw in movesPossibleList) {
-      (int, int) coordinates = dataRaw;
-      final peaceId = coordinateToIndex(coordinates);
-      addPeaceStatus(peaceId, PeaceStatusTypes.canHitted);
-      currentPossibleMoves.add(dataRaw);
+      (int, int) newPosition = dataRaw;
+      final peaceId = coordinateToIndex(newPosition);
+      bool canSelected = true;
+      for (var checkPosition in enemyPieces) {
+        final result = getPossibleHitsOfPeaceWithChangedPosition(
+            checkPosition, enemyId, position, newPosition);
+
+        if (result.contains(kingPosition)) {
+          // if (newPosition == checkPosition) {
+          //   print("object");
+          //   addPeaceStatus(peaceId, PeaceStatusTypes.canHitted);
+          //   break;
+          // }
+          canSelected = false;
+          break;
+        }
+      }
+      if (canSelected) {
+        addPeaceStatus(peaceId, PeaceStatusTypes.canHitted);
+      }
     }
   }
 
@@ -345,8 +443,6 @@ class ChessController extends BaseGameController {
                 result.add((y, x));
                 break;
               } else if (isTargetPieceMine((y, x), gamerId)) {
-                // print([y, x].toList().toString());
-
                 break;
               } else {
                 i += 1;
@@ -369,9 +465,67 @@ class ChessController extends BaseGameController {
     return result;
   }
 
-  getKingChecks(int gamerId) {
-    king1Checks.clear();
-    king2Checks.clear();
+  List<(int, int)> getPossibleHitsOfPeaceWithChangedPosition(
+      (int, int) position,
+      int gamerId,
+      (int, int) sourceChangedPosition,
+      (int, int) targetChangedPosition) {
+    List<(int, int)> result = [];
+    int spotIndex = coordinateToIndex(position);
+    if (!isTargetPieceEmpty(position)) {
+      final List<(int, int)> pieceMoveList =
+          peaces.value[spotIndex].value.piece.getHitsList();
+      final bool isPieceMultiMove =
+          peaces.value[spotIndex].value.piece.isMultiMove;
+      if (isPieceMultiMove) {
+        for (var move in pieceMoveList) {
+          int i = 1;
+          while (true) {
+            int y = position.$1 + (move.$1 * i);
+            int x = position.$2 + (move.$2 * i);
+            if (isValidCoordinate(y, x)) {
+              if ((y, x) == sourceChangedPosition) {
+                i += 1;
+              } else if ((y, x) == targetChangedPosition) {
+                result.add((y, x));
+                break;
+              } else {
+                if (isTargetPieceEnemy((y, x), gamerId)) {
+                  result.add((y, x));
+                  break;
+                } else if (isTargetPieceMine((y, x), gamerId)) {
+                  break;
+                } else {
+                  i += 1;
+                }
+              }
+            } else {
+              break;
+            }
+          }
+        }
+      } else {
+        for (var move in pieceMoveList) {
+          int y = position.$1 + move.$1;
+          int x = position.$2 + move.$2;
+          if (isValidCoordinate(y, x)) {
+            if ((y, x) == sourceChangedPosition) {
+            } else if ((y, x) == targetChangedPosition) {
+              result.add((y, x));
+            } else {
+              if (isTargetPieceEnemy((y, x), gamerId)) {
+                result.add((y, x));
+              }
+            }
+          }
+        }
+      }
+    }
+    return result;
+  }
+
+  List<(int, int)> getKingChecks(int gamerId) {
+    List<(int, int)> result = [];
     (int, int) targetKingPosition;
     if (gamerId == 1) {
       targetKingPosition = king2Position;
@@ -383,14 +537,32 @@ class ChessController extends BaseGameController {
       if (isTargetPieceMine(position, gamerId)) {
         List<(int, int)> resultList = getPossibleHitsOfPeace(position, gamerId);
         if (resultList.contains(targetKingPosition)) {
-          if (gamerId == 1) {
-            king2Checks.add(position);
-          } else {
-            king1Checks.add(position);
-          }
+          result.add(position);
         }
       }
     }
+    return result;
+  }
+
+  List<(int, int)> getEnemyPositions(int enemyId) {
+    List<(int, int)> result = [];
+    for (var piece in peaces) {
+      if (piece.value.piece.gamerId == enemyId) {
+        (int, int) position = indexToCoordinate(piece.value.id);
+        result.add(position);
+      }
+    }
+    return result;
+  }
+
+  List<int> getMyPiecesIndexes() {
+    List<int> result = [];
+    for (var piece in peaces) {
+      if (piece.value.piece.gamerId == myGameId) {
+        result.add(piece.value.id);
+      }
+    }
+    return result;
   }
 
   bool checkIsLastPeace(cIndex, gamerId) {
@@ -430,6 +602,19 @@ class ChessController extends BaseGameController {
       king2Position = targetPosition;
     }
     return true;
+  }
+
+  setPiecesMovements() {
+    List<int> myPiecesindexes = getMyPiecesIndexes();
+    for (var index in myPiecesindexes) {
+      List<(int, int)> hites = [];
+      List<(int, int)> moves = [];
+      (int, int) position = indexToCoordinate(index);
+      moves.addAll(getPossibleMovesOfPeace(position, myGameId));
+      hites.addAll(getPossibleHitsOfPeace(position, myGameId));
+      currentPiecesMoves[index] = moves.toList();
+      currentPiecesHites[index] = hites.toList();
+    }
   }
 
   @override
