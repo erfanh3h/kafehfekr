@@ -145,7 +145,6 @@ class ChessController extends BaseGameController {
         }
         final sourcePosition = indexToCoordinate(equippedPeaceIndex.value);
         final targetPosition = indexToCoordinate(peace.id);
-        // movePiece(sourcePosition, targetPosition, myGameId);
         sendCommand({
           "id": GameCommands.selectPeace,
           "data": {
@@ -156,7 +155,6 @@ class ChessController extends BaseGameController {
           }
         });
         releasePeace();
-        // getKingChecks(2);
       }
     } else {
       if (peace.piece.gamerId != 0 && peace.piece.gamerId == myGameId) {
@@ -179,8 +177,6 @@ class ChessController extends BaseGameController {
       int position = coordinateToIndex(rawIndex);
       addPeaceStatus(position, PeaceStatusTypes.canHitted);
     }
-    // addPossibleMoves(index);
-    // addPossibleHits(index);
   }
 
   void releasePeace() {
@@ -192,55 +188,63 @@ class ChessController extends BaseGameController {
     equippedPeaceIndex.value = -1;
   }
 
-  void addPossibleMoves(int index) {
-    int enemyId = 2;
-    if (myGameId == 2) {
-      enemyId = 1;
-    }
-    late (int, int) kingPosition;
-    if (enemyId == 1) {
-      kingPosition = king2Position;
-    } else {
-      kingPosition = king1Position;
-    }
+  List<(int, int)> addPossibleMoves(
+      int index, int enemyId, (int, int) kingPosition) {
+    List<(int, int)> result = [];
     List<(int, int)> enemyPieces = getEnemyPositions(enemyId);
     (int, int) position = indexToCoordinate(index);
     List<(int, int)> movesPossibleList =
         getPossibleMovesOfPeace(position, myGameId);
     for (var dataRaw in movesPossibleList) {
       (int, int) newPosition = dataRaw;
-      final peaceId = coordinateToIndex(newPosition);
       bool canSelected = true;
       for (var checkPosition in enemyPieces) {
         final result = getPossibleHitsOfPeaceWithChangedPosition(
             checkPosition, enemyId, position, newPosition);
-        if (position == kingPosition) {
-          if (result.contains(newPosition)) {
-            // if (newPosition == checkPosition) {
-            //   addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
-            //   break;
-            // }
-            canSelected = false;
-            break;
-          }
-        } else {
-          if (result.contains(kingPosition)) {
-            // if (newPosition == checkPosition) {
-            //   addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
-            //   break;
-            // }
-            canSelected = false;
-            break;
-          }
+        if (result.contains(kingPosition)) {
+          canSelected = false;
+          break;
         }
       }
       if (canSelected) {
-        addPeaceStatus(peaceId, PeaceStatusTypes.canSelected);
+        result.add(newPosition);
       }
     }
+    return result;
   }
 
-  void addPossibleHits(int index) {
+  List<(int, int)> addPossibleHits(
+      int index, int enemyId, (int, int) kingPosition) {
+    List<(int, int)> result = [];
+
+    List<(int, int)> enemyPieces = getEnemyPositions(enemyId);
+    (int, int) position = indexToCoordinate(index);
+    List<(int, int)> movesPossibleList =
+        getPossibleHitsOfPeace(position, myGameId);
+    for (var dataRaw in movesPossibleList) {
+      (int, int) newPosition = dataRaw;
+      bool canSelected = true;
+      for (var checkPosition in enemyPieces) {
+        final result = getPossibleHitsOfPeaceWithChangedPosition(
+            checkPosition, enemyId, position, newPosition);
+        if (result.contains(kingPosition)) {
+          if (newPosition == checkPosition) {
+            result.add(newPosition);
+            break;
+          }
+          canSelected = false;
+          break;
+        }
+      }
+      if (canSelected) {
+        result.add(newPosition);
+      }
+    }
+    return result;
+  }
+
+  setPiecesMovements() {
+    List<int> myPiecesindexes = getMyPiecesIndexes();
     int enemyId = 2;
     if (myGameId == 2) {
       enemyId = 1;
@@ -251,31 +255,11 @@ class ChessController extends BaseGameController {
     } else {
       kingPosition = king1Position;
     }
-    List<(int, int)> enemyPieces = getEnemyPositions(enemyId);
-    (int, int) position = indexToCoordinate(index);
-    List<(int, int)> movesPossibleList =
-        getPossibleHitsOfPeace(position, myGameId);
-    for (var dataRaw in movesPossibleList) {
-      (int, int) newPosition = dataRaw;
-      final peaceId = coordinateToIndex(newPosition);
-      bool canSelected = true;
-      for (var checkPosition in enemyPieces) {
-        final result = getPossibleHitsOfPeaceWithChangedPosition(
-            checkPosition, enemyId, position, newPosition);
-
-        if (result.contains(kingPosition)) {
-          // if (newPosition == checkPosition) {
-          //   print("object");
-          //   addPeaceStatus(peaceId, PeaceStatusTypes.canHitted);
-          //   break;
-          // }
-          canSelected = false;
-          break;
-        }
-      }
-      if (canSelected) {
-        addPeaceStatus(peaceId, PeaceStatusTypes.canHitted);
-      }
+    for (var index in myPiecesindexes) {
+      List<(int, int)> moves = addPossibleMoves(index, enemyId, kingPosition);
+      List<(int, int)> hites = addPossibleHits(index, enemyId, kingPosition);
+      currentPiecesMoves[index] = moves;
+      currentPiecesHites[index] = hites;
     }
   }
 
@@ -524,25 +508,25 @@ class ChessController extends BaseGameController {
     return result;
   }
 
-  List<(int, int)> getKingChecks(int gamerId) {
-    List<(int, int)> result = [];
-    (int, int) targetKingPosition;
-    if (gamerId == 1) {
-      targetKingPosition = king2Position;
-    } else {
-      targetKingPosition = king1Position;
-    }
-    for (var piece in peaces) {
-      (int, int) position = indexToCoordinate(piece.value.id);
-      if (isTargetPieceMine(position, gamerId)) {
-        List<(int, int)> resultList = getPossibleHitsOfPeace(position, gamerId);
-        if (resultList.contains(targetKingPosition)) {
-          result.add(position);
-        }
-      }
-    }
-    return result;
-  }
+  // List<(int, int)> getKingChecks(int gamerId) {
+  //   List<(int, int)> result = [];
+  //   (int, int) targetKingPosition;
+  //   if (gamerId == 1) {
+  //     targetKingPosition = king2Position;
+  //   } else {
+  //     targetKingPosition = king1Position;
+  //   }
+  //   for (var piece in peaces) {
+  //     (int, int) position = indexToCoordinate(piece.value.id);
+  //     if (isTargetPieceMine(position, gamerId)) {
+  //       List<(int, int)> resultList = getPossibleHitsOfPeace(position, gamerId);
+  //       if (resultList.contains(targetKingPosition)) {
+  //         result.add(position);
+  //       }
+  //     }
+  //   }
+  //   return result;
+  // }
 
   List<(int, int)> getEnemyPositions(int enemyId) {
     List<(int, int)> result = [];
@@ -602,19 +586,6 @@ class ChessController extends BaseGameController {
       king2Position = targetPosition;
     }
     return true;
-  }
-
-  setPiecesMovements() {
-    List<int> myPiecesindexes = getMyPiecesIndexes();
-    for (var index in myPiecesindexes) {
-      List<(int, int)> hites = [];
-      List<(int, int)> moves = [];
-      (int, int) position = indexToCoordinate(index);
-      moves.addAll(getPossibleMovesOfPeace(position, myGameId));
-      hites.addAll(getPossibleHitsOfPeace(position, myGameId));
-      currentPiecesMoves[index] = moves.toList();
-      currentPiecesHites[index] = hites.toList();
-    }
   }
 
   @override
