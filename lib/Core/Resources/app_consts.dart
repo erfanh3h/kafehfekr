@@ -8,6 +8,7 @@ class GameWaitTimes {
   static const int mnumbersTurnTime = 5;
   static const int mnumbersShowResultTime = 2;
   static const int checkersTurnTime = 20;
+  static const int chessTurnTime = 20;
   static const int tenSleepRoundTime = 5;
   static const int tenRoundTime = 300;
   static const int othelloTurnTime = 20;

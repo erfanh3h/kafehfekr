@@ -22,6 +22,12 @@ class ChessController extends BaseGameController {
   List checkMoveList = [];
   List currentPossibleMoves = [];
 
+  late (int, int) king1Position;
+  late (int, int) king2Position;
+
+  List<(int, int)> king1Checks = [];
+  List<(int, int)> king2Checks = [];
+
   (int, int) indexToCoordinate(int index) {
     final x = index % 8;
     final y = index ~/ 8;
@@ -43,7 +49,7 @@ class ChessController extends BaseGameController {
     } else {
       canSelectPeace.value = false;
     }
-    changetimerValue(GameWaitTimes.checkersTurnTime);
+    changetimerValue(GameWaitTimes.chessTurnTime);
     releasePeace();
   }
 
@@ -58,6 +64,7 @@ class ChessController extends BaseGameController {
     final (int, int) targetPosition = (targetCIndex, targetRIndex);
     final int gamerId = selectionData['gamer_id'];
     movePiece(sourcePosition, targetPosition, gamerId);
+    getKingChecks(gamerId);
     // addPossibleMoves(index);
     // final moveResult = movePiece(
     //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, gamerId);
@@ -85,8 +92,8 @@ class ChessController extends BaseGameController {
       canSelectPeace.value = false;
     }
     if (timerData['is_user_turn']) {
-      final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.millSelectTime));
+      final int time = GameWaitTimes.chessTurnTime - timerData['time'] as int;
+      changetimerValue(time.clamp(1, GameWaitTimes.chessTurnTime));
     }
   }
 
@@ -124,6 +131,7 @@ class ChessController extends BaseGameController {
           }
         });
         releasePeace();
+        // getKingChecks(2);
       }
     } else {
       if (peace.piece.gamerId != 0 && peace.piece.gamerId == myGameId) {
@@ -249,6 +257,13 @@ class ChessController extends BaseGameController {
     addSpotPiece(index, KnightPieceModel(gamerId: 2));
     index += 1;
     addSpotPiece(index, RookPieceModel(gamerId: 2));
+    king1Position = (0, 4);
+    king2Position = (7, 4);
+  }
+
+  bool isTargetPieceMine((int, int) position, int gamerId) {
+    int index = coordinateToIndex(position);
+    return peaces[index].value.piece.gamerId == gamerId;
   }
 
   bool isTargetPieceEmpty((int, int) position) {
@@ -329,6 +344,10 @@ class ChessController extends BaseGameController {
               if (isTargetPieceEnemy((y, x), gamerId)) {
                 result.add((y, x));
                 break;
+              } else if (isTargetPieceMine((y, x), gamerId)) {
+                // print([y, x].toList().toString());
+
+                break;
               } else {
                 i += 1;
               }
@@ -348,6 +367,30 @@ class ChessController extends BaseGameController {
       }
     }
     return result;
+  }
+
+  getKingChecks(int gamerId) {
+    king1Checks.clear();
+    king2Checks.clear();
+    (int, int) targetKingPosition;
+    if (gamerId == 1) {
+      targetKingPosition = king2Position;
+    } else {
+      targetKingPosition = king1Position;
+    }
+    for (var piece in peaces) {
+      (int, int) position = indexToCoordinate(piece.value.id);
+      if (isTargetPieceMine(position, gamerId)) {
+        List<(int, int)> resultList = getPossibleHitsOfPeace(position, gamerId);
+        if (resultList.contains(targetKingPosition)) {
+          if (gamerId == 1) {
+            king2Checks.add(position);
+          } else {
+            king1Checks.add(position);
+          }
+        }
+      }
+    }
   }
 
   bool checkIsLastPeace(cIndex, gamerId) {
@@ -379,6 +422,12 @@ class ChessController extends BaseGameController {
     }
     if (sourceIndex == 60 && targetIndex == 62) {
       movePiece((7, 7), (7, 5), gamerId);
+    }
+    if (gamerId == 1 && sourcePosition == king1Position) {
+      king1Position = targetPosition;
+    }
+    if (gamerId == 2 && sourcePosition == king2Position) {
+      king2Position = targetPosition;
     }
     return true;
   }
