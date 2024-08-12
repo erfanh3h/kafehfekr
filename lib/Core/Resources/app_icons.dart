@@ -55,4 +55,10 @@ class GeneralIcons {
   static const yatzy15 = "$generalIconsPath/yatzy15.png";
   static const yatzy23 = "$generalIconsPath/yatzy23.png";
   static const yatzyq = "$generalIconsPath/yatzyq.png";
+  static const dice1 = "$generalIconsPath/dice1.png";
+  static const dice2 = "$generalIconsPath/dice2.png";
+  static const dice3 = "$generalIconsPath/dice3.png";
+  static const dice4 = "$generalIconsPath/dice4.png";
+  static const dice5 = "$generalIconsPath/dice5.png";
+  static const dice6 = "$generalIconsPath/dice6.png";
 }

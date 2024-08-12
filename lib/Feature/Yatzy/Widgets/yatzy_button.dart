@@ -1,62 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Yatzy/Models/yatzy_peace_model.dart';
 
 class YatzyButton extends StatelessWidget {
   const YatzyButton({
     super.key,
-    required this.peaceData,
+    required this.pieceData,
     required this.onTap,
+    required this.myGameId,
   });
 
-  final YatzyPeaceModel peaceData;
+  final YatzyPeaceModel pieceData;
   final Function(YatzyPeaceModel) onTap;
+  final int myGameId;
 
   @override
   Widget build(BuildContext context) {
-    Color? imageColor;
-    String? image;
-    switch (peaceData.gamerId) {
+    Color? color;
+    bool canEquip = true;
+    switch (pieceData.gamerId) {
       case 1:
-        imageColor = AppColors.imageRedColor;
-        image = GeneralIcons.circle1;
+        color = AppColors.imageRedColor;
         break;
       case 2:
-        imageColor = AppColors.imageBlueColor;
-        image = GeneralIcons.cross;
+        color = AppColors.imageBlueColor;
         break;
       default:
-        imageColor = null;
-        image = null;
+        color = null;
         break;
     }
-    return InkWell(
-      onTap: () {
-        onTap(peaceData);
-      },
-      child: Container(
-        padding: AppSpacings.s15All,
-        decoration: BoxDecoration(
-          color: AppColors.lightColor,
-          border: Border.all(
-            color: imageColor ?? AppColors.peaceBorderColor,
-            width: 3,
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
-            ? const GlobalLoadingWidget()
-            : image != null
-                ? Image.asset(
-                    image,
-                    color: imageColor,
-                  )
-                : Container(),
-      ),
+    if (myGameId != pieceData.gamerId) {
+      canEquip = false;
+    }
+    if (pieceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
+      color = AppColors.guideGreen;
+    }
+    return Expanded(
+      child: canEquip
+          ? InkWell(
+              onTap: () {
+                onTap(pieceData);
+              },
+              child: Container(
+                width: double.maxFinite,
+                // padding: AppSpacings.s15All,
+                decoration: BoxDecoration(
+                  color: color,
+                  border: Border.all(
+                    color: AppColors.peaceBorderColor,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  pieceData.score.toString(),
+                  style: const TextStyle(
+                    fontFamily: FontFamilies.dastnevis,
+                    fontSize: 40,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+          : Text(
+              pieceData.score.toString(),
+              style: const TextStyle(
+                fontFamily: FontFamilies.dastnevis,
+                fontSize: 40,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
     );
   }
 }

@@ -33,7 +33,9 @@ class YatzyPage extends BaseView<YatzyController> {
               roundText: "12 / ${controller.currentRound}",
             ),
           const Spacer(flex: 3),
-          YatzyBoardWidget(controller: controller),
+          if (controller.player1Pieces.length == 12 &&
+              controller.player2Pieces.length == 12)
+            YatzyBoardWidget(controller: controller),
           const Spacer(flex: 4),
           GlobalActivityBox(
             surrenderFunction: FunctionsLibraryClass.surrenderFunction,

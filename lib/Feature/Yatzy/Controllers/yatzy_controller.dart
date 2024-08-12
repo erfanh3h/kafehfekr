@@ -87,19 +87,26 @@ class YatzyController extends BaseGameController {
     //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
     //   return;
     // }
-    if (peace.gamerId != myGameId) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-      return;
-    }
+    // if (peace.gamerId != myGameId) {
+    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+    //   return;
+    // }
     if (peace.isSelected) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
+    if (equippedIndex.value == peace.id) {
+      removePeaceStatus(peace.id, PeaceStatusTypes.equiped);
+    } else {
+      if (equippedIndex.value != -1) {
+        removePeaceStatus(equippedIndex.value, PeaceStatusTypes.equiped);
+      }
+      addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+      equippedIndex.value = peace.id;
+    }
     // canSelectPeace.value = false;
     // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-    addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-    equippedIndex.value = peace.id;
   }
 
   // void resetPeaces() {
@@ -118,15 +125,21 @@ class YatzyController extends BaseGameController {
     }
   }
 
-  // removePeaceStatus(int peaceId, PeaceStatusTypes status) {
-  //   peaces.value[peaceId].value =
-  //       peaces.value[peaceId].value.removeStatus(status: status);
-  // }
+  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+    if (myGameId == 1) {
+      player1Pieces.value[peaceId].value =
+          player1Pieces.value[peaceId].value.removeStatus(status: status);
+    } else {
+      player2Pieces.value[peaceId].value =
+          player2Pieces.value[peaceId].value.removeStatus(status: status);
+    }
+  }
 
   @override
   void onInit() async {
     super.onInit();
     gameType = GameTypes.tictactoe;
+    myGameId = 2;
     for (var i = 0; i < 12; i++) {
       player1Pieces
           .add(Rx(YatzyPeaceModel(id: i, currentStatuses: [], gamerId: 1)));
