@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
-import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Yatzy/Models/yatzy_peace_model.dart';
 
 class YatzyButton extends StatelessWidget {
@@ -20,61 +19,74 @@ class YatzyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? color;
+    Color? fontColor = AppColors.lightColor;
+    double borderWidth = 0;
     bool canEquip = true;
-    switch (pieceData.gamerId) {
-      case 1:
-        color = AppColors.imageRedColor;
-        break;
-      case 2:
-        color = AppColors.imageBlueColor;
-        break;
-      default:
-        color = null;
-        break;
+
+    if (pieceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
+      color = AppColors.guideGreen;
+      borderWidth = 1;
+    } else {
+      if (pieceData.isSelected) {
+        switch (pieceData.gamerId) {
+          case 1:
+            color = AppColors.imageRedColor;
+            break;
+          case 2:
+            color = AppColors.imageBlueColor;
+            break;
+          default:
+            color = null;
+            break;
+        }
+      } else {
+        color = AppColors.lightColor;
+        fontColor = AppColors.darkColor;
+      }
     }
     if (myGameId != pieceData.gamerId) {
       canEquip = false;
+      fontColor = AppColors.lightColor;
     }
-    if (pieceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
-      color = AppColors.guideGreen;
-    }
-    return Expanded(
-      child: canEquip
-          ? InkWell(
-              onTap: () {
-                onTap(pieceData);
-              },
-              child: Container(
-                width: double.maxFinite,
-                // padding: AppSpacings.s15All,
-                decoration: BoxDecoration(
-                  color: color,
-                  border: Border.all(
-                    color: AppColors.peaceBorderColor,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
+
+    return canEquip
+        ? InkWell(
+            onTap: () {
+              onTap(pieceData);
+            },
+            child: Container(
+              height: double.maxFinite,
+              decoration: BoxDecoration(
+                color: color,
+                border: Border.all(
+                  color: AppColors.peaceBorderColor,
+                  width: borderWidth,
                 ),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Center(
                 child: Text(
                   pieceData.score.toString(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: FontFamilies.dastnevis,
-                    fontSize: 40,
-                    color: Colors.white,
+                    fontSize: 30,
+                    height: .7,
+                    color: fontColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
               ),
-            )
-          : Text(
-              pieceData.score.toString(),
-              style: const TextStyle(
-                fontFamily: FontFamilies.dastnevis,
-                fontSize: 40,
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
             ),
-    );
+          )
+        : Text(
+            pieceData.score.toString(),
+            style: TextStyle(
+              fontFamily: FontFamilies.dastnevis,
+              fontSize: 30,
+              height: .7,
+              color: fontColor,
+            ),
+            textAlign: TextAlign.center,
+          );
   }
 }

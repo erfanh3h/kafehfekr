@@ -135,6 +135,10 @@ class YatzyController extends BaseGameController {
     }
   }
 
+  void onEachRowTap(int index) {
+    print(index);
+  }
+
   @override
   void onInit() async {
     super.onInit();
