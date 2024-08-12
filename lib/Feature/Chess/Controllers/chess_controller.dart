@@ -47,8 +47,21 @@ class ChessController extends BaseGameController {
     } else {
       canSelectPeace.value = false;
     }
-    changetimerValue(GameWaitTimes.chessTurnTime);
     releasePeace();
+    removeAllPeacesStatus(PeaceStatusTypes.selected);
+    // add king check status to ui (selected)
+    (int, int) kingPosition;
+    if (turn == 1) {
+      kingPosition = king1Position;
+    } else {
+      kingPosition = king2Position;
+    }
+    final List<(int, int)> kingChecks = getKingChecks(turn);
+    if (kingChecks.isNotEmpty) {
+      int index = coordinateToIndex(kingPosition);
+      addPeaceStatus(index, PeaceStatusTypes.selected);
+    }
+    changetimerValue(GameWaitTimes.chessTurnTime);
   }
 
   @override
@@ -527,25 +540,27 @@ class ChessController extends BaseGameController {
     return result;
   }
 
-  // List<(int, int)> getKingChecks(int gamerId) {
-  //   List<(int, int)> result = [];
-  //   (int, int) targetKingPosition;
-  //   if (gamerId == 1) {
-  //     targetKingPosition = king2Position;
-  //   } else {
-  //     targetKingPosition = king1Position;
-  //   }
-  //   for (var piece in peaces) {
-  //     (int, int) position = indexToCoordinate(piece.value.id);
-  //     if (isTargetPieceMine(position, gamerId)) {
-  //       List<(int, int)> resultList = getPossibleHitsOfPeace(position, gamerId);
-  //       if (resultList.contains(targetKingPosition)) {
-  //         result.add(position);
-  //       }
-  //     }
-  //   }
-  //   return result;
-  // }
+  List<(int, int)> getKingChecks(int gamerId) {
+    List<(int, int)> result = [];
+    (int, int) targetKingPosition;
+    int enemyId = 1;
+    if (gamerId == 1) {
+      targetKingPosition = king1Position;
+      enemyId = 2;
+    } else {
+      targetKingPosition = king2Position;
+    }
+    for (var piece in peaces) {
+      (int, int) position = indexToCoordinate(piece.value.id);
+      if (isTargetPieceMine(position, enemyId)) {
+        List<(int, int)> resultList = getPossibleHitsOfPeace(position, enemyId);
+        if (resultList.contains(targetKingPosition)) {
+          result.add(position);
+        }
+      }
+    }
+    return result;
+  }
 
   List<(int, int)> getEnemyPositions(int enemyId) {
     List<(int, int)> result = [];

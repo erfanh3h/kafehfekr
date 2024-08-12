@@ -41,7 +41,15 @@ class ChessButton extends StatelessWidget {
       imageScale = .33;
     }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
-      borderColor = AppColors.hitColor;
+      borderColor = AppColors.darkGreen;
+      borderSize = 5;
+    }
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.selected)) {
+      if (peaceData.piece.gamerId == 1) {
+        borderColor = AppColors.imageRedColor;
+      } else {
+        borderColor = AppColors.imageBlueColor;
+      }
       borderSize = 5;
     }
     return InkWell(
