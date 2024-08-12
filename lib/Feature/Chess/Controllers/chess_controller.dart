@@ -586,12 +586,40 @@ class ChessController extends BaseGameController {
       (int, int) sourcePosition, (int, int) targetPosition, int gamerId) {
     final sourceIndex = coordinateToIndex(sourcePosition);
     final targetIndex = coordinateToIndex(targetPosition);
+
+    // change pawn to queen when reach last col
+    if (sourcePosition.$1 == 6 &&
+        targetPosition.$1 == 7 &&
+        peaces.value[sourceIndex].value.piece.name == 'Pawn') {
+      final gamerId = peaces.value[sourceIndex].value.piece.gamerId;
+      peaces.value[sourceIndex].value =
+          peaces.value[sourceIndex].value.changePiece(
+        newPiece: QueenPieceModel(
+          gamerId: gamerId,
+          isFirstMove: false,
+        ),
+      );
+    }
+    if (sourcePosition.$1 == 1 &&
+        targetPosition.$1 == 0 &&
+        peaces.value[sourceIndex].value.piece.name == 'Pawn') {
+      final gamerId = peaces.value[sourceIndex].value.piece.gamerId;
+      peaces.value[sourceIndex].value =
+          peaces.value[sourceIndex].value.changePiece(
+        newPiece: QueenPieceModel(
+          gamerId: gamerId,
+          isFirstMove: false,
+        ),
+      );
+    }
+    //
     final newPiece =
         peaces.value[sourceIndex].value.piece.copyWith(isFirstMove: false);
     peaces.value[targetIndex].value =
         peaces.value[targetIndex].value.changePiece(newPiece: newPiece);
     peaces.value[sourceIndex].value = peaces.value[sourceIndex].value
         .changePiece(newPiece: ChessPieceModel());
+
     if (sourceIndex == 60 && targetIndex == 58) {
       movePiece((7, 0), (7, 3), gamerId);
     }

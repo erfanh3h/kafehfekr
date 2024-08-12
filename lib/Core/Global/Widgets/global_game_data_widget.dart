@@ -204,7 +204,7 @@ class UserRowData extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                number.toString(),
+                number != -1 ? number.toString() : '-',
                 style: TextStyle(
                   fontFamily: FontFamilies.dastnevis,
                   fontSize: 35,

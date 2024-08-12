@@ -4,12 +4,14 @@ class ChessPieceModel {
     this.isMultiMove = true,
     this.isFirstMove = true,
     this.image = "",
+    this.name = "",
   });
 
   int gamerId;
   bool isMultiMove;
   bool isFirstMove;
   String image;
+  String name;
 
   List<(int, int)> getMovesList() {
     return [];

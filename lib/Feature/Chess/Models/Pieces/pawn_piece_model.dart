@@ -15,6 +15,8 @@ class PawnPieceModel extends ChessPieceModel {
   bool get isMultiMove => false;
 
   @override
+  String get name => "Pawn";
+  @override
   List<(int, int)> getMovesList() {
     List<(int, int)> result = [];
     if (gamerId == 1) {
