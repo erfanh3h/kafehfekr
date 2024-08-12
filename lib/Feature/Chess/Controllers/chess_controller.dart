@@ -21,7 +21,7 @@ class ChessController extends BaseGameController {
   late (int, int) king2Position;
 
   Map<int, List<(int, int)>> currentPiecesMoves = {};
-  Map<int, List<(int, int)>> currentPiecesHites = {};
+  Map<int, List<(int, int)>> currentPiecesHits = {};
 
   (int, int) indexToCoordinate(int index) {
     final x = index % 8;
@@ -37,6 +37,7 @@ class ChessController extends BaseGameController {
   @override
   void currentTurnFunction(Map data) {
     currentPiecesMoves.clear();
+    currentPiecesHits.clear();
     int turn = data['data'];
     currentTurn.value = turn;
     if (turn == myGameId) {
@@ -164,7 +165,8 @@ class ChessController extends BaseGameController {
   }
 
   void equipPeace(int index) {
-    if (!currentPiecesMoves.keys.contains(index)) {
+    if (!currentPiecesMoves.keys.contains(index) &&
+        !currentPiecesHits.keys.contains(index)) {
       return;
     }
     equippedPeaceIndex.value = index;
@@ -173,7 +175,7 @@ class ChessController extends BaseGameController {
       int position = coordinateToIndex(rawIndex);
       addPeaceStatus(position, PeaceStatusTypes.canSelected);
     }
-    for (var rawIndex in currentPiecesHites[index]!) {
+    for (var rawIndex in currentPiecesHits[index]!) {
       int position = coordinateToIndex(rawIndex);
       addPeaceStatus(position, PeaceStatusTypes.canHitted);
     }
@@ -201,6 +203,10 @@ class ChessController extends BaseGameController {
       for (var checkPosition in enemyPieces) {
         final result = getPossibleHitsOfPeaceWithChangedPosition(
             checkPosition, enemyId, position, newPosition);
+        if ((kingPosition == position) && result.contains(newPosition)) {
+          canSelected = false;
+          break;
+        }
         if (result.contains(kingPosition)) {
           canSelected = false;
           break;
@@ -227,6 +233,10 @@ class ChessController extends BaseGameController {
       for (var checkPosition in enemyPieces) {
         final result = getPossibleHitsOfPeaceWithChangedPosition(
             checkPosition, enemyId, position, newPosition);
+        if ((kingPosition == position) && result.contains(newPosition)) {
+          canSelected = false;
+          break;
+        }
         if (result.contains(kingPosition)) {
           if (newPosition == checkPosition) {
             result.add(newPosition);
@@ -259,7 +269,7 @@ class ChessController extends BaseGameController {
       List<(int, int)> moves = addPossibleMoves(index, enemyId, kingPosition);
       List<(int, int)> hites = addPossibleHits(index, enemyId, kingPosition);
       currentPiecesMoves[index] = moves;
-      currentPiecesHites[index] = hites;
+      currentPiecesHits[index] = hites;
     }
   }
 
@@ -399,6 +409,15 @@ class ChessController extends BaseGameController {
         for (var move in pieceMoveList) {
           int y = position.$1 + move.$1;
           int x = position.$2 + move.$2;
+          // check for castle move that king side must be empty
+          if ((move.$1, move.$2) == (0, 2) && !isTargetPieceEmpty((y, x - 1))) {
+            continue;
+          }
+          // check for castle move that king side must be empty
+          if ((move.$1, move.$2) == (0, -2) &&
+              !isTargetPieceEmpty((y, x + 1))) {
+            continue;
+          }
           if (isValidCoordinate(y, x) && isTargetPieceEmpty((y, x))) {
             result.add((y, x));
           }
@@ -578,6 +597,12 @@ class ChessController extends BaseGameController {
     }
     if (sourceIndex == 60 && targetIndex == 62) {
       movePiece((7, 7), (7, 5), gamerId);
+    }
+    if (sourceIndex == 4 && targetIndex == 6) {
+      movePiece((0, 7), (0, 5), gamerId);
+    }
+    if (sourceIndex == 4 && targetIndex == 2) {
+      movePiece((0, 0), (0, 3), gamerId);
     }
     if (gamerId == 1 && sourcePosition == king1Position) {
       king1Position = targetPosition;
