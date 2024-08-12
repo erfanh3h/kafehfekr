@@ -11,6 +11,7 @@ import 'package:kafehfekr/Feature/Othello/Core/othello_binding.dart';
 import 'package:kafehfekr/Feature/RPC/Core/rpc_binding.dart';
 import 'package:kafehfekr/Feature/Ten/Core/ten_binding.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Core/tictactoe_binding.dart';
+import 'package:kafehfekr/Feature/Yatzy/Core/yatzy_binding.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GlobalBinding implements BindingsInterface {
@@ -29,6 +30,7 @@ class GlobalBinding implements BindingsInterface {
         OthelloBinding().dependencies(),
         DotBoxBinding().dependencies(),
         ChessBinding().dependencies(),
+        YatzyBinding().dependencies(),
         Get.lazyPut<TimerCompanent>(TimerCompanent.new, fenix: true),
         Get.lazyPut<SoundPlayerComponent>(
           SoundPlayerComponent.new,

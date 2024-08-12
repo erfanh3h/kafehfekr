@@ -19,5 +19,6 @@ enum GameTypes {
   checkers,
   ten,
   othello,
-  dotbox
+  dotbox,
+  yatzy
 }

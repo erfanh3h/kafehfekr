@@ -12,6 +12,7 @@ import 'package:kafehfekr/Feature/Othello/Pages/othello_page.dart';
 import 'package:kafehfekr/Feature/RPC/Pages/rpc_page.dart';
 import 'package:kafehfekr/Feature/Ten/Pages/ten_page.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Pages/tictactoe_page.dart';
+import 'package:kafehfekr/Feature/Yatzy/Pages/yatzy_page.dart';
 import 'package:refreshed/refreshed.dart';
 
 abstract class AppPages {
@@ -64,6 +65,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.chess,
       page: ChessPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.yatzy,
+      page: YatzyPage.new,
     ),
   ];
 }
