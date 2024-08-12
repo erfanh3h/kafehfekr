@@ -4,13 +4,14 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Feature/TicTacToe/Models/tictactoe_peace_model.dart';
 import 'package:kafehfekr/Feature/Yatzy/Models/yatzy_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class YatzyController extends BaseGameController {
-  RxList<Rx<YatzyPeaceModel>> peaces = RxList();
+  RxList<Rx<YatzyPeaceModel>> player1Pieces = RxList();
+  RxList<Rx<YatzyPeaceModel>> player2Pieces = RxList();
 
+  RxInt equippedIndex = RxInt(-1);
   @override
   void currentTurnFunction(Map data) {
     int turn = data['data'];
@@ -35,18 +36,18 @@ class YatzyController extends BaseGameController {
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
     currentTurn.value = gameData['current_turn'];
-    for (var i = 0; i < boardData.length; i++) {
-      if (boardData[i] == 0) {
-        continue;
-      }
-      peaces[i].value =
-          peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
-    }
-    if (currentTurn.value == myGameId) {
-      canSelectPeace.value = true;
-    } else {
-      canSelectPeace.value = false;
-    }
+    // for (var i = 0; i < boardData.length; i++) {
+    //   if (boardData[i] == 0) {
+    //     continue;
+    //   }
+    //   player1Pieces[i].value =
+    //       player1Pieces[i].value.changeSelectedUser(score: boardData[i]);
+    // }
+    // if (currentTurn.value == myGameId) {
+    //   canSelectPeace.value = true;
+    // } else {
+    //   canSelectPeace.value = false;
+    // }
     if (timerData['is_user_turn']) {
       final int time = GameWaitTimes.yatzyTurnTime - timerData['time'] as int;
       changetimerValue(time.clamp(1, time));
@@ -57,21 +58,13 @@ class YatzyController extends BaseGameController {
   void peaceSelectedFunction(Map data) {
     Map peaceData = data['data'];
     int peaceId = peaceData['target_peace'];
-    for (final peace in peaces) {
-      if (peace.value.id == peaceId) {
-        peace.value =
-            peace.value.changeSelectedUser(newSelectedUser: peaceData["user"]);
-        removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-        break;
-      }
-    }
-  }
-
-  @override
-  void newRoundFunction(Map data) {
-    int newRound = data['data'];
-    currentRound.value = newRound;
-    resetPeaces();
+    // for (final peace in player1Pieces) {
+    //   if (peace.value.id == peaceId) {
+    //     peace.value = peace.value.changeSelectedUser(score: peaceData["user"]);
+    //     removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
+    //     break;
+    //   }
+    // }
   }
 
   @override
@@ -89,43 +82,56 @@ class YatzyController extends BaseGameController {
 
   @override
   void onEachButtonTap(dynamic tappedPeace) {
-    TicTacToePeaceModel peace = tappedPeace as TicTacToePeaceModel;
-    if (!canSelectPeace.value) {
+    YatzyPeaceModel peace = tappedPeace as YatzyPeaceModel;
+    // if (!canSelectPeace.value) {
+    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+    //   return;
+    // }
+    if (peace.gamerId != myGameId) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
-    if (peace.selectedUser != null) {
+    if (peace.isSelected) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
-    canSelectPeace.value = false;
-    sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-    addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+    // canSelectPeace.value = false;
+    // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
+    addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+    equippedIndex.value = peace.id;
   }
 
-  void resetPeaces() {
-    for (var i = 0; i < peaces.length; i++) {
-      peaces[i].value = peaces[i].value.resetPeace();
-    }
-  }
+  // void resetPeaces() {
+  //   for (var i = 0; i < peaces.length; i++) {
+  //     peaces[i].value = peaces[i].value.resetPeace();
+  //   }
+  // }
 
   addPeaceStatus(int peaceId, PeaceStatusTypes status) {
-    peaces.value[peaceId].value =
-        peaces.value[peaceId].value.addStatus(status: status);
+    if (myGameId == 1) {
+      player1Pieces.value[peaceId].value =
+          player1Pieces.value[peaceId].value.addStatus(status: status);
+    } else {
+      player2Pieces.value[peaceId].value =
+          player2Pieces.value[peaceId].value.addStatus(status: status);
+    }
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
-    peaces.value[peaceId].value =
-        peaces.value[peaceId].value.removeStatus(status: status);
-  }
+  // removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  //   peaces.value[peaceId].value =
+  //       peaces.value[peaceId].value.removeStatus(status: status);
+  // }
 
   @override
   void onInit() async {
     super.onInit();
     gameType = GameTypes.tictactoe;
-    for (var i = 0; i < 9; i++) {
-      peaces.add(Rx(YatzyPeaceModel(id: i, currentStatuses: [])));
+    for (var i = 0; i < 12; i++) {
+      player1Pieces
+          .add(Rx(YatzyPeaceModel(id: i, currentStatuses: [], gamerId: 1)));
+      player2Pieces
+          .add(Rx(YatzyPeaceModel(id: i, currentStatuses: [], gamerId: 2)));
     }
   }
 }

@@ -5,27 +5,24 @@ class YatzyPeaceModel extends PeaceModel {
   YatzyPeaceModel({
     required super.id,
     required super.currentStatuses,
-    this.selectedUser,
+    this.gamerId = 0,
+    this.isSelected = false,
+    this.score = 0,
   });
 
-  int? selectedUser;
+  int gamerId;
+  int score;
+  bool isSelected;
 
   YatzyPeaceModel changeSelectedUser({
-    int? newSelectedUser,
+    required int score,
   }) {
-    final data = super.addStatus(status: PeaceStatusTypes.selected);
     return YatzyPeaceModel(
       id: id,
-      currentStatuses: data.currentStatuses,
-      selectedUser: newSelectedUser,
-    );
-  }
-
-  YatzyPeaceModel resetPeace() {
-    return YatzyPeaceModel(
-      id: id,
-      currentStatuses: [],
-      selectedUser: null,
+      currentStatuses: currentStatuses,
+      gamerId: gamerId,
+      isSelected: true,
+      score: score,
     );
   }
 
@@ -35,7 +32,9 @@ class YatzyPeaceModel extends PeaceModel {
     return YatzyPeaceModel(
       id: data.id,
       currentStatuses: data.currentStatuses,
-      selectedUser: selectedUser,
+      gamerId: gamerId,
+      isSelected: isSelected,
+      score: score,
     );
   }
 
@@ -45,7 +44,9 @@ class YatzyPeaceModel extends PeaceModel {
     return YatzyPeaceModel(
       id: data.id,
       currentStatuses: data.currentStatuses,
-      selectedUser: selectedUser,
+      gamerId: gamerId,
+      isSelected: isSelected,
+      score: score,
     );
   }
 }

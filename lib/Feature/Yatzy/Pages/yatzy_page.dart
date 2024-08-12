@@ -4,10 +4,10 @@ import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
-import 'package:kafehfekr/Feature/TicTacToe/Controllers/tictactoe_controller.dart';
-import 'package:kafehfekr/Feature/TicTacToe/Widgets/tictactoe_board_widget.dart';
+import 'package:kafehfekr/Feature/Yatzy/Controllers/yatzy_controller.dart';
+import 'package:kafehfekr/Feature/Yatzy/Widgets/yatzy_board_widget.dart';
 
-class YatzyPage extends BaseView<TicTacToeController> {
+class YatzyPage extends BaseView<YatzyController> {
   const YatzyPage({super.key});
 
   @override
@@ -30,10 +30,10 @@ class YatzyPage extends BaseView<TicTacToeController> {
               timerColor: controller.returnTimerColor(),
               player1Number1: controller.player1Score.value,
               player2Number1: controller.player2Score.value,
-              roundText: "${controller.maxRound} / ${controller.currentRound}",
+              roundText: "12 / ${controller.currentRound}",
             ),
           const Spacer(flex: 3),
-          TicTacToeBoardWidget(controller: controller),
+          YatzyBoardWidget(controller: controller),
           const Spacer(flex: 4),
           GlobalActivityBox(
             surrenderFunction: FunctionsLibraryClass.surrenderFunction,

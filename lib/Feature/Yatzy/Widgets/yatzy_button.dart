@@ -20,7 +20,7 @@ class YatzyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? imageColor;
     String? image;
-    switch (peaceData.selectedUser) {
+    switch (peaceData.gamerId) {
       case 1:
         imageColor = AppColors.imageRedColor;
         image = GeneralIcons.circle1;
