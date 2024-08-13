@@ -11,7 +11,13 @@ class YatzyController extends BaseGameController {
   RxList<Rx<YatzyPeaceModel>> player1Pieces = RxList();
   RxList<Rx<YatzyPeaceModel>> player2Pieces = RxList();
 
+  RxList<int> currentDices = RxList([0, 0, 0, 0, 0]);
+  RxList<int> selectedDicesIndexes = RxList([]);
+
   RxInt equippedIndex = RxInt(-1);
+
+  RxInt remainingDice = RxInt(3);
+
   @override
   void currentTurnFunction(Map data) {
     int turn = data['data'];
@@ -108,6 +114,26 @@ class YatzyController extends BaseGameController {
     // canSelectPeace.value = false;
     // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
   }
+
+  void onEachDiceTapped(int index) {
+    if (selectedDicesIndexes.value.contains(index)) {
+      selectedDicesIndexes.value.remove(index);
+      update();
+    } else {
+      selectedDicesIndexes.value.add(index);
+      update();
+    }
+  }
+
+  RxBool isDiceSelected(int index) {
+    return RxBool(selectedDicesIndexes.value.contains(index));
+  }
+
+  void rollDice() {
+    remainingDice.value -= 1;
+  }
+
+  void sendResult() {}
 
   // void resetPeaces() {
   //   for (var i = 0; i < peaces.length; i++) {

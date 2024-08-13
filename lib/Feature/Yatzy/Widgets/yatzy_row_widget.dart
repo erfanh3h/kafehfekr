@@ -34,7 +34,7 @@ class YatzyRowWidget extends StatelessWidget {
         padding: AppSpacings.s5All,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: index % 2 == 0 ? Colors.white12 : Colors.transparent,
+          color: index % 2 == 0 ? Colors.white12 : Colors.white24,
         ),
         child: Row(
           children: [

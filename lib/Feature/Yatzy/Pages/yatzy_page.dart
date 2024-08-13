@@ -6,6 +6,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Feature/Yatzy/Controllers/yatzy_controller.dart';
 import 'package:kafehfekr/Feature/Yatzy/Widgets/yatzy_board_widget.dart';
+import 'package:kafehfekr/Feature/Yatzy/Widgets/yatzy_interaction_widget.dart';
 
 class YatzyPage extends BaseView<YatzyController> {
   const YatzyPage({super.key});
@@ -36,6 +37,7 @@ class YatzyPage extends BaseView<YatzyController> {
           if (controller.player1Pieces.length == 12 &&
               controller.player2Pieces.length == 12)
             YatzyBoardWidget(controller: controller),
+          YatzyInteractionWidget(controller: controller),
           const Spacer(flex: 4),
           GlobalActivityBox(
             surrenderFunction: FunctionsLibraryClass.surrenderFunction,
