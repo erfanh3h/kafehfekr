@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Yatzy/Controllers/yatzy_controller.dart';
 import 'package:refreshed/refreshed.dart';
@@ -19,25 +20,29 @@ class YatzyInteractionWidget extends StatelessWidget {
       padding: AppSpacings.s10All,
       child: Column(
         children: [
-          Card(
-            child: Padding(
-              padding: AppSpacings.s10All,
-              child: Row(
-                children: [
-                  for (int index = 0; index < 5; index++)
-                    GetBuilder<YatzyController>(
-                      builder: (context) {
-                        return Expanded(
-                          child: DiceSelectionBox(
-                            value: controller.currentDices[index],
-                            onSelect: controller.onEachDiceTapped,
-                            index: index,
-                            isSelected: controller.isDiceSelected(index).value,
-                          ),
-                        );
-                      },
-                    )
-                ],
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: Card(
+              child: Padding(
+                padding: AppSpacings.s10All,
+                child: Row(
+                  children: [
+                    for (int index = 0; index < 5; index++)
+                      GetBuilder<YatzyController>(
+                        builder: (context) {
+                          return Expanded(
+                            child: DiceSelectionBox(
+                              value: controller.currentDices[index],
+                              onSelect: controller.onEachDiceTapped,
+                              index: index,
+                              isSelected:
+                                  controller.isDiceSelected(index).value,
+                            ),
+                          );
+                        },
+                      )
+                  ],
+                ),
               ),
             ),
           ),
@@ -85,26 +90,45 @@ class DiceSelectionBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? image;
+    switch (value) {
+      case 1:
+        image = GeneralIcons.dice1;
+        break;
+      case 2:
+        image = GeneralIcons.dice2;
+        break;
+      case 3:
+        image = GeneralIcons.dice3;
+        break;
+      case 4:
+        image = GeneralIcons.dice4;
+        break;
+      case 5:
+        image = GeneralIcons.dice5;
+        break;
+      case 6:
+        image = GeneralIcons.dice6;
+        break;
+      default:
+        image = null;
+    }
     return InkWell(
       onTap: () => onSelect(index),
       child: Container(
-        padding: AppSpacings.s10All,
         margin: AppSpacings.s2All,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(8),
           color: Colors.white.withOpacity(isSelected ? .75 : 0.25),
         ),
         child: Center(
-          child: Text(
-            value.toString(),
-            style: TextStyle(
-              fontSize: 17,
-              color: isSelected ? AppColors.darkColor : AppColors.lightColor,
-              fontFamily: FontFamilies.dastnevis,
-            ),
-            textDirection: TextDirection.ltr,
-          ),
-        ),
+            child: image != null
+                ? Image.asset(
+                    image,
+                    color:
+                        isSelected ? AppColors.darkColor : AppColors.lightColor,
+                  )
+                : Container()),
       ),
     );
   }

@@ -31,7 +31,7 @@ class YatzyPage extends BaseView<YatzyController> {
               timerColor: controller.returnTimerColor(),
               player1Number1: controller.player1Score.value,
               player2Number1: controller.player2Score.value,
-              roundText: "12 / ${controller.currentRound}",
+              roundText: "12 / ${controller.currentTurn}",
             ),
           const Spacer(flex: 3),
           if (controller.player1Pieces.length == 12 &&

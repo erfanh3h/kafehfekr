@@ -27,6 +27,8 @@ abstract class GameCommands {
   static const reconnectData = "ReconnectData";
   static const reaction = "Reaction";
   static const currentTurn = "CurrentTurn";
+  static const rollDice = "RollDice";
+  static const rollResult = "RollResult";
   static const selectPeace = "SelectPeace";
   static const selectPeaceResult = "SelectPeaceResult";
   static const swapPeace = "SwapPeace";

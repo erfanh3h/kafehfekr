@@ -1,7 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
-import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Global/Components/timer.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Feature/Yatzy/Models/yatzy_peace_model.dart';
@@ -14,21 +14,33 @@ class YatzyController extends BaseGameController {
   RxList<int> currentDices = RxList([0, 0, 0, 0, 0]);
   RxList<int> selectedDicesIndexes = RxList([]);
 
-  RxInt equippedIndex = RxInt(-1);
+  int equippedIndex = 0;
 
   RxInt remainingDice = RxInt(3);
 
   @override
-  void currentTurnFunction(Map data) {
-    int turn = data['data'];
-    currentTurn.value = turn;
-    if (turn == myGameId) {
-      canSelectPeace.value = true;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
-    } else {
-      canSelectPeace.value = false;
+  void commandHandler(dynamic data) {
+    super.commandHandler(data);
+    final commandId = data['id'];
+    switch (commandId) {
+      case GameCommands.rollResult:
+        rollResultFunction(data);
+        break;
+      default:
     }
+  }
+
+  @override
+  void currentTurnFunction(Map data) {
+    resetRound();
+    Map turnData = data['data'];
+    currentTurn.value = turnData['current_turn'];
+    currentDices.value = List<int>.from(turnData['dices']);
+    canSelectPeace.value = true;
+    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
     changetimerValue(GameWaitTimes.yatzyTurnTime);
+    setFirstEmptyIndex();
+    update();
   }
 
   @override
@@ -74,19 +86,6 @@ class YatzyController extends BaseGameController {
   }
 
   @override
-  void finishRoundFunction(Map data) {
-    Map newData = data['data'];
-    Get.find<TimerCompanent>().stopTimer();
-    int roundWinner = newData['Winner'] ?? 0;
-    if (roundWinner == 1) {
-      player1Score.value += 1;
-    } else if (roundWinner == 2) {
-      player2Score.value += 1;
-    }
-    FunctionsLibraryClass.showFinishRoundDialog(roundWinner, myGameId);
-  }
-
-  @override
   void onEachButtonTap(dynamic tappedPeace) {
     YatzyPeaceModel peace = tappedPeace as YatzyPeaceModel;
     // if (!canSelectPeace.value) {
@@ -101,15 +100,11 @@ class YatzyController extends BaseGameController {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
-    if (equippedIndex.value == peace.id) {
-      removePeaceStatus(peace.id, PeaceStatusTypes.equiped);
-    } else {
-      if (equippedIndex.value != -1) {
-        removePeaceStatus(equippedIndex.value, PeaceStatusTypes.equiped);
-      }
-      addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
+    if (equippedIndex != peace.id) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-      equippedIndex.value = peace.id;
+      removePeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
+      addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
+      equippedIndex = peace.id;
     }
     // canSelectPeace.value = false;
     // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
@@ -125,15 +120,33 @@ class YatzyController extends BaseGameController {
     }
   }
 
+  void rollResultFunction(Map data) {
+    Map turnData = data['data'];
+    currentDices.value = List<int>.from(turnData['dices']);
+    update();
+  }
+
   RxBool isDiceSelected(int index) {
     return RxBool(selectedDicesIndexes.value.contains(index));
   }
 
   void rollDice() {
+    if (remainingDice.value == 0) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      return;
+    }
     remainingDice.value -= 1;
+    sendCommand({
+      "id": GameCommands.rollDice,
+      "data": {
+        "selected_indexes": selectedDicesIndexes.value,
+      }
+    });
   }
 
-  void sendResult() {}
+  void sendResult() {
+    sendCommand({"id": GameCommands.selectPeace});
+  }
 
   // void resetPeaces() {
   //   for (var i = 0; i < peaces.length; i++) {
@@ -163,6 +176,38 @@ class YatzyController extends BaseGameController {
 
   void onEachRowTap(int index) {
     print(index);
+  }
+
+  setFirstEmptyIndex() {
+    if (myGameId == 1) {
+      for (var i = 0; i < player1Pieces.value.length; i++) {
+        if (!player1Pieces.value[i].value.isSelected) {
+          equippedIndex = i;
+          addPeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
+          return;
+        }
+      }
+    } else {
+      for (var i = 0; i < player2Pieces.value.length; i++) {
+        if (!player2Pieces.value[i].value.isSelected) {
+          equippedIndex = i;
+          addPeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
+          return;
+        }
+      }
+    }
+  }
+
+  resetRound() {
+    removePeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
+    selectedDicesIndexes.value.clear();
+    remainingDice.value = 3;
+    equippedIndex = 0;
+  }
+
+  @override
+  Color returnTimerColor() {
+    return AppColors.darkColor;
   }
 
   @override
