@@ -16,6 +16,19 @@ class YatzyPeaceModel extends PeaceModel {
   bool isSelected;
   int calculatedScore;
 
+  YatzyPeaceModel fromJson({
+    required Map data,
+  }) {
+    return YatzyPeaceModel(
+      id: id,
+      currentStatuses: currentStatuses,
+      gamerId: data['gamer_id'],
+      isSelected: data['is_selected'],
+      score: data['score'],
+      calculatedScore: 0,
+    );
+  }
+
   YatzyPeaceModel changeSelectedUser({
     required int score,
   }) {

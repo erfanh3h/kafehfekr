@@ -18,6 +18,8 @@ class YatzyController extends BaseGameController {
 
   RxInt remainingDice = RxInt(3);
 
+  RxBool isRoundPlayed = RxBool(false);
+
   @override
   void commandHandler(dynamic data) {
     super.commandHandler(data);
@@ -37,7 +39,6 @@ class YatzyController extends BaseGameController {
     currentTurn.value = turnData['current_turn'];
     currentDices.value = List<int>.from(turnData['dices']);
     calculateScores();
-    canSelectPeace.value = true;
     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
     changetimerValue(GameWaitTimes.yatzyTurnTime);
     setFirstEmptyIndex();
@@ -50,23 +51,25 @@ class YatzyController extends BaseGameController {
     Map newData = data['data'];
     Map gameData = newData['game_data'];
     Map timerData = newData['timer_data'];
-    List boardData = gameData['board'];
-    currentRound.value = gameData['current_round'];
+    List player1BoardData = gameData['player1_board'];
+    List player2BoardData = gameData['player2_board'];
+    for (var i = 0; i < player1BoardData.length; i++) {
+      player1Pieces[i].value =
+          player1Pieces[i].value.fromJson(data: player1BoardData[i]);
+    }
+    for (var i = 0; i < player2BoardData.length; i++) {
+      player2Pieces[i].value =
+          player2Pieces[i].value.fromJson(data: player2BoardData[i]);
+    }
+    isRoundPlayed.value = gameData['is_round_done'];
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
-    currentTurn.value = gameData['current_turn'];
-    // for (var i = 0; i < boardData.length; i++) {
-    //   if (boardData[i] == 0) {
-    //     continue;
-    //   }
-    //   player1Pieces[i].value =
-    //       player1Pieces[i].value.changeSelectedUser(score: boardData[i]);
-    // }
-    // if (currentTurn.value == myGameId) {
-    //   canSelectPeace.value = true;
-    // } else {
-    //   canSelectPeace.value = false;
-    // }
+    currentTurn.value = gameData['current_round'];
+    remainingDice.value = 3 - gameData['rolled_dice_times'] as int;
+    currentDices.value = List<int>.from(gameData['current_dices']);
+    calculateScores();
+    setFirstEmptyIndex();
+    update();
     if (timerData['is_user_turn']) {
       final int time = GameWaitTimes.yatzyTurnTime - timerData['time'] as int;
       changetimerValue(time.clamp(1, time));
@@ -76,7 +79,20 @@ class YatzyController extends BaseGameController {
   @override
   void peaceSelectedFunction(Map data) {
     Map peaceData = data['data'];
-    int peaceId = peaceData['target_peace'];
+    int gamerId = peaceData['gamer_id'];
+    int selectedIndex = peaceData['selected_index'];
+    int score = peaceData['score'];
+    player1Score.value = peaceData['player1_score'];
+    player2Score.value = peaceData['player2_score'];
+    if (gamerId == 1) {
+      player1Pieces.value[selectedIndex].value = player1Pieces
+          .value[selectedIndex].value
+          .changeSelectedUser(score: score);
+    } else {
+      player2Pieces.value[selectedIndex].value = player2Pieces
+          .value[selectedIndex].value
+          .changeSelectedUser(score: score);
+    }
     // for (final peace in player1Pieces) {
     //   if (peace.value.id == peaceId) {
     //     peace.value = peace.value.changeSelectedUser(score: peaceData["user"]);
@@ -89,10 +105,10 @@ class YatzyController extends BaseGameController {
   @override
   void onEachButtonTap(dynamic tappedPeace) {
     YatzyPeaceModel peace = tappedPeace as YatzyPeaceModel;
-    // if (!canSelectPeace.value) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
-    // }
+    if (isRoundPlayed.value) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      return;
+    }
     // if (peace.gamerId != myGameId) {
     //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
     //   return;
@@ -107,7 +123,6 @@ class YatzyController extends BaseGameController {
       addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
       equippedIndex = peace.id;
     }
-    // canSelectPeace.value = false;
     // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
   }
 
@@ -147,6 +162,7 @@ class YatzyController extends BaseGameController {
   }
 
   void sendResult() {
+    isRoundPlayed.value = true;
     sendCommand(
       {
         "id": GameCommands.selectPeace,
@@ -232,6 +248,7 @@ class YatzyController extends BaseGameController {
     selectedDicesIndexes.value.clear();
     remainingDice.value = 3;
     equippedIndex = 0;
+    isRoundPlayed.value = false;
   }
 
   @override
@@ -331,7 +348,7 @@ class YatzyController extends BaseGameController {
 
   calculate5TimesRepeat() {
     for (var i = 1; i <= 6; i++) {
-      if (calculateRepeatness(i, 4)) {
+      if (calculateRepeatness(i, 5)) {
         changePlayerCalculatedScore(50, 11);
         return;
       }

@@ -88,8 +88,8 @@ class GlobalGameDataWidget extends StatelessWidget {
                         bottom: -35,
                         left: 40,
                         child: GlobalReactionBox(
-                          reactionId: player2Data.reactionId,
-                          color: AppColors.imageBlueColor,
+                          reactionId: player1Data.reactionId,
+                          color: AppColors.imageRedColor,
                         ),
                       ),
                   ],

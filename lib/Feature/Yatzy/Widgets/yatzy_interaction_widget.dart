@@ -3,6 +3,7 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/Yatzy/Controllers/yatzy_controller.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -18,58 +19,68 @@ class YatzyInteractionWidget extends StatelessWidget {
     return Container(
       width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
       padding: AppSpacings.s10All,
-      child: Column(
-        children: [
-          Directionality(
-            textDirection: TextDirection.ltr,
-            child: Card(
-              child: Padding(
-                padding: AppSpacings.s10All,
-                child: Row(
-                  children: [
-                    for (int index = 0; index < 5; index++)
-                      GetBuilder<YatzyController>(
-                        builder: (context) {
-                          return Expanded(
-                            child: DiceSelectionBox(
-                              value: controller.currentDices[index],
-                              onSelect: controller.onEachDiceTapped,
-                              index: index,
-                              isSelected:
-                                  controller.isDiceSelected(index).value,
-                            ),
-                          );
-                        },
-                      )
-                  ],
+      child: controller.isRoundPlayed.value
+          ? Center(
+              child: Text(
+                AppTexts.wait.tr,
+                style: const TextStyle(
+                  color: AppColors.peaceBorderColor,
+                  fontSize: 22,
                 ),
               ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Obx(
-                  () => ButtonWidget(
-                    onSelect: controller.rollDice,
-                    remainingCount: controller.remainingDice.value,
-                    label: "تاس بریز",
-                    color: AppColors.blueWarmColor,
+            )
+          : Column(
+              children: [
+                Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: Card(
+                    child: Padding(
+                      padding: AppSpacings.s10All,
+                      child: Row(
+                        children: [
+                          for (int index = 0; index < 5; index++)
+                            GetBuilder<YatzyController>(
+                              builder: (context) {
+                                return Expanded(
+                                  child: DiceSelectionBox(
+                                    value: controller.currentDices[index],
+                                    onSelect: controller.onEachDiceTapped,
+                                    index: index,
+                                    isSelected:
+                                        controller.isDiceSelected(index).value,
+                                  ),
+                                );
+                              },
+                            )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: ButtonWidget(
-                  onSelect: controller.sendResult,
-                  label: "بازی کن",
-                  color: AppColors.darkGreen,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Obx(
+                        () => ButtonWidget(
+                          onSelect: controller.rollDice,
+                          remainingCount: controller.remainingDice.value,
+                          label: "تاس بریز",
+                          color: AppColors.blueWarmColor,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ButtonWidget(
+                        onSelect: controller.sendResult,
+                        label: "بازی کن",
+                        color: AppColors.darkGreen,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
+              ],
+            ),
     );
   }
 }
