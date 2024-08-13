@@ -20,66 +20,58 @@ class YatzyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? color;
     Color? fontColor = AppColors.lightColor;
-    double borderWidth = 0;
     bool canEquip = true;
-
-    if (pieceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
-      color = AppColors.guideGreen;
-      borderWidth = 1;
+    int value = 0;
+    if (pieceData.isSelected) {
+      canEquip = false;
+      switch (pieceData.gamerId) {
+        case 1:
+          color = AppColors.imageRedColor;
+          value = pieceData.score;
+          break;
+        case 2:
+          color = AppColors.imageBlueColor;
+          value = pieceData.score;
+          break;
+        default:
+          color = null;
+          break;
+      }
     } else {
-      if (pieceData.isSelected) {
-        switch (pieceData.gamerId) {
-          case 1:
-            color = AppColors.imageRedColor;
-            break;
-          case 2:
-            color = AppColors.imageBlueColor;
-            break;
-          default:
-            color = null;
-            break;
-        }
+      if (myGameId != pieceData.gamerId) {
+        canEquip = false;
+        fontColor = AppColors.lightColor;
+        color = Colors.transparent;
       } else {
-        color = AppColors.lightColor;
-        fontColor = AppColors.darkColor;
+        value = pieceData.calculatedScore;
+        if (pieceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
+          color = AppColors.guideGreen;
+        } else {
+          color = AppColors.lightColor;
+          fontColor = AppColors.darkColor;
+        }
       }
     }
-    if (myGameId != pieceData.gamerId) {
-      canEquip = false;
-      fontColor = AppColors.lightColor;
-    }
 
-    return canEquip
-        ? InkWell(
-            onTap: () {
-              onTap(pieceData);
-            },
-            child: Container(
-              height: double.maxFinite,
-              decoration: BoxDecoration(
-                color: color,
-                border: Border.all(
-                  color: AppColors.peaceBorderColor,
-                  width: borderWidth,
-                ),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Text(
-                  pieceData.score.toString(),
-                  style: TextStyle(
-                    fontFamily: FontFamilies.dastnevis,
-                    fontSize: 30,
-                    height: .7,
-                    color: fontColor,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          )
-        : Text(
-            pieceData.score.toString(),
+    return InkWell(
+      onTap: () {
+        if (canEquip) {
+          onTap(pieceData);
+        }
+      },
+      child: Container(
+        height: double.maxFinite,
+        decoration: BoxDecoration(
+          color: color,
+          // border: Border.all(
+          //   color: AppColors.peaceBorderColor,
+          //   width: borderWidth,
+          // ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Center(
+          child: Text(
+            value.toString(),
             style: TextStyle(
               fontFamily: FontFamilies.dastnevis,
               fontSize: 30,
@@ -87,6 +79,9 @@ class YatzyButton extends StatelessWidget {
               color: fontColor,
             ),
             textAlign: TextAlign.center,
-          );
+          ),
+        ),
+      ),
+    );
   }
 }

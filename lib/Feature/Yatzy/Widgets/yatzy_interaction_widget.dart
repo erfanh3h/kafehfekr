@@ -190,7 +190,7 @@ class ButtonWidget extends StatelessWidget {
                     child: Text(
                       remainingCount.toString(),
                       style: const TextStyle(
-                        fontSize: 13,
+                        fontSize: 20,
                         color: Colors.white,
                         fontFamily: FontFamilies.dastnevis,
                         height: .5,

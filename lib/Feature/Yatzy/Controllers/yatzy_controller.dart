@@ -36,6 +36,7 @@ class YatzyController extends BaseGameController {
     Map turnData = data['data'];
     currentTurn.value = turnData['current_turn'];
     currentDices.value = List<int>.from(turnData['dices']);
+    calculateScores();
     canSelectPeace.value = true;
     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
     changetimerValue(GameWaitTimes.yatzyTurnTime);
@@ -123,6 +124,7 @@ class YatzyController extends BaseGameController {
   void rollResultFunction(Map data) {
     Map turnData = data['data'];
     currentDices.value = List<int>.from(turnData['dices']);
+    calculateScores();
     update();
   }
 
@@ -145,7 +147,12 @@ class YatzyController extends BaseGameController {
   }
 
   void sendResult() {
-    sendCommand({"id": GameCommands.selectPeace});
+    sendCommand(
+      {
+        "id": GameCommands.selectPeace,
+        "data": {"index": equippedIndex}
+      },
+    );
   }
 
   // void resetPeaces() {
@@ -198,8 +205,30 @@ class YatzyController extends BaseGameController {
     }
   }
 
+  changePlayerCalculatedScore(score, index) {
+    if (myGameId == 1) {
+      player1Pieces.value[index].value = player1Pieces.value[index].value
+          .changeCalculatedScore(newScore: score);
+    } else {
+      player2Pieces.value[index].value = player2Pieces.value[index].value
+          .changeCalculatedScore(newScore: score);
+    }
+  }
+
+  resetCalculatedValues() {
+    for (var i = 0; i < player1Pieces.length; i++) {
+      player1Pieces.value[i].value =
+          player1Pieces.value[i].value.changeCalculatedScore(newScore: 0);
+    }
+    for (var i = 0; i < player2Pieces.length; i++) {
+      player2Pieces.value[i].value =
+          player2Pieces.value[i].value.changeCalculatedScore(newScore: 0);
+    }
+  }
+
   resetRound() {
     removePeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
+    resetCalculatedValues();
     selectedDicesIndexes.value.clear();
     remainingDice.value = 3;
     equippedIndex = 0;
@@ -208,6 +237,129 @@ class YatzyController extends BaseGameController {
   @override
   Color returnTimerColor() {
     return AppColors.darkColor;
+  }
+
+  int calculateSimpleDices(int number) {
+    int calculatedScore = 0;
+    for (var dice in currentDices.value) {
+      if (dice == number) {
+        calculatedScore += number;
+      }
+    }
+    return calculatedScore;
+  }
+
+  bool calculateRepeatness(int number, int count) {
+    int counter = 0;
+    for (var dice in currentDices.value) {
+      if (dice == number) {
+        counter += 1;
+      }
+    }
+    return counter >= count;
+  }
+
+  int calculateAllDices() {
+    int calculatedScore = 0;
+    for (var dice in currentDices.value) {
+      calculatedScore += dice;
+    }
+    return calculatedScore;
+  }
+
+  calculate3TimesRepeat() {
+    int calculatedScore = 0;
+    for (var i = 1; i <= 6; i++) {
+      if (calculateRepeatness(i, 3)) {
+        calculatedScore += calculateAllDices();
+        break;
+      }
+    }
+    changePlayerCalculatedScore(calculatedScore, 6);
+  }
+
+  calculate4TimesRepeat() {
+    int calculatedScore = 0;
+    for (var i = 1; i <= 6; i++) {
+      if (calculateRepeatness(i, 4)) {
+        calculatedScore += calculateAllDices();
+        break;
+      }
+    }
+    changePlayerCalculatedScore(calculatedScore, 7);
+  }
+
+  bool calculate23TimesRepeat() {
+    bool is2TimesExists = false;
+    int threeTimesIndex = -1;
+    bool is3TimesExists = false;
+    for (var i = 1; i <= 6; i++) {
+      if (calculateRepeatness(i, 3)) {
+        is3TimesExists = true;
+        threeTimesIndex = i;
+        break;
+      }
+    }
+    if (is3TimesExists) {
+      for (var i = 1; i <= 6; i++) {
+        if (calculateRepeatness(i, 2) && i != threeTimesIndex) {
+          is2TimesExists = true;
+          break;
+        }
+      }
+    }
+    return is2TimesExists && is3TimesExists;
+  }
+
+  bool calculate15Exists() {
+    if (currentDices.contains(1) &&
+        currentDices.contains(2) &&
+        currentDices.contains(3) &&
+        currentDices.contains(4) &&
+        currentDices.contains(5)) {
+      return true;
+    }
+    if (currentDices.contains(2) &&
+        currentDices.contains(3) &&
+        currentDices.contains(4) &&
+        currentDices.contains(5) &&
+        currentDices.contains(6)) {
+      return true;
+    }
+    return false;
+  }
+
+  calculate5TimesRepeat() {
+    for (var i = 1; i <= 6; i++) {
+      if (calculateRepeatness(i, 4)) {
+        changePlayerCalculatedScore(50, 11);
+        return;
+      }
+    }
+    changePlayerCalculatedScore(0, 11);
+  }
+
+  calculateScores() {
+    changePlayerCalculatedScore(calculateSimpleDices(1), 0);
+    changePlayerCalculatedScore(calculateSimpleDices(2), 1);
+    changePlayerCalculatedScore(calculateSimpleDices(3), 2);
+    changePlayerCalculatedScore(calculateSimpleDices(4), 3);
+    changePlayerCalculatedScore(calculateSimpleDices(5), 4);
+    changePlayerCalculatedScore(calculateSimpleDices(6), 5);
+    calculate3TimesRepeat();
+    calculate4TimesRepeat();
+    changePlayerCalculatedScore(calculateAllDices(), 8);
+    if (calculate23TimesRepeat()) {
+      changePlayerCalculatedScore(25, 9);
+    } else {
+      changePlayerCalculatedScore(0, 9);
+    }
+    if (calculate15Exists()) {
+      changePlayerCalculatedScore(40, 10);
+    } else {
+      changePlayerCalculatedScore(0, 10);
+    }
+    calculate5TimesRepeat();
   }
 
   @override

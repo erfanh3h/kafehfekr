@@ -47,18 +47,10 @@ class YatzyBoardWidget extends StatelessWidget {
                     children: [
                       for (int index = 0; index < 6; index++)
                         Expanded(
-                          child: Obx(
-                            () => YatzyRowWidget(
-                              headerImage: headerImages[index],
-                              player1Piece:
-                                  controller.player1Pieces.value[index].value,
-                              player2Piece:
-                                  controller.player2Pieces.value[index].value,
-                              index: index,
-                              myGameId: controller.myGameId,
-                              onEachButtonTap: controller.onEachButtonTap,
-                              onRowTap: controller.onEachRowTap,
-                            ),
+                          child: YatzyRowWidget(
+                            headerImage: headerImages[index],
+                            index: index,
+                            controller: controller,
                           ),
                         ),
                     ],
@@ -70,18 +62,10 @@ class YatzyBoardWidget extends StatelessWidget {
                     children: [
                       for (int index = 6; index < 12; index++)
                         Expanded(
-                          child: Obx(
-                            () => YatzyRowWidget(
-                              headerImage: headerImages[index],
-                              player1Piece:
-                                  controller.player1Pieces.value[index].value,
-                              player2Piece:
-                                  controller.player2Pieces.value[index].value,
-                              index: index,
-                              myGameId: controller.myGameId,
-                              onEachButtonTap: controller.onEachButtonTap,
-                              onRowTap: controller.onEachRowTap,
-                            ),
+                          child: YatzyRowWidget(
+                            headerImage: headerImages[index],
+                            index: index,
+                            controller: controller,
                           ),
                         ),
                     ],

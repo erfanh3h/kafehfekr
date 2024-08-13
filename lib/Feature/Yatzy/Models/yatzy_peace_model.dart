@@ -8,11 +8,13 @@ class YatzyPeaceModel extends PeaceModel {
     this.gamerId = 0,
     this.isSelected = false,
     this.score = 0,
+    this.calculatedScore = 0,
   });
 
   int gamerId;
   int score;
   bool isSelected;
+  int calculatedScore;
 
   YatzyPeaceModel changeSelectedUser({
     required int score,
@@ -23,6 +25,20 @@ class YatzyPeaceModel extends PeaceModel {
       gamerId: gamerId,
       isSelected: true,
       score: score,
+      calculatedScore: calculatedScore,
+    );
+  }
+
+  YatzyPeaceModel changeCalculatedScore({
+    required int newScore,
+  }) {
+    return YatzyPeaceModel(
+      id: id,
+      currentStatuses: currentStatuses,
+      gamerId: gamerId,
+      isSelected: isSelected,
+      score: score,
+      calculatedScore: newScore,
     );
   }
 
@@ -35,6 +51,7 @@ class YatzyPeaceModel extends PeaceModel {
       gamerId: gamerId,
       isSelected: isSelected,
       score: score,
+      calculatedScore: calculatedScore,
     );
   }
 
@@ -47,6 +64,7 @@ class YatzyPeaceModel extends PeaceModel {
       gamerId: gamerId,
       isSelected: isSelected,
       score: score,
+      calculatedScore: calculatedScore,
     );
   }
 }
