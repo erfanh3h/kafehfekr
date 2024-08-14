@@ -49,6 +49,7 @@ class GeneralIcons {
   static const bishop = "$generalIconsPath/chess-bishop.png";
   static const queen = "$generalIconsPath/chess-queen.png";
   static const king = "$generalIconsPath/chess-king.png";
+  static const info = "$generalIconsPath/info.png";
   static const yatzy3 = "$generalIconsPath/yatzy3.png";
   static const yatzy4 = "$generalIconsPath/yatzy4.png";
   static const yatzy5 = "$generalIconsPath/yatzy5.png";

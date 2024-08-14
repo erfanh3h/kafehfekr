@@ -382,7 +382,7 @@ class YatzyController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.tictactoe;
+    gameType = GameTypes.yatzy;
     myGameId = 2;
     for (var i = 0; i < 12; i++) {
       player1Pieces

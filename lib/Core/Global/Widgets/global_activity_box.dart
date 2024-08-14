@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_button.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:refreshed/refreshed.dart';
@@ -24,10 +25,7 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
           const GlobalActivityButton(
             icon: GeneralIcons.death,
             onTap: FunctionsLibraryClass.surrenderFunction,
-          ),
-          GlobalActivityButton(
-            icon: ReactionIcons().generalIconsPath(5),
-            onTap: controller.showReactionBox,
+            color: AppColors.buttonRed,
           ),
           Obx(
             () => GlobalActivityButton(
@@ -35,7 +33,31 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                   ? GeneralIcons.enableReaction
                   : GeneralIcons.disableReaction,
               onTap: controller.changeShowReactionStatus,
+              color: controller.showReactions.value
+                  ? AppColors.green
+                  : AppColors.redWarmColor,
             ),
+          ),
+          GlobalActivityButton(
+            icon: ReactionIcons().generalIconsPath(5),
+            onTap: controller.showReactionBox,
+            color: AppColors.goldenColor,
+          ),
+          Obx(
+            () => GlobalActivityButton(
+              icon: controller.letPlaySound.value
+                  ? GeneralIcons.soundOn
+                  : GeneralIcons.soundOff,
+              onTap: controller.changeLetPlaySound,
+              color: controller.letPlaySound.value
+                  ? AppColors.green
+                  : AppColors.redWarmColor,
+            ),
+          ),
+          GlobalActivityButton(
+            icon: GeneralIcons.info,
+            onTap: controller.showInfo,
+            color: AppColors.lightBlue,
           ),
         ],
       ),

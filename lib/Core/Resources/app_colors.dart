@@ -47,6 +47,7 @@ class AppColors {
 
   static const playerCanSelected = Color.fromARGB(255, 208, 221, 90);
   static const blueWarmColor = Color.fromARGB(255, 69, 71, 158);
+  static const redWarmColor = Color.fromARGB(255, 163, 45, 65);
 
   static const winColor = Color.fromRGBO(0, 155, 119, 1);
   static const loseColor = Color.fromRGBO(221, 65, 36, 1);
@@ -64,4 +65,6 @@ class AppColors {
   static const darkGreen = Color.fromARGB(255, 22, 112, 58);
 
   static const hitColor = Color.fromARGB(255, 92, 28, 9);
+
+  static const lightBlue = Color.fromARGB(255, 48, 141, 202);
 }

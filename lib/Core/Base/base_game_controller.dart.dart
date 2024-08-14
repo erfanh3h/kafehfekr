@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reactions_box.dart';
@@ -26,6 +27,8 @@ class BaseGameController extends BaseController {
   RxInt player1Score = RxInt(0);
   RxInt player2Score = RxInt(0);
   RxInt currentTurn = RxInt(1);
+
+  RxBool letPlaySound = RxBool(false);
 
   late GameTypes gameType;
 
@@ -265,6 +268,15 @@ class BaseGameController extends BaseController {
 
   void changeShowReactionStatus() {
     showReactions.value = !showReactions.value;
+  }
+
+  void changeLetPlaySound() {
+    letPlaySound.value = !letPlaySound.value;
+    Get.find<SoundPlayerComponent>().changeLetPlayerSound(letPlaySound.value);
+  }
+
+  void showInfo() {
+    print(gameType.name);
   }
 
   @override

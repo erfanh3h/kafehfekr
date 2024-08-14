@@ -23,8 +23,12 @@ class SoundPlayerComponent extends GlobalController {
   final _actionPlayer = AudioPlayer();
   final _musicPlayer = AudioPlayer();
 
+  bool letPlaySound = false;
+
   void playGameSound(GameSoundTypes soundType) {
-    return;
+    if (!letPlaySound) {
+      return;
+    }
     String sound = "";
     switch (soundType) {
       case GameSoundTypes.addPeace:
@@ -76,6 +80,10 @@ class SoundPlayerComponent extends GlobalController {
     _actionPlayer.setAsset(sound).then((_) {
       _actionPlayer.play();
     });
+  }
+
+  changeLetPlayerSound(bool value) {
+    letPlaySound = value;
   }
 
   @override
