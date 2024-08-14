@@ -1,6 +1,5 @@
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Feature/Othello/Controllers/othello_controller.dart';
@@ -36,12 +35,7 @@ class OthelloPage extends BaseView<OthelloController> {
           const Spacer(flex: 3),
           OthelloBoarWidget(controller: controller),
           const Spacer(flex: 4),
-          GlobalActivityBox(
-            surrenderFunction: FunctionsLibraryClass.surrenderFunction,
-            reactionFunction: controller.showReactionBox,
-            changeShowReactionFunction: controller.changeShowReactionStatus,
-            showReaction: controller.showReactions.value,
-          ),
+          GlobalActivityBox<OthelloController>(),
           const Spacer(flex: 1),
         ],
       ),

@@ -1,6 +1,5 @@
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -35,12 +34,7 @@ class MNumbersPage extends BaseView<MNumbersController> {
           const Spacer(flex: 3),
           MNumbersBoardWidget(controller: controller),
           const Spacer(flex: 4),
-          GlobalActivityBox(
-            surrenderFunction: FunctionsLibraryClass.surrenderFunction,
-            reactionFunction: controller.showReactionBox,
-            changeShowReactionFunction: controller.changeShowReactionStatus,
-            showReaction: controller.showReactions.value,
-          ),
+          GlobalActivityBox<MNumbersController>(),
           const Spacer(flex: 1),
         ],
       ),

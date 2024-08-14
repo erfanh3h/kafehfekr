@@ -23,8 +23,8 @@ class GlobalActivityButton extends StatelessWidget {
         ),
         child: Image.asset(
           icon,
-          width: 50,
-          height: 50,
+          width: 45,
+          height: 45,
           color: AppColors.lightColor,
         ),
       ),

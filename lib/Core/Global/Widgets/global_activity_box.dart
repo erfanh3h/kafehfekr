@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_button.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:refreshed/refreshed.dart';
 
-class GlobalActivityBox extends StatelessWidget {
-  const GlobalActivityBox({
+class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
+  GlobalActivityBox({
     super.key,
-    required this.surrenderFunction,
-    required this.reactionFunction,
-    required this.changeShowReactionFunction,
-    required this.showReaction,
   });
 
-  final VoidCallback surrenderFunction;
-  final VoidCallback reactionFunction;
-  final VoidCallback changeShowReactionFunction;
-  final bool showReaction;
+  final T controller = Get.find<T>();
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -25,19 +21,21 @@ class GlobalActivityBox extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          GlobalActivityButton(
+          const GlobalActivityButton(
             icon: GeneralIcons.death,
-            onTap: surrenderFunction,
+            onTap: FunctionsLibraryClass.surrenderFunction,
           ),
           GlobalActivityButton(
             icon: ReactionIcons().generalIconsPath(5),
-            onTap: reactionFunction,
+            onTap: controller.showReactionBox,
           ),
-          GlobalActivityButton(
-            icon: showReaction
-                ? GeneralIcons.enableReaction
-                : GeneralIcons.disableReaction,
-            onTap: changeShowReactionFunction,
+          Obx(
+            () => GlobalActivityButton(
+              icon: controller.showReactions.value
+                  ? GeneralIcons.enableReaction
+                  : GeneralIcons.disableReaction,
+              onTap: controller.changeShowReactionStatus,
+            ),
           ),
         ],
       ),

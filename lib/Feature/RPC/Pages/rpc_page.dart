@@ -1,6 +1,5 @@
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -56,12 +55,7 @@ class RPCPage extends BaseView<RPCController> {
           const Spacer(flex: 3),
           RPCMainWidget(controller: controller),
           const Spacer(flex: 4),
-          GlobalActivityBox(
-            surrenderFunction: FunctionsLibraryClass.surrenderFunction,
-            reactionFunction: controller.showReactionBox,
-            changeShowReactionFunction: controller.changeShowReactionStatus,
-            showReaction: controller.showReactions.value,
-          ),
+          GlobalActivityBox<RPCController>(),
           const Spacer(flex: 1),
         ],
       ),

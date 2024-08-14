@@ -214,6 +214,7 @@ class DialogComponent {
                 child: GlobalButtonWidget(
                   onTap: () {
                     Get.closeAllDialogs();
+                    Get.back();
                   },
                   text: AppTexts.ok.tr,
                   color: iconColor,
