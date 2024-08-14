@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Feature/Checkers/Pages/checkers_page.dart';
 import 'package:kafehfekr/Feature/Chess/Pages/chess_page.dart';
 import 'package:kafehfekr/Feature/DotBox/Pages/dotbox_page.dart';
+import 'package:kafehfekr/Feature/FourInRow/Pages/four_in_row_page.dart';
 import 'package:kafehfekr/Feature/MNumbers/Pages/mnumbers_page.dart';
 import 'package:kafehfekr/Feature/MSweeper/Pages/msweeper_page.dart';
 import 'package:kafehfekr/Feature/Mill/Pages/mill_page.dart';
@@ -69,6 +70,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.yatzy,
       page: YatzyPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.fourInRow,
+      page: FourInRowPage.new,
     ),
   ];
 }

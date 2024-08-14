@@ -20,5 +20,6 @@ enum GameTypes {
   ten,
   othello,
   dotbox,
-  yatzy
+  yatzy,
+  fourInRow
 }

@@ -13,4 +13,5 @@ abstract class AppRoutes {
   static const dotbox = '/dotbox';
   static const chess = '/chess';
   static const yatzy = '/yatzy';
+  static const fourInRow = '/fourInRow';
 }
