@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -17,52 +15,42 @@ class FourInRowPiece extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
-    Color? borderColor;
+    Color backgroundColor = Colors.transparent;
     String? image;
-    double borderSize = 2;
-    double imageScale = 1;
+    double borderSize = 3;
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
         image = GeneralIcons.checkers1;
+        backgroundColor = AppColors.lightColor.withOpacity(.2);
         break;
       case 2:
         imageColor = AppColors.imageBlueColor;
         image = GeneralIcons.checkers1;
+        backgroundColor = AppColors.lightColor.withOpacity(.2);
         break;
       default:
         imageColor = null;
         image = null;
+        backgroundColor = Colors.transparent;
         break;
-    }
-    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      image = GeneralIcons.checkers1;
-      imageColor = AppColors.guideGreen;
-      imageScale = .33;
     }
     return Container(
       padding: AppSpacings.s5All,
       decoration: BoxDecoration(
-        color: (peaceData.id % 2 + peaceData.id ~/ 8) % 2 == 0
-            ? Colors.grey
-            : AppColors.lightColor,
+        color: backgroundColor,
         border: Border.all(
-          color: borderColor ?? AppColors.black,
+          color: AppColors.black,
           width: borderSize,
         ),
         borderRadius: BorderRadius.circular(6),
       ),
-      child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
-          ? const GlobalLoadingWidget()
-          : image != null
-              ? Transform.scale(
-                  scale: imageScale,
-                  child: Image.asset(
-                    image,
-                    color: imageColor,
-                  ),
-                )
-              : Container(),
+      child: image != null
+          ? Image.asset(
+              image,
+              color: imageColor,
+            )
+          : Container(),
     );
   }
 }

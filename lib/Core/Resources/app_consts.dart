@@ -14,6 +14,7 @@ class GameWaitTimes {
   static const int othelloTurnTime = 20;
   static const int dotBoxTurnTime = 15;
   static const int yatzyTurnTime = 60;
+  static const int fourInRowTurnTime = 15;
 }
 
 class FontFamilies {

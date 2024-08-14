@@ -24,7 +24,7 @@ class FourInRowBoardWidget extends StatelessWidget {
             offset: const Offset(0, 25),
             child: Container(
               padding: AppSpacings.s5All,
-              height: 100,
+              height: 70,
               width:
                   (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
               child: Directionality(
@@ -66,9 +66,9 @@ class FourInRowBoardWidget extends StatelessWidget {
                         mainAxisSpacing: 0,
                       ),
                       itemBuilder: (ctx, index) => FourInRowPiece(
-                        peaceData: controller.peaces[index].value,
+                        peaceData: controller.pieces[index].value,
                       ),
-                      itemCount: controller.peaces.length,
+                      itemCount: controller.pieces.length,
                     ),
                   ),
                 ),

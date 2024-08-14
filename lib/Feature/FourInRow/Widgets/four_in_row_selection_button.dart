@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
@@ -29,9 +30,10 @@ class FourInRowSelectionButton extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(6),
         ),
-        child: const Icon(
+        child: Icon(
           Icons.arrow_downward_rounded,
           color: Colors.black,
+          size: 15.r,
         ),
       ),
     );
