@@ -85,8 +85,6 @@ class FourInRowController extends BaseGameController {
     currentTurn.value = gameData['current_turn'];
     player1Pawns.value = gameData['pawns_count'][0];
     player2Pawns.value = gameData['pawns_count'][1];
-    player1Score.value = gameData['scores'][0];
-    player2Score.value = gameData['scores'][1];
     for (var i = 0; i < boardData.length; i++) {
       changePeaceSelectedUser(i, boardData[i]);
     }

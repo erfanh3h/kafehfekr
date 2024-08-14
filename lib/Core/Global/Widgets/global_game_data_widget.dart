@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
@@ -67,6 +69,15 @@ class GlobalGameDataWidget extends StatelessWidget {
                         ),
                       ),
                     ),
+                    if (player1Data.isDisconnected)
+                      Positioned(
+                        bottom: -15,
+                        left: 0,
+                        child: DisconnectTimerWidget(
+                          maxTime: player1Data.disconnectTime,
+                          color: AppColors.imageRedColor,
+                        ),
+                      ),
                     if (player1Number2 != null)
                       Positioned(
                         bottom: -15,
@@ -117,6 +128,15 @@ class GlobalGameDataWidget extends StatelessWidget {
                         ),
                       ),
                     ),
+                    if (player2Data.isDisconnected)
+                      Positioned(
+                        bottom: -15,
+                        right: 0,
+                        child: DisconnectTimerWidget(
+                          maxTime: player2Data.disconnectTime,
+                          color: AppColors.imageBlueColor,
+                        ),
+                      ),
                     if (player2Number2 != null)
                       Positioned(
                         bottom: -15,
@@ -163,6 +183,71 @@ class GlobalGameDataWidget extends StatelessWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class DisconnectTimerWidget extends StatefulWidget {
+  const DisconnectTimerWidget({
+    super.key,
+    required this.maxTime,
+    required this.color,
+  });
+
+  final int maxTime;
+  final Color color;
+
+  @override
+  State<DisconnectTimerWidget> createState() => _DisconnectTimerWidgetState();
+}
+
+class _DisconnectTimerWidgetState extends State<DisconnectTimerWidget> {
+  int maxTime = 0;
+  late Timer? timer;
+  @override
+  void initState() {
+    setState(() {
+      maxTime = widget.maxTime;
+    });
+    timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (Timer timer) {
+        if (maxTime == 0) {
+          timer.cancel();
+        } else {
+          setState(() {
+            maxTime -= 1;
+          });
+        }
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    try {
+      timer!.cancel();
+    } catch (_) {}
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: 15,
+      backgroundColor: widget.color,
+      child: Text(
+        maxTime.toString(),
+        style: const TextStyle(
+          fontSize: 14,
+          color: Colors.white,
+          fontFamily: FontFamilies.dastnevis,
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        textDirection: TextDirection.ltr,
       ),
     );
   }

@@ -185,9 +185,12 @@ class BaseGameController extends BaseController {
   void onUserDisconnectedFunction(Map data) {
     Map newData = data['data'];
     String userId = newData['user_id'];
+    int time = newData['time'];
     for (var i = 0; i < players.length; i++) {
       if (players[i].value.userId == userId) {
-        players[i].value = players[i].value.copyWith(isDisconnected: true);
+        players[i].value = players[i]
+            .value
+            .copyWith(isDisconnected: true, disconnectTime: time);
         break;
         // int maxTime = players[i].value.disconnectTime;
         // while (maxTime >= 0) {
