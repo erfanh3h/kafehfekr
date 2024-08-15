@@ -47,6 +47,7 @@ abstract class GameCommands {
   static const finishGame = "FinishGame";
   static const selectMine = "SelectMine";
   static const solve = "Solve";
+  static const wrongSolve = "WrongSolve";
   static const selectMineCorrect = "SelectMineCorrect";
   static const selectMineWrong = "SelectMineWrong";
   static const mineSelected = "MineSelected";

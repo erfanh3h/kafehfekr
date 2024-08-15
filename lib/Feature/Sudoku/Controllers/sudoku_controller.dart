@@ -13,6 +13,18 @@ class SudokuController extends BaseGameController {
   RxInt selectedNumber = RxInt(1);
 
   @override
+  void commandHandler(dynamic data) {
+    super.commandHandler(data);
+    final commandId = data['id'];
+    switch (commandId) {
+      case GameCommands.wrongSolve:
+        wrongSolveFunction(data);
+        break;
+      default:
+    }
+  }
+
+  @override
   void startGameFunction(Map data) {
     Map pieceData = data['data'];
     List boardData = pieceData['board'];
@@ -22,6 +34,10 @@ class SudokuController extends BaseGameController {
     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startGame);
     canSelectPeace.value = true;
     changetimerValue(GameWaitTimes.sudokuGameTime);
+  }
+
+  void wrongSolveFunction(data) {
+    print("Error Solve");
   }
 
   @override
@@ -124,6 +140,16 @@ class SudokuController extends BaseGameController {
         break;
       }
     }
+  }
+
+  solveFunction() {
+    for (var piece in peaces.value) {
+      if (piece.value.value == 0) {
+        print("not filled !");
+        return;
+      }
+    }
+    sendCommand({"id": GameCommands.solve});
   }
 
   @override
