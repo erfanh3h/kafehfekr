@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Feature/Sudoku/Controllers/sudoku_controller.dart';
 import 'package:kafehfekr/Feature/Sudoku/Widgets/sudoku_board_widget.dart';
+import 'package:kafehfekr/Feature/Sudoku/Widgets/sudoku_select_number.dart';
 
 class SudokuPage extends BaseView<SudokuController> {
   const SudokuPage({super.key});
@@ -32,6 +33,7 @@ class SudokuPage extends BaseView<SudokuController> {
             ),
           const Spacer(flex: 3),
           SudokuBoardWidget(controller: controller),
+          SudokuSelectNumberBox(controller: controller),
           const Spacer(flex: 4),
           Center(
             child: GlobalActivityBox<SudokuController>(),
@@ -42,3 +44,4 @@ class SudokuPage extends BaseView<SudokuController> {
     );
   }
 }
+

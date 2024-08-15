@@ -38,81 +38,84 @@ class SudokuBoardWidget extends StatelessWidget {
         child: Card(
           child: Padding(
             padding: AppSpacings.s10All,
-            child: Column(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SudokuBoardPartWidget(
-                          controller: controller,
-                          indexes: indexes[0],
+            child: Directionality(
+              textDirection: TextDirection.ltr,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SudokuBoardPartWidget(
+                            controller: controller,
+                            indexes: indexes[0],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: SudokuBoardPartWidget(
-                          controller: controller,
-                          indexes: indexes[1],
+                        Expanded(
+                          child: SudokuBoardPartWidget(
+                            controller: controller,
+                            indexes: indexes[1],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: SudokuBoardPartWidget(
-                          controller: controller,
-                          indexes: indexes[1],
+                        Expanded(
+                          child: SudokuBoardPartWidget(
+                            controller: controller,
+                            indexes: indexes[2],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SudokuBoardPartWidget(
-                          controller: controller,
-                          indexes: indexes[3],
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SudokuBoardPartWidget(
+                            controller: controller,
+                            indexes: indexes[3],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: SudokuBoardPartWidget(
-                          controller: controller,
-                          indexes: indexes[4],
+                        Expanded(
+                          child: SudokuBoardPartWidget(
+                            controller: controller,
+                            indexes: indexes[4],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: SudokuBoardPartWidget(
-                          controller: controller,
-                          indexes: indexes[5],
+                        Expanded(
+                          child: SudokuBoardPartWidget(
+                            controller: controller,
+                            indexes: indexes[5],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: SudokuBoardPartWidget(
-                          controller: controller,
-                          indexes: indexes[6],
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SudokuBoardPartWidget(
+                            controller: controller,
+                            indexes: indexes[6],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: SudokuBoardPartWidget(
-                          controller: controller,
-                          indexes: indexes[7],
+                        Expanded(
+                          child: SudokuBoardPartWidget(
+                            controller: controller,
+                            indexes: indexes[7],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: SudokuBoardPartWidget(
-                          controller: controller,
-                          indexes: indexes[8],
+                        Expanded(
+                          child: SudokuBoardPartWidget(
+                            controller: controller,
+                            indexes: indexes[8],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

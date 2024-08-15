@@ -10,6 +10,8 @@ import 'package:refreshed/refreshed.dart';
 class SudokuController extends BaseGameController {
   RxList<Rx<SudokuPeaceModel>> peaces = RxList();
 
+  RxInt selectedNumber = RxInt(1);
+
   @override
   void startGameFunction(Map data) {
     Map pieceData = data['data'];
@@ -30,9 +32,9 @@ class SudokuController extends BaseGameController {
   @override
   void selectPeaceResult(Map data) {
     Map peaceData = data['data'];
-    int peaceId = peaceData['peace_number'];
+    int peaceId = peaceData['piece_id'];
     peaces.value[peaceId].value =
-        peaces.value[peaceId].value.changeValue(newValue: peaceData["value"]);
+        peaces.value[peaceId].value.changeValue(newValue: peaceData["number"]);
     addPeaceStatus(peaceId, PeaceStatusTypes.selected);
     removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
   }
@@ -66,17 +68,36 @@ class SudokuController extends BaseGameController {
   @override
   void onEachButtonTap(dynamic tappedPeace) {
     SudokuPeaceModel peace = tappedPeace as SudokuPeaceModel;
-    if (!canSelectPeace.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-      return;
-    }
+    // if (!canSelectPeace.value) {
+    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+    //   return;
+    // }
     if (peace.isBaseNumber) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
-    sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-    addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+    if (selectedNumber.value == peace.value || selectedNumber.value == 0) {
+      sendCommand({"id": GameCommands.removePeace, "piece_id": peace.id});
+      changePeaceValue(peace.id, 0);
+      // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+    } else {
+      sendCommand({
+        "id": GameCommands.selectPeace,
+        "piece_id": peace.id,
+        "number": selectedNumber.value,
+      });
+      changePeaceValue(peace.id, selectedNumber.value);
+      // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+    }
+  }
+
+  changeSelectedNumber(int number) {
+    if (number == selectedNumber.value) {
+      selectedNumber.value = 0;
+    } else {
+      selectedNumber.value = number;
+    }
   }
 
   void resetPeaces() {
@@ -88,6 +109,11 @@ class SudokuController extends BaseGameController {
   addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
+  }
+
+  changePeaceValue(int peaceId, int number) {
+    peaces.value[peaceId].value =
+        peaces.value[peaceId].value.changeValue(newValue: number);
   }
 
   removePeaceStatus(int? peaceId, PeaceStatusTypes status) {

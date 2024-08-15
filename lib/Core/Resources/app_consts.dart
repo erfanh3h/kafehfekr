@@ -34,6 +34,7 @@ abstract class GameCommands {
   static const selectPeace = "SelectPeace";
   static const selectPeaceResult = "SelectPeaceResult";
   static const swapPeace = "SwapPeace";
+  static const removePeace = "RemovePeace";
   static const selectRemovePeace = "SelectRemovePeace";
   static const peaceSelected = "PeaceSelected";
   static const peaceSwaped = "PeaceSwaped";
