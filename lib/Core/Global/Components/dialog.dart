@@ -7,6 +7,7 @@ import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
+import 'package:toastification/toastification.dart';
 
 class DialogComponent {
   void showDialog(String title, String message) {
@@ -325,6 +326,27 @@ class DialogComponent {
           ),
         ),
       ),
+    );
+  }
+
+  void showToast({required String label, double? fontSize}) {
+    toastification.show(
+      title: Text(
+        label,
+        style: TextStyle(
+          fontFamily: FontFamilies.dastnevis,
+          fontSize: fontSize ?? 25,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      autoCloseDuration: const Duration(seconds: 3),
+      alignment: Alignment.bottomCenter,
+      style: ToastificationStyle.flat,
+      primaryColor: AppColors.lightColor,
+      foregroundColor: AppColors.darkColor,
+      showIcon: false,
+      showProgressBar: false,
+      closeButtonShowType: CloseButtonShowType.none,
     );
   }
 }

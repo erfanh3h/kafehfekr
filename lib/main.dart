@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:refreshed/refreshed.dart';
+import 'package:toastification/toastification.dart';
 
 import 'Core/Global/Pages/splash.dart';
 import 'Core/Resources/app_translates.dart';
@@ -20,26 +21,28 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: (context, child) => GetMaterialApp(
-        title: '10Fact',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        localizationsDelegates: const [
-          GlobalCupertinoLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale("fa", "IR"), // OR Locale('ar', 'AE') OR Other RTL locales
-          Locale("en", "US"),
-        ],
-        locale: const Locale("fa", "IR"), //
-        getPages: AppPages.pages,
-        home: const SplashPage(),
-        themeMode: ThemeMode.light,
-        translations: AppTranslations(),
-        defaultTransition: Transition.fadeIn,
+      builder: (context, child) => ToastificationWrapper(
+        child: GetMaterialApp(
+          title: '10Fact',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          localizationsDelegates: const [
+            GlobalCupertinoLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale("fa", "IR"), // OR Locale('ar', 'AE') OR Other RTL locales
+            Locale("en", "US"),
+          ],
+          locale: const Locale("fa", "IR"), //
+          getPages: AppPages.pages,
+          home: const SplashPage(),
+          themeMode: ThemeMode.light,
+          translations: AppTranslations(),
+          defaultTransition: Transition.fadeIn,
+        ),
       ),
     );
   }

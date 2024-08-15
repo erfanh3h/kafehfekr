@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
+import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -198,7 +199,7 @@ class YatzyController extends BaseGameController {
   }
 
   void onEachRowTap(int index) {
-    print(index);
+    DialogComponent().showToast(label: index.toString());
   }
 
   setFirstEmptyIndex() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
+import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -145,7 +146,8 @@ class SudokuController extends BaseGameController {
   solveFunction() {
     for (var piece in peaces.value) {
       if (piece.value.value == 0) {
-        print("not filled !");
+        DialogComponent().showToast(label: "همه ی خانه هارا پر کنید");
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
         return;
       }
     }
