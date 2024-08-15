@@ -4,45 +4,22 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Feature/MSweeper/Models/enums.dart';
-import 'package:kafehfekr/Feature/MSweeper/Models/msweeper_peace_model.dart';
 import 'package:kafehfekr/Feature/Sudoku/Models/sudoku_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class SudokuController extends BaseGameController {
   RxList<Rx<SudokuPeaceModel>> peaces = RxList();
 
-  RxBool canSelectMine = RxBool(false);
-
-  RxInt selectPeaceRemainingCount = RxInt(54);
-  RxInt selectMineRemainingCount = RxInt(10);
-
-  RxBool isBombHitted = RxBool(false);
-
-  @override
-  void commandHandler(dynamic data) {
-    super.commandHandler(data);
-    final commandId = data['id'];
-    switch (commandId) {
-      case GameCommands.mineSelected:
-        mineSelectedFunction(data);
-        break;
-      case GameCommands.selectMineCorrect:
-        selectMineCorrectFuntion(data);
-        break;
-      case GameCommands.selectMineWrong:
-        selectMineWrongFunction(data);
-        break;
-      default:
-    }
-  }
-
   @override
   void startGameFunction(Map data) {
+    Map pieceData = data['data'];
+    List boardData = pieceData['board'];
+    for (var i = 0; i < boardData.length; i++) {
+      peaces[i].value = SudokuPeaceModel.fromJson(boardData[i], i);
+    }
     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startGame);
     canSelectPeace.value = true;
-    canSelectMine.value = true;
-    changetimerValue(GameWaitTimes.msweeperGameTime);
+    changetimerValue(GameWaitTimes.sudokuGameTime);
   }
 
   @override
@@ -58,10 +35,6 @@ class SudokuController extends BaseGameController {
         peaces.value[peaceId].value.changeValue(newValue: peaceData["value"]);
     addPeaceStatus(peaceId, PeaceStatusTypes.selected);
     removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-    selectPeaceRemainingCount.value -= 1;
-    if (selectPeaceRemainingCount.value == 0) {
-      canSelectPeace.value = false;
-    }
   }
 
   @override
@@ -83,103 +56,27 @@ class SudokuController extends BaseGameController {
     Map gameData = newData['game_data'];
     Map timerData = newData['timer_data'];
     List boardData = gameData['board'];
-    player1Score.value = gameData['scores'][0];
-    player2Score.value = gameData['scores'][1];
-    selectPeaceRemainingCount.value = gameData["remaining_selectable_peaces"];
-    selectMineRemainingCount.value = gameData["remaining_selectable_mines"];
-    if (selectMineRemainingCount.value > 0) {
-      canSelectMine.value = true;
-    }
-    if (selectPeaceRemainingCount.value > 0) {
-      canSelectPeace.value = true;
-    }
     for (var i = 0; i < boardData.length; i++) {
       peaces[i].value = SudokuPeaceModel.fromJson(boardData[i], i);
     }
-    final int time = GameWaitTimes.msweeperGameTime - timerData['time'] as int;
+    final int time = GameWaitTimes.sudokuGameTime - timerData['time'] as int;
     changetimerValue(time.clamp(0, time));
   }
 
   @override
   void onEachButtonTap(dynamic tappedPeace) {
-    MSweeperPeaceModel peace = tappedPeace as MSweeperPeaceModel;
+    SudokuPeaceModel peace = tappedPeace as SudokuPeaceModel;
     if (!canSelectPeace.value) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
-    if (!canSelectMine.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-      return;
-    }
-    if (peace.value != null ||
-        peace.sweeperStatuses.contains(
-          MineSweeperStatusTypes.isMine,
-        ) ||
-        peace.sweeperStatuses.contains(
-          MineSweeperStatusTypes.isWronglySelectedAsMine,
-        )) {
+    if (peace.isBaseNumber) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
     }
     sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-  }
-
-  void onEachButtonHold(MSweeperPeaceModel peace) {
-    if (!canSelectMine.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-      return;
-    }
-    if (peace.value != null ||
-        peace.currentStatuses.contains(PeaceStatusTypes.selected)) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-      return;
-    }
-    sendCommand({"id": GameCommands.selectMine, "data": peace.id});
-    addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-  }
-
-  void mineSelectedFunction(Map data) {
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.explode);
-    Map peaceData = data['data'];
-    int peaceId = peaceData['peace_number'];
-    addSweeperPeaceStatus(peaceId, MineSweeperStatusTypes.isExplodedMine);
-    addSweeperPeaceStatus(peaceId, MineSweeperStatusTypes.isMine);
-    removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-    selectPeaceRemainingCount.value = 0;
-    selectMineRemainingCount.value = 0;
-    canSelectPeace.value = false;
-    canSelectMine.value = false;
-    isBombHitted.value = true;
-  }
-
-  void selectMineCorrectFuntion(Map data) {
-    Map peaceData = data['data'];
-    int peaceId = peaceData['peace_number'];
-    addSweeperPeaceStatus(
-        peaceId, MineSweeperStatusTypes.isCorrectlySelectedAsMine);
-    addSweeperPeaceStatus(peaceId, MineSweeperStatusTypes.isMine);
-    removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-    addPeaceStatus(peaceId, PeaceStatusTypes.selected);
-    selectMineRemainingCount.value -= 1;
-    if (selectMineRemainingCount.value == 0) {
-      canSelectMine.value = false;
-    }
-  }
-
-  void selectMineWrongFunction(Map data) {
-    Map peaceData = data['data'];
-    int peaceId = peaceData['peace_number'];
-    addSweeperPeaceStatus(
-        peaceId, MineSweeperStatusTypes.isWronglySelectedAsMine);
-    removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-    addPeaceStatus(peaceId, PeaceStatusTypes.selected);
-    selectMineRemainingCount.value -= 1;
-    if (selectMineRemainingCount.value == 0) {
-      canSelectMine.value = false;
-    }
   }
 
   void resetPeaces() {
@@ -191,11 +88,6 @@ class SudokuController extends BaseGameController {
   addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
-  }
-
-  addSweeperPeaceStatus(int peaceId, MineSweeperStatusTypes status) {
-    peaces.value[peaceId].value =
-        peaces.value[peaceId].value.addSweeperStatus(newStatus: status);
   }
 
   removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
@@ -211,14 +103,13 @@ class SudokuController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.msweeper;
-    for (var i = 0; i < 64; i++) {
+    gameType = GameTypes.sudoku;
+    for (var i = 0; i < 81; i++) {
       peaces.add(
         Rx(
           SudokuPeaceModel(
             id: i,
             currentStatuses: [],
-            sweeperStatuses: [],
           ),
         ),
       );
