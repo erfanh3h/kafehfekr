@@ -21,5 +21,6 @@ enum GameTypes {
   othello,
   dotbox,
   yatzy,
-  fourInRow
+  fourInRow,
+  sudoku
 }

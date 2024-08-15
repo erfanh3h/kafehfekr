@@ -10,6 +10,7 @@ import 'package:kafehfekr/Feature/MSweeper/Core/msweeper_binding.dart';
 import 'package:kafehfekr/Feature/Mill/Core/mill_binding.dart';
 import 'package:kafehfekr/Feature/Othello/Core/othello_binding.dart';
 import 'package:kafehfekr/Feature/RPC/Core/rpc_binding.dart';
+import 'package:kafehfekr/Feature/Sudoku/Core/sudoku_binding.dart';
 import 'package:kafehfekr/Feature/Ten/Core/ten_binding.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Core/tictactoe_binding.dart';
 import 'package:kafehfekr/Feature/Yatzy/Core/yatzy_binding.dart';
@@ -33,6 +34,7 @@ class GlobalBinding implements BindingsInterface {
         ChessBinding().dependencies(),
         YatzyBinding().dependencies(),
         FourInRowBinding().dependencies(),
+        SudokuBinding().dependencies(),
         Get.lazyPut<TimerCompanent>(TimerCompanent.new, fenix: true),
         Get.lazyPut<SoundPlayerComponent>(
           SoundPlayerComponent.new,

@@ -11,6 +11,7 @@ import 'package:kafehfekr/Feature/MSweeper/Pages/msweeper_page.dart';
 import 'package:kafehfekr/Feature/Mill/Pages/mill_page.dart';
 import 'package:kafehfekr/Feature/Othello/Pages/othello_page.dart';
 import 'package:kafehfekr/Feature/RPC/Pages/rpc_page.dart';
+import 'package:kafehfekr/Feature/Sudoku/Pages/sudoku_page.dart';
 import 'package:kafehfekr/Feature/Ten/Pages/ten_page.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Pages/tictactoe_page.dart';
 import 'package:kafehfekr/Feature/Yatzy/Pages/yatzy_page.dart';
@@ -74,6 +75,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.fourInRow,
       page: FourInRowPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.sudoku,
+      page: SudokuPage.new,
     ),
   ];
 }
