@@ -38,6 +38,7 @@ class AppTranslations extends Translations {
           AppTexts.yatzy: 'یاتزی',
           AppTexts.fourInRow: 'چهارتایی',
           AppTexts.sudoku: 'سودوکو',
+          AppTexts.battleship: 'نبردکشتی',
         },
         'en': {
           AppTexts.endGame: 'Game Finished',
@@ -70,6 +71,7 @@ class AppTranslations extends Translations {
           AppTexts.yatzy: 'Yatzy',
           AppTexts.fourInRow: 'Four-In-Row',
           AppTexts.sudoku: 'Sudoku',
+          AppTexts.battleship: 'BattleShip',
         },
       };
 }
