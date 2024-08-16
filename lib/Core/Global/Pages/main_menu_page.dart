@@ -56,7 +56,7 @@ class MainMenuPage extends BaseView<GlobalController> {
                 onTap: () {
                   Get.toNamed('/${GameTypes.values[index].name}');
                 },
-                text: GameTypes.values[index].name,
+                text: GameTypes.values[index].name.tr,
                 color: Colors.transparent.withOpacity(.5),
                 fontColor: AppColors.lightColor,
               ),

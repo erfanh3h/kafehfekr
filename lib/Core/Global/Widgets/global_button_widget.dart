@@ -39,9 +39,10 @@ class GlobalButtonWidget extends StatelessWidget {
               fontSize: 18,
               foreground: Paint()
                 ..strokeWidth = 1
-                ..color = fontColor ?? Colors.white
+                ..color = fontColor ?? AppColors.lightColor
                 ..style = PaintingStyle.stroke,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
       ),

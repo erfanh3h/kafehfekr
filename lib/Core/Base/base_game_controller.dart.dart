@@ -3,6 +3,7 @@ import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reactions_box.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -279,7 +280,10 @@ class BaseGameController extends BaseController {
   }
 
   void showInfo() {
-    print(gameType.name);
+    Get.bottomSheet(
+      GlobalGameGuideWidget(gameType: gameType),
+      backgroundColor: AppColors.lightColor,
+    );
   }
 
   @override
