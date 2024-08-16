@@ -12,6 +12,7 @@ class BattleShipPage extends BaseView<BattleShipController> {
   @override
   Widget body(BuildContext context) {
     return Container(
+      width: double.maxFinite,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(AppImages.background1),

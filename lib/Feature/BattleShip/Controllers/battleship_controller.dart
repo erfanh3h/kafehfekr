@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:function_tree/function_tree.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
@@ -7,14 +6,14 @@ import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Feature/BattleShip/Models/battleship_prepration_peace_model.dart';
+import 'package:kafehfekr/Feature/BattleShip/Models/ship_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class BattleShipController extends BaseGameController {
-  RxList<RxString> operators = RxList();
-  RxList<RxInt> numbers = RxList();
-
-  RxList<RxString> operatorValues = RxList();
   RxList<RxInt> numberValues = RxList();
+
+  RxList<Rx<BattleShipPreprationPeaceModel>> pieces = RxList();
 
   int maxRound = GameRoundCounts.tenRoundCount;
 
@@ -23,11 +22,12 @@ class BattleShipController extends BaseGameController {
 
   List<int> currentNumbers = [];
 
+  List<Rx<ShipModel>> ships = [];
+
   @override
   void currentTurnFunction(Map data) {
     List<int> listNumbers = List<int>.from(data['data']);
     currentNumbers = listNumbers;
-    setNumbers();
     Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
     changetimerValue(GameWaitTimes.tenRoundTime);
   }
@@ -53,17 +53,6 @@ class BattleShipController extends BaseGameController {
     changetimerValue(GameWaitTimes.tenSleepRoundTime);
   }
 
-  bool checkOperatorsHaveValue(String value) {
-    bool result = false;
-    for (var dataRaw in operatorValues) {
-      if (dataRaw.value.contains(value)) {
-        result = true;
-        break;
-      }
-    }
-    return result;
-  }
-
   @override
   void reconnectDataFuntcion(Map data) {
     super.reconnectDataFuntcion(data);
@@ -72,7 +61,6 @@ class BattleShipController extends BaseGameController {
     Map timerData = newData['timer_data'];
     List<int> listNumbers = List<int>.from(gameData['current_numbers']);
     currentNumbers = listNumbers;
-    setNumbers();
     currentRound.value = gameData['current_round'];
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
@@ -83,48 +71,6 @@ class BattleShipController extends BaseGameController {
   @override
   Color returnTimerColor() {
     return AppColors.darkColor;
-  }
-
-  onOperatorRemove(int index) {
-    operatorValues[index].value = "";
-    calculateResult();
-  }
-
-  onOperatorAccept(String value, int index) {
-    if (index == 4 && value != ')') {
-      return;
-    }
-    if (index == 0 && value != '(' && value != '-') {
-      return;
-    }
-    if (value == ')') {
-      if (!checkOperatorsHaveValue(value)) {
-        operatorValues[index].value = value;
-      }
-    } else if (value == '(') {
-      if (!checkOperatorsHaveValue(value)) {
-        operatorValues[index].value = value;
-      }
-    } else if (value == 'x' || value == '÷') {
-      if (index != 0 && index != 4) {
-        if (operatorValues[index].value == ')') {
-          operatorValues[index].value = ')$value';
-        } else if (operatorValues[index].value == '(') {
-          operatorValues[index].value = '$value(';
-        } else {
-          operatorValues[index].value = value;
-        }
-      }
-    } else {
-      if (operatorValues[index].value == ')') {
-        operatorValues[index].value = ')$value';
-      } else if (operatorValues[index].value == '(') {
-        operatorValues[index].value = '$value(';
-      } else {
-        operatorValues[index].value = value;
-      }
-    }
-    calculateResult();
   }
 
   bool checkRepeatedNumberCanEnter(int number) {
@@ -160,133 +106,55 @@ class BattleShipController extends BaseGameController {
     return result;
   }
 
-  onNumberRemove(int index) {
+  onShipRemove(int index) {
     numberValues[index].value = -1;
-    calculateResult();
   }
 
-  onNumberAccept(int value, int index) {
-    if (!checkNumbersHaveValue(value)) {
-      numberValues[index].value = value;
-    }
-    calculateResult();
+  onPositionAccept(int index, ShipModel ship) {
+    print(index);
   }
 
-  String calculateExpression() {
-    String expression = "";
-    if (operatorValues[0].value != "") {
-      expression +=
-          operatorValues[0].value.replaceAll("x", "*").replaceAll('÷', "/");
-    }
-    if (numberValues[0].value != -1) {
-      expression += numberValues[0].value.toString();
-    }
-    if (operatorValues[1].value != "") {
-      expression +=
-          operatorValues[1].value.replaceAll("x", "*").replaceAll('÷', "/");
-    } else {
-      return expression;
-    }
-    if (numberValues[1].value != -1) {
-      expression += numberValues[1].value.toString();
-    }
-    if (operatorValues[2].value != "") {
-      expression +=
-          operatorValues[2].value.replaceAll("x", "*").replaceAll('÷', "/");
-    } else {
-      return expression;
-    }
-    if (numberValues[2].value != -1) {
-      expression += numberValues[2].value.toString();
-    }
-    if (operatorValues[3].value != "") {
-      expression +=
-          operatorValues[3].value.replaceAll("x", "*").replaceAll('÷', "/");
-    } else {
-      return expression;
-    }
-    if (numberValues[3].value != -1) {
-      expression += numberValues[3].value.toString();
-    }
-    if (operatorValues[4].value != "") {
-      expression +=
-          operatorValues[4].value.replaceAll("x", "*").replaceAll('÷', "/");
-    }
-    return expression;
-  }
-
-  calculateResult() {
-    final String expression = calculateExpression();
-    try {
-      result.value = expression.interpret().toDouble();
-    } catch (_) {}
-    for (var dataRaw in numberValues) {
-      if (dataRaw.value == -1) {
-        letSendResult.value = false;
-        return;
+  int getShipIdOfPiece(int pieceId) {
+    for (var ship in ships) {
+      if (ship.value.positions.contains(pieceId)) {
+        return ship.value.id;
       }
     }
-    if (result.value == 10) {
-      letSendResult.value = true;
-    } else {
-      letSendResult.value = false;
-    }
+    return 0;
   }
 
   sendResult() {
     if (!letSendResult.value) {
       return;
     }
-    sendCommand({"id": GameCommands.solve});
+    // sendCommand({"id": GameCommands.solve});
   }
 
   void resetValues() {
-    for (var i = 0; i < operatorValues.length; i++) {
-      operatorValues[i].value = "";
+    // for (var i = 0; i < operatorValues.length; i++) {
+    //   operatorValues[i].value = "";
+    // }
+    // for (var i = 0; i < numberValues.length; i++) {
+    //   numberValues[i].value = -1;
+    // }
+    // result.value = 0;
+  }
+
+  initPieces() {
+    ships.add(Rx(ShipModel(id: 1, length: 5, positions: [0, 8, 16, 24, 32])));
+    ships.add(Rx(ShipModel(id: 2, length: 4, positions: [1, 9, 17, 25])));
+    ships.add(Rx(ShipModel(id: 3, length: 3, positions: [2, 10, 18])));
+    ships.add(Rx(ShipModel(id: 4, length: 2, positions: [3, 11])));
+    for (var i = 0; i < 64; i++) {
+      pieces
+          .add(Rx(BattleShipPreprationPeaceModel(id: i, currentStatuses: [])));
     }
-    for (var i = 0; i < numberValues.length; i++) {
-      numberValues[i].value = -1;
-    }
-    result.value = 0;
-  }
-
-  setNumbers() {
-    numbers[0].value = currentNumbers[0];
-    numbers[1].value = currentNumbers[1];
-    numbers[2].value = currentNumbers[2];
-    numbers[3].value = currentNumbers[3];
-  }
-
-  addOperators() {
-    operators.add(RxString('('));
-    operators.add(RxString('+'));
-    operators.add(RxString('-'));
-    operators.add(RxString('x'));
-    operators.add(RxString('÷'));
-    operators.add(RxString(')'));
-    operatorValues.add(RxString(''));
-    operatorValues.add(RxString(''));
-    operatorValues.add(RxString(''));
-    operatorValues.add(RxString(''));
-    operatorValues.add(RxString(''));
-  }
-
-  addNumbers() {
-    numbers.add(RxInt(-1));
-    numbers.add(RxInt(-1));
-    numbers.add(RxInt(-1));
-    numbers.add(RxInt(-1));
-    numberValues.add(RxInt(-1));
-    numberValues.add(RxInt(-1));
-    numberValues.add(RxInt(-1));
-    numberValues.add(RxInt(-1));
   }
 
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.ten;
-    addOperators();
-    addNumbers();
+    gameType = GameTypes.battleship;
+    initPieces();
   }
 }

@@ -15,4 +15,5 @@ abstract class AppRoutes {
   static const yatzy = '/yatzy';
   static const fourInRow = '/fourInRow';
   static const sudoku = '/sudoku';
+  static const battleship = '/battleship';
 }
