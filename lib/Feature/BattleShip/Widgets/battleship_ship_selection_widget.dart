@@ -4,22 +4,26 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/BattleShip/Models/ship_model.dart';
 
-import 'dart:math' as math;
-
 class BattleShipShipSelectionWidget extends StatelessWidget {
   const BattleShipShipSelectionWidget({
     super.key,
     required this.ship,
     required this.isSelected,
     required this.onTap,
+    required this.onHold,
   });
 
   final ShipModel ship;
   final bool isSelected;
   final Function(ShipModel) onTap;
+  final Function(ShipModel) onHold;
 
   @override
   Widget build(BuildContext context) {
+    bool isVertical = true;
+    if (ship.direction == (0, 1)) {
+      isVertical = false;
+    }
     double heightSize = 0;
     double widthSize = 15;
     heightSize += (ship.length * 25);
@@ -33,23 +37,19 @@ class BattleShipShipSelectionWidget extends StatelessWidget {
             fontSize: 21,
           ),
         ),
-        Transform.rotate(
-          angle: 2 * math.pi / 2,
-          child: InkWell(
-            onTap: () => onTap(ship),
-            child: Card(
-              color: isSelected ? Colors.white : null,
-              child: Container(
-                height: heightSize,
-                padding: AppSpacings.s5All,
-                child: Container(
-                  width: widthSize,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: AppColors.goldenColor,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
+        InkWell(
+          onTap: () => onTap(ship),
+          onLongPress: () => onHold(ship),
+          child: Card(
+            color: isSelected ? Colors.white : null,
+            child: Container(
+              height: isVertical ? heightSize : widthSize,
+              padding: AppSpacings.s5All,
+              margin: AppSpacings.s5All,
+              width: !isVertical ? heightSize : widthSize,
+              decoration: BoxDecoration(
+                color: AppColors.goldenColor,
+                borderRadius: BorderRadius.circular(15),
               ),
             ),
           ),

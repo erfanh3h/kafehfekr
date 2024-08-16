@@ -31,7 +31,22 @@ class ShipModel {
     this.isLocationSet = false,
   });
 
-  ShipModel changeDirection((int, int) newDirection) {
+  ShipModel rotate() {
+    (int, int) newDirection = direction;
+    // if (direction == (1, 0)) {
+    //   newDirection = (0, -1);
+    // } else if (direction == (0, -1)) {
+    //   newDirection = (-1, 0);
+    // } else if (direction == (-1, 0)) {
+    //   newDirection = (0, 1);
+    // } else if (direction == (0, 1)) {
+    //   newDirection = (1, 0);
+    // }
+    if (direction == (1, 0)) {
+      newDirection = (0, 1);
+    } else if (direction == (0, 1)) {
+      newDirection = (1, 0);
+    }
     return ShipModel(
       id: id,
       length: length,
@@ -52,7 +67,6 @@ class ShipModel {
   }
 
   ShipModel changePositions(List<int> newPositions) {
-    
     return ShipModel(
       id: id,
       length: length,

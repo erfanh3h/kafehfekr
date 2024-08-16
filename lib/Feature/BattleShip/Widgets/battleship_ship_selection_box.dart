@@ -24,7 +24,8 @@ class BattleShipShipSelectionBox extends StatelessWidget {
               () => BattleShipShipSelectionWidget(
                 ship: controller.ships[i].value,
                 isSelected: controller.selectedShip.value == i,
-                onTap: controller.onTapSElectionShip,
+                onTap: controller.onTapSelectionShip,
+                onHold: controller.onRotateShip,
               ),
             ),
         ],

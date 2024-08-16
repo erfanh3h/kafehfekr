@@ -166,8 +166,13 @@ class BattleShipController extends BaseGameController {
     return 0;
   }
 
-  void onTapSElectionShip(ShipModel ship) {
+  void onTapSelectionShip(ShipModel ship) {
     selectedShip.value = ship.id;
+  }
+
+  void onRotateShip(ShipModel ship) {
+    onRemoveShip(ship);
+    ships[ship.id].value = ships[ship.id].value.rotate();
   }
 
   sendResult() {
