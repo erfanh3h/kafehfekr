@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/Sudoku/Models/sudoku_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -38,7 +39,7 @@ class SudokuController extends BaseGameController {
   }
 
   void wrongSolveFunction(data) {
-    print("Error Solve");
+    DialogComponent().showDialog(AppTexts.error.tr, AppTexts.errorSolve.tr);
   }
 
   @override
@@ -85,10 +86,6 @@ class SudokuController extends BaseGameController {
   @override
   void onEachButtonTap(dynamic tappedPeace) {
     SudokuPeaceModel peace = tappedPeace as SudokuPeaceModel;
-    // if (!canSelectPeace.value) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
-    // }
     if (peace.isBaseNumber) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
       return;
@@ -146,7 +143,7 @@ class SudokuController extends BaseGameController {
   solveFunction() {
     for (var piece in peaces.value) {
       if (piece.value.value == 0) {
-        DialogComponent().showToast(label: "همه ی خانه هارا پر کنید");
+        DialogComponent().showToast(label: AppTexts.fillAllPieces.tr);
         Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
         return;
       }

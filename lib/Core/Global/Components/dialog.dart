@@ -16,7 +16,7 @@ class DialogComponent {
       Dialog(
         backgroundColor: Colors.transparent,
         child: Container(
-          padding: AppSpacings.s20All,
+          padding: AppSpacings.s5All,
           decoration: BoxDecoration(
             color: AppColors.lightColor,
             borderRadius: BorderRadius.circular(20),
@@ -28,7 +28,13 @@ class DialogComponent {
               Center(
                 child: Text(
                   title,
-                  style: const TextStyle(fontSize: 12),
+                  style: TextStyle(
+                    fontSize: 13,
+                    foreground: Paint()
+                      ..strokeWidth = 1.5
+                      ..color = Colors.black
+                      ..style = PaintingStyle.stroke,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -37,7 +43,13 @@ class DialogComponent {
               Center(
                 child: Text(
                   message,
-                  style: const TextStyle(fontSize: 20),
+                  style: TextStyle(
+                    fontSize: 22,
+                    foreground: Paint()
+                      ..strokeWidth = 1.5
+                      ..color = Colors.black
+                      ..style = PaintingStyle.stroke,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -329,7 +341,12 @@ class DialogComponent {
     );
   }
 
-  void showToast({required String label, double? fontSize}) {
+  void showToast({
+    required String label,
+    double? fontSize,
+    Color? backgroundColor,
+    Color? foregroundColor,
+  }) {
     toastification.show(
       title: Text(
         label,
@@ -342,8 +359,8 @@ class DialogComponent {
       autoCloseDuration: const Duration(seconds: 3),
       alignment: Alignment.bottomCenter,
       style: ToastificationStyle.flat,
-      primaryColor: AppColors.lightColor,
-      foregroundColor: AppColors.darkColor,
+      primaryColor: backgroundColor ?? AppColors.lightColor,
+      foregroundColor: foregroundColor ?? AppColors.darkColor,
       showIcon: false,
       showProgressBar: false,
       closeButtonShowType: CloseButtonShowType.none,
