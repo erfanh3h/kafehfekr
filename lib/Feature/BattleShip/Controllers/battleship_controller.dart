@@ -24,6 +24,8 @@ class BattleShipController extends BaseGameController {
 
   List<Rx<ShipModel>> ships = [];
 
+  RxInt selectedShip = RxInt(0);
+
   @override
   void currentTurnFunction(Map data) {
     List<int> listNumbers = List<int>.from(data['data']);
@@ -106,12 +108,53 @@ class BattleShipController extends BaseGameController {
     return result;
   }
 
-  onShipRemove(int index) {
-    numberValues[index].value = -1;
+  // onShipRemove(int index) {
+  //   numberValues[index].value = -1;
+  // }
+
+  List<int> getNewPositions(int newIndex, ShipModel pieceData) {
+    List<int> newPositions = [];
+    (int, int) newPosition = indexToCoordinate(newIndex);
+    for (var i = 0; i < pieceData.length; i++) {
+      int col = newPosition.$1 + (pieceData.direction.$1 * i);
+      int row = newPosition.$2 + (pieceData.direction.$2 * i);
+      if (!isValidPosition(col, row)) {
+        return [];
+      }
+      newPositions.add(coordinateToIndex((col, row)));
+    }
+    return newPositions;
   }
 
-  onPositionAccept(int index, ShipModel ship) {
-    print(index);
+  checkPositionsAreEmpty(List<int> newPositions) {
+    List<int> positions = [];
+    for (var ship in ships) {
+      positions.addAll(ship.value.positions);
+    }
+    for (var position in newPositions) {
+      if (positions.contains(position)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  onPositionAccept(int index) {
+    List<int> newPositions =
+        getNewPositions(index, ships[selectedShip.value].value);
+    if (newPositions.isNotEmpty && checkPositionsAreEmpty(newPositions)) {
+      ships[selectedShip.value].value =
+          ships[selectedShip.value].value.changePositions(newPositions);
+      ships[selectedShip.value].value =
+          ships[selectedShip.value].value.changeIsLocationSet(true);
+    } else {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+    }
+  }
+
+  onRemoveShip(ShipModel ship) {
+    ships[ship.id].value = ships[ship.id].value.changeIsLocationSet(false);
+    ships[ship.id].value = ships[ship.id].value.changePositions([]);
   }
 
   int getShipIdOfPiece(int pieceId) {
@@ -121,6 +164,10 @@ class BattleShipController extends BaseGameController {
       }
     }
     return 0;
+  }
+
+  void onTapSElectionShip(ShipModel ship) {
+    selectedShip.value = ship.id;
   }
 
   sendResult() {
@@ -141,13 +188,19 @@ class BattleShipController extends BaseGameController {
   }
 
   initPieces() {
-    ships.add(Rx(ShipModel(id: 1, length: 5, positions: [0, 8, 16, 24, 32])));
-    ships.add(Rx(ShipModel(id: 2, length: 4, positions: [1, 9, 17, 25])));
-    ships.add(Rx(ShipModel(id: 3, length: 3, positions: [2, 10, 18])));
-    ships.add(Rx(ShipModel(id: 4, length: 2, positions: [3, 11])));
+    // ships.add(Rx(ShipModel(id: 0, length: 5, positions: [0, 8, 16, 24, 32])));
+    // ships.add(Rx(ShipModel(id: 1, length: 4, positions: [1, 9, 17, 25])));
+    // ships.add(Rx(ShipModel(id: 2, length: 3, positions: [2, 10, 18])));
+    // ships.add(Rx(ShipModel(id: 3, length: 2, positions: [3, 11])));
+    for (var i = 0; i < 4; i++) {
+      ships.add(Rx(ShipModel(id: i, length: i + 2, positions: [])));
+    }
     for (var i = 0; i < 64; i++) {
-      pieces
-          .add(Rx(BattleShipPreprationPeaceModel(id: i, currentStatuses: [])));
+      pieces.add(Rx(BattleShipPreprationPeaceModel(
+        id: i,
+        currentStatuses: [],
+        shipId: -1,
+      )));
     }
   }
 

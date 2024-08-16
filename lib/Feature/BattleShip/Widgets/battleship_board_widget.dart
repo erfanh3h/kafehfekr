@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Feature/BattleShip/Controllers/battleship_controller.dart';
 import 'package:kafehfekr/Feature/BattleShip/Widgets/battleship_drag_target_widget.dart';
-import 'package:kafehfekr/Feature/BattleShip/Widgets/battleship_draggable_number_widget.dart';
+import 'package:kafehfekr/Feature/BattleShip/Widgets/battleship_ship_result_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 class BattleShipBoardWidget extends StatelessWidget {
@@ -29,7 +29,7 @@ class BattleShipBoardWidget extends StatelessWidget {
           shipId: controller.getShipIdOfPiece(index),
           index: index,
           onAccept: controller.onPositionAccept,
-          onRemove: controller.onShipRemove,
+          // onRemove: controller.onShipRemove,
         ));
       }
       rows.add(
@@ -55,22 +55,28 @@ class BattleShipBoardWidget extends StatelessWidget {
         width: 336,
         // height:
         //     (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
-        child: Stack(
-          children: [
-            column,
-            BattleShipDraggableWidget(
-              ship: controller.ships[0].value,
-            ),
-            BattleShipDraggableWidget(
-              ship: controller.ships[1].value,
-            ),
-            BattleShipDraggableWidget(
-              ship: controller.ships[2].value,
-            ),
-            BattleShipDraggableWidget(
-              ship: controller.ships[3].value,
-            ),
-          ],
+        child: Obx(
+          () => Stack(
+            children: [
+              column,
+              BattleShipShipResultWidget(
+                ship: controller.ships[0].value,
+                onRemove: controller.onRemoveShip,
+              ),
+              BattleShipShipResultWidget(
+                ship: controller.ships[1].value,
+                onRemove: controller.onRemoveShip,
+              ),
+              BattleShipShipResultWidget(
+                ship: controller.ships[2].value,
+                onRemove: controller.onRemoveShip,
+              ),
+              BattleShipShipResultWidget(
+                ship: controller.ships[3].value,
+                onRemove: controller.onRemoveShip,
+              ),
+            ],
+          ),
         ),
       ),
     );

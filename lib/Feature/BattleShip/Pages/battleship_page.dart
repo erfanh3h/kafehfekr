@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Feature/BattleShip/Controllers/battleship_controller.dart';
 import 'package:kafehfekr/Feature/BattleShip/Widgets/battleship_board_widget.dart';
+import 'package:kafehfekr/Feature/BattleShip/Widgets/battleship_ship_selection_box.dart';
 
 class BattleShipPage extends BaseView<BattleShipController> {
   const BattleShipPage({super.key});
@@ -34,6 +35,7 @@ class BattleShipPage extends BaseView<BattleShipController> {
             ),
           const Spacer(flex: 3),
           BattleShipBoardWidget(controller: controller),
+          BattleShipShipSelectionBox(controller: controller),
           const Spacer(flex: 4),
           GlobalActivityBox<BattleShipController>(),
           const Spacer(flex: 1),
@@ -42,3 +44,4 @@ class BattleShipPage extends BaseView<BattleShipController> {
     );
   }
 }
+
