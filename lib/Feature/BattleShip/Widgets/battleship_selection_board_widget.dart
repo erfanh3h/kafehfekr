@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Feature/BattleShip/Controllers/battleship_controller.dart';
 import 'package:kafehfekr/Feature/BattleShip/Widgets/battleship_drag_target_widget.dart';
 import 'package:kafehfekr/Feature/BattleShip/Widgets/battleship_ship_result_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
-class BattleShipBoardWidget extends StatelessWidget {
-  const BattleShipBoardWidget({
+class BattleShipSelectionBoardWidget extends StatelessWidget {
+  const BattleShipSelectionBoardWidget({
     super.key,
     required this.controller,
   });
@@ -47,11 +46,7 @@ class BattleShipBoardWidget extends StatelessWidget {
     );
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: Container(
-        constraints: BoxConstraints(
-          minHeight:
-              (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
-        ),
+      child: SizedBox(
         width: 336,
         // height:
         //     (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,

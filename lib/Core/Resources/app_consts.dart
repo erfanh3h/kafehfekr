@@ -16,6 +16,8 @@ class GameWaitTimes {
   static const int yatzyTurnTime = 60;
   static const int fourInRowTurnTime = 15;
   static const int sudokuGameTime = 600;
+  static const int battleshipBoardTime = 60;
+  static const int battleshipTurnTime = 15;
 }
 
 class FontFamilies {
@@ -47,6 +49,7 @@ abstract class GameCommands {
   static const finishGame = "FinishGame";
   static const selectMine = "SelectMine";
   static const solve = "Solve";
+  static const saveBoard = "SaveBoard";
   static const wrongSolve = "WrongSolve";
   static const selectMineCorrect = "SelectMineCorrect";
   static const selectMineWrong = "SelectMineWrong";

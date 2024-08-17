@@ -6,39 +6,41 @@ import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Feature/BattleShip/Models/battleship_game_piece_model.dart';
 import 'package:kafehfekr/Feature/BattleShip/Models/battleship_prepration_peace_model.dart';
 import 'package:kafehfekr/Feature/BattleShip/Models/ship_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class BattleShipController extends BaseGameController {
-  RxList<RxInt> numberValues = RxList();
-
   RxList<Rx<BattleShipPreprationPeaceModel>> pieces = RxList();
-
-  int maxRound = GameRoundCounts.tenRoundCount;
-
-  RxBool letSendResult = RxBool(false);
-  RxDouble result = RxDouble(0);
-
-  List<int> currentNumbers = [];
 
   List<Rx<ShipModel>> ships = [];
 
   RxInt selectedShip = RxInt(0);
 
+  RxBool isGameStarted = RxBool(false);
+  RxBool isWaiting = RxBool(false);
+  RxList<Rx<BattleShipGamePieceModel>> player1Pieces = RxList();
+  RxList<Rx<BattleShipGamePieceModel>> player2Pieces = RxList();
+
   @override
   void currentTurnFunction(Map data) {
-    List<int> listNumbers = List<int>.from(data['data']);
-    currentNumbers = listNumbers;
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
-    changetimerValue(GameWaitTimes.tenRoundTime);
+    isGameStarted.value = true;
+    int turn = data['data'];
+    currentTurn.value = turn;
+    if (turn == myGameId) {
+      canSelectPeace.value = true;
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+    } else {
+      canSelectPeace.value = false;
+    }
+    changetimerValue(GameWaitTimes.battleshipTurnTime);
   }
 
   @override
-  void newRoundFunction(Map data) {
-    int newRound = data['data'];
-    currentRound.value = newRound;
-    resetValues();
+  void startGameFunction(Map data) {
+    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startGame);
+    changetimerValue(GameWaitTimes.battleshipBoardTime);
   }
 
   @override
@@ -59,58 +61,47 @@ class BattleShipController extends BaseGameController {
   void reconnectDataFuntcion(Map data) {
     super.reconnectDataFuntcion(data);
     Map newData = data['data'];
-    Map gameData = newData['game_data'];
-    Map timerData = newData['timer_data'];
-    List<int> listNumbers = List<int>.from(gameData['current_numbers']);
-    currentNumbers = listNumbers;
-    currentRound.value = gameData['current_round'];
-    player1Score.value = gameData['scores'][0];
-    player2Score.value = gameData['scores'][1];
-    final int time = GameWaitTimes.tenRoundTime - timerData['time'] as int;
-    changetimerValue(time.clamp(0, time));
+    // Map gameData = newData['game_data'];
+    // Map timerData = newData['timer_data'];
+    // List<int> listNumbers = List<int>.from(gameData['current_numbers']);
+    // currentRound.value = gameData['current_round'];
+    // player1Score.value = gameData['scores'][0];
+    // player2Score.value = gameData['scores'][1];
+    // final int time = GameWaitTimes.tenRoundTime - timerData['time'] as int;
+    // changetimerValue(time.clamp(0, time));
   }
 
   @override
   Color returnTimerColor() {
-    return AppColors.darkColor;
-  }
-
-  bool checkRepeatedNumberCanEnter(int number) {
-    int repeatCount = 0;
-    for (var num in currentNumbers) {
-      if (num == number) {
-        repeatCount += 1;
+    if (!isGameStarted.value) {
+      return AppColors.darkColor;
+    } else {
+      if (currentTurn.value == 1) {
+        return AppColors.imageRedColor;
+      } else {
+        return AppColors.imageBlueColor;
       }
     }
-    int numbersRepeatCount = 0;
-
-    for (var num in numberValues) {
-      if (num.value == number) {
-        numbersRepeatCount += 1;
-      }
-    }
-    if (numbersRepeatCount < repeatCount) {
-      return true;
-    }
-    return false;
   }
 
-  bool checkNumbersHaveValue(int value) {
-    bool result = false;
-    for (var dataRaw in numberValues) {
-      if (dataRaw.value == value) {
-        if (!checkRepeatedNumberCanEnter(value)) {
-          result = true;
-          break;
-        }
-      }
+  @override
+  void onEachButtonTap(dynamic tappedPeace) {
+    BattleShipGamePieceModel piece = tappedPeace as BattleShipGamePieceModel;
+    if (!canSelectPeace.value) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      return;
     }
-    return result;
+    if (piece.isSelected) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      return;
+    }
+    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+    canSelectPeace.value = false;
+    sendCommand({
+      "id": GameCommands.selectPeace,
+      "data": piece.id,
+    });
   }
-
-  // onShipRemove(int index) {
-  //   numberValues[index].value = -1;
-  // }
 
   List<int> getNewPositions(int newIndex, ShipModel pieceData) {
     List<int> newPositions = [];
@@ -176,10 +167,21 @@ class BattleShipController extends BaseGameController {
   }
 
   sendResult() {
-    if (!letSendResult.value) {
-      return;
-    }
     // sendCommand({"id": GameCommands.solve});
+  }
+
+  submitBoard() {
+    List<int> indexes = [];
+    for (var ship in ships) {
+      if (!ship.value.isLocationSet) {
+        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+        return;
+      } else {
+        indexes.addAll(ship.value.positions);
+      }
+    }
+    sendCommand({"id": GameCommands.saveBoard, "data": indexes});
+    isWaiting.value = true;
   }
 
   void resetValues() {
@@ -190,6 +192,16 @@ class BattleShipController extends BaseGameController {
     //   numberValues[i].value = -1;
     // }
     // result.value = 0;
+  }
+
+  bool isMyTurn() {
+    if (myGameId == 1 && currentTurn.value == 1) {
+      return true;
+    }
+    if (myGameId == 2 && currentTurn.value == 2) {
+      return true;
+    }
+    return false;
   }
 
   initPieces() {
@@ -206,6 +218,10 @@ class BattleShipController extends BaseGameController {
         currentStatuses: [],
         shipId: -1,
       )));
+      player1Pieces
+          .add(Rx(BattleShipGamePieceModel(id: i, currentStatuses: [])));
+      player2Pieces
+          .add(Rx(BattleShipGamePieceModel(id: i, currentStatuses: [])));
     }
   }
 

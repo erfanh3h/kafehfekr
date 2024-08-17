@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/BattleShip/Models/ship_model.dart';
 
 import 'dart:math' as math;
@@ -50,6 +51,12 @@ class BattleShipShipResultWidget extends StatelessWidget {
                       color: AppColors.goldenColor,
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(color: Colors.black),
+                    ),
+                    child: const Padding(
+                      padding: AppSpacings.s10Vertical,
+                      child: VerticalDivider(
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
