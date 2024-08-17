@@ -11,59 +11,30 @@ class BattleShipGameButton extends StatelessWidget {
     super.key,
     required this.peaceData,
     required this.onTap,
+    required this.baseColor,
   });
 
   final BattleShipGamePieceModel peaceData;
   final Function(BattleShipGamePieceModel) onTap;
+  final Color baseColor;
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundColor = Colors.transparent;
     Color? imageColor;
     String? image;
+    if (peaceData.isShipCompleted) {
+      backgroundColor = baseColor;
+    }
     if (peaceData.isSelected) {
       if (peaceData.number == 0) {
         image = GeneralIcons.cross;
         imageColor = AppColors.imageRedColor;
       } else {
-        image = GeneralIcons.check;
-        imageColor = AppColors.green;
+        image = GeneralIcons.checkers1;
+        imageColor = AppColors.goldenColor;
       }
     }
-    // switch (peaceData.selectedUser) {
-    //   case 1:
-    //     imageColor = AppColors.imageRedColor;
-    //     if (peaceData.isSuperPawn) {
-    //       image = GeneralIcons.checkers2;
-    //     } else {
-    //       image = GeneralIcons.checkers1;
-    //     }
-    //     break;
-    //   case 2:
-    //     imageColor = AppColors.imageBlueColor;
-    //     if (peaceData.isSuperPawn) {
-    //       image = GeneralIcons.checkers2;
-    //     } else {
-    //       image = GeneralIcons.checkers1;
-    //     }
-    //     break;
-    //   default:
-    //     imageColor = null;
-    //     image = null;
-    //     break;
-    // }
-    // if (peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
-    //   borderColor = AppColors.goldenColor;
-    //   borderSize = 5;
-    // }
-    // if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-    //   if (peaceData.isSuperPawn) {
-    //     image = GeneralIcons.checkers2;
-    //   } else {
-    //     image = GeneralIcons.checkers1;
-    //   }
-    //   imageColor = AppColors.guideGreen;
-    //   imageScale = .33;
-    // }
     return InkWell(
       onTap: () {
         onTap(peaceData);
@@ -71,7 +42,7 @@ class BattleShipGameButton extends StatelessWidget {
       child: Container(
         padding: AppSpacings.s5All,
         decoration: BoxDecoration(
-          color: AppColors.transparent,
+          color: backgroundColor,
           border: Border.all(
             color: AppColors.peaceBorderColor,
             width: 1,

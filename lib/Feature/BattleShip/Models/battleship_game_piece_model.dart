@@ -7,10 +7,12 @@ class BattleShipGamePieceModel extends PeaceModel {
     required super.currentStatuses,
     this.number = 0,
     this.isSelected = false,
+    this.isShipCompleted = false,
   });
 
   int number;
   bool isSelected;
+  bool isShipCompleted;
 
   BattleShipGamePieceModel getFromJson(Map data, int id) {
     return BattleShipGamePieceModel(
@@ -18,6 +20,7 @@ class BattleShipGamePieceModel extends PeaceModel {
       currentStatuses: currentStatuses,
       number: data['number'],
       isSelected: data['is_selected'],
+      isShipCompleted: isShipCompleted,
     );
   }
 
@@ -31,6 +34,20 @@ class BattleShipGamePieceModel extends PeaceModel {
       currentStatuses: data.currentStatuses,
       number: number ?? this.number,
       isSelected: isSelected,
+      isShipCompleted: isShipCompleted,
+    );
+  }
+
+  BattleShipGamePieceModel changeIsShipCompleted({
+    required bool isShipCompleted,
+  }) {
+    final data = super.addStatus(status: PeaceStatusTypes.selected);
+    return BattleShipGamePieceModel(
+      id: id,
+      currentStatuses: data.currentStatuses,
+      number: number,
+      isSelected: isSelected,
+      isShipCompleted: isShipCompleted,
     );
   }
 
@@ -40,6 +57,7 @@ class BattleShipGamePieceModel extends PeaceModel {
       currentStatuses: [],
       number: 0,
       isSelected: false,
+      isShipCompleted: false,
     );
   }
 
@@ -51,6 +69,7 @@ class BattleShipGamePieceModel extends PeaceModel {
       currentStatuses: data.currentStatuses,
       number: number,
       isSelected: isSelected,
+      isShipCompleted: isShipCompleted,
     );
   }
 
@@ -62,6 +81,7 @@ class BattleShipGamePieceModel extends PeaceModel {
       currentStatuses: data.currentStatuses,
       number: number,
       isSelected: isSelected,
+      isShipCompleted: isShipCompleted,
     );
   }
 }

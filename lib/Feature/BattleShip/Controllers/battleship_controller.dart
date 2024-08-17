@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
-import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -51,13 +52,8 @@ class BattleShipController extends BaseGameController {
     int gamerId = selectData['gamer_id'];
     int number = selectData['number'];
     Get.find<TimerCompanent>().stopTimer();
-    if (gamerId == 2) {
-      player1Pieces[index].value =
-          player1Pieces[index].value.changeNumber(number: number);
-    } else {
-      player2Pieces[index].value =
-          player2Pieces[index].value.changeNumber(number: number);
-    }
+    changePieceNumber(gamerId, index, number);
+    checkIsShipCompleted(number, gamerId);
     changetimerValue(GameWaitTimes.battleshipWaitTime);
   }
 
@@ -105,6 +101,48 @@ class BattleShipController extends BaseGameController {
       "id": GameCommands.selectPeace,
       "data": piece.id,
     });
+  }
+
+  checkIsShipCompleted(int number, int gamerId) {
+    if (gamerId == 1) {
+      int count = 0;
+      for (var piece in player2Pieces) {
+        if (piece.value.isSelected && piece.value.number == number) {
+          count++;
+        }
+      }
+      if (count == number) {
+        if (gamerId == 1) {
+          player1Score.value += 1;
+        } else {
+          player2Score.value += 1;
+        }
+        for (var i = 0; i < player2Pieces.length; i++) {
+          if (player2Pieces[i].value.number == number) {
+            changePieceIsShipCompleted(gamerId, i, true);
+          }
+        }
+      }
+    } else {
+      int count = 0;
+      for (var piece in player1Pieces) {
+        if (piece.value.isSelected && piece.value.number == number) {
+          count++;
+        }
+      }
+      if (count == number) {
+        if (gamerId == 1) {
+          player1Score.value += 1;
+        } else {
+          player2Score.value += 1;
+        }
+        for (var i = 0; i < player1Pieces.length; i++) {
+          if (player1Pieces[i].value.number == number) {
+            changePieceIsShipCompleted(gamerId, i, true);
+          }
+        }
+      }
+    }
   }
 
   List<int> getNewPositions(int newIndex, ShipModel pieceData) {
@@ -175,37 +213,39 @@ class BattleShipController extends BaseGameController {
   }
 
   submitBoard() {
-    List<int> indexes = [];
+    Map<String, List<int>> data = {};
     for (var ship in ships) {
       if (!ship.value.isLocationSet) {
         Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
         return;
       } else {
-        indexes.addAll(ship.value.positions);
+        data[ship.value.length.toString()] = ship.value.positions;
       }
     }
-    sendCommand({"id": GameCommands.saveBoard, "data": indexes});
+    sendCommand({"id": GameCommands.saveBoard, "data": data});
     isWaiting.value = true;
   }
 
-  void resetValues() {
-    // for (var i = 0; i < operatorValues.length; i++) {
-    //   operatorValues[i].value = "";
-    // }
-    // for (var i = 0; i < numberValues.length; i++) {
-    //   numberValues[i].value = -1;
-    // }
-    // result.value = 0;
+  void changePieceNumber(int gamerId, int index, int number) {
+    if (gamerId == 2) {
+      player1Pieces[index].value =
+          player1Pieces[index].value.changeNumber(number: number);
+    } else {
+      player2Pieces[index].value =
+          player2Pieces[index].value.changeNumber(number: number);
+    }
   }
 
-  bool isMyTurn() {
-    if (myGameId == 1 && currentTurn.value == 1) {
-      return true;
+  void changePieceIsShipCompleted(int gamerId, int index, bool status) {
+    if (gamerId == 2) {
+      player1Pieces[index].value = player1Pieces[index]
+          .value
+          .changeIsShipCompleted(isShipCompleted: status);
+    } else {
+      player2Pieces[index].value = player2Pieces[index]
+          .value
+          .changeIsShipCompleted(isShipCompleted: status);
     }
-    if (myGameId == 2 && currentTurn.value == 2) {
-      return true;
-    }
-    return false;
   }
 
   initPieces() {
