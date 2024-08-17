@@ -21,16 +21,16 @@ class BattleShipGamePieceModel extends PeaceModel {
     );
   }
 
-  BattleShipGamePieceModel changeSelectedUser({
+  BattleShipGamePieceModel changeNumber({
     int? number,
-    bool? isSelected,
+    bool isSelected = true,
   }) {
     final data = super.addStatus(status: PeaceStatusTypes.selected);
     return BattleShipGamePieceModel(
       id: id,
       currentStatuses: data.currentStatuses,
       number: number ?? this.number,
-      isSelected: isSelected ?? this.isSelected,
+      isSelected: isSelected,
     );
   }
 

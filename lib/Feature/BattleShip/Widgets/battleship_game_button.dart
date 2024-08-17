@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/BattleShip/Models/battleship_game_piece_model.dart';
 
@@ -18,10 +19,16 @@ class BattleShipGameButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
-    Color? borderColor;
     String? image;
-    double borderSize = 2;
-    double imageScale = 1;
+    if (peaceData.isSelected) {
+      if (peaceData.number == 0) {
+        image = GeneralIcons.cross;
+        imageColor = AppColors.imageRedColor;
+      } else {
+        image = GeneralIcons.check;
+        imageColor = AppColors.green;
+      }
+    }
     // switch (peaceData.selectedUser) {
     //   case 1:
     //     imageColor = AppColors.imageRedColor;
@@ -66,14 +73,19 @@ class BattleShipGameButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.transparent,
           border: Border.all(
-            color: imageColor ?? AppColors.peaceBorderColor,
+            color: AppColors.peaceBorderColor,
             width: 1,
           ),
           borderRadius: BorderRadius.circular(8),
         ),
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
-            : Container(),
+            : image != null
+                ? Image.asset(
+                    image,
+                    color: imageColor,
+                  )
+                : Container(),
       ),
     );
   }

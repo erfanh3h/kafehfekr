@@ -44,17 +44,21 @@ class BattleShipController extends BaseGameController {
   }
 
   @override
-  void finishRoundFunction(Map data) {
+  void peaceSelectedFunction(Map data) {
     Map newData = data['data'];
+    Map selectData = newData['select_data'];
+    int index = selectData['index'];
+    int gamerId = selectData['gamer_id'];
+    int number = selectData['number'];
     Get.find<TimerCompanent>().stopTimer();
-    int roundWinner = newData['Winner'] ?? 0;
-    if (roundWinner == 1) {
-      player1Score.value += 1;
-    } else if (roundWinner == 2) {
-      player2Score.value += 1;
+    if (gamerId == 2) {
+      player1Pieces[index].value =
+          player1Pieces[index].value.changeNumber(number: number);
+    } else {
+      player2Pieces[index].value =
+          player2Pieces[index].value.changeNumber(number: number);
     }
-    FunctionsLibraryClass.showFinishRoundDialog(roundWinner, myGameId);
-    changetimerValue(GameWaitTimes.tenSleepRoundTime);
+    changetimerValue(GameWaitTimes.battleshipWaitTime);
   }
 
   @override

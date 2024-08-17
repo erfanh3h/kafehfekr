@@ -26,21 +26,26 @@ class BattleShipGameBoardWidget extends StatelessWidget {
             child: Card(
               child: Padding(
                 padding: AppSpacings.s15All,
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 8,
-                    crossAxisSpacing: 1,
-                    mainAxisSpacing: 1,
+                child: Obx(
+                  () => GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 8,
+                      crossAxisSpacing: 1,
+                      mainAxisSpacing: 1,
+                    ),
+                    itemBuilder: (ctx, index) => Obx(
+                      () => BattleShipGameButton(
+                        peaceData: controller.currentTurn.value == 2
+                            ? controller.player1Pieces[index].value
+                            : controller.player2Pieces[index].value,
+                        onTap: controller.onEachButtonTap,
+                      ),
+                    ),
+                    itemCount: controller.currentTurn.value == 2
+                        ? controller.player1Pieces.length
+                        : controller.player2Pieces.length,
                   ),
-                  itemBuilder: (ctx, index) => BattleShipGameButton(
-                    peaceData: controller.currentTurn.value == 1
-                        ? controller.player1Pieces[index].value
-                        : controller.player2Pieces[index].value,
-                    onTap: controller.onEachButtonTap,
-                  ),
-                  itemCount: controller.currentTurn.value == 1
-                      ? controller.player1Pieces.length
-                      : controller.player2Pieces.length,
                 ),
               ),
             ),
