@@ -34,6 +34,7 @@ abstract class AppTexts {
   static const fourInRow = "fourInRow";
   static const sudoku = "sudoku";
   static const battleship = "battleship";
+  static const boxFour = "boxFour";
   static const tictactoeGuide = "tictactoeGuide";
   static const rpcGuide = "rpcGuide";
   static const millGuide = "millGuide";
@@ -48,6 +49,7 @@ abstract class AppTexts {
   static const fourInRowGuide = "fourInRowGuide";
   static const sudokuGuide = "sudokuGuide";
   static const battleshipGuide = "battleshipGuide";
+  static const boxFourGuide = "boxFourGuide";
 
   static const notYourTurn = "notYourTurn";
   static const cantSelect = "cantSelect";

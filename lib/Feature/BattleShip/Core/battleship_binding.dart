@@ -3,8 +3,8 @@ import 'package:refreshed/refreshed.dart';
 
 class BattleShipBinding implements BindingsInterface {
   @override
-  void dependencies() => [
-        Get.lazyPut<BattleShipController>(
+  List<Bind> dependencies() => [
+        Bind.lazyPut<BattleShipController>(
           () => BattleShipController(),
           fenix: true,
         ),

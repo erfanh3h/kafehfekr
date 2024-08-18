@@ -23,5 +23,6 @@ enum GameTypes {
   yatzy,
   fourInRow,
   sudoku,
-  battleship
+  battleship,
+  boxFour
 }

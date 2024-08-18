@@ -85,5 +85,9 @@ abstract class AppPages {
       name: AppRoutes.battleship,
       page: BattleShipPage.new,
     ),
+    GetPage(
+      name: AppRoutes.boxFour,
+      page: BattleShipPage.new,
+    ),
   ];
 }
