@@ -43,7 +43,7 @@ dependencies:
   just_audio: ^0.9.39
   just_audio_windows: ^0.2.1
   function_tree: ^0.9.1
-  toastification: ^2.1.0
+  flutter_styled_toast: ^2.2.1
 
 dev_dependencies:
   flutter_test:

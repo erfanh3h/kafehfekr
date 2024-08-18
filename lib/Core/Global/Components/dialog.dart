@@ -7,7 +7,7 @@ import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
-import 'package:toastification/toastification.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart' as st;
 
 class DialogComponent {
   void showDialog(String title, String message) {
@@ -347,23 +347,16 @@ class DialogComponent {
     Color? backgroundColor,
     Color? foregroundColor,
   }) {
-    toastification.show(
-      title: Text(
-        label,
-        style: TextStyle(
-          fontFamily: FontFamilies.dastnevis,
-          fontSize: fontSize ?? 25,
-        ),
-        textAlign: TextAlign.center,
+    st.showToast(
+      label,
+      context: Get.overlayContext,
+      animation: st.StyledToastAnimation.sizeFade,
+      backgroundColor: backgroundColor ?? AppColors.lightColor,
+      textStyle: TextStyle(
+        fontFamily: FontFamilies.dastnevis,
+        fontSize: fontSize ?? 25,
       ),
-      autoCloseDuration: const Duration(seconds: 3),
-      alignment: Alignment.bottomCenter,
-      style: ToastificationStyle.flat,
-      primaryColor: backgroundColor ?? AppColors.lightColor,
-      foregroundColor: foregroundColor ?? AppColors.darkColor,
-      showIcon: false,
-      showProgressBar: false,
-      closeButtonShowType: CloseButtonShowType.none,
+      textDirection: TextDirection.rtl,
     );
   }
 }
