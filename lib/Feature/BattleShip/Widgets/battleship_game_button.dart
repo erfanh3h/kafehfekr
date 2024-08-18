@@ -29,7 +29,7 @@ class BattleShipGameButton extends StatelessWidget {
     if (peaceData.isSelected) {
       if (peaceData.number == 0) {
         image = GeneralIcons.cross;
-        imageColor = AppColors.imageRedColor;
+        imageColor = AppColors.goldenColor;
       } else {
         image = GeneralIcons.checkers1;
         imageColor = AppColors.goldenColor;

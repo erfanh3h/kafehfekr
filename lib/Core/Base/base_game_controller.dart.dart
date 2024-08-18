@@ -93,6 +93,9 @@ class BaseGameController extends BaseController {
       case GameCommands.playerScore:
         playerScoreFunction(data);
         break;
+      case GameCommands.waitTime:
+        waitTimeFunction(data);
+        break;
       default:
     }
   }
@@ -118,6 +121,8 @@ class BaseGameController extends BaseController {
   void finishRoundFunction(Map data) {}
 
   void finishTurnRoundFunction(Map data) {}
+
+  void waitTimeFunction(Map data) {}
 
   void playerScoreFunction(Map data) {}
 

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
@@ -51,24 +49,74 @@ class BattleShipController extends BaseGameController {
     int index = selectData['index'];
     int gamerId = selectData['gamer_id'];
     int number = selectData['number'];
+    bool isTurnWinHappened = selectData['is_turn_win_happened'];
     Get.find<TimerCompanent>().stopTimer();
     changePieceNumber(gamerId, index, number);
     checkIsShipCompleted(number, gamerId);
-    changetimerValue(GameWaitTimes.battleshipWaitTime);
+    if (isTurnWinHappened) {
+      if (gamerId == 1) {
+        player1Score.value += 1;
+      } else {
+        player2Score.value += 1;
+      }
+      if (gamerId == myGameId) {
+        canSelectPeace.value = true;
+      }
+      changetimerValue(GameWaitTimes.battleshipTurnTime);
+    }
+  }
+
+  @override
+  void waitTimeFunction(Map data) {
+    int time = data['data'];
+    Get.find<TimerCompanent>().stopTimer();
+    changetimerValue(time);
   }
 
   @override
   void reconnectDataFuntcion(Map data) {
     super.reconnectDataFuntcion(data);
     Map newData = data['data'];
-    // Map gameData = newData['game_data'];
-    // Map timerData = newData['timer_data'];
-    // List<int> listNumbers = List<int>.from(gameData['current_numbers']);
-    // currentRound.value = gameData['current_round'];
-    // player1Score.value = gameData['scores'][0];
-    // player2Score.value = gameData['scores'][1];
-    // final int time = GameWaitTimes.tenRoundTime - timerData['time'] as int;
-    // changetimerValue(time.clamp(0, time));
+    Map gameData = newData['game_data'];
+    Map timerData = newData['timer_data'];
+    List player1BoardData = gameData['player1_board'];
+    List player2BoardData = gameData['player2_board'];
+    bool isPlayPhase = gameData['is_play_phase'];
+    bool isPlayerRdy = gameData['is_player_rdy'];
+    // bool isUserTurn = timerData['is_user_turn'];
+    currentTurn.value = gameData['current_turn'];
+    player1Score.value = gameData['scores'][0];
+    player2Score.value = gameData['scores'][1];
+    isGameStarted.value = isPlayPhase;
+    if (!isGameStarted.value) {
+      isWaiting.value = isPlayerRdy;
+      final int time =
+          GameWaitTimes.battleshipBoardTime - timerData['time'] as int;
+      changetimerValue(time.clamp(1, GameWaitTimes.battleshipBoardTime));
+    } else {
+      isWaiting.value = false;
+      final int time =
+          GameWaitTimes.battleshipTurnTime - timerData['time'] as int;
+      changetimerValue(time.clamp(1, GameWaitTimes.battleshipTurnTime));
+    }
+    for (var i = 0; i < player1BoardData.length; i++) {
+      player1Pieces[i].value =
+          player1Pieces[i].value.getFromJson(player1BoardData[i], i);
+    }
+    for (var i = 0; i < player2BoardData.length; i++) {
+      player2Pieces[i].value =
+          player2Pieces[i].value.getFromJson(player2BoardData[i], i);
+    }
+    if (currentTurn.value == myGameId) {
+      canSelectPeace.value = true;
+    } else {
+      canSelectPeace.value = false;
+    }
+    // if (isUserTurn) {
+    //   final int time =
+    //       GameWaitTimes.battleshipTurnTime - timerData['time'] as int;
+    //   changetimerValue(time.clamp(1, GameWaitTimes.battleshipTurnTime));
+    // }
   }
 
   @override
@@ -112,11 +160,6 @@ class BattleShipController extends BaseGameController {
         }
       }
       if (count == number) {
-        if (gamerId == 1) {
-          player1Score.value += 1;
-        } else {
-          player2Score.value += 1;
-        }
         for (var i = 0; i < player2Pieces.length; i++) {
           if (player2Pieces[i].value.number == number) {
             changePieceIsShipCompleted(gamerId, i, true);
@@ -131,11 +174,6 @@ class BattleShipController extends BaseGameController {
         }
       }
       if (count == number) {
-        if (gamerId == 1) {
-          player1Score.value += 1;
-        } else {
-          player2Score.value += 1;
-        }
         for (var i = 0; i < player1Pieces.length; i++) {
           if (player1Pieces[i].value.number == number) {
             changePieceIsShipCompleted(gamerId, i, true);

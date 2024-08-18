@@ -24,6 +24,9 @@ class BattleShipGameBoardWidget extends StatelessWidget {
         child: Directionality(
           textDirection: TextDirection.ltr,
           child: Card(
+            color: controller.currentTurn.value == 2
+                ? AppColors.imageRedColor.withOpacity(.2)
+                : AppColors.imageBlueColor.withOpacity(.3),
             child: Padding(
               padding: AppSpacings.s15All,
               child: Obx(
@@ -39,7 +42,7 @@ class BattleShipGameBoardWidget extends StatelessWidget {
                           ? controller.player1Pieces[index].value
                           : controller.player2Pieces[index].value,
                       onTap: controller.onEachButtonTap,
-                      baseColor: controller.currentTurn.value == 2
+                      baseColor: controller.currentTurn.value == 1
                           ? AppColors.imageRedColor
                           : AppColors.imageBlueColor,
                     ),
