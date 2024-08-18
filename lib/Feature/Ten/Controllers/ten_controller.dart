@@ -28,7 +28,7 @@ class TenController extends BaseGameController {
     List<int> listNumbers = List<int>.from(data['data']);
     currentNumbers = listNumbers;
     setNumbers();
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+    showInteraction(sound: GameSoundTypes.startGame);
     changetimerValue(GameWaitTimes.tenRoundTime);
   }
 

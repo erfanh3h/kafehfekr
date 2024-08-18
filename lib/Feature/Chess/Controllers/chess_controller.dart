@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/Chess/Models/Pieces/bishop_piece_model.dart';
 import 'package:kafehfekr/Feature/Chess/Models/Pieces/king_piece_model.dart';
 import 'package:kafehfekr/Feature/Chess/Models/Pieces/knight_piece_model.dart';
@@ -42,7 +43,7 @@ class ChessController extends BaseGameController {
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+      showInteraction(sound: GameSoundTypes.startTurn);
       setPiecesMovements();
     } else {
       canSelectPeace.value = false;
@@ -141,7 +142,7 @@ class ChessController extends BaseGameController {
     // myGameId = 2;
     ChessSpotModel peace = tappedPeace as ChessSpotModel;
     if (!canSelectPeace.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
     if (equippedPeaceIndex.value != -1) {
@@ -153,8 +154,7 @@ class ChessController extends BaseGameController {
       } else {
         if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected) &&
             !peace.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
-          Get.find<SoundPlayerComponent>()
-              .playGameSound(GameSoundTypes.tapWrong);
+          showInteraction(text: AppTexts.cantSelect.tr);
           return;
         }
         final sourcePosition = indexToCoordinate(equippedPeaceIndex.value);

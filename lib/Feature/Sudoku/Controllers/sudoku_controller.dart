@@ -33,8 +33,8 @@ class SudokuController extends BaseGameController {
     for (var i = 0; i < boardData.length; i++) {
       peaces[i].value = SudokuPeaceModel.fromJson(boardData[i], i);
     }
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startGame);
     canSelectPeace.value = true;
+    showInteraction(sound: GameSoundTypes.startGame);
     changetimerValue(GameWaitTimes.sudokuGameTime);
   }
 
@@ -87,10 +87,10 @@ class SudokuController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     SudokuPeaceModel peace = tappedPeace as SudokuPeaceModel;
     if (peace.isBaseNumber) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+    showInteraction(sound: GameSoundTypes.tap);
     if (selectedNumber.value == peace.value || selectedNumber.value == 0) {
       sendCommand({"id": GameCommands.removePeace, "piece_id": peace.id});
       changePeaceValue(peace.id, 0);
@@ -143,8 +143,7 @@ class SudokuController extends BaseGameController {
   solveFunction() {
     for (var piece in peaces.value) {
       if (piece.value.value == 0) {
-        DialogComponent().showToast(label: AppTexts.fillAllPieces.tr);
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+        showInteraction(text: AppTexts.fillAllPieces.tr);
         return;
       }
     }

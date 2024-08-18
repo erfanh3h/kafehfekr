@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/Yatzy/Models/yatzy_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -40,7 +41,7 @@ class YatzyController extends BaseGameController {
     currentTurn.value = turnData['current_turn'];
     currentDices.value = List<int>.from(turnData['dices']);
     calculateScores();
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+    showInteraction(sound: GameSoundTypes.startTurn);
     changetimerValue(GameWaitTimes.yatzyTurnTime);
     setFirstEmptyIndex();
     update();
@@ -107,19 +108,15 @@ class YatzyController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     YatzyPeaceModel peace = tappedPeace as YatzyPeaceModel;
     if (isRoundPlayed.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
-    // if (peace.gamerId != myGameId) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
-    // }
     if (peace.isSelected) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.selectedBefore.tr);
       return;
     }
     if (equippedIndex != peace.id) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+      showInteraction(sound: GameSoundTypes.tap);
       removePeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
       addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
       equippedIndex = peace.id;
@@ -150,7 +147,7 @@ class YatzyController extends BaseGameController {
 
   void rollDice() {
     if (remainingDice.value == 0) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.outOfDice.tr);
       return;
     }
     remainingDice.value -= 1;

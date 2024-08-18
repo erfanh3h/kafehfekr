@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/BattleShip/Models/battleship_game_piece_model.dart';
 import 'package:kafehfekr/Feature/BattleShip/Models/battleship_prepration_peace_model.dart';
 import 'package:kafehfekr/Feature/BattleShip/Models/ship_model.dart';
@@ -29,7 +30,7 @@ class BattleShipController extends BaseGameController {
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+      showInteraction(sound: GameSoundTypes.startTurn);
     } else {
       canSelectPeace.value = false;
     }
@@ -38,7 +39,7 @@ class BattleShipController extends BaseGameController {
 
   @override
   void startGameFunction(Map data) {
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startGame);
+    showInteraction(sound: GameSoundTypes.startGame);
     changetimerValue(GameWaitTimes.battleshipBoardTime);
   }
 
@@ -136,15 +137,15 @@ class BattleShipController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     BattleShipGamePieceModel piece = tappedPeace as BattleShipGamePieceModel;
     if (!canSelectPeace.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
     if (piece.isSelected) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.selectedBefore.tr);
       return;
     }
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
     canSelectPeace.value = false;
+    showInteraction(sound: GameSoundTypes.tap);
     sendCommand({
       "id": GameCommands.selectPeace,
       "data": piece.id,
@@ -219,7 +220,7 @@ class BattleShipController extends BaseGameController {
       ships[selectedShip.value].value =
           ships[selectedShip.value].value.changeIsLocationSet(true);
     } else {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.selectedWrongPlace.tr);
     }
   }
 
@@ -254,7 +255,7 @@ class BattleShipController extends BaseGameController {
     Map<String, List<int>> data = {};
     for (var ship in ships) {
       if (!ship.value.isLocationSet) {
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+        showInteraction(text: AppTexts.selectAllShips.tr);
         return;
       } else {
         data[ship.value.length.toString()] = ship.value.positions;

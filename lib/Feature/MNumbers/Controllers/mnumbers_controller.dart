@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/MNumbers/Models/mnumbers_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -16,7 +17,7 @@ class MNumbersController extends BaseGameController {
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+      showInteraction(sound: GameSoundTypes.startTurn);
     } else {
       canSelectPeace.value = false;
     }
@@ -64,14 +65,13 @@ class MNumbersController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     MNumbersPeaceModel peace = tappedPeace as MNumbersPeaceModel;
     if (!canSelectPeace.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
     if (!checkPeaceIsEmpty(peace.id)) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.selectedBefore.tr);
       return;
     }
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
     if (equippedPeaceIndex.value != -1) {
       if (peace.id == equippedPeaceIndex.value) {
         equippedPeaceIndex.value = -1;
@@ -79,6 +79,7 @@ class MNumbersController extends BaseGameController {
         return;
       }
       canSelectPeace.value = false;
+      showInteraction(sound: GameSoundTypes.tap);
       changetimerValue(0);
       currentTurn.value = -1;
       sendCommand({
@@ -91,6 +92,7 @@ class MNumbersController extends BaseGameController {
       equippedPeaceIndex.value = -1;
     } else {
       equippedPeaceIndex.value = peace.id;
+      showInteraction(sound: GameSoundTypes.tap);
       addPeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
     }
   }

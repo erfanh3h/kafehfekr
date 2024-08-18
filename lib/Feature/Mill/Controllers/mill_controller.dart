@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/Mill/Models/mill_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -56,7 +57,7 @@ class MillController extends BaseGameController {
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+      showInteraction(sound: GameSoundTypes.startTurn);
     } else {
       canSelectPeace.value = false;
     }
@@ -169,14 +170,14 @@ class MillController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     MillPeaceModel peace = tappedPeace as MillPeaceModel;
     if (!canSelectPeace.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
 
     if (letRemovePeace.value) {
       //remove
       if (checkPeaceIsEmpty(peace.id) || peace.selectedUser == myGameId) {
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+        showInteraction(text: AppTexts.cantRemoveYourPiece.tr);
         return;
       }
       canSelectPeace.value = false;
@@ -187,8 +188,7 @@ class MillController extends BaseGameController {
       for (var neighborId in getEnemyPeacesIndexes()) {
         removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
       }
-      Get.find<SoundPlayerComponent>()
-          .playGameSound(GameSoundTypes.removePeace);
+      showInteraction(sound: GameSoundTypes.removePeace);
     } else {
       if (checkAllOfMyPeacesPlaced()) {
         //swap
@@ -200,18 +200,15 @@ class MillController extends BaseGameController {
             equipPeace(peace.id);
           } else {
             if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-              Get.find<SoundPlayerComponent>()
-                  .playGameSound(GameSoundTypes.tapWrong);
+              showInteraction(text: AppTexts.cantSelect.tr);
               return;
             }
             if (equippedPeaceIndex.value == peace.id) {
-              Get.find<SoundPlayerComponent>()
-                  .playGameSound(GameSoundTypes.removePeace);
+              showInteraction(sound: GameSoundTypes.removePeace);
               return;
             }
             if (!checkPeaceIsEmpty(peace.id)) {
-              Get.find<SoundPlayerComponent>()
-                  .playGameSound(GameSoundTypes.tapWrong);
+              showInteraction(text: AppTexts.selectedBefore.tr);
               return;
             }
             canSelectPeace.value = false;
@@ -226,12 +223,10 @@ class MillController extends BaseGameController {
                 equippedPeaceIndex.value, PeaceStatusTypes.isLoading);
             addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
             releasePeace();
-            Get.find<SoundPlayerComponent>()
-                .playGameSound(GameSoundTypes.movePeace);
+            showInteraction(sound: GameSoundTypes.movePeace);
           }
           if (peace.selectedUser != myGameId) {
-            Get.find<SoundPlayerComponent>()
-                .playGameSound(GameSoundTypes.tapWrong);
+            showInteraction(text: AppTexts.cantSwapEnemyPiece.tr);
             return;
           }
         } else {
@@ -240,24 +235,23 @@ class MillController extends BaseGameController {
       } else {
         //normal select
         if (!checkPeaceIsEmpty(peace.id)) {
-          Get.find<SoundPlayerComponent>()
-              .playGameSound(GameSoundTypes.tapWrong);
+          showInteraction(text: AppTexts.selectedBefore.tr);
           return;
         }
         canSelectPeace.value = false;
+        showInteraction(sound: GameSoundTypes.tap);
         sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
         addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-        Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
       }
     }
   }
 
   void equipPeace(int index) {
     if (peaces[index].value.selectedUser != myGameId) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+    showInteraction(sound: GameSoundTypes.tap);
     equippedPeaceIndex.value = index;
     addPeaceStatus(index, PeaceStatusTypes.equiped);
     int currentPeaceLeft = 0;

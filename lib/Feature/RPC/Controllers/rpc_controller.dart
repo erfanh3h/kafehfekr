@@ -32,8 +32,8 @@ class RPCController extends BaseGameController {
 
   @override
   void newTurnRoundFunction(Map data) {
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
     resetPeaces();
+    showInteraction(sound: GameSoundTypes.startTurn);
   }
 
   @override
@@ -92,11 +92,11 @@ class RPCController extends BaseGameController {
 
   @override
   void onEachButtonTap(dynamic tappedPeace) {
+    showInteraction(sound: GameSoundTypes.tap);
     RPCPeaceModel peace = tappedPeace as RPCPeaceModel;
     clearStatusFromPeaces(PeaceStatusTypes.selected);
     addPeaceStatus(peace.id, PeaceStatusTypes.selected);
     selectedPeace.value = peace.peaceType;
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
   }
 
   @override

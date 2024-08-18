@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/Othello/Models/othello_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -41,7 +42,7 @@ class OthelloController extends BaseGameController {
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+      showInteraction(sound: GameSoundTypes.startTurn);
       final moves = getLegalMoves(myGameId);
       for (var move in moves) {
         int row = move[0];
@@ -79,11 +80,11 @@ class OthelloController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     OthelloPeaceModel peace = tappedPeace as OthelloPeaceModel;
     if (!canSelectPeace.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
     if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
     final List targetData = indexToCoordinate(peace.id);

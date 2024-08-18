@@ -4,6 +4,7 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/MSweeper/Models/enums.dart';
 import 'package:kafehfekr/Feature/MSweeper/Models/msweeper_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
@@ -38,9 +39,9 @@ class MSweeperController extends BaseGameController {
 
   @override
   void startGameFunction(Map data) {
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startGame);
     canSelectPeace.value = true;
     canSelectMine.value = true;
+    showInteraction(sound: GameSoundTypes.startGame);
     changetimerValue(GameWaitTimes.msweeperGameTime);
   }
 
@@ -103,11 +104,11 @@ class MSweeperController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     MSweeperPeaceModel peace = tappedPeace as MSweeperPeaceModel;
     if (!canSelectPeace.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
     if (!canSelectMine.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
     if (peace.value != null ||
@@ -117,31 +118,31 @@ class MSweeperController extends BaseGameController {
         peace.sweeperStatuses.contains(
           MineSweeperStatusTypes.isWronglySelectedAsMine,
         )) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
     sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+    showInteraction(sound: GameSoundTypes.tap);
   }
 
   void onEachButtonHold(MSweeperPeaceModel peace) {
     if (!canSelectMine.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
     if (peace.value != null ||
         peace.currentStatuses.contains(PeaceStatusTypes.selected)) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
     sendCommand({"id": GameCommands.selectMine, "data": peace.id});
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+    showInteraction(sound: GameSoundTypes.tap);
   }
 
   void mineSelectedFunction(Map data) {
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.explode);
+    showInteraction(sound: GameSoundTypes.explode);
     Map peaceData = data['data'];
     int peaceId = peaceData['peace_number'];
     addSweeperPeaceStatus(peaceId, MineSweeperStatusTypes.isExplodedMine);

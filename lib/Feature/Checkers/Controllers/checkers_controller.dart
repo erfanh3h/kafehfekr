@@ -3,6 +3,7 @@ import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/Checkers/Models/checkers_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -33,7 +34,7 @@ class CheckersController extends BaseGameController {
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+      showInteraction(sound: GameSoundTypes.startTurn);
     } else {
       canSelectPeace.value = false;
     }
@@ -86,21 +87,9 @@ class CheckersController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     CheckersPeaceModel peace = tappedPeace as CheckersPeaceModel;
     if (!canSelectPeace.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
-    // if (peace.selectedUser == null) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
-    // }
-    // canSelectPeace.value = false;
-    // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-    // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-    // Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
-    // if (peace.selectedUser != myGameId) {
-    //   Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
-    //   return;
-    // }
     if (equippedPeaceIndex.value != -1) {
       if (equippedPeaceIndex.value == peace.id) {
         releasePeace();
@@ -109,8 +98,7 @@ class CheckersController extends BaseGameController {
         equipPeace(peace.id);
       } else {
         if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-          Get.find<SoundPlayerComponent>()
-              .playGameSound(GameSoundTypes.tapWrong);
+          showInteraction(text: AppTexts.cantSelect.tr);
           return;
         }
         final List sourceData = indexToCoordinate(equippedPeaceIndex.value);

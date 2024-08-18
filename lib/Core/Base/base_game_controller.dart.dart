@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
@@ -289,6 +290,14 @@ class BaseGameController extends BaseController {
       GlobalGameGuideWidget(gameType: gameType),
       backgroundColor: AppColors.lightColor,
     );
+  }
+
+  void showInteraction({String? text, GameSoundTypes? sound}) {
+    Get.find<SoundPlayerComponent>()
+        .playGameSound(sound ?? GameSoundTypes.tapWrong);
+    if (text != null) {
+      DialogComponent().showToast(label: text);
+    }
   }
 
   @override

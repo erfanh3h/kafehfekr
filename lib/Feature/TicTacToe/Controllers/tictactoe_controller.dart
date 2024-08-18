@@ -4,6 +4,7 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Models/tictactoe_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -17,7 +18,7 @@ class TicTacToeController extends BaseGameController {
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+      showInteraction(sound: GameSoundTypes.startTurn);
     } else {
       canSelectPeace.value = false;
     }
@@ -92,17 +93,17 @@ class TicTacToeController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     TicTacToePeaceModel peace = tappedPeace as TicTacToePeaceModel;
     if (!canSelectPeace.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
     if (peace.selectedUser != null) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.selectedBefore.tr);
       return;
     }
     canSelectPeace.value = false;
+    showInteraction(sound: GameSoundTypes.tap);
     sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
     addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
   }
 
   void resetPeaces() {

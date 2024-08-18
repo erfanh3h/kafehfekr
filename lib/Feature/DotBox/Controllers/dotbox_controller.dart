@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/DotBox/Models/dotbox_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -43,7 +44,7 @@ class DotBoxController extends BaseGameController {
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.startTurn);
+      showInteraction(sound: GameSoundTypes.startTurn);
     } else {
       canSelectPeace.value = false;
     }
@@ -101,11 +102,12 @@ class DotBoxController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     DotBoxPeaceModel peace = tappedPeace as DotBoxPeaceModel;
     if (!canSelectPeace.value) {
-      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tapWrong);
+      showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
+    //TODO : check prevent selected piece select again
     canSelectPeace.value = false;
-    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.tap);
+    showInteraction(sound: GameSoundTypes.tap);
     sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
   }
 

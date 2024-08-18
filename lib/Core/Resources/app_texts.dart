@@ -19,6 +19,7 @@ abstract class AppTexts {
   static const errorSolve = "errorSolve";
   static const selectOneOption = "selectOneOption";
   static const fillAllPieces = "fillAllPieces";
+
   static const tictactoe = "tictactoe";
   static const rpc = "rpc";
   static const mill = "mill";
@@ -47,4 +48,13 @@ abstract class AppTexts {
   static const fourInRowGuide = "fourInRowGuide";
   static const sudokuGuide = "sudokuGuide";
   static const battleshipGuide = "battleshipGuide";
+
+  static const notYourTurn = "notYourTurn";
+  static const cantSelect = "cantSelect";
+  static const selectedBefore = "selectedBefore";
+  static const selectedWrongPlace = "selectedWrongPlace";
+  static const selectAllShips = "selectAllShips";
+  static const cantRemoveYourPiece = "cantRemoveYourPiece";
+  static const cantSwapEnemyPiece = "cantSwapEnemyPiece";
+  static const outOfDice = "outOfDice";
 }
