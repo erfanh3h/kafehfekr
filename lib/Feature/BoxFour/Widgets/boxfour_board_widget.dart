@@ -28,9 +28,9 @@ class BoxFourBoardWidget extends StatelessWidget {
                 padding: AppSpacings.s15All,
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 8,
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 0,
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 3,
+                    mainAxisSpacing: 3,
                   ),
                   itemBuilder: (ctx, index) => BoxFourButton(
                     peaceData: controller.peaces[index].value,

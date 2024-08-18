@@ -19,6 +19,8 @@ class GameWaitTimes {
   static const int battleshipBoardTime = 60;
   static const int battleshipTurnTime = 15;
   static const int battleshipWaitTime = 4;
+  static const int boxFourTurnTime = 15;
+
 }
 
 class FontFamilies {

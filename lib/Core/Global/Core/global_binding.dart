@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Feature/BattleShip/Core/battleship_binding.dart';
+import 'package:kafehfekr/Feature/BoxFour/Core/boxfour_binding.dart';
 import 'package:kafehfekr/Feature/Checkers/Core/checkers_binding.dart';
 import 'package:kafehfekr/Feature/Chess/Core/chess_binding.dart';
 import 'package:kafehfekr/Feature/DotBox/Core/dotbox_binding.dart';
@@ -37,6 +38,7 @@ class GlobalBinding implements BindingsInterface {
         FourInRowBinding().dependencies(),
         SudokuBinding().dependencies(),
         BattleShipBinding().dependencies(),
+        BoxFourBinding().dependencies(),
         Get.lazyPut<TimerCompanent>(TimerCompanent.new, fenix: true),
         Get.lazyPut<SoundPlayerComponent>(
           SoundPlayerComponent.new,

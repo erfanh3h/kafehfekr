@@ -28,7 +28,7 @@ class BoxFourPage extends BaseView<BoxFourController> {
               player2Data: controller.players[1].value,
               timerColor: controller.returnTimerColor(),
               player1Number1: controller.player1Score.value,
-              player1Number2: controller.player1Pawns.value,
+              player2Number1: controller.player2Score.value,
             ),
           const Spacer(flex: 3),
           BoxFourBoardWidget(controller: controller),

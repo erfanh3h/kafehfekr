@@ -36,7 +36,7 @@ class AppTranslations extends Translations {
           AppTexts.othello: 'اتللو',
           AppTexts.dotbox: 'نقطه خط',
           AppTexts.yatzy: 'یاتزی',
-          AppTexts.fourInRow: 'چهارتایی',
+          AppTexts.fourInRow: 'دوزچهارتایی',
           AppTexts.sudoku: 'سودوکو',
           AppTexts.battleship: 'نبردکشتی',
           AppTexts.boxFour: 'چهارطرفه',

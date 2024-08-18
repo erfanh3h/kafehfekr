@@ -8,30 +8,24 @@ import 'package:refreshed/refreshed.dart';
 
 class BoxFourController extends BaseGameController {
   RxList<Rx<BoxFourPeaceModel>> peaces = RxList();
-  RxInt player1Pawns = RxInt(30);
-  RxInt player2Pawns = RxInt(30);
 
   List currentPossibleMoves = [];
 
-  List<List<int>> moveDirs = [
-    [-1, -1],
-    [-1, 0],
-    [-1, 1],
-    [0, -1],
-    [0, 1],
-    [1, -1],
-    [1, 0],
-    [1, 1]
+  List<(int, int)> moveDirs = [
+    (-1, 0),
+    (0, -1),
+    (0, 1),
+    (1, 0),
   ];
 
   List<int> indexToCoordinate(int index) {
-    final x = index % 8;
-    final y = index ~/ 8;
+    final x = index % 5;
+    final y = index ~/ 5;
     return [x, y];
   }
 
-  int coordinateToIndex(int x, int y) {
-    final index = y * 8 + x;
+  int coordinateToIndex(int y, int x) {
+    final index = y * 5 + x;
     return index;
   }
 
@@ -43,37 +37,25 @@ class BoxFourController extends BaseGameController {
     if (turn == myGameId) {
       canSelectPeace.value = true;
       showInteraction(sound: GameSoundTypes.startTurn);
-      final moves = getLegalMoves(myGameId);
-      for (var move in moves) {
-        int row = move[0];
-        int col = move[1];
-        int index = coordinateToIndex(row, col);
-        addPeaceStatus(index, PeaceStatusTypes.canSelected);
-      }
+      getLegalPieces();
     } else {
       canSelectPeace.value = false;
     }
-    changetimerValue(GameWaitTimes.othelloTurnTime);
+    changetimerValue(GameWaitTimes.boxFourTurnTime);
   }
 
   @override
   void peaceSelectedFunction(Map data) {
-    Map selectionData = data['data']['select_data'];
+    Map selectionData = data['data'];
     final rIndex = selectionData['r_index'];
     final cIndex = selectionData['c_index'];
     final int gamerId = selectionData['gamer_id'];
-    List<int> scores = List<int>.from(data['data']['scores']);
-    if (gamerId == 1) {
-      player1Pawns.value -= 1;
-    } else {
-      player2Pawns.value -= 1;
-    }
-    final index = coordinateToIndex(rIndex, cIndex);
+    final index = coordinateToIndex(cIndex, rIndex);
+    submitPieceForUser((cIndex, rIndex), gamerId);
     removePeaceStatus(index, PeaceStatusTypes.isLoading);
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);
-    flitTiles(gamerId, [rIndex, cIndex]);
-    player1Score.value = scores[0];
-    player2Score.value = scores[1];
+    player1Score.value = getPlayerScore(1);
+    player2Score.value = getPlayerScore(2);
   }
 
   @override
@@ -87,6 +69,7 @@ class BoxFourController extends BaseGameController {
       showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
+    canSelectPeace.value = false;
     final List targetData = indexToCoordinate(peace.id);
     final rIndex = targetData[0];
     final cIndex = targetData[1];
@@ -106,33 +89,27 @@ class BoxFourController extends BaseGameController {
     Map timerData = newData['timer_data'];
     List boardData = gameData['board'];
     currentTurn.value = gameData['current_turn'];
-    player1Pawns.value = gameData['pawns_count'][0];
-    player2Pawns.value = gameData['pawns_count'][1];
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
     for (var i = 0; i < boardData.length; i++) {
-      changePeaceSelectedUser(i, boardData[i]);
+      peaces[i].value = peaces[i].value.getFromJson(boardData[i], i);
     }
     if (currentTurn.value == myGameId) {
       canSelectPeace.value = true;
+      showInteraction(sound: GameSoundTypes.startTurn);
+      getLegalPieces();
     } else {
       canSelectPeace.value = false;
     }
     if (timerData['is_user_turn']) {
-      final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.millSelectTime));
+      final int time = GameWaitTimes.boxFourTurnTime - timerData['time'] as int;
+      changetimerValue(time.clamp(1, GameWaitTimes.boxFourTurnTime));
     }
   }
 
-  void resetPeaces() {
-    for (var i = 0; i < peaces.length; i++) {
-      peaces[i].value = peaces[i].value.resetPeace();
-    }
-  }
-
-  changePeaceSelectedUser(int peaceId, int? selectedUser) {
-    peaces.value[peaceId].value = peaces.value[peaceId].value
-        .changeSelectedUser(newSelectedUser: selectedUser);
+  changePieceValue(int pieceId, int? selectedUser, int? value) {
+    peaces.value[pieceId].value = peaces.value[pieceId].value
+        .changeValue(newSelectedUser: selectedUser, newValue: value);
   }
 
   addPeaceStatus(int peaceId, PeaceStatusTypes status) {
@@ -152,17 +129,14 @@ class BoxFourController extends BaseGameController {
     }
   }
 
-  initPeaces() {
-    for (var i = 0; i < 64; i++) {
-      peaces.add(
-          Rx(BoxFourPeaceModel(id: i, currentStatuses: [], selectedUser: 0)));
+  initPieces() {
+    for (var i = 0; i < 25; i++) {
+      peaces.add(Rx(BoxFourPeaceModel(id: i, currentStatuses: [])));
     }
-    changePeaceSelectedUser(27, 1);
-    changePeaceSelectedUser(36, 1);
-    changePeaceSelectedUser(28, 2);
-    changePeaceSelectedUser(35, 2);
-    player1Score.value = 2;
-    player2Score.value = 2;
+    changePieceValue(11, 1, 3);
+    changePieceValue(13, 2, 3);
+    player1Score.value = 1;
+    player2Score.value = 1;
   }
 
   bool isTargetPeaceEmpty(int rIndex, int cIndex) {
@@ -170,105 +144,68 @@ class BoxFourController extends BaseGameController {
     return peaces[index].value.selectedUser == 0;
   }
 
-  bool isTargetPeaceEnemy(int rIndex, int cIndex, int gamerId) {
-    int index = coordinateToIndex(rIndex, cIndex);
-    return peaces[index].value.selectedUser != gamerId;
-  }
-
   bool isTargetPeaceForGamerId(int rIndex, int cIndex, int gamerId) {
     int index = coordinateToIndex(rIndex, cIndex);
     return peaces[index].value.selectedUser == gamerId;
   }
 
-  bool isValidCoordinate(rIndex, cIndex) {
-    if (rIndex >= 0 && rIndex <= 7 && cIndex >= 0 && cIndex <= 7) {
+  bool isValidCoordinate(cIndex, rIndex) {
+    if (rIndex >= 0 && rIndex <= 4 && cIndex >= 0 && cIndex <= 4) {
       return true;
     }
     return false;
   }
 
-  bool hasTileToFlip(List<int> move, List<int> direction, gamerId) {
-    int i = 1;
-    if (isValidCoordinate(move[0], move[1])) {
-      while (true) {
-        int row = move[0] + direction[0] * i;
-        int col = move[1] + direction[1] * i;
-        int index = coordinateToIndex(row, col);
-        if (!isValidCoordinate(row, col) || isTargetPeaceEmpty(row, col)) {
-          return false;
-        } else if (peaces[index].value.selectedUser == gamerId) {
-          break;
+  getLegalPieces() {
+    for (var i = 0; i < peaces.length; i++) {
+      if (peaces[i].value.selectedUser == myGameId) {
+        addPeaceStatus(i, PeaceStatusTypes.canSelected);
+      }
+    }
+  }
+
+  spreadNumber((int, int) position, int gamerId) {
+    int index = coordinateToIndex(position.$1, position.$2);
+    changePieceValue(index, 0, 0);
+    for (var directionMove in moveDirs) {
+      int y = position.$1 + directionMove.$1;
+      int x = position.$2 + directionMove.$2;
+      if (isValidCoordinate(y, x)) {
+        index = coordinateToIndex(y, x);
+        int currentValue = peaces[index].value.value;
+        if (currentValue < 3) {
+          changePieceValue(index, gamerId, currentValue + 1);
         } else {
-          i += 1;
-        }
-      }
-    }
-    return i > 1;
-  }
-
-  void flitTiles(int gamerId, List<int> move) {
-    int index = coordinateToIndex(move[0], move[1]);
-    changePeaceSelectedUser(index, gamerId);
-    for (var direction in moveDirs) {
-      if (hasTileToFlip(move, direction, gamerId)) {
-        int i = 1;
-        while (true) {
-          int row = move[0] + direction[0] * i;
-          int col = move[1] + direction[1] * i;
-          int index = coordinateToIndex(row, col);
-          if (isTargetPeaceForGamerId(row, col, gamerId)) {
-            break;
-          } else {
-            changePeaceSelectedUser(index, gamerId);
-            i += 1;
-          }
+          spreadNumber((y, x), gamerId);
         }
       }
     }
   }
 
-  bool hasLegalMove(int gamerId) {
-    for (var row = 0; row < 8; row++) {
-      for (var col = 0; col < 8; col++) {
-        final move = [row, col];
-        if (isLegalMove(move, gamerId)) {
-          return true;
-        }
-      }
+  submitPieceForUser((int, int) position, gamerId) {
+    int index = coordinateToIndex(position.$1, position.$2);
+    int currentValue = peaces[index].value.value;
+    if (currentValue < 3) {
+      changePieceValue(index, gamerId, currentValue + 1);
+    } else {
+      spreadNumber(position, gamerId);
     }
-    return false;
   }
 
-  List<List<int>> getLegalMoves(int gamerId) {
-    List<List<int>> moves = [];
-    for (var row = 0; row < 8; row++) {
-      for (var col = 0; col < 8; col++) {
-        final move = [row, col];
-        if (isLegalMove(move, gamerId)) {
-          moves.add(move);
-        }
+  int getPlayerScore(int gamerId) {
+    int count = 0;
+    for (var piece in peaces) {
+      if (piece.value.selectedUser == gamerId) {
+        count += 1;
       }
     }
-    return moves;
-  }
-
-  bool isLegalMove(List<int>? move, int gamerId) {
-    if (move != null &&
-        isValidCoordinate(move[0], move[1]) &&
-        isTargetPeaceEmpty(move[0], move[1])) {
-      for (var direction in moveDirs) {
-        if (hasTileToFlip(move, direction, gamerId)) {
-          return true;
-        }
-      }
-    }
-    return false;
+    return count;
   }
 
   @override
   void onInit() async {
     super.onInit();
     gameType = GameTypes.boxFour;
-    initPeaces();
+    initPieces();
   }
 }

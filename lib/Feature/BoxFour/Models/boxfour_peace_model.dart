@@ -5,42 +5,32 @@ class BoxFourPeaceModel extends PeaceModel {
   BoxFourPeaceModel({
     required super.id,
     required super.currentStatuses,
-    this.selectedUser,
+    this.selectedUser = 0,
+    this.value = 0,
   });
 
-  int? selectedUser;
+  int selectedUser;
+  int value;
 
   BoxFourPeaceModel getFromJson(Map data, int id) {
-    int? newSelectedUser;
-    if (data['pawn_gamer_id'] != null) {
-      newSelectedUser = data['pawn_gamer_id'];
-    }
     return BoxFourPeaceModel(
       id: id,
       currentStatuses: currentStatuses,
-      selectedUser: newSelectedUser,
+      selectedUser: data['equipped_user'],
+      value: data['value'],
     );
   }
 
-  BoxFourPeaceModel changeSelectedUser({
+  BoxFourPeaceModel changeValue({
+    int? newValue,
     int? newSelectedUser,
   }) {
     final data = super.addStatus(status: PeaceStatusTypes.selected);
     return BoxFourPeaceModel(
       id: id,
       currentStatuses: data.currentStatuses,
-      selectedUser: newSelectedUser,
-    );
-  }
-
-  BoxFourPeaceModel changeIsSuperPawn({
-    required bool newIsSuperPawn,
-  }) {
-    final data = super.addStatus(status: PeaceStatusTypes.selected);
-    return BoxFourPeaceModel(
-      id: id,
-      currentStatuses: data.currentStatuses,
-      selectedUser: selectedUser,
+      value: newValue ?? value,
+      selectedUser: newSelectedUser ?? selectedUser,
     );
   }
 
@@ -48,7 +38,8 @@ class BoxFourPeaceModel extends PeaceModel {
     return BoxFourPeaceModel(
       id: id,
       currentStatuses: [],
-      selectedUser: null,
+      selectedUser: 0,
+      value: 0,
     );
   }
 
@@ -59,6 +50,7 @@ class BoxFourPeaceModel extends PeaceModel {
       id: data.id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
+      value: value,
     );
   }
 
@@ -69,6 +61,7 @@ class BoxFourPeaceModel extends PeaceModel {
       id: data.id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
+      value: value,
     );
   }
 }
