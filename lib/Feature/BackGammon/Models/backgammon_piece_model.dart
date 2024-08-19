@@ -5,12 +5,12 @@ class BackGammonPeaceModel extends PeaceModel {
   BackGammonPeaceModel({
     required super.id,
     required super.currentStatuses,
-    this.selectedUser,
-    this.value,
+    this.selectedUser = 0,
+    this.count = 0,
   });
 
-  int? selectedUser;
-  int? value;
+  int selectedUser;
+  int count;
 
   BackGammonPeaceModel changeSelectedUser({
     int? newSelectedUser,
@@ -25,19 +25,21 @@ class BackGammonPeaceModel extends PeaceModel {
     return BackGammonPeaceModel(
       id: id,
       currentStatuses: data.currentStatuses,
-      selectedUser: newSelectedUser,
-      value: value,
+      selectedUser: newSelectedUser ?? selectedUser,
+      count: count,
     );
   }
 
-  BackGammonPeaceModel changeValue({
-    int? newValue,
+  BackGammonPeaceModel changecount({
+    int? newcount,
+    int? newSelectedUser,
+
   }) {
     return BackGammonPeaceModel(
       id: id,
       currentStatuses: currentStatuses,
-      value: newValue,
-      selectedUser: selectedUser,
+      count: newcount ?? count,
+      selectedUser:newSelectedUser?? selectedUser,
     );
   }
 
@@ -45,8 +47,8 @@ class BackGammonPeaceModel extends PeaceModel {
     return BackGammonPeaceModel(
       id: id,
       currentStatuses: [],
-      selectedUser: null,
-      value: null,
+      selectedUser: 0,
+      count: 0,
     );
   }
 
@@ -57,7 +59,7 @@ class BackGammonPeaceModel extends PeaceModel {
       id: data.id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
-      value: value,
+      count: count,
     );
   }
 
@@ -68,7 +70,7 @@ class BackGammonPeaceModel extends PeaceModel {
       id: data.id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
-      value: value,
+      count: count,
     );
   }
 }

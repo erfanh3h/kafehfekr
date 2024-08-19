@@ -32,7 +32,8 @@ class BackGammonPage extends BaseView<BackGammonController> {
               player2Number1: controller.player2Score.value,
             ),
           const Spacer(flex: 3),
-          BackGammonBoardWidget(controller: controller),
+          if (controller.peaces.length > 12)
+            BackGammonBoardWidget(controller: controller),
           const Spacer(flex: 4),
           GlobalActivityBox<BackGammonController>(),
           const Spacer(flex: 1),

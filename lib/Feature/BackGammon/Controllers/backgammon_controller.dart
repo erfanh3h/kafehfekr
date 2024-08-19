@@ -10,6 +10,10 @@ class BackGammonController extends BaseGameController {
   RxList<Rx<BackGammonPeaceModel>> peaces = RxList();
 
   RxInt equippedPeaceIndex = RxInt(-1);
+  RxList<int> currentDices = RxList([]);
+
+  RxInt player1OutPieces = RxInt(0);
+  RxInt player2OutPieces = RxInt(0);
 
   @override
   void currentTurnFunction(Map data) {
@@ -27,38 +31,38 @@ class BackGammonController extends BaseGameController {
   @override
   void peaceSelectedFunction(Map data) {
     Map peaceData = data['data'];
-    int gamerId = peaceData['user'];
-    bool isCorrectlySelected = peaceData['is_correct'];
-    int index1 = peaceData['index1'];
-    int index2 = peaceData['index2'];
-    int value1 = peaceData['value1'];
-    int value2 = peaceData['value2'];
-    changetimerValue(GameWaitTimes.mnumbersShowResultTime);
-    removePeaceStatus(index1, PeaceStatusTypes.isLoading);
-    removePeaceStatus(index2, PeaceStatusTypes.isLoading);
-    clearEquipStatus();
-    addPeaceStatus(index1, PeaceStatusTypes.selected);
-    changePeaceValue(index1, value1);
-    changePeaceSelectedGamer(index1, gamerId);
-    addPeaceStatus(index2, PeaceStatusTypes.selected);
-    changePeaceValue(index2, value2);
-    changePeaceSelectedGamer(index2, gamerId);
-    if (isCorrectlySelected) {
-      if (gamerId == 1) {
-        player1Score.value += 1;
-      } else {
-        player2Score.value += 1;
-      }
-    } else {
-      Future.delayed(const Duration(seconds: 3)).then((_) {
-        removePeaceStatus(index1, PeaceStatusTypes.selected);
-        changePeaceValue(index1, null);
-        changePeaceSelectedGamer(index1, null);
-        removePeaceStatus(index2, PeaceStatusTypes.selected);
-        changePeaceValue(index2, null);
-        changePeaceSelectedGamer(index2, null);
-      });
-    }
+    // int gamerId = peaceData['user'];
+    // bool isCorrectlySelected = peaceData['is_correct'];
+    // int index1 = peaceData['index1'];
+    // int index2 = peaceData['index2'];
+    // int value1 = peaceData['value1'];
+    // int value2 = peaceData['value2'];
+    // changetimerValue(GameWaitTimes.mnumbersShowResultTime);
+    // removePeaceStatus(index1, PeaceStatusTypes.isLoading);
+    // removePeaceStatus(index2, PeaceStatusTypes.isLoading);
+    // clearEquipStatus();
+    // addPeaceStatus(index1, PeaceStatusTypes.selected);
+    // changePeaceCount(index1, value1);
+    // changePeaceSelectedGamer(index1, gamerId);
+    // addPeaceStatus(index2, PeaceStatusTypes.selected);
+    // changePeaceCount(index2, value2);
+    // changePeaceSelectedGamer(index2, gamerId);
+    // if (isCorrectlySelected) {
+    //   if (gamerId == 1) {
+    //     player1Score.value += 1;
+    //   } else {
+    //     player2Score.value += 1;
+    //   }
+    // } else {
+    //   Future.delayed(const Duration(seconds: 3)).then((_) {
+    //     removePeaceStatus(index1, PeaceStatusTypes.selected);
+    //     changePeaceCount(index1, null);
+    //     changePeaceSelectedGamer(index1, null);
+    //     removePeaceStatus(index2, PeaceStatusTypes.selected);
+    //     changePeaceCount(index2, null);
+    //     changePeaceSelectedGamer(index2, null);
+    //   });
+    // }
   }
 
   @override
@@ -101,35 +105,35 @@ class BackGammonController extends BaseGameController {
   void reconnectDataFuntcion(Map data) {
     super.reconnectDataFuntcion(data);
     Map newData = data['data'];
-    Map gameData = newData['game_data'];
-    Map timerData = newData['timer_data'];
-    List boardData = gameData['board'];
-    player1Score.value = gameData['scores'][0];
-    player2Score.value = gameData['scores'][1];
-    currentTurn.value = gameData['current_turn'];
-    for (var i = 0; i < boardData.length; i++) {
-      if (boardData[i]['value'] == 0) {
-        continue;
-      }
-      if (boardData[i]['equipped_user'] != 0) {
-        changePeaceValue(i, boardData[i]['value']);
-        changePeaceSelectedGamer(i, boardData[i]['equipped_user']);
-      }
-    }
-    if (currentTurn.value == myGameId) {
-      canSelectPeace.value = true;
-    } else {
-      canSelectPeace.value = false;
-    }
-    if (timerData['is_user_turn']) {
-      final int time =
-          GameWaitTimes.mnumbersTurnTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.mnumbersTurnTime));
-    }
+    // Map gameData = newData['game_data'];
+    // Map timerData = newData['timer_data'];
+    // List boardData = gameData['board'];
+    // player1Score.value = gameData['scores'][0];
+    // player2Score.value = gameData['scores'][1];
+    // currentTurn.value = gameData['current_turn'];
+    // for (var i = 0; i < boardData.length; i++) {
+    //   if (boardData[i]['value'] == 0) {
+    //     continue;
+    //   }
+    //   if (boardData[i]['equipped_user'] != 0) {
+    //     changePeaceCount(i, boardData[i]['value']);
+    //     changePeaceSelectedGamer(i, boardData[i]['equipped_user']);
+    //   }
+    // }
+    // if (currentTurn.value == myGameId) {
+    //   canSelectPeace.value = true;
+    // } else {
+    //   canSelectPeace.value = false;
+    // }
+    // if (timerData['is_user_turn']) {
+    //   final int time =
+    //       GameWaitTimes.mnumbersTurnTime - timerData['time'] as int;
+    //   changetimerValue(time.clamp(1, GameWaitTimes.mnumbersTurnTime));
+    // }
   }
 
   bool checkPeaceIsEmpty(int index) {
-    return peaces.value[index].value.selectedUser == null;
+    return peaces.value[index].value.selectedUser == 0;
   }
 
   void clearEquipedPeace(int index) {
@@ -157,11 +161,13 @@ class BackGammonController extends BaseGameController {
     }
   }
 
-  changePeaceValue(int? peaceId, int? value) {
-    if (peaceId != null) {
-      peaces.value[peaceId].value =
-          peaces.value[peaceId].value.changeValue(newValue: value);
-    }
+  changePeaceCount(
+    int peaceId,
+    int gamerId,
+    int value,
+  ) {
+    peaces.value[peaceId].value = peaces.value[peaceId].value
+        .changecount(newcount: value, newSelectedUser: gamerId);
   }
 
   changePeaceSelectedGamer(int? peaceId, int? value) {
@@ -180,12 +186,24 @@ class BackGammonController extends BaseGameController {
     }
   }
 
+  void initPieces() {
+    for (var i = 0; i < 24; i++) {
+      peaces.add(Rx(BackGammonPeaceModel(id: i, currentStatuses: [])));
+    }
+    changePeaceCount(0, 1, 2);
+    changePeaceCount(23, 2, 2);
+    changePeaceCount(5, 2, 5);
+    changePeaceCount(18, 1, 5);
+    changePeaceCount(7, 2, 3);
+    changePeaceCount(16, 1, 3);
+    changePeaceCount(11, 1, 5);
+    changePeaceCount(12, 2, 5);
+  }
+
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.mnumbers;
-    for (var i = 0; i < 36; i++) {
-      peaces.add(Rx(BackGammonPeaceModel(id: i, currentStatuses: [])));
-    }
+    gameType = GameTypes.backGammon;
+    initPieces();
   }
 }
