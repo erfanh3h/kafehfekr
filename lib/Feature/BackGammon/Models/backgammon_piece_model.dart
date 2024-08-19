@@ -12,6 +12,15 @@ class BackGammonPeaceModel extends PeaceModel {
   int selectedUser;
   int count;
 
+  BackGammonPeaceModel getFromJson(Map data, int id) {
+    return BackGammonPeaceModel(
+      id: id,
+      currentStatuses: currentStatuses,
+      count: data['count'],
+      selectedUser: data['equipped_user'],
+    );
+  }
+
   BackGammonPeaceModel changeSelectedUser({
     int? newSelectedUser,
   }) {
@@ -33,13 +42,12 @@ class BackGammonPeaceModel extends PeaceModel {
   BackGammonPeaceModel changecount({
     int? newcount,
     int? newSelectedUser,
-
   }) {
     return BackGammonPeaceModel(
       id: id,
       currentStatuses: currentStatuses,
       count: newcount ?? count,
-      selectedUser:newSelectedUser?? selectedUser,
+      selectedUser: newSelectedUser ?? selectedUser,
     );
   }
 

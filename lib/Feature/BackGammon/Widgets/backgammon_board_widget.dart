@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/BackGammon/Controllers/backgammon_controller.dart';
@@ -28,7 +29,10 @@ class BackGammonBoardWidget extends StatelessWidget {
               child: Container(
                 padding: AppSpacings.s10All,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white70, width: 10),
+                  border: Border.all(
+                    color: AppColors.goldenColor2,
+                    width: 10,
+                  ),
                   color: Colors.transparent.withOpacity(.1),
                   borderRadius: BorderRadius.circular(15),
                 ),
@@ -77,7 +81,10 @@ class BackGammonBoardWidget extends StatelessWidget {
               child: Container(
                 padding: AppSpacings.s10All,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white70, width: 10),
+                  border: Border.all(
+                    color: AppColors.goldenColor2,
+                    width: 10,
+                  ),
                   color: Colors.transparent.withOpacity(.1),
                   borderRadius: BorderRadius.circular(15),
                 ),

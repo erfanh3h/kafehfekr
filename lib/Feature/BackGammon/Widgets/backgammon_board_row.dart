@@ -33,9 +33,9 @@ class BackGammonBoardRow extends StatelessWidget {
         break;
     }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      borderWidth = 1.5;
+      borderWidth = 2.5;
     } else {
-      borderWidth = .3;
+      borderWidth = .5;
     }
     return LayoutBuilder(builder: (context, cons) {
       double maxWidth = cons.maxWidth;
@@ -48,6 +48,23 @@ class BackGammonBoardRow extends StatelessWidget {
           },
           child: Stack(
             children: [
+              ClipPath(
+                clipper: CustomTriangleClipper(isRight: isRight),
+                child: Container(
+                  width: maxWidth,
+                  height: maxHeight,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: [
+                        Color.fromARGB(isRight ? 255 : 1, 212, 133, 126),
+                        Color.fromARGB(isRight ? 1 : 255, 214, 172, 168),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
               peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
                   ? const GlobalLoadingWidget()
                   : peaceData.count != 0
@@ -66,29 +83,47 @@ class BackGammonBoardRow extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: imageColor,
+                                  border: Border.all(
+                                    color: AppColors.lightColor,
+                                    width: borderWidth,
+                                  ),
                                 ),
                               )
                           ],
                         )
                       : Container(),
-              Container(
-                height: maxHeight,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                      color: AppColors.goldenColor, width: borderWidth),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(isRight ? 10 : 50),
-                    topLeft: Radius.circular(isRight ? 50 : 10),
-                    bottomRight: Radius.circular(isRight ? 10 : 50),
-                    bottomLeft: Radius.circular(isRight ? 50 : 10),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
       );
     });
+  }
+}
+
+class CustomTriangleClipper extends CustomClipper<Path> {
+  final bool isRight;
+
+  CustomTriangleClipper({super.reclip, required this.isRight});
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    if (isRight) {
+      path.moveTo(0, size.height / 2);
+    } else {
+      path.lineTo(size.width, size.height / 2);
+    }
+    if (isRight) {
+      path.lineTo(size.width, 0);
+      path.lineTo(size.width, size.height);
+    } else {
+      path.lineTo(0, size.height);
+    }
+    // path.lineTo(0, 0);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

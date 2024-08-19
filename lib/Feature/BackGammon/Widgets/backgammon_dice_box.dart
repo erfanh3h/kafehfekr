@@ -46,15 +46,15 @@ class BackGammonDiceBox extends StatelessWidget {
     return InkWell(
       onTap: () => onTap(index),
       child: SizedBox(
-        width: 30.h,
-        height: 30.h,
+        width: 40.h,
+        height: 40.h,
         child: Card(
-          color: isSelected ? AppColors.guideGreen : AppColors.lightColor,
+          color: isSelected ? AppColors.goldenColor : AppColors.lightColor,
           child: Padding(
             padding: AppSpacings.s5All,
             child: Image.asset(
               diceImage,
-              color: !isSelected ? AppColors.guideGreen : AppColors.lightColor,
+              color: !isSelected ? AppColors.darkColor : AppColors.lightColor,
             ),
           ),
         ),

@@ -17,6 +17,8 @@ class BackGammonController extends BaseGameController {
 
   @override
   void currentTurnFunction(Map data) {
+    equippedDiceIndex.value = -1;
+    clearCanSelectedStatus();
     Map turnData = data['data'];
     int turn = turnData['turn'];
     currentDices.value = List<int>.from(turnData['dices']);
@@ -94,31 +96,29 @@ class BackGammonController extends BaseGameController {
   void reconnectDataFuntcion(Map data) {
     super.reconnectDataFuntcion(data);
     Map newData = data['data'];
-    // Map gameData = newData['game_data'];
-    // Map timerData = newData['timer_data'];
-    // List boardData = gameData['board'];
-    // player1Score.value = gameData['scores'][0];
-    // player2Score.value = gameData['scores'][1];
-    // currentTurn.value = gameData['current_turn'];
-    // for (var i = 0; i < boardData.length; i++) {
-    //   if (boardData[i]['value'] == 0) {
-    //     continue;
-    //   }
-    //   if (boardData[i]['equipped_user'] != 0) {
-    //     changePeaceCount(i, boardData[i]['value']);
-    //     changePeaceSelectedGamer(i, boardData[i]['equipped_user']);
-    //   }
-    // }
-    // if (currentTurn.value == myGameId) {
-    //   canSelectPeace.value = true;
-    // } else {
-    //   canSelectPeace.value = false;
-    // }
-    // if (timerData['is_user_turn']) {
-    //   final int time =
-    //       GameWaitTimes.backGammonTurnTime - timerData['time'] as int;
-    //   changetimerValue(time.clamp(1, GameWaitTimes.backGammonTurnTime));
-    // }
+    Map gameData = newData['game_data'];
+    Map timerData = newData['timer_data'];
+    List boardData = gameData['board'];
+    List outPieces = gameData['out_pieces'];
+    player1Score.value = gameData['scores'][0];
+    player2Score.value = gameData['scores'][1];
+    currentTurn.value = gameData['current_turn'];
+    player1OutPieces.value = outPieces[0];
+    player2OutPieces.value = outPieces[1];
+    currentDices.value = List<int>.from(gameData['current_dices']);
+    for (var i = 0; i < boardData.length; i++) {
+      peaces[i].value = peaces[i].value.getFromJson(boardData[i], i);
+    }
+    if (currentTurn.value == myGameId) {
+      canSelectPeace.value = true;
+    } else {
+      canSelectPeace.value = false;
+    }
+    if (timerData['is_user_turn']) {
+      final int time =
+          GameWaitTimes.backGammonTurnTime - timerData['time'] as int;
+      changetimerValue(time.clamp(1, GameWaitTimes.backGammonTurnTime));
+    }
   }
 
   bool checkPeaceIsEmpty(int index) {
