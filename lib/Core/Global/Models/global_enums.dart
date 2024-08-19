@@ -24,5 +24,6 @@ enum GameTypes {
   fourInRow,
   sudoku,
   battleship,
-  boxFour
+  boxFour,
+  backGammon
 }

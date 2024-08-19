@@ -17,4 +17,5 @@ abstract class AppRoutes {
   static const sudoku = '/sudoku';
   static const battleship = '/battleship';
   static const boxFour = '/boxFour';
+  static const backGammon = '/backGammon';
 }
