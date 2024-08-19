@@ -33,7 +33,7 @@ class BackGammonBoardRow extends StatelessWidget {
         break;
     }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      borderWidth = 1;
+      borderWidth = 1.5;
     } else {
       borderWidth = .3;
     }
@@ -48,20 +48,6 @@ class BackGammonBoardRow extends StatelessWidget {
           },
           child: Stack(
             children: [
-              Container(
-                height: maxHeight,
-                width: double.maxFinite,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                      color: AppColors.goldenColor, width: borderWidth),
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(isRight ? 10 : 50),
-                    topLeft: Radius.circular(isRight ? 50 : 10),
-                    bottomRight: Radius.circular(isRight ? 10 : 50),
-                    bottomLeft: Radius.circular(isRight ? 50 : 10),
-                  ),
-                ),
-              ),
               peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
                   ? const GlobalLoadingWidget()
                   : peaceData.count != 0
@@ -84,7 +70,21 @@ class BackGammonBoardRow extends StatelessWidget {
                               )
                           ],
                         )
-                      : Container()
+                      : Container(),
+              Container(
+                height: maxHeight,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: AppColors.goldenColor, width: borderWidth),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(isRight ? 10 : 50),
+                    topLeft: Radius.circular(isRight ? 50 : 10),
+                    bottomRight: Radius.circular(isRight ? 10 : 50),
+                    bottomLeft: Radius.circular(isRight ? 50 : 10),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

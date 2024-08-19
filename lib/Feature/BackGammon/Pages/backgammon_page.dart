@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Feature/BackGammon/Controllers/backgammon_controller.dart';
 import 'package:kafehfekr/Feature/BackGammon/Widgets/backgammon_board_widget.dart';
+import 'package:kafehfekr/Feature/BackGammon/Widgets/backgammon_dices_box.dart';
 
 class BackGammonPage extends BaseView<BackGammonController> {
   const BackGammonPage({super.key});
@@ -30,10 +31,14 @@ class BackGammonPage extends BaseView<BackGammonController> {
               timerColor: controller.returnTimerColor(),
               player1Number1: controller.player1Score.value,
               player2Number1: controller.player2Score.value,
+              player1Number2: controller.player1OutPieces.value,
+              player2Number2: controller.player2OutPieces.value,
             ),
           const Spacer(flex: 3),
           if (controller.peaces.length > 12)
             BackGammonBoardWidget(controller: controller),
+          const Spacer(flex: 1),
+          BackGammonDicesBox(controller: controller),
           const Spacer(flex: 4),
           GlobalActivityBox<BackGammonController>(),
           const Spacer(flex: 1),

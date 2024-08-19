@@ -9,7 +9,7 @@ import 'package:refreshed/refreshed.dart';
 class BackGammonController extends BaseGameController {
   RxList<Rx<BackGammonPeaceModel>> peaces = RxList();
 
-  RxInt equippedPeaceIndex = RxInt(-1);
+  RxInt equippedDiceIndex = RxInt(-1);
   RxList<int> currentDices = RxList([]);
 
   RxInt player1OutPieces = RxInt(0);
@@ -17,7 +17,9 @@ class BackGammonController extends BaseGameController {
 
   @override
   void currentTurnFunction(Map data) {
-    int turn = data['data'];
+    Map turnData = data['data'];
+    int turn = turnData['turn'];
+    currentDices.value = List<int>.from(turnData['dices']);
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
@@ -25,7 +27,7 @@ class BackGammonController extends BaseGameController {
     } else {
       canSelectPeace.value = false;
     }
-    changetimerValue(GameWaitTimes.mnumbersTurnTime);
+    changetimerValue(GameWaitTimes.backGammonTurnTime);
   }
 
   @override
@@ -72,33 +74,43 @@ class BackGammonController extends BaseGameController {
       showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
-    if (!checkPeaceIsEmpty(peace.id)) {
-      showInteraction(text: AppTexts.selectedBefore.tr);
+    if (!peaces[peace.id]
+        .value
+        .currentStatuses
+        .contains(PeaceStatusTypes.canSelected)) {
+      showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
-    if (equippedPeaceIndex.value != -1) {
-      if (peace.id == equippedPeaceIndex.value) {
-        equippedPeaceIndex.value = -1;
-        removePeaceStatus(peace.id, PeaceStatusTypes.equiped);
-        return;
-      }
-      canSelectPeace.value = false;
-      showInteraction(sound: GameSoundTypes.tap);
-      changetimerValue(0);
-      currentTurn.value = -1;
-      sendCommand({
-        "id": GameCommands.selectPeace,
-        "data": {'index1': equippedPeaceIndex.value, 'index2': peace.id}
-      });
-      addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
-      addPeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.isLoading);
-      addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-      equippedPeaceIndex.value = -1;
-    } else {
-      equippedPeaceIndex.value = peace.id;
-      showInteraction(sound: GameSoundTypes.tap);
-      addPeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
+    // canSelectPeace.value = false;
+    showInteraction(sound: GameSoundTypes.tap);
+    movePiece(peace.id, currentDices[equippedDiceIndex.value], myGameId);
+    // currentTurn.value = -1;
+    // sendCommand({
+    //   "id": GameCommands.selectPeace,
+    //   "data": {'index1': equippedDiceIndex.value, 'index2': peace.id}
+    // });
+    // addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
+    // addPeaceStatus(equippedDiceIndex.value, PeaceStatusTypes.isLoading);
+    // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
+    equippedDiceIndex.value = -1;
+    clearCanSelectedStatus();
+  }
+
+  void onEachDiceButtonTap(int index) {
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
     }
+    if (equippedDiceIndex.value != -1) {
+      if (index == equippedDiceIndex.value) {
+        equippedDiceIndex.value = -1;
+      } else {
+        equippedDiceIndex.value = index;
+      }
+    } else {
+      equippedDiceIndex.value = index;
+    }
+    setActivePossiblePieces();
   }
 
   @override
@@ -127,8 +139,8 @@ class BackGammonController extends BaseGameController {
     // }
     // if (timerData['is_user_turn']) {
     //   final int time =
-    //       GameWaitTimes.mnumbersTurnTime - timerData['time'] as int;
-    //   changetimerValue(time.clamp(1, GameWaitTimes.mnumbersTurnTime));
+    //       GameWaitTimes.backGammonTurnTime - timerData['time'] as int;
+    //   changetimerValue(time.clamp(1, GameWaitTimes.backGammonTurnTime));
     // }
   }
 
@@ -136,8 +148,13 @@ class BackGammonController extends BaseGameController {
     return peaces.value[index].value.selectedUser == 0;
   }
 
+  bool checkPeaceIsEnemy(int index) {
+    return peaces.value[index].value.selectedUser != 0 &&
+        peaces.value[index].value.selectedUser != myGameId;
+  }
+
   void clearEquipedPeace(int index) {
-    equippedPeaceIndex.value = -1;
+    equippedDiceIndex.value = -1;
     removePeaceStatus(index, PeaceStatusTypes.equiped);
   }
 
@@ -170,6 +187,28 @@ class BackGammonController extends BaseGameController {
         .changecount(newcount: value, newSelectedUser: gamerId);
   }
 
+  reducePeaceCount(int peaceId) {
+    int newValue = peaces.value[peaceId].value.count - 1;
+    if (newValue == 0) {
+      peaces.value[peaceId].value = peaces.value[peaceId].value
+          .changecount(newcount: 0, newSelectedUser: 0);
+    } else {
+      peaces.value[peaceId].value =
+          peaces.value[peaceId].value.changecount(newcount: newValue);
+    }
+  }
+
+  addPeaceCount(int peaceId, int gamerId) {
+    int newValue = peaces.value[peaceId].value.count + 1;
+    if (newValue == 1) {
+      peaces.value[peaceId].value = peaces.value[peaceId].value
+          .changecount(newcount: newValue, newSelectedUser: gamerId);
+    } else {
+      peaces.value[peaceId].value =
+          peaces.value[peaceId].value.changecount(newcount: newValue);
+    }
+  }
+
   changePeaceSelectedGamer(int? peaceId, int? value) {
     if (peaceId != null) {
       peaces.value[peaceId].value = peaces.value[peaceId].value
@@ -177,11 +216,19 @@ class BackGammonController extends BaseGameController {
     }
   }
 
-  clearEquipStatus() {
+  changePeaceStatus(int peaceId, PeaceStatusTypes status) {
+    peaces.value[peaceId].value =
+        peaces.value[peaceId].value.addStatus(status: status);
+  }
+
+  clearCanSelectedStatus() {
     for (var i = 0; i < peaces.length; i++) {
-      if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.equiped)) {
+      if (peaces[i]
+          .value
+          .currentStatuses
+          .contains(PeaceStatusTypes.canSelected)) {
         peaces[i].value =
-            peaces[i].value.removeStatus(status: PeaceStatusTypes.equiped);
+            peaces[i].value.removeStatus(status: PeaceStatusTypes.canSelected);
       }
     }
   }
@@ -198,6 +245,63 @@ class BackGammonController extends BaseGameController {
     changePeaceCount(16, 1, 3);
     changePeaceCount(11, 1, 5);
     changePeaceCount(12, 2, 5);
+    currentDices.value = [1, 2, 3, 5, 6, 4];
+  }
+
+  movePiece(int index, int dice, int gamerId) {
+    reducePeaceCount(index);
+    int multiple = 1;
+    if (gamerId == 2) {
+      multiple = -1;
+    }
+    int targetIndex = index + (dice * multiple);
+    addPeaceCount(targetIndex , gamerId);
+  }
+
+  bool isValidIndex(int index) {
+    if (index >= 0 && index < 24) {
+      return true;
+    }
+    return false;
+  }
+
+  bool checkSourceCanMoveNCount(int source, int count) {
+    int multiple = 1;
+    if (myGameId == 2) {
+      multiple = -1;
+    }
+    int destination = source + (count * multiple);
+    if (!isValidIndex(destination)) {
+      return false;
+    }
+    if (checkPeaceIsEnemy(destination)) {
+      return false;
+    }
+    return true;
+  }
+
+  List<int> getMyPiecesList() {
+    List<int> result = [];
+    for (var i = 0; i < peaces.length; i++) {
+      if (peaces[i].value.selectedUser == myGameId) {
+        result.add(i);
+      }
+    }
+    return result;
+  }
+
+  setActivePossiblePieces() {
+    clearCanSelectedStatus();
+    if (equippedDiceIndex.value == -1) {
+      return;
+    }
+    List<int> myIndexes = getMyPiecesList();
+    for (var index in myIndexes) {
+      if (checkSourceCanMoveNCount(
+          index, currentDices[equippedDiceIndex.value])) {
+        changePeaceStatus(index, PeaceStatusTypes.canSelected);
+      }
+    }
   }
 
   @override
