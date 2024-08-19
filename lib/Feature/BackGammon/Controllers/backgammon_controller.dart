@@ -32,39 +32,12 @@ class BackGammonController extends BaseGameController {
 
   @override
   void peaceSelectedFunction(Map data) {
-    Map peaceData = data['data'];
-    // int gamerId = peaceData['user'];
-    // bool isCorrectlySelected = peaceData['is_correct'];
-    // int index1 = peaceData['index1'];
-    // int index2 = peaceData['index2'];
-    // int value1 = peaceData['value1'];
-    // int value2 = peaceData['value2'];
-    // changetimerValue(GameWaitTimes.mnumbersShowResultTime);
-    // removePeaceStatus(index1, PeaceStatusTypes.isLoading);
-    // removePeaceStatus(index2, PeaceStatusTypes.isLoading);
-    // clearEquipStatus();
-    // addPeaceStatus(index1, PeaceStatusTypes.selected);
-    // changePeaceCount(index1, value1);
-    // changePeaceSelectedGamer(index1, gamerId);
-    // addPeaceStatus(index2, PeaceStatusTypes.selected);
-    // changePeaceCount(index2, value2);
-    // changePeaceSelectedGamer(index2, gamerId);
-    // if (isCorrectlySelected) {
-    //   if (gamerId == 1) {
-    //     player1Score.value += 1;
-    //   } else {
-    //     player2Score.value += 1;
-    //   }
-    // } else {
-    //   Future.delayed(const Duration(seconds: 3)).then((_) {
-    //     removePeaceStatus(index1, PeaceStatusTypes.selected);
-    //     changePeaceCount(index1, null);
-    //     changePeaceSelectedGamer(index1, null);
-    //     removePeaceStatus(index2, PeaceStatusTypes.selected);
-    //     changePeaceCount(index2, null);
-    //     changePeaceSelectedGamer(index2, null);
-    //   });
-    // }
+    Map pieceData = data['data'];
+    int gamerId = pieceData['gamer_id'];
+    int index = pieceData['index'];
+    int diceIndex = pieceData['dice_index'];
+    movePiece(index, currentDices[diceIndex], gamerId);
+    currentDices.removeAt(diceIndex);
   }
 
   @override
@@ -72,6 +45,10 @@ class BackGammonController extends BaseGameController {
     BackGammonPeaceModel peace = tappedPeace as BackGammonPeaceModel;
     if (!canSelectPeace.value) {
       showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
+    }
+    if (equippedDiceIndex.value == -1) {
+      showInteraction(text: AppTexts.selectDiceFirst.tr);
       return;
     }
     if (!peaces[peace.id]
@@ -83,12 +60,12 @@ class BackGammonController extends BaseGameController {
     }
     // canSelectPeace.value = false;
     showInteraction(sound: GameSoundTypes.tap);
-    movePiece(peace.id, currentDices[equippedDiceIndex.value], myGameId);
+    // movePiece(peace.id, currentDices[equippedDiceIndex.value], myGameId);
     // currentTurn.value = -1;
-    // sendCommand({
-    //   "id": GameCommands.selectPeace,
-    //   "data": {'index1': equippedDiceIndex.value, 'index2': peace.id}
-    // });
+    sendCommand({
+      "id": GameCommands.selectPeace,
+      "data": {'index': peace.id, 'dice_index': equippedDiceIndex.value}
+    });
     // addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
     // addPeaceStatus(equippedDiceIndex.value, PeaceStatusTypes.isLoading);
     // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
@@ -148,9 +125,9 @@ class BackGammonController extends BaseGameController {
     return peaces.value[index].value.selectedUser == 0;
   }
 
-  bool checkPeaceIsEnemy(int index) {
+  bool checkPeaceIsEnemy(int index, {int? gamerId}) {
     return peaces.value[index].value.selectedUser != 0 &&
-        peaces.value[index].value.selectedUser != myGameId;
+        peaces.value[index].value.selectedUser != (gamerId ?? myGameId);
   }
 
   void clearEquipedPeace(int index) {
@@ -245,7 +222,7 @@ class BackGammonController extends BaseGameController {
     changePeaceCount(16, 1, 3);
     changePeaceCount(11, 1, 5);
     changePeaceCount(12, 2, 5);
-    currentDices.value = [1, 2, 3, 5, 6, 4];
+    // currentDices.value = [1, 2, 3, 5, 6, 4];
   }
 
   movePiece(int index, int dice, int gamerId) {
@@ -255,7 +232,15 @@ class BackGammonController extends BaseGameController {
       multiple = -1;
     }
     int targetIndex = index + (dice * multiple);
-    addPeaceCount(targetIndex , gamerId);
+    if (checkPeaceIsEnemy(targetIndex, gamerId: gamerId)) {
+      if (gamerId == 1) {
+        player2OutPieces.value += 1;
+      } else {
+        player1OutPieces.value += 1;
+      }
+      reducePeaceCount(targetIndex);
+    }
+    addPeaceCount(targetIndex, gamerId);
   }
 
   bool isValidIndex(int index) {
@@ -274,7 +259,8 @@ class BackGammonController extends BaseGameController {
     if (!isValidIndex(destination)) {
       return false;
     }
-    if (checkPeaceIsEnemy(destination)) {
+    if (checkPeaceIsEnemy(destination) &&
+        peaces.value[destination].value.count > 1) {
       return false;
     }
     return true;

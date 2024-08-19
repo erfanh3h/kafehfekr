@@ -49,6 +49,7 @@ class AppTranslations extends Translations {
           AppTexts.cantRemoveYourPiece: 'مهره خودتو نمیتونی حذف کنی!',
           AppTexts.cantSwapEnemyPiece: 'بامهره حریف نمیتونی عوض کنی!',
           AppTexts.outOfDice: 'تاسی نمونده!',
+          AppTexts.selectDiceFirst: 'تاستو انتخاب کن',
         },
         'en': {
           AppTexts.endGame: 'Game Finished',
@@ -92,6 +93,7 @@ class AppTranslations extends Translations {
           AppTexts.cantRemoveYourPiece: "",
           AppTexts.cantSwapEnemyPiece: "",
           AppTexts.outOfDice: "",
+          AppTexts.selectDiceFirst: "",
         },
       };
 }
