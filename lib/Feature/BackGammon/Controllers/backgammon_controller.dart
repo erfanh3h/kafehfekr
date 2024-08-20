@@ -15,9 +15,14 @@ class BackGammonController extends BaseGameController {
   RxInt player1OutPieces = RxInt(0);
   RxInt player2OutPieces = RxInt(0);
 
+  bool player1IsInEndPhase = false;
+  bool player2IsInEndPhase = false;
+
+  RxBool showDices = RxBool(false);
   @override
   void currentTurnFunction(Map data) {
     equippedDiceIndex.value = -1;
+    showDices.value = false;
     clearCanSelectedStatus();
     Map turnData = data['data'];
     int turn = turnData['turn'];
@@ -119,11 +124,14 @@ class BackGammonController extends BaseGameController {
     Map timerData = newData['timer_data'];
     List boardData = gameData['board'];
     List outPieces = gameData['out_pieces'];
+    List endPhases = gameData['end_phases'];
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
     currentTurn.value = gameData['current_turn'];
     player1OutPieces.value = outPieces[0];
     player2OutPieces.value = outPieces[1];
+    player1IsInEndPhase = endPhases[0];
+    player2IsInEndPhase = endPhases[1];
     currentDices.value = List<int>.from(gameData['current_dices']);
     for (var i = 0; i < boardData.length; i++) {
       peaces[i].value = peaces[i].value.getFromJson(boardData[i], i);
@@ -149,36 +157,7 @@ class BackGammonController extends BaseGameController {
         peaces.value[index].value.selectedUser != (gamerId ?? myGameId);
   }
 
-  void clearEquipedPeace(int index) {
-    equippedDiceIndex.value = -1;
-    removePeaceStatus(index, PeaceStatusTypes.equiped);
-  }
-
-  void resetPeaces() {
-    for (var i = 0; i < peaces.length; i++) {
-      peaces[i].value = peaces[i].value.resetPeace();
-    }
-  }
-
-  addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
-    if (peaceId != null) {
-      peaces.value[peaceId].value =
-          peaces.value[peaceId].value.addStatus(status: status);
-    }
-  }
-
-  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
-    if (peaceId != null) {
-      peaces.value[peaceId].value =
-          peaces.value[peaceId].value.removeStatus(status: status);
-    }
-  }
-
-  changePeaceCount(
-    int peaceId,
-    int gamerId,
-    int value,
-  ) {
+  changePeaceCount(int peaceId, int gamerId, int value) {
     peaces.value[peaceId].value = peaces.value[peaceId].value
         .changecount(newcount: value, newSelectedUser: gamerId);
   }
@@ -251,6 +230,37 @@ class BackGammonController extends BaseGameController {
     // currentDices.value = [1, 2, 3, 5, 6, 4];
   }
 
+  // check whether all pieces are in enf phaese
+  checkGamerIsInEndPhase(int gamerId) {
+    if (gamerId == 1) {
+      if (peaces[18].value.count +
+              peaces[19].value.count +
+              peaces[20].value.count +
+              peaces[21].value.count +
+              peaces[22].value.count +
+              peaces[23].value.count +
+              player1Score.value ==
+          15) {
+        player1IsInEndPhase = true;
+      } else {
+        player1IsInEndPhase = false;
+      }
+    } else {
+      if (peaces[0].value.count +
+              peaces[1].value.count +
+              peaces[2].value.count +
+              peaces[3].value.count +
+              peaces[4].value.count +
+              peaces[5].value.count +
+              player2Score.value ==
+          15) {
+        player2IsInEndPhase = true;
+      } else {
+        player2IsInEndPhase = false;
+      }
+    }
+  }
+
   movePiece(int index, int dice, int gamerId) {
     //come piece from out
     if (index == -1 || index == 24) {
@@ -267,15 +277,31 @@ class BackGammonController extends BaseGameController {
       multiple = -1;
     }
     int targetIndex = index + (dice * multiple);
-    if (checkPeaceIsEnemy(targetIndex, gamerId: gamerId)) {
-      if (gamerId == 1) {
-        player2OutPieces.value += 1;
-      } else {
-        player1OutPieces.value += 1;
-      }
-      reducePeaceCount(targetIndex);
+    bool isInEndPhase = false;
+    // check whether all pieces are in enf phaese
+    if (myGameId == 1 && player1IsInEndPhase) {
+      isInEndPhase = true;
+    } else if (myGameId == 2 && player2IsInEndPhase) {
+      isInEndPhase = true;
     }
-    addPeaceCount(targetIndex, gamerId);
+    if (isInEndPhase && (targetIndex == -1 || targetIndex == 24)) {
+      if (gamerId == 1) {
+        player1Score.value += 1;
+      } else {
+        player2Score.value += 1;
+      }
+    } else {
+      if (checkPeaceIsEnemy(targetIndex, gamerId: gamerId)) {
+        if (gamerId == 1) {
+          player2OutPieces.value += 1;
+        } else {
+          player1OutPieces.value += 1;
+        }
+        reducePeaceCount(targetIndex);
+      }
+      addPeaceCount(targetIndex, gamerId);
+    }
+    checkGamerIsInEndPhase(gamerId);
   }
 
   bool checkPieceIsOut() {
@@ -295,19 +321,52 @@ class BackGammonController extends BaseGameController {
     return false;
   }
 
+  bool isValidIndexInEndPhase(int index, int gamerId) {
+    if (gamerId == 1) {
+      if (index >= 0 && index <= 24) {
+        return true;
+      }
+    }
+    if (gamerId == 2) {
+      if (index >= -1 && index <= 24) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   bool checkSourceCanMoveNCount(int source, int count) {
     int multiple = 1;
     if (myGameId == 2) {
       multiple = -1;
     }
     int destination = source + (count * multiple);
-    if (!isValidIndex(destination)) {
-      return false;
+    bool isInEndPhase = false;
+    if (myGameId == 1 && player1IsInEndPhase) {
+      isInEndPhase = true;
+    } else if (myGameId == 2 && player2IsInEndPhase) {
+      isInEndPhase = true;
     }
-    if (checkPeaceIsEnemy(destination) &&
-        peaces.value[destination].value.count > 1) {
-      return false;
+    if (isInEndPhase) {
+      if (!isValidIndexInEndPhase(destination, myGameId)) {
+        return false;
+      }
+      if (destination != -1 &&
+          destination != 24 &&
+          checkPeaceIsEnemy(destination) &&
+          peaces.value[destination].value.count > 1) {
+        return false;
+      }
+    } else {
+      if (!isValidIndex(destination)) {
+        return false;
+      }
+      if (checkPeaceIsEnemy(destination) &&
+          peaces.value[destination].value.count > 1) {
+        return false;
+      }
     }
+
     return true;
   }
 
@@ -351,6 +410,10 @@ class BackGammonController extends BaseGameController {
         }
       }
     }
+  }
+
+  letShowDices() {
+    showDices.value = true;
   }
 
   @override

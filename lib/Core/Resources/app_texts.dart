@@ -19,6 +19,8 @@ abstract class AppTexts {
   static const errorSolve = "errorSolve";
   static const selectOneOption = "selectOneOption";
   static const fillAllPieces = "fillAllPieces";
+  static const rollDice = "rollDice";
+  static const showDice = "showDice";
 
   static const tictactoe = "tictactoe";
   static const rpc = "rpc";

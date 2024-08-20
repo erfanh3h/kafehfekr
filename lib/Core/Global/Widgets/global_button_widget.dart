@@ -11,12 +11,14 @@ class GlobalButtonWidget extends StatelessWidget {
     required this.onTap,
     this.text = "",
     this.color,
+    this.borderColor,
     this.fontColor,
   });
 
   final VoidCallback onTap;
   final String text;
   final Color? color;
+  final Color? borderColor;
   final Color? fontColor;
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,8 @@ class GlobalButtonWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: color ?? AppColors.blueWarmColor,
           borderRadius: BorderRadius.circular(8),
+          border:
+              Border.all(color: borderColor ?? AppColors.darkColor, width: 2),
         ),
         child: Center(
           child: Text(

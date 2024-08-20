@@ -20,7 +20,7 @@ class GameWaitTimes {
   static const int battleshipTurnTime = 15;
   static const int battleshipWaitTime = 4;
   static const int boxFourTurnTime = 15;
-  static const int backGammonTurnTime = 15;
+  static const int backGammonTurnTime = 30;
 
 }
 
