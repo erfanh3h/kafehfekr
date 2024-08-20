@@ -67,6 +67,9 @@ class DotBoxController extends BaseGameController {
       } else {
         player2Score += result[1].length;
       }
+      if (gamerId == myGameId) {
+        canSelectPeace.value = true;
+      }
     }
   }
 
@@ -106,6 +109,7 @@ class DotBoxController extends BaseGameController {
       return;
     }
     //TODO : check prevent selected piece select again
+
     canSelectPeace.value = false;
     showInteraction(sound: GameSoundTypes.tap);
     sendCommand({"id": GameCommands.selectPeace, "data": peace.id});

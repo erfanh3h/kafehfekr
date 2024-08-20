@@ -41,7 +41,16 @@ class BoxFourButton extends StatelessWidget {
       child: Container(
         padding: AppSpacings.s5All,
         decoration: BoxDecoration(
-          color: imageColor ?? AppColors.transparent,
+          // color: imageColor ?? AppColors.transparent,
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Colors.white24,
+              (imageColor ?? Colors.white70).withOpacity(.5)
+            ],
+            stops: imageColor != null ? const [0, 0] : null,
+          ),
           border: Border.all(
             color: AppColors.black,
             width: borderSize,

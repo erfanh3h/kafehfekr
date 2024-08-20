@@ -30,7 +30,16 @@ class DotBoxWidget extends StatelessWidget {
       width: 40,
       height: 40,
       decoration: BoxDecoration(
-        color: imageColor ?? AppColors.lightColor,
+        // color: imageColor ?? AppColors.lightColor,
+        gradient: LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          colors: [
+            Colors.white54,
+            (imageColor ?? Colors.white).withOpacity(.5)
+          ],
+          stops: imageColor != null ? const [0, 0] : null,
+        ),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: AppColors.darkColor,
