@@ -50,6 +50,7 @@ class AppTranslations extends Translations {
           AppTexts.cantSwapEnemyPiece: 'بامهره حریف نمیتونی عوض کنی!',
           AppTexts.outOfDice: 'تاسی نمونده!',
           AppTexts.selectDiceFirst: 'تاستو انتخاب کن',
+          AppTexts.bringInOutedPiece: 'مهره حذف شدتو بیارتو',
         },
         'en': {
           AppTexts.endGame: 'Game Finished',
@@ -94,6 +95,7 @@ class AppTranslations extends Translations {
           AppTexts.cantSwapEnemyPiece: "",
           AppTexts.outOfDice: "",
           AppTexts.selectDiceFirst: "",
+          AppTexts.bringInOutedPiece: "",
         },
       };
 }

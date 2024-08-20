@@ -14,21 +14,24 @@ class BackGammonDicesBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => SizedBox(
-        height: 40.h,
-        // width: 180,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            for (int i = 0; i < controller.currentDices.length; i++)
-              BackGammonDiceBox(
-                dice: controller.currentDices[i],
-                onTap: controller.onEachDiceButtonTap,
-                isSelected: controller.equippedDiceIndex.value == i,
-                index: i,
-              )
-          ],
+      () => Directionality(
+        textDirection: TextDirection.ltr,
+        child: SizedBox(
+          height: 40.h,
+          // width: 180,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              for (int i = 0; i < controller.currentDices.length; i++)
+                BackGammonDiceBox(
+                  dice: controller.currentDices[i],
+                  onTap: controller.onEachDiceButtonTap,
+                  isSelected: controller.equippedDiceIndex.value == i,
+                  index: i,
+                )
+            ],
+          ),
         ),
       ),
     );

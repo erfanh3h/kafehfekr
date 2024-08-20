@@ -20,7 +20,9 @@ class BackGammonBoardRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
-    late double borderWidth;
+    late double pieceBorderWidth;
+    late double boxBorderWidth;
+    late Color boxBorderColor;
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
@@ -33,9 +35,16 @@ class BackGammonBoardRow extends StatelessWidget {
         break;
     }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      borderWidth = 2.5;
+      pieceBorderWidth = 2.5;
     } else {
-      borderWidth = .5;
+      pieceBorderWidth = .5;
+    }
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
+      boxBorderWidth = 3;
+      boxBorderColor = Colors.white70;
+    } else {
+      boxBorderWidth = .3;
+      boxBorderColor = Colors.transparent;
     }
     return LayoutBuilder(builder: (context, cons) {
       double maxWidth = cons.maxWidth;
@@ -62,6 +71,10 @@ class BackGammonBoardRow extends StatelessWidget {
                         Color.fromARGB(isRight ? 1 : 255, 214, 172, 168),
                       ],
                     ),
+                    border: Border.all(
+                      color: boxBorderColor,
+                      width: boxBorderWidth,
+                    ),
                   ),
                 ),
               ),
@@ -85,7 +98,7 @@ class BackGammonBoardRow extends StatelessWidget {
                                   color: imageColor,
                                   border: Border.all(
                                     color: AppColors.lightColor,
-                                    width: borderWidth,
+                                    width: pieceBorderWidth,
                                   ),
                                 ),
                               )

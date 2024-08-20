@@ -62,4 +62,5 @@ abstract class AppTexts {
   static const cantSwapEnemyPiece = "cantSwapEnemyPiece";
   static const outOfDice = "outOfDice";
   static const selectDiceFirst = "selectDiceFirst";
+  static const bringInOutedPiece = "bringInOutedPiece";
 }
