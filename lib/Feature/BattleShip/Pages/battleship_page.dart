@@ -57,14 +57,10 @@ class BattleShipPage extends BaseView<BattleShipController> {
                         BattleShipSelectionBoardWidget(controller: controller),
                         const SizedBox(height: 10),
                         BattleShipShipSelectionBox(controller: controller),
-                        SizedBox(
-                          width: 100,
-                          height: 50,
-                          child: GlobalButtonWidget(
-                            onTap: controller.submitBoard,
-                            text: AppTexts.accept.tr,
-                          ),
-                        )
+                        GlobalButtonWidget(
+                          onTap: controller.submitBoard,
+                          text: AppTexts.accept.tr,
+                        ),
                       ],
                     ),
           const Spacer(flex: 4),

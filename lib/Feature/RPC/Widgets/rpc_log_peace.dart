@@ -42,7 +42,12 @@ class RpcLogPeace extends StatelessWidget {
     return Container(
       padding: AppSpacings.s15All,
       decoration: BoxDecoration(
-        color: AppColors.lightColor,
+        // color: AppColors.lightColor,
+        gradient: const LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          colors: [Colors.white24, Colors.white],
+        ),
         border: Border.all(
           color: borderColor,
           width: 10,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:refreshed/refreshed.dart';
@@ -13,6 +14,8 @@ class GlobalButtonWidget extends StatelessWidget {
     this.color,
     this.borderColor,
     this.fontColor,
+    this.height,
+    this.width,
   });
 
   final VoidCallback onTap;
@@ -20,6 +23,9 @@ class GlobalButtonWidget extends StatelessWidget {
   final Color? color;
   final Color? borderColor;
   final Color? fontColor;
+  final double? height;
+  final double? width;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -30,6 +36,8 @@ class GlobalButtonWidget extends StatelessWidget {
       },
       child: Container(
         padding: AppSpacings.s5Vertical3Horizental,
+        height: height ?? 40.h,
+        width: height ?? 140,
         decoration: BoxDecoration(
           color: color ?? AppColors.blueWarmColor,
           borderRadius: BorderRadius.circular(8),

@@ -21,7 +21,7 @@ class RPCButton extends StatelessWidget {
     Color? imageColor;
     String? image;
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.selected)) {
-      imageColor = AppColors.peaceBorderColor;
+      imageColor = AppColors.goldenColor;
     }
     switch (peaceData.peaceType) {
       case RPCPeaceTypes.rock:
@@ -44,7 +44,12 @@ class RPCButton extends StatelessWidget {
       child: Container(
         padding: AppSpacings.s15All,
         decoration: BoxDecoration(
-          color: AppColors.lightColor,
+          gradient: const LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [Colors.white54, Colors.black],
+          ),
+          // color: Colors.white,
           border: Border.all(
             color: imageColor ?? AppColors.white,
             width: 4,

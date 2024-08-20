@@ -39,13 +39,9 @@ class SudokuPage extends BaseView<SudokuController> {
           SudokuSelectNumberBox(controller: controller),
           const Spacer(flex: 1),
           Center(
-            child: SizedBox(
-              width: 150,
-              height: 50,
-              child: GlobalButtonWidget(
-                onTap: controller.solveFunction,
-                text: AppTexts.accept.tr,
-              ),
+            child: GlobalButtonWidget(
+              onTap: controller.solveFunction,
+              text: AppTexts.accept.tr,
             ),
           ),
           const Spacer(flex: 4),

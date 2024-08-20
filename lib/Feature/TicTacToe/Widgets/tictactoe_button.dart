@@ -44,7 +44,7 @@ class TicTacToeButton extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.bottomLeft,
             end: Alignment.topRight,
-            colors: [Colors.white24, Colors.white],
+            colors: [Colors.white24, Colors.white70],
           ),
           // color: AppColors.lightColor,
           border: Border.all(

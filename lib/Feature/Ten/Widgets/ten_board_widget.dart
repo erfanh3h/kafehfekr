@@ -185,13 +185,9 @@ class TenBoardWidget extends StatelessWidget {
             const SizedBox(height: 25),
             Opacity(
               opacity: controller.letSendResult.value ? 1 : .5,
-              child: SizedBox(
-                width: 100,
-                height: 50,
-                child: GlobalButtonWidget(
-                  onTap: controller.sendResult,
-                  text: AppTexts.accept.tr,
-                ),
+              child: GlobalButtonWidget(
+                onTap: controller.sendResult,
+                text: AppTexts.accept.tr,
               ),
             ),
           ],

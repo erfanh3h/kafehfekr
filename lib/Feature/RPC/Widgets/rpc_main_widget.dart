@@ -91,14 +91,10 @@ class RPCMainWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 25),
                       Center(
-                        child: SizedBox(
-                          height: 40,
-                          width: 150,
-                          child: GlobalButtonWidget(
-                            onTap: controller.acceptSelection,
-                            text: AppTexts.accept.tr,
-                            color: AppColors.peaceBorderColor,
-                          ),
+                        child: GlobalButtonWidget(
+                          onTap: controller.acceptSelection,
+                          text: AppTexts.accept.tr,
+                          color: AppColors.peaceBorderColor,
                         ),
                       )
                     ],

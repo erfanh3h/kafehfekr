@@ -35,14 +35,11 @@ class BackGammonDicesBox extends StatelessWidget {
                       )
                   ],
                 )
-              : SizedBox(
-                  width: 135,
-                  child: GlobalButtonWidget(
-                    onTap: controller.letShowDices,
-                    text: controller.currentTurn.value == controller.myGameId
-                        ? AppTexts.rollDice.tr
-                        : AppTexts.showDice.tr,
-                  ),
+              : GlobalButtonWidget(
+                  onTap: controller.letShowDices,
+                  text: controller.currentTurn.value == controller.myGameId
+                      ? AppTexts.rollDice.tr
+                      : AppTexts.showDice.tr,
                 ),
         ),
       ),
