@@ -271,6 +271,13 @@ class UserRowData extends StatelessWidget {
       padding: AppSpacings.s5Vertical,
       width: 125,
       decoration: BoxDecoration(
+        gradient: playerData.isDisconnected
+            ? null
+            : const LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: [Colors.white24, Colors.white70],
+              ),
         color: playerData.isDisconnected
             ? AppColors.dcColor
             : AppColors.lightColor,
@@ -293,7 +300,9 @@ class UserRowData extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: FontFamilies.dastnevis,
                   fontSize: 35,
-                  color: color,
+                  color: playerData.isDisconnected
+                      ? AppColors.darkColor
+                      : AppColors.lightColor,
                   height: .8,
                 ),
               ),
@@ -302,7 +311,9 @@ class UserRowData extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: FontFamilies.typo,
                   fontSize: 13,
-                  color: color,
+                  color: playerData.isDisconnected
+                      ? AppColors.darkColor
+                      : AppColors.lightColor,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

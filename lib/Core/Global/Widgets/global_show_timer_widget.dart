@@ -22,7 +22,13 @@ class GlobalShowTimerWidget extends StatelessWidget {
         padding: AppSpacings.s10All,
         width: 75,
         decoration: BoxDecoration(
-          color: color ?? AppColors.transparent,
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [Colors.black54, (color ?? AppColors.transparent)],
+            stops: const [0, 0.4],
+          ),
+          // color: color ?? AppColors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: AppColors.white,
