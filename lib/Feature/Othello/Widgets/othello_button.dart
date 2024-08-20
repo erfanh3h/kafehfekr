@@ -49,9 +49,16 @@ class OthelloButton extends StatelessWidget {
       child: Container(
         padding: AppSpacings.s5All,
         decoration: BoxDecoration(
-          color: (peaceData.id % 2 + peaceData.id ~/ 8) % 2 == 0
-              ? Colors.grey
-              : AppColors.lightColor,
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: (peaceData.id % 2 + peaceData.id ~/ 8) % 2 == 0
+                ? [Colors.white24, Colors.white]
+                : [Colors.white38, Colors.white38],
+          ),
+          // color: (peaceData.id % 2 + peaceData.id ~/ 8) % 2 == 0
+          //     ? Colors.grey
+          //     : AppColors.lightColor,
           border: Border.all(
             color: borderColor ?? AppColors.black,
             width: borderSize,

@@ -59,14 +59,10 @@ class TicTacToeController extends BaseGameController {
   void peaceSelectedFunction(Map data) {
     Map peaceData = data['data'];
     int peaceId = peaceData['target_peace'];
-    for (final peace in peaces) {
-      if (peace.value.id == peaceId) {
-        peace.value =
-            peace.value.changeSelectedUser(newSelectedUser: peaceData["user"]);
-        removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-        break;
-      }
-    }
+    peaces[peaceId].value = peaces[peaceId]
+        .value
+        .changeSelectedUser(newSelectedUser: peaceData["user"]);
+    removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
   }
 
   @override

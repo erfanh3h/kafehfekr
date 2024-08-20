@@ -41,10 +41,15 @@ class TicTacToeButton extends StatelessWidget {
       child: Container(
         padding: AppSpacings.s15All,
         decoration: BoxDecoration(
-          color: AppColors.lightColor,
+          gradient: const LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [Colors.white24, Colors.white],
+          ),
+          // color: AppColors.lightColor,
           border: Border.all(
-            color: imageColor ?? AppColors.peaceBorderColor,
-            width: 3,
+            color: imageColor ?? AppColors.black,
+            width: 1,
           ),
           borderRadius: BorderRadius.circular(8),
         ),
