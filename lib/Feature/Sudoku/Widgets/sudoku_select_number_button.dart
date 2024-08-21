@@ -22,20 +22,29 @@ class SudokuSelectNumberButton extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: isTapped ? AppColors.green : AppColors.lightColor,
+          // color: isTapped ? AppColors.green : AppColors.lightColor,
           border: Border.all(
             color: AppColors.darkColor,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(6),
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Colors.white38,
+              (isTapped ? AppColors.darkGreen : Colors.white)
+            ],
+            // stops: imageColor != null ? const [0, 0] : null,
+          ),
         ),
         child: Center(
           child: Text(
             number.toString(),
-            style: const TextStyle(
-              fontFamily: FontFamilies.dastnevis,
-              fontSize: 18,
-            ),
+            style: TextStyle(
+                fontFamily: FontFamilies.dastnevis,
+                fontSize: 18,
+                color: isTapped ? AppColors.lightColor : AppColors.darkColor),
           ),
         ),
       ),

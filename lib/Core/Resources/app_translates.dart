@@ -53,6 +53,7 @@ class AppTranslations extends Translations {
           AppTexts.outOfDice: 'تاسی نمونده!',
           AppTexts.selectDiceFirst: 'تاستو انتخاب کن',
           AppTexts.bringInOutedPiece: 'مهره حذف شدتو بیارتو',
+          AppTexts.selectNumber: 'یه عدد انتخاب کن',
         },
         'en': {
           AppTexts.endGame: 'Game Finished',
@@ -100,6 +101,7 @@ class AppTranslations extends Translations {
           AppTexts.outOfDice: "",
           AppTexts.selectDiceFirst: "",
           AppTexts.bringInOutedPiece: "",
+          AppTexts.selectNumber: "",
         },
       };
 }

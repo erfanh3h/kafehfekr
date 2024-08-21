@@ -90,6 +90,10 @@ class SudokuController extends BaseGameController {
       showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
+    if (selectedNumber.value == 0) {
+      showInteraction(text: AppTexts.selectNumber.tr);
+      return;
+    }
     showInteraction(sound: GameSoundTypes.tap);
     if (selectedNumber.value == peace.value || selectedNumber.value == 0) {
       sendCommand({"id": GameCommands.removePeace, "piece_id": peace.id});

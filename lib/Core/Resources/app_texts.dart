@@ -65,4 +65,5 @@ abstract class AppTexts {
   static const outOfDice = "outOfDice";
   static const selectDiceFirst = "selectDiceFirst";
   static const bringInOutedPiece = "bringInOutedPiece";
+  static const selectNumber = "selectNumber";
 }

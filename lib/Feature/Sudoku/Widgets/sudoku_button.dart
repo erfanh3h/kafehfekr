@@ -21,14 +21,23 @@ class SudokuButton extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: peaceData.isBaseNumber
-              ? AppColors.lightColor2.withOpacity(.75)
-              : AppColors.lightColor.withOpacity(.75),
+          // color: peaceData.isBaseNumber
+          //     ? AppColors.lightColor2.withOpacity(.75)
+          //     : AppColors.lightColor.withOpacity(.75),
           border: Border.all(
             color: AppColors.darkColor,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(6),
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Colors.white24,
+              (peaceData.isBaseNumber ? Colors.black45 : Colors.white54)
+            ],
+            // stops: imageColor != null ? const [0, 0] : null,
+          ),
         ),
         child: Center(
           child: peaceData.value != 0

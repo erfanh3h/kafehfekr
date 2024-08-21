@@ -4,6 +4,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/MSweeper/Models/enums.dart';
 import 'package:kafehfekr/Feature/MSweeper/Models/msweeper_peace_model.dart';
 
@@ -21,6 +22,7 @@ class MSweeperButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color? color;
     bool isSelectedAsBombCorrect = peaceData.sweeperStatuses
         .contains(MineSweeperStatusTypes.isCorrectlySelectedAsMine);
     bool isSelectedAsBombWrong = peaceData.sweeperStatuses
@@ -29,7 +31,16 @@ class MSweeperButton extends StatelessWidget {
         peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading);
     bool isExplodedMine = peaceData.sweeperStatuses
         .contains(MineSweeperStatusTypes.isExplodedMine);
-    Color? borderColor = AppColors.goldenColor;
+    Color? borderColor = Colors.white54;
+    if (isExplodedMine) {
+      color = AppColors.imageRedColor;
+    }
+    if (isSelectedAsBombWrong) {
+      color = Colors.amber;
+    }
+    if (isSelectedAsBombCorrect) {
+      color = AppColors.guideGreen;
+    }
     return GestureDetector(
       onTap: () {
         onTap(peaceData);
@@ -40,37 +51,50 @@ class MSweeperButton extends StatelessWidget {
       child: Container(
         // padding: AppSpacings.s5All,
         decoration: BoxDecoration(
-          color: AppColors.lightColor2,
+          // color: AppColors.lightColor2,
           border: Border.all(color: borderColor, width: 1),
           borderRadius: BorderRadius.circular(6),
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Colors.white24,
+              (color ?? Colors.white).withOpacity(.5),
+              (color ?? Colors.white)
+            ],
+            // stops: imageColor != null ? const [0, 0] : null,
+          ),
         ),
         child: Center(
           child: isLoading
               ? const GlobalLoadingWidget()
-              : isExplodedMine
-                  ? Image.asset(
-                      GeneralIcons.bombExplode,
-                      color: AppColors.buttonRed,
-                    )
-                  : isSelectedAsBombWrong
+              : Padding(
+                  padding: AppSpacings.s10All,
+                  child: isExplodedMine
                       ? Image.asset(
-                          GeneralIcons.cross,
-                          color: AppColors.buttonRed,
+                          GeneralIcons.bombExplode,
+                          color: Colors.orangeAccent,
                         )
-                      : isSelectedAsBombCorrect
+                      : isSelectedAsBombWrong
                           ? Image.asset(
-                              GeneralIcons.bomb,
-                              color: AppColors.darkGreen,
+                              GeneralIcons.cross,
+                              color: Colors.white70,
                             )
-                          : peaceData.value != null
-                              ? Text(
-                                  peaceData.value.toString(),
-                                  style: const TextStyle(
-                                    fontFamily: FontFamilies.dastnevis,
-                                    fontSize: 20,
-                                  ),
+                          : isSelectedAsBombCorrect
+                              ? Image.asset(
+                                  GeneralIcons.bomb,
+                                  color: AppColors.white,
                                 )
-                              : Container(),
+                              : peaceData.value != null
+                                  ? Text(
+                                      peaceData.value.toString(),
+                                      style: const TextStyle(
+                                        fontFamily: FontFamilies.dastnevis,
+                                        fontSize: 22,
+                                      ),
+                                    )
+                                  : Container(),
+                ),
         ),
       ),
     );

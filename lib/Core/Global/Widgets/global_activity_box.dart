@@ -20,7 +20,6 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
         maxWidth: GeneralGameConsts.maxGameWidth,
       ),
       child: LayoutBuilder(builder: (context, cons) {
-        print(cons.maxHeight);
         double maxWidth = cons.maxWidth;
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
