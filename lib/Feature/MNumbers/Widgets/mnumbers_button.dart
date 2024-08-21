@@ -38,7 +38,7 @@ class MNumbersButton extends StatelessWidget {
         peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
       borderWidth = 5;
     } else {
-      borderWidth = 2;
+      borderWidth = 1;
     }
     return InkWell(
       onTap: () {
@@ -48,7 +48,13 @@ class MNumbersButton extends StatelessWidget {
         // width: 35,
         // height: 35,
         decoration: BoxDecoration(
-            color: AppColors.lightColor,
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [Colors.white24, (imageColor ?? Colors.white)],
+              // stops: imageColor != null ? const [0, 0] : null,
+            ),
+            // color: AppColors.lightColor,
             border: Border.all(
               color: imageColor ?? AppColors.peaceBorderColor,
               width: borderWidth,
@@ -63,6 +69,7 @@ class MNumbersButton extends StatelessWidget {
                       style: const TextStyle(
                         fontFamily: FontFamilies.dastnevis,
                         fontSize: 25,
+                        color: AppColors.lightColor,
                       ),
                     ),
                   )

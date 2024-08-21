@@ -15,30 +15,36 @@ class FourInRowPiece extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
-    Color backgroundColor = Colors.transparent;
     String? image;
     double borderSize = 3;
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
         image = GeneralIcons.checkers1;
-        backgroundColor = AppColors.lightColor.withOpacity(.2);
         break;
       case 2:
         imageColor = AppColors.imageBlueColor;
         image = GeneralIcons.checkers1;
-        backgroundColor = AppColors.lightColor.withOpacity(.2);
         break;
       default:
         imageColor = null;
         image = null;
-        backgroundColor = Colors.transparent;
+        // backgroundColor = Colors.transparent;
         break;
     }
     return Container(
       padding: AppSpacings.s5All,
       decoration: BoxDecoration(
-        color: backgroundColor,
+        // color: backgroundColor,
+        gradient: LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          colors: [
+            Colors.white24,
+            (imageColor ?? Colors.white70).withOpacity(.5)
+          ],
+          // stops: imageColor != null ? const [0, 0] : null,
+        ),
         border: Border.all(
           color: AppColors.black,
           width: borderSize,

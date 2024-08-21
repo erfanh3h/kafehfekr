@@ -23,11 +23,11 @@ class MillButton extends StatelessWidget {
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
-        image = GeneralIcons.circle3;
+        image = GeneralIcons.circle2;
         break;
       case 2:
         imageColor = AppColors.imageBlueColor;
-        image = GeneralIcons.circle3;
+        image = GeneralIcons.circle2;
         break;
       default:
         imageColor = null;
@@ -48,7 +48,13 @@ class MillButton extends StatelessWidget {
         width: 35,
         height: 35,
         decoration: BoxDecoration(
-            color: AppColors.lightColor,
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [Colors.white24, (imageColor ?? Colors.white)],
+              // stops: imageColor != null ? const [0, 0] : null,
+            ),
+            // color: AppColors.lightColor,
             border: Border.all(
               color: imageColor ?? AppColors.peaceBorderColor,
               width: borderWidth,

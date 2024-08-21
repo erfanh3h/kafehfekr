@@ -18,15 +18,15 @@ class GlobalActivityButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: AppSpacings.s8All,
+        padding: AppSpacings.s10All,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           border: Border.all(color: AppColors.lightColor),
         ),
         child: Image.asset(
           icon,
-          width: 45,
-          height: 45,
+          // width: 45,
+          // height: 45,
           color: color ?? AppColors.lightColor,
         ),
       ),

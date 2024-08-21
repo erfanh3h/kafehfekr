@@ -108,7 +108,10 @@ class DotBoxController extends BaseGameController {
       showInteraction(text: AppTexts.notYourTurn.tr);
       return;
     }
-    //TODO : check prevent selected piece select again
+    if (linePeaces[peace.id].value.selectedUser != 0) {
+      showInteraction(text: AppTexts.cantSelect.tr);
+      return;
+    }
 
     canSelectPeace.value = false;
     showInteraction(sound: GameSoundTypes.tap);

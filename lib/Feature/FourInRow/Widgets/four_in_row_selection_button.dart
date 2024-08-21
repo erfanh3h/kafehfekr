@@ -23,7 +23,13 @@ class FourInRowSelectionButton extends StatelessWidget {
         padding: AppSpacings.s5All,
         margin: AppSpacings.s2All,
         decoration: BoxDecoration(
-          color: AppColors.lightColor,
+          gradient: const LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [Colors.white24, Colors.white],
+            // stops: imageColor != null ? const [0, 0] : null,
+          ),
+          // color: AppColors.lightColor,
           border: Border.all(
             color: AppColors.black,
             width: 1,
