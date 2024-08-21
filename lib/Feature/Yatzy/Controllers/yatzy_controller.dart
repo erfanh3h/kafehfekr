@@ -70,7 +70,9 @@ class YatzyController extends BaseGameController {
     remainingDice.value = 3 - gameData['rolled_dice_times'] as int;
     currentDices.value = List<int>.from(gameData['current_dices']);
     calculateScores();
-    setFirstEmptyIndex();
+    if (!isRoundPlayed.value) {
+      setFirstEmptyIndex();
+    }
     update();
     if (timerData['is_user_turn']) {
       final int time = GameWaitTimes.yatzyTurnTime - timerData['time'] as int;
@@ -108,7 +110,7 @@ class YatzyController extends BaseGameController {
   void onEachButtonTap(dynamic tappedPeace) {
     YatzyPeaceModel peace = tappedPeace as YatzyPeaceModel;
     if (isRoundPlayed.value) {
-      showInteraction(text: AppTexts.notYourTurn.tr);
+      showInteraction(text: AppTexts.playerThisRound.tr);
       return;
     }
     if (peace.isSelected) {
@@ -160,13 +162,14 @@ class YatzyController extends BaseGameController {
   }
 
   void sendResult() {
-    isRoundPlayed.value = true;
     sendCommand(
       {
         "id": GameCommands.selectPeace,
         "data": {"index": equippedIndex}
       },
     );
+    resetRound();
+    isRoundPlayed.value = true;
   }
 
   // void resetPeaces() {

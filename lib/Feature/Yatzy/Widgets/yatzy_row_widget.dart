@@ -57,10 +57,15 @@ class YatzyRowWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: AppColors.lightColor,
                   borderRadius: BorderRadius.circular(8),
+                  gradient: const LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [Colors.white24, Colors.white70],
+                  ),
                 ),
                 child: Image.asset(
                   headerImage,
-                  color: AppColors.darkGreen,
+                  color: AppColors.darkColor,
                 ),
               ),
             ),

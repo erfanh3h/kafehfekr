@@ -13,9 +13,17 @@ class TenDraggableNumberWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Draggable<int>(
       data: value,
-      feedback: SizedBox(
+      feedback: Container(
         width: 50,
         height: 50,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [Colors.white24, Colors.white54],
+            // stops: imageColor != null ? const [0, 0] : null,
+          ),
+        ),
         child: Center(
           child: Text(
             value.toString(),
@@ -43,7 +51,11 @@ class TenDraggableNumberWidget extends StatelessWidget {
         height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: Colors.white.withOpacity(0.5),
+          gradient: const LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [Colors.white24, Colors.white],
+          ),
         ),
         child: Center(
           child: Text(

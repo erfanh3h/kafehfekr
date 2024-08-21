@@ -24,8 +24,14 @@ class TenDragTargetNumberWidget extends StatelessWidget {
           child: Container(
             padding: AppSpacings.s15Vertical5Horizental,
             decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: [Colors.white54, Colors.white],
+                // stops: imageColor != null ? const [0, 0] : null,
+              ),
               borderRadius: BorderRadius.circular(5),
-              color: Colors.white.withOpacity(0.5),
+              // color: Colors.white.withOpacity(0.5),
             ),
             child: Center(
               child: Text(

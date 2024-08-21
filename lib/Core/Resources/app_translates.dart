@@ -22,6 +22,7 @@ class AppTranslations extends Translations {
           AppTexts.cancel: 'نه بیخیالش',
           AppTexts.wait: 'منتظر بمانید ...',
           AppTexts.error: 'خطا',
+          AppTexts.playGame: 'بازی کن',
           AppTexts.errorSolve: 'درست حل نکردی!',
           AppTexts.selectOneOption: 'یکی رو انتخاب کن',
           AppTexts.fillAllPieces: "همه ی خانه هارا پر کنید",
@@ -54,6 +55,7 @@ class AppTranslations extends Translations {
           AppTexts.selectDiceFirst: 'تاستو انتخاب کن',
           AppTexts.bringInOutedPiece: 'مهره حذف شدتو بیارتو',
           AppTexts.selectNumber: 'یه عدد انتخاب کن',
+          AppTexts.playerThisRound: 'این دست رو بازی کردی',
         },
         'en': {
           AppTexts.endGame: 'Game Finished',
@@ -70,6 +72,7 @@ class AppTranslations extends Translations {
           AppTexts.surrender: '',
           AppTexts.rollDice: '',
           AppTexts.showDice: '',
+          AppTexts.playGame: '',
           AppTexts.ok: 'Ok',
           AppTexts.accept: 'Accept',
           AppTexts.cancel: 'Cancel',
@@ -102,6 +105,7 @@ class AppTranslations extends Translations {
           AppTexts.selectDiceFirst: "",
           AppTexts.bringInOutedPiece: "",
           AppTexts.selectNumber: "",
+          AppTexts.playerThisRound: "",
         },
       };
 }

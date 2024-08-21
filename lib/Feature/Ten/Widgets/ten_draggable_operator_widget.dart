@@ -48,7 +48,12 @@ class TenDraggableOperatorWidget extends StatelessWidget {
         height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: Colors.white.withOpacity(0.25),
+          // color: Colors.white.withOpacity(0.25),
+          gradient: const LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [Colors.white24, Colors.white38],
+          ),
         ),
         child: Center(
           child: Text(

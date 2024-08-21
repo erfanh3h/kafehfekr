@@ -62,12 +62,21 @@ class YatzyButton extends StatelessWidget {
       child: Container(
         height: double.maxFinite,
         decoration: BoxDecoration(
-          color: color,
-          // border: Border.all(
-          //   color: AppColors.peaceBorderColor,
-          //   width: borderWidth,
-          // ),
+          border: Border.all(
+            color: Colors.white,
+            width: .5,
+          ),
           borderRadius: BorderRadius.circular(8),
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Colors.white24,
+              (color ?? Colors.white).withOpacity(.25),
+              (color ?? Colors.white).withOpacity(.75),
+              (color ?? Colors.white)
+            ],
+          ),
         ),
         child: Center(
           child: Text(

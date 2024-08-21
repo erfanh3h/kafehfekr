@@ -21,6 +21,7 @@ abstract class AppTexts {
   static const fillAllPieces = "fillAllPieces";
   static const rollDice = "rollDice";
   static const showDice = "showDice";
+  static const playGame = "playGame";
 
   static const tictactoe = "tictactoe";
   static const rpc = "rpc";
@@ -66,4 +67,5 @@ abstract class AppTexts {
   static const selectDiceFirst = "selectDiceFirst";
   static const bringInOutedPiece = "bringInOutedPiece";
   static const selectNumber = "selectNumber";
+  static const playerThisRound = "playerThisRound";
 }

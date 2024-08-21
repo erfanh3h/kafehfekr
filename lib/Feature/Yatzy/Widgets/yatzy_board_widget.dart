@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
-import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Yatzy/Controllers/yatzy_controller.dart';
 import 'package:kafehfekr/Feature/Yatzy/Widgets/yatzy_row_widget.dart';
 import 'package:refreshed/refreshed.dart';
@@ -32,48 +32,56 @@ class YatzyBoardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: AppSpacings.s5All,
+        // padding: AppSpacings.s5All,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: AppColors.darkColor,
+            width: 15,
+          ),
+          borderRadius: BorderRadius.circular(15),
+          gradient: const LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [Colors.transparent, Colors.black38],
+            // stops: imageColor != null ? const [0, 0] : null,
+          ),
+        ),
         height:
             (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
         width:
             (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
-        child: Card(
-          child: Padding(
-            padding: AppSpacings.s5All,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      for (int index = 0; index < 6; index++)
-                        Expanded(
-                          child: YatzyRowWidget(
-                            headerImage: headerImages[index],
-                            index: index,
-                            controller: controller,
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 15),
-                Expanded(
-                  child: Column(
-                    children: [
-                      for (int index = 6; index < 12; index++)
-                        Expanded(
-                          child: YatzyRowWidget(
-                            headerImage: headerImages[index],
-                            index: index,
-                            controller: controller,
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-              ],
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  for (int index = 0; index < 6; index++)
+                    Expanded(
+                      child: YatzyRowWidget(
+                        headerImage: headerImages[index],
+                        index: index,
+                        controller: controller,
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Column(
+                children: [
+                  for (int index = 6; index < 12; index++)
+                    Expanded(
+                      child: YatzyRowWidget(
+                        headerImage: headerImages[index],
+                        index: index,
+                        controller: controller,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

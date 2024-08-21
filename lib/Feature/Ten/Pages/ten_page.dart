@@ -18,25 +18,28 @@ class TenPage extends BaseView<TenController> {
           fit: BoxFit.fill,
         ),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox(height: 15),
-          if (controller.players.length > 1)
-            GlobalGameDataWidget(
-              player1Data: controller.players[0].value,
-              player2Data: controller.players[1].value,
-              timerColor: controller.returnTimerColor(),
-              player1Number1: controller.player1Score.value,
-              player2Number1: controller.player2Score.value,
-              roundText: "${controller.maxRound} / ${controller.currentRound}",
-            ),
-          const Spacer(flex: 3),
-          TenBoardWidget(controller: controller),
-          const Spacer(flex: 4),
-          GlobalActivityBox<TenController>(),
-          const Spacer(flex: 1),
-        ],
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SizedBox(height: 15),
+            if (controller.players.length > 1)
+              GlobalGameDataWidget(
+                player1Data: controller.players[0].value,
+                player2Data: controller.players[1].value,
+                timerColor: controller.returnTimerColor(),
+                player1Number1: controller.player1Score.value,
+                player2Number1: controller.player2Score.value,
+                roundText:
+                    "${controller.maxRound} / ${controller.currentRound}",
+              ),
+            const Spacer(flex: 3),
+            TenBoardWidget(controller: controller),
+            const Spacer(flex: 4),
+            GlobalActivityBox<TenController>(),
+            const Spacer(flex: 1),
+          ],
+        ),
       ),
     );
   }
