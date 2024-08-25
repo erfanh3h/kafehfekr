@@ -212,10 +212,7 @@ class DotBoxController extends BaseGameController {
     }
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    gameType = GameTypes.dotbox;
+  initBoxes() {
     for (var i = 0; i < 60; i++) {
       linePeaces.add(Rx(DotBoxPeaceModel(
         id: i,
@@ -230,5 +227,12 @@ class DotBoxController extends BaseGameController {
         selectedUser: 0,
       )));
     }
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    gameType = GameTypes.DotBox;
+    initBoxes();
   }
 }

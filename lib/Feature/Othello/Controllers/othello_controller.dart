@@ -268,7 +268,7 @@ class OthelloController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.othello;
+    gameType = GameTypes.Othello;
     initPeaces();
   }
 }

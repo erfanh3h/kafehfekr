@@ -208,10 +208,7 @@ class MSweeperController extends BaseGameController {
     }
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    gameType = GameTypes.msweeper;
+  initPieces() {
     for (var i = 0; i < 64; i++) {
       peaces.add(
         Rx(
@@ -223,5 +220,12 @@ class MSweeperController extends BaseGameController {
         ),
       );
     }
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    gameType = GameTypes.MSweeper;
+    initPieces();
   }
 }

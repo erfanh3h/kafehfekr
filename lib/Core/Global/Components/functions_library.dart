@@ -34,27 +34,27 @@ class FunctionsLibraryClass {
         dialogIcon = GeneralIcons.win;
         dialogColor = AppColors.winColor;
         switch (gameType) {
-          case GameTypes.tictactoe:
+          case GameTypes.TicTacToe:
             cup = CupsCount.tictactoeWin;
             coin = CoinsCount.tictactoeWin;
             break;
-          case GameTypes.rpc:
+          case GameTypes.RPC:
             cup = CupsCount.rpcWin;
             coin = CoinsCount.rpcWin;
             break;
-          case GameTypes.mill:
+          case GameTypes.Mill:
             cup = CupsCount.millWin;
             coin = CoinsCount.millWin;
             break;
-          case GameTypes.msweeper:
+          case GameTypes.MSweeper:
             cup = CupsCount.msweeperWin;
             coin = CoinsCount.msweeperWin;
             break;
-          case GameTypes.mnumbers:
+          case GameTypes.MNumbers:
             cup = CupsCount.mnumbersWin;
             coin = CoinsCount.mnumbersWin;
             break;
-          case GameTypes.checkers:
+          case GameTypes.Checkers:
             cup = CupsCount.checkersWin;
             coin = CoinsCount.checkersWin;
             break;
@@ -69,27 +69,27 @@ class FunctionsLibraryClass {
         dialogIcon = GeneralIcons.lose;
         dialogColor = AppColors.loseColor;
         switch (gameType) {
-          case GameTypes.tictactoe:
+          case GameTypes.TicTacToe:
             cup = CupsCount.tictactoeLose;
             coin = CoinsCount.tictactoeLose;
             break;
-          case GameTypes.rpc:
+          case GameTypes.RPC:
             cup = CupsCount.rpcLose;
             coin = CoinsCount.rpcLose;
             break;
-          case GameTypes.mill:
+          case GameTypes.Mill:
             cup = CupsCount.millLose;
             coin = CoinsCount.millLose;
             break;
-          case GameTypes.msweeper:
+          case GameTypes.MSweeper:
             cup = CupsCount.msweeperLose;
             coin = CoinsCount.msweeperLose;
             break;
-          case GameTypes.mnumbers:
+          case GameTypes.MNumbers:
             cup = CupsCount.mnumbersWin;
             coin = CoinsCount.mnumbersWin;
             break;
-          case GameTypes.checkers:
+          case GameTypes.Checkers:
             cup = CupsCount.checkersWin;
             coin = CoinsCount.checkersWin;
             break;
@@ -123,27 +123,27 @@ class FunctionsLibraryClass {
       dialogIcon = GeneralIcons.lose;
       dialogColor = AppColors.loseColor;
       switch (gameType) {
-        case GameTypes.tictactoe:
+        case GameTypes.TicTacToe:
           cup = CupsCount.tictactoeLose;
           coin = CoinsCount.tictactoeLose;
           break;
-        case GameTypes.rpc:
+        case GameTypes.RPC:
           cup = CupsCount.rpcLose;
           coin = CoinsCount.rpcLose;
           break;
-        case GameTypes.mill:
+        case GameTypes.Mill:
           cup = CupsCount.millLose;
           coin = CoinsCount.millLose;
           break;
-        case GameTypes.msweeper:
+        case GameTypes.MSweeper:
           cup = CupsCount.msweeperLose;
           coin = CoinsCount.msweeperLose;
           break;
-        case GameTypes.mnumbers:
+        case GameTypes.MNumbers:
           cup = CupsCount.mnumbersWin;
           coin = CoinsCount.mnumbersWin;
           break;
-        case GameTypes.checkers:
+        case GameTypes.Checkers:
           cup = CupsCount.checkersWin;
           coin = CoinsCount.checkersWin;
           break;
@@ -158,27 +158,27 @@ class FunctionsLibraryClass {
       dialogIcon = GeneralIcons.win;
       dialogColor = AppColors.winColor;
       switch (gameType) {
-        case GameTypes.tictactoe:
+        case GameTypes.TicTacToe:
           cup = CupsCount.tictactoeWin;
           coin = CoinsCount.tictactoeWin;
           break;
-        case GameTypes.rpc:
+        case GameTypes.RPC:
           cup = CupsCount.rpcWin;
           coin = CoinsCount.rpcWin;
           break;
-        case GameTypes.mill:
+        case GameTypes.Mill:
           cup = CupsCount.millWin;
           coin = CoinsCount.millWin;
           break;
-        case GameTypes.msweeper:
+        case GameTypes.MSweeper:
           cup = CupsCount.msweeperWin;
           coin = CoinsCount.msweeperWin;
           break;
-        case GameTypes.mnumbers:
+        case GameTypes.MNumbers:
           cup = CupsCount.mnumbersWin;
           coin = CoinsCount.mnumbersWin;
           break;
-        case GameTypes.checkers:
+        case GameTypes.Checkers:
           cup = CupsCount.checkersWin;
           coin = CoinsCount.checkersWin;
           break;
@@ -211,27 +211,27 @@ class FunctionsLibraryClass {
       dialogIcon = GeneralIcons.lose;
       dialogColor = AppColors.loseColor;
       switch (gameType) {
-        case GameTypes.tictactoe:
+        case GameTypes.TicTacToe:
           cup = CupsCount.tictactoeLose;
           coin = CoinsCount.tictactoeLose;
           break;
-        case GameTypes.rpc:
+        case GameTypes.RPC:
           cup = CupsCount.rpcLose;
           coin = CoinsCount.rpcLose;
           break;
-        case GameTypes.mill:
+        case GameTypes.Mill:
           cup = CupsCount.millLose;
           coin = CoinsCount.millLose;
           break;
-        case GameTypes.msweeper:
+        case GameTypes.MSweeper:
           cup = CupsCount.msweeperLose;
           coin = CoinsCount.msweeperLose;
           break;
-        case GameTypes.mnumbers:
+        case GameTypes.MNumbers:
           cup = CupsCount.mnumbersWin;
           coin = CoinsCount.mnumbersWin;
           break;
-        case GameTypes.checkers:
+        case GameTypes.Checkers:
           cup = CupsCount.checkersWin;
           coin = CoinsCount.checkersWin;
           break;
@@ -246,27 +246,27 @@ class FunctionsLibraryClass {
       dialogIcon = GeneralIcons.win;
       dialogColor = AppColors.winColor;
       switch (gameType) {
-        case GameTypes.tictactoe:
+        case GameTypes.TicTacToe:
           cup = CupsCount.tictactoeWin;
           coin = CoinsCount.tictactoeWin;
           break;
-        case GameTypes.rpc:
+        case GameTypes.RPC:
           cup = CupsCount.rpcWin;
           coin = CoinsCount.rpcWin;
           break;
-        case GameTypes.mill:
+        case GameTypes.Mill:
           cup = CupsCount.millWin;
           coin = CoinsCount.millWin;
           break;
-        case GameTypes.msweeper:
+        case GameTypes.MSweeper:
           cup = CupsCount.msweeperWin;
           coin = CoinsCount.msweeperWin;
           break;
-        case GameTypes.mnumbers:
+        case GameTypes.MNumbers:
           cup = CupsCount.mnumbersWin;
           coin = CoinsCount.mnumbersWin;
           break;
-        case GameTypes.checkers:
+        case GameTypes.Checkers:
           cup = CupsCount.checkersWin;
           coin = CoinsCount.checkersWin;
           break;

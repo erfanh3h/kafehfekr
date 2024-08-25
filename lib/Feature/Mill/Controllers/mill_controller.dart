@@ -357,12 +357,16 @@ class MillController extends BaseGameController {
     }
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    gameType = GameTypes.mill;
+  initPieces() {
     for (var i = 0; i < 24; i++) {
       peaces.add(Rx(MillPeaceModel(id: i, currentStatuses: [])));
     }
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    gameType = GameTypes.Mill;
+    initPieces();
   }
 }

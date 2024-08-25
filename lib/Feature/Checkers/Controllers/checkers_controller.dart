@@ -452,7 +452,7 @@ class CheckersController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.checkers;
+    gameType = GameTypes.Checkers;
     initPeaces();
   }
 }

@@ -380,16 +380,19 @@ class YatzyController extends BaseGameController {
     calculate5TimesRepeat();
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    gameType = GameTypes.yatzy;
-    myGameId = 2;
+  initPieces() {
     for (var i = 0; i < 12; i++) {
       player1Pieces
           .add(Rx(YatzyPeaceModel(id: i, currentStatuses: [], gamerId: 1)));
       player2Pieces
           .add(Rx(YatzyPeaceModel(id: i, currentStatuses: [], gamerId: 2)));
     }
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    gameType = GameTypes.Yatzy;
+    initPieces();
   }
 }

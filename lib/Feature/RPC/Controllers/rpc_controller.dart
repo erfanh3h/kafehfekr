@@ -138,10 +138,7 @@ class RPCController extends BaseGameController {
     return gamerId == thisTurnRoundWinner.value;
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    gameType = GameTypes.rpc;
+  initPieces() {
     peaces.add(
       Rx(
         RPCPeaceModel(
@@ -169,5 +166,12 @@ class RPCController extends BaseGameController {
         ),
       ),
     );
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    gameType = GameTypes.RPC;
+    initPieces();
   }
 }

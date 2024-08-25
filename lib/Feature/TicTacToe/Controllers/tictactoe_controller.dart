@@ -118,12 +118,16 @@ class TicTacToeController extends BaseGameController {
         peaces.value[peaceId].value.removeStatus(status: status);
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    gameType = GameTypes.tictactoe;
+  initPieces() {
     for (var i = 0; i < 9; i++) {
       peaces.add(Rx(TicTacToePeaceModel(id: i, currentStatuses: [])));
     }
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    gameType = GameTypes.TicTacToe;
+    initPieces();
   }
 }

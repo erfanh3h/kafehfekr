@@ -419,7 +419,7 @@ class BackGammonController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.backGammon;
+    gameType = GameTypes.BackGammon;
     initPieces();
   }
 }

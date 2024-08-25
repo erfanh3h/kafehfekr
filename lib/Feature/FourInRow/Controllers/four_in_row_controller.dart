@@ -126,7 +126,7 @@ class FourInRowController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.fourInRow;
+    gameType = GameTypes.FourInRow;
     initPeaces();
   }
 }

@@ -285,7 +285,7 @@ class TenController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.ten;
+    gameType = GameTypes.Ten;
     addOperators();
     addNumbers();
   }

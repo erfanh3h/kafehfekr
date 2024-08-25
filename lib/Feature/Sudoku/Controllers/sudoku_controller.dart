@@ -154,10 +154,7 @@ class SudokuController extends BaseGameController {
     sendCommand({"id": GameCommands.solve});
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    gameType = GameTypes.sudoku;
+  initPieces() {
     for (var i = 0; i < 81; i++) {
       peaces.add(
         Rx(
@@ -168,5 +165,12 @@ class SudokuController extends BaseGameController {
         ),
       );
     }
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    gameType = GameTypes.Sudoku;
+    initPieces();
   }
 }

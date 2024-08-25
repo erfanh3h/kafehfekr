@@ -311,7 +311,7 @@ class BattleShipController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.battleship;
+    gameType = GameTypes.BattleShip;
     initPieces();
   }
 }

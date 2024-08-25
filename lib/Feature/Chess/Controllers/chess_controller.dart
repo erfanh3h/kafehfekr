@@ -659,7 +659,7 @@ class ChessController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.chess;
+    gameType = GameTypes.Chess;
     initPeaces();
   }
 }

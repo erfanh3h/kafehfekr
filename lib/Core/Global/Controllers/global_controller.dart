@@ -13,6 +13,7 @@ class GlobalController extends BaseController {
   ThemeMode currentTheme = ThemeMode.light;
 
   RxBool isQueueActive = RxBool(false);
+  RxString activeQueueType = RxString('');
   // GlobalController(this.globalRepo);
 
   TextEditingController idController = TextEditingController(text: "1");
@@ -89,13 +90,19 @@ class GlobalController extends BaseController {
       myId: idController.text,
     );
     isQueueActive.value = true;
+    activeQueueType.value = gameType;
   }
 
   void queueCommandHandler(dynamic data) {
     final commandId = data['id'];
     switch (commandId) {
       case GameCommands.startGame:
-        print("start_game");
+        Future.delayed(const Duration(seconds: 3)).then((_) {
+          Get.toNamed('/${activeQueueType.value}',
+              arguments: data['data']['game_id']);
+          stopQueue();
+        });
+
         break;
       default:
     }
@@ -105,6 +112,7 @@ class GlobalController extends BaseController {
     // Get.find<QueueSocketManager>().disconnect();
     Get.delete<QueueSocketManager>();
     isQueueActive.value = false;
+    activeQueueType.value = "";
   }
 
   @override

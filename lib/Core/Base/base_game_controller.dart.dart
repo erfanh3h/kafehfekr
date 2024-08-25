@@ -303,7 +303,8 @@ class BaseGameController extends BaseController {
   @override
   void onInit() {
     myId = Get.find<GlobalController>().idController.text;
-    gameId = Get.find<GlobalController>().gameIdController.text;
+    gameId =
+        Get.arguments ?? Get.find<GlobalController>().gameIdController.text;
     Get.put(GameSocketManager());
     Get.find<GameSocketManager>().initSocket(
       commandHandler: commandHandler,

@@ -205,7 +205,7 @@ class BoxFourController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.boxFour;
+    gameType = GameTypes.BoxFour;
     initPieces();
   }
 }

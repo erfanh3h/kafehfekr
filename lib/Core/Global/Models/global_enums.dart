@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 enum PlayerStatusTypes { turn, idle, none }
 
 enum PeaceStatusTypes {
@@ -10,20 +12,20 @@ enum PeaceStatusTypes {
 }
 
 enum GameTypes {
-  tictactoe,
-  rpc,
-  mill,
-  msweeper,
-  mnumbers,
-  chess,
-  checkers,
-  ten,
-  othello,
-  dotbox,
-  yatzy,
-  fourInRow,
-  sudoku,
-  battleship,
-  boxFour,
-  backGammon
+  TicTacToe,
+  RPC,
+  Mill,
+  MSweeper,
+  MNumbers,
+  Chess,
+  Checkers,
+  Ten,
+  Othello,
+  DotBox,
+  Yatzy,
+  FourInRow,
+  Sudoku,
+  BattleShip,
+  BoxFour,
+  BackGammon
 }
