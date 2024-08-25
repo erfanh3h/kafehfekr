@@ -413,6 +413,13 @@ class BackGammonController extends BaseGameController {
   }
 
   letShowDices() {
+    if (currentTurn.value == myGameId) {
+      if (currentDices.length == 4) {
+        showInteraction(sound: GameSoundTypes.correct);
+      } else {
+        showInteraction(sound: GameSoundTypes.dice);
+      }
+    }
     showDices.value = true;
   }
 

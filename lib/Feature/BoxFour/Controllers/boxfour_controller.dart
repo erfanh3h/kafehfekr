@@ -165,6 +165,7 @@ class BoxFourController extends BaseGameController {
   }
 
   spreadNumber((int, int) position, int gamerId) {
+    showInteraction(sound: GameSoundTypes.correct);
     int index = coordinateToIndex(position.$1, position.$2);
     changePieceValue(index, 0, 0);
     for (var directionMove in moveDirs) {

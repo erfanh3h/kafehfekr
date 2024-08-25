@@ -14,4 +14,7 @@ class AppSounds {
   static const draw = '$_baseSound/draw.m4a';
   static const win = '$_baseSound/win.m4a';
   static const lose = '$_baseSound/lose.m4a';
+  static const dice = '$_baseSound/dice.m4a';
+  static const correct = '$_baseSound/correct.m4a';
+  static const hit = '$_baseSound/hit.m4a';
 }

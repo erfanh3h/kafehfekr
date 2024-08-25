@@ -152,6 +152,7 @@ class YatzyController extends BaseGameController {
       showInteraction(text: AppTexts.outOfDice.tr);
       return;
     }
+    showInteraction(sound: GameSoundTypes.dice);
     remainingDice.value -= 1;
     sendCommand({
       "id": GameCommands.rollDice,
@@ -350,6 +351,7 @@ class YatzyController extends BaseGameController {
   calculate5TimesRepeat() {
     for (var i = 1; i <= 6; i++) {
       if (calculateRepeatness(i, 5)) {
+        showInteraction(sound: GameSoundTypes.correct);
         changePlayerCalculatedScore(50, 11);
         return;
       }

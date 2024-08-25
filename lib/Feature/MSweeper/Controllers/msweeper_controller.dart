@@ -156,6 +156,7 @@ class MSweeperController extends BaseGameController {
   }
 
   void selectMineCorrectFuntion(Map data) {
+    showInteraction(sound: GameSoundTypes.correct);
     Map peaceData = data['data'];
     int peaceId = peaceData['peace_number'];
     addSweeperPeaceStatus(

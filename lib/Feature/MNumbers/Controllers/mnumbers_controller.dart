@@ -44,6 +44,7 @@ class MNumbersController extends BaseGameController {
     changePeaceValue(index2, value2);
     changePeaceSelectedGamer(index2, gamerId);
     if (isCorrectlySelected) {
+      showInteraction(sound: GameSoundTypes.correct);
       if (gamerId == 1) {
         player1Score.value += 1;
       } else {

@@ -76,12 +76,6 @@ class ChessController extends BaseGameController {
     final (int, int) targetPosition = (targetCIndex, targetRIndex);
     final int gamerId = selectionData['gamer_id'];
     movePiece(sourcePosition, targetPosition, gamerId);
-    // addPossibleMoves(index);
-    // final moveResult = movePiece(
-    //     sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, gamerId);
-    // if (moveResult) {
-    //   releasePeace();
-    // }
   }
 
   @override
@@ -106,36 +100,6 @@ class ChessController extends BaseGameController {
       changetimerValue(time.clamp(1, GameWaitTimes.chessTurnTime));
     }
   }
-
-  // @override
-  // void onEachButtonTap(dynamic tappedPeace) {
-  //   myGameId = 2;
-  //   ChessSpotModel peace = tappedPeace as ChessSpotModel;
-
-  //   if (equippedPeaceIndex.value != -1) {
-  //     if (equippedPeaceIndex.value == peace.id) {
-  //       releasePeace();
-  //     } else if (peace.piece.gamerId == myGameId) {
-  //       releasePeace();
-  //       equipPeace(peace.id);
-  //     } else {
-  //       if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected) &&
-  //           !peace.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
-  //         Get.find<SoundPlayerComponent>()
-  //             .playGameSound(GameSoundTypes.tapWrong);
-  //         return;
-  //       }
-  //       final sourcePosition = indexToCoordinate(equippedPeaceIndex.value);
-  //       final targetPosition = indexToCoordinate(peace.id);
-  //       movePiece(sourcePosition, targetPosition, myGameId);
-  //       releasePeace();
-  //     }
-  //   } else {
-  //     if (peace.piece.gamerId != 0) {
-  //       equipPeace(peace.id);
-  //     }
-  //   }
-  // }
 
   @override
   void onEachButtonTap(dynamic tappedPeace) {
@@ -614,6 +578,7 @@ class ChessController extends BaseGameController {
           isFirstMove: false,
         ),
       );
+      showInteraction(sound: GameSoundTypes.correct);
     }
     if (sourcePosition.$1 == 1 &&
         targetPosition.$1 == 0 &&

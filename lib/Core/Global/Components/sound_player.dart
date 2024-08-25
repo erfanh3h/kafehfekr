@@ -16,7 +16,10 @@ enum GameSoundTypes {
   time,
   draw,
   win,
-  lose
+  lose,
+  correct,
+  dice,
+  hit
 }
 
 class SoundPlayerComponent extends GlobalController {
@@ -73,7 +76,15 @@ class SoundPlayerComponent extends GlobalController {
       case GameSoundTypes.lose:
         sound = AppSounds.lose;
         break;
-
+      case GameSoundTypes.correct:
+        sound = AppSounds.correct;
+        break;
+      case GameSoundTypes.dice:
+        sound = AppSounds.dice;
+        break;
+      case GameSoundTypes.hit:
+        sound = AppSounds.hit;
+        break;
       default:
         sound = AppSounds.addPeace;
     }

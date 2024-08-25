@@ -61,6 +61,7 @@ class DotBoxController extends BaseGameController {
     if (result[0]) {
       for (var index in result[1]) {
         changeBoxPeaceSelectedUser(index, gamerId);
+        showInteraction(sound: GameSoundTypes.correct);
       }
       if (gamerId == 1) {
         player1Score += result[0].length;

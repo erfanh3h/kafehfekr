@@ -134,6 +134,7 @@ class MillController extends BaseGameController {
 
   @override
   void peaceRemovedFunction(Map data) {
+    showInteraction(sound: GameSoundTypes.hit);
     Map peaceData = data['data'];
     int peaceId = peaceData['target_peace'];
     int gamerId = peaceData['user'];

@@ -403,6 +403,7 @@ class CheckersController extends BaseGameController {
   }
 
   void removePawn(int rIndex, int cIndex, int gamerId) {
+    showInteraction(sound: GameSoundTypes.hit);
     int index = coordinateToIndex(rIndex, cIndex);
     changePeaceSelectedUser(index, 0);
     if (gamerId == 1) {
