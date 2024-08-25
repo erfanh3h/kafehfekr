@@ -1,9 +1,9 @@
 class ServerRoutes {
   // static const baseUrl = 'http://192.168.1.6:5000/api/v1';
-  // static const baseScoket = 'http://10.0.2.2:5000';
-  static const baseScoket = 'http://192.168.1.6:5000';
-  static const gameSocket = '$baseScoket/game';
-  static const queueSocket = '$baseScoket/queue';
+  // static const baseSocket = 'http://10.0.2.2:5000';
+  static const baseSocket = 'http://192.168.1.6:5000';
+  static const gameSocket = '$baseSocket/game';
+  static const queueSocket = '$baseSocket/queue';
   // static const baseUrl = 'http://185.204.197.77:5000/api/v1';
   // static const enterPhone = '$baseUrl/enter';
   // static const sendCode = '$baseUrl/code';

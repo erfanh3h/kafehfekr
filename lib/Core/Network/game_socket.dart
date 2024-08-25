@@ -10,7 +10,7 @@ class GameSocketManager extends GlobalController {
       required Function(dynamic) reactionHandler,
       required String myId,
       required String gameId}) {
-    socket = io(ServerRoutes.queueSocket, <String, dynamic>{
+    socket = io(ServerRoutes.gameSocket, <String, dynamic>{
       'autoConnect': false,
       'transports': ['websocket'],
       'auth': {'user_id': myId, 'game_id': gameId},

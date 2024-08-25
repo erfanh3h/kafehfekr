@@ -1,0 +1,43 @@
+import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Routes/server_routes.dart';
+import 'package:socket_io_client/socket_io_client.dart';
+
+class QueueSocketManager extends GlobalController {
+  late Socket socket;
+
+  void initSocket(
+      {required Function(dynamic) commandHandler,
+      required String myId,
+      required String gameType}) {
+    socket = io(ServerRoutes.queueSocket, <String, dynamic>{
+      'autoConnect': false,
+      'transports': ['websocket'],
+      'auth': {'user_id': myId, 'game_type': gameType},
+    });
+    socket.connect();
+    socket.onConnect((_) {
+      print('connect');
+    });
+
+    socket.on(SocketChannels.serverCommand, (data) {
+      print(data);
+      commandHandler(data);
+    });
+    socket.onDisconnect((_) => print('disconnect'));
+  }
+
+  void sendCommand(Map data) {
+    socket.emit(SocketChannels.userCommand, data);
+  }
+
+  void disconnect() {
+    socket.disconnect();
+  }
+
+  @override
+  // ignore: invalid_override_of_non_virtual_member
+  void onClose() {
+    socket.dispose();
+    super.onDelete();
+  }
+}

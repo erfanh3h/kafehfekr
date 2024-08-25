@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
+import 'package:kafehfekr/Core/Network/queue_socket.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:refreshed/refreshed.dart';
 
 // import '../Core/global_repository.dart';
@@ -10,10 +12,12 @@ class GlobalController extends BaseController {
 
   ThemeMode currentTheme = ThemeMode.light;
 
+  RxBool isQueueActive = RxBool(false);
   // GlobalController(this.globalRepo);
 
   TextEditingController idController = TextEditingController(text: "1");
-  TextEditingController gameIdController = TextEditingController(text: "gameId");
+  TextEditingController gameIdController =
+      TextEditingController(text: "gameId");
   final Rx<String?> _userId = Rx(null);
   String? get userId => _userId.value;
   set user(String? userId) {
@@ -75,6 +79,32 @@ class GlobalController extends BaseController {
     // } else {
     //   changeTheme(true);
     // }
+  }
+
+  void startQueue(String gameType) {
+    Get.put(QueueSocketManager());
+    Get.find<QueueSocketManager>().initSocket(
+      commandHandler: queueCommandHandler,
+      gameType: gameType,
+      myId: idController.text,
+    );
+    isQueueActive.value = true;
+  }
+
+  void queueCommandHandler(dynamic data) {
+    final commandId = data['id'];
+    switch (commandId) {
+      case GameCommands.startGame:
+        print("start_game");
+        break;
+      default:
+    }
+  }
+
+  void stopQueue() {
+    // Get.find<QueueSocketManager>().disconnect();
+    Get.delete<QueueSocketManager>();
+    isQueueActive.value = false;
   }
 
   @override
