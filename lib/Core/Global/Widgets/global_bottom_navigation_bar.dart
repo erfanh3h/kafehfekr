@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GlobalBottomNavigationBar extends StatelessWidget {
@@ -13,6 +14,7 @@ class GlobalBottomNavigationBar extends StatelessWidget {
     final GlobalController controller = Get.find<GlobalController>();
     return Obx(
       () => Container(
+        margin: AppSpacings.s10All,
         height: controller.isQueueActive.value ? 150 : 75,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -56,9 +58,10 @@ class EachButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => onTap(index),
+      onLongPress: () => DialogComponent().showToast(label: text),
       child: Container(
+        padding: isSelected ? AppSpacings.s10All : AppSpacings.s20All,
         decoration: BoxDecoration(
-          // color: isSelected ? Colors.amber : Colors.black,
           gradient: isSelected
               ? const LinearGradient(
                   begin: Alignment.bottomLeft,
@@ -69,30 +72,19 @@ class EachButton extends StatelessWidget {
                   ],
                 )
               : null,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(20),
+          border: Border(
+            bottom: BorderSide(
+              color: isSelected ? Colors.amber : Colors.white70,
+              width: isSelected ? 4 : 2,
+            ),
+          ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Image.asset(
-                icon,
-                color: Colors.white,
-                width: isSelected ? 35 : 25,
-                height: isSelected ? 35 : 25,
-              ),
-            ),
-            Expanded(
-              child: Text(
-                text,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: FontFamilies.dastnevis,
-                  fontSize: isSelected ? 15 : 12,
-                ),
-              ),
-            ),
-          ],
+        child: Image.asset(
+          icon,
+          color: isSelected ? Colors.amber : Colors.white,
+          // width: isSelected ? 35 : 25,
+          // height: isSelected ? 35 : 25,
         ),
       ),
     );

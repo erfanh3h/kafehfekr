@@ -27,6 +27,8 @@ abstract class AppTexts {
   static const gameMenu = "gameMenu";
   static const clan = "clan";
   static const settings = "settings";
+  static const kafehFekr = "kafekFekr";
+  static const soon = "soon";
 
   static const tictactoe = "TicTacToe";
   static const rpc = "RPC";
