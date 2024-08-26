@@ -22,7 +22,7 @@ class MainMenuPage extends BaseView<GlobalController> {
       height: Get.size.height,
       padding: AppSpacings.s10All,
       child: PageView(
-        // physics: const NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         onPageChanged: (index) async {
           if (index > 4) {
             return;

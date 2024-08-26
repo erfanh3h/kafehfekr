@@ -22,6 +22,11 @@ abstract class AppTexts {
   static const rollDice = "rollDice";
   static const showDice = "showDice";
   static const playGame = "playGame";
+  static const profile = "profile";
+  static const ranking = "ranking";
+  static const gameMenu = "gameMenu";
+  static const clan = "clan";
+  static const settings = "settings";
 
   static const tictactoe = "TicTacToe";
   static const rpc = "RPC";

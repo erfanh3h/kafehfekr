@@ -1,3 +1,6 @@
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
+
 class GameWaitTimes {
   static const int tictactoeRoundTime = 10;
   static const int rpcRoundTime = 5;
@@ -21,7 +24,6 @@ class GameWaitTimes {
   static const int battleshipWaitTime = 4;
   static const int boxFourTurnTime = 15;
   static const int backGammonTurnTime = 30;
-
 }
 
 class FontFamilies {
@@ -107,3 +109,19 @@ class GameRoundCounts {
   static const int rpcTurnRoundCount = 5;
   static const int tenRoundCount = 3;
 }
+
+List<String> bottomNavigationTexts = [
+  AppTexts.profile,
+  AppTexts.ranking,
+  AppTexts.gameMenu,
+  AppTexts.clan,
+  AppTexts.settings,
+];
+
+List<String> bottomNavigationIcons = [
+  GeneralIcons.profile,
+  GeneralIcons.ranking,
+  GeneralIcons.play,
+  GeneralIcons.clan,
+  GeneralIcons.settings,
+];
