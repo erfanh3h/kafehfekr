@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_game_queue_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -15,23 +16,32 @@ class GlobalBottomNavigationBar extends StatelessWidget {
     return Obx(
       () => Container(
         margin: AppSpacings.s10All,
-        height: controller.isQueueActive.value ? 150 : 75,
+        height: controller.isQueueActive.value ? 130 : 75,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: AppColors.darkColor,
         ),
-        child: Row(
+        child: Column(
           children: [
-            for (int index = 0; index < 5; index++)
-              Expanded(
-                child: EachButton(
-                  text: bottomNavigationTexts[index].tr,
-                  icon: bottomNavigationIcons[index],
-                  onTap: controller.changePage,
-                  isSelected: controller.selectedPage.value == index,
-                  index: index,
-                ),
-              )
+            if (controller.isQueueActive.value)
+              GlobalGameQueueBox(controller: controller),
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  for (int index = 0; index < 5; index++)
+                    Expanded(
+                      child: EachButton(
+                        text: bottomNavigationTexts[index].tr,
+                        icon: bottomNavigationIcons[index],
+                        onTap: controller.changePage,
+                        isSelected: controller.selectedPage.value == index,
+                        index: index,
+                      ),
+                    )
+                ],
+              ),
+            ),
           ],
         ),
       ),

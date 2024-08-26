@@ -17,10 +17,13 @@ class ProfilePage extends StatelessWidget {
         const SizedBox(height: 10),
         Text(
           AppTexts.kafehFekr.tr,
-          style: const TextStyle(
-            color: AppColors.lightColor,
+          style: TextStyle(
             fontFamily: FontFamilies.dastnevis,
             fontSize: 30,
+            foreground: Paint()
+              ..strokeWidth = 1.5
+              ..color = AppColors.lightColor
+              ..style = PaintingStyle.stroke,
           ),
         ),
         const SizedBox(height: 10),

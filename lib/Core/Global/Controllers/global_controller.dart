@@ -83,6 +83,10 @@ class GlobalController extends BaseController {
   }
 
   void startQueue(String gameType) {
+    if (isQueueActive.value) {
+      print("stop first");
+      return;
+    }
     Get.put(QueueSocketManager());
     Get.find<QueueSocketManager>().initSocket(
       commandHandler: queueCommandHandler,
