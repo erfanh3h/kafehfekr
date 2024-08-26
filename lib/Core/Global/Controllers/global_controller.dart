@@ -14,8 +14,9 @@ class GlobalController extends BaseController {
 
   RxBool isQueueActive = RxBool(false);
   RxString activeQueueType = RxString('');
-  // GlobalController(this.globalRepo);
 
+  PageController pgCtrl = PageController(initialPage: 2);
+  RxInt selectedPage = RxInt(2);
   TextEditingController idController = TextEditingController(text: "1");
   TextEditingController gameIdController =
       TextEditingController(text: "gameId");
@@ -25,13 +26,12 @@ class GlobalController extends BaseController {
     _userId.value = userId;
   }
 
-  final Rx<String?> _userEmail = Rx(null);
-  String? get userEmail => _userEmail.value;
-  set userEmail(String? userEmail) {
-    _userEmail.value = userEmail;
-  }
-
   RxBool isLoadingProfile = RxBool(true);
+
+  changePage(int page) {
+    selectedPage.value = page;
+    pgCtrl.jumpToPage(page);
+  }
 
   Future<void> fetchUserData() async {
     isLoadingProfile.value = true;

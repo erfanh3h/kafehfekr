@@ -92,12 +92,7 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
   }
 
   Widget pageContent(final BuildContext context) {
-    return setWillPopScope()
-        ? PopScope(
-            child: pageScaffold(context),
-            onPopInvoked: (_) => onWillPop(),
-          )
-        : pageScaffold(context);
+    return pageScaffold(context);
   }
 
   Widget showErrorSnackBar(final String message) {

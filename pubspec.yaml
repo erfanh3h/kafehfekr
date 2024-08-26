@@ -92,7 +92,7 @@ flutter:
         - asset: assets/Fonts/Vazir.ttf
     - family: Dastnevis
       fonts:
-        - asset: assets/Fonts/Dastnevis.OTF
+        - asset: assets/Fonts/Dastnevis.otf
     - family: Typo
       fonts:
         - asset: assets/Fonts/Typo.otf

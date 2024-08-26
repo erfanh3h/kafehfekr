@@ -8,6 +8,7 @@ import 'package:kafehfekr/Feature/Checkers/Core/checkers_binding.dart';
 import 'package:kafehfekr/Feature/Chess/Core/chess_binding.dart';
 import 'package:kafehfekr/Feature/DotBox/Core/dotbox_binding.dart';
 import 'package:kafehfekr/Feature/FourInRow/Core/four_in_row_binding.dart';
+import 'package:kafehfekr/Feature/General/Core/general_binding.dart';
 import 'package:kafehfekr/Feature/MNumbers/Core/mnumbers_binding.dart';
 import 'package:kafehfekr/Feature/MSweeper/Core/msweeper_binding.dart';
 import 'package:kafehfekr/Feature/Mill/Core/mill_binding.dart';
@@ -25,6 +26,7 @@ class GlobalBinding implements BindingsInterface {
         // AuthBinding().dependencies(),
         // Get.lazyPut<GlobalRepository>(() => GlobalRepositoryImp(), fenix: true),
         Get.put(GlobalController()),
+        GeneralBinding().dependencies(),
         TicTactoeBinding().dependencies(),
         RPCBinding().dependencies(),
         MillBinding().dependencies(),
