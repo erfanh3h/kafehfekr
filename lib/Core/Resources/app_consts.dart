@@ -66,6 +66,7 @@ abstract class GameCommands {
   static const userDisconnected = "UserDisconnected";
   static const userReconnected = "UserReconnected";
   static const finishReconnectTime = "FinishReconnectTime";
+  static const gameFinished = "GameFinished";
 }
 
 class CupsCount {
@@ -114,6 +115,7 @@ class StorageKeys {
   static const String userId = "userId";
   static const String token = "token";
   static const String gameId = "gameId";
+  static const String gameType = "gameType";
 }
 
 List<String> bottomNavigationTexts = [

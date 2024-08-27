@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
+import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Core/global_repository.dart';
 import 'package:kafehfekr/Core/Network/queue_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -22,6 +24,8 @@ class GlobalController extends BaseController {
       TextEditingController(text: "gameId");
 
   String? userId;
+  String? activeGameId;
+  String? activeGameType;
 
   RxBool isLoadingProfile = RxBool(true);
 
@@ -36,6 +40,11 @@ class GlobalController extends BaseController {
     Future.delayed(const Duration(seconds: 1)).then((_) {
       if (userId != null) {
         Get.offAllNamed(AppRoutes.main);
+        Future.delayed(const Duration(milliseconds: 500)).then((_) {
+          if (activeGameId != null) {
+            Get.toNamed('/$activeGameType', arguments: activeGameId);
+          }
+        });
       } else {
         Get.offAllNamed(AppRoutes.auth);
       }
@@ -44,9 +53,20 @@ class GlobalController extends BaseController {
 
   Future<void> fetchUserData() async {
     isLoadingProfile.value = true;
-    final result = await globalRepo.getDataFromStorage(key: StorageKeys.userId);
-    if (result != null) {
-      userId = result;
+    final userIdData =
+        await globalRepo.getDataFromStorage(key: StorageKeys.userId);
+    if (userIdData != null) {
+      userId = userIdData;
+    }
+    final gameIdData =
+        await globalRepo.getDataFromStorage(key: StorageKeys.gameId);
+    if (gameIdData != null) {
+      activeGameId = gameIdData;
+    }
+    final gameTypeData =
+        await globalRepo.getDataFromStorage(key: StorageKeys.gameType);
+    if (gameTypeData != null) {
+      activeGameType = gameTypeData;
     }
     isLoadingProfile.value = false;
   }
@@ -55,6 +75,24 @@ class GlobalController extends BaseController {
     isLoadingProfile.value = true;
     await globalRepo.setDataOnStorage(key: StorageKeys.userId, value: data);
     userId = data;
+    isLoadingProfile.value = false;
+  }
+
+  Future<void> setActiveGameId(String id, String type) async {
+    isLoadingProfile.value = true;
+    await globalRepo.setDataOnStorage(key: StorageKeys.gameId, value: id);
+    await globalRepo.setDataOnStorage(key: StorageKeys.gameType, value: type);
+    activeGameId = id;
+    activeGameType = type;
+    isLoadingProfile.value = false;
+  }
+
+  Future<void> finishGame() async {
+    isLoadingProfile.value = true;
+    await globalRepo.removeDataFromStorage(key: StorageKeys.gameId);
+    await globalRepo.removeDataFromStorage(key: StorageKeys.gameType);
+    activeGameId = null;
+    activeGameType = null;
     isLoadingProfile.value = false;
   }
 
@@ -68,7 +106,7 @@ class GlobalController extends BaseController {
 
   void startQueue(String gameType) {
     if (isQueueActive.value) {
-      print("stop first");
+      DialogComponent().showToast(label: AppTexts.stopPrevoiusQueue.tr);
       return;
     }
     Get.put(QueueSocketManager());
@@ -85,12 +123,13 @@ class GlobalController extends BaseController {
     final commandId = data['id'];
     switch (commandId) {
       case GameCommands.startGame:
-        Future.delayed(const Duration(seconds: 3)).then((_) {
-          Get.toNamed('/${activeQueueType.value}',
-              arguments: data['data']['game_id']);
+        final String gameId = data['data']['game_id'];
+        final String gameType = activeQueueType.value;
+        setActiveGameId(gameId, gameType);
+        Future.delayed(const Duration(seconds: 1)).then((_) {
+          Get.toNamed('/$gameType', arguments: gameId);
           stopQueue();
         });
-
         break;
       default:
     }
@@ -106,9 +145,6 @@ class GlobalController extends BaseController {
   @override
   void onInit() async {
     await fetchUserData();
-    // if (_userId.value != null) {
-    //   _userEmail.value = await globalRepo.getUserEmail();
-    // }
     super.onInit();
   }
 }

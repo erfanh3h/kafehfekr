@@ -6,6 +6,8 @@ abstract class GlobalRepository {
   Future<void> setDataOnStorage(
       {required final String key, required final String value});
 
+  Future<String?> removeDataFromStorage({required String key});
+
   Future<void> logoutRemoveData();
 }
 
@@ -19,6 +21,11 @@ class GlobalRepositoryImp extends GlobalRepository {
   Future<void> setDataOnStorage(
       {required final String key, required final String value}) async {
     await StorageComponent.setData(key, value);
+  }
+
+  @override
+  Future<String?> removeDataFromStorage({required String key}) async {
+    return await StorageComponent.removeData(key);
   }
 
   @override

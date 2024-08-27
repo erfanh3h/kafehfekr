@@ -11,6 +11,7 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../../../Core/Base/base_controller.dart';
@@ -97,6 +98,9 @@ class BaseGameController extends BaseController {
       case GameCommands.waitTime:
         waitTimeFunction(data);
         break;
+      case GameCommands.gameFinished:
+        deviceFinishGameFunction();
+        break;
       default:
     }
   }
@@ -159,8 +163,15 @@ class BaseGameController extends BaseController {
     changePlayerReaction(playerId, reactionId);
   }
 
+  void deviceFinishGameFunction() {
+    Get.find<GlobalController>().finishGame();
+    Get.back();
+    DialogComponent().showToast(label: AppTexts.gameFinished.tr);
+  }
+
   void finishGameFunction(Map data) {
     Map newData = data['data'];
+    Get.find<GlobalController>().finishGame();
     Get.find<GameSocketManager>().disconnect();
     Get.find<TimerCompanent>().stopTimer();
     FunctionsLibraryClass.showFinishGameDialog(
