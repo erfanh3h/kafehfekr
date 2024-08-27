@@ -57,13 +57,14 @@ class _GlobalGameQueueBoxState extends State<GlobalGameQueueBox>
             end: Alignment.topRight,
             colors: [
               Color.fromARGB(1, 212, 133, 126),
-              Color.fromARGB(255, 214, 172, 168),
+              AppColors.darkColor,
             ],
           ),
           border: Border.all(
-            color: Colors.black,
-            width: 4,
+            color: Colors.white70,
+            width: 2,
           ),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
           children: [

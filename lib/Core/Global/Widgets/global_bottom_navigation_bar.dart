@@ -19,7 +19,7 @@ class GlobalBottomNavigationBar extends StatelessWidget {
         height: controller.isQueueActive.value ? 130 : 75,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: AppColors.darkColor,
+          // color: AppColors.darkColor,
         ),
         child: Column(
           children: [
@@ -72,6 +72,7 @@ class EachButton extends StatelessWidget {
       child: Container(
         padding: isSelected ? AppSpacings.s10All : AppSpacings.s20All,
         decoration: BoxDecoration(
+          // color: AppColors.darkColor,
           gradient: isSelected
               ? const LinearGradient(
                   begin: Alignment.bottomLeft,
@@ -81,7 +82,14 @@ class EachButton extends StatelessWidget {
                     Color.fromARGB(255, 214, 172, 168),
                   ],
                 )
-              : null,
+              : const LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                    Color.fromARGB(1, 212, 133, 126),
+                    AppColors.darkColor,
+                  ],
+                ),
           borderRadius: BorderRadius.circular(20),
           border: Border(
             bottom: BorderSide(

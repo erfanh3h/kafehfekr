@@ -293,6 +293,7 @@ class FunctionsLibraryClass {
         AppTexts.roundDrawed.tr,
         GeneralIcons.drawRound,
         AppColors.drawColor,
+        letBackPage: false,
       );
     } else {
       String dialogMessage = "";
@@ -312,6 +313,7 @@ class FunctionsLibraryClass {
         dialogMessage,
         dialogIcon,
         dialogColor,
+        letBackPage: false,
       );
     }
   }

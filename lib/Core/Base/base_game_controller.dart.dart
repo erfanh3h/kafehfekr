@@ -161,6 +161,7 @@ class BaseGameController extends BaseController {
 
   void finishGameFunction(Map data) {
     Map newData = data['data'];
+    Get.find<GameSocketManager>().disconnect();
     Get.find<TimerCompanent>().stopTimer();
     FunctionsLibraryClass.showFinishGameDialog(
       newData['Winner'],

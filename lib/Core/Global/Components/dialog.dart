@@ -89,6 +89,7 @@ class DialogComponent {
     int? cup,
     int? coin,
     int? star,
+    bool letBackPage = true,
   }) {
     Get.dialog(
       barrierDismissible: false,
@@ -227,7 +228,9 @@ class DialogComponent {
                 child: GlobalButtonWidget(
                   onTap: () {
                     Get.closeAllDialogs();
-                    Get.back();
+                    if (letBackPage) {
+                      Get.back();
+                    }
                   },
                   text: AppTexts.ok.tr,
                   color: iconColor,
