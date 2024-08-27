@@ -60,7 +60,7 @@ class EachButton extends StatelessWidget {
   });
 
   final String text;
-  final String icon;
+  final IconData icon;
   final Function(int) onTap;
   final bool isSelected;
   final int index;
@@ -70,7 +70,8 @@ class EachButton extends StatelessWidget {
       onTap: () => onTap(index),
       onLongPress: () => DialogComponent().showToast(label: text),
       child: Container(
-        padding: isSelected ? AppSpacings.s10All : AppSpacings.s20All,
+        padding: isSelected ? AppSpacings.s5All : AppSpacings.s5All,
+        height: double.maxFinite,
         decoration: BoxDecoration(
           // color: AppColors.darkColor,
           gradient: isSelected
@@ -98,11 +99,10 @@ class EachButton extends StatelessWidget {
             ),
           ),
         ),
-        child: Image.asset(
+        child: Icon(
           icon,
           color: isSelected ? Colors.amber : Colors.white,
-          // width: isSelected ? 35 : 25,
-          // height: isSelected ? 35 : 25,
+          size: isSelected ? 50 : 35,
         ),
       ),
     );

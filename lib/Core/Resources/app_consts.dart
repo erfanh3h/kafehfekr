@@ -1,4 +1,5 @@
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 
 class GameWaitTimes {
@@ -126,10 +127,10 @@ List<String> bottomNavigationTexts = [
   AppTexts.settings,
 ];
 
-List<String> bottomNavigationIcons = [
-  GeneralIcons.profile,
-  GeneralIcons.ranking,
-  GeneralIcons.play,
-  GeneralIcons.clan,
-  GeneralIcons.settings,
+List<IconData> bottomNavigationIcons = [
+  Icons.person_4_rounded,
+  CupertinoIcons.star_circle_fill,
+  CupertinoIcons.game_controller_solid,
+  CupertinoIcons.person_3_fill,
+  Icons.settings,
 ];

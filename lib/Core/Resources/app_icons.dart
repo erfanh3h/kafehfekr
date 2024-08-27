@@ -62,9 +62,9 @@ class GeneralIcons {
   static const dice4 = "$generalIconsPath/dice4.png";
   static const dice5 = "$generalIconsPath/dice5.png";
   static const dice6 = "$generalIconsPath/dice6.png";
-  static const ranking = "$generalIconsPath/ranking.png";
-  static const play = "$generalIconsPath/play.png";
-  static const profile = "$generalIconsPath/profile.png";
-  static const settings = "$generalIconsPath/settings.png";
-  static const clan = "$generalIconsPath/clan.png";
+  // static const ranking = "$generalIconsPath/ranking.png";
+  // static const play = "$generalIconsPath/play.png";
+  // static const profile = "$generalIconsPath/profile.png";
+  // static const settings = "$generalIconsPath/settings.png";
+  // static const clan = "$generalIconsPath/clan.png";
 }
