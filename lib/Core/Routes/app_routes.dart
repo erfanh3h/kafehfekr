@@ -1,6 +1,6 @@
 abstract class AppRoutes {
   static const main = '/main';
-  static const entry = '/entry';
+  static const auth = '/auth';
   static const info = '/info';
   static const splash = '/splash';
   static const tictactoe = '/TicTacToe';

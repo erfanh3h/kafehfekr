@@ -9,7 +9,6 @@ import 'package:refreshed/refreshed.dart';
 // import '../Core/global_repository.dart';
 
 class GlobalController extends BaseController {
-  // final AuthRepository authRepo;
   final GlobalRepository globalRepo;
 
   ThemeMode currentTheme = ThemeMode.light;
@@ -19,7 +18,6 @@ class GlobalController extends BaseController {
 
   PageController pgCtrl = PageController(initialPage: 2);
   RxInt selectedPage = RxInt(2);
-  TextEditingController idController = TextEditingController(text: "1");
   TextEditingController gameIdController =
       TextEditingController(text: "gameId");
 
@@ -39,7 +37,7 @@ class GlobalController extends BaseController {
       if (userId != null) {
         Get.offAllNamed(AppRoutes.main);
       } else {
-        Get.offAllNamed(AppRoutes.entry);
+        Get.offAllNamed(AppRoutes.auth);
       }
     });
   }
@@ -56,6 +54,7 @@ class GlobalController extends BaseController {
   Future<void> setUserData(String data) async {
     isLoadingProfile.value = true;
     await globalRepo.setDataOnStorage(key: StorageKeys.userId, value: data);
+    userId = data;
     isLoadingProfile.value = false;
   }
 
@@ -76,7 +75,7 @@ class GlobalController extends BaseController {
     Get.find<QueueSocketManager>().initSocket(
       commandHandler: queueCommandHandler,
       gameType: gameType,
-      myId: idController.text,
+      myId: userId!,
     );
     isQueueActive.value = true;
     activeQueueType.value = gameType;

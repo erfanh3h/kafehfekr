@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Global/Core/global_binding.dart';
 import 'package:kafehfekr/Core/Global/Pages/main_menu_page.dart';
 import 'package:kafehfekr/Core/Global/Pages/splash.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
+import 'package:kafehfekr/Feature/Auth/Pages/auth_page.dart';
 import 'package:kafehfekr/Feature/BackGammon/Pages/backgammon_page.dart';
 import 'package:kafehfekr/Feature/BattleShip/Pages/battleship_page.dart';
 import 'package:kafehfekr/Feature/BoxFour/Pages/boxfour_page.dart';
@@ -28,8 +29,8 @@ abstract class AppPages {
       binding: GlobalBinding(),
     ),
     GetPage(
-      name: AppRoutes.entry,
-      page: MainPage.new,
+      name: AppRoutes.auth,
+      page: AuthPage.new,
     ),
     GetPage(
       name: AppRoutes.main,
