@@ -1,8 +1,8 @@
-import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
-class GameSocketManager extends GlobalController {
+class GameSocketManager extends BaseController {
   late Socket socket;
 
   void initSocket(

@@ -25,11 +25,15 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.splash,
       page: SplashPage.new,
+      binding: GlobalBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.entry,
+      page: MainPage.new,
     ),
     GetPage(
       name: AppRoutes.main,
-      page: MainMenuPage.new,
-      binding: GlobalBinding(),
+      page: MainPage.new,
     ),
     GetPage(
       name: AppRoutes.tictactoe,

@@ -9,8 +9,8 @@ import 'package:kafehfekr/Feature/General/Pages/ranking_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/settings_page.dart';
 import 'package:refreshed/refreshed.dart';
 
-class MainMenuPage extends BaseView<GlobalController> {
-  const MainMenuPage({super.key});
+class MainPage extends BaseView<GlobalController> {
+  const MainPage({super.key});
 
   @override
   Widget body(BuildContext context) {

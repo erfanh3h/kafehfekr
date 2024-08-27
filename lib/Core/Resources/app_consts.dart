@@ -110,6 +110,12 @@ class GameRoundCounts {
   static const int tenRoundCount = 3;
 }
 
+class StorageKeys {
+  static const String userId = "userId";
+  static const String token = "token";
+  static const String gameId = "gameId";
+}
+
 List<String> bottomNavigationTexts = [
   AppTexts.profile,
   AppTexts.ranking,

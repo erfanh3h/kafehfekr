@@ -1,5 +1,5 @@
 import 'package:just_audio/just_audio.dart';
-import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Resources/app_sounds.dart';
 
 enum GameSoundTypes {
@@ -22,7 +22,7 @@ enum GameSoundTypes {
   hit
 }
 
-class SoundPlayerComponent extends GlobalController {
+class SoundPlayerComponent extends BaseController {
   final _actionPlayer = AudioPlayer();
   final _musicPlayer = AudioPlayer();
 

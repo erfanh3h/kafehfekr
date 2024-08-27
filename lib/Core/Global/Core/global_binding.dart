@@ -1,6 +1,7 @@
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Global/Core/global_repository.dart';
 import 'package:kafehfekr/Feature/BackGammon/Core/backgammon_binding.dart';
 import 'package:kafehfekr/Feature/BattleShip/Core/battleship_binding.dart';
 import 'package:kafehfekr/Feature/BoxFour/Core/boxfour_binding.dart';
@@ -24,8 +25,11 @@ class GlobalBinding implements BindingsInterface {
   @override
   dependencies() => [
         // AuthBinding().dependencies(),
-        // Get.lazyPut<GlobalRepository>(() => GlobalRepositoryImp(), fenix: true),
-        Get.put(GlobalController()),
+        Get.lazyPut<GlobalRepository>(() => GlobalRepositoryImp(), fenix: true),
+        Get.put(
+          GlobalController(globalRepo: Get.find<GlobalRepository>()),
+          permanent: true,
+        ),
         GeneralBinding().dependencies(),
         TicTactoeBinding().dependencies(),
         RPCBinding().dependencies(),

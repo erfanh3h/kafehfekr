@@ -44,6 +44,7 @@ dependencies:
   just_audio_windows: ^0.2.1
   function_tree: ^0.9.1
   flutter_styled_toast: ^2.2.1
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:

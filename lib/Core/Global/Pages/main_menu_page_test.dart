@@ -9,8 +9,8 @@
 // import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 // import 'package:refreshed/refreshed.dart';
 
-// class MainMenuPage extends BaseView<GlobalController> {
-//   const MainMenuPage({super.key});
+// class MainPage extends BaseView<GlobalController> {
+//   const MainPage({super.key});
 
 //   @override
 //   Widget body(BuildContext context) {

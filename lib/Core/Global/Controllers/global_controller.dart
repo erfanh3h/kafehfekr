@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
+import 'package:kafehfekr/Core/Global/Core/global_repository.dart';
 import 'package:kafehfekr/Core/Network/queue_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
 
 // import '../Core/global_repository.dart';
 
 class GlobalController extends BaseController {
   // final AuthRepository authRepo;
-  // final GlobalRepository globalRepo;
+  final GlobalRepository globalRepo;
 
   ThemeMode currentTheme = ThemeMode.light;
 
@@ -20,25 +22,40 @@ class GlobalController extends BaseController {
   TextEditingController idController = TextEditingController(text: "1");
   TextEditingController gameIdController =
       TextEditingController(text: "gameId");
-  final Rx<String?> _userId = Rx(null);
-  String? get userId => _userId.value;
-  set user(String? userId) {
-    _userId.value = userId;
-  }
+
+  String? userId;
 
   RxBool isLoadingProfile = RxBool(true);
+
+  GlobalController({required this.globalRepo});
 
   changePage(int page) {
     selectedPage.value = page;
     pgCtrl.jumpToPage(page);
   }
 
+  void checkLoginStatus() {
+    Future.delayed(const Duration(seconds: 1)).then((_) {
+      if (userId != null) {
+        Get.offAllNamed(AppRoutes.main);
+      } else {
+        Get.offAllNamed(AppRoutes.entry);
+      }
+    });
+  }
+
   Future<void> fetchUserData() async {
     isLoadingProfile.value = true;
-    // final result = await authRepo.getActiveUser();
-    // if (result.resultData != null) {
-    //   _userId.value = result.resultData;
-    // }
+    final result = await globalRepo.getDataFromStorage(key: StorageKeys.userId);
+    if (result != null) {
+      userId = result;
+    }
+    isLoadingProfile.value = false;
+  }
+
+  Future<void> setUserData(String data) async {
+    isLoadingProfile.value = true;
+    await globalRepo.setDataOnStorage(key: StorageKeys.userId, value: data);
     isLoadingProfile.value = false;
   }
 
@@ -48,38 +65,6 @@ class GlobalController extends BaseController {
     } else {
       Get.updateLocale(const Locale('en'));
     }
-  }
-
-  void swapTheme() async {
-    if (currentTheme == ThemeMode.dark) {
-      Get.changeThemeMode(ThemeMode.light);
-      currentTheme = ThemeMode.light;
-    } else {
-      Get.changeThemeMode(ThemeMode.dark);
-      currentTheme = ThemeMode.dark;
-    }
-    // await globalRepo.writeIsLightMode(data: currentTheme == ThemeMode.light);
-  }
-
-  void changeTheme(bool isLightMode) async {
-    if (isLightMode) {
-      Get.changeThemeMode(ThemeMode.light);
-      currentTheme = ThemeMode.light;
-    } else {
-      Get.changeThemeMode(ThemeMode.dark);
-      currentTheme = ThemeMode.dark;
-    }
-    // await globalRepo.writeIsLightMode(data: currentTheme == ThemeMode.light);
-  }
-
-  Future<void> readPreTheme() async {
-    //save theme base on isDarkMode
-    // final readResult = await globalRepo.getIsLightMode();
-    // if (readResult != null) {
-    //   changeTheme(readResult);
-    // } else {
-    //   changeTheme(true);
-    // }
   }
 
   void startQueue(String gameType) {
@@ -121,8 +106,7 @@ class GlobalController extends BaseController {
 
   @override
   void onInit() async {
-    readPreTheme();
-    // await fetchUserData();
+    await fetchUserData();
     // if (_userId.value != null) {
     //   _userEmail.value = await globalRepo.getUserEmail();
     // }
