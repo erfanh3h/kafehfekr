@@ -53,7 +53,7 @@ class AppTranslations extends Translations {
           AppTexts.battleship: 'نبردکشتی',
           AppTexts.boxFour: 'چهارطرفه',
           AppTexts.backGammon: 'تخته نرد',
-          AppTexts.notYourTurn: "نوبت حریفه !",
+          AppTexts.notYourTurn: "نوبت نیست!",
           AppTexts.cantSelect: "امکان انتخابشو نداری!",
           AppTexts.selectedBefore: "این خونه قبلاانتخاب شده!",
           AppTexts.selectedWrongPlace: 'جای اشتباهی انتخاب کردی!',

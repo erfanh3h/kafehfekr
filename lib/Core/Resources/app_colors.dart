@@ -49,9 +49,9 @@ class AppColors {
   static const blueWarmColor = Color.fromARGB(255, 69, 71, 158);
   static const redWarmColor = Color.fromARGB(255, 163, 45, 65);
 
-  static const winColor = Color.fromRGBO(0, 155, 119, 1);
-  static const loseColor = Color.fromRGBO(221, 65, 36, 1);
-  static const drawColor = Color.fromARGB(255, 207, 199, 79);
+  static const winColor = Color.fromRGBO(0, 114, 87, 1);
+  static const loseColor = Color.fromRGBO(172, 49, 27, 1);
+  static const drawColor = Color.fromARGB(255, 163, 156, 59);
 
   static const theme = Color.fromARGB(255, 57, 67, 158);
 

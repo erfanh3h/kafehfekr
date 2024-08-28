@@ -1,4 +1,5 @@
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:refreshed/refreshed.dart';
@@ -51,6 +52,7 @@ class _GlobalGameQueueBoxState extends State<GlobalGameQueueBox>
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        height: 60,
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             begin: Alignment.bottomLeft,
@@ -66,30 +68,39 @@ class _GlobalGameQueueBoxState extends State<GlobalGameQueueBox>
           ),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: widget.controller.stopQueue,
-              icon: const Icon(
-                Icons.close_rounded,
-                color: AppColors.lightColor,
-              ),
-            ),
-            const SizedBox(width: 5),
-            FadeTransition(
-              opacity: _fadeInFadeOut,
-              child: Text(
-                'در جست و جوی بازی ${widget.controller.activeQueueType.value.tr} ...',
-                style: TextStyle(
-                  fontSize: 16,
-                  foreground: Paint()
-                    ..strokeWidth = 1.5
-                    ..color = AppColors.lightColor
-                    ..style = PaintingStyle.stroke,
+        child: Obx(
+          () => widget.controller.isGameLoading.value
+              ? const Center(
+                  child: GlobalLoadingWidget(
+                    size: 10,
+                    color: Colors.white,
+                  ),
+                )
+              : Row(
+                  children: [
+                    IconButton(
+                      onPressed: widget.controller.stopQueue,
+                      icon: const Icon(
+                        Icons.close_rounded,
+                        color: AppColors.lightColor,
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    FadeTransition(
+                      opacity: _fadeInFadeOut,
+                      child: Text(
+                        'در جست و جوی بازی ${widget.controller.activeQueueType.value.tr} ...',
+                        style: TextStyle(
+                          fontSize: 16,
+                          foreground: Paint()
+                            ..strokeWidth = 1.5
+                            ..color = AppColors.lightColor
+                            ..style = PaintingStyle.stroke,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ],
         ),
       ),
     );

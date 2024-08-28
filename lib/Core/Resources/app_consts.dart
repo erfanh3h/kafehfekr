@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 
 class GameWaitTimes {
+  static const int startGameTime = 5;
   static const int tictactoeRoundTime = 10;
+  static const int tictactoeSleepRoundTime = 5;
   static const int rpcRoundTime = 5;
   static const int rpcSleepRoundTime = 3;
   static const int millSelectTime = 15;
@@ -106,7 +108,7 @@ class GeneralGameConsts {
 }
 
 class GameRoundCounts {
-  static const int tictactoeRoundCount = 4;
+  static const int tictactoeRoundCount = 5;
   static const int rpcRoundCount = 3;
   static const int rpcTurnRoundCount = 5;
   static const int tenRoundCount = 3;

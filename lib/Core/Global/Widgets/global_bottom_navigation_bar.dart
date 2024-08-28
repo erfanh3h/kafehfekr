@@ -16,7 +16,7 @@ class GlobalBottomNavigationBar extends StatelessWidget {
     return Obx(
       () => Container(
         margin: AppSpacings.s10All,
-        height: controller.isQueueActive.value ? 130 : 75,
+        // height: controller.isQueueActive.value ? 130 : 75,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           // color: AppColors.darkColor,
@@ -25,7 +25,8 @@ class GlobalBottomNavigationBar extends StatelessWidget {
           children: [
             if (controller.isQueueActive.value)
               GlobalGameQueueBox(controller: controller),
-            Expanded(
+            SizedBox(
+              height: 75,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [

@@ -31,7 +31,7 @@ class BaseGameController extends BaseController {
   RxInt player2Score = RxInt(0);
   RxInt currentTurn = RxInt(1);
 
-  RxBool letPlaySound = RxBool(false);
+  RxBool letPlaySound = RxBool(true);
 
   late GameTypes gameType;
 
@@ -45,9 +45,11 @@ class BaseGameController extends BaseController {
         reconnectDataFuntcion(data);
         break;
       case GameCommands.startGame:
+        isPageLoading.value = false;
         startGameFunction(data);
         break;
       case GameCommands.currentTurn:
+        isPageLoading.value = false;
         currentTurnFunction(data);
         break;
       case GameCommands.selectPeaceResult:
@@ -133,7 +135,9 @@ class BaseGameController extends BaseController {
 
   void onEachButtonTap(dynamic tappedPeace) {}
 
-  void gameDataFunction(Map data) {
+  void gameDataFunction(Map data) async {
+    isPageLoading.value = false;
+    changetimerValue(GameWaitTimes.startGameTime);
     Map gameData = data['data'];
     List gamers = gameData['gamers'];
     for (var gamerData in gamers) {
@@ -142,6 +146,10 @@ class BaseGameController extends BaseController {
       if (newPlayer.userId == myId) {
         myGameId = newPlayer.gamerId;
       }
+    }
+    for (var i = 0; i < 5; i++) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.time);
+      await Future.delayed(const Duration(seconds: 1));
     }
   }
 
@@ -155,6 +163,7 @@ class BaseGameController extends BaseController {
         myGameId = newPlayer.gamerId;
       }
     }
+    isPageLoading.value = false;
   }
 
   void reactionHandler(dynamic data) {
@@ -314,6 +323,7 @@ class BaseGameController extends BaseController {
 
   @override
   void onInit() {
+    isPageLoading.value = true;
     myId = Get.find<GlobalController>().userId!;
     gameId =
         Get.arguments ?? Get.find<GlobalController>().gameIdController.text;

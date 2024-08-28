@@ -26,7 +26,7 @@ class SoundPlayerComponent extends BaseController {
   final _actionPlayer = AudioPlayer();
   final _musicPlayer = AudioPlayer();
 
-  bool letPlaySound = false;
+  bool letPlaySound = true;
 
   void playGameSound(GameSoundTypes soundType) {
     if (!letPlaySound) {

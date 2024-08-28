@@ -16,6 +16,7 @@ class GlobalController extends BaseController {
   ThemeMode currentTheme = ThemeMode.light;
 
   RxBool isQueueActive = RxBool(false);
+  RxBool isGameLoading = RxBool(false);
   RxString activeQueueType = RxString('');
 
   PageController pgCtrl = PageController(initialPage: 2);
@@ -123,6 +124,7 @@ class GlobalController extends BaseController {
     final commandId = data['id'];
     switch (commandId) {
       case GameCommands.startGame:
+        isGameLoading.value = true;
         final String gameId = data['data']['game_id'];
         final String gameType = activeQueueType.value;
         setActiveGameId(gameId, gameType);
@@ -139,6 +141,7 @@ class GlobalController extends BaseController {
     // Get.find<QueueSocketManager>().disconnect();
     Get.delete<QueueSocketManager>();
     isQueueActive.value = false;
+    isGameLoading.value = false;
     activeQueueType.value = "";
   }
 
