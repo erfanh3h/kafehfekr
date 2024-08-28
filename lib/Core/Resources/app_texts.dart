@@ -67,6 +67,7 @@ abstract class AppTexts {
 
   static const notYourTurn = "notYourTurn";
   static const cantSelect = "cantSelect";
+  static const bombExploded = "bombExploded";
   static const selectedBefore = "selectedBefore";
   static const selectedWrongPlace = "selectedWrongPlace";
   static const selectAllShips = "selectAllShips";

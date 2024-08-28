@@ -85,6 +85,7 @@ class MSweeperController extends BaseGameController {
     List boardData = gameData['board'];
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
+    isBombHitted.value = gameData['is_tapped_mine'];
     selectPeaceRemainingCount.value = gameData["remaining_selectable_peaces"];
     selectMineRemainingCount.value = gameData["remaining_selectable_mines"];
     if (selectMineRemainingCount.value > 0) {
@@ -103,6 +104,10 @@ class MSweeperController extends BaseGameController {
   @override
   void onEachButtonTap(dynamic tappedPeace) {
     MSweeperPeaceModel peace = tappedPeace as MSweeperPeaceModel;
+    if (isBombHitted.value) {
+      showInteraction(text: AppTexts.bombExploded.tr);
+      return;
+    }
     if (!canSelectPeace.value) {
       showInteraction(text: AppTexts.cantSelect.tr);
       return;
