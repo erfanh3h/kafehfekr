@@ -71,6 +71,7 @@ abstract class AppTexts {
   static const selectedWrongPlace = "selectedWrongPlace";
   static const selectAllShips = "selectAllShips";
   static const cantRemoveYourPiece = "cantRemoveYourPiece";
+  static const cantRemoveThisPiece = "cantRemoveThisPiece";
   static const cantSwapEnemyPiece = "cantSwapEnemyPiece";
   static const outOfDice = "outOfDice";
   static const selectDiceFirst = "selectDiceFirst";

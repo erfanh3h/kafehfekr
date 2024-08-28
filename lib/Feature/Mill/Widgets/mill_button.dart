@@ -20,6 +20,7 @@ class MillButton extends StatelessWidget {
     Color? imageColor;
     String? image;
     late double borderWidth;
+    Color borderColor;
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
@@ -37,8 +38,14 @@ class MillButton extends StatelessWidget {
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected) ||
         peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
       borderWidth = 5;
+      borderColor = imageColor ?? AppColors.peaceBorderColor;
     } else {
       borderWidth = 1;
+      borderColor = imageColor ?? AppColors.peaceBorderColor;
+    }
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
+      borderWidth = 5;
+      borderColor = AppColors.peaceBorderColor;
     }
     return InkWell(
       onTap: () {
@@ -56,7 +63,7 @@ class MillButton extends StatelessWidget {
             ),
             // color: AppColors.lightColor,
             border: Border.all(
-              color: imageColor ?? AppColors.peaceBorderColor,
+              color: borderColor,
               width: borderWidth,
             ),
             shape: BoxShape.circle),

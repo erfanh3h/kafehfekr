@@ -47,11 +47,9 @@ class TicTacToeController extends BaseGameController {
     } else {
       canSelectPeace.value = false;
     }
-    if (timerData['is_user_turn']) {
-      final int time =
-          GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
-      changetimerValue(time.clamp(0, time));
-    }
+    final int time =
+        GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
+    changetimerValue(time.clamp(0, time));
   }
 
   @override
