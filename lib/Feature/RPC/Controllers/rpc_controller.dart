@@ -85,8 +85,7 @@ class RPCController extends BaseGameController {
     player2RoundScore.value = gameData['round_scores'][1];
     player1TotalScore.value = gameData['total_scores'][0];
     player2TotalScore.value = gameData['total_scores'][1];
-    final int time =
-        GameWaitTimes.tictactoeRoundTime - timerData['time'] as int;
+    final int time = GameWaitTimes.rpcRoundTime - timerData['time'] as int;
     changetimerValue(time.clamp(0, time));
   }
 

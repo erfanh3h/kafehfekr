@@ -17,4 +17,5 @@ class AppSounds {
   static const dice = '$_baseSound/dice.m4a';
   static const correct = '$_baseSound/correct.m4a';
   static const hit = '$_baseSound/hit.m4a';
+  static const bell = '$_baseSound/bell.m4a';
 }

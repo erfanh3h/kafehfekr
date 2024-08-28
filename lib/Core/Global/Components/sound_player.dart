@@ -19,7 +19,8 @@ enum GameSoundTypes {
   lose,
   correct,
   dice,
-  hit
+  hit,
+  bell
 }
 
 class SoundPlayerComponent extends BaseController {
@@ -84,6 +85,9 @@ class SoundPlayerComponent extends BaseController {
         break;
       case GameSoundTypes.hit:
         sound = AppSounds.hit;
+        break;
+      case GameSoundTypes.bell:
+        sound = AppSounds.bell;
         break;
       default:
         sound = AppSounds.addPeace;

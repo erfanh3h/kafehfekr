@@ -53,7 +53,8 @@ class RPCPage extends BaseView<RPCController> {
               ],
             ),
           const Spacer(flex: 3),
-          RPCMainWidget(controller: controller),
+          if (controller.isGameStarted.value)
+            RPCMainWidget(controller: controller),
           const Spacer(flex: 4),
           GlobalActivityBox<RPCController>(),
           const Spacer(flex: 1),

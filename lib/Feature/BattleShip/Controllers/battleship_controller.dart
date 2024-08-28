@@ -18,14 +18,14 @@ class BattleShipController extends BaseGameController {
 
   RxInt selectedShip = RxInt(0);
 
-  RxBool isGameStarted = RxBool(false);
+  RxBool isGameInPlayPhase = RxBool(false);
   RxBool isWaiting = RxBool(false);
   RxList<Rx<BattleShipGamePieceModel>> player1Pieces = RxList();
   RxList<Rx<BattleShipGamePieceModel>> player2Pieces = RxList();
 
   @override
   void currentTurnFunction(Map data) {
-    isGameStarted.value = true;
+    isGameInPlayPhase.value = true;
     int turn = data['data'];
     currentTurn.value = turn;
     if (turn == myGameId) {
@@ -88,8 +88,8 @@ class BattleShipController extends BaseGameController {
     currentTurn.value = gameData['current_turn'];
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
-    isGameStarted.value = isPlayPhase;
-    if (!isGameStarted.value) {
+    isGameInPlayPhase.value = isPlayPhase;
+    if (!isGameInPlayPhase.value) {
       isWaiting.value = isPlayerRdy;
       final int time =
           GameWaitTimes.battleshipBoardTime - timerData['time'] as int;
@@ -122,7 +122,7 @@ class BattleShipController extends BaseGameController {
 
   @override
   Color returnTimerColor() {
-    if (!isGameStarted.value) {
+    if (!isGameInPlayPhase.value) {
       return AppColors.darkColor;
     } else {
       if (currentTurn.value == 1) {

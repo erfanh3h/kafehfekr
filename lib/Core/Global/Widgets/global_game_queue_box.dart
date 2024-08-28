@@ -31,7 +31,9 @@ class _GlobalGameQueueBoxState extends State<GlobalGameQueueBox>
     animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(const Duration(seconds: 2)).then((_) {
-          animation.reverse();
+          try {
+            animation.reverse();
+          } catch (_) {}
         });
       } else if (status == AnimationStatus.dismissed) {
         animation.forward();

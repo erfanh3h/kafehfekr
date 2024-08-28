@@ -32,6 +32,7 @@ class BaseGameController extends BaseController {
   RxInt currentTurn = RxInt(1);
 
   RxBool letPlaySound = RxBool(true);
+  RxBool isGameStarted = RxBool(false);
 
   late GameTypes gameType;
 
@@ -151,6 +152,8 @@ class BaseGameController extends BaseController {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.time);
       await Future.delayed(const Duration(seconds: 1));
     }
+    Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.bell);
+    isGameStarted.value = true;
   }
 
   void reconnectDataFuntcion(Map data) {
@@ -164,6 +167,7 @@ class BaseGameController extends BaseController {
       }
     }
     isPageLoading.value = false;
+    isGameStarted.value = true;
   }
 
   void reactionHandler(dynamic data) {
