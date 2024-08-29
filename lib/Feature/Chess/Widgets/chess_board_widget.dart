@@ -40,6 +40,7 @@ class ChessBoardWidget extends StatelessWidget {
                 () => ChessButton(
                   peaceData: controller.peaces[index].value,
                   onTap: controller.onEachButtonTap,
+                  mustRotate: controller.myGameId == 1,
                 ),
               ),
               itemCount: controller.peaces.length,

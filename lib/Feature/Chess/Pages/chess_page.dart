@@ -31,7 +31,10 @@ class ChessPage extends BaseView<ChessController> {
               player2Number1: -1,
             ),
           const Spacer(flex: 3),
-          ChessBoardWidget(controller: controller),
+          Transform.flip(
+            flipY: controller.myGameId == 1,
+            child: ChessBoardWidget(controller: controller),
+          ),
           const Spacer(flex: 4),
           GlobalActivityBox<ChessController>(),
           const Spacer(flex: 1),

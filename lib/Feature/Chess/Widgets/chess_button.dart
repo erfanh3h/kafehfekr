@@ -11,10 +11,12 @@ class ChessButton extends StatelessWidget {
     super.key,
     required this.peaceData,
     required this.onTap,
+    required this.mustRotate,
   });
 
   final ChessSpotModel peaceData;
   final Function(ChessSpotModel) onTap;
+  final bool mustRotate;
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +77,14 @@ class ChessButton extends StatelessWidget {
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
             : image != null
-                ? Transform.scale(
-                    scale: imageScale,
-                    child: Image.asset(
-                      image,
-                      color: imageColor,
+                ? Transform.flip(
+                    flipY: mustRotate,
+                    child: Transform.scale(
+                      scale: imageScale,
+                      child: Image.asset(
+                        image,
+                        color: imageColor,
+                      ),
                     ),
                   )
                 : Container(),

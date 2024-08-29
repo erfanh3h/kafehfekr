@@ -31,7 +31,10 @@ class CheckersPage extends BaseView<CheckersController> {
               player2Number1: controller.player2Pawns.value,
             ),
           const Spacer(flex: 3),
-          CheckersBoarWidget(controller: controller),
+          Transform.flip(
+            flipY: controller.myGameId == 1,
+            child: CheckersBoarWidget(controller: controller),
+          ),
           const Spacer(flex: 4),
           GlobalActivityBox<CheckersController>(),
           const Spacer(flex: 1),
