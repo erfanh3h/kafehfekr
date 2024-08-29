@@ -26,7 +26,7 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
 
   // You can Override it
   bool safeAreaState() {
-    return true;
+    return false;
   }
 
   // You can Override it
