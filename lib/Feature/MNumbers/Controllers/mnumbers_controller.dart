@@ -13,6 +13,7 @@ class MNumbersController extends BaseGameController {
 
   @override
   void currentTurnFunction(Map data) {
+    clearAllStatuses();
     int turn = data['data'];
     currentTurn.value = turn;
     if (turn == myGameId) {
@@ -37,10 +38,8 @@ class MNumbersController extends BaseGameController {
     removePeaceStatus(index1, PeaceStatusTypes.isLoading);
     removePeaceStatus(index2, PeaceStatusTypes.isLoading);
     clearEquipStatus();
-    addPeaceStatus(index1, PeaceStatusTypes.selected);
     changePeaceValue(index1, value1);
     changePeaceSelectedGamer(index1, gamerId);
-    addPeaceStatus(index2, PeaceStatusTypes.selected);
     changePeaceValue(index2, value2);
     changePeaceSelectedGamer(index2, gamerId);
     if (isCorrectlySelected) {
@@ -50,12 +49,16 @@ class MNumbersController extends BaseGameController {
       } else {
         player2Score.value += 1;
       }
+      addPeaceStatus(index1, PeaceStatusTypes.selected);
+      addPeaceStatus(index2, PeaceStatusTypes.selected);
     } else {
+      addPeaceStatus(index1, PeaceStatusTypes.hitted);
+      addPeaceStatus(index2, PeaceStatusTypes.hitted);
       Future.delayed(const Duration(seconds: 3)).then((_) {
-        removePeaceStatus(index1, PeaceStatusTypes.selected);
+        removePeaceStatus(index1, PeaceStatusTypes.hitted);
         changePeaceValue(index1, null);
         changePeaceSelectedGamer(index1, null);
-        removePeaceStatus(index2, PeaceStatusTypes.selected);
+        removePeaceStatus(index2, PeaceStatusTypes.hitted);
         changePeaceValue(index2, null);
         changePeaceSelectedGamer(index2, null);
       });
@@ -177,6 +180,26 @@ class MNumbersController extends BaseGameController {
       if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.equiped)) {
         peaces[i].value =
             peaces[i].value.removeStatus(status: PeaceStatusTypes.equiped);
+      }
+    }
+  }
+
+  clearAllStatuses() {
+    for (var i = 0; i < peaces.length; i++) {
+      if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.equiped)) {
+        peaces[i].value =
+            peaces[i].value.removeStatus(status: PeaceStatusTypes.equiped);
+      }
+      if (peaces[i]
+          .value
+          .currentStatuses
+          .contains(PeaceStatusTypes.isLoading)) {
+        peaces[i].value =
+            peaces[i].value.removeStatus(status: PeaceStatusTypes.isLoading);
+      }
+      if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.hitted)) {
+        peaces[i].value =
+            peaces[i].value.removeStatus(status: PeaceStatusTypes.hitted);
       }
     }
   }

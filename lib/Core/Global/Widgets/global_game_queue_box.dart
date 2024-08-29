@@ -91,7 +91,7 @@ class _GlobalGameQueueBoxState extends State<GlobalGameQueueBox>
                     FadeTransition(
                       opacity: _fadeInFadeOut,
                       child: Text(
-                        'در جست و جوی بازی ${widget.controller.activeQueueType.value.tr} ...',
+                        'در جست و جوی بازیکن ${widget.controller.activeQueueType.value.tr} ...',
                         style: TextStyle(
                           fontSize: 16,
                           foreground: Paint()

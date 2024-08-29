@@ -40,6 +40,10 @@ class MNumbersButton extends StatelessWidget {
     } else {
       borderWidth = 1;
     }
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.hitted)) {
+      imageColor = AppColors.goldenColor;
+      borderWidth = 5;
+    }
     return InkWell(
       onTap: () {
         onTap(peaceData);

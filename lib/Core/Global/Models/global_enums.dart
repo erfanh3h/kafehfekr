@@ -8,6 +8,7 @@ enum PeaceStatusTypes {
   canSelected,
   canHitted,
   equiped,
+  hitted,
   none
 }
 
