@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Core/Routes/app_pages.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,11 @@ import 'Core/Resources/app_translates.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await HiveComponent().init();
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 

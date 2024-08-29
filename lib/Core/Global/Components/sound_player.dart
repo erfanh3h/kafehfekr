@@ -103,7 +103,8 @@ class SoundPlayerComponent extends BaseController {
 
   @override
   void onInit() {
-    _actionPlayer.setVolume(.2);
+    _actionPlayer.setVolume(.35);
+    _musicPlayer.setVolume(.2);
     _musicPlayer.setLoopMode(LoopMode.all);
     super.onInit();
   }

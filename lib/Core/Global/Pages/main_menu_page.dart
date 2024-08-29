@@ -13,6 +13,11 @@ class MainPage extends BaseView<GlobalController> {
   const MainPage({super.key});
 
   @override
+  bool safeAreaState() {
+    return false;
+  }
+
+  @override
   Widget body(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
