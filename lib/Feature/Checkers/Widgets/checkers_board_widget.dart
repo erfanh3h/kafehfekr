@@ -36,9 +36,11 @@ class CheckersBoarWidget extends StatelessWidget {
                 crossAxisSpacing: 0,
                 mainAxisSpacing: 0,
               ),
-              itemBuilder: (ctx, index) => CheckersButton(
-                peaceData: controller.peaces[index].value,
-                onTap: controller.onEachButtonTap,
+              itemBuilder: (ctx, index) => Obx(
+                () => CheckersButton(
+                  peaceData: controller.peaces[index].value,
+                  onTap: controller.onEachButtonTap,
+                ),
               ),
               itemCount: controller.peaces.length,
             ),

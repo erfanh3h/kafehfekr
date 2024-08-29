@@ -51,7 +51,7 @@ class CheckersController extends BaseGameController {
     final targetCIndex = selectionData['t_c_index'];
     final int gamerId = selectionData['gamer_id'];
     final index = coordinateToIndex(sourceRIndex, sourceCIndex);
-    addPossibleMoves(index);
+    addPossibleMoves(index, gamerId);
     final moveResult = movePawn(
         sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, gamerId);
     if (moveResult) {
@@ -77,10 +77,8 @@ class CheckersController extends BaseGameController {
     } else {
       canSelectPeace.value = false;
     }
-    if (timerData['is_user_turn']) {
-      final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.millSelectTime));
-    }
+    final int time = GameWaitTimes.checkersTurnTime - timerData['time'] as int;
+    changetimerValue(time.clamp(0, time));
   }
 
   @override
@@ -133,7 +131,7 @@ class CheckersController extends BaseGameController {
   void equipPeace(int index) {
     equippedPeaceIndex.value = index;
     addPeaceStatus(index, PeaceStatusTypes.equiped);
-    addPossibleMoves(index);
+    addPossibleMoves(index, myGameId);
   }
 
   void releasePeace() {
@@ -145,10 +143,10 @@ class CheckersController extends BaseGameController {
     currentPossibleMoves.clear();
   }
 
-  void addPossibleMoves(int index) {
+  void addPossibleMoves(int index, int gamerId) {
     List coordinates = indexToCoordinate(index);
     List movesPossibleList =
-        getPossibleMovesOfPeace(coordinates[0], coordinates[1], myGameId);
+        getPossibleMovesOfPeace(coordinates[0], coordinates[1], gamerId);
     for (var dataRaw in movesPossibleList) {
       List? coordinates = dataRaw[0];
       if (coordinates != null) {
@@ -226,7 +224,8 @@ class CheckersController extends BaseGameController {
 
   bool isTargetPeaceEnemy(int rIndex, int cIndex, int gamerId) {
     int index = coordinateToIndex(rIndex, cIndex);
-    return peaces[index].value.selectedUser != gamerId;
+    return peaces[index].value.selectedUser != 0 &&
+        peaces[index].value.selectedUser != gamerId;
   }
 
   List getRightPawnMove(int rIndex, int cIndex, int gamerId, int direction,
@@ -344,6 +343,7 @@ class CheckersController extends BaseGameController {
     List leftResult = getLeftPawnMove(rIndex, cIndex, gamerId, direction);
     tempList.add([rightResult[0], rightResult[1], rightResult[2]]);
     tempList.add([leftResult[0], leftResult[1], leftResult[2]]);
+    // print(checkMoveList);
     while (checkMoveList.isNotEmpty) {
       List? indexes = checkMoveList[0][0];
       List? removedPeace = checkMoveList[0][1];
@@ -351,6 +351,7 @@ class CheckersController extends BaseGameController {
       bool isMultiMove = checkMoveList[0][3];
       tempList.add([indexes, removedPeace, sourceStart]);
       if (removedPeace != null) {
+        // print(checkMoveList[0]);
         rightResult = getRightPawnMove(
             indexes![0], indexes[1], gamerId, direction,
             isMultiMove: isMultiMove);
@@ -358,6 +359,7 @@ class CheckersController extends BaseGameController {
             isMultiMove: isMultiMove);
         checkMoveList.add(rightResult);
         checkMoveList.add(leftResult);
+        // print(checkMoveList);
       }
       checkMoveList.removeAt(0);
     }
