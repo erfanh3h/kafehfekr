@@ -28,11 +28,11 @@ class BattleShipShipResultWidget extends StatelessWidget {
       case (0, 1):
         rotation = math.pi / 2;
         offset =
-            Offset(22 + (-(ship.length) * 21), -21 - ((ship.length - 2) * 22));
+            Offset(22 + (-(ship.length) * 20), -22 - ((ship.length - 2) * 20));
         break;
       default:
     }
-    heightSize += (ship.length * 42);
+    heightSize += (ship.length * 40);
     (int, int) startPosition = ship.getStartPosition();
     return ship.isLocationSet
         ? Positioned(
@@ -49,7 +49,10 @@ class BattleShipShipResultWidget extends StatelessWidget {
                     height: heightSize,
                     decoration: BoxDecoration(
                       color: AppColors.goldenColor,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50),
+                      ),
                       border: Border.all(color: Colors.black),
                     ),
                     child: const Padding(

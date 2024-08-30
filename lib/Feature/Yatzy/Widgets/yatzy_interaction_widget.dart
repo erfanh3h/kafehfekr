@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -20,14 +21,8 @@ class YatzyInteractionWidget extends StatelessWidget {
       width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
       padding: AppSpacings.s10All,
       child: controller.isRoundPlayed.value
-          ? Center(
-              child: Text(
-                AppTexts.wait.tr,
-                style: const TextStyle(
-                  color: AppColors.peaceBorderColor,
-                  fontSize: 22,
-                ),
-              ),
+          ? const Center(
+              child: GlobalWaitWidget(),
             )
           : Column(
               children: [

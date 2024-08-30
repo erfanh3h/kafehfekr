@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/BattleShip/Controllers/battleship_controller.dart';
@@ -34,35 +34,34 @@ class BattleShipPage extends BaseView<BattleShipController> {
               player1Data: controller.players[0].value,
               player2Data: controller.players[1].value,
               timerColor: controller.returnTimerColor(),
-              player1Number1: controller.isGameStarted.value
+              player1Number1: controller.isGameInPlayPhase.value
                   ? controller.player1Score.value
                   : -1,
-              player2Number1: controller.isGameStarted.value
+              player2Number1: controller.isGameInPlayPhase.value
                   ? controller.player2Score.value
                   : -1,
             ),
           const Spacer(flex: 3),
-          controller.isGameStarted.value
-              ? BattleShipGameBoardWidget(controller: controller)
-              : controller.isWaiting.value
-                  ? Text(
-                      AppTexts.wait.tr,
-                      style: const TextStyle(
-                        color: AppColors.peaceBorderColor,
-                        fontSize: 22,
-                      ),
-                    )
-                  : Column(
-                      children: [
-                        BattleShipSelectionBoardWidget(controller: controller),
-                        const SizedBox(height: 10),
-                        BattleShipShipSelectionBox(controller: controller),
-                        GlobalButtonWidget(
-                          onTap: controller.submitBoard,
-                          text: AppTexts.accept.tr,
+          !controller.isGameStarted.value
+              ? const Expanded(
+                  flex: 10, child: Center(child: GlobalWaitWidget()))
+              : controller.isGameInPlayPhase.value
+                  ? BattleShipGameBoardWidget(controller: controller)
+                  : controller.isWaiting.value
+                      ? const Expanded(
+                          flex: 10, child: Center(child: GlobalWaitWidget()))
+                      : Column(
+                          children: [
+                            BattleShipSelectionBoardWidget(
+                                controller: controller),
+                            const SizedBox(height: 10),
+                            BattleShipShipSelectionBox(controller: controller),
+                            GlobalButtonWidget(
+                              onTap: controller.submitBoard,
+                              text: AppTexts.accept.tr,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
           const Spacer(flex: 4),
           GlobalActivityBox<BattleShipController>(),
           const Spacer(flex: 1),

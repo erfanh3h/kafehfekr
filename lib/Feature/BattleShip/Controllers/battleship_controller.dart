@@ -55,6 +55,7 @@ class BattleShipController extends BaseGameController {
     changePieceNumber(gamerId, index, number);
     checkIsShipCompleted(number, gamerId);
     if (isTurnWinHappened) {
+      showInteraction(sound: GameSoundTypes.correct);
       if (gamerId == 1) {
         player1Score.value += 1;
       } else {
@@ -64,6 +65,8 @@ class BattleShipController extends BaseGameController {
         canSelectPeace.value = true;
       }
       changetimerValue(GameWaitTimes.battleshipTurnTime);
+    } else {
+      showInteraction(sound: GameSoundTypes.tapWrong);
     }
   }
 
