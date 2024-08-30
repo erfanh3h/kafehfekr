@@ -27,6 +27,7 @@ class GameWaitTimes {
   static const int battleshipWaitTime = 4;
   static const int boxFourTurnTime = 15;
   static const int backGammonTurnTime = 30;
+  static const int backOutOfMoveTime = 5;
 }
 
 class FontFamilies {
@@ -42,6 +43,7 @@ abstract class GameCommands {
   static const currentTurn = "CurrentTurn";
   static const rollDice = "RollDice";
   static const rollResult = "RollResult";
+  static const outOfMove = "OutOfMove";
   static const selectPeace = "SelectPeace";
   static const selectPeaceResult = "SelectPeaceResult";
   static const swapPeace = "SwapPeace";

@@ -21,7 +21,7 @@ class BackGammonDicesBox extends StatelessWidget {
         child: SizedBox(
           height: 40.h,
           // width: 180,
-          child: controller.showDices.value
+          child: controller.dicesRolled.value
               ? Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,12 +35,12 @@ class BackGammonDicesBox extends StatelessWidget {
                       )
                   ],
                 )
-              : GlobalButtonWidget(
-                  onTap: controller.letShowDices,
-                  text: controller.currentTurn.value == controller.myGameId
-                      ? AppTexts.rollDice.tr
-                      : AppTexts.showDice.tr,
-                ),
+              : controller.currentTurn.value == controller.myGameId
+                  ? GlobalButtonWidget(
+                      onTap: controller.rollDices,
+                      text: AppTexts.rollDice.tr,
+                    )
+                  : Container(),
         ),
       ),
     );

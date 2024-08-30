@@ -31,6 +31,8 @@ abstract class AppTexts {
   static const soon = "soon";
   static const gameFinished = "gameFinished";
   static const stopPrevoiusQueue = "stopPrevoiusQueue";
+  static const youOutOfMove = "youOutOfMove";
+  static const enemyOutOfMove = "enemyOutOfMove";
 
   static const tictactoe = "TicTacToe";
   static const rpc = "RPC";

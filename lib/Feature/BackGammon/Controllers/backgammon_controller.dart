@@ -18,15 +18,30 @@ class BackGammonController extends BaseGameController {
   bool player1IsInEndPhase = false;
   bool player2IsInEndPhase = false;
 
-  RxBool showDices = RxBool(false);
+  RxBool dicesRolled = RxBool(false);
+
+  @override
+  void commandHandler(dynamic data) {
+    super.commandHandler(data);
+    final commandId = data['id'];
+    switch (commandId) {
+      case GameCommands.rollResult:
+        rollResultFunction(data);
+        break;
+      case GameCommands.outOfMove:
+        outOfMoveFunction(data);
+        break;
+      default:
+    }
+  }
+
   @override
   void currentTurnFunction(Map data) {
     equippedDiceIndex.value = -1;
-    showDices.value = false;
+    dicesRolled.value = false;
     clearCanSelectedStatus();
     Map turnData = data['data'];
     int turn = turnData['turn'];
-    currentDices.value = List<int>.from(turnData['dices']);
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
@@ -116,6 +131,34 @@ class BackGammonController extends BaseGameController {
     setActivePossiblePieces();
   }
 
+  void rollResultFunction(Map data) {
+    dicesRolled.value = true;
+    Map turnData = data['data'];
+    currentDices.value = List<int>.from(turnData['dices']);
+    if (currentDices.length == 4) {
+      showInteraction(sound: GameSoundTypes.correct);
+    } else {
+      showInteraction(sound: GameSoundTypes.dice);
+    }
+  }
+
+  void outOfMoveFunction(Map data) {
+    dicesRolled.value = true;
+    Map turnData = data['data'];
+    int turn = turnData['turn'];
+    currentDices.value = List<int>.from(turnData['dices']);
+    if (turn == myGameId) {
+      canSelectPeace.value = false;
+      showInteraction(
+        sound: GameSoundTypes.tapWrong,
+        text: AppTexts.youOutOfMove.tr,
+      );
+    } else {
+      showInteraction(text: AppTexts.enemyOutOfMove.tr);
+    }
+    changetimerValue(GameWaitTimes.backOutOfMoveTime);
+  }
+
   @override
   void reconnectDataFuntcion(Map data) {
     super.reconnectDataFuntcion(data);
@@ -125,6 +168,7 @@ class BackGammonController extends BaseGameController {
     List boardData = gameData['board'];
     List outPieces = gameData['out_pieces'];
     List endPhases = gameData['end_phases'];
+    bool currentTurnPlayerRolled = gameData['current_turn_player_rolled'];
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
     currentTurn.value = gameData['current_turn'];
@@ -132,6 +176,7 @@ class BackGammonController extends BaseGameController {
     player2OutPieces.value = outPieces[1];
     player1IsInEndPhase = endPhases[0];
     player2IsInEndPhase = endPhases[1];
+    dicesRolled.value = currentTurnPlayerRolled;
     currentDices.value = List<int>.from(gameData['current_dices']);
     for (var i = 0; i < boardData.length; i++) {
       peaces[i].value = peaces[i].value.getFromJson(boardData[i], i);
@@ -412,20 +457,14 @@ class BackGammonController extends BaseGameController {
     }
   }
 
-  letShowDices() {
-    if (currentTurn.value == myGameId) {
-      if (currentDices.length == 4) {
-        showInteraction(sound: GameSoundTypes.correct);
-      } else {
-        showInteraction(sound: GameSoundTypes.dice);
-      }
-    }
-    showDices.value = true;
+  rollDices() {
+    sendCommand({"id": GameCommands.rollDice, "data": {}});
   }
 
   @override
   void onInit() async {
     super.onInit();
+    currentTurn.value = 0;
     gameType = GameTypes.BackGammon;
     initPieces();
   }
