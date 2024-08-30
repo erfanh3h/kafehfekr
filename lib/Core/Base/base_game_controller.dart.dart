@@ -83,9 +83,9 @@ class BaseGameController extends BaseController {
       case GameCommands.finishGame:
         finishGameFunction(data);
         break;
-      case GameCommands.surrender:
-        surrenderFunction(data);
-        break;
+      // case GameCommands.surrender:
+      //   surrenderFunction(data);
+      //   break;
       case GameCommands.userDisconnected:
         onUserDisconnectedFunction(data);
         break;
@@ -194,15 +194,15 @@ class BaseGameController extends BaseController {
     );
   }
 
-  void surrenderFunction(Map data) {
-    Map newData = data['data'];
-    Get.find<TimerCompanent>().stopTimer();
-    FunctionsLibraryClass.showSurrenderDialog(
-      newData['gamer_id'],
-      myGameId,
-      gameType,
-    );
-  }
+  // void surrenderFunction(Map data) {
+  //   Map newData = data['data'];
+  //   Get.find<TimerCompanent>().stopTimer();
+  //   FunctionsLibraryClass.showSurrenderDialog(
+  //     newData['gamer_id'],
+  //     myGameId,
+  //     gameType,
+  //   );
+  // }
 
   void finishReconnectTimerFunction(Map data) {
     Map newData = data['data'];

@@ -40,6 +40,11 @@ class OthelloController extends BaseGameController {
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);
     int turn = data['data'];
     currentTurn.value = turn;
+    if (turn == 1) {
+      player1Pawns.value -= 1;
+    } else {
+      player2Pawns.value -= 1;
+    }
     if (turn == myGameId) {
       canSelectPeace.value = true;
       showInteraction(sound: GameSoundTypes.startTurn);
@@ -63,11 +68,6 @@ class OthelloController extends BaseGameController {
     final cIndex = selectionData['c_index'];
     final int gamerId = selectionData['gamer_id'];
     List<int> scores = List<int>.from(data['data']['scores']);
-    if (gamerId == 1) {
-      player1Pawns.value -= 1;
-    } else {
-      player2Pawns.value -= 1;
-    }
     final index = coordinateToIndex(rIndex, cIndex);
     removePeaceStatus(index, PeaceStatusTypes.isLoading);
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);
@@ -115,6 +115,14 @@ class OthelloController extends BaseGameController {
     }
     if (currentTurn.value == myGameId) {
       canSelectPeace.value = true;
+      showInteraction(sound: GameSoundTypes.startTurn);
+      final moves = getLegalMoves(myGameId);
+      for (var move in moves) {
+        int row = move[0];
+        int col = move[1];
+        int index = coordinateToIndex(row, col);
+        addPeaceStatus(index, PeaceStatusTypes.canSelected);
+      }
     } else {
       canSelectPeace.value = false;
     }
