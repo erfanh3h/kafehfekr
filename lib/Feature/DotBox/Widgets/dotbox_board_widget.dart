@@ -258,7 +258,7 @@ class DotBoxBoardWidget extends StatelessWidget {
                     DotBoxWidget(
                         peaceData: controller.boxPeaces.value[19].value),
                     DotBoxVerticalLineWidget(
-                      peaceData: controller.linePeaces.value[34].value,
+                      peaceData: controller.linePeaces.value[43].value,
                       onTap: controller.onEachButtonTap,
                     ),
                   ],

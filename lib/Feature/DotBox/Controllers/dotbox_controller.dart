@@ -64,7 +64,7 @@ class DotBoxController extends BaseGameController {
         showInteraction(sound: GameSoundTypes.correct);
       }
       if (gamerId == 1) {
-        player1Score += result[0].length;
+        player1Score += result[1].length;
       } else {
         player2Score += result[1].length;
       }

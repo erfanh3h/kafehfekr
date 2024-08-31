@@ -18,14 +18,19 @@ class DotBoxVerticalLineWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
+    Color? borderColor;
+    double? borderWidth;
     switch (peaceData.selectedUser) {
       case 1:
-        imageColor = AppColors.darkColor;
+        imageColor = AppColors.black;
+        borderColor = Colors.black;
+        borderWidth = 2;
       case 2:
-        imageColor = AppColors.darkColor;
+        imageColor = AppColors.black;
+        borderColor = Colors.black;
+        borderWidth = 2;
         break;
       default:
-        imageColor = null;
         break;
     }
     return InkWell(
@@ -40,8 +45,8 @@ class DotBoxVerticalLineWidget extends StatelessWidget {
           color: imageColor ?? AppColors.transparent,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: Colors.black,
-            width: 2,
+            color: borderColor ?? Colors.black,
+            width: borderWidth ?? 2,
           ),
         ),
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
