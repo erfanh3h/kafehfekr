@@ -71,13 +71,6 @@ class BattleShipController extends BaseGameController {
   }
 
   @override
-  void waitTimeFunction(Map data) {
-    int time = data['data'];
-    Get.find<TimerCompanent>().stopTimer();
-    changetimerValue(time);
-  }
-
-  @override
   void reconnectDataFuntcion(Map data) {
     super.reconnectDataFuntcion(data);
     Map newData = data['data'];

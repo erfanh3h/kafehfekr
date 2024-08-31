@@ -20,57 +20,59 @@ class YatzyInteractionWidget extends StatelessWidget {
     return Container(
       width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
       padding: AppSpacings.s10All,
-      child: controller.isRoundPlayed.value
-          ? const Center(
-              child: GlobalWaitWidget(),
-            )
-          : Column(
-              children: [
-                Directionality(
-                  textDirection: TextDirection.ltr,
-                  child: Row(
-                    children: [
-                      for (int index = 0; index < 5; index++)
-                        GetBuilder<YatzyController>(
-                          builder: (context) {
-                            return Expanded(
-                              child: DiceSelectionBox(
-                                value: controller.currentDices[index],
-                                onSelect: controller.onEachDiceTapped,
-                                index: index,
-                                isSelected:
-                                    controller.isDiceSelected(index).value,
-                              ),
-                            );
-                          },
-                        )
-                    ],
+      child: Obx(
+        () => controller.isRoundPlayed.value
+            ? const Center(
+                child: GlobalWaitWidget(),
+              )
+            : Column(
+                children: [
+                  Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Row(
+                      children: [
+                        for (int index = 0; index < 5; index++)
+                          GetBuilder<YatzyController>(
+                            builder: (context) {
+                              return Expanded(
+                                child: DiceSelectionBox(
+                                  value: controller.currentDices[index],
+                                  onSelect: controller.onEachDiceTapped,
+                                  index: index,
+                                  isSelected:
+                                      controller.isDiceSelected(index).value,
+                                ),
+                              );
+                            },
+                          )
+                      ],
+                    ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Obx(
-                        () => ButtonWidget(
-                          onSelect: controller.rollDice,
-                          remainingCount: controller.remainingDice.value,
-                          label: AppTexts.rollDice.tr,
-                          color: AppColors.blueWarmColor,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Obx(
+                          () => ButtonWidget(
+                            onSelect: controller.rollDice,
+                            remainingCount: controller.remainingDice.value,
+                            label: AppTexts.rollDice.tr,
+                            color: AppColors.blueWarmColor,
+                          ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: ButtonWidget(
-                        onSelect: controller.sendResult,
-                        label: AppTexts.playGame.tr,
-                        color: AppColors.darkGreen,
+                      Expanded(
+                        child: ButtonWidget(
+                          onSelect: controller.sendResult,
+                          label: AppTexts.playGame.tr,
+                          color: AppColors.darkGreen,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                    ],
+                  ),
+                ],
+              ),
+      ),
     );
   }
 }

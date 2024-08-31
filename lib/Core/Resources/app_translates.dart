@@ -50,7 +50,7 @@ class AppTranslations extends Translations {
           AppTexts.ten: '10',
           AppTexts.othello: 'اتللو',
           AppTexts.dotbox: 'نقطه خط',
-          AppTexts.yatzy: 'یاتزی',
+          AppTexts.yatzy: 'یاتزی(پنج تاس)',
           AppTexts.fourInRow: 'دوزچهارتایی',
           AppTexts.sudoku: 'سودوکو',
           AppTexts.battleship: 'نبردکشتی',

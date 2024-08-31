@@ -130,7 +130,11 @@ class BaseGameController extends BaseController {
 
   void finishTurnRoundFunction(Map data) {}
 
-  void waitTimeFunction(Map data) {}
+  void waitTimeFunction(Map data) {
+    int time = data['data'];
+    Get.find<TimerCompanent>().stopTimer();
+    changetimerValue(time);
+  }
 
   void playerScoreFunction(Map data) {}
 

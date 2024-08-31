@@ -20,7 +20,13 @@ class YatzyController extends BaseGameController {
 
   RxInt remainingDice = RxInt(3);
 
-  RxBool isRoundPlayed = RxBool(false);
+  RxBool isRoundPlayed = RxBool(true);
+
+  @override
+  void waitTimeFunction(Map data) {
+    super.waitTimeFunction(data);
+    isRoundPlayed.value = true;
+  }
 
   @override
   void commandHandler(dynamic data) {
@@ -163,14 +169,17 @@ class YatzyController extends BaseGameController {
   }
 
   void sendResult() {
+    // resetRound();
+    isRoundPlayed.value = true;
     sendCommand(
       {
         "id": GameCommands.selectPeace,
         "data": {"index": equippedIndex}
       },
     );
-    resetRound();
-    isRoundPlayed.value = true;
+    removePeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
+    resetCalculatedValues();
+    selectedDicesIndexes.value.clear();
   }
 
   // void resetPeaces() {
