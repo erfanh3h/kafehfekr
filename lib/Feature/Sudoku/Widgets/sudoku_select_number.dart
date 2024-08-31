@@ -16,19 +16,22 @@ class SudokuSelectNumberBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
-      height: 60,
+      height: 80,
       child: Card(
         child: Padding(
           padding: AppSpacings.s5All,
           child: Row(
             children: [
               for (int i = 1; i <= 9; i++)
-                Obx(
-                  () => Expanded(
-                    child: SudokuSelectNumberButton(
-                      number: i,
-                      onTap: controller.changeSelectedNumber,
-                      isTapped: controller.selectedNumber.value == i,
+                GetBuilder<SudokuController>(
+                  builder: (context) => Expanded(
+                    child: Obx(
+                      () => SudokuSelectNumberButton(
+                        number: i,
+                        onTap: controller.changeSelectedNumber,
+                        isTapped: controller.selectedNumber.value == i,
+                        count: controller.eachNumbersCount.value[i],
+                      ),
                     ),
                   ),
                 )

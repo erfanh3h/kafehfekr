@@ -34,6 +34,7 @@ abstract class AppTexts {
   static const stopPrevoiusQueue = "stopPrevoiusQueue";
   static const youOutOfMove = "youOutOfMove";
   static const enemyOutOfMove = "enemyOutOfMove";
+  static const outOfThisNumber = "outOfThisNumber";
 
   static const tictactoe = "TicTacToe";
   static const rpc = "RPC";

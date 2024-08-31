@@ -21,11 +21,11 @@ class GameWaitTimes {
   static const int dotBoxTurnTime = 15;
   static const int yatzyTurnTime = 60;
   static const int fourInRowTurnTime = 15;
-  static const int sudokuGameTime = 600;
+  static const int sudokuGameTime = 1200;
   static const int battleshipBoardTime = 60;
   static const int battleshipTurnTime = 12;
   static const int battleshipWaitTime = 4;
-  static const int boxFourTurnTime = 15;
+  static const int boxFourTurnTime = 12;
   static const int backGammonTurnTime = 30;
   static const int backOutOfMoveTime = 5;
 }

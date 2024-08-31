@@ -14,6 +14,9 @@ class SudokuController extends BaseGameController {
 
   RxInt selectedNumber = RxInt(1);
 
+  RxMap eachNumbersCount =
+      RxMap({1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0});
+
   @override
   void commandHandler(dynamic data) {
     super.commandHandler(data);
@@ -36,6 +39,7 @@ class SudokuController extends BaseGameController {
     canSelectPeace.value = true;
     showInteraction(sound: GameSoundTypes.startGame);
     changetimerValue(GameWaitTimes.sudokuGameTime);
+    getCountOfNumbers();
   }
 
   void wrongSolveFunction(data) {
@@ -81,6 +85,7 @@ class SudokuController extends BaseGameController {
     }
     final int time = GameWaitTimes.sudokuGameTime - timerData['time'] as int;
     changetimerValue(time.clamp(0, time));
+    getCountOfNumbers();
   }
 
   @override
@@ -90,9 +95,23 @@ class SudokuController extends BaseGameController {
       showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
-    if (selectedNumber.value == 0) {
-      showInteraction(text: AppTexts.selectNumber.tr);
+    if (selectedNumber.value != 0 &&
+        eachNumbersCount[selectedNumber.value] == 9) {
+      showInteraction(
+          sound: GameSoundTypes.tapWrong, text: AppTexts.outOfThisNumber.tr);
       return;
+    }
+    if (selectedNumber.value == 0) {
+      if (peace.value != 0) {
+        showInteraction(sound: GameSoundTypes.tap);
+        sendCommand({"id": GameCommands.removePeace, "piece_id": peace.id});
+        changePeaceValue(peace.id, 0);
+        getCountOfNumbers();
+        return;
+      } else {
+        showInteraction(text: AppTexts.selectNumber.tr);
+        return;
+      }
     }
     showInteraction(sound: GameSoundTypes.tap);
     if (selectedNumber.value == peace.value || selectedNumber.value == 0) {
@@ -108,6 +127,7 @@ class SudokuController extends BaseGameController {
       changePeaceValue(peace.id, selectedNumber.value);
       // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
     }
+    getCountOfNumbers();
   }
 
   changeSelectedNumber(int number) {
@@ -152,6 +172,18 @@ class SudokuController extends BaseGameController {
       }
     }
     sendCommand({"id": GameCommands.solve});
+  }
+
+  void getCountOfNumbers() {
+    eachNumbersCount =
+        RxMap({1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0});
+    for (var i = 0; i < 81; i++) {
+      if (peaces[i].value.value != 0) {
+        eachNumbersCount[peaces[i].value.value] =
+            eachNumbersCount[peaces[i].value.value] + 1;
+      }
+    }
+    update();
   }
 
   initPieces() {
