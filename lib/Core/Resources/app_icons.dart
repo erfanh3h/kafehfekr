@@ -5,6 +5,7 @@ class ReactionIcons {
 
 class GeneralIcons {
   static const generalIconsPath = "assets/Icons/General";
+  static const logoTransparent = "assets/Icons/logo_transparent.png";
   static const death = "$generalIconsPath/death.png";
   static const first = "$generalIconsPath/first.png";
   static const second = "$generalIconsPath/second.png";

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../Resources/app_colors.dart';
@@ -79,7 +79,7 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
         extendBodyBehindAppBar: extendBodyBehindAppBar(),
         extendBody: extendBodyBehindNavigationBar(),
         body: controller.isPageLoading.value
-            ? SafeArea(child: _showLoading())
+            ? SafeArea(child: loadingWidget())
             : safeAreaState()
                 ? SafeArea(child: body(context))
                 : body(context),
@@ -107,7 +107,7 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
   }
 
   Color pageBackgroundColor(BuildContext context) {
-    return context.theme.colorScheme.surface;
+    return AppColors.darkColor;
   }
 
   Color statusBarColor() {
@@ -130,8 +130,10 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
     return null;
   }
 
-  Widget _showLoading() {
-    return const GlobalLoadingWidget();
+  Widget loadingWidget() {
+    return const Center(
+      child: GlobalWaitWidget(),
+    );
   }
 
   FloatingActionButtonLocation? floatingActionButtonLocation() {

@@ -22,8 +22,13 @@ class YatzyInteractionWidget extends StatelessWidget {
       padding: AppSpacings.s10All,
       child: Obx(
         () => controller.isRoundPlayed.value
-            ? const Center(
-                child: GlobalWaitWidget(),
+            ? Center(
+                child: Padding(
+                  padding: AppSpacings.s10Vertical,
+                  child: GlobalWaitWidget(
+                    text: AppTexts.waitOpponent.tr,
+                  ),
+                ),
               )
             : Column(
                 children: [

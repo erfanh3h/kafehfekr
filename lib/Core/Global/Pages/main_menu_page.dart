@@ -3,6 +3,7 @@ import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_bottom_navigation_bar.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Feature/General/Pages/clan_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/game_menu_page.dart';
@@ -28,7 +29,7 @@ class MainPage extends BaseView<GlobalController> {
       child: Column(
         children: [
           Image.asset(
-            'assets/Icons/logo_transparent.png',
+            GeneralIcons.logoTransparent,
             width: 75.h,
             height: 75.h,
           ),
