@@ -9,18 +9,20 @@ class YatzyRowWidget extends StatelessWidget {
   const YatzyRowWidget({
     super.key,
     required this.headerImage,
+    required this.headerGuide,
     required this.index,
     required this.controller,
   });
 
   final String headerImage;
+  final String headerGuide;
   final int index;
   final YatzyController controller;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        controller.onEachRowTap(index);
+        controller.onEachRowTap(headerGuide);
       },
       child: Container(
         margin: AppSpacings.s3Vertical,

@@ -41,7 +41,7 @@ class YatzyButton extends StatelessWidget {
       if (myGameId != pieceData.gamerId) {
         canEquip = false;
         fontColor = AppColors.lightColor;
-        color = Colors.transparent;
+        color = const Color.fromARGB(255, 131, 128, 128);
       } else {
         value = pieceData.calculatedScore;
         if (pieceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {

@@ -38,6 +38,18 @@ abstract class AppTexts {
   static const youOutOfMove = "youOutOfMove";
   static const enemyOutOfMove = "enemyOutOfMove";
   static const outOfThisNumber = "outOfThisNumber";
+  static const yatzy1 = "Yatzy1";
+  static const yatzy2 = "Yatzy2";
+  static const yatzy3 = "Yatzy3";
+  static const yatzy4 = "Yatzy4";
+  static const yatzy5 = "Yatzy5";
+  static const yatzy6 = "Yatzy6";
+  static const yatzy33 = "Yatzy33";
+  static const yatzy44 = "Yatzy44";
+  static const yatzy15 = "Yatzy15";
+  static const yatzy23 = "Yatzy23";
+  static const yatzy55 = "Yatzy55";
+  static const yatzy66 = "Yatzy66";
 
   static const tictactoe = "TicTacToe";
   static const rpc = "RPC";

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/Yatzy/Controllers/yatzy_controller.dart';
 import 'package:kafehfekr/Feature/Yatzy/Widgets/yatzy_row_widget.dart';
 import 'package:refreshed/refreshed.dart';
@@ -27,6 +28,20 @@ class YatzyBoardWidget extends StatelessWidget {
     GeneralIcons.yatzy23,
     GeneralIcons.yatzy15,
     GeneralIcons.yatzy5,
+  ];
+  final List<String> headerGuides = [
+    AppTexts.yatzy1,
+    AppTexts.yatzy2,
+    AppTexts.yatzy3,
+    AppTexts.yatzy4,
+    AppTexts.yatzy5,
+    AppTexts.yatzy6,
+    AppTexts.yatzy33,
+    AppTexts.yatzy44,
+    AppTexts.yatzy66,
+    AppTexts.yatzy23,
+    AppTexts.yatzy15,
+    AppTexts.yatzy55,
   ];
   @override
   Widget build(BuildContext context) {
@@ -59,6 +74,7 @@ class YatzyBoardWidget extends StatelessWidget {
                     Expanded(
                       child: YatzyRowWidget(
                         headerImage: headerImages[index],
+                        headerGuide: headerGuides[index].tr,
                         index: index,
                         controller: controller,
                       ),
@@ -74,6 +90,7 @@ class YatzyBoardWidget extends StatelessWidget {
                     Expanded(
                       child: YatzyRowWidget(
                         headerImage: headerImages[index],
+                        headerGuide: headerGuides[index].tr,
                         index: index,
                         controller: controller,
                       ),

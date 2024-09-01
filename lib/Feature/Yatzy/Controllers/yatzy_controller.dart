@@ -208,8 +208,8 @@ class YatzyController extends BaseGameController {
     }
   }
 
-  void onEachRowTap(int index) {
-    DialogComponent().showToast(label: index.toString());
+  void onEachRowTap(String text) {
+    DialogComponent().showToast(label: text);
   }
 
   setFirstEmptyIndex() {
