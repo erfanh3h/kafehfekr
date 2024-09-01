@@ -49,6 +49,11 @@ class TenController extends BaseGameController {
     } else if (roundWinner == 2) {
       player2Score.value += 1;
     }
+    if (roundWinner == myGameId) {
+      showInteraction(sound: GameSoundTypes.win);
+    } else {
+      showInteraction(sound: GameSoundTypes.lose);
+    }
     FunctionsLibraryClass.showFinishRoundDialog(roundWinner, myGameId);
     changetimerValue(GameWaitTimes.tenSleepRoundTime);
   }

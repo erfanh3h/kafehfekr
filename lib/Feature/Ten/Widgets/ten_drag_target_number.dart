@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
@@ -38,7 +39,7 @@ class TenDragTargetNumberWidget extends StatelessWidget {
                 value >= 0 ? value.toString() : "",
                 style: const TextStyle(
                   fontSize: 22,
-                  color: Colors.white,
+                  color: AppColors.darkColor,
                   fontFamily: FontFamilies.dastnevis,
                 ),
               ),

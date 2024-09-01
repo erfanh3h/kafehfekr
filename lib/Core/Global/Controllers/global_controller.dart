@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Core/global_repository.dart';
 import 'package:kafehfekr/Core/Network/queue_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -128,6 +129,8 @@ class GlobalController extends BaseController {
         final String gameId = data['data']['game_id'];
         final String gameType = activeQueueType.value;
         setActiveGameId(gameId, gameType);
+        Get.find<SoundPlayerComponent>()
+              .playGameSound(GameSoundTypes.queueFinded);
         Future.delayed(const Duration(seconds: 1)).then((_) {
           Get.toNamed('/$gameType', arguments: gameId);
           stopQueue();
