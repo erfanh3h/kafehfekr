@@ -317,7 +317,7 @@ class BaseGameController extends BaseController {
   void showInfo() {
     Get.bottomSheet(
       GlobalGameGuideWidget(gameType: gameType),
-      backgroundColor: AppColors.lightColor,
+      backgroundColor: AppColors.darkColor,
     );
   }
 

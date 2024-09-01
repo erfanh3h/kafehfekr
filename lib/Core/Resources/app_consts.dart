@@ -128,7 +128,7 @@ List<String> bottomNavigationTexts = [
   AppTexts.ranking,
   AppTexts.gameMenu,
   AppTexts.clan,
-  AppTexts.settings,
+  AppTexts.library,
 ];
 
 List<IconData> bottomNavigationIcons = [
@@ -136,5 +136,5 @@ List<IconData> bottomNavigationIcons = [
   CupertinoIcons.star_circle_fill,
   CupertinoIcons.game_controller_solid,
   CupertinoIcons.person_3_fill,
-  Icons.settings,
+  CupertinoIcons.book_solid,
 ];

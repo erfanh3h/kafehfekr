@@ -9,7 +9,7 @@ import 'package:kafehfekr/Feature/General/Pages/clan_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/game_menu_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/profile_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/ranking_page.dart';
-import 'package:kafehfekr/Feature/General/Pages/settings_page.dart';
+import 'package:kafehfekr/Feature/General/Pages/library_page.dart';
 import 'package:refreshed/refreshed.dart';
 
 class MainPage extends BaseView<GlobalController> {
@@ -48,7 +48,7 @@ class MainPage extends BaseView<GlobalController> {
                 RankingPage(),
                 GameMenuPage(),
                 ClanPage(),
-                SettingsPage(),
+                LibraryPage(),
               ],
             ),
           ),
