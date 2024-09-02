@@ -90,6 +90,7 @@ flutter:
     - assets/Sounds/
     - assets/Icons/Reactions/
     - assets/Icons/General/
+    - assets/Icons/Avatars/
     - assets/Icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see

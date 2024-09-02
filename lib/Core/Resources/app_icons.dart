@@ -3,6 +3,11 @@ class ReactionIcons {
   static const reactionsCount = 44;
 }
 
+class AvatarIcons {
+  String generalAvatarPath(int id) => "assets/Icons/Avatars/$id.jpg";
+  static const avatarsCount = 100;
+}
+
 class GeneralIcons {
   static const generalIconsPath = "assets/Icons/General";
   static const logoTransparent = "assets/Icons/logo_transparent.png";
