@@ -300,7 +300,7 @@ class BaseGameController extends BaseController {
             letSendReaction.value = false;
           },
         ),
-        backgroundColor: AppColors.lightColor,
+        backgroundColor: AppColors.darkColor,
       );
     }
   }

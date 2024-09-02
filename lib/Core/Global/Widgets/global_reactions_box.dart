@@ -33,7 +33,7 @@ class GlobalReactionsBox extends StatelessWidget {
           },
           child: Image.asset(
             ReactionIcons().generalIconsPath(index + 1),
-            color: AppColors.blueWarmColor,
+            color: AppColors.lightColor,
           ),
         ),
         itemCount: ReactionIcons.reactionsCount,

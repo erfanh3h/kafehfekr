@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_button.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:refreshed/refreshed.dart';
@@ -29,7 +28,7 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
               child: const GlobalActivityButton(
                 icon: GeneralIcons.death,
                 onTap: FunctionsLibraryClass.surrenderFunction,
-                color: AppColors.buttonRed,
+                // color: AppColors.buttonRed,
               ),
             ),
             SizedBox(
@@ -40,9 +39,9 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                       ? GeneralIcons.enableReaction
                       : GeneralIcons.disableReaction,
                   onTap: controller.changeShowReactionStatus,
-                  color: controller.showReactions.value
-                      ? AppColors.green
-                      : AppColors.redWarmColor,
+                  // color: controller.showReactions.value
+                  //     ? AppColors.green
+                  //     : AppColors.redWarmColor,
                 ),
               ),
             ),
@@ -51,7 +50,7 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
               child: GlobalActivityButton(
                 icon: ReactionIcons().generalIconsPath(5),
                 onTap: controller.showReactionBox,
-                color: AppColors.goldenColor,
+                // color: AppColors.goldenColor,
               ),
             ),
             SizedBox(
@@ -62,9 +61,9 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                       ? GeneralIcons.soundOn
                       : GeneralIcons.soundOff,
                   onTap: controller.changeLetPlaySound,
-                  color: controller.letPlaySound.value
-                      ? AppColors.green
-                      : AppColors.redWarmColor,
+                  // color: controller.letPlaySound.value
+                  //     ? AppColors.green
+                  //     : AppColors.redWarmColor,
                 ),
               ),
             ),
@@ -73,7 +72,7 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
               child: GlobalActivityButton(
                 icon: GeneralIcons.info,
                 onTap: controller.showInfo,
-                color: AppColors.lightBlue,
+                // color: AppColors.lightBlue,
               ),
             ),
           ],

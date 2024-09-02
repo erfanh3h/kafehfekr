@@ -114,7 +114,7 @@ class SudokuController extends BaseGameController {
       }
     }
     showInteraction(sound: GameSoundTypes.tap);
-    if (selectedNumber.value == peace.value || selectedNumber.value == 0) {
+    if (selectedNumber.value == peace.value) {
       sendCommand({"id": GameCommands.removePeace, "piece_id": peace.id});
       changePeaceValue(peace.id, 0);
       // addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);

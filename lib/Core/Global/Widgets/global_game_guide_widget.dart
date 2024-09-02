@@ -21,8 +21,9 @@ class GlobalGameGuideWidget extends StatefulWidget {
 
 class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
   int index = 0;
-
+  final ScrollController sc = ScrollController();
   changeIndex(int newIndex) {
+    sc.jumpTo(0);
     setState(() {
       index = newIndex;
     });
@@ -69,6 +70,7 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
           const SizedBox(height: 10),
           Expanded(
             child: ListView(
+              controller: sc,
               children: [
                 Text(
                   index == 0
