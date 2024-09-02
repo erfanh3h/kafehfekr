@@ -3,8 +3,8 @@ import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:flutter/material.dart';
 import 'package:refreshed/refreshed.dart';
 
-class GlobalAvatarsBox extends StatelessWidget {
-  const GlobalAvatarsBox({
+class AvatarsSelectionBox extends StatelessWidget {
+  const AvatarsSelectionBox({
     super.key,
     required this.onTap,
   });

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
@@ -6,6 +7,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class GlobalGameDataWidget extends StatelessWidget {
@@ -16,16 +18,20 @@ class GlobalGameDataWidget extends StatelessWidget {
     required this.timerColor,
     this.player1Number1,
     this.player1Number2,
+    this.player1Number3,
     this.player2Number1,
     this.player2Number2,
+    this.player2Number3,
     this.roundText,
   });
 
   final int? player1Number1;
   final int? player1Number2;
+  final int? player1Number3;
   final PlayerModel player1Data;
   final int? player2Number1;
   final int? player2Number2;
+  final int? player2Number3;
   final PlayerModel player2Data;
   final Color timerColor;
   final String? roundText;
@@ -56,17 +62,33 @@ class GlobalGameDataWidget extends StatelessWidget {
                       playerData: player1Data,
                     ),
                     Positioned(
-                      top: -20,
-                      right: -20,
-                      child: CircleAvatar(
-                        radius: 20,
-                        backgroundColor: AppColors.imageRedColor,
-                        child: Icon(
-                          player1Data.isDisconnected
-                              ? Icons.desktop_access_disabled
-                              : Icons.person_4,
-                          color: Colors.white,
+                      top: 7,
+                      right: -50,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.imageRedColor,
+                          border: Border.all(
+                            color: AppColors.imageRedColor,
+                            width: 3,
+                          ),
+                          borderRadius: BorderRadius.circular(40),
                         ),
+                        width: 50,
+                        height: 50,
+                        child: player1Data.isDisconnected
+                            ? const Icon(
+                                Icons.desktop_access_disabled,
+                                color: Colors.white,
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image.asset(
+                                  AvatarIcons().generalAvatarPath(
+                                    Random().nextInt(AvatarIcons.avatarsCount) +
+                                        1,
+                                  ),
+                                ),
+                              ),
                       ),
                     ),
                     if (player1Data.isDisconnected)
@@ -87,6 +109,22 @@ class GlobalGameDataWidget extends StatelessWidget {
                           backgroundColor: AppColors.imageRedColor,
                           child: Text(
                             player1Number2.toString(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: FontFamilies.dastnevis,
+                            ),
+                          ),
+                        ),
+                      ),
+                    if (player1Number3 != null)
+                      Positioned(
+                        top: -15,
+                        right: -15,
+                        child: CircleAvatar(
+                          radius: 15,
+                          backgroundColor: AppColors.imageRedColor,
+                          child: Text(
+                            player1Number3.toString(),
                             style: const TextStyle(
                               color: Colors.white,
                               fontFamily: FontFamilies.dastnevis,
@@ -115,17 +153,33 @@ class GlobalGameDataWidget extends StatelessWidget {
                       playerData: player2Data,
                     ),
                     Positioned(
-                      top: -20,
-                      left: -20,
-                      child: CircleAvatar(
-                        radius: 20,
-                        backgroundColor: AppColors.imageBlueColor,
-                        child: Icon(
-                          player2Data.isDisconnected
-                              ? Icons.desktop_access_disabled
-                              : Icons.person_4,
-                          color: Colors.white,
+                      top: 7,
+                      left: -50,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.imageBlueColor,
+                          border: Border.all(
+                            color: AppColors.imageBlueColor,
+                            width: 3,
+                          ),
+                          borderRadius: BorderRadius.circular(40),
                         ),
+                        width: 50,
+                        height: 50,
+                        child: player2Data.isDisconnected
+                            ? const Icon(
+                                Icons.desktop_access_disabled,
+                                color: Colors.white,
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image.asset(
+                                  AvatarIcons().generalAvatarPath(
+                                    Random().nextInt(AvatarIcons.avatarsCount) +
+                                        1,
+                                  ),
+                                ),
+                              ),
                       ),
                     ),
                     if (player2Data.isDisconnected)
@@ -146,6 +200,22 @@ class GlobalGameDataWidget extends StatelessWidget {
                           backgroundColor: AppColors.imageBlueColor,
                           child: Text(
                             player2Number2.toString(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontFamily: FontFamilies.dastnevis,
+                            ),
+                          ),
+                        ),
+                      ),
+                    if (player2Number3 != null)
+                      Positioned(
+                        top: -15,
+                        left: -15,
+                        child: CircleAvatar(
+                          radius: 15,
+                          backgroundColor: AppColors.imageBlueColor,
+                          child: Text(
+                            player2Number3.toString(),
                             style: const TextStyle(
                               color: Colors.white,
                               fontFamily: FontFamilies.dastnevis,

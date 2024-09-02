@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_avatars_box.dart';
+import 'package:kafehfekr/Feature/General/Widgets/avatars_selection_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
@@ -18,9 +18,8 @@ class ProfilePage extends StatelessWidget {
         GlobalButtonWidget(
           onTap: () {
             Get.bottomSheet(
-              GlobalAvatarsBox(
+              AvatarsSelectionBox(
                 onTap: (int index) {
-                  print(index);
                 },
               ),
               backgroundColor: AppColors.darkColor,
