@@ -14,6 +14,7 @@ class MNumbersController extends BaseGameController {
   @override
   void currentTurnFunction(Map data) {
     clearAllStatuses();
+    equippedPeaceIndex.value = -1;
     int turn = data['data'];
     currentTurn.value = turn;
     if (turn == myGameId) {

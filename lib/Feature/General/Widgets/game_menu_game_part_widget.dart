@@ -50,10 +50,17 @@ class GameMenuGamePartWidget extends StatelessWidget {
             delay: const Duration(milliseconds: 200),
             child: Padding(
               padding: AppSpacings.s40Horizental,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(gameConvertor.toGameImage()),
-              ),
+              child: LayoutBuilder(builder: (context, cons) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    gameConvertor.toGameImage(),
+                    width: cons.maxWidth,
+                    height: cons.maxWidth,
+                    // fit: BoxFit.fill,
+                  ),
+                );
+              }),
             ),
           ),
           const SizedBox(height: 15),

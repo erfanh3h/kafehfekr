@@ -15,49 +15,49 @@ class GameTypeConvertor {
         result = AppImages.tictactoeGame;
         break;
       case GameTypes.RPC:
-        result = AppImages.tictactoeGame;
+        result = AppImages.rpcGame;
         break;
       case GameTypes.BackGammon:
-        result = AppImages.tictactoeGame;
+        result = AppImages.backgammonGame;
         break;
       case GameTypes.Checkers:
-        result = AppImages.tictactoeGame;
+        result = AppImages.checkersGame;
         break;
       case GameTypes.Chess:
-        result = AppImages.tictactoeGame;
+        result = AppImages.chessGame;
         break;
       case GameTypes.Ten:
-        result = AppImages.tictactoeGame;
+        result = AppImages.tenGame;
         break;
       case GameTypes.BattleShip:
-        result = AppImages.tictactoeGame;
+        result = AppImages.battleshipGame;
         break;
       case GameTypes.DotBox:
-        result = AppImages.tictactoeGame;
+        result = AppImages.dotboxGame;
         break;
       case GameTypes.BoxFour:
-        result = AppImages.tictactoeGame;
+        result = AppImages.boxfourGame;
         break;
       case GameTypes.Yatzy:
-        result = AppImages.tictactoeGame;
+        result = AppImages.yatzyGame;
         break;
       case GameTypes.Mill:
-        result = AppImages.tictactoeGame;
+        result = AppImages.millGame;
         break;
       case GameTypes.Othello:
-        result = AppImages.tictactoeGame;
+        result = AppImages.othelloGame;
         break;
       case GameTypes.Sudoku:
-        result = AppImages.tictactoeGame;
+        result = AppImages.sudokuGame;
         break;
       case GameTypes.MNumbers:
-        result = AppImages.tictactoeGame;
+        result = AppImages.mnumbersGame;
         break;
       case GameTypes.MSweeper:
-        result = AppImages.tictactoeGame;
+        result = AppImages.msweeperGame;
         break;
       case GameTypes.FourInRow:
-        result = AppImages.tictactoeGame;
+        result = AppImages.fourinrowGame;
         break;
       default:
     }

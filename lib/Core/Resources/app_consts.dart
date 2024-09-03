@@ -11,7 +11,7 @@ class GameWaitTimes {
   static const int millSelectTime = 15;
   static const int millRemoveTime = 15;
   static const int msweeperGameTime = 600;
-  static const int mnumbersTurnTime = 5;
+  static const int mnumbersTurnTime = 7;
   static const int mnumbersShowResultTime = 2;
   static const int checkersTurnTime = 20;
   static const int chessTurnTime = 20;
