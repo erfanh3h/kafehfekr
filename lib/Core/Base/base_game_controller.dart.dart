@@ -104,6 +104,9 @@ class BaseGameController extends BaseController {
       case GameCommands.gameFinished:
         deviceFinishGameFunction();
         break;
+      case GameCommands.notPlayedTurns:
+        notPlayedTurnsFunction(data);
+        break;
       default:
     }
   }
@@ -184,6 +187,17 @@ class BaseGameController extends BaseController {
     Get.find<GlobalController>().finishGame();
     Get.back();
     DialogComponent().showToast(label: AppTexts.gameFinished.tr);
+  }
+
+  void notPlayedTurnsFunction(dynamic data) {
+    Map newData = data['data'];
+    int gamerId = newData['gamer_id'];
+    int count = newData['count'];
+    if (gamerId == 1) {
+      players[0].value = players[0].value.copyWith(notPlayedTurns: count);
+    } else {
+      players[1].value = players[1].value.copyWith(notPlayedTurns: count);
+    }
   }
 
   void finishGameFunction(Map data) {

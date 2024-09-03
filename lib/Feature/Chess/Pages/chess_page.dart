@@ -29,6 +29,8 @@ class ChessPage extends BaseView<ChessController> {
               timerColor: controller.returnTimerColor(),
               player1Number1: -1,
               player2Number1: -1,
+              player1Number3: controller.players[0].value.notPlayedTurns,
+              player2Number3: controller.players[1].value.notPlayedTurns,
             ),
           const Spacer(flex: 3),
           Transform.flip(
