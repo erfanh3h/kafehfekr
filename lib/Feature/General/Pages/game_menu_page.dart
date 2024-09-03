@@ -10,33 +10,37 @@ class GameMenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GlobalController controller = Get.find<GlobalController>();
-    final gameTypesParts = [
-      GameTypes.values.getRange(0, 2).toList(),
-      GameTypes.values.getRange(2, 4).toList(),
-      GameTypes.values.getRange(4, 6).toList(),
-      GameTypes.values.getRange(6, 8).toList(),
-      GameTypes.values.getRange(8, 10).toList(),
-      GameTypes.values.getRange(10, 12).toList(),
-      GameTypes.values.getRange(12, 14).toList(),
-      GameTypes.values.getRange(14, 16).toList(),
-    ];
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: Get.width * 5 / 6),
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (ctx, index) => GameMenuGamePartWidget(
-              items: gameTypesParts[index],
-              onTap: controller.startQueue,
-            ),
-            separatorBuilder: (ctx, index) => const SizedBox(width: 5),
-            itemCount: gameTypesParts.length,
+    final gameTypesParts = GameTypes.values.toList();
+    return Container(
+      constraints: BoxConstraints(maxHeight: Get.width * 5 / 6),
+      child: PageView.builder(
+        itemBuilder: (ctx, index) => Obx(
+          () => GameMenuGamePartWidget(
+            game: gameTypesParts[index],
+            onTap: controller.startQueue,
+            showButtons: !controller.isQueueActive.value,
           ),
         ),
-      ],
+        itemCount: 16,
+      ),
     );
+    // Column(
+    //   mainAxisSize: MainAxisSize.min,
+    //   mainAxisAlignment: MainAxisAlignment.center,
+    //   children: [
+    //     ConstrainedBox(
+    //       constraints: BoxConstraints(maxHeight: Get.width * 5 / 6),
+    //       child: ListView.separated(
+    //         scrollDirection: Axis.horizontal,
+    //         itemBuilder: (ctx, index) => GameMenuGamePartWidget(
+    //           items: gameTypesParts[index],
+    //           onTap: controller.startQueue,
+    //         ),
+    //         separatorBuilder: (ctx, index) => const SizedBox(width: 5),
+    //         itemCount: gameTypesParts.length,
+    //       ),
+    //     ),
+    //   ],
+    // );
   }
 }

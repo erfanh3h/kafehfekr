@@ -45,6 +45,7 @@ dependencies:
   function_tree: ^0.9.1
   flutter_styled_toast: ^2.2.1
   shared_preferences: ^2.3.2
+  animate_do: ^3.3.4
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +87,7 @@ flutter:
   assets:
     # - assets/Images/
     - assets/Images/
+    - assets/Images/games/
     - assets/Fonts/
     - assets/Sounds/
     - assets/Icons/Reactions/

@@ -21,6 +21,8 @@ class AppTranslations extends Translations {
           AppTexts.bombExploded: 'بمب ترکیده !',
           AppTexts.youOutOfMove: 'امکان حرکتی نداری!',
           AppTexts.enemyOutOfMove: 'حریف امکان حرکتی نداره!',
+          AppTexts.normalGame: 'بازی دوستانه',
+          AppTexts.rankGame: 'بازی رقابتی',
           AppTexts.surrender: 'تسلیم شدن',
           AppTexts.ok: 'بسیار خب',
           AppTexts.accept: 'تایید',

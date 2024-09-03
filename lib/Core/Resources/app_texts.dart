@@ -10,6 +10,8 @@ abstract class AppTexts {
   static const youSurrenderGame = "youSurrenderGame";
   static const wanaSurrenderGame = "wanaSurrenderGame";
   static const enemySurrenderGame = "enemySurrenderGame";
+  static const normalGame = "normalGame";
+  static const rankGame = "rankGame";
   static const surrender = "surrender";
   static const ok = "ok";
   static const accept = "accept";
