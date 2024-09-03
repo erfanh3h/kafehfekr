@@ -6,7 +6,7 @@ class GameWaitTimes {
   static const int startGameTime = 5;
   static const int tictactoeRoundTime = 10;
   static const int tictactoeSleepRoundTime = 5;
-  static const int rpcRoundTime = 5;
+  static const int rpcRoundTime = 7;
   static const int rpcSleepRoundTime = 3;
   static const int millSelectTime = 15;
   static const int millRemoveTime = 15;

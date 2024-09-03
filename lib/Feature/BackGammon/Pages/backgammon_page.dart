@@ -33,6 +33,8 @@ class BackGammonPage extends BaseView<BackGammonController> {
               player2Number1: controller.player2Score.value,
               player1Number2: controller.player1OutPieces.value,
               player2Number2: controller.player2OutPieces.value,
+              player1Number3: controller.players[0].value.notPlayedTurns,
+              player2Number3: controller.players[1].value.notPlayedTurns,
             ),
           const Spacer(flex: 3),
           if (controller.peaces.length > 12)

@@ -29,6 +29,8 @@ class CheckersPage extends BaseView<CheckersController> {
               timerColor: controller.returnTimerColor(),
               player1Number1: controller.player1Pawns.value,
               player2Number1: controller.player2Pawns.value,
+              player1Number3: controller.players[0].value.notPlayedTurns,
+              player2Number3: controller.players[1].value.notPlayedTurns,
             ),
           const Spacer(flex: 3),
           Transform.flip(

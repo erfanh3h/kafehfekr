@@ -9,8 +9,8 @@ import 'package:refreshed/refreshed.dart';
 class MillController extends BaseGameController {
   RxList<Rx<MillPeaceModel>> peaces = RxList();
 
-  RxInt player1Peaces = RxInt(10);
-  RxInt player2Peaces = RxInt(10);
+  RxInt player1Peaces = RxInt(9);
+  RxInt player2Peaces = RxInt(9);
 
   RxInt player1PlayedPeaces = RxInt(0);
   RxInt player2PlayedPeaces = RxInt(0);
