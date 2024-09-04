@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:refreshed/refreshed.dart';
@@ -16,6 +17,7 @@ class GlobalButtonWidget extends StatelessWidget {
     this.fontColor,
     this.height,
     this.width,
+    this.isLoading = false,
   });
 
   final VoidCallback onTap;
@@ -25,11 +27,13 @@ class GlobalButtonWidget extends StatelessWidget {
   final Color? fontColor;
   final double? height;
   final double? width;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        if (isLoading) return;
         Get.find<SoundPlayerComponent>()
             .playGameSound(GameSoundTypes.tapButton);
         onTap();
@@ -45,17 +49,19 @@ class GlobalButtonWidget extends StatelessWidget {
               Border.all(color: borderColor ?? AppColors.darkColor, width: 2),
         ),
         child: Center(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 18,
-              foreground: Paint()
-                ..strokeWidth = 1
-                ..color = fontColor ?? AppColors.lightColor
-                ..style = PaintingStyle.stroke,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          child: isLoading
+              ? GlobalLoadingWidget(color: fontColor ?? AppColors.lightColor)
+              : Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 18,
+                    foreground: Paint()
+                      ..strokeWidth = 1
+                      ..color = fontColor ?? AppColors.lightColor
+                      ..style = PaintingStyle.stroke,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
         ),
       ),
     );

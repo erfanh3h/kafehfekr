@@ -38,7 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   refreshed: ^2.8.0
   flutter_screenutil: ^5.9.1
-  dio: ^5.5.0+1
+  dio: ^5.7.0
   socket_io_client: ^2.0.3+1
   just_audio: ^0.9.39
   just_audio_windows: ^0.2.1

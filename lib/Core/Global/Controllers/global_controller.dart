@@ -26,6 +26,7 @@ class GlobalController extends BaseController {
       TextEditingController(text: "gameId");
 
   String? userId;
+  String? token;
   String? activeGameId;
   String? activeGameType;
 
@@ -40,7 +41,7 @@ class GlobalController extends BaseController {
 
   void checkLoginStatus() {
     Future.delayed(const Duration(seconds: 1)).then((_) {
-      if (userId != null) {
+      if (token != null) {
         Get.offAllNamed(AppRoutes.main);
         Future.delayed(const Duration(milliseconds: 500)).then((_) {
           if (activeGameId != null) {
@@ -60,6 +61,11 @@ class GlobalController extends BaseController {
     if (userIdData != null) {
       userId = userIdData;
     }
+    final tokenData =
+        await globalRepo.getDataFromStorage(key: StorageKeys.token);
+    if (tokenData != null) {
+      token = tokenData;
+    }
     final gameIdData =
         await globalRepo.getDataFromStorage(key: StorageKeys.gameId);
     if (gameIdData != null) {
@@ -73,10 +79,13 @@ class GlobalController extends BaseController {
     isLoadingProfile.value = false;
   }
 
-  Future<void> setUserData(String data) async {
+  Future<void> setUserData(String newUserId, String newToken) async {
     isLoadingProfile.value = true;
-    await globalRepo.setDataOnStorage(key: StorageKeys.userId, value: data);
-    userId = data;
+    await globalRepo.setDataOnStorage(
+        key: StorageKeys.userId, value: newUserId);
+    await globalRepo.setDataOnStorage(key: StorageKeys.token, value: newToken);
+    userId = newUserId;
+    token = newToken;
     isLoadingProfile.value = false;
   }
 
@@ -130,7 +139,7 @@ class GlobalController extends BaseController {
         final String gameType = activeQueueType.value;
         setActiveGameId(gameId, gameType);
         Get.find<SoundPlayerComponent>()
-              .playGameSound(GameSoundTypes.queueFinded);
+            .playGameSound(GameSoundTypes.queueFinded);
         Future.delayed(const Duration(seconds: 1)).then((_) {
           Get.toNamed('/$gameType', arguments: gameId);
           stopQueue();

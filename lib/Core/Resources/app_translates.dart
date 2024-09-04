@@ -5,6 +5,11 @@ class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'fa': {
+          AppTexts.enterPhone: 'شماره همراه خود را وارد کنید',
+          AppTexts.enterCode: 'کد دریافتی را وارد کنید',
+          AppTexts.enterUsername: 'نام کاربری مورد نظر خود را وارد کنید',
+          AppTexts.kafehfekrNarratie:
+              'در تئاتر بزرگ بازی‌ها، هر چالش صحنه‌ای است که در آن استراتژی و شانس رقصی جاودانه را به نمایش می‌گذارند و هنر ذهن را در هر حرکت و انتخاب آشکار می‌کنند',
           AppTexts.endGame: 'پایان بازی',
           AppTexts.endRound: 'پایان دور',
           AppTexts.gameDrawed: 'بازی مساوی شد',

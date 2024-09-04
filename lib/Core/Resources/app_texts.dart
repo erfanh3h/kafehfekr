@@ -1,4 +1,8 @@
 abstract class AppTexts {
+  static const enterPhone = "enterPhone";
+  static const enterCode = "enterCode";
+  static const enterUsername = "enterUsername";
+  static const kafehfekrNarratie = "kafehfekrNarratie";
   static const endGame = "endGame";
   static const endRound = "endRound";
   static const roundDrawed = "roundDrawed";
