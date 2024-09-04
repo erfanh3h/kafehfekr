@@ -10,6 +10,7 @@ class AppTranslations extends Translations {
           AppTexts.enterUsername: 'نام کاربری مورد نظر خود را وارد کنید',
           AppTexts.kafehfekrNarratie:
               'در تئاتر بزرگ بازی‌ها، هر چالش صحنه‌ای است که در آن استراتژی و شانس رقصی جاودانه را به نمایش می‌گذارند و هنر ذهن را در هر حرکت و انتخاب آشکار می‌کنند',
+          AppTexts.timeoutError: 'دقایقی دیگر مجددا امتحان کنید',
           AppTexts.endGame: 'پایان بازی',
           AppTexts.endRound: 'پایان دور',
           AppTexts.gameDrawed: 'بازی مساوی شد',

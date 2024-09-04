@@ -43,9 +43,9 @@ class AuthPage extends BaseView<AuthController> {
                 label: controller.isPhonePhase.value ? '9121234567' : '',
                 controller: controller.isPhonePhase.value
                     ? controller.phoneController
-                    : controller.codeontroller,
+                    : controller.codeController,
                 textType: TextInputType.number,
-                maxLength: 10,
+                maxLength: controller.isPhonePhase.value ? 10 : 6,
               ),
             ),
             const SizedBox(height: 40),

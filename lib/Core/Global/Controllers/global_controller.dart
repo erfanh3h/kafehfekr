@@ -55,6 +55,7 @@ class GlobalController extends BaseController {
   }
 
   Future<void> fetchUserData() async {
+    // await globalRepo.logoutRemoveData();
     isLoadingProfile.value = true;
     final userIdData =
         await globalRepo.getDataFromStorage(key: StorageKeys.userId);

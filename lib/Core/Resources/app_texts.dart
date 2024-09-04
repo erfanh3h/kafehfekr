@@ -136,4 +136,7 @@ abstract class AppTexts {
   static const bringInOutedPiece = "bringInOutedPiece";
   static const selectNumber = "selectNumber";
   static const playerThisRound = "playerThisRound";
+
+  static const timeoutError = "timeoutError";
+
 }

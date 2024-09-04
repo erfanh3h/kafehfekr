@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../Global/Controllers/global_controller.dart';
@@ -18,14 +19,11 @@ class RestClient {
     try {
       Map<String, String>? requestHeader = {
         'X-Requested-With': 'XMLHttpRequest',
-        // 'Content-Type': 'application/json',
-        // "Accept": "application/json",
       };
       if (needToken) {
         requestHeader['Authorization'] =
             Get.find<GlobalController>().token ?? '';
       }
-      // var formData = http.FormData.fromMap(datas);
       var dio = http.Dio(http.BaseOptions(headers: requestHeader));
       var response = await dio.get(url);
       final results = response.data;
@@ -34,11 +32,15 @@ class RestClient {
       );
       return ApiResult.success(data: results);
     } on http.DioException catch (e) {
-      if (e.type == http.DioExceptionType.badCertificate) {}
-      if (e.type == http.DioExceptionType.connectionTimeout) {}
-      if (e.type == http.DioExceptionType.receiveTimeout) {}
-      log('hasError: ${e.response}');
-      final error = handleErrorStatus(e.response!);
+      if (e.type == http.DioExceptionType.connectionTimeout) {
+        log('hasError: connection timeout');
+      }
+      if (e.type == http.DioExceptionType.receiveTimeout) {
+        log('hasError: receive timeout');
+      } else {
+        log('hasError: ${e.response}');
+      }
+      final error = handleErrorStatus(e.response);
       if (showMessageOnError) {
         DialogComponent().showToast(label: error.result!);
       }
@@ -57,20 +59,24 @@ class RestClient {
     final Map<String, dynamic>? data,
     final bool needToken = true,
     final bool showMessageOnError = true,
-    final bool isFormData = false,
+    final bool isFormData = true,
   }) async {
     try {
       Map<String, String>? requestHeader = {
         'X-Requested-With': 'XMLHttpRequest',
-        // 'Content-Type': 'application/json',
-        // "Accept": "application/json",
       };
       if (needToken) {
         requestHeader['Authorization'] =
             Get.find<GlobalController>().token ?? '';
       }
       var body = isFormData ? http.FormData.fromMap(data ?? {}) : data;
-      var dio = http.Dio(http.BaseOptions(headers: requestHeader));
+      var dio = http.Dio(
+        http.BaseOptions(
+          headers: requestHeader,
+          connectTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
+        ),
+      );
       var response = await dio.post(url, data: body);
       var results = response.data;
       log(
@@ -78,19 +84,22 @@ class RestClient {
       );
       return ApiResult.success(data: results);
     } on http.DioException catch (e) {
-      if (e.type == http.DioExceptionType.badResponse) {}
-      if (e.type == http.DioExceptionType.connectionTimeout) {}
-      if (e.type == http.DioExceptionType.receiveTimeout) {}
-      log('hasError: ${e.response}');
-      final error = handleErrorStatus(e.response!);
+      if (e.type == http.DioExceptionType.connectionTimeout) {
+        log('hasError: connection timeout');
+      }
+      if (e.type == http.DioExceptionType.receiveTimeout) {
+        log('hasError: receive timeout');
+      } else {
+        log('hasError: ${e.response}');
+      }
+      final error = handleErrorStatus(e.response);
       if (showMessageOnError) {
         DialogComponent().showToast(label: error.result!);
       }
       return ApiResult.failure(error: error);
     } catch (e) {
       return ApiResult.failure(
-        error: NetworkExceptions(
-            result: "Please check your internet connection and try again"),
+        error: NetworkExceptions(result: AppTexts.timeoutError.tr),
       );
     }
   }
@@ -103,8 +112,6 @@ class RestClient {
     try {
       Map<String, String>? requestHeader = {
         'X-Requested-With': 'XMLHttpRequest',
-        // 'Content-Type': 'application/json',
-        // "Accept": "application/json",
       };
       if (needToken) {
         requestHeader['Authorization'] =
@@ -118,49 +125,47 @@ class RestClient {
       );
       return ApiResult.success(data: results);
     } on http.DioException catch (e) {
-      if (e.type == http.DioExceptionType.badResponse) {}
-      if (e.type == http.DioExceptionType.connectionError) {}
-      if (e.type == http.DioExceptionType.receiveTimeout) {}
-      log('hasError: ${e.response}');
-      final error = handleErrorStatus(e.response!);
+      if (e.type == http.DioExceptionType.connectionTimeout) {
+        log('hasError: connection timeout');
+      }
+      if (e.type == http.DioExceptionType.receiveTimeout) {
+        log('hasError: receive timeout');
+      } else {
+        log('hasError: ${e.response}');
+      }
+      final error = handleErrorStatus(e.response);
       if (showMessageOnError) {
         DialogComponent().showToast(label: error.result!);
       }
       return ApiResult.failure(error: error);
     } catch (e) {
       return ApiResult.failure(
-        error: NetworkExceptions(
-            result: "Please check your internet connection and try again"),
+        error: NetworkExceptions(result: AppTexts.timeoutError.tr),
       );
     }
   }
 
   NetworkExceptions handleErrorStatus(
-    http.Response response, {
+    http.Response? response, {
     final String? defaultErrorText,
   }) {
     String errorText = '';
     if (defaultErrorText != null) {
       errorText = defaultErrorText;
     } else {
-      errorText = "Please check your internet connection and try again";
+      errorText = AppTexts.timeoutError.tr;
     }
-    try {
-      if (response.data['errors'].keys.length != 0) {
-        errorText = response.data['errors'][response.data['errors'].keys.first]
-            .toString();
-      }
-    } catch (_) {}
-    // if (response.statusCode == 401) {
-    //   var globalController = Get.find<GlobalController>();
-    //   globalController.removeUserData();
-    //   OneSignalComponent().stop();
-    //   Get.toNamed(AppRoutes.login);
-    //   errorText = 'Please login to your account';
-    // }
-    final error =
-        NetworkExceptions.fromResult(response.statusCode ?? 422, errorText);
+    if (response == null) {
+      final error = NetworkExceptions.fromResult(422, errorText);
+      return error;
+    } else {
+      try {
+        errorText = response.data['error'].toString();
+      } catch (_) {}
+      final error =
+          NetworkExceptions.fromResult(response.statusCode ?? 422, errorText);
 
-    return error;
+      return error;
+    }
   }
 }
