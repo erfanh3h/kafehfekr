@@ -7,6 +7,7 @@ import 'package:kafehfekr/Core/Network/queue_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
+import 'package:kafehfekr/Feature/Auth/Models/user_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 // import '../Core/global_repository.dart';
@@ -30,6 +31,7 @@ class GlobalController extends BaseController {
   String? activeGameId;
   String? activeGameType;
 
+  Rx<UserModel?> myData = Rx(null);
   RxBool isLoadingProfile = RxBool(true);
 
   GlobalController({required this.globalRepo});
@@ -40,7 +42,7 @@ class GlobalController extends BaseController {
   }
 
   void checkLoginStatus() {
-    Future.delayed(const Duration(seconds: 1)).then((_) {
+    fetchUserData().then((_) {
       if (token != null) {
         Get.offAllNamed(AppRoutes.main);
         Future.delayed(const Duration(milliseconds: 500)).then((_) {
@@ -57,25 +59,29 @@ class GlobalController extends BaseController {
   Future<void> fetchUserData() async {
     // await globalRepo.logoutRemoveData();
     isLoadingProfile.value = true;
-    final userIdData =
-        await globalRepo.getDataFromStorage(key: StorageKeys.userId);
-    if (userIdData != null) {
-      userId = userIdData;
-    }
     final tokenData =
         await globalRepo.getDataFromStorage(key: StorageKeys.token);
     if (tokenData != null) {
       token = tokenData;
-    }
-    final gameIdData =
-        await globalRepo.getDataFromStorage(key: StorageKeys.gameId);
-    if (gameIdData != null) {
-      activeGameId = gameIdData;
-    }
-    final gameTypeData =
-        await globalRepo.getDataFromStorage(key: StorageKeys.gameType);
-    if (gameTypeData != null) {
-      activeGameType = gameTypeData;
+      final dataResult = await globalRepo.getMyData();
+      if (dataResult.resultData != null) {
+        myData.value = dataResult.resultData!;
+      }
+      final userIdData =
+          await globalRepo.getDataFromStorage(key: StorageKeys.userId);
+      if (userIdData != null) {
+        userId = userIdData;
+      }
+      final gameIdData =
+          await globalRepo.getDataFromStorage(key: StorageKeys.gameId);
+      if (gameIdData != null) {
+        activeGameId = gameIdData;
+      }
+      final gameTypeData =
+          await globalRepo.getDataFromStorage(key: StorageKeys.gameType);
+      if (gameTypeData != null) {
+        activeGameType = gameTypeData;
+      }
     }
     isLoadingProfile.value = false;
   }
@@ -97,6 +103,11 @@ class GlobalController extends BaseController {
     activeGameId = id;
     activeGameType = type;
     isLoadingProfile.value = false;
+  }
+
+  changeProfile(int index) {
+    myData.value = myData.value!.copyWith(image: index);
+    globalRepo.changeProfile(image: index);
   }
 
   Future<void> finishGame() async {
@@ -160,7 +171,7 @@ class GlobalController extends BaseController {
 
   @override
   void onInit() async {
-    await fetchUserData();
+    // await fetchUserData();
     super.onInit();
   }
 }

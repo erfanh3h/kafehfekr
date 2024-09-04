@@ -24,7 +24,11 @@ class RestClient {
         requestHeader['Authorization'] =
             Get.find<GlobalController>().token ?? '';
       }
-      var dio = http.Dio(http.BaseOptions(headers: requestHeader));
+      var dio = http.Dio(http.BaseOptions(
+        headers: requestHeader,
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+      ));
       var response = await dio.get(url);
       final results = response.data;
       log(
@@ -117,7 +121,11 @@ class RestClient {
         requestHeader['Authorization'] =
             Get.find<GlobalController>().token ?? '';
       }
-      var dio = http.Dio(http.BaseOptions(headers: requestHeader));
+      var dio = http.Dio(http.BaseOptions(
+        headers: requestHeader,
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+      ));
       var response = await dio.delete(url);
       var results = response.data;
       log(
@@ -160,7 +168,7 @@ class RestClient {
       return error;
     } else {
       try {
-        errorText = response.data['error'].toString();
+        errorText = response.data['detail'].toString();
       } catch (_) {}
       final error =
           NetworkExceptions.fromResult(response.statusCode ?? 422, errorText);

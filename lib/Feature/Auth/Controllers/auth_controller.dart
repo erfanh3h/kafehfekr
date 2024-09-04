@@ -41,6 +41,7 @@ class AuthController extends BaseController {
         Get.find<GlobalController>()
             .setUserData(userData.id, result.resultData!.$2);
         if (userData.name != "") {
+          Get.find<GlobalController>().fetchUserData();
           Get.offAllNamed(AppRoutes.main);
         } else {
           Get.offAllNamed(AppRoutes.username);
@@ -51,13 +52,13 @@ class AuthController extends BaseController {
   }
 
   sendUsername() async {
-    // Get.find<GlobalController>().checkLoginStatus();
     isSendingData.value = true;
     final result = await authRepo.completeUser(
       phone: phoneController.text,
       username: usernameController.text,
     );
     if (result.resultData != null) {
+      Get.find<GlobalController>().fetchUserData();
       Get.offAllNamed(AppRoutes.main);
     }
     isSendingData.value = false;

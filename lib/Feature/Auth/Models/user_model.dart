@@ -32,24 +32,24 @@ class UserModel {
     );
   }
 
-  // UserModel copyWith({
-  //   final String? userId,
-  //   final int? score,
-  //   final int? xp,
-  //   final String? name,
-  //   final int? reactionId,
-  //   final int? image,
-  //   final int? coin,
-  //   final bool? joinDate,
-  // }) =>
-  //     UserModel(
-  //       userId: userId ?? this.userId,
-  //       score: score ?? this.score,
-  //       xp: xp ?? this.xp,
-  //       name: name ?? this.name,
-  //       reactionId: reactionId ?? this.reactionId,
-  //       image: image ?? this.image,
-  //       coin: coin ?? this.coin,
-  //       joinDate: joinDate ?? this.joinDate,
-  //     );
+  UserModel copyWith({
+    final String? id,
+    final String? phone,
+    final int? score,
+    final int? xp,
+    final String? name,
+    final int? image,
+    final int? coin,
+    final DateTime? joinDate,
+  }) =>
+      UserModel(
+        id: id ?? this.id,
+        phone: phone ?? this.phone,
+        score: score ?? this.score,
+        xp: xp ?? this.xp,
+        name: name ?? this.name,
+        image: image ?? this.image,
+        coin: coin ?? this.coin,
+        joinDate: joinDate ?? this.joinDate,
+      );
 }

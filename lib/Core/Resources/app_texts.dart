@@ -17,6 +17,9 @@ abstract class AppTexts {
   static const normalGame = "normalGame";
   static const rankGame = "rankGame";
   static const surrender = "surrender";
+  static const win = "win";
+  static const lose = "lose";
+  static const draw = "draw";
   static const ok = "ok";
   static const accept = "accept";
   static const cancel = "cancel";
