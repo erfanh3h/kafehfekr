@@ -45,10 +45,10 @@ class AuthController extends BaseController {
     if (result.resultData != null) {
       UserModel? userData = result.resultData!.$1;
       if (userData != null) {
-        Get.find<GlobalController>()
+        await Get.find<GlobalController>()
             .setUserData(userData.id, result.resultData!.$2);
         if (userData.name != "") {
-          Get.find<GlobalController>().fetchUserData();
+          await Get.find<GlobalController>().fetchUserData();
           Get.offAllNamed(AppRoutes.main);
         } else {
           Get.offAllNamed(AppRoutes.username);

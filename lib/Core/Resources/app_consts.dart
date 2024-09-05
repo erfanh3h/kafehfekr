@@ -138,7 +138,7 @@ List<String> bottomNavigationTexts = [
 
 List<IconData> bottomNavigationIcons = [
   Icons.person_4_rounded,
-  CupertinoIcons.star_circle_fill,
+  CupertinoIcons.list_dash,
   CupertinoIcons.game_controller_solid,
   CupertinoIcons.person_3_fill,
   CupertinoIcons.book_solid,

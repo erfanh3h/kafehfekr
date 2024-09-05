@@ -67,43 +67,46 @@ class EachButton extends StatelessWidget {
   final int index;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onTap(index),
-      onLongPress: () => DialogComponent().showToast(label: text),
-      child: Container(
-        padding: isSelected ? AppSpacings.s5All : AppSpacings.s5All,
-        height: double.maxFinite,
-        decoration: BoxDecoration(
-          // color: AppColors.darkColor,
-          gradient: isSelected
-              ? const LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Color.fromARGB(1, 212, 133, 126),
-                    Color.fromARGB(255, 214, 172, 168),
-                  ],
-                )
-              : const LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Color.fromARGB(1, 212, 133, 126),
-                    AppColors.darkColor,
-                  ],
-                ),
-          borderRadius: BorderRadius.circular(20),
-          border: Border(
-            bottom: BorderSide(
-              color: isSelected ? Colors.amber : Colors.white70,
-              width: isSelected ? 4 : 2,
+    return Container(
+      margin: AppSpacings.s2All,
+      child: InkWell(
+        onTap: () => onTap(index),
+        onLongPress: () => DialogComponent().showToast(label: text),
+        child: Container(
+          padding: isSelected ? AppSpacings.s5All : AppSpacings.s5All,
+          height: double.maxFinite,
+          decoration: BoxDecoration(
+            // color: AppColors.darkColor,
+            gradient: isSelected
+                ? const LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      Color.fromARGB(1, 212, 133, 126),
+                      Color.fromARGB(255, 214, 172, 168),
+                    ],
+                  )
+                : const LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [
+                      Color.fromARGB(1, 212, 133, 126),
+                      AppColors.darkColor,
+                    ],
+                  ),
+            borderRadius: BorderRadius.circular(20),
+            border: Border(
+              bottom: BorderSide(
+                color: isSelected ? Colors.amber : Colors.white70,
+                width: isSelected ? 4 : 2,
+              ),
             ),
           ),
-        ),
-        child: Icon(
-          icon,
-          color: isSelected ? Colors.amber : Colors.white,
-          size: isSelected ? 50 : 35,
+          child: Icon(
+            icon,
+            color: isSelected ? Colors.amber : Colors.white,
+            size: isSelected ? 45 : 30,
+          ),
         ),
       ),
     );
