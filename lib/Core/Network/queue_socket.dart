@@ -1,5 +1,7 @@
 import 'package:kafehfekr/Core/Base/base_controller.dart';
+import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
+import 'package:refreshed/refreshed.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
 class QueueSocketManager extends BaseController {
@@ -12,7 +14,11 @@ class QueueSocketManager extends BaseController {
     socket = io(ServerRoutes.queueSocket, <String, dynamic>{
       'autoConnect': false,
       'transports': ['websocket'],
-      'auth': {'user_id': myId, 'game_type': gameType},
+      'auth': {
+        'user_id': myId,
+        'game_type': gameType,
+        'token': Get.find<GlobalController>().token ?? ""
+      },
     });
     socket.connect();
     socket.onConnect((_) {

@@ -1,6 +1,9 @@
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
+import 'package:refreshed/refreshed.dart';
 import 'package:socket_io_client/socket_io_client.dart';
+
+import '../Global/Controllers/global_controller.dart';
 
 class GameSocketManager extends BaseController {
   late Socket socket;
@@ -13,7 +16,11 @@ class GameSocketManager extends BaseController {
     socket = io(ServerRoutes.gameSocket, <String, dynamic>{
       'autoConnect': false,
       'transports': ['websocket'],
-      'auth': {'user_id': myId, 'game_id': gameId},
+      'auth': {
+        'user_id': myId,
+        'game_id': gameId,
+        'token': Get.find<GlobalController>().token ?? ""
+      },
     });
     socket.connect();
     socket.onConnect((_) {

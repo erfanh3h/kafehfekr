@@ -9,6 +9,7 @@ import 'package:kafehfekr/Core/Network/queue_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
+import 'package:kafehfekr/Feature/Auth/Models/user_history_model.dart';
 import 'package:kafehfekr/Feature/Auth/Models/user_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -34,7 +35,9 @@ class GlobalController extends BaseController {
   String? activeGameType;
 
   Rx<UserModel?> myData = Rx(null);
+  Rx<UserHistoryModel?> myHistoryData = Rx(null);
   RxBool isLoadingProfile = RxBool(true);
+  RxBool isLoadingHistory = RxBool(false);
 
   GlobalController({required this.globalRepo});
 
@@ -112,6 +115,15 @@ class GlobalController extends BaseController {
     isLoadingProfile.value = false;
   }
 
+  Future<void> fetchMyHistoryData() async {
+    isLoadingHistory.value = true;
+    final dataResult = await globalRepo.getMyHistoryData();
+    if (dataResult.resultData != null) {
+      myHistoryData.value = dataResult.resultData!;
+    }
+    isLoadingHistory.value = false;
+  }
+
   Future<void> setUserData(String newUserId, String newToken) async {
     isLoadingProfile.value = true;
     await globalRepo.setDataOnStorage(
@@ -143,6 +155,7 @@ class GlobalController extends BaseController {
     activeGameId = null;
     activeGameType = null;
     isLoadingProfile.value = false;
+    fetchMyHistoryData();
   }
 
   void changeLanguegue() {
