@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
@@ -333,5 +336,46 @@ class FunctionsLibraryClass {
         Get.closeAllDialogs();
       },
     );
+  }
+
+  static bool isVersionOk(String currentVersion, String newVersion) {
+    int currnetVersionPart1Number = int.parse(currentVersion.split(".")[0]);
+    int currnetVersionPart2Number = int.parse(currentVersion.split(".")[1]);
+    int currnetVersionPart3Number = int.parse(currentVersion.split(".")[2]);
+    int newVersionPart1Number = int.parse(newVersion.split(".")[0]);
+    int newVersionPart2Number = int.parse(newVersion.split(".")[1]);
+    int newVersionPart3Number = int.parse(newVersion.split(".")[2]);
+    if (newVersionPart1Number > currnetVersionPart1Number) {
+      return false;
+    }
+    if (newVersionPart1Number == currnetVersionPart1Number &&
+        newVersionPart2Number > currnetVersionPart2Number) {
+      return false;
+    }
+    if (newVersionPart1Number == currnetVersionPart1Number &&
+        newVersionPart2Number == currnetVersionPart2Number &&
+        newVersionPart3Number > currnetVersionPart3Number) {
+      return false;
+    }
+    return true;
+  }
+
+  static Future<String> getDeviceId() async {
+    String result = "";
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      final info = await deviceInfo.androidInfo;
+      result = info.id;
+    } else if (Platform.isWindows) {
+      final info = await deviceInfo.windowsInfo;
+      result = info.deviceId;
+    } else if (Platform.isIOS) {
+      final info = await deviceInfo.iosInfo;
+      result = info.identifierForVendor!;
+    } else {
+      final info = await deviceInfo.webBrowserInfo;
+      result = info.userAgent!;
+    }
+    return result;
   }
 }

@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+
+const String appVersion = "1.0.0";
+const MarketTypes marketType = MarketTypes.Free;
 
 class GameWaitTimes {
   static const int startGameTime = 5;

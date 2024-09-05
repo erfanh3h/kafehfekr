@@ -1,3 +1,4 @@
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Models/api_result.dart';
 import 'package:kafehfekr/Core/Network/network_exceptions.dart';
 import 'package:kafehfekr/Core/Network/rest_client.dart';
@@ -61,8 +62,9 @@ class AuthRepositoryImp extends AuthRepository {
   Future<ApiResult<bool>> completeUser(
       {required String phone, required String username}) async {
     bool data = false;
+    final deviceId = await FunctionsLibraryClass.getDeviceId();
     var response = await _restClient.sendData(ServerRoutes.completeUserData,
-        data: {'phone': phone, 'username': username, 'device_id': "device"});
+        data: {'phone': phone, 'username': username, 'device_id': deviceId});
     NetworkExceptions? errorData;
     if (response.resultData != null) {
       data = true;

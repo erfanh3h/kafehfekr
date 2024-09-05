@@ -3,6 +3,8 @@ abstract class AppRoutes {
   static const auth = '/auth';
   static const username = '/username';
   static const info = '/info';
+  static const update = '/update';
+  static const maintence = '/maintence';
   static const splash = '/splash';
   static const tictactoe = '/TicTacToe';
   static const rpc = '/RPC';

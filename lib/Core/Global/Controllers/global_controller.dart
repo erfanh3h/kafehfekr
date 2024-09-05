@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Core/global_repository.dart';
+import 'package:kafehfekr/Core/Global/Models/config_model.dart';
 import 'package:kafehfekr/Core/Network/queue_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -41,8 +43,11 @@ class GlobalController extends BaseController {
     pgCtrl.jumpToPage(page);
   }
 
-  void checkLoginStatus() {
-    fetchUserData().then((_) {
+  void checkLoginStatus() async {
+    await globalRepo.logoutRemoveData();
+    bool isConfigOk = await getConfigData();
+    if (isConfigOk) {
+      await fetchUserData();
       if (token != null) {
         Get.offAllNamed(AppRoutes.main);
         Future.delayed(const Duration(milliseconds: 500)).then((_) {
@@ -53,11 +58,27 @@ class GlobalController extends BaseController {
       } else {
         Get.offAllNamed(AppRoutes.auth);
       }
-    });
+    }
+  }
+
+  Future<bool> getConfigData() async {
+    final dataResult = await globalRepo.getConfigData();
+    if (dataResult.resultData != null) {
+      final ConfigModel data = dataResult.resultData!;
+      if (!FunctionsLibraryClass.isVersionOk(
+          appVersion, data.allowedVersion ?? "")) {
+        Get.offAllNamed(AppRoutes.update);
+        return false;
+      }
+      if (data.updateFinishDate!.difference(DateTime.now()).inSeconds > 0) {
+        Get.offAllNamed(AppRoutes.maintence, arguments: data.updateFinishDate);
+        return false;
+      }
+    }
+    return true;
   }
 
   Future<void> fetchUserData() async {
-    // await globalRepo.logoutRemoveData();
     isLoadingProfile.value = true;
     final tokenData =
         await globalRepo.getDataFromStorage(key: StorageKeys.token);

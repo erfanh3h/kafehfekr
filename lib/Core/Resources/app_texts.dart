@@ -3,6 +3,8 @@ abstract class AppTexts {
   static const enterCode = "enterCode";
   static const enterUsername = "enterUsername";
   static const kafehfekrNarratie = "kafehfekrNarratie";
+  static const updateAppMessage = "updateAppMessage";
+  static const update = "update";
   static const endGame = "endGame";
   static const endRound = "endRound";
   static const roundDrawed = "roundDrawed";
@@ -23,6 +25,7 @@ abstract class AppTexts {
   static const ok = "ok";
   static const accept = "accept";
   static const cancel = "cancel";
+  static const exit = "exit";
   static const wait = "wait";
   static const waitOpponent = "waitOpponent";
   static const error = "error";

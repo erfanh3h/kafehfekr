@@ -11,6 +11,8 @@ import 'package:kafehfekr/Feature/Checkers/Pages/checkers_page.dart';
 import 'package:kafehfekr/Feature/Chess/Pages/chess_page.dart';
 import 'package:kafehfekr/Feature/DotBox/Pages/dotbox_page.dart';
 import 'package:kafehfekr/Feature/FourInRow/Pages/four_in_row_page.dart';
+import 'package:kafehfekr/Feature/General/Pages/maintence_page.dart';
+import 'package:kafehfekr/Feature/General/Pages/update_page.dart';
 import 'package:kafehfekr/Feature/MNumbers/Pages/mnumbers_page.dart';
 import 'package:kafehfekr/Feature/MSweeper/Pages/msweeper_page.dart';
 import 'package:kafehfekr/Feature/Mill/Pages/mill_page.dart';
@@ -36,6 +38,14 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.auth,
       page: AuthPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.update,
+      page: UpdatePage.new,
+    ),
+    GetPage(
+      name: AppRoutes.maintence,
+      page: MaintencePage.new,
     ),
     GetPage(
       name: AppRoutes.main,

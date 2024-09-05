@@ -1,5 +1,6 @@
 import 'package:kafehfekr/Core/Global/Components/storage.dart';
 import 'package:kafehfekr/Core/Global/Models/api_result.dart';
+import 'package:kafehfekr/Core/Global/Models/config_model.dart';
 import 'package:kafehfekr/Core/Network/network_exceptions.dart';
 import 'package:kafehfekr/Core/Network/rest_client.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
@@ -8,6 +9,7 @@ import 'package:kafehfekr/Feature/Auth/Models/user_model.dart';
 
 abstract class GlobalRepository {
   Future<ApiResult<UserModel?>> getMyData();
+  Future<ApiResult<ConfigModel?>> getConfigData();
   Future<ApiResult<UserHistoryModel?>> getMyHistoryData();
 
   Future<ApiResult<bool>> changeProfile({required int image});
@@ -55,6 +57,23 @@ class GlobalRepositoryImp extends GlobalRepository {
   }
 
   @override
+  Future<ApiResult<ConfigModel>> getConfigData() async {
+    var response = await _restClient.getData(ServerRoutes.configData);
+    NetworkExceptions? errorData;
+    ConfigModel? config;
+    if (response.resultData != null) {
+      config = ConfigModel.fromJson(response.resultData['result']);
+    } else {
+      errorData = response.errorData;
+    }
+    var result = ApiResult<ConfigModel>(
+      resultData: config ?? ConfigModel(),
+      errorData: errorData,
+    );
+    return result;
+  }
+
+  @override
   Future<ApiResult<UserHistoryModel?>> getMyHistoryData() async {
     var response = await _restClient.getData(ServerRoutes.myHistory);
     NetworkExceptions? errorData;
@@ -64,7 +83,8 @@ class GlobalRepositoryImp extends GlobalRepository {
     } else {
       errorData = response.errorData;
     }
-    var result = ApiResult<UserHistoryModel?>(resultData: user, errorData: errorData);
+    var result =
+        ApiResult<UserHistoryModel?>(resultData: user, errorData: errorData);
     return result;
   }
 

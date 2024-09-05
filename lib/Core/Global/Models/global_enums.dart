@@ -30,3 +30,9 @@ enum GameTypes {
   BoxFour,
   BackGammon
 }
+
+enum MarketTypes {
+  Bazaar,
+  Myket,
+  Free,
+}
