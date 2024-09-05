@@ -145,4 +145,7 @@ abstract class AppTexts {
 
   static const timeoutError = "timeoutError";
 
+  static const enterPhoneCorrectly = "enterPhoneCorrectly";
+
+
 }

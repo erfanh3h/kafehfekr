@@ -167,6 +167,11 @@ class RestClient {
       final error = NetworkExceptions.fromResult(422, errorText);
       return error;
     } else {
+      if (response.statusCode == 401) {
+        Get.find<GlobalController>().removeData().then((_) {
+          Get.find<GlobalController>().checkLoginStatus();
+        });
+      }
       try {
         errorText = response.data['detail'].toString();
       } catch (_) {}

@@ -44,17 +44,22 @@ class GlobalController extends BaseController {
   }
 
   void checkLoginStatus() async {
-    await globalRepo.logoutRemoveData();
+    // await removeData();
     bool isConfigOk = await getConfigData();
     if (isConfigOk) {
       await fetchUserData();
+
       if (token != null) {
-        Get.offAllNamed(AppRoutes.main);
-        Future.delayed(const Duration(milliseconds: 500)).then((_) {
-          if (activeGameId != null) {
-            Get.toNamed('/$activeGameType', arguments: activeGameId);
-          }
-        });
+        if (myData.value!.name == "") {
+          Get.offAllNamed(AppRoutes.username);
+        } else {
+          Get.offAllNamed(AppRoutes.main);
+          Future.delayed(const Duration(milliseconds: 500)).then((_) {
+            if (activeGameId != null) {
+              Get.toNamed('/$activeGameType', arguments: activeGameId);
+            }
+          });
+        }
       } else {
         Get.offAllNamed(AppRoutes.auth);
       }
@@ -188,6 +193,14 @@ class GlobalController extends BaseController {
     isQueueActive.value = false;
     isGameLoading.value = false;
     activeQueueType.value = "";
+  }
+
+  Future<void> removeData() async {
+    token = null;
+    userId = null;
+    activeGameId = null;
+    activeGameType = null;
+    await globalRepo.logoutRemoveData();
   }
 
   @override

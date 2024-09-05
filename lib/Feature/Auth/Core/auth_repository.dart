@@ -39,10 +39,12 @@ class AuthRepositoryImp extends AuthRepository {
   @override
   Future<ApiResult<(UserModel?, String)>> enterCode(
       {required String phone, required String code}) async {
+    final deviceId = await FunctionsLibraryClass.getDeviceId();
     var response = await _restClient
         .sendData(ServerRoutes.enterCode, needToken: false, data: {
       'phone': phone,
       'code': code,
+      'device_id': deviceId,
     });
     NetworkExceptions? errorData;
     String token = "";
@@ -62,9 +64,11 @@ class AuthRepositoryImp extends AuthRepository {
   Future<ApiResult<bool>> completeUser(
       {required String phone, required String username}) async {
     bool data = false;
-    final deviceId = await FunctionsLibraryClass.getDeviceId();
-    var response = await _restClient.sendData(ServerRoutes.completeUserData,
-        data: {'phone': phone, 'username': username, 'device_id': deviceId});
+    var response =
+        await _restClient.sendData(ServerRoutes.completeUserData, data: {
+      'phone': phone,
+      'username': username,
+    });
     NetworkExceptions? errorData;
     if (response.resultData != null) {
       data = true;

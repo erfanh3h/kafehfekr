@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
+import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Feature/Auth/Core/auth_repository.dart';
 import 'package:kafehfekr/Feature/Auth/Models/user_model.dart';
@@ -19,6 +21,11 @@ class AuthController extends BaseController {
   RxBool isSendingData = RxBool(false);
 
   enterUser() async {
+    if (phoneController.text.length != 10 ||
+        !phoneController.text.startsWith("9")) {
+      DialogComponent().showToast(label: AppTexts.enterPhoneCorrectly.tr);
+      return;
+    }
     isSendingData.value = true;
     final result = await authRepo.enterUser(phone: phoneController.text);
     if (result.resultData != null) {
@@ -66,6 +73,10 @@ class AuthController extends BaseController {
 
   @override
   void onInit() async {
+    final GlobalController globalcontroller = Get.find<GlobalController>();
+    if (globalcontroller.myData.value != null) {
+      phoneController.text = globalcontroller.myData.value!.phone;
+    }
     super.onInit();
   }
 }
