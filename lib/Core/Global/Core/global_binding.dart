@@ -31,6 +31,7 @@ class GlobalBinding implements BindingsInterface {
           GlobalController(globalRepo: Get.find<GlobalRepository>()),
           permanent: true,
         ),
+        Get.put(SoundPlayerComponent(), permanent: true),
         AuthBinding().dependencies(),
         GeneralBinding().dependencies(),
         TicTactoeBinding().dependencies(),
@@ -50,10 +51,10 @@ class GlobalBinding implements BindingsInterface {
         BoxFourBinding().dependencies(),
         BackGammonBinding().dependencies(),
         Get.lazyPut<TimerCompanent>(TimerCompanent.new, fenix: true),
-        Get.lazyPut<SoundPlayerComponent>(
-          SoundPlayerComponent.new,
-          fenix: true,
-        ),
+        // Get.lazyPut<SoundPlayerComponent>(
+        //   SoundPlayerComponent.new,
+        //   fenix: true,
+        // ),
         // Get.lazyPut<BaseGameController>(BaseGameController.new, fenix: true),
       ];
 }

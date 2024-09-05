@@ -1,6 +1,8 @@
 import 'package:just_audio/just_audio.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
+import 'package:kafehfekr/Core/Resources/app_musics.dart';
 import 'package:kafehfekr/Core/Resources/app_sounds.dart';
+import 'package:refreshed/refreshed.dart';
 
 enum GameSoundTypes {
   addPeace,
@@ -29,6 +31,7 @@ class SoundPlayerComponent extends BaseController {
   final _musicPlayer = AudioPlayer();
 
   bool letPlaySound = true;
+  RxBool letPlayMusic = RxBool(true);
 
   void playGameSound(GameSoundTypes soundType) {
     if (!letPlaySound) {
@@ -101,21 +104,49 @@ class SoundPlayerComponent extends BaseController {
     });
   }
 
-  changeLetPlayerSound(bool value) {
-    letPlaySound = value;
+  changeLetPlayerSound(bool value , {bool isGame = true}) {
+    letPlayMusic.value = value;
+    if (!value) {
+      try {
+        _musicPlayer.stop();
+      } catch (_) {}
+    } else {
+      startPlayMusic(isGame: isGame);
+    }
+  }
+
+  Future startPlayMusic({bool isGame = false}) async {
+    if (!letPlayMusic.value) {
+      return;
+    }
+    List<AudioSource> musicList = [];
+    if (isGame) {
+      for (var music in AppMusics.games) {
+        musicList.add(AudioSource.asset(music));
+      }
+    } else {
+      for (var music in AppMusics.themes) {
+        musicList.add(AudioSource.asset(music));
+      }
+    }
+    final playlist = ConcatenatingAudioSource(children: musicList);
+    await _musicPlayer.setLoopMode(LoopMode.all);
+    await _musicPlayer.setShuffleModeEnabled(true);
+    await _musicPlayer.setAudioSource(playlist);
+    await _musicPlayer.play();
   }
 
   @override
   void onInit() {
     _actionPlayer.setVolume(.35);
-    _musicPlayer.setVolume(.2);
-    _musicPlayer.setLoopMode(LoopMode.all);
+    _musicPlayer.setVolume(.18);
     super.onInit();
   }
 
   @override
   void onClose() {
     _actionPlayer.dispose();
+    _musicPlayer.dispose();
     super.onClose();
   }
 }

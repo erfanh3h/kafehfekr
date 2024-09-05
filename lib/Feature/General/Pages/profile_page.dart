@@ -1,8 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -44,13 +46,13 @@ class ProfilePage extends StatelessWidget {
                       padding: AppSpacings.s5All,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border:
-                              Border.all(color: AppColors.goldenColor, width: 3)),
+                          border: Border.all(
+                              color: AppColors.goldenColor, width: 3)),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(150),
                         child: Image.asset(
-                          AvatarIcons()
-                              .generalAvatarPath(controller.myData.value!.image),
+                          AvatarIcons().generalAvatarPath(
+                              controller.myData.value!.image),
                         ),
                       ),
                     ),
@@ -73,23 +75,57 @@ class ProfilePage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        const Spacer(),
                         Expanded(
+                          flex: 3,
                           child: TextNumberWidget(
                               text: AppTexts.win.tr,
-                              number: controller.myHistoryData.value!.winNormal),
+                              number:
+                                  controller.myHistoryData.value!.winNormal),
                         ),
+                        const Spacer(),
                         Expanded(
+                          flex: 3,
                           child: TextNumberWidget(
                               text: AppTexts.draw.tr,
-                              number: controller.myHistoryData.value!.drawNormal),
+                              number:
+                                  controller.myHistoryData.value!.drawNormal),
                         ),
+                        const Spacer(),
                         Expanded(
+                          flex: 3,
                           child: TextNumberWidget(
                               text: AppTexts.lose.tr,
-                              number: controller.myHistoryData.value!.loseNormal),
+                              number:
+                                  controller.myHistoryData.value!.loseNormal),
                         ),
+                        const Spacer(),
                       ],
                     ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+                ElasticIn(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const Text(
+                        'پخش آهنگ',
+                        style: TextStyle(
+                          color: AppColors.lightColor,
+                          fontSize: 20,
+                        ),
+                      ),
+                      GetBuilder<SoundPlayerComponent>(builder: (cont) {
+                        return Obx(
+                          () => Switch(
+                            value: cont.letPlayMusic.value,
+                            onChanged: (value) =>
+                                cont.changeLetPlayerSound(value, isGame: false),
+                          ),
+                        );
+                      })
+                    ],
                   ),
                 )
               ],
@@ -118,15 +154,17 @@ class TextNumberWidget extends StatelessWidget {
             Text(
               text,
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 15,
                 color: AppColors.darkColor,
               ),
             ),
+            const SizedBox(height: 3),
             Text(
               number.toString(),
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 color: AppColors.darkColor,
+                fontFamily: FontFamilies.dastnevis,
               ),
             ),
           ],

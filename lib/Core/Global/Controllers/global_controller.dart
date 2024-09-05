@@ -51,7 +51,6 @@ class GlobalController extends BaseController {
     bool isConfigOk = await getConfigData();
     if (isConfigOk) {
       await fetchUserData();
-
       if (token != null) {
         if (myData.value!.name == "") {
           Get.offAllNamed(AppRoutes.username);
@@ -59,7 +58,10 @@ class GlobalController extends BaseController {
           Get.offAllNamed(AppRoutes.main);
           Future.delayed(const Duration(milliseconds: 500)).then((_) {
             if (activeGameId != null) {
+              Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
               Get.toNamed('/$activeGameType', arguments: activeGameId);
+            } else {
+              Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
             }
           });
         }
@@ -156,6 +158,7 @@ class GlobalController extends BaseController {
     activeGameType = null;
     isLoadingProfile.value = false;
     fetchMyHistoryData();
+    Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
   }
 
   void changeLanguegue() {
@@ -191,6 +194,7 @@ class GlobalController extends BaseController {
         setActiveGameId(gameId, gameType);
         Get.find<SoundPlayerComponent>()
             .playGameSound(GameSoundTypes.queueFinded);
+        Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
         Future.delayed(const Duration(seconds: 1)).then((_) {
           Get.toNamed('/$gameType', arguments: gameId);
           stopQueue();

@@ -34,7 +34,7 @@ class GameMenuGamePartWidget extends StatelessWidget {
           end: Alignment.topRight,
           colors: [
             Color.fromARGB(1, 212, 133, 126),
-            Color.fromARGB(255, 214, 172, 168),
+            AppColors.darkColor,
           ],
         ),
         border: Border.all(
@@ -107,6 +107,8 @@ class GameMenuGamePartWidget extends StatelessWidget {
                         onTap(game.name);
                       },
                       text: AppTexts.normalGame.tr,
+                      color: AppColors.goldenColor,
+                      fontColor: AppColors.darkColor,
                     ),
                   ),
                 ),

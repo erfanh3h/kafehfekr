@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
@@ -50,6 +51,7 @@ class AuthController extends BaseController {
         if (userData.name != "") {
           await Get.find<GlobalController>().fetchUserData();
           Get.offAllNamed(AppRoutes.main);
+          Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
         } else {
           Get.offAllNamed(AppRoutes.username);
         }
@@ -67,6 +69,7 @@ class AuthController extends BaseController {
     if (result.resultData != null) {
       Get.find<GlobalController>().fetchUserData();
       Get.offAllNamed(AppRoutes.main);
+      Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
     }
     isSendingData.value = false;
   }
