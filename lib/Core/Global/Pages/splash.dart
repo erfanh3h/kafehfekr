@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -26,9 +29,18 @@ class SplashPage extends StatelessWidget {
             width: 200.w,
             height: 200.w,
           ),
-          SizedBox(height: 20.h),
-          const GlobalLoadingWidget(
-            color: AppColors.lightColor,
+          SizedBox(height: 30.h),
+          Obx(
+            () => globalController.errorGetData.value
+                ? GlobalButtonWidget(
+                    onTap: () {
+                      exit(0);
+                    },
+                    text: AppTexts.exit.tr,
+                  )
+                : const GlobalLoadingWidget(
+                    color: AppColors.lightColor,
+                  ),
           ),
           SizedBox(height: 50.h),
           Padding(

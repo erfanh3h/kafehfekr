@@ -71,7 +71,7 @@ class _GlobalGameQueueBoxState extends State<GlobalGameQueueBox>
           borderRadius: BorderRadius.circular(10),
         ),
         child: Obx(
-          () => widget.controller.isGameLoading.value
+          () => widget.controller.isQueueLoading.value
               ? const Center(
                   child: GlobalLoadingWidget(
                     size: 10,

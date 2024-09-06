@@ -7,12 +7,17 @@ import 'package:socket_io_client/socket_io_client.dart';
 class QueueSocketManager extends BaseController {
   late Socket socket;
 
-  void initSocket(
-      {required Function(dynamic) commandHandler,
-      required String myId,
-      required String gameType}) {
+  void initSocket({
+    required Function(dynamic) commandHandler,
+    required String myId,
+    required String gameType,
+    required Function onQueueStart,
+    required Function onQueueError,
+  }) {
     socket = io(ServerRoutes.queueSocket, <String, dynamic>{
       'autoConnect': false,
+      'timeout': 10000,
+      'connect_timeout': 10000,
       'transports': ['websocket'],
       'auth': {
         'user_id': myId,
@@ -22,14 +27,20 @@ class QueueSocketManager extends BaseController {
     });
     socket.connect();
     socket.onConnect((_) {
-      print('connect');
+      // print('connect');
+      onQueueStart();
     });
-
+    // socket.onConnectTimeout((_) {
+    //   print('timeout');
+    // });
     socket.on(SocketChannels.serverCommand, (data) {
-      print(data);
+      // print(data);
       commandHandler(data);
     });
-    socket.onDisconnect((_) => print('disconnect'));
+    // socket.onDisconnect((_) => print('disconnect'));
+    socket.onConnectError((one) {
+      onQueueError();
+    });
   }
 
   void sendCommand(Map data) {

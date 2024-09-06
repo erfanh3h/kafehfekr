@@ -57,7 +57,7 @@ class GlobalRepositoryImp extends GlobalRepository {
   }
 
   @override
-  Future<ApiResult<ConfigModel>> getConfigData() async {
+  Future<ApiResult<ConfigModel?>> getConfigData() async {
     var response =
         await _restClient.getData(ServerRoutes.configData, needToken: false);
     NetworkExceptions? errorData;
@@ -67,8 +67,8 @@ class GlobalRepositoryImp extends GlobalRepository {
     } else {
       errorData = response.errorData;
     }
-    var result = ApiResult<ConfigModel>(
-      resultData: config ?? ConfigModel(),
+    var result = ApiResult<ConfigModel?>(
+      resultData: config,
       errorData: errorData,
     );
     return result;

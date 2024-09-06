@@ -21,7 +21,7 @@ class GlobalController extends BaseController {
   ThemeMode currentTheme = ThemeMode.light;
 
   RxBool isQueueActive = RxBool(false);
-  RxBool isGameLoading = RxBool(false);
+  RxBool isQueueLoading = RxBool(false);
   RxString activeQueueType = RxString('');
 
   PageController pgCtrl = PageController(initialPage: 2);
@@ -38,6 +38,8 @@ class GlobalController extends BaseController {
   Rx<UserHistoryModel?> myHistoryData = Rx(null);
   RxBool isLoadingProfile = RxBool(true);
   RxBool isLoadingHistory = RxBool(false);
+
+  RxBool errorGetData = RxBool(false);
 
   GlobalController({required this.globalRepo});
 
@@ -85,6 +87,11 @@ class GlobalController extends BaseController {
         return false;
       }
     }
+    if (dataResult.errorData != null) {
+      errorGetData.value = true;
+      return false;
+    }
+    {}
     return true;
   }
 
@@ -169,18 +176,30 @@ class GlobalController extends BaseController {
     }
   }
 
+  void onQueueStarted() {
+    isQueueLoading.value = false;
+  }
+
+  void onQueueError() {
+    stopQueue();
+    DialogComponent().showToast(label: AppTexts.timeoutError.tr);
+  }
+
   void startQueue(String gameType) {
     if (isQueueActive.value) {
       DialogComponent().showToast(label: AppTexts.stopPrevoiusQueue.tr);
       return;
     }
+    isQueueActive.value = true;
+    isQueueLoading.value = true;
     Get.put(QueueSocketManager());
     Get.find<QueueSocketManager>().initSocket(
       commandHandler: queueCommandHandler,
       gameType: gameType,
       myId: userId!,
+      onQueueStart: onQueueStarted,
+      onQueueError: onQueueError,
     );
-    isQueueActive.value = true;
     activeQueueType.value = gameType;
   }
 
@@ -188,7 +207,7 @@ class GlobalController extends BaseController {
     final commandId = data['id'];
     switch (commandId) {
       case GameCommands.startGame:
-        isGameLoading.value = true;
+        isQueueActive.value = true;
         final String gameId = data['data']['game_id'];
         final String gameType = activeQueueType.value;
         setActiveGameId(gameId, gameType);
@@ -208,7 +227,7 @@ class GlobalController extends BaseController {
     // Get.find<QueueSocketManager>().disconnect();
     Get.delete<QueueSocketManager>();
     isQueueActive.value = false;
-    isGameLoading.value = false;
+    isQueueLoading.value = false;
     activeQueueType.value = "";
   }
 
