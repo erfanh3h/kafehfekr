@@ -22,93 +22,27 @@ class FunctionsLibraryClass {
         AppTexts.gameDrawed.tr,
         GeneralIcons.draw,
         AppColors.drawColor,
-        coin: 0,
-        cup: 0,
       );
     } else {
       String dialogMessage = "";
       String dialogIcon = "";
       Color dialogColor = Colors.white;
-      int cup = 0;
-      int coin = 0;
       if (gameWinner == myGameId) {
         Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
         dialogMessage = AppTexts.youWinGame.tr;
         dialogIcon = GeneralIcons.win;
         dialogColor = AppColors.winColor;
-        switch (gameType) {
-          case GameTypes.TicTacToe:
-            cup = CupsCount.tictactoeWin;
-            coin = CoinsCount.tictactoeWin;
-            break;
-          case GameTypes.RPC:
-            cup = CupsCount.rpcWin;
-            coin = CoinsCount.rpcWin;
-            break;
-          case GameTypes.Mill:
-            cup = CupsCount.millWin;
-            coin = CoinsCount.millWin;
-            break;
-          case GameTypes.MSweeper:
-            cup = CupsCount.msweeperWin;
-            coin = CoinsCount.msweeperWin;
-            break;
-          case GameTypes.MNumbers:
-            cup = CupsCount.mnumbersWin;
-            coin = CoinsCount.mnumbersWin;
-            break;
-          case GameTypes.Checkers:
-            cup = CupsCount.checkersWin;
-            coin = CoinsCount.checkersWin;
-            break;
-          default:
-            cup = CupsCount.tictactoeWin;
-            coin = CoinsCount.tictactoeWin;
-            break;
-        }
       } else {
         Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
         dialogMessage = AppTexts.youLoseGame.tr;
         dialogIcon = GeneralIcons.lose;
         dialogColor = AppColors.loseColor;
-        switch (gameType) {
-          case GameTypes.TicTacToe:
-            cup = CupsCount.tictactoeLose;
-            coin = CoinsCount.tictactoeLose;
-            break;
-          case GameTypes.RPC:
-            cup = CupsCount.rpcLose;
-            coin = CoinsCount.rpcLose;
-            break;
-          case GameTypes.Mill:
-            cup = CupsCount.millLose;
-            coin = CoinsCount.millLose;
-            break;
-          case GameTypes.MSweeper:
-            cup = CupsCount.msweeperLose;
-            coin = CoinsCount.msweeperLose;
-            break;
-          case GameTypes.MNumbers:
-            cup = CupsCount.mnumbersWin;
-            coin = CoinsCount.mnumbersWin;
-            break;
-          case GameTypes.Checkers:
-            cup = CupsCount.checkersWin;
-            coin = CoinsCount.checkersWin;
-            break;
-          default:
-            cup = CupsCount.tictactoeLose;
-            coin = CoinsCount.tictactoeLose;
-            break;
-        }
       }
       DialogComponent().showIconicDialog(
         AppTexts.endGame.tr,
         dialogMessage,
         dialogIcon,
         dialogColor,
-        coin: coin,
-        cup: cup,
       );
     }
   }
@@ -118,86 +52,22 @@ class FunctionsLibraryClass {
     String dialogMessage = "";
     String dialogIcon = "";
     Color dialogColor = Colors.white;
-    int cup = 0;
-    int coin = 0;
     if (gamerId == myGameId) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
       dialogMessage = AppTexts.youSurrenderGame.tr;
       dialogIcon = GeneralIcons.lose;
       dialogColor = AppColors.loseColor;
-      switch (gameType) {
-        case GameTypes.TicTacToe:
-          cup = CupsCount.tictactoeLose;
-          coin = CoinsCount.tictactoeLose;
-          break;
-        case GameTypes.RPC:
-          cup = CupsCount.rpcLose;
-          coin = CoinsCount.rpcLose;
-          break;
-        case GameTypes.Mill:
-          cup = CupsCount.millLose;
-          coin = CoinsCount.millLose;
-          break;
-        case GameTypes.MSweeper:
-          cup = CupsCount.msweeperLose;
-          coin = CoinsCount.msweeperLose;
-          break;
-        case GameTypes.MNumbers:
-          cup = CupsCount.mnumbersWin;
-          coin = CoinsCount.mnumbersWin;
-          break;
-        case GameTypes.Checkers:
-          cup = CupsCount.checkersWin;
-          coin = CoinsCount.checkersWin;
-          break;
-        default:
-          cup = CupsCount.tictactoeLose;
-          coin = CoinsCount.tictactoeLose;
-          break;
-      }
     } else {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
       dialogMessage = AppTexts.enemySurrenderGame.tr;
       dialogIcon = GeneralIcons.win;
       dialogColor = AppColors.winColor;
-      switch (gameType) {
-        case GameTypes.TicTacToe:
-          cup = CupsCount.tictactoeWin;
-          coin = CoinsCount.tictactoeWin;
-          break;
-        case GameTypes.RPC:
-          cup = CupsCount.rpcWin;
-          coin = CoinsCount.rpcWin;
-          break;
-        case GameTypes.Mill:
-          cup = CupsCount.millWin;
-          coin = CoinsCount.millWin;
-          break;
-        case GameTypes.MSweeper:
-          cup = CupsCount.msweeperWin;
-          coin = CoinsCount.msweeperWin;
-          break;
-        case GameTypes.MNumbers:
-          cup = CupsCount.mnumbersWin;
-          coin = CoinsCount.mnumbersWin;
-          break;
-        case GameTypes.Checkers:
-          cup = CupsCount.checkersWin;
-          coin = CoinsCount.checkersWin;
-          break;
-        default:
-          cup = CupsCount.tictactoeWin;
-          coin = CoinsCount.tictactoeWin;
-          break;
-      }
     }
     DialogComponent().showIconicDialog(
       AppTexts.endGame.tr,
       dialogMessage,
       dialogIcon,
       dialogColor,
-      coin: coin,
-      cup: cup,
     );
   }
 
@@ -206,86 +76,22 @@ class FunctionsLibraryClass {
     String dialogMessage = "";
     String dialogIcon = "";
     Color dialogColor = Colors.white;
-    int cup = 0;
-    int coin = 0;
     if (userId == myId) {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
       dialogMessage = AppTexts.youSurrenderGame.tr;
       dialogIcon = GeneralIcons.lose;
       dialogColor = AppColors.loseColor;
-      switch (gameType) {
-        case GameTypes.TicTacToe:
-          cup = CupsCount.tictactoeLose;
-          coin = CoinsCount.tictactoeLose;
-          break;
-        case GameTypes.RPC:
-          cup = CupsCount.rpcLose;
-          coin = CoinsCount.rpcLose;
-          break;
-        case GameTypes.Mill:
-          cup = CupsCount.millLose;
-          coin = CoinsCount.millLose;
-          break;
-        case GameTypes.MSweeper:
-          cup = CupsCount.msweeperLose;
-          coin = CoinsCount.msweeperLose;
-          break;
-        case GameTypes.MNumbers:
-          cup = CupsCount.mnumbersWin;
-          coin = CoinsCount.mnumbersWin;
-          break;
-        case GameTypes.Checkers:
-          cup = CupsCount.checkersWin;
-          coin = CoinsCount.checkersWin;
-          break;
-        default:
-          cup = CupsCount.tictactoeLose;
-          coin = CoinsCount.tictactoeLose;
-          break;
-      }
     } else {
       Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
       dialogMessage = AppTexts.enemySurrenderGame.tr;
       dialogIcon = GeneralIcons.win;
       dialogColor = AppColors.winColor;
-      switch (gameType) {
-        case GameTypes.TicTacToe:
-          cup = CupsCount.tictactoeWin;
-          coin = CoinsCount.tictactoeWin;
-          break;
-        case GameTypes.RPC:
-          cup = CupsCount.rpcWin;
-          coin = CoinsCount.rpcWin;
-          break;
-        case GameTypes.Mill:
-          cup = CupsCount.millWin;
-          coin = CoinsCount.millWin;
-          break;
-        case GameTypes.MSweeper:
-          cup = CupsCount.msweeperWin;
-          coin = CoinsCount.msweeperWin;
-          break;
-        case GameTypes.MNumbers:
-          cup = CupsCount.mnumbersWin;
-          coin = CoinsCount.mnumbersWin;
-          break;
-        case GameTypes.Checkers:
-          cup = CupsCount.checkersWin;
-          coin = CoinsCount.checkersWin;
-          break;
-        default:
-          cup = CupsCount.tictactoeWin;
-          coin = CoinsCount.tictactoeWin;
-          break;
-      }
     }
     DialogComponent().showIconicDialog(
       AppTexts.endGame.tr,
       dialogMessage,
       dialogIcon,
       dialogColor,
-      coin: coin,
-      cup: cup,
     );
   }
 

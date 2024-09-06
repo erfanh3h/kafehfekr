@@ -32,6 +32,7 @@ class AppTranslations extends Translations {
           AppTexts.normalGame: 'بازی دوستانه',
           AppTexts.rankGame: 'بازی رقابتی',
           AppTexts.surrender: 'تسلیم شدن',
+          AppTexts.checkLibrary: 'یادت نره سر به کتابخونه بزنی تا بتونی راحت تر حریفاتو ببری',
           AppTexts.update: 'به روز رسانی',
           AppTexts.ok: 'بسیار خب',
           AppTexts.exit: 'خروج',

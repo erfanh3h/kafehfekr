@@ -3,6 +3,8 @@ import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Feature/Auth/Core/auth_repository.dart';
@@ -69,7 +71,17 @@ class AuthController extends BaseController {
     if (result.resultData != null) {
       Get.find<GlobalController>().fetchUserData();
       Get.offAllNamed(AppRoutes.main);
+      DialogComponent().showIconicDialog(
+        AppTexts.library.tr,
+        AppTexts.checkLibrary.tr,
+        GeneralIcons.info,
+        AppColors.blueWarmColor,
+        letBackPage: false,
+      );
       Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
+      Future.delayed(const Duration(seconds: 1)).then((_) {
+        Get.find<GlobalController>().changePage(4);
+      });
     }
     isSendingData.value = false;
   }

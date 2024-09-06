@@ -241,7 +241,7 @@ class GlobalController extends BaseController {
 
   @override
   void onInit() async {
-    // await fetchUserData();
+    checkLoginStatus();
     super.onInit();
   }
 }

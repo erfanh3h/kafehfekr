@@ -18,7 +18,6 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final globalController = Get.find<GlobalController>();
-    globalController.checkLoginStatus();
     return Scaffold(
       backgroundColor: AppColors.darkColor,
       body: Column(

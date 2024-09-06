@@ -41,6 +41,7 @@ abstract class AppTexts {
   static const clan = "clan";
   static const settings = "settings";
   static const library = "library";
+  static const checkLibrary = "checkLibrary";
   static const kafehFekr = "kafekFekr";
   static const howToPlay = "howToPlay";
   static const gamePlay = "gamePlay";

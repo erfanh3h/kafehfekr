@@ -33,6 +33,9 @@ class SoundPlayerComponent extends BaseController {
   bool letPlaySound = true;
   RxBool letPlayMusic = RxBool(true);
 
+  bool isMusicPlaying = false;
+  bool isMusicPaused = false;
+
   void playGameSound(GameSoundTypes soundType) {
     if (!letPlaySound) {
       return;
@@ -108,6 +111,8 @@ class SoundPlayerComponent extends BaseController {
     letPlayMusic.value = value;
     if (!value) {
       try {
+        isMusicPlaying = false;
+        isMusicPaused = false;
         _musicPlayer.stop();
       } catch (_) {}
     } else {
@@ -134,7 +139,29 @@ class SoundPlayerComponent extends BaseController {
     await _musicPlayer.setShuffleModeEnabled(true);
     await _musicPlayer.setAudioSource(playlist);
     _musicPlayer.setVolume(.15);
+    isMusicPlaying = true;
+    isMusicPaused = false;
     await _musicPlayer.play();
+  }
+
+  pauseMusic() {
+    if (!letPlayMusic.value) {
+      return;
+    }
+    if (isMusicPlaying) {
+      isMusicPaused = true;
+      _musicPlayer.pause();
+    }
+  }
+
+  resumeMusic() {
+    if (!letPlayMusic.value) {
+      return;
+    }
+    if (isMusicPaused) {
+      isMusicPaused = false;
+      _musicPlayer.play();
+    }
   }
 
   @override
