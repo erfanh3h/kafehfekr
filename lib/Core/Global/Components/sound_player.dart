@@ -104,7 +104,7 @@ class SoundPlayerComponent extends BaseController {
     });
   }
 
-  changeLetPlayerSound(bool value , {bool isGame = true}) {
+  changeLetPlayerSound(bool value, {bool isGame = true}) {
     letPlayMusic.value = value;
     if (!value) {
       try {
@@ -133,13 +133,13 @@ class SoundPlayerComponent extends BaseController {
     await _musicPlayer.setLoopMode(LoopMode.all);
     await _musicPlayer.setShuffleModeEnabled(true);
     await _musicPlayer.setAudioSource(playlist);
+    _musicPlayer.setVolume(.15);
     await _musicPlayer.play();
   }
 
   @override
   void onInit() {
     _actionPlayer.setVolume(.35);
-    _musicPlayer.setVolume(.18);
     super.onInit();
   }
 

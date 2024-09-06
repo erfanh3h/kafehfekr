@@ -18,7 +18,7 @@ class YatzyController extends BaseGameController {
 
   int equippedIndex = 0;
 
-  RxInt remainingDice = RxInt(3);
+  RxInt remainingDice = RxInt(2);
 
   RxBool isRoundPlayed = RxBool(true);
 
@@ -257,7 +257,7 @@ class YatzyController extends BaseGameController {
     removePeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
     resetCalculatedValues();
     selectedDicesIndexes.value.clear();
-    remainingDice.value = 3;
+    remainingDice.value = 2;
     equippedIndex = 0;
     isRoundPlayed.value = false;
   }
