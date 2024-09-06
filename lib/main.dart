@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => GetMaterialApp(
         title: '10Fact',
         debugShowCheckedModeBanner: false,
+        popGesture: false,
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         localizationsDelegates: const [

@@ -1,4 +1,4 @@
-package com.example.kafehfekr
+package kafeh.fekr.classic
 
 import io.flutter.embedding.android.FlutterActivity
 

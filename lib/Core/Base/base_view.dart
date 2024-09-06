@@ -36,10 +36,10 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
 
   // this use to determine we need will pop scope or not(in ios on will pop scope won't work)
   bool setWillPopScope() {
-    return false;
+    return true;
   }
 
-  Future<bool> onWillPop() async {
+  bool preventPop() {
     return true;
   }
 
@@ -92,7 +92,14 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
   }
 
   Widget pageContent(final BuildContext context) {
-    return pageScaffold(context);
+    return setWillPopScope()
+        ? BackButtonListener(
+            onBackButtonPressed: () {
+              return Future.value(preventPop());
+            },
+            child: pageScaffold(context),
+          )
+        : pageScaffold(context);
   }
 
   Widget showErrorSnackBar(final String message) {
