@@ -77,6 +77,7 @@ abstract class GameCommands {
   static const finishReconnectTime = "FinishReconnectTime";
   static const gameFinished = "GameFinished";
   static const notPlayedTurns = "NotPlayedTurns";
+  static const notEnoughCoin = "NotEnoughCoin";
 }
 
 class CupsCount {

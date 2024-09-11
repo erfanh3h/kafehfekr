@@ -11,6 +11,7 @@ class QueueSocketManager extends BaseController {
     required Function(dynamic) commandHandler,
     required String myId,
     required String gameType,
+    required String gameScoreType,
     required Function onQueueStart,
     required Function onQueueError,
   }) {
@@ -22,6 +23,7 @@ class QueueSocketManager extends BaseController {
       'auth': {
         'user_id': myId,
         'game_type': gameType,
+        'game_score_type': gameScoreType,
         'token': Get.find<GlobalController>().token ?? ""
       },
     });
@@ -34,7 +36,7 @@ class QueueSocketManager extends BaseController {
     //   print('timeout');
     // });
     socket.on(SocketChannels.serverCommand, (data) {
-      // print(data);
+      print(data);
       commandHandler(data);
     });
     // socket.onDisconnect((_) => print('disconnect'));

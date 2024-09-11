@@ -23,6 +23,7 @@ class GlobalController extends BaseController {
   RxBool isQueueActive = RxBool(false);
   RxBool isQueueLoading = RxBool(false);
   RxString activeQueueType = RxString('');
+  RxString activeQueueScoreType = RxString('');
 
   PageController pgCtrl = PageController(initialPage: 2);
   RxInt selectedPage = RxInt(2);
@@ -185,7 +186,7 @@ class GlobalController extends BaseController {
     DialogComponent().showToast(label: AppTexts.timeoutError.tr);
   }
 
-  void startQueue(String gameType) {
+  void startQueue(String gameType, String gameScoreType) {
     if (isQueueActive.value) {
       DialogComponent().showToast(label: AppTexts.stopPrevoiusQueue.tr);
       return;
@@ -196,11 +197,13 @@ class GlobalController extends BaseController {
     Get.find<QueueSocketManager>().initSocket(
       commandHandler: queueCommandHandler,
       gameType: gameType,
+      gameScoreType: gameScoreType,
       myId: userId!,
       onQueueStart: onQueueStarted,
       onQueueError: onQueueError,
     );
     activeQueueType.value = gameType;
+    activeQueueScoreType.value = gameScoreType;
   }
 
   void queueCommandHandler(dynamic data) {
@@ -219,6 +222,9 @@ class GlobalController extends BaseController {
           stopQueue();
         });
         break;
+      case GameCommands.notEnoughCoin:
+        DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
+        stopQueue();
       default:
     }
   }
@@ -229,6 +235,7 @@ class GlobalController extends BaseController {
     isQueueActive.value = false;
     isQueueLoading.value = false;
     activeQueueType.value = "";
+    activeQueueScoreType.value = "";
   }
 
   Future<void> removeData() async {

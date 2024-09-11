@@ -20,7 +20,7 @@ class GameMenuGamePartWidget extends StatelessWidget {
   });
 
   final GameTypes game;
-  final Function(String) onTap;
+  final Function(String, String) onTap;
   final bool showButtons;
   @override
   Widget build(BuildContext context) {
@@ -148,11 +148,11 @@ class GameMenuGamePartWidget extends StatelessWidget {
                     delay: const Duration(milliseconds: 500),
                     child: GlobalButtonWidget(
                       onTap: () {
-                        onTap(game.name);
+                        onTap(game.name, "Normal");
                       },
                       text: AppTexts.normalGame.tr,
-                      color: AppColors.goldenColor,
-                      fontColor: AppColors.darkColor,
+                      color: AppColors.darkGreen,
+                      fontColor: AppColors.lightColor,
                     ),
                   ),
                 ),
@@ -162,11 +162,11 @@ class GameMenuGamePartWidget extends StatelessWidget {
                     delay: const Duration(milliseconds: 500),
                     child: GlobalButtonWidget(
                       onTap: () {
-                        DialogComponent().showToast(label: AppTexts.soon.tr);
+                        onTap(game.name, "Rank");
                       },
                       text: '${AppTexts.rankGame.tr} (${gameRewards[0]})',
-                      color: Colors.grey,
-                      fontColor: AppColors.darkColor,
+                      color: AppColors.redWarmColor,
+                      fontColor: AppColors.lightColor,
                     ),
                   ),
                 ),

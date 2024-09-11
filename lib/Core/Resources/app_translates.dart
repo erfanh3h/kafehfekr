@@ -13,6 +13,7 @@ class AppTranslations extends Translations {
           AppTexts.timeoutError: 'دقایقی دیگر مجددا امتحان کنید',
           AppTexts.endGame: 'پایان بازی',
           AppTexts.endRound: 'پایان دور',
+          AppTexts.notEnoughCoin: 'سکه کافی نداری :(',
           AppTexts.updateAppMessage:
               'نسخه ی جدیدی از بازی دردسترس است.لطفا بازی را به روز رسانی کنید',
           AppTexts.gameDrawed: 'بازی مساوی شد',

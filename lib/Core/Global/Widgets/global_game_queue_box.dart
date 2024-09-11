@@ -56,12 +56,14 @@ class _GlobalGameQueueBoxState extends State<GlobalGameQueueBox>
       child: Container(
         height: 60,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
+          gradient: LinearGradient(
+            begin: Alignment.bottomRight,
+            end: Alignment.topLeft,
             colors: [
-              Color.fromARGB(1, 212, 133, 126),
-              AppColors.darkColor,
+              const Color.fromARGB(1, 212, 133, 126),
+              widget.controller.activeQueueScoreType.value == "Normal"
+                  ? AppColors.green
+                  : AppColors.redWarmColor,
             ],
           ),
           border: Border.all(
@@ -95,7 +97,7 @@ class _GlobalGameQueueBoxState extends State<GlobalGameQueueBox>
                         style: TextStyle(
                           fontSize: 16,
                           foreground: Paint()
-                            ..strokeWidth = 1.5
+                            ..strokeWidth = 1.1
                             ..color = AppColors.lightColor
                             ..style = PaintingStyle.stroke,
                         ),

@@ -147,6 +147,7 @@ abstract class AppTexts {
   static const timeoutError = "timeoutError";
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
+  static const notEnoughCoin = "notEnoughCoin";
 
   static const difficultyLevel = "difficultyLevel";
   static const level = "level";
