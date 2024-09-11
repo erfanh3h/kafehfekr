@@ -15,21 +15,23 @@ enum PeaceStatusTypes {
 enum GameTypes {
   TicTacToe,
   RPC,
-  Mill,
+  DotBox,
+  Ten,
   MSweeper,
   MNumbers,
-  Chess,
-  Checkers,
-  Ten,
-  Othello,
-  DotBox,
   Yatzy,
   FourInRow,
   Sudoku,
   BattleShip,
   BoxFour,
+  Chess,
+  Checkers,
+  Othello,
+  Mill,
   BackGammon
 }
+
+enum GameDifficulties { Easy, Normal, Hard }
 
 enum MarketTypes {
   Bazaar,

@@ -6,6 +6,7 @@ import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
@@ -24,6 +25,7 @@ class GameMenuGamePartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gameConvertor = GameTypeConvertor(gameType: game);
+    final List<int> gameRewards = gameConvertor.toGameRewards();
     return Container(
       margin: AppSpacings.s20Vertical,
       padding: AppSpacings.s10All,
@@ -49,7 +51,7 @@ class GameMenuGamePartWidget extends StatelessWidget {
           BounceInDown(
             delay: const Duration(milliseconds: 200),
             child: Padding(
-              padding: AppSpacings.s40Horizental,
+              padding: AppSpacings.s20Horizental,
               child: LayoutBuilder(builder: (context, cons) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
@@ -66,16 +68,54 @@ class GameMenuGamePartWidget extends StatelessWidget {
           const SizedBox(height: 15),
           ZoomIn(
             delay: const Duration(milliseconds: 300),
-            child: Text(
-              game.name.tr,
-              style: TextStyle(
-                fontSize: 25,
-                foreground: Paint()
-                  ..strokeWidth = 1.5
-                  ..color = AppColors.lightColor
-                  ..style = PaintingStyle.stroke,
-              ),
-              textAlign: TextAlign.center,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    game.name.tr,
+                    style: TextStyle(
+                      fontSize: 25,
+                      foreground: Paint()
+                        ..strokeWidth = 1.5
+                        ..color = AppColors.lightColor
+                        ..style = PaintingStyle.stroke,
+                    ),
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+                const SizedBox(width: 5),
+                Image.asset(
+                  GeneralIcons.cup,
+                  width: 30,
+                  height: 30,
+                  color: AppColors.goldenColor,
+                ),
+                Text(
+                  gameRewards[1].toString(),
+                  style: const TextStyle(
+                    color: AppColors.lightColor,
+                    fontFamily: FontFamilies.dastnevis,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(width: 3),
+                Image.asset(
+                  GeneralIcons.exp,
+                  height: 30,
+                  width: 30,
+                  color: AppColors.goldenColor,
+                ),
+                Text(
+                  gameRewards[2].toString(),
+                  style: const TextStyle(
+                    color: AppColors.lightColor,
+                    fontFamily: FontFamilies.dastnevis,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                DifficultyBox(game: game),
+              ],
             ),
           ),
           const SizedBox(height: 15),
@@ -124,7 +164,7 @@ class GameMenuGamePartWidget extends StatelessWidget {
                       onTap: () {
                         DialogComponent().showToast(label: AppTexts.soon.tr);
                       },
-                      text: AppTexts.rankGame.tr,
+                      text: '${AppTexts.rankGame.tr} (${gameRewards[0]})',
                       color: Colors.grey,
                       fontColor: AppColors.darkColor,
                     ),
@@ -132,6 +172,65 @@ class GameMenuGamePartWidget extends StatelessWidget {
                 ),
               ],
             )
+        ],
+      ),
+    );
+  }
+}
+
+class DifficultyBox extends StatelessWidget {
+  const DifficultyBox({
+    super.key,
+    required this.game,
+  });
+
+  final GameTypes game;
+
+  @override
+  Widget build(BuildContext context) {
+    final GameDifficulties difficulty =
+        GameTypeConvertor(gameType: game).toGameDifficallty();
+    final Color difficultyColor;
+    switch (difficulty) {
+      case GameDifficulties.Easy:
+        difficultyColor = AppColors.green;
+        break;
+      case GameDifficulties.Normal:
+        difficultyColor = AppColors.yellow;
+        break;
+      case GameDifficulties.Hard:
+        difficultyColor = AppColors.buttonRed;
+        break;
+      default:
+        difficultyColor = AppColors.green;
+    }
+    return InkWell(
+      onTap: () {
+        DialogComponent().showToast(label: difficulty.name.tr);
+      },
+      child: Row(
+        children: [
+          Image.asset(
+            GeneralIcons.power,
+            color: difficultyColor,
+            width: 30,
+            height: 30,
+          ),
+          // Text(
+          //   '${AppTexts.level.tr}:',
+          //   style: const TextStyle(
+          //     fontSize: 12,
+          //     color: AppColors.lightColor,
+          //   ),
+          // ),
+          // const SizedBox(width: 5),
+          // Container(
+          //   padding: AppSpacings.s10All,
+          //   decoration: BoxDecoration(
+          //       shape: BoxShape.circle,
+          //       color: difficultyColor,
+          //       border: Border.all(color: Colors.white)),
+          // )
         ],
       ),
     );

@@ -119,4 +119,79 @@ class GameTypeConvertor {
     }
     return result;
   }
+
+  GameDifficulties toGameDifficallty() {
+    GameDifficulties result;
+    switch (gameType) {
+      case GameTypes.TicTacToe:
+        result = GameDifficulties.Easy;
+        break;
+      case GameTypes.RPC:
+        result = GameDifficulties.Easy;
+        break;
+      case GameTypes.BackGammon:
+        result = GameDifficulties.Hard;
+        break;
+      case GameTypes.Checkers:
+        result = GameDifficulties.Hard;
+        break;
+      case GameTypes.Chess:
+        result = GameDifficulties.Hard;
+        break;
+      case GameTypes.Ten:
+        result = GameDifficulties.Easy;
+        break;
+      case GameTypes.BattleShip:
+        result = GameDifficulties.Normal;
+        break;
+      case GameTypes.DotBox:
+        result = GameDifficulties.Easy;
+        break;
+      case GameTypes.BoxFour:
+        result = GameDifficulties.Normal;
+        break;
+      case GameTypes.Yatzy:
+        result = GameDifficulties.Normal;
+        break;
+      case GameTypes.Mill:
+        result = GameDifficulties.Hard;
+        break;
+      case GameTypes.Othello:
+        result = GameDifficulties.Hard;
+        break;
+      case GameTypes.Sudoku:
+        result = GameDifficulties.Normal;
+        break;
+      case GameTypes.MNumbers:
+        result = GameDifficulties.Normal;
+        break;
+      case GameTypes.MSweeper:
+        result = GameDifficulties.Normal;
+        break;
+      case GameTypes.FourInRow:
+        result = GameDifficulties.Normal;
+        break;
+      default:
+        result = GameDifficulties.Easy;
+    }
+    return result;
+  }
+
+  List<int> toGameRewards() {
+    List<int> result = [];
+    GameDifficulties difficulty = toGameDifficallty();
+    switch (difficulty) {
+      case GameDifficulties.Easy:
+        result = [10, 8, 4, 2, 1];
+        break;
+      case GameDifficulties.Normal:
+        result = [15, 16, 8, 3, 2];
+        break;
+      case GameDifficulties.Hard:
+        result = [20, 25, 12, 4, 3];
+        break;
+      default:
+    }
+    return result;
+  }
 }

@@ -148,5 +148,9 @@ abstract class AppTexts {
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
 
-
+  static const difficultyLevel = "difficultyLevel";
+  static const level = "level";
+  static const easy = "Easy";
+  static const normal = "Normal";
+  static const hard = "Hard";
 }

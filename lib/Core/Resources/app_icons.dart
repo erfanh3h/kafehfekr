@@ -68,7 +68,15 @@ class GeneralIcons {
   static const dice4 = "$generalIconsPath/dice4.png";
   static const dice5 = "$generalIconsPath/dice5.png";
   static const dice6 = "$generalIconsPath/dice6.png";
-  // static const ranking = "$generalIconsPath/ranking.png";
+  static const power = "$generalIconsPath/power.png";
+  static const exp = "$generalIconsPath/exp.png";
+  static const ranking = "$generalIconsPath/ranking.png";
+  static const store1 = "$generalIconsPath/store1.png";
+  static const store2 = "$generalIconsPath/store2.png";
+  static const store3 = "$generalIconsPath/store3.png";
+  static const store4 = "$generalIconsPath/store4.png";
+  static const store5 = "$generalIconsPath/store5.png";
+  static const store6 = "$generalIconsPath/store6.png";
   // static const play = "$generalIconsPath/play.png";
   // static const profile = "$generalIconsPath/profile.png";
   // static const settings = "$generalIconsPath/settings.png";
