@@ -23,12 +23,12 @@ class DotBoxVerticalLineWidget extends StatelessWidget {
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.black;
-        borderColor = Colors.black;
-        borderWidth = 2;
+        borderColor = AppColors.lightColor;
+        borderWidth = 1.25;
       case 2:
         imageColor = AppColors.black;
-        borderColor = Colors.black;
-        borderWidth = 2;
+        borderColor = AppColors.lightColor;
+        borderWidth = 1.25;
         break;
       default:
         break;
@@ -42,7 +42,7 @@ class DotBoxVerticalLineWidget extends StatelessWidget {
         height: 45,
         margin: AppSpacings.s2All,
         decoration: BoxDecoration(
-          color: imageColor ?? AppColors.transparent,
+          color: imageColor ?? AppColors.lightColor,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: borderColor ?? Colors.black,

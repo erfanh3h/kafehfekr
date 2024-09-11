@@ -62,21 +62,25 @@ class YatzyButton extends StatelessWidget {
       child: Container(
         height: double.maxFinite,
         decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.white,
-            width: .5,
-          ),
+          border: myGameId == pieceData.gamerId
+              ? Border.all(
+                  color: Colors.white,
+                  width: .75,
+                )
+              : null,
           borderRadius: BorderRadius.circular(8),
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Colors.white24,
-              (color ?? Colors.white).withOpacity(.25),
-              (color ?? Colors.white).withOpacity(.75),
-              (color ?? Colors.white)
-            ],
-          ),
+          gradient: myGameId == pieceData.gamerId
+              ? LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  colors: [
+                    Colors.white24,
+                    (color ?? Colors.white).withOpacity(.25),
+                    (color ?? Colors.white).withOpacity(.75),
+                    (color ?? Colors.white)
+                  ],
+                )
+              : null,
         ),
         child: Center(
           child: Text(

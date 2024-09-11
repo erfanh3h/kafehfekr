@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:just_audio/just_audio.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Resources/app_musics.dart';
@@ -121,7 +123,7 @@ class SoundPlayerComponent extends BaseController {
   }
 
   Future startPlayMusic({bool isGame = false}) async {
-    if (!letPlayMusic.value) {
+    if (!letPlayMusic.value || Platform.isWindows) {
       return;
     }
     List<AudioSource> musicList = [];

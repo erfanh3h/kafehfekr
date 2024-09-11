@@ -11,5 +11,7 @@ class AppMusics {
     '$_baseMusic/game4.mp3',
     '$_baseMusic/game5.mp3',
     '$_baseMusic/game6.mp3',
+    '$_baseMusic/game7.mp3',
+    '$_baseMusic/game8.mp3',
   ];
 }

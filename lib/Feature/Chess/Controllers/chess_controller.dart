@@ -603,19 +603,19 @@ class ChessController extends BaseGameController {
     if (sourceIndex == 60 && targetIndex == 58) {
       movePiece((7, 0), (7, 3), gamerId);
     }
-    if (sourceIndex == 60 && targetIndex == 62) {
+    else if (sourceIndex == 60 && targetIndex == 62) {
       movePiece((7, 7), (7, 5), gamerId);
     }
-    if (sourceIndex == 4 && targetIndex == 6) {
+    else if (sourceIndex == 4 && targetIndex == 6) {
       movePiece((0, 7), (0, 5), gamerId);
     }
-    if (sourceIndex == 4 && targetIndex == 2) {
+    else if (sourceIndex == 4 && targetIndex == 2) {
       movePiece((0, 0), (0, 3), gamerId);
     }
     if (gamerId == 1 && sourcePosition == king1Position) {
       king1Position = targetPosition;
     }
-    if (gamerId == 2 && sourcePosition == king2Position) {
+    else if (gamerId == 2 && sourcePosition == king2Position) {
       king2Position = targetPosition;
     }
     return true;

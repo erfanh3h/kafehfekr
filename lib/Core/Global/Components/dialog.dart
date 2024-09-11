@@ -86,6 +86,7 @@ class DialogComponent {
     String icon,
     Color iconColor, {
     bool letBackPage = true,
+    double fontSize = 22,
   }) {
     Get.dialog(
       barrierDismissible: false,
@@ -126,13 +127,13 @@ class DialogComponent {
                     child: Text(
                       message,
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: fontSize,
                         foreground: Paint()
                           ..strokeWidth = 1.25
                           ..color = Colors.black
                           ..style = PaintingStyle.stroke,
                       ),
-                      maxLines: 2,
+                      // maxLines: 3,
                     ),
                   ),
                   Image.asset(

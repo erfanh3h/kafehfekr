@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 
 class UpdateController extends BaseController {
-  
-  onTap(){}
+  onTap() {
+    exit(0);
+  }
 }

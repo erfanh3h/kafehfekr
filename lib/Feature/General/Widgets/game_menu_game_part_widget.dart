@@ -25,7 +25,7 @@ class GameMenuGamePartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final gameConvertor = GameTypeConvertor(gameType: game);
     return Container(
-      margin: AppSpacings.s20All,
+      margin: AppSpacings.s20Vertical,
       padding: AppSpacings.s10All,
       // color: Color.fromRGBO(200, index * 10, index * 10, 1),
       decoration: BoxDecoration(
@@ -82,17 +82,21 @@ class GameMenuGamePartWidget extends StatelessWidget {
           Expanded(
             child: FadeInUp(
               delay: const Duration(milliseconds: 400),
-              child: Text(
-                gameConvertor.toGameNarrative(),
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontFamily: FontFamilies.dastnevis,
-                  color: AppColors.lightColor,
-                  height: 1.75,
-                ),
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 8,
+              child: ListView(
+                children: [
+                  Text(
+                    gameConvertor.toGameNarrative(),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontFamily: FontFamilies.dastnevis,
+                      color: AppColors.lightColor,
+                      height: 1.75,
+                    ),
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 25,
+                  ),
+                ],
               ),
             ),
           ),

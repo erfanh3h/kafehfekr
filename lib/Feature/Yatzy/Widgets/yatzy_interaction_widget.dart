@@ -129,14 +129,9 @@ class ButtonWidget extends StatelessWidget {
               if (remainingCount != null)
                 Container(
                   margin: AppSpacings.s10r,
-                  padding: AppSpacings.s10All,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white),
-                  ),
                   child: Center(
-                    child: Text(
-                      remainingCount.toString(),
+                    child: Text(  
+                      '(${remainingCount.toString()})',
                       style: const TextStyle(
                         fontSize: 17,
                         color: Colors.white,

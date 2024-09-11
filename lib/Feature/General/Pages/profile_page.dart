@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -18,7 +21,9 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<GlobalController>();
-    controller.fetchMyHistoryData();
+    if (controller.myHistoryData.value == null) {
+      controller.fetchMyHistoryData();
+    }
     return Obx(
       () => controller.isLoadingHistory.value
           ? const Center(
@@ -127,6 +132,14 @@ class ProfilePage extends StatelessWidget {
                       })
                     ],
                   ),
+                ),
+                const SizedBox(height: 40),
+                GlobalButtonWidget(
+                  onTap: () {
+                    exit(0);
+                  },
+                  text: AppTexts.exit.tr,
+                  color: AppColors.redWarmColor,
                 )
               ],
             ),

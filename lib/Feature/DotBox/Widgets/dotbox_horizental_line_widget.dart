@@ -22,12 +22,12 @@ class DotBoxHorizentalLineWidget extends StatelessWidget {
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.black;
-        borderColor = Colors.black;
-        borderWidth = 2;
+        borderColor = AppColors.lightColor;
+        borderWidth = 1.25;
       case 2:
         imageColor = AppColors.black;
-        borderColor = Colors.black;
-        borderWidth = 2;
+        borderColor = AppColors.lightColor;
+        borderWidth = 1.25;
         break;
       default:
         break;
@@ -40,7 +40,7 @@ class DotBoxHorizentalLineWidget extends StatelessWidget {
         width: 40,
         height: 5,
         decoration: BoxDecoration(
-          color: imageColor ?? AppColors.transparent,
+          color: imageColor ?? AppColors.lightColor,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: borderColor ?? Colors.black,

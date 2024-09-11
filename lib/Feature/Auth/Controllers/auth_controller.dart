@@ -71,15 +71,17 @@ class AuthController extends BaseController {
     if (result.resultData != null) {
       Get.find<GlobalController>().fetchUserData();
       Get.offAllNamed(AppRoutes.main);
-      DialogComponent().showIconicDialog(
-        AppTexts.library.tr,
-        AppTexts.checkLibrary.tr,
-        GeneralIcons.info,
-        AppColors.blueWarmColor,
-        letBackPage: false,
-      );
+
       Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
       Future.delayed(const Duration(seconds: 1)).then((_) {
+        DialogComponent().showIconicDialog(
+          AppTexts.library.tr,
+          AppTexts.checkLibrary.tr,
+          GeneralIcons.info,
+          AppColors.blueWarmColor,
+          letBackPage: false,
+          fontSize: 18,
+        );
         Get.find<GlobalController>().changePage(4);
       });
     }
