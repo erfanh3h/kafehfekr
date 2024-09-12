@@ -46,9 +46,6 @@ class UserHistoryModel {
   });
 
   factory UserHistoryModel.fromJson(Map data) {
-    int winRank = 0;
-    int loseRank = 0;
-    int drawRank = 0;
     final (int?, int?, int?) rankTicTacToe =
         (data['tictactoe_win'], data['tictactoe_draw'], data['tictactoe_lose']);
     final (int?, int?, int?) rankRPC =
@@ -87,61 +84,13 @@ class UserHistoryModel {
       data['backgammon_draw'],
       data['backgammon_lose']
     );
-    winRank = (rankTicTacToe.$1 ?? 0) +
-        (rankRPC.$1 ?? 0) +
-        (rankDotBox.$1 ?? 0) +
-        (rankTen.$1 ?? 0) +
-        (rankMSweeper.$1 ?? 0) +
-        (rankMNumbers.$1 ?? 0) +
-        (rankYatzy.$1 ?? 0) +
-        (rankFourInRow.$1 ?? 0) +
-        (rankSudoku.$1 ?? 0) +
-        (rankBattleShip.$1 ?? 0) +
-        (rankBoxFour.$1 ?? 0) +
-        (rankChess.$1 ?? 0) +
-        (rankCheckers.$1 ?? 0) +
-        (rankOthello.$1 ?? 0) +
-        (rankMill.$1 ?? 0) +
-        (rankBackGammon.$1 ?? 0);
-    drawRank = (rankTicTacToe.$2 ?? 0) +
-        (rankRPC.$2 ?? 0) +
-        (rankDotBox.$2 ?? 0) +
-        (rankTen.$2 ?? 0) +
-        (rankMSweeper.$2 ?? 0) +
-        (rankMNumbers.$2 ?? 0) +
-        (rankYatzy.$2 ?? 0) +
-        (rankFourInRow.$2 ?? 0) +
-        (rankSudoku.$2 ?? 0) +
-        (rankBattleShip.$2 ?? 0) +
-        (rankBoxFour.$2 ?? 0) +
-        (rankChess.$2 ?? 0) +
-        (rankCheckers.$2 ?? 0) +
-        (rankOthello.$2 ?? 0) +
-        (rankMill.$2 ?? 0) +
-        (rankBackGammon.$2 ?? 0);
-    loseRank = (rankTicTacToe.$3 ?? 0) +
-        (rankRPC.$3 ?? 0) +
-        (rankDotBox.$3 ?? 0) +
-        (rankTen.$3 ?? 0) +
-        (rankMSweeper.$3 ?? 0) +
-        (rankMNumbers.$3 ?? 0) +
-        (rankYatzy.$3 ?? 0) +
-        (rankFourInRow.$3 ?? 0) +
-        (rankSudoku.$3 ?? 0) +
-        (rankBattleShip.$3 ?? 0) +
-        (rankBoxFour.$3 ?? 0) +
-        (rankChess.$3 ?? 0) +
-        (rankCheckers.$3 ?? 0) +
-        (rankOthello.$3 ?? 0) +
-        (rankMill.$3 ?? 0) +
-        (rankBackGammon.$3 ?? 0);
     return UserHistoryModel(
       winNormal: data['win_normal'],
       loseNormal: data['lose_normal'],
       drawNormal: data['draw_normal'],
-      winRank: winRank,
-      loseRank: loseRank,
-      drawRank: drawRank,
+      winRank: data['win_rank'],
+      loseRank: data['lose_rank'],
+      drawRank: data['draw_rank'],
       rankTicTacToe: rankTicTacToe,
       rankRPC: rankRPC,
       rankDotBox: rankDotBox,

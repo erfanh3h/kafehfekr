@@ -17,7 +17,7 @@ class TextNumberWidget extends StatelessWidget {
     return Card(
       color: AppColors.lightColor,
       child: Padding(
-        padding: AppSpacings.s15All,
+        padding: AppSpacings.s10All,
         child: Column(
           children: [
             Text(
@@ -27,7 +27,7 @@ class TextNumberWidget extends StatelessWidget {
                 color: AppColors.darkColor,
               ),
             ),
-            const SizedBox(height: 3),
+            const SizedBox(height: 2),
             Text(
               number.toString(),
               style: const TextStyle(

@@ -36,6 +36,7 @@ class GeneralIcons {
   static const upset = "$generalIconsPath/upset.png";
   static const win = "$generalIconsPath/win.png";
   static const star = "$generalIconsPath/star.png";
+  static const exit = "$generalIconsPath/exit.png";
   static const soundOn = "$generalIconsPath/soundOn.png";
   static const soundOff = "$generalIconsPath/soundOff.png";
   static const enableReaction = "$generalIconsPath/enableReaction.png";

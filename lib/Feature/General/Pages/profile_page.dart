@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_activity_button.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -38,30 +38,68 @@ class ProfilePage extends StatelessWidget {
               children: [
                 const SizedBox(height: 10),
                 FadeInDown(
-                  child: InkWell(
-                    onTap: () {
-                      Get.bottomSheet(
-                        AvatarsSelectionBox(
-                          onTap: controller.changeProfile,
+                  child: Padding(
+                    padding: AppSpacings.s20Horizental,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GetBuilder<SoundPlayerComponent>(builder: (cont) {
+                          return Obx(
+                            () => SizedBox(
+                              width: 45.w,
+                              height: 45.w,
+                              child: GlobalActivityButton(
+                                icon: cont.letPlayMusic.value
+                                    ? GeneralIcons.soundOn
+                                    : GeneralIcons.soundOff,
+                                onTap: () => cont.changeLetPlayerSound(
+                                    !cont.letPlayMusic.value,
+                                    isGame: false),
+                                color: cont.letPlayMusic.value
+                                    ? AppColors.buttonGreen
+                                    : AppColors.buttonRed,
+                              ),
+                            ),
+                          );
+                        }),
+                        InkWell(
+                          onTap: () {
+                            Get.bottomSheet(
+                              AvatarsSelectionBox(
+                                onTap: controller.changeProfile,
+                              ),
+                              backgroundColor: AppColors.darkColor,
+                            );
+                          },
+                          child: Container(
+                            width: 100.w,
+                            height: 100.w,
+                            padding: AppSpacings.s5All,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                    color: AppColors.goldenColor, width: 3)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(150),
+                              child: Image.asset(
+                                AvatarIcons().generalAvatarPath(
+                                    controller.myData.value!.image),
+                              ),
+                            ),
+                          ),
                         ),
-                        backgroundColor: AppColors.darkColor,
-                      );
-                    },
-                    child: Container(
-                      width: 100.w,
-                      height: 100.w,
-                      padding: AppSpacings.s5All,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              color: AppColors.goldenColor, width: 3)),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(150),
-                        child: Image.asset(
-                          AvatarIcons().generalAvatarPath(
-                              controller.myData.value!.image),
+                        SizedBox(
+                          width: 45.w,
+                          height: 45.w,
+                          child: GlobalActivityButton(
+                            icon: GeneralIcons.exit,
+                            color: AppColors.buttonRed,
+                            onTap: () {
+                              exit(0);
+                            },
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ),
@@ -77,28 +115,35 @@ class ProfilePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
                 FadeIn(
-                  delay: const Duration(milliseconds: 200),
-                  child: GameHistoryRowWidget(
-                    data: (
-                      controller.myHistoryData.value!.winNormal,
-                      controller.myHistoryData.value!.drawNormal,
-                      controller.myHistoryData.value!.loseNormal,
-                    ),
-                    name: AppTexts.normalGame.tr,
+                  delay: const Duration(milliseconds: 250),
+                  child: Column(
+                    children: [
+                      GameHistoryRowWidget(
+                        data: (
+                          controller.myHistoryData.value!.winNormal,
+                          controller.myHistoryData.value!.drawNormal,
+                          controller.myHistoryData.value!.loseNormal,
+                        ),
+                        name: AppTexts.normalGame.tr,
+                      ),
+                      GameHistoryRowWidget(
+                        data: (
+                          controller.myHistoryData.value!.winRank,
+                          controller.myHistoryData.value!.drawRank,
+                          controller.myHistoryData.value!.loseRank,
+                        ),
+                        name: AppTexts.rankGame.tr,
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  height: 30,
-                  child: Divider(
-                    color: AppColors.lightColor,
-                  ),
-                ),
+                const SizedBox(height: 15),
                 Padding(
                   padding: AppSpacings.s20Horizental,
                   child: Container(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      AppTexts.rankGame.tr,
+                      AppTexts.rankHistoryDetails.tr,
                       style: const TextStyle(
                         color: AppColors.lightColor,
                         fontSize: 30,
@@ -108,7 +153,6 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 5),
                 if (controller.myHistoryData.value != null)
                   Expanded(
                     child: FadeIn(
@@ -118,47 +162,6 @@ class ProfilePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                const SizedBox(
-                  height: 5,
-                  child: Divider(
-                    color: AppColors.lightColor,
-                  ),
-                ),
-                ElasticIn(
-                  child: Padding(
-                    padding: AppSpacings.s20Horizental,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'پخش آهنگ',
-                          style: TextStyle(
-                            color: AppColors.lightColor,
-                            fontSize: 20,
-                          ),
-                        ),
-                        const Spacer(flex: 1),
-                        GetBuilder<SoundPlayerComponent>(builder: (cont) {
-                          return Obx(
-                            () => Switch(
-                              value: cont.letPlayMusic.value,
-                              onChanged: (value) => cont
-                                  .changeLetPlayerSound(value, isGame: false),
-                            ),
-                          );
-                        }),
-                        const Spacer(flex: 5),
-                        GlobalButtonWidget(
-                          onTap: () {
-                            exit(0);
-                          },
-                          text: AppTexts.exit.tr,
-                          color: AppColors.redWarmColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ],
             ),
     );

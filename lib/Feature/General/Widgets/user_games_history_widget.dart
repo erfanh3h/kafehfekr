@@ -23,6 +23,18 @@ class UserGamesHistoryWidget extends StatelessWidget {
             name: AppTexts.tictactoe.tr,
           ),
           GameHistoryRowWidget(
+            data: data.rankRPC,
+            name: AppTexts.rpc.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankDotBox,
+            name: AppTexts.dotbox.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankTen,
+            name: AppTexts.ten.tr,
+          ),
+          GameHistoryRowWidget(
             data: data.rankMSweeper,
             name: AppTexts.msweeper.tr,
           ),
@@ -31,8 +43,44 @@ class UserGamesHistoryWidget extends StatelessWidget {
             name: AppTexts.mnumbers.tr,
           ),
           GameHistoryRowWidget(
+            data: data.rankYatzy,
+            name: AppTexts.yatzy.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankFourInRow,
+            name: AppTexts.fourInRow.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankSudoku,
+            name: AppTexts.sudoku.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankBattleShip,
+            name: AppTexts.battleship.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankBoxFour,
+            name: AppTexts.boxFour.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankChess,
+            name: AppTexts.chess.tr,
+          ),
+          GameHistoryRowWidget(
             data: data.rankCheckers,
             name: AppTexts.checkers.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankOthello,
+            name: AppTexts.othello.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankMill,
+            name: AppTexts.mill.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankBackGammon,
+            name: AppTexts.backGammon.tr,
           ),
         ],
       ),

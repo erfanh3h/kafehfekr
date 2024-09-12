@@ -7,12 +7,12 @@ class GlobalActivityButton extends StatelessWidget {
     super.key,
     required this.icon,
     this.onTap,
-    // this.color,
+    this.color,
   });
 
   final VoidCallback? onTap;
   final String icon;
-  // final Color? color;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -27,7 +27,7 @@ class GlobalActivityButton extends StatelessWidget {
           icon,
           // width: 45,
           // height: 45,
-          color: AppColors.lightColor,
+          color: color ?? AppColors.lightColor,
         ),
       ),
     );

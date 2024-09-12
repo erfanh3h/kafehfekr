@@ -33,6 +33,7 @@ class AppTranslations extends Translations {
           AppTexts.enterPhoneCorrectly: 'شماره را بدرستی وارد کنید!',
           AppTexts.normalGame: 'دوستانه',
           AppTexts.rankGame: 'رقابتی',
+          AppTexts.rankHistoryDetails: 'جزئیات بازی های رقابتی',
           AppTexts.surrender: 'تسلیم شدن',
           AppTexts.checkLibrary:
               'یادت نره سر به کتابخونه بزنی تا بتونی راحت تر حریفاتو ببری',

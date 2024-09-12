@@ -24,11 +24,12 @@ class GameHistoryRowWidget extends StatelessWidget {
         (winNumber + drawNumber + loseNumber) != 0 ? true : false;
     return mustShowBox
         ? Container(
-            padding: AppSpacings.s20Horizental10Vertical,
-            margin: AppSpacings.s10Horizental5Vertical,
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.lightColor, width: .7),
-              borderRadius: BorderRadius.circular(8),
+            margin: AppSpacings.s20Horizental5Vertical,
+            padding: AppSpacings.s5Bottom,
+            decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: AppColors.lightColor),
+              ),
             ),
             child: Row(
               children: [
@@ -41,6 +42,8 @@ class GameHistoryRowWidget extends StatelessWidget {
                       fontFamily: FontFamilies.dastnevis,
                     ),
                     textAlign: TextAlign.right,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Expanded(
