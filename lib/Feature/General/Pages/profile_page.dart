@@ -13,6 +13,8 @@ import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/General/Widgets/avatars_selection_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Feature/General/Widgets/game_history_row_widget.dart';
+import 'package:kafehfekr/Feature/General/Widgets/user_games_history_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -63,7 +65,7 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
                 FadeIn(
                   child: Text(
                     controller.myData.value!.name,
@@ -73,116 +75,92 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 40),
-                FadeInUp(
+                const SizedBox(height: 15),
+                FadeIn(
+                  delay: const Duration(milliseconds: 200),
+                  child: GameHistoryRowWidget(
+                    data: (
+                      controller.myHistoryData.value!.winNormal,
+                      controller.myHistoryData.value!.drawNormal,
+                      controller.myHistoryData.value!.loseNormal,
+                    ),
+                    name: AppTexts.normalGame.tr,
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                  child: Divider(
+                    color: AppColors.lightColor,
+                  ),
+                ),
+                Padding(
+                  padding: AppSpacings.s20Horizental,
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      AppTexts.rankGame.tr,
+                      style: const TextStyle(
+                        color: AppColors.lightColor,
+                        fontSize: 30,
+                        fontFamily: FontFamilies.dastnevis,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                if (controller.myHistoryData.value != null)
+                  Expanded(
+                    child: FadeIn(
+                      delay: const Duration(milliseconds: 400),
+                      child: UserGamesHistoryWidget(
+                        data: controller.myHistoryData.value!,
+                      ),
+                    ),
+                  ),
+                const SizedBox(
+                  height: 5,
+                  child: Divider(
+                    color: AppColors.lightColor,
+                  ),
+                ),
+                ElasticIn(
                   child: Padding(
-                    padding: AppSpacings.s10Horizental,
+                    padding: AppSpacings.s20Horizental,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Spacer(),
-                        Expanded(
-                          flex: 3,
-                          child: TextNumberWidget(
-                              text: AppTexts.win.tr,
-                              number:
-                                  controller.myHistoryData.value!.winNormal),
+                        const Text(
+                          'پخش آهنگ',
+                          style: TextStyle(
+                            color: AppColors.lightColor,
+                            fontSize: 20,
+                          ),
                         ),
-                        const Spacer(),
-                        Expanded(
-                          flex: 3,
-                          child: TextNumberWidget(
-                              text: AppTexts.draw.tr,
-                              number:
-                                  controller.myHistoryData.value!.drawNormal),
+                        const Spacer(flex: 1),
+                        GetBuilder<SoundPlayerComponent>(builder: (cont) {
+                          return Obx(
+                            () => Switch(
+                              value: cont.letPlayMusic.value,
+                              onChanged: (value) => cont
+                                  .changeLetPlayerSound(value, isGame: false),
+                            ),
+                          );
+                        }),
+                        const Spacer(flex: 5),
+                        GlobalButtonWidget(
+                          onTap: () {
+                            exit(0);
+                          },
+                          text: AppTexts.exit.tr,
+                          color: AppColors.redWarmColor,
                         ),
-                        const Spacer(),
-                        Expanded(
-                          flex: 3,
-                          child: TextNumberWidget(
-                              text: AppTexts.lose.tr,
-                              number:
-                                  controller.myHistoryData.value!.loseNormal),
-                        ),
-                        const Spacer(),
                       ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 40),
-                ElasticIn(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Text(
-                        'پخش آهنگ',
-                        style: TextStyle(
-                          color: AppColors.lightColor,
-                          fontSize: 20,
-                        ),
-                      ),
-                      GetBuilder<SoundPlayerComponent>(builder: (cont) {
-                        return Obx(
-                          () => Switch(
-                            value: cont.letPlayMusic.value,
-                            onChanged: (value) =>
-                                cont.changeLetPlayerSound(value, isGame: false),
-                          ),
-                        );
-                      })
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 40),
-                GlobalButtonWidget(
-                  onTap: () {
-                    exit(0);
-                  },
-                  text: AppTexts.exit.tr,
-                  color: AppColors.redWarmColor,
-                )
               ],
             ),
-    );
-  }
-}
-
-class TextNumberWidget extends StatelessWidget {
-  const TextNumberWidget({
-    super.key,
-    required this.text,
-    required this.number,
-  });
-
-  final String text;
-  final int number;
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: AppColors.lightColor,
-      child: Padding(
-        padding: AppSpacings.s15All,
-        child: Column(
-          children: [
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 15,
-                color: AppColors.darkColor,
-              ),
-            ),
-            const SizedBox(height: 3),
-            Text(
-              number.toString(),
-              style: const TextStyle(
-                fontSize: 18,
-                color: AppColors.darkColor,
-                fontFamily: FontFamilies.dastnevis,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

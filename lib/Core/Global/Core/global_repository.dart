@@ -4,7 +4,7 @@ import 'package:kafehfekr/Core/Global/Models/config_model.dart';
 import 'package:kafehfekr/Core/Network/network_exceptions.dart';
 import 'package:kafehfekr/Core/Network/rest_client.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
-import 'package:kafehfekr/Feature/Auth/Models/user_history_model.dart';
+import 'package:kafehfekr/Feature/General/Models/user_history_model.dart';
 import 'package:kafehfekr/Feature/Auth/Models/user_model.dart';
 
 abstract class GlobalRepository {

@@ -9,7 +9,7 @@ import 'package:kafehfekr/Core/Network/queue_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
-import 'package:kafehfekr/Feature/Auth/Models/user_history_model.dart';
+import 'package:kafehfekr/Feature/General/Models/user_history_model.dart';
 import 'package:kafehfekr/Feature/Auth/Models/user_model.dart';
 import 'package:refreshed/refreshed.dart';
 

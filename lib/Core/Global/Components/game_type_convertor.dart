@@ -188,7 +188,7 @@ class GameTypeConvertor {
         result = [15, 16, 8, 3, 2];
         break;
       case GameDifficulties.Hard:
-        result = [20, 25, 12, 4, 3];
+        result = [20, 24, 12, 4, 3];
         break;
       default:
     }
