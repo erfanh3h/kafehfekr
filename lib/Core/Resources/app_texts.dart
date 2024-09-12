@@ -40,6 +40,7 @@ abstract class AppTexts {
   static const ranking = "ranking";
   static const gameMenu = "gameMenu";
   static const clan = "clan";
+  static const store = "store";
   static const settings = "settings";
   static const library = "library";
   static const checkLibrary = "checkLibrary";

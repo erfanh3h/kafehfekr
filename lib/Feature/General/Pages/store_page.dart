@@ -4,8 +4,8 @@ import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
 
-class ClanPage extends StatelessWidget {
-  const ClanPage({super.key});
+class StorePage extends StatelessWidget {
+  const StorePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ClanPage extends StatelessWidget {
         children: [
           const SizedBox(height: 10),
           Text(
-            AppTexts.clan.tr,
+            AppTexts.store.tr,
             style: const TextStyle(
               fontSize: 25,
               color: AppColors.lightColor,

@@ -133,14 +133,14 @@ List<String> bottomNavigationTexts = [
   AppTexts.profile,
   AppTexts.ranking,
   AppTexts.gameMenu,
-  AppTexts.clan,
   AppTexts.library,
+  AppTexts.store,
 ];
 
 List<IconData> bottomNavigationIcons = [
   Icons.person_4_rounded,
   CupertinoIcons.list_dash,
   CupertinoIcons.game_controller_solid,
-  CupertinoIcons.person_3_fill,
   CupertinoIcons.book_solid,
+  CupertinoIcons.shopping_cart,
 ];

@@ -69,20 +69,20 @@ class AuthController extends BaseController {
       username: usernameController.text,
     );
     if (result.resultData != null) {
-      Get.find<GlobalController>().fetchUserData();
-      Get.offAllNamed(AppRoutes.main);
-
-      Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
-      Future.delayed(const Duration(seconds: 1)).then((_) {
-        DialogComponent().showIconicDialog(
-          AppTexts.library.tr,
-          AppTexts.checkLibrary.tr,
-          GeneralIcons.info,
-          AppColors.blueWarmColor,
-          letBackPage: false,
-          fontSize: 18,
-        );
-        Get.find<GlobalController>().changePage(4);
+      Get.find<GlobalController>().fetchUserData().then((_) {
+        Get.offAllNamed(AppRoutes.main);
+        Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
+        Future.delayed(const Duration(seconds: 1)).then((_) {
+          DialogComponent().showIconicDialog(
+            AppTexts.library.tr,
+            AppTexts.checkLibrary.tr,
+            GeneralIcons.info,
+            AppColors.blueWarmColor,
+            letBackPage: false,
+            fontSize: 18,
+          );
+          Get.find<GlobalController>().changePage(3);
+        });
       });
     }
     isSendingData.value = false;

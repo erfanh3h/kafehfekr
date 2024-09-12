@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
@@ -183,5 +184,30 @@ class FunctionsLibraryClass {
       result = info.userAgent!;
     }
     return result;
+  }
+
+  static int expToLevel(int exp) {
+    int n = 1;
+    bool resultReached = false;
+    while (!resultReached) {
+      if (pow(n, 2) + (40 * n) - 20 <= exp) {
+        n += 1;
+      } else {
+        resultReached = true;
+      }
+    }
+    return n;
+  }
+
+  static String expToLabelExp(int exp) {
+    int n = 1;
+    while (true) {
+      if (pow(n, 2) + (40 * n) - 20 <= exp) {
+        n += 1;
+      } else {
+        int nextValue = (pow(n, 2) + (40 * n) - 20).toInt();
+        return "$exp / $nextValue";
+      }
+    }
   }
 }
