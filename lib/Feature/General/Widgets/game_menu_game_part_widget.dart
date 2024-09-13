@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
@@ -26,21 +25,42 @@ class GameMenuGamePartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final gameConvertor = GameTypeConvertor(gameType: game);
     final List<int> gameRewards = gameConvertor.toGameRewards();
+    final GameDifficulties difficulty =
+        GameTypeConvertor(gameType: game).toGameDifficallty();
+    Color difficultyFontColor;
+    final Color difficultyColor;
+    switch (difficulty) {
+      case GameDifficulties.Easy:
+        difficultyColor = AppColors.darkGreen;
+        difficultyFontColor = AppColors.lightColor;
+        break;
+      case GameDifficulties.Normal:
+        difficultyColor = AppColors.yellow;
+        difficultyFontColor = AppColors.darkColor;
+        break;
+      case GameDifficulties.Hard:
+        difficultyColor = AppColors.buttonRed;
+        difficultyFontColor = AppColors.lightColor;
+        break;
+      default:
+        difficultyColor = AppColors.green;
+        difficultyFontColor = AppColors.lightColor;
+    }
     return Container(
       margin: AppSpacings.s20Vertical,
       padding: AppSpacings.s10All,
       // color: Color.fromRGBO(200, index * 10, index * 10, 1),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
           colors: [
-            Color.fromARGB(1, 212, 133, 126),
-            AppColors.darkColor,
+            const Color.fromARGB(1, 212, 133, 126),
+            difficultyColor.withOpacity(.5),
           ],
         ),
         border: Border.all(
-          color: AppColors.lightColor,
+          color: difficultyColor,
           width: 3,
         ),
         borderRadius: BorderRadius.circular(10),
@@ -98,7 +118,7 @@ class GameMenuGamePartWidget extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
-                const SizedBox(width: 3),
+                const SizedBox(width: 15),
                 Image.asset(
                   GeneralIcons.exp,
                   height: 30,
@@ -114,7 +134,6 @@ class GameMenuGamePartWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                DifficultyBox(game: game),
               ],
             ),
           ),
@@ -151,8 +170,7 @@ class GameMenuGamePartWidget extends StatelessWidget {
                         onTap(game.name, "Normal");
                       },
                       text: AppTexts.normalGame.tr,
-                      color: AppColors.darkGreen,
-                      fontColor: AppColors.lightColor,
+                      color: AppColors.blueWarmColor,
                     ),
                   ),
                 ),
@@ -165,72 +183,13 @@ class GameMenuGamePartWidget extends StatelessWidget {
                         onTap(game.name, "Rank");
                       },
                       text: '${AppTexts.rankGame.tr} (${gameRewards[0]})',
-                      color: AppColors.redWarmColor,
-                      fontColor: AppColors.lightColor,
+                      color: difficultyColor,
+                      fontColor: difficultyFontColor,
                     ),
                   ),
                 ),
               ],
             )
-        ],
-      ),
-    );
-  }
-}
-
-class DifficultyBox extends StatelessWidget {
-  const DifficultyBox({
-    super.key,
-    required this.game,
-  });
-
-  final GameTypes game;
-
-  @override
-  Widget build(BuildContext context) {
-    final GameDifficulties difficulty =
-        GameTypeConvertor(gameType: game).toGameDifficallty();
-    final Color difficultyColor;
-    switch (difficulty) {
-      case GameDifficulties.Easy:
-        difficultyColor = AppColors.green;
-        break;
-      case GameDifficulties.Normal:
-        difficultyColor = AppColors.yellow;
-        break;
-      case GameDifficulties.Hard:
-        difficultyColor = AppColors.buttonRed;
-        break;
-      default:
-        difficultyColor = AppColors.green;
-    }
-    return InkWell(
-      onTap: () {
-        DialogComponent().showToast(label: difficulty.name.tr);
-      },
-      child: Row(
-        children: [
-          Image.asset(
-            GeneralIcons.power,
-            color: difficultyColor,
-            width: 30,
-            height: 30,
-          ),
-          // Text(
-          //   '${AppTexts.level.tr}:',
-          //   style: const TextStyle(
-          //     fontSize: 12,
-          //     color: AppColors.lightColor,
-          //   ),
-          // ),
-          // const SizedBox(width: 5),
-          // Container(
-          //   padding: AppSpacings.s10All,
-          //   decoration: BoxDecoration(
-          //       shape: BoxShape.circle,
-          //       color: difficultyColor,
-          //       border: Border.all(color: Colors.white)),
-          // )
         ],
       ),
     );

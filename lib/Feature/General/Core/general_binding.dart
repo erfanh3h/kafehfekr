@@ -1,3 +1,4 @@
+import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
 import 'package:kafehfekr/Feature/General/Controllers/maintence_controlle.dart';
 import 'package:kafehfekr/Feature/General/Controllers/ranking_controller.dart';
 import 'package:kafehfekr/Feature/General/Controllers/update_controller.dart';
@@ -11,6 +12,10 @@ class GeneralBinding implements BindingsInterface {
             fenix: true),
         Get.lazyPut<UpdateController>(
           () => UpdateController(),
+          fenix: true,
+        ),
+        Get.lazyPut<GameMenuController>(
+          () => GameMenuController(),
           fenix: true,
         ),
         Get.lazyPut<MaintenceController>(

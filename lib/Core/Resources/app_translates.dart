@@ -57,7 +57,7 @@ class AppTranslations extends Translations {
           AppTexts.outOfThisNumber: 'از این عدد دیگه نداری!',
           AppTexts.error: 'خطا',
           AppTexts.playGame: 'بازی کن',
-          AppTexts.profile: 'حساب کاربری',
+          AppTexts.profile: 'پروفایل',
           AppTexts.ranking: 'رتبه بندی',
           AppTexts.gameMenu: 'بازی',
           AppTexts.clan: 'اتحاد',

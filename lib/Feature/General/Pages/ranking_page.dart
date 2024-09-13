@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -20,42 +20,73 @@ class RankingPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 10),
-            Text(
-              AppTexts.ranking.tr,
-              style: const TextStyle(
-                fontSize: 25,
-                color: AppColors.lightColor,
+            Center(
+              child: Text(
+                AppTexts.ranking.tr,
+                style: const TextStyle(
+                  fontSize: 25,
+                  color: AppColors.lightColor,
+                ),
               ),
             ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(
-                  child: GlobalButtonWidget(
-                    onTap: () => controller.changeTab(0),
-                    text: AppTexts.scoreBase.tr,
-                    color: AppColors.lightColor.withOpacity(
-                        controller.selectedTab.value == 0 ? .75 : .25),
-                    fontColor: controller.selectedTab.value == 0
-                        ? AppColors.darkColor
-                        : AppColors.lightColor,
-                  ),
+            const SizedBox(height: 15),
+            Center(
+              child: Container(
+                padding: AppSpacings.s5All,
+                width: 200.w,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.lightColor),
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                const SizedBox(width: 4),
-                Expanded(
-                  child: GlobalButtonWidget(
-                    onTap: () => controller.changeTab(1),
-                    text: AppTexts.winBase.tr,
-                    color: AppColors.lightColor.withOpacity(
-                        controller.selectedTab.value == 1 ? .75 : .25),
-                    fontColor: controller.selectedTab.value == 1
-                        ? AppColors.darkColor
-                        : AppColors.lightColor,
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: controller.selectedTab.value == 0
+                              ? AppColors.lightColor
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextButton(
+                          onPressed: () => controller.changeTab(0),
+                          child: Text(
+                            AppTexts.scoreBase.tr,
+                            style: TextStyle(
+                              color: controller.selectedTab.value == 0
+                                  ? AppColors.darkColor
+                                  : AppColors.lightColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: controller.selectedTab.value == 1
+                              ? AppColors.lightColor
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextButton(
+                          onPressed: () => controller.changeTab(1),
+                          child: Text(
+                            AppTexts.winBase.tr,
+                            style: TextStyle(
+                              color: controller.selectedTab.value == 1
+                                  ? AppColors.darkColor
+                                  : AppColors.lightColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 30),
             controller.selectedTab.value == 0
                 ? Expanded(
                     child: ListView.separated(

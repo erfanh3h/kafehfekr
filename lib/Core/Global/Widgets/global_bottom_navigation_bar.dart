@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_queue_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -71,7 +70,6 @@ class EachButton extends StatelessWidget {
       margin: AppSpacings.s2All,
       child: InkWell(
         onTap: () => onTap(index),
-        onLongPress: () => DialogComponent().showToast(label: text),
         child: Container(
           padding: isSelected ? AppSpacings.s5All : AppSpacings.s5All,
           height: double.maxFinite,
@@ -102,10 +100,26 @@ class EachButton extends StatelessWidget {
               ),
             ),
           ),
-          child: Icon(
-            icon,
-            color: isSelected ? Colors.amber : Colors.white,
-            size: isSelected ? 45 : 30,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  icon,
+                  color: isSelected ? Colors.amber : Colors.white,
+                  size: isSelected ? 45 : 30,
+                ),
+                if (!isSelected)
+                  Text(
+                    text,
+                    style: const TextStyle(
+                      color: AppColors.lightColor,
+                      fontSize: 12,
+                      fontFamily: FontFamilies.dastnevis,
+                    ),
+                  )
+              ],
+            ),
           ),
         ),
       ),
