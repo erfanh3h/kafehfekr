@@ -25,7 +25,83 @@ class LibraryPage extends StatelessWidget {
               color: AppColors.lightColor,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 20),
+          Text(
+            AppTexts.gameType.tr,
+            style: const TextStyle(
+              fontSize: 18,
+              color: AppColors.lightColor,
+            ),
+          ),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              Expanded(
+                child: GlobalButtonWidget(
+                  onTap: () {
+                    Get.bottomSheet(
+                      ListView(
+                        children: [
+                          Padding(
+                            padding: AppSpacings.s20All,
+                            child: Text(
+                              AppTexts.normalGuide.tr,
+                              style: const TextStyle(
+                                color: AppColors.lightColor,
+                                fontSize: 20,
+                                height: 1.75,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      backgroundColor: AppColors.darkColor,
+                    );
+                  },
+                  text: AppTexts.normalGame.tr,
+                  color: Colors.transparent.withOpacity(.5),
+                  fontColor: AppColors.lightColor,
+                ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: GlobalButtonWidget(
+                  onTap: () {
+                    Get.bottomSheet(
+                      ListView(
+                        children: [
+                          Padding(
+                            padding: AppSpacings.s20All,
+                            child: Text(
+                              AppTexts.rankGuide.tr,
+                              style: const TextStyle(
+                                color: AppColors.lightColor,
+                                fontSize: 20,
+                                height: 1.75,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      backgroundColor: AppColors.darkColor,
+                    );
+                  },
+                  text: AppTexts.rankGame.tr,
+                  color: Colors.transparent.withOpacity(.5),
+                  fontColor: AppColors.lightColor,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 30),
+          Text(
+            AppTexts.games.tr,
+            style: const TextStyle(
+              fontSize: 18,
+              color: AppColors.lightColor,
+            ),
+          ),
+          const SizedBox(height: 5),
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

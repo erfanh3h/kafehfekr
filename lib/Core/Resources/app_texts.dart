@@ -41,6 +41,10 @@ abstract class AppTexts {
   static const profile = "profile";
   static const ranking = "ranking";
   static const gameMenu = "gameMenu";
+  static const gameType = "gameType";
+  static const games = "games";
+  static const normalGuide = "normalGuide";
+  static const rankGuide = "rankGuide";
   static const clan = "clan";
   static const store = "store";
   static const settings = "settings";

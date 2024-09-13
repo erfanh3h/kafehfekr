@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
+import 'package:kafehfekr/Feature/General/Widgets/game_circle_dot_widget.dart';
 import 'package:kafehfekr/Feature/General/Widgets/game_menu_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -87,69 +87,6 @@ class GameMenuPage extends StatelessWidget {
           ),
           const SizedBox(height: 5),
         ],
-      ),
-    );
-    // Column(
-    //   mainAxisSize: MainAxisSize.min,
-    //   mainAxisAlignment: MainAxisAlignment.center,
-    //   children: [
-    //     ConstrainedBox(
-    //       constraints: BoxConstraints(maxHeight: Get.width * 5 / 6),
-    //       child: ListView.separated(
-    //         scrollDirection: Axis.horizontal,
-    //         itemBuilder: (ctx, index) => GameMenuGamePartWidget(
-    //           items: gameTypesParts[index],
-    //           onTap: controller.startQueue,
-    //         ),
-    //         separatorBuilder: (ctx, index) => const SizedBox(width: 5),
-    //         itemCount: gameTypesParts.length,
-    //       ),
-    //     ),
-    //   ],
-    // );
-  }
-}
-
-class GameCircleDotWidget extends StatelessWidget {
-  const GameCircleDotWidget({
-    super.key,
-    required this.pageController,
-    required this.i,
-    required this.controller,
-  });
-
-  final PageController pageController;
-  final int i;
-  final GameMenuController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    Color color = controller.getGameColor(i);
-    return Obx(
-      () => InkWell(
-        onTap: () {
-          pageController.animateToPage(
-            i,
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.linear,
-          );
-        },
-        child: Container(
-          padding: controller.currentPage.value == i.toDouble()
-              ? AppSpacings.s8All
-              : AppSpacings.s5All,
-          margin: AppSpacings.s5All,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: controller.currentPage.value == i.toDouble()
-                  ? color
-                  : AppColors.lightColor,
-              border: Border.all(
-                color: controller.currentPage.value != i.toDouble()
-                    ? color
-                    : AppColors.lightColor,
-              )),
-        ),
       ),
     );
   }
