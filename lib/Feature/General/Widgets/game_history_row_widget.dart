@@ -47,17 +47,40 @@ class GameHistoryRowWidget extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: TextNumberWidget(
-                      number: winNumber, text: AppTexts.win.tr),
+                  flex: 3,
+                  child: Card(
+                    color: AppColors.lightColor.withOpacity(.35),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 5),
+                          Expanded(
+                            child: TextNumberWidget(
+                                number: drawNumber, text: AppTexts.draw.tr),
+                          ),
+                          const Padding(
+                            padding: AppSpacings.s10Vertical,
+                            child: VerticalDivider(color: AppColors.lightColor),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: TextNumberWidget(
+                                number: winNumber, text: AppTexts.win.tr),
+                          ),
+                          const Padding(
+                            padding: AppSpacings.s10Vertical,
+                            child: VerticalDivider(color: AppColors.lightColor),
+                          ),
+                          Expanded(
+                            child: TextNumberWidget(
+                                number: loseNumber, text: AppTexts.lose.tr),
+                          ),
+                          const SizedBox(width: 5),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                Expanded(
-                  child: TextNumberWidget(
-                      number: drawNumber, text: AppTexts.draw.tr),
-                ),
-                Expanded(
-                  child: TextNumberWidget(
-                      number: loseNumber, text: AppTexts.lose.tr),
-                )
               ],
             ),
           )

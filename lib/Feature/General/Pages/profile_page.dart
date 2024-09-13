@@ -103,17 +103,19 @@ class ProfilePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 5),
                 FadeIn(
                   child: Text(
                     controller.myData.value!.name,
                     style: const TextStyle(
                       fontSize: 25,
                       color: AppColors.lightColor,
+                      fontFamily: FontFamilies.dastnevis,
+                      letterSpacing: 5,
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 20),
                 FadeIn(
                   delay: const Duration(milliseconds: 250),
                   child: Column(

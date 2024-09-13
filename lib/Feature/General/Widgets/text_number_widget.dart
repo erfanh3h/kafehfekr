@@ -14,30 +14,27 @@ class TextNumberWidget extends StatelessWidget {
   final int number;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: AppColors.lightColor,
-      child: Padding(
-        padding: AppSpacings.s10All,
-        child: Column(
-          children: [
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 15,
-                color: AppColors.darkColor,
-              ),
+    return Padding(
+      padding: AppSpacings.s10All,
+      child: Column(
+        children: [
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 15,
+              color: AppColors.lightColor,
             ),
-            const SizedBox(height: 2),
-            Text(
-              number.toString(),
-              style: const TextStyle(
-                fontSize: 18,
-                color: AppColors.darkColor,
-                fontFamily: FontFamilies.dastnevis,
-              ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            number.toString(),
+            style: const TextStyle(
+              fontSize: 18,
+              color: AppColors.lightColor,
+              fontFamily: FontFamilies.dastnevis,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

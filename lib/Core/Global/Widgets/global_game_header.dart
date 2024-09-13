@@ -25,9 +25,8 @@ class GlobalGameHeader extends StatelessWidget {
             child: Container(
               padding: AppSpacings.s10All,
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.lightColor),
                 borderRadius: BorderRadius.circular(10),
-                color: AppColors.lightColor,
+                color: AppColors.lightColor.withOpacity(.5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,8 +36,9 @@ class GlobalGameHeader extends StatelessWidget {
                       controller.changePage(4);
                     },
                     child: const Icon(
-                      CupertinoIcons.add,
-                      color: AppColors.darkColor,
+                      CupertinoIcons.add_circled_solid,
+                      color: AppColors.darkGreen,
+                      size: 30,
                     ),
                   ),
                   Obx(
@@ -47,7 +47,7 @@ class GlobalGameHeader extends StatelessWidget {
                       style: const TextStyle(
                         fontFamily: FontFamilies.dastnevis,
                         fontSize: 20,
-                        color: AppColors.darkColor,
+                        color: AppColors.lightColor,
                       ),
                     ),
                   ),
@@ -55,7 +55,7 @@ class GlobalGameHeader extends StatelessWidget {
                     GeneralIcons.coin,
                     width: 30,
                     height: 30,
-                    color: AppColors.goldenColor,
+                    color: Colors.amber,
                   ),
                 ],
               ),
@@ -67,9 +67,8 @@ class GlobalGameHeader extends StatelessWidget {
             child: Container(
               padding: AppSpacings.s10All,
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.lightColor),
                 borderRadius: BorderRadius.circular(10),
-                color: AppColors.lightColor,
+                color: AppColors.lightColor.withOpacity(.5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +80,7 @@ class GlobalGameHeader extends StatelessWidget {
                         style: const TextStyle(
                           fontFamily: FontFamilies.dastnevis,
                           fontSize: 20,
-                          color: AppColors.darkColor,
+                          color: AppColors.lightColor,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -91,7 +90,7 @@ class GlobalGameHeader extends StatelessWidget {
                     GeneralIcons.cup,
                     width: 30,
                     height: 30,
-                    color: AppColors.goldenColor,
+                    color: Colors.amber,
                   ),
                 ],
               ),
@@ -113,9 +112,8 @@ class GlobalGameHeader extends StatelessWidget {
             flex: 5,
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.lightColor),
                 borderRadius: BorderRadius.circular(10),
-                color: AppColors.lightColor,
+                color: AppColors.lightColor.withOpacity(.5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,7 +123,7 @@ class GlobalGameHeader extends StatelessWidget {
                     GeneralIcons.exp,
                     width: 30,
                     height: 30,
-                    color: AppColors.goldenColor,
+                    color: Colors.amber,
                   ),
                   const SizedBox(width: 3),
                   Expanded(
@@ -136,7 +134,7 @@ class GlobalGameHeader extends StatelessWidget {
                         style: const TextStyle(
                           fontFamily: FontFamilies.dastnevis,
                           fontSize: 20,
-                          color: AppColors.darkColor,
+                          color: AppColors.lightColor,
                         ),
                         textDirection: TextDirection.ltr,
                         textAlign: TextAlign.center,
