@@ -41,12 +41,14 @@ class GlobalGameHeader extends StatelessWidget {
                       color: AppColors.darkColor,
                     ),
                   ),
-                  Text(
-                    controller.myData.value!.score.toString(),
-                    style: const TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 20,
-                      color: AppColors.darkColor,
+                  Obx(
+                    () => Text(
+                      controller.myData.value!.score.toString(),
+                      style: const TextStyle(
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 20,
+                        color: AppColors.darkColor,
+                      ),
                     ),
                   ),
                   Image.asset(
@@ -73,14 +75,16 @@ class GlobalGameHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Text(
-                      controller.myData.value!.score.toString(),
-                      style: const TextStyle(
-                        fontFamily: FontFamilies.dastnevis,
-                        fontSize: 20,
-                        color: AppColors.darkColor,
+                    child: Obx(
+                      () => Text(
+                        controller.myData.value!.score.toString(),
+                        style: const TextStyle(
+                          fontFamily: FontFamilies.dastnevis,
+                          fontSize: 20,
+                          color: AppColors.darkColor,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
                   Image.asset(
@@ -125,16 +129,18 @@ class GlobalGameHeader extends StatelessWidget {
                   ),
                   const SizedBox(width: 3),
                   Expanded(
-                    child: Text(
-                      FunctionsLibraryClass.expToLabelExp(
-                          controller.myData.value!.xp),
-                      style: const TextStyle(
-                        fontFamily: FontFamilies.dastnevis,
-                        fontSize: 20,
-                        color: AppColors.darkColor,
+                    child: Obx(
+                      () => Text(
+                        FunctionsLibraryClass.expToLabelExp(
+                            controller.myData.value!.xp),
+                        style: const TextStyle(
+                          fontFamily: FontFamilies.dastnevis,
+                          fontSize: 20,
+                          color: AppColors.darkColor,
+                        ),
+                        textDirection: TextDirection.ltr,
+                        textAlign: TextAlign.center,
                       ),
-                      textDirection: TextDirection.ltr,
-                      textAlign: TextAlign.center,
                     ),
                   ),
                   const SizedBox(width: 3),
@@ -145,17 +151,19 @@ class GlobalGameHeader extends StatelessWidget {
                       border: Border.all(color: AppColors.darkColor),
                       color: AppColors.goldenColor,
                     ),
-                    child: Text(
-                      FunctionsLibraryClass.expToLevel(
-                              controller.myData.value!.xp)
-                          .toString(),
-                      style: const TextStyle(
-                        fontFamily: FontFamilies.typo,
-                        fontSize: 20,
-                        color: AppColors.lightColor,
+                    child: Obx(
+                      () => Text(
+                        FunctionsLibraryClass.expToLevel(
+                                controller.myData.value!.xp)
+                            .toString(),
+                        style: const TextStyle(
+                          fontFamily: FontFamilies.typo,
+                          fontSize: 20,
+                          color: AppColors.lightColor,
+                        ),
+                        textDirection: TextDirection.ltr,
+                        textAlign: TextAlign.center,
                       ),
-                      textDirection: TextDirection.ltr,
-                      textAlign: TextAlign.center,
                     ),
                   ),
                   const SizedBox(width: 4),

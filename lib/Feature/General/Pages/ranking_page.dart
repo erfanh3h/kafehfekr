@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Feature/General/Controllers/ranking_controller.dart';
 import 'package:refreshed/refreshed.dart';
 
 class RankingPage extends StatelessWidget {
@@ -9,6 +10,7 @@ class RankingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RankingController controller = Get.find<RankingController>();
     return Padding(
       padding: AppSpacings.s10Horizental,
       child: Column(
