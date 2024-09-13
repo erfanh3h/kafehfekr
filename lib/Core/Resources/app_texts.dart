@@ -25,6 +25,8 @@ abstract class AppTexts {
   static const draw = "draw";
   static const ok = "ok";
   static const accept = "accept";
+  static const scoreBase = "scoreBase";
+  static const winBase = "winBase";
   static const cancel = "cancel";
   static const exit = "exit";
   static const wait = "wait";

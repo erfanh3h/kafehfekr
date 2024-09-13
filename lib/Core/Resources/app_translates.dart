@@ -46,6 +46,8 @@ class AppTranslations extends Translations {
           AppTexts.ok: 'بسیار خب',
           AppTexts.exit: 'خروج',
           AppTexts.accept: 'تایید',
+          AppTexts.scoreBase: 'بیشترین امتیاز',
+          AppTexts.winBase: 'بیشترین برد',
           AppTexts.win: 'برد',
           AppTexts.lose: 'باخت',
           AppTexts.draw: 'مساوی',

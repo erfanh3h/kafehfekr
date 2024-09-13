@@ -55,6 +55,7 @@ class GameHistoryRowWidget extends StatelessWidget {
                         children: [
                           const SizedBox(width: 5),
                           Expanded(
+                            flex: 5,
                             child: TextNumberWidget(
                                 number: drawNumber, text: AppTexts.draw.tr),
                           ),
@@ -63,7 +64,7 @@ class GameHistoryRowWidget extends StatelessWidget {
                             child: VerticalDivider(color: AppColors.lightColor),
                           ),
                           Expanded(
-                            flex: 2,
+                            flex: 7,
                             child: TextNumberWidget(
                                 number: winNumber, text: AppTexts.win.tr),
                           ),
@@ -72,6 +73,7 @@ class GameHistoryRowWidget extends StatelessWidget {
                             child: VerticalDivider(color: AppColors.lightColor),
                           ),
                           Expanded(
+                            flex: 5,
                             child: TextNumberWidget(
                                 number: loseNumber, text: AppTexts.lose.tr),
                           ),
