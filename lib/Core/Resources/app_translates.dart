@@ -35,6 +35,7 @@ class AppTranslations extends Translations {
           AppTexts.rankGame: 'رقابتی',
           AppTexts.gameType: 'انواع سبک بازی',
           AppTexts.games: 'بازی ها',
+          AppTexts.chancePaper: 'صفحه شانس',
           AppTexts.rankHistoryDetails: 'جزئیات بازی های رقابتی',
           AppTexts.surrender: 'تسلیم شدن',
           AppTexts.checkLibrary:

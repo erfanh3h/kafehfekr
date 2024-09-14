@@ -54,6 +54,7 @@ abstract class AppTexts {
   static const howToPlay = "howToPlay";
   static const gamePlay = "gamePlay";
   static const soon = "soon";
+  static const chancePaper = "chancePaper";
   static const gameFinished = "gameFinished";
   static const stopPrevoiusQueue = "stopPrevoiusQueue";
   static const youOutOfMove = "youOutOfMove";

@@ -41,8 +41,20 @@ class ProfilePage extends StatelessWidget {
                   child: Padding(
                     padding: AppSpacings.s20Horizental,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        SizedBox(
+                          width: 45.w,
+                          height: 45.w,
+                          child: GlobalActivityButton(
+                            icon: GeneralIcons.exit,
+                            color: AppColors.buttonRed,
+                            onTap: () {
+                              exit(0);
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 5),
                         GetBuilder<SoundPlayerComponent>(builder: (cont) {
                           return Obx(
                             () => SizedBox(
@@ -62,6 +74,31 @@ class ProfilePage extends StatelessWidget {
                             ),
                           );
                         }),
+                        const Spacer(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              controller.myData.value!.name,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: AppColors.lightColor,
+                                fontFamily: FontFamilies.typo,
+                                letterSpacing: 2.5,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              controller.myData.value!.id,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                                fontFamily: FontFamilies.typo,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 10),
                         InkWell(
                           onTap: () {
                             Get.bottomSheet(
@@ -72,8 +109,8 @@ class ProfilePage extends StatelessWidget {
                             );
                           },
                           child: Container(
-                            width: 100.w,
-                            height: 100.w,
+                            width: 65.w,
+                            height: 65.w,
                             padding: AppSpacings.s5All,
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -88,30 +125,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 45.w,
-                          height: 45.w,
-                          child: GlobalActivityButton(
-                            icon: GeneralIcons.exit,
-                            color: AppColors.buttonRed,
-                            onTap: () {
-                              exit(0);
-                            },
-                          ),
-                        ),
                       ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 5),
-                FadeIn(
-                  child: Text(
-                    controller.myData.value!.name,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      color: AppColors.lightColor,
-                      fontFamily: FontFamilies.dastnevis,
-                      letterSpacing: 5,
                     ),
                   ),
                 ),

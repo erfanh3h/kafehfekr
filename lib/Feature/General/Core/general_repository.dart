@@ -7,7 +7,7 @@ import 'package:kafehfekr/Feature/General/Models/ranking_model.dart';
 abstract class GeneralRepository {
   Future<ApiResult<List<RankingModel>>> getRankingByScore();
   Future<ApiResult<List<RankingModel>>> getRankingByWin();
-
+  Future<ApiResult<int>> getFreeCoin();
 }
 
 class GeneralRepositoryImp extends GeneralRepository {
@@ -44,6 +44,20 @@ class GeneralRepositoryImp extends GeneralRepository {
     }
     var result =
         ApiResult<List<RankingModel>>(resultData: data, errorData: errorData);
+    return result;
+  }
+
+  @override
+  Future<ApiResult<int>> getFreeCoin() async {
+    int data = 0;
+    var response = await _restClient.getData(ServerRoutes.getFreeCoin);
+    NetworkExceptions? errorData;
+    if (response.resultData != null) {
+      data = response.resultData['result'];
+    } else {
+      errorData = response.errorData;
+    }
+    var result = ApiResult<int>(resultData: data, errorData: errorData);
     return result;
   }
 }

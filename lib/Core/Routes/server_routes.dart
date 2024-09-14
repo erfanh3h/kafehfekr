@@ -14,6 +14,7 @@ class ServerRoutes {
   static const myHistory = '$baseServer/my-history';
   static const changeImage = '$baseServer/update-image';
   static const rankingByWin = '$baseServer/ranking-by-win';
+  static const getFreeCoin = '$baseServer/get-free-coin';
   static const rankingByScore = '$baseServer/ranking-by-score';
   // static getData(String id) => '$baseUrl/$id';
 }

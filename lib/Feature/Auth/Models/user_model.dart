@@ -7,6 +7,7 @@ class UserModel {
   final int image;
   final int coin;
   final DateTime joinDate;
+  final DateTime lastTimeChance;
 
   UserModel({
     required this.id,
@@ -17,6 +18,7 @@ class UserModel {
     required this.image,
     required this.coin,
     required this.joinDate,
+    required this.lastTimeChance,
   });
 
   factory UserModel.fromJson(Map data) {
@@ -29,6 +31,7 @@ class UserModel {
       image: data['image'],
       coin: data['coin'],
       joinDate: DateTime.parse(data['join_date']),
+      lastTimeChance: DateTime.parse(data['last_time_chance']),
     );
   }
 
@@ -41,6 +44,7 @@ class UserModel {
     final int? image,
     final int? coin,
     final DateTime? joinDate,
+    final DateTime? lastTimeChance,
   }) =>
       UserModel(
         id: id ?? this.id,
@@ -51,5 +55,6 @@ class UserModel {
         image: image ?? this.image,
         coin: coin ?? this.coin,
         joinDate: joinDate ?? this.joinDate,
+        lastTimeChance: lastTimeChance ?? this.lastTimeChance,
       );
 }
