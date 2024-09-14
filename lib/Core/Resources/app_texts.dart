@@ -163,4 +163,7 @@ abstract class AppTexts {
   static const easy = "Easy";
   static const normal = "Normal";
   static const hard = "Hard";
+  static const privacyPolicy = "privacyPolicy";
+  static const iAcceptPrivacyPolicy = "iAcceptprivacyPolicy";
+  static const acceptPrivacyPolicyFirst = "acceptPrivacyPolicyFirst";
 }

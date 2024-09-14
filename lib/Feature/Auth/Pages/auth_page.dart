@@ -48,6 +48,61 @@ class AuthPage extends BaseView<AuthController> {
                 maxLength: controller.isPhonePhase.value ? 10 : 4,
               ),
             ),
+            if (controller.isPhonePhase.value)
+              Padding(
+                padding: AppSpacings.s10Top,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Checkbox(
+                      value: controller.pricavyPolicyAccepted.value,
+                      onChanged: controller.changePrivacyPolicyAccepted,
+                      activeColor: AppColors.lightColor,
+                      checkColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      side: WidgetStateBorderSide.resolveWith(
+                        (states) => const BorderSide(
+                          width: 1.0,
+                          color: AppColors.lightColor,
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Get.bottomSheet(
+                          ListView(
+                            children: [
+                              Padding(
+                                padding: AppSpacings.s20All,
+                                child: Text(
+                                  AppTexts.privacyPolicy.tr,
+                                  style: const TextStyle(
+                                    color: AppColors.lightColor,
+                                    fontSize: 22,
+                                    height: 1.75,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          backgroundColor: AppColors.darkColor,
+                        );
+                      },
+                      child: Text(
+                        AppTexts.iAcceptPrivacyPolicy.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontSize: 15,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColors.lightColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             const SizedBox(height: 40),
             GlobalButtonWidget(
               onTap: controller.isPhonePhase.value
