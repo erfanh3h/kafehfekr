@@ -20,15 +20,21 @@ class AuthController extends BaseController {
   TextEditingController codeController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
 
+  RxBool pricavyPolicyAccepted = RxBool(false);
   RxBool isPhonePhase = RxBool(true);
   RxBool isSendingData = RxBool(false);
 
   enterUser() async {
+    if (!pricavyPolicyAccepted.value) {
+      DialogComponent().showToast(label: AppTexts.acceptPrivacyPolicyFirst.tr);
+      return;
+    }
     if (phoneController.text.length != 10 ||
         !phoneController.text.startsWith("9")) {
       DialogComponent().showToast(label: AppTexts.enterPhoneCorrectly.tr);
       return;
     }
+
     isSendingData.value = true;
     final result = await authRepo.enterUser(phone: phoneController.text);
     if (result.resultData != null) {
@@ -86,6 +92,10 @@ class AuthController extends BaseController {
       });
     }
     isSendingData.value = false;
+  }
+
+  changePrivacyPolicyAccepted(bool? value) {
+    pricavyPolicyAccepted.value = value ?? false;
   }
 
   @override

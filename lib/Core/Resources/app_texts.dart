@@ -147,6 +147,7 @@ abstract class AppTexts {
   static const timeoutError = "timeoutError";
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
-
-
+  static const privacyPolicy = "privacyPolicy";
+  static const iAcceptPrivacyPolicy = "iAcceptprivacyPolicy";
+  static const acceptPrivacyPolicyFirst = "acceptPrivacyPolicyFirst";
 }
