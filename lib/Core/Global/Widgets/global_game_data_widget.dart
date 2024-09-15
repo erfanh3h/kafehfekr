@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
@@ -50,30 +51,35 @@ class GlobalGameDataWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.imageRedColor,
-                    border: Border.all(
-                      color: AppColors.imageRedColor,
-                      width: 3,
-                    ),
-                    borderRadius: BorderRadius.circular(40),
+                InkWell(
+                  onTap: () => FunctionsLibraryClass.showUserData(
+                    player1Data.userId,
                   ),
-                  width: 50,
-                  height: 50,
-                  child: player1Data.isDisconnected
-                      ? const Icon(
-                          Icons.desktop_access_disabled,
-                          color: Colors.white,
-                        )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: Image.asset(
-                            AvatarIcons().generalAvatarPath(
-                              player1Data.userImage,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.imageRedColor,
+                      border: Border.all(
+                        color: AppColors.imageRedColor,
+                        width: 3,
+                      ),
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    width: 50,
+                    height: 50,
+                    child: player1Data.isDisconnected
+                        ? const Icon(
+                            Icons.desktop_access_disabled,
+                            color: Colors.white,
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(40),
+                            child: Image.asset(
+                              AvatarIcons().generalAvatarPath(
+                                player1Data.userImage,
+                              ),
                             ),
                           ),
-                        ),
+                  ),
                 ),
                 Stack(
                   alignment: AlignmentDirectional.topStart,
@@ -197,30 +203,35 @@ class GlobalGameDataWidget extends StatelessWidget {
                       ),
                   ],
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.imageBlueColor,
-                    border: Border.all(
-                      color: AppColors.imageBlueColor,
-                      width: 3,
-                    ),
-                    borderRadius: BorderRadius.circular(40),
+                InkWell(
+                  onTap: () => FunctionsLibraryClass.showUserData(
+                    player2Data.userId,
                   ),
-                  width: 50,
-                  height: 50,
-                  child: player2Data.isDisconnected
-                      ? const Icon(
-                          Icons.desktop_access_disabled,
-                          color: Colors.white,
-                        )
-                      : ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: Image.asset(
-                            AvatarIcons().generalAvatarPath(
-                              player2Data.userImage,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.imageBlueColor,
+                      border: Border.all(
+                        color: AppColors.imageBlueColor,
+                        width: 3,
+                      ),
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    width: 50,
+                    height: 50,
+                    child: player2Data.isDisconnected
+                        ? const Icon(
+                            Icons.desktop_access_disabled,
+                            color: Colors.white,
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(40),
+                            child: Image.asset(
+                              AvatarIcons().generalAvatarPath(
+                                player2Data.userImage,
+                              ),
                             ),
                           ),
-                        ),
+                  ),
                 ),
               ],
             ),

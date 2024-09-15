@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -60,6 +61,7 @@ class RankingRowBox extends StatelessWidget {
           const SizedBox(width: 15),
           Expanded(
             child: InkWell(
+              onTap: () => FunctionsLibraryClass.showUserData(data.userId),
               child: Card(
                 color: AppColors.lightColor.withOpacity(.5),
                 child: Padding(

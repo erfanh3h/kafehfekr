@@ -24,14 +24,15 @@ class UserModel {
   factory UserModel.fromJson(Map data) {
     return UserModel(
       id: data['_id'],
-      phone: data['phone'],
-      score: data['score'],
-      xp: data['xp'],
-      name: data['username'],
-      image: data['image'],
-      coin: data['coin'],
-      joinDate: DateTime.parse(data['join_date']),
-      lastTimeChance: DateTime.parse(data['last_time_chance']),
+      phone: data['phone'] ?? "",
+      score: data['score'] ?? 0,
+      xp: data['xp'] ?? 0,
+      name: data['username'] ?? "",
+      image: data['image'] ?? 0,
+      coin: data['coin'] ?? 0,
+      joinDate: DateTime.tryParse(data['join_date'] ?? "") ?? DateTime.now(),
+      lastTimeChance:
+          DateTime.tryParse(data['last_time_chance'] ?? "") ?? DateTime.now(),
     );
   }
 

@@ -15,6 +15,9 @@ abstract class GlobalRepository {
   Future<ApiResult<bool>> changeProfile({required int image});
   Future<ApiResult<bool>> changeUsername({required String username});
 
+  Future<ApiResult<(UserModel?, UserHistoryModel?)>> getUserData(
+      {required String userId});
+
   Future<String?> getDataFromStorage({required String key});
 
   Future<void> setDataOnStorage(
@@ -55,6 +58,25 @@ class GlobalRepositoryImp extends GlobalRepository {
       errorData = response.errorData;
     }
     var result = ApiResult<bool>(resultData: data, errorData: errorData);
+    return result;
+  }
+
+  @override
+  Future<ApiResult<(UserModel?, UserHistoryModel?)>> getUserData(
+      {required String userId}) async {
+    var response = await _restClient.getData(ServerRoutes.userData(userId));
+    NetworkExceptions? errorData;
+    UserModel? user;
+    UserHistoryModel? userHistory;
+    if (response.resultData != null) {
+      user = UserModel.fromJson(response.resultData['result']['data']);
+      userHistory =
+          UserHistoryModel.fromJson(response.resultData['result']['history']);
+    } else {
+      errorData = response.errorData;
+    }
+    var result = ApiResult<(UserModel?, UserHistoryModel?)>(
+        resultData: (user, userHistory), errorData: errorData);
     return result;
   }
 

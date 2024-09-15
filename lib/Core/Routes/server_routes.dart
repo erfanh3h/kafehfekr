@@ -10,6 +10,7 @@ class ServerRoutes {
   static const enterCode = '$baseServer/code';
   static const completeUserData = '$baseServer/complete-data';
   static const myData = '$baseServer/my-data';
+  static userData(String id) => '$baseServer/user-data/$id';
   static const configData = '$baseServer/config';
   static const myHistory = '$baseServer/my-history';
   static const changeImage = '$baseServer/update-image';

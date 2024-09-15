@@ -5,7 +5,9 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
+import 'package:kafehfekr/Core/Global/Core/global_repository.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/user_data_widget.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -165,6 +167,20 @@ class FunctionsLibraryClass {
       return false;
     }
     return true;
+  }
+
+  static showUserData(String userId) {
+    Get.find<GlobalRepository>().getUserData(userId: userId).then((result) {
+      if (result.resultData != null) {
+        Get.bottomSheet(
+          UserDataWidget(
+            userData: result.resultData!.$1!,
+            userHistoryData: result.resultData!.$2!,
+          ),
+          backgroundColor: AppColors.darkColor,
+        );
+      }
+    });
   }
 
   static Future<String> getDeviceId() async {
