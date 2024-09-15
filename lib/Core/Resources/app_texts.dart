@@ -154,6 +154,7 @@ abstract class AppTexts {
   static const playerThisRound = "playerThisRound";
 
   static const timeoutError = "timeoutError";
+  static const notTimeYet = "notTimeYet";
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
   static const notEnoughCoin = "notEnoughCoin";

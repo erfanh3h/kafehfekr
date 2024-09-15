@@ -50,7 +50,10 @@ class GeneralRepositoryImp extends GeneralRepository {
   @override
   Future<ApiResult<int>> getFreeCoin() async {
     int data = 0;
-    var response = await _restClient.getData(ServerRoutes.getFreeCoin);
+    var response = await _restClient.getData(
+      ServerRoutes.getFreeCoin,
+      showMessageOnError: false,
+    );
     NetworkExceptions? errorData;
     if (response.resultData != null) {
       data = response.resultData['result'];

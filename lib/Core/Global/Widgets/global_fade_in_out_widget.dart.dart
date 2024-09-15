@@ -4,9 +4,11 @@ class GlobalFadeInOutWidget extends StatefulWidget {
   const GlobalFadeInOutWidget({
     super.key,
     required this.child,
+    this.animationTime = 1000,
   });
 
   final Widget child;
+  final int animationTime;
   @override
   State<GlobalFadeInOutWidget> createState() => _GlobalFadeInOutWidgetState();
 }
@@ -20,13 +22,13 @@ class _GlobalFadeInOutWidgetState extends State<GlobalFadeInOutWidget>
   void initState() {
     animation = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: Duration(milliseconds: widget.animationTime),
     );
     _fadeInFadeOut = Tween<double>(begin: 0.0, end: 1).animate(animation);
 
     animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Future.delayed(const Duration(seconds: 3)).then((_) {
+        Future.delayed(Duration(milliseconds: widget.animationTime)).then((_) {
           try {
             animation.reverse();
           } catch (_) {}
