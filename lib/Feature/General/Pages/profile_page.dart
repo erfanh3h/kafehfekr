@@ -174,16 +174,19 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(height: 15),
                 Padding(
                   padding: AppSpacings.s20Horizental,
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      AppTexts.rankHistoryDetails.tr,
-                      style: const TextStyle(
-                        color: AppColors.lightColor,
-                        fontSize: 30,
-                        fontFamily: FontFamilies.dastnevis,
+                  child: FadeIn(
+                    delay: const Duration(milliseconds: 400),
+                    child: Container(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        AppTexts.rankHistoryDetails.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontSize: 30,
+                          fontFamily: FontFamilies.dastnevis,
+                        ),
+                        textAlign: TextAlign.right,
                       ),
-                      textAlign: TextAlign.right,
                     ),
                   ),
                 ),

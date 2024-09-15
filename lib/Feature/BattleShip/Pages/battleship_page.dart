@@ -4,6 +4,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/BattleShip/Controllers/battleship_controller.dart';
@@ -46,7 +47,22 @@ class BattleShipPage extends BaseView<BattleShipController> {
               ? const Expanded(
                   flex: 10, child: Center(child: GlobalWaitWidget()))
               : controller.isGameInPlayPhase.value
-                  ? BattleShipGameBoardWidget(controller: controller)
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Builder(builder: (context) {
+                          return Text(
+                            "     صفحه ${controller.getInActiveGamerUsername()} : ",
+                            style: const TextStyle(
+                              color: AppColors.lightColor,
+                              fontSize: 20,
+                            ),
+                          );
+                        }),
+                        const SizedBox(height: 4),
+                        BattleShipGameBoardWidget(controller: controller),
+                      ],
+                    )
                   : controller.isWaiting.value
                       ? const Expanded(
                           flex: 10, child: Center(child: GlobalWaitWidget()))

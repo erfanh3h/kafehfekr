@@ -29,10 +29,10 @@ class BattleShipGameButton extends StatelessWidget {
     if (peaceData.isSelected) {
       if (peaceData.number == 0) {
         image = GeneralIcons.cross;
-        imageColor = AppColors.goldenColor;
+        imageColor = AppColors.buttonRed;
       } else {
         image = GeneralIcons.checkers1;
-        imageColor = AppColors.goldenColor;
+        imageColor = AppColors.lightColor;
       }
     }
     return InkWell(
@@ -44,7 +44,7 @@ class BattleShipGameButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           border: Border.all(
-            color: AppColors.peaceBorderColor,
+            color: AppColors.lightColor,
             width: 1,
           ),
           borderRadius: BorderRadius.circular(8),

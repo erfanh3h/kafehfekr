@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
@@ -22,94 +23,100 @@ class UserDataWidget extends StatelessWidget {
   final UserHistoryModel userHistoryData;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: AppSpacings.s20All,
-      child: ListView(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        userData.score.toString(),
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: AppColors.lightColor,
-                          fontFamily: FontFamilies.dastnevis,
-                          letterSpacing: 2.5,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      Image.asset(GeneralIcons.cup, width: 30, height: 30),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        FunctionsLibraryClass.expToLevel(userData.xp)
-                            .toString(),
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: AppColors.lightColor,
-                          fontFamily: FontFamilies.dastnevis,
-                          letterSpacing: 2.5,
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      Image.asset(GeneralIcons.exp, width: 30, height: 30),
-                    ],
-                  ),
-                ],
-              ),
-              Expanded(
-                child: Column(
+    return ListView(
+      children: [
+        Padding(
+          padding: AppSpacings.s20Horizental,
+          child: FadeIn(
+            delay: const Duration(milliseconds: 150),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      userData.name,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: AppColors.lightColor,
-                        fontFamily: FontFamilies.typo,
-                        letterSpacing: 2.5,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          userData.score.toString(),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: AppColors.lightColor,
+                            fontFamily: FontFamilies.dastnevis,
+                            letterSpacing: 2.5,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Image.asset(GeneralIcons.cup, width: 30, height: 30),
+                      ],
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      userData.id,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey,
-                        fontFamily: FontFamilies.typo,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          FunctionsLibraryClass.expToLevel(userData.xp)
+                              .toString(),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: AppColors.lightColor,
+                            fontFamily: FontFamilies.dastnevis,
+                            letterSpacing: 2.5,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                        Image.asset(GeneralIcons.exp, width: 30, height: 30),
+                      ],
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(width: 10),
-              Container(
-                width: 65.w,
-                height: 65.w,
-                padding: AppSpacings.s5All,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(150),
-                  child: Image.asset(
-                    AvatarIcons().generalAvatarPath(userData.image),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        userData.name,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          color: AppColors.lightColor,
+                          fontFamily: FontFamilies.typo,
+                          letterSpacing: 2.5,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        userData.id,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                          fontFamily: FontFamilies.typo,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(width: 10),
+                Container(
+                  width: 65.w,
+                  height: 65.w,
+                  padding: AppSpacings.s5All,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(150),
+                    child: Image.asset(
+                      AvatarIcons().generalAvatarPath(userData.image),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(height: 30),
-          Column(
+        ),
+        const SizedBox(height: 30),
+        FadeIn(
+          delay: const Duration(milliseconds: 300),
+          child: Column(
             children: [
               GameHistoryRowWidget(
                 data: (
@@ -129,8 +136,8 @@ class UserDataWidget extends StatelessWidget {
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

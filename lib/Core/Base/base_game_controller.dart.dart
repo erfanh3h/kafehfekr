@@ -343,6 +343,26 @@ class BaseGameController extends BaseController {
     }
   }
 
+  String getActiveGamerUsername() {
+    if (currentTurn.value == 1) {
+      return players[0].value.name;
+    }
+    if (currentTurn.value == 2) {
+      return players[1].value.name;
+    }
+    return "";
+  }
+
+  String getInActiveGamerUsername() {
+    if (currentTurn.value == 1) {
+      return players[1].value.name;
+    }
+    if (currentTurn.value == 2) {
+      return players[0].value.name;
+    }
+    return "";
+  }
+
   @override
   void onInit() {
     isPageLoading.value = true;
