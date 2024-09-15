@@ -167,4 +167,9 @@ abstract class AppTexts {
   static const privacyPolicy = "privacyPolicy";
   static const iAcceptPrivacyPolicy = "iAcceptprivacyPolicy";
   static const acceptPrivacyPolicyFirst = "acceptPrivacyPolicyFirst";
+
+  static const changeUsernamePrice = "changeUsernamePrice";
+  static const changeImagePrice = "changeImagePrice";
+
+  static const change = "change";
 }

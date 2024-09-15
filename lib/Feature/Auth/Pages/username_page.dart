@@ -40,6 +40,8 @@ class UsernamePage extends BaseView<AuthController> {
               child: GlobalInputBox(
                 label: '',
                 controller: controller.usernameController,
+                textDirection: TextDirection.ltr,
+                maxLength: 30,
               ),
             ),
             const SizedBox(height: 40),

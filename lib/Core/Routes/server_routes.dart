@@ -13,6 +13,7 @@ class ServerRoutes {
   static const configData = '$baseServer/config';
   static const myHistory = '$baseServer/my-history';
   static const changeImage = '$baseServer/update-image';
+  static const changeUsername = '$baseServer/update-username';
   static const rankingByWin = '$baseServer/ranking-by-win';
   static const getFreeCoin = '$baseServer/get-free-coin';
   static const rankingByScore = '$baseServer/ranking-by-score';

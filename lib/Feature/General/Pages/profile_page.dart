@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
@@ -13,6 +14,7 @@ import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/General/Widgets/avatars_selection_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Feature/General/Widgets/change_username_box.dart';
 import 'package:kafehfekr/Feature/General/Widgets/game_history_row_widget.dart';
 import 'package:kafehfekr/Feature/General/Widgets/user_games_history_widget.dart';
 import 'package:refreshed/refreshed.dart';
@@ -39,13 +41,13 @@ class ProfilePage extends StatelessWidget {
                 const SizedBox(height: 10),
                 FadeInDown(
                   child: Padding(
-                    padding: AppSpacings.s20Horizental,
+                    padding: AppSpacings.s10Horizental,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 45.w,
-                          height: 45.w,
+                          width: 35.w,
+                          height: 35.w,
                           child: GlobalActivityButton(
                             icon: GeneralIcons.exit,
                             color: AppColors.buttonRed,
@@ -58,8 +60,8 @@ class ProfilePage extends StatelessWidget {
                         GetBuilder<SoundPlayerComponent>(builder: (cont) {
                           return Obx(
                             () => SizedBox(
-                              width: 45.w,
-                              height: 45.w,
+                              width: 35.w,
+                              height: 35.w,
                               child: GlobalActivityButton(
                                 icon: cont.letPlayMusic.value
                                     ? GeneralIcons.soundOn
@@ -74,29 +76,45 @@ class ProfilePage extends StatelessWidget {
                             ),
                           );
                         }),
-                        const Spacer(),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              controller.myData.value!.name,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                color: AppColors.lightColor,
-                                fontFamily: FontFamilies.typo,
-                                letterSpacing: 2.5,
+                        IconButton(
+                          onPressed: () {
+                            Get.bottomSheet(
+                              ChangeUsernameBox(
+                                username: controller.myData.value!.name,
+                                onChange: controller.changeUsername,
                               ),
-                            ),
-                            const SizedBox(height: 2),
-                            Text(
-                              controller.myData.value!.id,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                                fontFamily: FontFamilies.typo,
+                              backgroundColor: AppColors.darkColor,
+                            );
+                          },
+                          icon: const Icon(
+                            CupertinoIcons.pen,
+                          ),
+                        ),
+                        // const Spacer(),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                controller.myData.value!.name,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  color: AppColors.lightColor,
+                                  fontFamily: FontFamilies.typo,
+                                  letterSpacing: 2.5,
+                                ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(height: 2),
+                              Text(
+                                controller.myData.value!.id,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                  fontFamily: FontFamilies.typo,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(width: 10),
                         InkWell(

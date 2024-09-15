@@ -154,8 +154,25 @@ class GlobalController extends BaseController {
   }
 
   changeProfile(int index) {
-    myData.value = myData.value!.copyWith(image: index);
+    if (myData.value!.coin < 50) {
+      DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
+      return;
+    }
+    myData.value =
+        myData.value!.copyWith(image: index, coin: myData.value!.coin - 50);
     globalRepo.changeProfile(image: index);
+  }
+
+  changeUsername(String username) {
+    if (myData.value!.coin < 75) {
+      Get.closeAllBottomSheets();
+      DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
+      return;
+    }
+    myData.value =
+        myData.value!.copyWith(name: username, coin: myData.value!.coin - 75);
+    globalRepo.changeUsername(username: username);
+    Get.closeAllBottomSheets();
   }
 
   Future<void> finishGame() async {

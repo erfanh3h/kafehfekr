@@ -1,8 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_gold_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -178,13 +180,15 @@ class GameMenuGamePartWidget extends StatelessWidget {
                 Expanded(
                   child: FadeInLeft(
                     delay: const Duration(milliseconds: 500),
-                    child: GlobalButtonWidget(
+                    child: GlobalGoldButtonWidget(
                       onTap: () {
                         onTap(game.name, "Rank");
                       },
-                      text: '${AppTexts.rankGame.tr} (${gameRewards[0]})',
-                      color: difficultyColor,
+                      goldCount: gameRewards[0],
+                      text: AppTexts.rankGame.tr,
                       fontColor: difficultyFontColor,
+                      color: difficultyColor,
+                      height: 40.h,
                     ),
                   ),
                 ),

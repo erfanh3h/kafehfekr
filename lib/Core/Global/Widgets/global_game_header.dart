@@ -43,7 +43,7 @@ class GlobalGameHeader extends StatelessWidget {
                   ),
                   Obx(
                     () => Text(
-                      controller.myData.value!.score.toString(),
+                      controller.myData.value!.coin.toString(),
                       style: const TextStyle(
                         fontFamily: FontFamilies.dastnevis,
                         fontSize: 20,
