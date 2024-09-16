@@ -30,7 +30,7 @@ class PurchaseComponent {
       try {
         // PurchaseInfo? response = await FlutterPoolakey.purchase(
         //   id,
-        //   payload: {'user_id': userId, 'date': DateTime.now()}.toString(),
+        //   payload: {'user_id': userId}.toString(),
         // );
         // print(response);
         // return (true, "");
@@ -41,7 +41,7 @@ class PurchaseComponent {
     } else if (marketType == MarketTypes.Myket) {
       Map result = await MyketIAP.launchPurchaseFlow(
         sku: id,
-        payload: {'user_id': userId, 'date': DateTime.now()}.toString(),
+        payload: {'user_id': userId}.toString(),
       );
       // 6 for not found
       try {

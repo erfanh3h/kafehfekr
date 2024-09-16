@@ -73,9 +73,9 @@ class ChancePaperWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const Spacer(),
-                  const Text(
-                    "هر 8 ساعت میتونی سکه رایگان دریافت کنی",
-                    style: TextStyle(
+                  Text(
+                    AppTexts.coin8Hours.tr,
+                    style: const TextStyle(
                       fontSize: 15,
                       fontFamily: FontFamilies.dastnevis,
                       color: AppColors.lightColor,
@@ -83,9 +83,9 @@ class ChancePaperWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   controller.canGetFreeCoin.value
-                      ? const Text(
-                          " سکه آمادست",
-                          style: TextStyle(
+                      ? Text(
+                          AppTexts.coinReady.tr,
+                          style: const TextStyle(
                             color: AppColors.lightColor,
                             fontSize: 15,
                           ),

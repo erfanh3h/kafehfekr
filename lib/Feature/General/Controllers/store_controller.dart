@@ -120,7 +120,14 @@ class StoreController extends BaseController {
     if (result.$1) {
       repo.purchase(
           productId: productId, marketType: marketType.name, token: result.$2!);
-      Get.find<GlobalController>().changeCoin(productIdToValue(productId));
+      final int coin = productIdToValue(productId);
+      Get.find<GlobalController>().changeCoin(coin);
+      DialogComponent().showIconicDialog(
+        AppTexts.buyCoin.tr,
+        '$coin سکه اضافه شد',
+        GeneralIcons.coin,
+        AppColors.goldenColor,
+      );
     }
   }
 

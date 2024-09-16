@@ -36,17 +36,27 @@ class PurchasesBox extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                  child: Image.asset(
-                    controller.images[index],
-                    color: AppColors.goldenColor,
-                  ),
-                ),
-                Text(
-                  controller.counts[index].toString(),
-                  style: const TextStyle(
-                    fontSize: 21,
-                    fontFamily: FontFamilies.dastnevis,
-                    color: AppColors.lightColor,
+                  child: Padding(
+                    padding: AppSpacings.s10All,
+                    child: Row(
+                      children: [
+                        Text(
+                          controller.counts[index].toString(),
+                          style: const TextStyle(
+                            fontSize: 21,
+                            fontFamily: FontFamilies.dastnevis,
+                            color: AppColors.lightColor,
+                          ),
+                        ),
+                        const SizedBox(width: 3),
+                        Expanded(
+                          child: Image.asset(
+                            controller.images[index],
+                            color: AppColors.goldenColor,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Card(

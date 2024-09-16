@@ -173,4 +173,8 @@ abstract class AppTexts {
 
   static const change = "change";
   static const purchaseCanceled = "purchaseCanceled";
+  static const buyCoin = "buyCoin";
+  static const coinReady = "coinReady";
+  static const coin8Hours = "coin8Hours";
+
 }
