@@ -25,7 +25,7 @@ class AvatarsSelectionBox extends StatelessWidget {
               AppTexts.changeImagePrice.tr,
               style: const TextStyle(
                 color: AppColors.lightColor,
-                fontSize: 20,
+                fontSize: 18,
               ),
               textAlign: TextAlign.center,
             ),

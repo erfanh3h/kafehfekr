@@ -19,6 +19,7 @@ class AuthController extends BaseController {
   TextEditingController phoneController = TextEditingController();
   TextEditingController codeController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
+  TextEditingController rIdController = TextEditingController();
 
   RxBool pricavyPolicyAccepted = RxBool(false);
   RxBool isPhonePhase = RxBool(true);
@@ -73,6 +74,7 @@ class AuthController extends BaseController {
     final result = await authRepo.completeUser(
       phone: phoneController.text,
       username: usernameController.text,
+      rId: rIdController.text,
     );
     if (result.resultData != null) {
       Get.find<GlobalController>().fetchUserData().then((_) {

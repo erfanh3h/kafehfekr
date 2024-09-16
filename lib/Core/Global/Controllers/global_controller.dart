@@ -158,12 +158,16 @@ class GlobalController extends BaseController {
   }
 
   changeProfile(int index) {
-    if (myData.value!.coin < 50) {
+    if (myData.value!.coin < 50 && myData.value!.image != 0) {
       DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
       return;
     }
-    myData.value =
-        myData.value!.copyWith(image: index, coin: myData.value!.coin - 50);
+    if (myData.value!.image == 0) {
+      myData.value = myData.value!.copyWith(image: index);
+    } else {
+      myData.value =
+          myData.value!.copyWith(image: index, coin: myData.value!.coin - 50);
+    }
     globalRepo.changeProfile(image: index);
   }
 

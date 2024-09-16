@@ -15,6 +15,7 @@ abstract class AuthRepository {
   Future<ApiResult<bool>> completeUser({
     required String phone,
     required String username,
+    required String rId,
   });
 }
 
@@ -61,13 +62,17 @@ class AuthRepositoryImp extends AuthRepository {
   }
 
   @override
-  Future<ApiResult<bool>> completeUser(
-      {required String phone, required String username}) async {
+  Future<ApiResult<bool>> completeUser({
+    required String phone,
+    required String username,
+    required String rId,
+  }) async {
     bool data = false;
     var response =
         await _restClient.sendData(ServerRoutes.completeUserData, data: {
       'phone': phone,
       'username': username,
+      'rep_id': rId,
     });
     NetworkExceptions? errorData;
     if (response.resultData != null) {

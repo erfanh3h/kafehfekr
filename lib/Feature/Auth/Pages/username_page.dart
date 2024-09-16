@@ -34,14 +34,31 @@ class UsernamePage extends BaseView<AuthController> {
                 color: AppColors.lightColor,
               ),
             ),
-            SizedBox(height: 10.h),
+            const SizedBox(height: 10),
             SizedBox(
               width: 200.w,
               child: GlobalInputBox(
                 label: '',
                 controller: controller.usernameController,
-                textDirection: TextDirection.ltr,
+                textDirection: TextDirection.rtl,
                 maxLength: 30,
+              ),
+            ),
+            const SizedBox(height: 40),
+            Text(
+              AppTexts.rIdReward.tr,
+              style: const TextStyle(
+                color: AppColors.lightColor,
+              ),
+            ),
+            SizedBox(height: 10.h),
+            SizedBox(
+              width: 200.w,
+              child: GlobalInputBox(
+                label: "AabBcc",
+                controller: controller.rIdController,
+                textDirection: TextDirection.rtl,
+                maxLength: 6,
               ),
             ),
             const SizedBox(height: 40),

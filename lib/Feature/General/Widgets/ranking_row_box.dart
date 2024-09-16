@@ -91,8 +91,8 @@ class RankingRowBox extends StatelessWidget {
                         child: Text(
                           data.username,
                           style: const TextStyle(
-                            fontFamily: FontFamilies.dastnevis,
-                            fontSize: 25,
+                            fontFamily: FontFamilies.playPen,
+                            fontSize: 23,
                             color: AppColors.lightColor,
                           ),
                         ),

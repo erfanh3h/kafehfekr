@@ -30,6 +30,9 @@ class AppTranslations extends Translations {
           AppTexts.youOutOfMove: 'امکان حرکتی نداری!',
           AppTexts.enemyOutOfMove: 'حریف امکان حرکتی نداره!',
           AppTexts.enterPhoneCorrectly: 'شماره را بدرستی وارد کنید!',
+          AppTexts.rId: 'آی دی معرف',
+          AppTexts.rIdReward:
+              'باوارد کردن آی دی معرف خود 30 سکه به او هدیه دهید',
           AppTexts.normalGame: 'دوستانه',
           AppTexts.rankGame: 'رقابتی',
           AppTexts.gameType: 'انواع سبک بازی',
@@ -89,7 +92,7 @@ class AppTranslations extends Translations {
           AppTexts.bringInOutedPiece: 'مهره حذف شدتو بیارتو',
           AppTexts.selectNumber: 'یه عدد انتخاب کن',
           AppTexts.playerThisRound: 'این دست رو بازی کردی',
-          AppTexts.changeImagePrice: 'هزینه تغییر عکس 50 سکه است',
+          AppTexts.changeImagePrice: 'هزینه تغییر عکس 50 سکه است (بار اول رایگان)',
           AppTexts.changeUsernamePrice: 'هزینه تغییر اسم 75 سکه است',
           AppTexts.change: 'تغییر',
           AppTexts.buyCoin: 'خرید سکه',

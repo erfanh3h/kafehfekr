@@ -177,4 +177,6 @@ abstract class AppTexts {
   static const coinReady = "coinReady";
   static const coin8Hours = "coin8Hours";
 
+  static const rId = "rId";
+  static const rIdReward = "rIdReward";
 }
