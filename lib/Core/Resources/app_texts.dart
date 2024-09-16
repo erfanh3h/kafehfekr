@@ -172,4 +172,5 @@ abstract class AppTexts {
   static const changeImagePrice = "changeImagePrice";
 
   static const change = "change";
+  static const purchaseCanceled = "purchaseCanceled";
 }

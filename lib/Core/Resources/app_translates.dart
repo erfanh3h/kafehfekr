@@ -92,6 +92,7 @@ class AppTranslations extends Translations {
           AppTexts.changeImagePrice: 'هزینه تغییر عکس 50 سکه است',
           AppTexts.changeUsernamePrice: 'هزینه تغییر اسم 75 سکه است',
           AppTexts.change: 'تغییر',
+          AppTexts.purchaseCanceled: 'خرید کنسل شد',
           AppTexts.notEnoughCoin: 'سکه کافی نداری !',
           AppTexts.yatzy1: 'تاس 1',
           AppTexts.yatzy2: 'تاس 2',

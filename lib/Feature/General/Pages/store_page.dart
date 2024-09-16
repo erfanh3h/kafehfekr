@@ -1,9 +1,11 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/General/Controllers/store_controller.dart';
 import 'package:kafehfekr/Feature/General/Widgets/chance_paper_widget.dart';
+import 'package:kafehfekr/Feature/General/Widgets/purchases_box.dart';
 import 'package:refreshed/refreshed.dart';
 
 class StorePage extends StatelessWidget {
@@ -29,10 +31,17 @@ class StorePage extends StatelessWidget {
             height: 30,
             color: AppColors.lightColor,
           ),
-          ChancePaperWidget(controller: controller),
+          FadeIn(
+            delay: const Duration(milliseconds: 150),
+            child: ChancePaperWidget(controller: controller),
+          ),
           const Divider(
-            height: 30,
+            height: 40,
             color: AppColors.lightColor,
+          ),
+          FadeIn(
+            delay: const Duration(milliseconds: 300),
+            child: PurchasesBox(controller: controller),
           ),
         ],
       ),

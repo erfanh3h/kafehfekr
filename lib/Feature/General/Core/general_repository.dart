@@ -8,6 +8,11 @@ abstract class GeneralRepository {
   Future<ApiResult<List<RankingModel>>> getRankingByScore();
   Future<ApiResult<List<RankingModel>>> getRankingByWin();
   Future<ApiResult<int>> getFreeCoin();
+  Future<ApiResult<bool>> purchase({
+    required String productId,
+    required String marketType,
+    required String token,
+  });
 }
 
 class GeneralRepositoryImp extends GeneralRepository {
@@ -61,6 +66,29 @@ class GeneralRepositoryImp extends GeneralRepository {
       errorData = response.errorData;
     }
     var result = ApiResult<int>(resultData: data, errorData: errorData);
+    return result;
+  }
+
+  @override
+  Future<ApiResult<bool>> purchase({
+    required String productId,
+    required String marketType,
+    required String token,
+  }) async {
+    bool data = true;
+    var response = await _restClient
+        .sendData(ServerRoutes.purchase, showMessageOnError: false, data: {
+      'product_id': productId,
+      'market_type': marketType,
+      'token': token,
+    });
+    NetworkExceptions? errorData;
+    if (response.resultData != null) {
+      data = response.resultData['result'];
+    } else {
+      errorData = response.errorData;
+    }
+    var result = ApiResult<bool>(resultData: data, errorData: errorData);
     return result;
   }
 }

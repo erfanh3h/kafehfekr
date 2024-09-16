@@ -18,6 +18,7 @@ class ServerRoutes {
   static const rankingByWin = '$baseServer/ranking-by-win';
   static const getFreeCoin = '$baseServer/get-free-coin';
   static const rankingByScore = '$baseServer/ranking-by-score';
+  static const purchase = '$baseServer/purchase';
   // static getData(String id) => '$baseUrl/$id';
 }
 

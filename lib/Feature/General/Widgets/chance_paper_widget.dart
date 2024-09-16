@@ -99,7 +99,8 @@ class ChancePaperWidget extends StatelessWidget {
                     child: GlobalButtonWidget(
                       onTap: controller.getFreeCoin,
                       text: AppTexts.chancePaper.tr,
-                      color: AppColors.redWarmColor.withOpacity(
+                      fontColor: AppColors.darkColor,
+                      color: AppColors.goldenColor.withOpacity(
                           controller.canGetFreeCoin.value ? 1 : .25),
                       isLoading: controller.isGettingCoin.value,
                     ),
