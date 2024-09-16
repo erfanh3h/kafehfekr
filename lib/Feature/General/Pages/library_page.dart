@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
@@ -12,8 +12,13 @@ class LibraryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final gameTypesParts = GameTypes.values.toList();
+    final int gamesLength = marketType == MarketTypes.Myket
+        ? gameTypesParts.length
+        : gameTypesParts.length - 1;
+
     return Padding(
-      padding: AppSpacings.s10All,
+      padding: AppSpacings.s10Horizental,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -22,7 +27,7 @@ class LibraryPage extends StatelessWidget {
             AppTexts.library.tr,
             style: const TextStyle(
               fontSize: 25,
-              color: AppColors.lightColor,
+              color: AppColors.goldenColor,
             ),
           ),
           const SizedBox(height: 20),
@@ -30,14 +35,14 @@ class LibraryPage extends StatelessWidget {
             AppTexts.gameType.tr,
             style: const TextStyle(
               fontSize: 18,
-              color: AppColors.lightColor,
+              color: AppColors.goldenColor,
             ),
           ),
           const SizedBox(height: 5),
           Row(
             children: [
               Expanded(
-                child: GlobalButtonWidget(
+                child: InkWell(
                   onTap: () {
                     Get.bottomSheet(
                       ListView(
@@ -58,14 +63,28 @@ class LibraryPage extends StatelessWidget {
                       backgroundColor: AppColors.darkColor,
                     );
                   },
-                  text: AppTexts.normalGame.tr,
-                  color: Colors.transparent.withOpacity(.5),
-                  fontColor: AppColors.lightColor,
+                  child: Container(
+                    height: 75,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent.withOpacity(.25),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        AppTexts.normalGame.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontFamily: FontFamilies.dastnevis,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(width: 5),
               Expanded(
-                child: GlobalButtonWidget(
+                child: InkWell(
                   onTap: () {
                     Get.bottomSheet(
                       ListView(
@@ -86,9 +105,23 @@ class LibraryPage extends StatelessWidget {
                       backgroundColor: AppColors.darkColor,
                     );
                   },
-                  text: AppTexts.rankGame.tr,
-                  color: Colors.transparent.withOpacity(.5),
-                  fontColor: AppColors.lightColor,
+                  child: Container(
+                    height: 75,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent.withOpacity(.25),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        AppTexts.rankGame.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontFamily: FontFamilies.dastnevis,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -98,7 +131,7 @@ class LibraryPage extends StatelessWidget {
             AppTexts.games.tr,
             style: const TextStyle(
               fontSize: 18,
-              color: AppColors.lightColor,
+              color: AppColors.goldenColor,
             ),
           ),
           const SizedBox(height: 5),
@@ -110,18 +143,31 @@ class LibraryPage extends StatelessWidget {
                 mainAxisSpacing: 15,
                 childAspectRatio: 2,
               ),
-              itemBuilder: (ctx, index) => GlobalButtonWidget(
+              itemBuilder: (ctx, index) => InkWell(
                 onTap: () {
                   Get.bottomSheet(
                     GlobalGameGuideWidget(gameType: GameTypes.values[index]),
                     backgroundColor: AppColors.darkColor,
                   );
                 },
-                text: GameTypes.values[index].name.tr,
-                color: Colors.transparent.withOpacity(.5),
-                fontColor: AppColors.lightColor,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent.withOpacity(.25),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      GameTypes.values[index].name.tr,
+                      style: const TextStyle(
+                        color: AppColors.lightColor,
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              itemCount: GameTypes.values.length,
+              itemCount: gamesLength,
             ),
           ),
           const SizedBox(height: 10),

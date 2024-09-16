@@ -41,7 +41,7 @@ class GameWaitTimes {
 class FontFamilies {
   static const vazir = "Vazir";
   static const dastnevis = "Dastnevis";
-  static const typo = "Typo";
+  static const playPen = "PlayPen";
 }
 
 abstract class GameCommands {

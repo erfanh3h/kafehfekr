@@ -24,19 +24,16 @@ class StorePage extends StatelessWidget {
             AppTexts.store.tr,
             style: const TextStyle(
               fontSize: 25,
-              color: AppColors.lightColor,
+              color: AppColors.goldenColor,
             ),
           ),
-          const Divider(
-            height: 30,
-            color: AppColors.lightColor,
-          ),
+          const SizedBox(height: 20),
           FadeIn(
             delay: const Duration(milliseconds: 150),
             child: ChancePaperWidget(controller: controller),
           ),
           const Divider(
-            height: 40,
+            height: 50,
             color: AppColors.lightColor,
           ),
           FadeIn(

@@ -155,7 +155,7 @@ class GlobalGameHeader extends StatelessWidget {
                                 controller.myData.value!.xp)
                             .toString(),
                         style: const TextStyle(
-                          fontFamily: FontFamilies.typo,
+                          fontFamily: FontFamilies.playPen,
                           fontSize: 20,
                           color: AppColors.lightColor,
                         ),

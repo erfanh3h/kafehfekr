@@ -100,7 +100,7 @@ class ProfilePage extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: 20,
                                   color: AppColors.lightColor,
-                                  fontFamily: FontFamilies.typo,
+                                  fontFamily: FontFamilies.playPen,
                                   letterSpacing: 2.5,
                                 ),
                               ),
@@ -110,7 +110,7 @@ class ProfilePage extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey,
-                                  fontFamily: FontFamilies.typo,
+                                  fontFamily: FontFamilies.playPen,
                                 ),
                               ),
                             ],

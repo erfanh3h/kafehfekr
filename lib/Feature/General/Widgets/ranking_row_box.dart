@@ -24,7 +24,7 @@ class RankingRowBox extends StatelessWidget {
         child: Text(
           index.toString(),
           style: const TextStyle(
-            fontFamily: FontFamilies.typo,
+            fontFamily: FontFamilies.playPen,
             fontSize: 30,
             color: AppColors.lightColor,
           ),

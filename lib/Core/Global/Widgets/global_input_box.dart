@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:refreshed/refreshed.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
@@ -133,7 +134,8 @@ class GlobalInputBoxState extends State<GlobalInputBox> {
               focusedErrorBorder: InputBorder.none,
             ),
             // cursorColor: widget.color,
-            style: Get.textTheme.bodyLarge,
+            style: Get.textTheme.bodyLarge!
+                .copyWith(fontFamily: FontFamilies.playPen),
             keyboardType: widget.textType,
             textInputAction: widget.textInputAction,
             minLines: widget.minLines,

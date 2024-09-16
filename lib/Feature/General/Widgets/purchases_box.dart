@@ -69,7 +69,7 @@ class PurchasesBox extends StatelessWidget {
                         controller.prices[index].toString(),
                         style: const TextStyle(
                           fontSize: 18,
-                          fontFamily: FontFamilies.typo,
+                          fontFamily: FontFamilies.playPen,
                           color: AppColors.darkColor,
                         ),
                       ),

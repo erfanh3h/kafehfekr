@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
 import 'package:kafehfekr/Feature/General/Widgets/game_circle_dot_widget.dart';
@@ -16,6 +17,8 @@ class GameMenuPage extends StatelessWidget {
     final GameMenuController controller = Get.find<GameMenuController>();
     final gameTypesParts = GameTypes.values.toList();
     final PageController pageController = PageController();
+    final int gamesLength = marketType == MarketTypes.Myket ? gameTypesParts.length : gameTypesParts.length - 1;
+    // we use this because cafe bazaar wont let backgamoon :/
     return Container(
       constraints: BoxConstraints(maxHeight: Get.width * 5 / 6),
       child: Column(
@@ -29,7 +32,7 @@ class GameMenuPage extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       pageController.animateToPage(
-                        index != 0 ? index - 1 : 15,
+                        index != 0 ? index - 1 : (gamesLength - 1),
                         duration:
                             Duration(milliseconds: index != 0 ? 300 : 1000),
                         curve: Curves.linear,
@@ -54,9 +57,11 @@ class GameMenuPage extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       pageController.animateToPage(
-                        index != 15 ? index + 1 : 0,
-                        duration:
-                            Duration(milliseconds: index != 15 ? 300 : 1000),
+                        index != (gamesLength - 1) ? index + 1 : 0,
+                        duration: Duration(
+                            milliseconds: index != (gamesLength - 1)
+                                ? 300
+                                : 1000),
                         curve: Curves.linear,
                       );
                     },
@@ -68,7 +73,7 @@ class GameMenuPage extends StatelessWidget {
                   ),
                 ],
               ),
-              itemCount: 16,
+              itemCount: gamesLength,
             ),
           ),
           Padding(
@@ -76,7 +81,7 @@ class GameMenuPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < 16; i++)
+                for (int i = 0; i < gamesLength; i++)
                   GameCircleDotWidget(
                     pageController: pageController,
                     i: i,
