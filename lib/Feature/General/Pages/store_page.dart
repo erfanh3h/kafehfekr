@@ -14,6 +14,7 @@ class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final StoreController controller = Get.find<StoreController>();
+    controller.checkCanGetFreeCoin();
     return Padding(
       padding: AppSpacings.s10Horizental,
       child: Column(

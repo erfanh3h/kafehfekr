@@ -133,7 +133,7 @@ class StoreController extends BaseController {
 
   @override
   void onInit() async {
-    checkCanGetFreeCoin();
+    // checkCanGetFreeCoin();
     await purchaseComponent.init();
     super.onInit();
   }

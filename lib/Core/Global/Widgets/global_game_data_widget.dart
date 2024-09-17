@@ -379,7 +379,7 @@ class UserRowData extends StatelessWidget {
                 playerData.name,
                 style: TextStyle(
                   fontFamily: FontFamilies.playPen,
-                  fontSize: 13,
+                  fontSize: 12,
                   color: playerData.isDisconnected
                       ? AppColors.darkColor
                       : AppColors.lightColor,

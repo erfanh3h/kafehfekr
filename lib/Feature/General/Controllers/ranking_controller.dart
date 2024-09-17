@@ -13,8 +13,10 @@ class RankingController extends BaseController {
 
   changeTab(int value) {
     selectedTab.value = value;
-    if (value == 1 && byWinData.isEmpty) {
+    if (value == 1) {
       getByWinData();
+    } else {
+      getByScoreData();
     }
   }
 
