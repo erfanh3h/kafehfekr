@@ -21,6 +21,22 @@ class TicTacToePeaceModel extends PeaceModel {
     );
   }
 
+  TicTacToePeaceModel changeLastTurnPlayed({
+    required bool isPlayed,
+  }) {
+    PeaceModel data;
+    if (isPlayed) {
+      data = super.addStatus(status: PeaceStatusTypes.lastTurnPlayed);
+    } else {
+      data = super.removeStatus(status: PeaceStatusTypes.lastTurnPlayed);
+    }
+    return TicTacToePeaceModel(
+      id: id,
+      currentStatuses: data.currentStatuses,
+      selectedUser: selectedUser,
+    );
+  }
+
   TicTacToePeaceModel resetPeace() {
     return TicTacToePeaceModel(
       id: id,

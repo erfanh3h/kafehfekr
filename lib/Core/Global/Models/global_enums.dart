@@ -9,6 +9,7 @@ enum PeaceStatusTypes {
   canHitted,
   equiped,
   hitted,
+  lastTurnPlayed,
   none
 }
 

@@ -20,6 +20,8 @@ class TicTacToeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? imageColor;
     String? image;
+    final isLastTurnPlayed =
+        peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
@@ -48,8 +50,8 @@ class TicTacToeButton extends StatelessWidget {
           ),
           // color: AppColors.lightColor,
           border: Border.all(
-            color: imageColor ?? AppColors.black,
-            width: 1,
+            color: isLastTurnPlayed ? AppColors.yellow : AppColors.darkColor,
+            width: 3,
           ),
           borderRadius: BorderRadius.circular(8),
         ),

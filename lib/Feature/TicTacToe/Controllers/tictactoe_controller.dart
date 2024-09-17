@@ -59,6 +59,9 @@ class TicTacToeController extends BaseGameController {
     peaces[peaceId].value = peaces[peaceId]
         .value
         .changeSelectedUser(newSelectedUser: peaceData["user"]);
+    removeAllPeaceStatus(PeaceStatusTypes.lastTurnPlayed);
+    peaces[peaceId].value =
+        peaces[peaceId].value.changeLastTurnPlayed(isPlayed: true);
     removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
   }
 
@@ -113,6 +116,13 @@ class TicTacToeController extends BaseGameController {
   removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.removeStatus(status: status);
+  }
+
+  removeAllPeaceStatus(PeaceStatusTypes status) {
+    for (var i = 0; i < 9; i++) {
+      peaces.value[i].value =
+          peaces.value[i].value.removeStatus(status: status);
+    }
   }
 
   initPieces() {
