@@ -40,7 +40,7 @@ class MNumbersButton extends StatelessWidget {
     } else {
       borderWidth = 1;
     }
-    if (peaceData.currentStatuses.contains(PeaceStatusTypes.hitted)) {
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed)) {
       imageColor = AppColors.goldenColor;
       borderWidth = 5;
     }

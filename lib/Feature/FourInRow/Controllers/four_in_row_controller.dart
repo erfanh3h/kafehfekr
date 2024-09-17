@@ -87,7 +87,7 @@ class FourInRowController extends BaseGameController {
     player1Pawns.value = gameData['pawns_count'][0];
     player2Pawns.value = gameData['pawns_count'][1];
     for (var i = 0; i < boardData.length; i++) {
-      changePeaceSelectedUser(i, boardData[i]);
+      changePeaceSelectedUser(i, boardData[i] , fromRec: true);
     }
     if (currentTurn.value == myGameId) {
       canSelectPeace.value = true;
@@ -101,9 +101,22 @@ class FourInRowController extends BaseGameController {
     }
   }
 
-  changePeaceSelectedUser(int peaceId, int? selectedUser) {
+  changePeaceSelectedUser(int peaceId, int? selectedUser,
+      {bool fromRec = false}) {
     pieces.value[peaceId].value = pieces.value[peaceId].value
         .changeSelectedUser(newSelectedUser: selectedUser);
+    if (!fromRec) {
+      removeAllPiecesStatus(PeaceStatusTypes.lastTurnPlayed);
+      pieces.value[peaceId].value = pieces.value[peaceId].value
+          .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
+    }
+  }
+
+  removeAllPiecesStatus(PeaceStatusTypes status) {
+    for (var i = 0; i < 64; i++) {
+      pieces.value[i].value =
+          pieces.value[i].value.removeStatus(status: status);
+    }
   }
 
   initPeaces() {

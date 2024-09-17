@@ -86,7 +86,7 @@ class DotBoxController extends BaseGameController {
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
     for (var i = 0; i < linesBoardData.length; i++) {
-      changeLinePeaceSelectedUser(i, linesBoardData[i]);
+      changeLinePeaceSelectedUser(i, linesBoardData[i] , fromRec: true);
     }
     for (var i = 0; i < boxesBoardData.length; i++) {
       changeBoxPeaceSelectedUser(i, boxesBoardData[i]);
@@ -160,10 +160,16 @@ class DotBoxController extends BaseGameController {
     }
   }
 
-  changeLinePeaceSelectedUser(int? peaceId, int number) {
+  changeLinePeaceSelectedUser(int? peaceId, int number,
+      {bool fromRec = false}) {
     if (peaceId != null) {
       linePeaces.value[peaceId].value = linePeaces.value[peaceId].value
           .changeSelectedUser(newSelectedUser: number);
+      if (!fromRec) {
+        removeLinePeacesStatus(PeaceStatusTypes.lastTurnPlayed);
+        linePeaces.value[peaceId].value = linePeaces.value[peaceId].value
+            .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
+      }
     }
   }
 
@@ -185,6 +191,13 @@ class DotBoxController extends BaseGameController {
     if (peaceId != null) {
       linePeaces.value[peaceId].value =
           linePeaces.value[peaceId].value.removeStatus(status: status);
+    }
+  }
+
+  removeLinePeacesStatus(PeaceStatusTypes status) {
+    for (var i = 0; i < linePeaces.length; i++) {
+      linePeaces.value[i].value =
+          linePeaces.value[i].value.removeStatus(status: status);
     }
   }
 

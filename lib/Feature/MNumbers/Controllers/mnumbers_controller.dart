@@ -53,13 +53,13 @@ class MNumbersController extends BaseGameController {
       addPeaceStatus(index1, PeaceStatusTypes.selected);
       addPeaceStatus(index2, PeaceStatusTypes.selected);
     } else {
-      addPeaceStatus(index1, PeaceStatusTypes.hitted);
-      addPeaceStatus(index2, PeaceStatusTypes.hitted);
+      addPeaceStatus(index1, PeaceStatusTypes.lastTurnPlayed);
+      addPeaceStatus(index2, PeaceStatusTypes.lastTurnPlayed);
       Future.delayed(const Duration(seconds: 3)).then((_) {
-        removePeaceStatus(index1, PeaceStatusTypes.hitted);
+        removePeaceStatus(index1, PeaceStatusTypes.lastTurnPlayed);
         changePeaceValue(index1, null);
         changePeaceSelectedGamer(index1, null);
-        removePeaceStatus(index2, PeaceStatusTypes.hitted);
+        removePeaceStatus(index2, PeaceStatusTypes.lastTurnPlayed);
         changePeaceValue(index2, null);
         changePeaceSelectedGamer(index2, null);
       });
@@ -198,9 +198,9 @@ class MNumbersController extends BaseGameController {
         peaces[i].value =
             peaces[i].value.removeStatus(status: PeaceStatusTypes.isLoading);
       }
-      if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.hitted)) {
+      if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed)) {
         peaces[i].value =
-            peaces[i].value.removeStatus(status: PeaceStatusTypes.hitted);
+            peaces[i].value.removeStatus(status: PeaceStatusTypes.lastTurnPlayed);
       }
     }
   }

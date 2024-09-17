@@ -17,8 +17,10 @@ class DotBoxHorizentalLineWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
-    Color? borderColor;
+    Color borderColor = AppColors.darkColor;
     double? borderWidth;
+    final isLastTurnPlayed =
+        peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.black;
@@ -43,8 +45,8 @@ class DotBoxHorizentalLineWidget extends StatelessWidget {
           color: imageColor ?? AppColors.lightColor,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: borderColor ?? Colors.black,
-            width: borderWidth ?? 2,
+            color: isLastTurnPlayed ? AppColors.yellow : borderColor,
+            width: isLastTurnPlayed ? 2 : borderWidth ?? 2,
           ),
         ),
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)

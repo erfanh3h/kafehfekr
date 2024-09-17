@@ -22,6 +22,8 @@ class YatzyButton extends StatelessWidget {
     Color? fontColor = AppColors.lightColor;
     bool canEquip = true;
     int value = 0;
+    final isLastTurnPlayed =
+        pieceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     if (pieceData.isSelected) {
       canEquip = false;
       switch (pieceData.gamerId) {
@@ -62,10 +64,10 @@ class YatzyButton extends StatelessWidget {
       child: Container(
         height: double.maxFinite,
         decoration: BoxDecoration(
-          border: myGameId == pieceData.gamerId
+          border: myGameId == pieceData.gamerId || isLastTurnPlayed
               ? Border.all(
-                  color: Colors.white,
-                  width: .75,
+                  color: isLastTurnPlayed ? AppColors.yellow : AppColors.white,
+                  width: isLastTurnPlayed ? 1.5 : 1,
                 )
               : null,
           borderRadius: BorderRadius.circular(8),

@@ -98,10 +98,18 @@ class YatzyController extends BaseGameController {
       player1Pieces.value[selectedIndex].value = player1Pieces
           .value[selectedIndex].value
           .changeSelectedUser(score: score);
+      removeAllPieceStatus(1, PeaceStatusTypes.lastTurnPlayed);
+      player1Pieces.value[selectedIndex].value = player1Pieces
+          .value[selectedIndex].value
+          .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
     } else {
       player2Pieces.value[selectedIndex].value = player2Pieces
           .value[selectedIndex].value
           .changeSelectedUser(score: score);
+      removeAllPieceStatus(2, PeaceStatusTypes.lastTurnPlayed);
+      player2Pieces.value[selectedIndex].value = player2Pieces
+          .value[selectedIndex].value
+          .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
     }
     // for (final peace in player1Pieces) {
     //   if (peace.value.id == peaceId) {
@@ -208,6 +216,20 @@ class YatzyController extends BaseGameController {
     }
   }
 
+  removeAllPieceStatus(final int pId, PeaceStatusTypes status) {
+    if (pId == 1) {
+      for (var i = 0; i < player1Pieces.length; i++) {
+        player1Pieces.value[i].value =
+            player1Pieces.value[i].value.removeStatus(status: status);
+      }
+    } else {
+      for (var i = 0; i < player2Pieces.length; i++) {
+        player2Pieces.value[i].value =
+            player2Pieces.value[i].value.removeStatus(status: status);
+      }
+    }
+  }
+
   void onEachRowTap(String text) {
     DialogComponent().showToast(label: text);
   }
@@ -255,6 +277,8 @@ class YatzyController extends BaseGameController {
 
   resetRound() {
     removePeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
+    removeAllPieceStatus(1, PeaceStatusTypes.lastTurnPlayed);
+    removeAllPieceStatus(2, PeaceStatusTypes.lastTurnPlayed);
     resetCalculatedValues();
     selectedDicesIndexes.value.clear();
     remainingDice.value = 2;
