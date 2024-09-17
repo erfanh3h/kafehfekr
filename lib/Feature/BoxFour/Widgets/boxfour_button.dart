@@ -20,6 +20,8 @@ class BoxFourButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? imageColor;
     double borderSize = 2;
+    final isLastTurnPlayed =
+        peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
@@ -52,8 +54,8 @@ class BoxFourButton extends StatelessWidget {
             stops: imageColor != null ? const [0, 0] : null,
           ),
           border: Border.all(
-            color: AppColors.black,
-            width: borderSize,
+            color: isLastTurnPlayed ? AppColors.yellow : AppColors.black,
+            width: isLastTurnPlayed ? 4 : borderSize,
           ),
           borderRadius: BorderRadius.circular(6),
         ),

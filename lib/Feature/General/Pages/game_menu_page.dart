@@ -17,7 +17,9 @@ class GameMenuPage extends StatelessWidget {
     final GameMenuController controller = Get.find<GameMenuController>();
     final gameTypesParts = GameTypes.values.toList();
     final PageController pageController = PageController();
-    final int gamesLength = marketType == MarketTypes.Myket ? gameTypesParts.length : gameTypesParts.length - 1;
+    final int gamesLength = marketType == MarketTypes.Bazaar
+        ? gameTypesParts.length - 1
+        : gameTypesParts.length;
     // we use this because cafe bazaar wont let backgamoon :/
     return Container(
       constraints: BoxConstraints(maxHeight: Get.width * 5 / 6),
@@ -59,9 +61,8 @@ class GameMenuPage extends StatelessWidget {
                       pageController.animateToPage(
                         index != (gamesLength - 1) ? index + 1 : 0,
                         duration: Duration(
-                            milliseconds: index != (gamesLength - 1)
-                                ? 300
-                                : 1000),
+                            milliseconds:
+                                index != (gamesLength - 1) ? 300 : 1000),
                         curve: Curves.linear,
                       );
                     },

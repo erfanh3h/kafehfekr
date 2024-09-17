@@ -56,6 +56,9 @@ class BoxFourController extends BaseGameController {
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);
     player1Score.value = getPlayerScore(1);
     player2Score.value = getPlayerScore(2);
+    removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
+    peaces.value[index].value = peaces.value[index].value
+        .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
   }
 
   @override

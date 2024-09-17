@@ -25,6 +25,8 @@ class BattleShipController extends BaseGameController {
 
   @override
   void currentTurnFunction(Map data) {
+    removeAllPieceStatus(1, PeaceStatusTypes.lastTurnPlayed);
+    removeAllPieceStatus(2, PeaceStatusTypes.lastTurnPlayed);
     isGameInPlayPhase.value = true;
     int turn = data['data'];
     currentTurn.value = turn;
@@ -265,9 +267,17 @@ class BattleShipController extends BaseGameController {
     if (gamerId == 2) {
       player1Pieces[index].value =
           player1Pieces[index].value.changeNumber(number: number);
+      removeAllPieceStatus(1, PeaceStatusTypes.lastTurnPlayed);
+      player1Pieces[index].value = player1Pieces[index]
+          .value
+          .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
     } else {
       player2Pieces[index].value =
           player2Pieces[index].value.changeNumber(number: number);
+      removeAllPieceStatus(2, PeaceStatusTypes.lastTurnPlayed);
+      player2Pieces[index].value = player2Pieces[index]
+          .value
+          .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
     }
   }
 
@@ -280,6 +290,20 @@ class BattleShipController extends BaseGameController {
       player2Pieces[index].value = player2Pieces[index]
           .value
           .changeIsShipCompleted(isShipCompleted: status);
+    }
+  }
+
+  removeAllPieceStatus(final int pId, PeaceStatusTypes status) {
+    if (pId == 1) {
+      for (var i = 0; i < player1Pieces.length; i++) {
+        player1Pieces.value[i].value =
+            player1Pieces.value[i].value.removeStatus(status: status);
+      }
+    } else {
+      for (var i = 0; i < player2Pieces.length; i++) {
+        player2Pieces.value[i].value =
+            player2Pieces.value[i].value.removeStatus(status: status);
+      }
     }
   }
 

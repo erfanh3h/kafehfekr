@@ -13,9 +13,9 @@ class LibraryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gameTypesParts = GameTypes.values.toList();
-    final int gamesLength = marketType == MarketTypes.Myket
-        ? gameTypesParts.length
-        : gameTypesParts.length - 1;
+    final int gamesLength = marketType == MarketTypes.Bazaar
+        ? gameTypesParts.length - 1
+        : gameTypesParts.length;
 
     return Padding(
       padding: AppSpacings.s10Horizental,

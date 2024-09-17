@@ -23,6 +23,8 @@ class BattleShipGameButton extends StatelessWidget {
     Color backgroundColor = Colors.transparent;
     Color? imageColor;
     String? image;
+    final isLastTurnPlayed =
+        peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     if (peaceData.isShipCompleted) {
       backgroundColor = baseColor;
     }
@@ -44,8 +46,8 @@ class BattleShipGameButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor,
           border: Border.all(
-            color: AppColors.lightColor,
-            width: 1,
+            color: isLastTurnPlayed ? AppColors.yellow : AppColors.lightColor,
+            width: isLastTurnPlayed ? 2 : 1,
           ),
           borderRadius: BorderRadius.circular(8),
         ),
