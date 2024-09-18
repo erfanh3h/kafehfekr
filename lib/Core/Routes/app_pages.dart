@@ -10,6 +10,7 @@ import 'package:kafehfekr/Feature/BoxFour/Pages/boxfour_page.dart';
 import 'package:kafehfekr/Feature/Checkers/Pages/checkers_page.dart';
 import 'package:kafehfekr/Feature/Chess/Pages/chess_page.dart';
 import 'package:kafehfekr/Feature/DotBox/Pages/dotbox_page.dart';
+import 'package:kafehfekr/Feature/FekrBekr/Pages/fekrbekr_page.dart';
 import 'package:kafehfekr/Feature/FourInRow/Pages/four_in_row_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/maintence_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/update_page.dart';
@@ -58,6 +59,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.rpc,
       page: RPCPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.fekrBekr,
+      page: FekrBekrPage.new,
     ),
     GetPage(
       name: AppRoutes.msweeper,

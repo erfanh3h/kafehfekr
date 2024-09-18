@@ -14,6 +14,7 @@ enum PeaceStatusTypes {
 }
 
 enum GameTypes {
+  FekrBekr,
   TicTacToe,
   RPC,
   DotBox,

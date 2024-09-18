@@ -9,6 +9,7 @@ import 'package:kafehfekr/Feature/BoxFour/Core/boxfour_binding.dart';
 import 'package:kafehfekr/Feature/Checkers/Core/checkers_binding.dart';
 import 'package:kafehfekr/Feature/Chess/Core/chess_binding.dart';
 import 'package:kafehfekr/Feature/DotBox/Core/dotbox_binding.dart';
+import 'package:kafehfekr/Feature/FekrBekr/Core/fekrbekr_binding.dart';
 import 'package:kafehfekr/Feature/FourInRow/Core/four_in_row_binding.dart';
 import 'package:kafehfekr/Feature/General/Core/general_binding.dart';
 import 'package:kafehfekr/Feature/MNumbers/Core/mnumbers_binding.dart';
@@ -49,6 +50,7 @@ class GlobalBinding implements BindingsInterface {
         SudokuBinding().dependencies(),
         BattleShipBinding().dependencies(),
         BoxFourBinding().dependencies(),
+        FekrBekrBinding().dependencies(),
         BackGammonBinding().dependencies(),
         Get.lazyPut<TimerCompanent>(TimerCompanent.new, fenix: true),
         // Get.lazyPut<SoundPlayerComponent>(

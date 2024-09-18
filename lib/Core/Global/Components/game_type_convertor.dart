@@ -14,6 +14,9 @@ class GameTypeConvertor {
       case GameTypes.TicTacToe:
         result = AppImages.tictactoeGame;
         break;
+      case GameTypes.FekrBekr:
+        result = AppImages.tictactoeGame;
+        break;
       case GameTypes.RPC:
         result = AppImages.rpcGame;
         break;
@@ -70,6 +73,9 @@ class GameTypeConvertor {
       case GameTypes.TicTacToe:
         result = AppTexts.tictactoeNarrative.tr;
         break;
+      case GameTypes.FekrBekr:
+        result = AppTexts.fekrBekrNarrative.tr;
+        break;
       case GameTypes.RPC:
         result = AppTexts.rpcNarrative.tr;
         break;
@@ -125,6 +131,9 @@ class GameTypeConvertor {
     switch (gameType) {
       case GameTypes.TicTacToe:
         result = GameDifficulties.Easy;
+        break;
+      case GameTypes.FekrBekr:
+        result = GameDifficulties.Normal;
         break;
       case GameTypes.RPC:
         result = GameDifficulties.Easy;
