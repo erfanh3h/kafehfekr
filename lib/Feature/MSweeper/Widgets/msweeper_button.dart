@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
@@ -71,26 +72,34 @@ class MSweeperButton extends StatelessWidget {
               : Padding(
                   padding: AppSpacings.s10All,
                   child: isExplodedMine
-                      ? Image.asset(
-                          GeneralIcons.bombExplode,
-                          color: Colors.orangeAccent,
+                      ? SpinPerfect(
+                          child: Image.asset(
+                            GeneralIcons.bombExplode,
+                            color: Colors.orangeAccent,
+                          ),
                         )
                       : isSelectedAsBombWrong
-                          ? Image.asset(
-                              GeneralIcons.cross,
-                              color: Colors.white70,
+                          ? Spin(
+                              child: Image.asset(
+                                GeneralIcons.cross,
+                                color: Colors.white70,
+                              ),
                             )
                           : isSelectedAsBombCorrect
-                              ? Image.asset(
-                                  GeneralIcons.bomb,
-                                  color: AppColors.white,
+                              ? ElasticIn(
+                                  child: Image.asset(
+                                    GeneralIcons.bomb,
+                                    color: AppColors.white,
+                                  ),
                                 )
                               : peaceData.value != null
-                                  ? Text(
-                                      peaceData.value.toString(),
-                                      style: const TextStyle(
-                                        fontFamily: FontFamilies.dastnevis,
-                                        fontSize: 22,
+                                  ? ElasticIn(
+                                      child: Text(
+                                        peaceData.value.toString(),
+                                        style: const TextStyle(
+                                          fontFamily: FontFamilies.dastnevis,
+                                          fontSize: 22,
+                                        ),
                                       ),
                                     )
                                   : Container(),

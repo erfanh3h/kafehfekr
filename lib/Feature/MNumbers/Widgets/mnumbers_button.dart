@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
@@ -67,13 +68,16 @@ class MNumbersButton extends StatelessWidget {
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
             : text != null
-                ? Center(
-                    child: Text(
-                      text,
-                      style: const TextStyle(
-                        fontFamily: FontFamilies.dastnevis,
-                        fontSize: 25,
-                        color: AppColors.lightColor,
+                ? ElasticIn(
+                    duration: const Duration(milliseconds: 750),
+                    child: Center(
+                      child: Text(
+                        text,
+                        style: const TextStyle(
+                          fontFamily: FontFamilies.dastnevis,
+                          fontSize: 25,
+                          color: AppColors.lightColor,
+                        ),
                       ),
                     ),
                   )

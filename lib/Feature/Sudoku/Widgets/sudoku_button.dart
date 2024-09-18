@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -41,11 +42,13 @@ class SudokuButton extends StatelessWidget {
         ),
         child: Center(
           child: peaceData.value != 0
-              ? Text(
-                  peaceData.value.toString(),
-                  style: const TextStyle(
-                    fontFamily: FontFamilies.dastnevis,
-                    fontSize: 18,
+              ? FadeIn(
+                  child: Text(
+                    peaceData.value.toString(),
+                    style: const TextStyle(
+                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 18,
+                    ),
                   ),
                 )
               : Container(),

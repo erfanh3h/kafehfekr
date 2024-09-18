@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
@@ -58,9 +59,11 @@ class TicTacToeButton extends StatelessWidget {
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
             : image != null
-                ? Image.asset(
-                    image,
-                    color: imageColor,
+                ? ElasticIn(
+                    child: Image.asset(
+                      image,
+                      color: imageColor,
+                    ),
                   )
                 : Container(),
       ),

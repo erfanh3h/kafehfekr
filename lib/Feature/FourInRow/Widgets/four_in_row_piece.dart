@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -22,7 +23,7 @@ class FourInRowPiece extends StatelessWidget {
         peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     switch (peaceData.selectedUser) {
       case 1:
-        imageColor = AppColors.imageRedColor;
+        imageColor = AppColors.darkRed;
         image = GeneralIcons.checkers1;
         break;
       case 2:
@@ -55,9 +56,11 @@ class FourInRowPiece extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
       ),
       child: image != null
-          ? Image.asset(
-              image,
-              color: imageColor,
+          ? FadeInDown(
+              child: Image.asset(
+                image,
+                color: imageColor,
+              ),
             )
           : Container(),
     );

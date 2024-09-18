@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
@@ -62,13 +63,16 @@ class BoxFourButton extends StatelessWidget {
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
             : peaceData.value != 0
-                ? Center(
-                    child: Text(
-                      peaceData.value.toString(),
-                      style: const TextStyle(
-                        color: AppColors.lightColor,
-                        fontFamily: FontFamilies.dastnevis,
-                        fontSize: 27,
+                ? ElasticIn(
+                    duration: const Duration(seconds: 1),
+                    child: Center(
+                      child: Text(
+                        peaceData.value.toString(),
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontFamily: FontFamilies.dastnevis,
+                          fontSize: 27,
+                        ),
                       ),
                     ),
                   )
