@@ -52,6 +52,7 @@ class CheckersController extends BaseGameController {
     final int gamerId = selectionData['gamer_id'];
     final index = coordinateToIndex(sourceRIndex, sourceCIndex);
     addPossibleMoves(index, gamerId);
+    removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
     final moveResult = movePawn(
         sourceCIndex, sourceRIndex, targetCIndex, targetRIndex, gamerId);
     if (moveResult) {
@@ -422,6 +423,8 @@ class CheckersController extends BaseGameController {
           listEquals(moveData[0], [targetRIndex, targetCIndex])) {
         int sourceIndex = coordinateToIndex(sourceRIndex, sourceCIndex);
         int targetIndex = coordinateToIndex(targetRIndex, targetCIndex);
+        peaces.value[targetIndex].value = peaces.value[targetIndex].value
+            .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
         if (checkIsLastPeace(targetCIndex, gamerId) ||
             peaces[sourceIndex].value.isSuperPawn) {
           changePeaceSelectedUser(targetIndex, gamerId, isSuperPawn: true);

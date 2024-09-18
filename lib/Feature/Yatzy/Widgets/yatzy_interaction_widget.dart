@@ -34,24 +34,27 @@ class YatzyInteractionWidget extends StatelessWidget {
                 children: [
                   Directionality(
                     textDirection: TextDirection.ltr,
-                    child: Row(
-                      children: [
-                        for (int index = 0; index < 5; index++)
-                          GetBuilder<YatzyController>(
-                            builder: (context) {
-                              return Expanded(
-                                child: DiceSelectionBox(
-                                  value: controller.currentDices[index],
-                                  onSelect: controller.onEachDiceTapped,
-                                  index: index,
-                                  isSelected:
-                                      controller.isDiceSelected(index).value,
-                                ),
-                              );
-                            },
-                          )
-                      ],
-                    ),
+                    child: controller.isLoadingDices.value
+                        ? const SizedBox(height: 60)
+                        : Row(
+                            children: [
+                              for (int index = 0; index < 5; index++)
+                                GetBuilder<YatzyController>(
+                                  builder: (context) {
+                                    return Expanded(
+                                      child: DiceSelectionBox(
+                                        value: controller.currentDices[index],
+                                        onSelect: controller.onEachDiceTapped,
+                                        index: index,
+                                        isSelected: controller
+                                            .isDiceSelected(index)
+                                            .value,
+                                      ),
+                                    );
+                                  },
+                                )
+                            ],
+                          ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +133,7 @@ class ButtonWidget extends StatelessWidget {
                 Container(
                   margin: AppSpacings.s10r,
                   child: Center(
-                    child: Text(  
+                    child: Text(
                       '(${remainingCount.toString()})',
                       style: const TextStyle(
                         fontSize: 17,

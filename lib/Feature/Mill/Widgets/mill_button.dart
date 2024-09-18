@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
@@ -21,6 +22,8 @@ class MillButton extends StatelessWidget {
     String? image;
     late double borderWidth;
     Color borderColor;
+    final isLastTurnPlayed =
+        peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
@@ -38,14 +41,14 @@ class MillButton extends StatelessWidget {
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected) ||
         peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
       borderWidth = 5;
-      borderColor = imageColor ?? AppColors.peaceBorderColor;
+      borderColor = imageColor ?? AppColors.goldenColor;
     } else {
       borderWidth = 1;
-      borderColor = imageColor ?? AppColors.peaceBorderColor;
+      borderColor = imageColor ?? AppColors.goldenColor;
     }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
       borderWidth = 5;
-      borderColor = AppColors.peaceBorderColor;
+      borderColor = AppColors.goldenColor;
     }
     return InkWell(
       onTap: () {
@@ -63,16 +66,19 @@ class MillButton extends StatelessWidget {
             ),
             // color: AppColors.lightColor,
             border: Border.all(
-              color: borderColor,
-              width: borderWidth,
+              color: isLastTurnPlayed ? AppColors.yellow : borderColor,
+              width: isLastTurnPlayed ? 3 : borderWidth,
             ),
             shape: BoxShape.circle),
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
             : image != null
-                ? Image.asset(
-                    image,
-                    color: imageColor,
+                ? ElasticIn(
+                    duration: const Duration(seconds: 1),
+                    child: Image.asset(
+                      image,
+                      color: imageColor,
+                    ),
                   )
                 : Container(),
       ),

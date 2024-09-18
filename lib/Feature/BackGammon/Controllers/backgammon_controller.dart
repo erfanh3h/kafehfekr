@@ -220,6 +220,10 @@ class BackGammonController extends BaseGameController {
 
   addPeaceCount(int peaceId, int gamerId) {
     int newValue = peaces.value[peaceId].value.count + 1;
+    removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
+    peaces[peaceId].value = peaces[peaceId]
+        .value
+        .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
     if (newValue == 1) {
       peaces.value[peaceId].value = peaces.value[peaceId].value
           .changecount(newcount: newValue, newSelectedUser: gamerId);
@@ -459,6 +463,13 @@ class BackGammonController extends BaseGameController {
 
   rollDices() {
     sendCommand({"id": GameCommands.rollDice, "data": {}});
+  }
+
+  removeAllPeacesStatus(PeaceStatusTypes status) {
+    for (var i = 0; i < peaces.length; i++) {
+      peaces.value[i].value =
+          peaces.value[i].value.removeStatus(status: status);
+    }
   }
 
   @override

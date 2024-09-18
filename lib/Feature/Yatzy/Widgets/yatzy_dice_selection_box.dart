@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -42,31 +43,34 @@ class DiceSelectionBox extends StatelessWidget {
       default:
         image = null;
     }
-    return InkWell(
-      onTap: () => onSelect(index),
-      child: Container(
-        margin: AppSpacings.s2All,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          // color: Colors.white.withOpacity(isSelected ? .75 : 0.25),
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Colors.white24,
-              (isSelected ? AppColors.green : Colors.white54)
-            ],
-            // stops: imageColor != null ? const [0, 0] : null,
+    return SpinPerfect(
+      child: InkWell(
+        onTap: () => onSelect(index),
+        child: Container(
+          margin: AppSpacings.s2All,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            // color: Colors.white.withOpacity(isSelected ? .75 : 0.25),
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [
+                Colors.white24,
+                (isSelected ? AppColors.green : Colors.white54)
+              ],
+              // stops: imageColor != null ? const [0, 0] : null,
+            ),
           ),
+          child: Center(
+              child: image != null
+                  ? Image.asset(
+                      image,
+                      color: isSelected
+                          ? AppColors.darkColor
+                          : AppColors.lightColor,
+                    )
+                  : Container()),
         ),
-        child: Center(
-            child: image != null
-                ? Image.asset(
-                    image,
-                    color:
-                        isSelected ? AppColors.darkColor : AppColors.lightColor,
-                  )
-                : Container()),
       ),
     );
   }

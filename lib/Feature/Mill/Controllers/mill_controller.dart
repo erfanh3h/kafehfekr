@@ -75,13 +75,12 @@ class MillController extends BaseGameController {
     } else {
       player2PlayedPeaces.value += 1;
     }
-    for (final peace in peaces) {
-      if (peace.value.id == peaceId) {
-        peace.value = peace.value.changeSelectedUser(newSelectedUser: gamerId);
-        removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-        break;
-      }
-    }
+    removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
+    removeAllPeacesStatus(PeaceStatusTypes.isLoading);
+    peaces[peaceId].value =
+        peaces[peaceId].value.changeSelectedUser(newSelectedUser: gamerId);
+    peaces.value[peaceId].value = peaces.value[peaceId].value
+        .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
   }
 
   @override
@@ -134,7 +133,10 @@ class MillController extends BaseGameController {
         peace.value = peace.value.changeSelectedUser(newSelectedUser: null);
         removePeaceStatus(sourcePeaceId, PeaceStatusTypes.isLoading);
       } else if (peace.value.id == targetPeaceId) {
+        removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
         peace.value = peace.value.changeSelectedUser(newSelectedUser: gamerId);
+        peace.value =
+            peace.value.addStatus(status: PeaceStatusTypes.lastTurnPlayed);
         removePeaceStatus(targetPeaceId, PeaceStatusTypes.isLoading);
       }
     }

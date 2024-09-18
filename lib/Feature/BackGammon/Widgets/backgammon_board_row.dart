@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
@@ -23,6 +24,8 @@ class BackGammonBoardRow extends StatelessWidget {
     late double pieceBorderWidth;
     late double boxBorderWidth;
     late Color boxBorderColor;
+    final isLastTurnPlayed =
+        peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.imageRedColor;
@@ -72,8 +75,9 @@ class BackGammonBoardRow extends StatelessWidget {
                       ],
                     ),
                     border: Border.all(
-                      color: boxBorderColor,
-                      width: boxBorderWidth,
+                      color:
+                          isLastTurnPlayed ? AppColors.yellow : boxBorderColor,
+                      width: isLastTurnPlayed ? 2 : boxBorderWidth,
                     ),
                   ),
                 ),
@@ -88,17 +92,19 @@ class BackGammonBoardRow extends StatelessWidget {
                               : MainAxisAlignment.end,
                           children: [
                             for (int i = 0; i < peaceData.count; i++)
-                              Container(
-                                width: peaceData.count < 5
-                                    ? 25
-                                    : maxWidth / peaceData.count,
-                                height: maxHeight,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: imageColor,
-                                  border: Border.all(
-                                    color: AppColors.lightColor,
-                                    width: pieceBorderWidth,
+                              ElasticIn(
+                                child: Container(
+                                  width: peaceData.count < 5
+                                      ? 25
+                                      : maxWidth / peaceData.count,
+                                  height: maxHeight,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: imageColor,
+                                    border: Border.all(
+                                      color: AppColors.lightColor,
+                                      width: pieceBorderWidth,
+                                    ),
                                   ),
                                 ),
                               )

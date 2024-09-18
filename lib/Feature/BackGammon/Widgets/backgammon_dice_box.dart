@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -43,18 +44,21 @@ class BackGammonDiceBox extends StatelessWidget {
       default:
         diceImage = GeneralIcons.dice1;
     }
-    return InkWell(
-      onTap: () => onTap(index),
-      child: SizedBox(
-        width: 40.h,
-        height: 40.h,
-        child: Card(
-          color: isSelected ? AppColors.goldenColor : AppColors.lightColor,
-          child: Padding(
-            padding: AppSpacings.s5All,
-            child: Image.asset(
-              diceImage,
-              color: !isSelected ? AppColors.darkColor : AppColors.lightColor,
+    return SpinPerfect(
+      duration: const Duration(milliseconds: 750),
+      child: InkWell(
+        onTap: () => onTap(index),
+        child: SizedBox(
+          width: 40.h,
+          height: 40.h,
+          child: Card(
+            color: isSelected ? AppColors.goldenColor : AppColors.lightColor,
+            child: Padding(
+              padding: AppSpacings.s5All,
+              child: Image.asset(
+                diceImage,
+                color: !isSelected ? AppColors.darkColor : AppColors.lightColor,
+              ),
             ),
           ),
         ),

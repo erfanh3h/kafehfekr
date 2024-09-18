@@ -21,6 +21,7 @@ class YatzyController extends BaseGameController {
   RxInt remainingDice = RxInt(2);
 
   RxBool isRoundPlayed = RxBool(true);
+  RxBool isLoadingDices = RxBool(false);
 
   @override
   void waitTimeFunction(Map data) {
@@ -155,6 +156,7 @@ class YatzyController extends BaseGameController {
     currentDices.value = List<int>.from(turnData['dices']);
     calculateScores();
     update();
+    isLoadingDices.value = false;
   }
 
   RxBool isDiceSelected(int index) {
@@ -166,6 +168,7 @@ class YatzyController extends BaseGameController {
       showInteraction(text: AppTexts.outOfDice.tr);
       return;
     }
+    isLoadingDices.value = true;
     showInteraction(sound: GameSoundTypes.dice);
     remainingDice.value -= 1;
     sendCommand({

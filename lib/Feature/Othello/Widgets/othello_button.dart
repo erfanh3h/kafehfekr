@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
@@ -23,9 +24,11 @@ class OthelloButton extends StatelessWidget {
     String? image;
     double borderSize = 2;
     double imageScale = 1;
+    final isLastTurnPlayed =
+        peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     switch (peaceData.selectedUser) {
       case 1:
-        imageColor = AppColors.imageRedColor;
+        imageColor = AppColors.darkRed;
         image = GeneralIcons.checkers1;
         break;
       case 2:
@@ -60,8 +63,10 @@ class OthelloButton extends StatelessWidget {
           //     ? Colors.grey
           //     : AppColors.lightColor,
           border: Border.all(
-            color: borderColor ?? AppColors.black,
-            width: borderSize,
+            color: isLastTurnPlayed
+                ? AppColors.yellow
+                : borderColor ?? AppColors.black,
+            width: isLastTurnPlayed ? 3 : borderSize,
           ),
           borderRadius: BorderRadius.circular(6),
         ),
@@ -70,9 +75,11 @@ class OthelloButton extends StatelessWidget {
             : image != null
                 ? Transform.scale(
                     scale: imageScale,
-                    child: Image.asset(
-                      image,
-                      color: imageColor,
+                    child: ElasticIn(
+                      child: Image.asset(
+                        image,
+                        color: imageColor,
+                      ),
                     ),
                   )
                 : Container(),

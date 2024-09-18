@@ -69,6 +69,9 @@ class OthelloController extends BaseGameController {
     final int gamerId = selectionData['gamer_id'];
     List<int> scores = List<int>.from(data['data']['scores']);
     final index = coordinateToIndex(rIndex, cIndex);
+    removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
+    peaces.value[index].value = peaces.value[index].value
+        .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
     removePeaceStatus(index, PeaceStatusTypes.isLoading);
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);
     flitTiles(gamerId, [rIndex, cIndex]);

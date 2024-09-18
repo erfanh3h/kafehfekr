@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
@@ -25,6 +26,8 @@ class ChessButton extends StatelessWidget {
     String? image;
     double borderSize = 2;
     double imageScale = 1;
+    final isLastTurnPlayed =
+        peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     if (peaceData.piece.gamerId != 0) {
       image = peaceData.piece.image;
       if (peaceData.piece.gamerId == 1) {
@@ -69,8 +72,10 @@ class ChessButton extends StatelessWidget {
                 : [Colors.white38, Colors.white38],
           ),
           border: Border.all(
-            color: borderColor ?? AppColors.black,
-            width: borderSize,
+            color: isLastTurnPlayed
+                ? AppColors.yellow
+                : borderColor ?? AppColors.black,
+            width: isLastTurnPlayed ? 3 : borderSize,
           ),
           borderRadius: BorderRadius.circular(6),
         ),
@@ -81,9 +86,12 @@ class ChessButton extends StatelessWidget {
                     flipY: mustRotate,
                     child: Transform.scale(
                       scale: imageScale,
-                      child: Image.asset(
-                        image,
-                        color: imageColor,
+                      child: ElasticIn(
+                        duration: const Duration(seconds: 1),
+                        child: Image.asset(
+                          image,
+                          color: imageColor,
+                        ),
                       ),
                     ),
                   )

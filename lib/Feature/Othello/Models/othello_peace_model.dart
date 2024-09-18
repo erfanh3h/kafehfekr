@@ -33,17 +33,6 @@ class OthelloPeaceModel extends PeaceModel {
     );
   }
 
-  OthelloPeaceModel changeIsSuperPawn({
-    required bool newIsSuperPawn,
-  }) {
-    final data = super.addStatus(status: PeaceStatusTypes.selected);
-    return OthelloPeaceModel(
-      id: id,
-      currentStatuses: data.currentStatuses,
-      selectedUser: selectedUser,
-    );
-  }
-
   OthelloPeaceModel resetPeace() {
     return OthelloPeaceModel(
       id: id,
