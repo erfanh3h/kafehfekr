@@ -72,6 +72,9 @@ abstract class AppTexts {
   static const yatzy23 = "Yatzy23";
   static const yatzy55 = "Yatzy55";
   static const yatzy66 = "Yatzy66";
+  static const selectBoard = "SelectBoard";
+  static const enemyChoices = "EnemyChoices";
+  static const yourBoard = "yourBoard";
 
   static const tictactoe = "TicTacToe";
   static const rpc = "RPC";

@@ -18,6 +18,7 @@ class GlobalButtonWidget extends StatelessWidget {
     this.height,
     this.width,
     this.isLoading = false,
+    this.fontSize,
   });
 
   final VoidCallback onTap;
@@ -28,6 +29,7 @@ class GlobalButtonWidget extends StatelessWidget {
   final double? height;
   final double? width;
   final bool isLoading;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,8 @@ class GlobalButtonWidget extends StatelessWidget {
               : Text(
                   text,
                   style: TextStyle(
-                    fontSize: 18, color: fontColor ?? AppColors.lightColor,
+                    fontSize: fontSize ?? 18,
+                    color: fontColor ?? AppColors.lightColor,
                     // foreground: Paint()
                     //   ..strokeWidth = 1
                     //   ..color = fontColor ?? AppColors.lightColor

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
-import 'package:kafehfekr/Feature/MNumbers/Controllers/mnumbers_controller.dart';
-import 'package:kafehfekr/Feature/MNumbers/Widgets/mnumbers_board_widget.dart';
+import 'package:kafehfekr/Feature/FekrBekr/Controllers/fekrbekr_controller.dart';
+import 'package:kafehfekr/Feature/FekrBekr/Widgets/fekrbekr_board_widget.dart';
 
-class FekrBekrPage extends BaseView<MNumbersController> {
+class FekrBekrPage extends BaseView<FekrBekrController> {
   const FekrBekrPage({super.key});
 
   @override
@@ -20,7 +20,6 @@ class FekrBekrPage extends BaseView<MNumbersController> {
         ),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SizedBox(height: 15),
           if (controller.players.length > 1)
@@ -28,13 +27,16 @@ class FekrBekrPage extends BaseView<MNumbersController> {
               player1Data: controller.players[0].value,
               player2Data: controller.players[1].value,
               timerColor: controller.returnTimerColor(),
-              player1Number1: controller.player1Score.value,
-              player2Number1: controller.player2Score.value,
+              player1Number1: -1,
+              player2Number1: -1,
+              roundText: controller.isGameInPlayPhase.value
+                  ? "12 / ${controller.currentRound.value}"
+                  : null,
             ),
           const Spacer(flex: 3),
-          MNumbersBoardWidget(controller: controller),
+          FekrBekrBoardWidget(controller: controller),
           const Spacer(flex: 4),
-          GlobalActivityBox<MNumbersController>(),
+          GlobalActivityBox<FekrBekrController>(),
           const Spacer(flex: 1),
         ],
       ),

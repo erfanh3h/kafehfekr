@@ -5,14 +5,14 @@ class FekrBekrPeaceModel extends PeaceModel {
   FekrBekrPeaceModel({
     required super.id,
     required super.currentStatuses,
-    this.value,
+    required this.value,
   });
 
-  int? value;
+  int value;
 
 
   FekrBekrPeaceModel changeValue({
-    int? newValue,
+    required int newValue,
   }) {
     return FekrBekrPeaceModel(
       id: id,
@@ -25,7 +25,7 @@ class FekrBekrPeaceModel extends PeaceModel {
     return FekrBekrPeaceModel(
       id: id,
       currentStatuses: [],
-      value: null,
+      value: 0,
     );
   }
 

@@ -31,6 +31,8 @@ class GameWaitTimes {
   static const int yatzyTurnTime = 60;
   static const int fourInRowTurnTime = 15;
   static const int sudokuGameTime = 1200;
+  static const int fekrBekrBoardTime = 60;
+  static const int fekrBekrTurnTime = 60;
   static const int battleshipBoardTime = 60;
   static const int battleshipTurnTime = 12;
   static const int battleshipWaitTime = 4;

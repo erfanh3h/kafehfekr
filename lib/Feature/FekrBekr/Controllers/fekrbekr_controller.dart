@@ -1,105 +1,73 @@
+import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Feature/MNumbers/Models/mnumbers_peace_model.dart';
+import 'package:kafehfekr/Feature/FekrBekr/Models/fekrbekr_piece_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class FekrBekrController extends BaseGameController {
-  RxList<Rx<MNumbersPeaceModel>> peaces = RxList();
+  RxList<Rx<FekrBekrPeaceModel>> peaces = RxList();
 
-  RxInt equippedPeaceIndex = RxInt(-1);
+  RxBool isGameInPlayPhase = RxBool(false);
+  RxBool isWaiting = RxBool(false);
 
+  RxList<List<int>> player1Choices = RxList([]);
+  RxList<List<int>> player2Choices = RxList([]);
+
+  RxList<List<int>> player1Results = RxList([]);
+  RxList<List<int>> player2Results = RxList([]);
+
+  RxList<int> currentResult = RxList([0, 0, 0, 0]);
+
+  RxInt selectedPeaceIndex = RxInt(-1);
+  RxInt selectedNumber = RxInt(-1);
+
+  List<int> myBoard = [0, 0, 0, 0];
+
+  final ScrollController historyController = ScrollController();
   @override
   void currentTurnFunction(Map data) {
-    clearAllStatuses();
-    equippedPeaceIndex.value = -1;
-    int turn = data['data'];
-    currentTurn.value = turn;
-    if (turn == myGameId) {
-      canSelectPeace.value = true;
-      showInteraction(sound: GameSoundTypes.startTurn);
-    } else {
-      canSelectPeace.value = false;
-    }
-    changetimerValue(GameWaitTimes.mnumbersTurnTime);
+    isGameInPlayPhase.value = true;
+    isWaiting.value = false;
+    selectedPeaceIndex.value = -1;
+    selectedNumber.value = -1;
+    resetPieces();
+    int turn = data['data']['current_round'];
+    currentRound.value = turn;
+    canSelectPeace.value = true;
+    showInteraction(sound: GameSoundTypes.startTurn);
+    changetimerValue(GameWaitTimes.fekrBekrTurnTime);
+  }
+
+  @override
+  void startGameFunction(Map data) {
+    showInteraction(sound: GameSoundTypes.startGame);
+    changetimerValue(GameWaitTimes.fekrBekrBoardTime);
+    canSelectPeace.value = true;
   }
 
   @override
   void peaceSelectedFunction(Map data) {
-    Map peaceData = data['data'];
-    int gamerId = peaceData['user'];
-    bool isCorrectlySelected = peaceData['is_correct'];
-    int index1 = peaceData['index1'];
-    int index2 = peaceData['index2'];
-    int value1 = peaceData['value1'];
-    int value2 = peaceData['value2'];
-    changetimerValue(GameWaitTimes.mnumbersShowResultTime);
-    removePeaceStatus(index1, PeaceStatusTypes.isLoading);
-    removePeaceStatus(index2, PeaceStatusTypes.isLoading);
-    clearEquipStatus();
-    changePeaceValue(index1, value1);
-    changePeaceSelectedGamer(index1, gamerId);
-    changePeaceValue(index2, value2);
-    changePeaceSelectedGamer(index2, gamerId);
-    if (isCorrectlySelected) {
-      showInteraction(sound: GameSoundTypes.correct);
-      if (gamerId == 1) {
-        player1Score.value += 1;
-      } else {
-        player2Score.value += 1;
-      }
-      addPeaceStatus(index1, PeaceStatusTypes.selected);
-      addPeaceStatus(index2, PeaceStatusTypes.selected);
+    Map newData = data['data'];
+    List<int> selectionData = List<int>.from(newData['data']);
+    List<int> result = List<int>.from(newData['result']);
+    int gamerId = newData['gamer_id'];
+    if (gamerId == 1) {
+      player1Choices.value.add(selectionData);
+      player1Results.value.add(result);
     } else {
-      addPeaceStatus(index1, PeaceStatusTypes.lastTurnPlayed);
-      addPeaceStatus(index2, PeaceStatusTypes.lastTurnPlayed);
-      Future.delayed(const Duration(seconds: 3)).then((_) {
-        removePeaceStatus(index1, PeaceStatusTypes.lastTurnPlayed);
-        changePeaceValue(index1, null);
-        changePeaceSelectedGamer(index1, null);
-        removePeaceStatus(index2, PeaceStatusTypes.lastTurnPlayed);
-        changePeaceValue(index2, null);
-        changePeaceSelectedGamer(index2, null);
-      });
+      player2Choices.value.add(selectionData);
+      player2Results.value.add(result);
     }
-  }
-
-  @override
-  void onEachButtonTap(dynamic tappedPeace) {
-    MNumbersPeaceModel peace = tappedPeace as MNumbersPeaceModel;
-    if (!canSelectPeace.value) {
-      showInteraction(text: AppTexts.notYourTurn.tr);
-      return;
+    if (gamerId == myGameId) {
+      currentResult.value = result;
     }
-    if (!checkPeaceIsEmpty(peace.id)) {
-      showInteraction(text: AppTexts.selectedBefore.tr);
-      return;
-    }
-    if (equippedPeaceIndex.value != -1) {
-      if (peace.id == equippedPeaceIndex.value) {
-        equippedPeaceIndex.value = -1;
-        removePeaceStatus(peace.id, PeaceStatusTypes.equiped);
-        return;
-      }
-      canSelectPeace.value = false;
-      showInteraction(sound: GameSoundTypes.tap);
-      changetimerValue(0);
-      currentTurn.value = -1;
-      sendCommand({
-        "id": GameCommands.selectPeace,
-        "data": {'index1': equippedPeaceIndex.value, 'index2': peace.id}
-      });
-      addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
-      addPeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.isLoading);
-      addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-      equippedPeaceIndex.value = -1;
-    } else {
-      equippedPeaceIndex.value = peace.id;
-      showInteraction(sound: GameSoundTypes.tap);
-      addPeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
-    }
+    update();
+    Future.delayed(const Duration(milliseconds: 500)).then((_) =>
+        historyController.jumpTo(historyController.position.maxScrollExtent));
   }
 
   @override
@@ -108,113 +76,115 @@ class FekrBekrController extends BaseGameController {
     Map newData = data['data'];
     Map gameData = newData['game_data'];
     Map timerData = newData['timer_data'];
-    List boardData = gameData['board'];
-    player1Score.value = gameData['scores'][0];
-    player2Score.value = gameData['scores'][1];
-    currentTurn.value = gameData['current_turn'];
-    for (var i = 0; i < boardData.length; i++) {
-      if (boardData[i]['value'] == 0) {
-        continue;
-      }
-      if (boardData[i]['equipped_user'] != 0) {
-        changePeaceValue(i, boardData[i]['value']);
-        changePeaceSelectedGamer(i, boardData[i]['equipped_user']);
-      }
+    myBoard = List<int>.from(gameData['board']);
+    for (var data in gameData['player1_choices']) {
+      player1Choices.value.add(List<int>.from(data));
     }
-    if (currentTurn.value == myGameId) {
-      canSelectPeace.value = true;
+    for (var data in gameData['player2_choices']) {
+      player2Choices.value.add(List<int>.from(data));
+    }
+    for (var data in gameData['player1_results']) {
+      player1Results.value.add(List<int>.from(data));
+    }
+    for (var data in gameData['player2_results']) {
+      player2Results.value.add(List<int>.from(data));
+    }
+    Future.delayed(const Duration(milliseconds: 500)).then((_) =>
+        historyController.jumpTo(historyController.position.maxScrollExtent));
+    isGameInPlayPhase.value = gameData['is_play_phase'];
+    currentRound.value = gameData['current_round'];
+    if (!isGameInPlayPhase.value) {
+      isWaiting.value = gameData['is_player_rdy'];
     } else {
-      canSelectPeace.value = false;
+      isWaiting.value = gameData['is_turn_played'];
     }
-    if (timerData['is_user_turn']) {
+    if (!isWaiting.value) {
+      canSelectPeace.value = true;
+    }
+    update();
+    if (!isGameInPlayPhase.value) {
       final int time =
-          GameWaitTimes.mnumbersTurnTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.mnumbersTurnTime));
+          GameWaitTimes.fekrBekrTurnTime - timerData['time'] as int;
+      changetimerValue(time.clamp(0, time));
+    } else {
+      final int time =
+          GameWaitTimes.fekrBekrBoardTime - timerData['time'] as int;
+      changetimerValue(time.clamp(0, time));
     }
   }
 
-  bool checkPeaceIsEmpty(int index) {
-    return peaces.value[index].value.selectedUser == null;
+  @override
+  Color returnTimerColor() {
+    return AppColors.darkColor;
   }
 
-  void clearEquipedPeace(int index) {
-    equippedPeaceIndex.value = -1;
-    removePeaceStatus(index, PeaceStatusTypes.equiped);
-  }
-
-  void resetPeaces() {
-    for (var i = 0; i < peaces.length; i++) {
-      peaces[i].value = peaces[i].value.resetPeace();
+  @override
+  void onEachButtonTap(dynamic tappedPeace) {
+    FekrBekrPeaceModel piece = tappedPeace as FekrBekrPeaceModel;
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
     }
-  }
-
-  addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
-    if (peaceId != null) {
-      peaces.value[peaceId].value =
-          peaces.value[peaceId].value.addStatus(status: status);
-    }
-  }
-
-  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
-    if (peaceId != null) {
-      peaces.value[peaceId].value =
-          peaces.value[peaceId].value.removeStatus(status: status);
-    }
-  }
-
-  changePeaceValue(int? peaceId, int? value) {
-    if (peaceId != null) {
-      peaces.value[peaceId].value =
-          peaces.value[peaceId].value.changeValue(newValue: value);
-    }
-  }
-
-  changePeaceSelectedGamer(int? peaceId, int? value) {
-    if (peaceId != null) {
-      peaces.value[peaceId].value = peaces.value[peaceId].value
-          .changeSelectedUser(newSelectedUser: value);
-    }
-  }
-
-  clearEquipStatus() {
-    for (var i = 0; i < peaces.length; i++) {
-      if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.equiped)) {
-        peaces[i].value =
-            peaces[i].value.removeStatus(status: PeaceStatusTypes.equiped);
+    showInteraction(sound: GameSoundTypes.tap);
+    if (selectedNumber.value == -1) {
+      peaces.value[piece.id].value =
+          peaces.value[piece.id].value.changeValue(newValue: 0);
+    } else {
+      if (selectedNumber.value == peaces.value[piece.id].value.value) {
+        peaces.value[piece.id].value =
+            peaces.value[piece.id].value.changeValue(newValue: 0);
+      } else {
+        peaces.value[piece.id].value = peaces.value[piece.id].value.changeValue(
+          newValue: selectedNumber.value,
+        );
       }
     }
   }
 
-  clearAllStatuses() {
-    for (var i = 0; i < peaces.length; i++) {
-      if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.equiped)) {
-        peaces[i].value =
-            peaces[i].value.removeStatus(status: PeaceStatusTypes.equiped);
+  changeSelectedNumber(int index) {
+    if (index == selectedNumber.value) {
+      selectedNumber.value = -1;
+    } else {
+      selectedNumber.value = index;
+    }
+  }
+
+  sendResult(String command) {
+    for (var peace in peaces) {
+      if (peace.value.value == 0) {
+        showInteraction(sound: GameSoundTypes.tapWrong);
+        return;
       }
-      if (peaces[i]
-          .value
-          .currentStatuses
-          .contains(PeaceStatusTypes.isLoading)) {
-        peaces[i].value =
-            peaces[i].value.removeStatus(status: PeaceStatusTypes.isLoading);
-      }
-      if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed)) {
-        peaces[i].value =
-            peaces[i].value.removeStatus(status: PeaceStatusTypes.lastTurnPlayed);
-      }
+    }
+
+    canSelectPeace.value = false;
+    List<int> result = [];
+    for (var peace in peaces) {
+      result.add(peace.value.value);
+    }
+    if (command == GameCommands.saveBoard) {
+      myBoard = result;
+    }
+    sendCommand({"id": command, "data": result});
+    isWaiting.value = true;
+  }
+
+  resetPieces() {
+    for (var i = 0; i < 4; i++) {
+      peaces.value[i].value = peaces.value[i].value.changeValue(newValue: 0);
     }
   }
 
   initPieces() {
-    for (var i = 0; i < 36; i++) {
-      peaces.add(Rx(MNumbersPeaceModel(id: i, currentStatuses: [])));
+    for (var i = 0; i < 4; i++) {
+      peaces.add(Rx(FekrBekrPeaceModel(id: i, currentStatuses: [], value: 0)));
     }
   }
 
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.MNumbers;
+    gameType = GameTypes.FekrBekr;
     initPieces();
   }
 }

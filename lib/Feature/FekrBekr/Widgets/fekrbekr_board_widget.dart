@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/FekrBekr/Controllers/fekrbekr_controller.dart';
-import 'package:kafehfekr/Feature/MNumbers/Widgets/MNumbers_button.dart';
+import 'package:kafehfekr/Feature/FekrBekr/Widgets/fekrbekr_button.dart';
+import 'package:kafehfekr/Feature/FekrBekr/Widgets/fekrbekr_enemy_choices_box.dart';
+import 'package:kafehfekr/Feature/FekrBekr/Widgets/fekrbekr_result_row_widget.dart';
+import 'package:kafehfekr/Feature/FekrBekr/Widgets/fekrbekr_select_numbers_box.dart';
 import 'package:refreshed/refreshed.dart';
 
 class FekrBekrBoardWidget extends StatelessWidget {
@@ -16,41 +22,131 @@ class FekrBekrBoardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Center(
+    return Obx(
+      () => Center(
         child: Container(
-          padding: AppSpacings.s5All,
-          height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
+          padding: AppSpacings.s15All,
+          height:
+              (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) + 100,
           width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
-          decoration: BoxDecoration(
-            // gradient: const LinearGradient(
-            //   begin: Alignment.bottomLeft,
-            //   end: Alignment.topRight,
-            //   colors: [Colors.transparent, AppColors.white],
-            //   // stops: imageColor != null ? const [0, 0] : null,
-            // ),
-            border: Border.all(
-              color: AppColors.darkColor,
-              width: 15,
-            ),
-            borderRadius: BorderRadius.circular(50),
-          ),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 6,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-            ),
-            itemBuilder: (ctx, index) => Obx(
-              () => MNumbersButton(
-                peaceData: controller.peaces[index].value,
-                onTap: controller.onEachButtonTap,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              controller.isGameInPlayPhase.value
+                  ? Expanded(
+                      child: GetBuilder<FekrBekrController>(
+                        builder: (context) {
+                          return Container(
+                            padding: AppSpacings.s5All,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: AppColors.lightColor),
+                            ),
+                            child: Obx(
+                              () => ListView.builder(
+                                controller: controller.historyController,
+                                itemBuilder: (ctx, index) =>
+                                    FekrBekrResultRowWidget(
+                                  selectionData: controller.myGameId == 1
+                                      ? controller.player1Choices[index]
+                                      : controller.player2Choices[index],
+                                  resultData: controller.myGameId == 1
+                                      ? controller.player1Results[index]
+                                      : controller.player2Results[index],
+                                  index: index,
+                                ),
+                                itemCount: controller.myGameId == 1
+                                    ? controller.player1Results.length
+                                    : controller.player2Results.length,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  : Text(
+                      AppTexts.selectBoard.tr,
+                      style: const TextStyle(
+                        color: AppColors.lightColor,
+                        fontSize: 22,
+                      ),
+                    ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Card(
+                      child: Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            for (int i = 0; i < 4; i++)
+                              Obx(
+                                () => FekrBekrButton(
+                                  peaceData: controller.peaces[i].value,
+                                  onTap: controller.onEachButtonTap,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: FekrBekrSelectNumbersBox(
+                              controller: controller,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Column(
+                            children: [
+                              controller.isWaiting.value
+                                  ? const Padding(
+                                      padding: AppSpacings.s10Vertical,
+                                      child: GlobalWaitWidget(),
+                                    )
+                                  : GlobalButtonWidget(
+                                      onTap: () => controller.sendResult(
+                                        controller.isGameInPlayPhase.value
+                                            ? GameCommands.selectPeace
+                                            : GameCommands.saveBoard,
+                                      ),
+                                      text: AppTexts.accept.tr,
+                                    ),
+                              const SizedBox(height: 3),
+                              controller.isGameInPlayPhase.value
+                                  ? GlobalButtonWidget(
+                                      fontSize: 13,
+                                      onTap: () {
+                                        Get.bottomSheet(
+                                          FekrBekrEnemyChoicesBox(
+                                            controller: controller,
+                                          ),
+                                          backgroundColor: AppColors.darkColor,
+                                        );
+                                      },
+                                      text: AppTexts.enemyChoices.tr,
+                                    )
+                                  : Container(),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            itemCount: controller.peaces.length,
+              // const Divider(color: AppColors.lightColor, height: 30),
+            ],
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }
