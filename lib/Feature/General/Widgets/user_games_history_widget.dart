@@ -35,16 +35,24 @@ class UserGamesHistoryWidget extends StatelessWidget {
             name: AppTexts.ten.tr,
           ),
           GameHistoryRowWidget(
-            data: data.rankMSweeper,
-            name: AppTexts.msweeper.tr,
-          ),
-          GameHistoryRowWidget(
             data: data.rankMNumbers,
             name: AppTexts.mnumbers.tr,
           ),
           GameHistoryRowWidget(
+            data: data.rankMSweeper,
+            name: AppTexts.msweeper.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankFekrBekr,
+            name: AppTexts.fekrBekr.tr,
+          ),
+          GameHistoryRowWidget(
             data: data.rankYatzy,
             name: AppTexts.yatzy.tr,
+          ),
+          GameHistoryRowWidget(
+            data: data.rankPentago,
+            name: AppTexts.pentago.tr,
           ),
           GameHistoryRowWidget(
             data: data.rankFourInRow,

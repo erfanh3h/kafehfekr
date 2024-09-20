@@ -113,16 +113,16 @@ class GlobalController extends BaseController {
       }
       final gameIdData =
           await globalRepo.getDataFromStorage(key: StorageKeys.gameId);
-      // if (gameIdData != null) {
-      //   activeGameId = gameIdData;
-      // }
-      activeGameId = "gameId";
+      if (gameIdData != null) {
+        activeGameId = gameIdData;
+      }
+      // activeGameId = "gameId";
       final gameTypeData =
           await globalRepo.getDataFromStorage(key: StorageKeys.gameType);
-      // if (gameTypeData != null) {
-      //   activeGameType = gameTypeData;
-      // }
-      activeGameType = "Pentago";
+      if (gameTypeData != null) {
+        activeGameType = gameTypeData;
+      }
+      // activeGameType = "Pentago";
     }
     isLoadingProfile.value = false;
   }

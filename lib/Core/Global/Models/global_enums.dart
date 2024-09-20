@@ -14,15 +14,15 @@ enum PeaceStatusTypes {
 }
 
 enum GameTypes {
-  Pentago,
   TicTacToe,
   RPC,
   DotBox,
   Ten,
-  MSweeper,
   MNumbers,
+  MSweeper,
   FekrBekr,
   Yatzy,
+  Pentago,
   FourInRow,
   Sudoku,
   BattleShip,

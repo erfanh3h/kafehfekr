@@ -15,10 +15,10 @@ class GameTypeConvertor {
         result = AppImages.tictactoeGame;
         break;
       case GameTypes.FekrBekr:
-        result = AppImages.tictactoeGame;
+        result = AppImages.fekrbekrGame;
         break;
       case GameTypes.Pentago:
-        result = AppImages.tictactoeGame;
+        result = AppImages.pentagoGame;
         break;
       case GameTypes.RPC:
         result = AppImages.rpcGame;
@@ -181,7 +181,7 @@ class GameTypeConvertor {
         result = GameDifficulties.Normal;
         break;
       case GameTypes.MNumbers:
-        result = GameDifficulties.Normal;
+        result = GameDifficulties.Easy;
         break;
       case GameTypes.MSweeper:
         result = GameDifficulties.Normal;

@@ -75,13 +75,22 @@ class GameMenuGamePartWidget extends StatelessWidget {
             child: Padding(
               padding: AppSpacings.s20Horizental,
               child: LayoutBuilder(builder: (context, cons) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(
-                    gameConvertor.toGameImage(),
-                    width: cons.maxWidth,
-                    height: cons.maxWidth,
-                    // fit: BoxFit.fill,
+                return Container(
+                  width: cons.maxWidth,
+                  height: cons.maxWidth,
+                  decoration: BoxDecoration(
+                    color: const Color(0xff7c94b6),
+                    image: DecorationImage(
+                      image: AssetImage(
+                        gameConvertor.toGameImage(),
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                    border: Border.all(
+                      color: difficultyColor,
+                      width: 2,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 );
               }),

@@ -109,8 +109,8 @@ abstract class AppTexts {
   static const sudokuGuide = "sudokuGuide";
   static const battleshipGuide = "battleshipGuide";
   static const boxFourGuide = "boxfourGuide";
-  static const fekrBekrGuide = "FekrBekrGuide";
-  static const pentagoGuide = "PentagoGuide";
+  static const fekrBekrGuide = "fekrbekrGuide";
+  static const pentagoGuide = "pentagoGuide";
   static const backGammonGuide = "backgammonGuide";
   static const tictactoeGameGuide = "tictactoeGameGuide";
   static const rpcGameGuide = "rpcGameGuide";
@@ -127,8 +127,8 @@ abstract class AppTexts {
   static const sudokuGameGuide = "sudokuGameGuide";
   static const battleshipGameGuide = "battleshipGameGuide";
   static const boxFourGameGuide = "boxfourGameGuide";
-  static const fekrBekrGameGuide = "FekrBekrGameGuide";
-  static const pentagoGameGuide = "PentagoGameGuide";
+  static const fekrBekrGameGuide = "fekrbekrGameGuide";
+  static const pentagoGameGuide = "pentagoGameGuide";
   static const backGammonGameGuide = "backgammonGameGuide";
   static const tictactoeNarrative = "tictactoeNarrative";
   static const rpcNarrative = "rpcNarrative";
