@@ -20,6 +20,8 @@ abstract class AppTexts {
   static const rankGame = "rankGame";
   static const rankHistoryDetails = "rankHistoryDetails";
   static const surrender = "surrender";
+  static const taturialLink = "taturialLink";
+
   static const win = "win";
   static const lose = "lose";
   static const draw = "draw";

@@ -83,6 +83,7 @@ class PentagoController extends BaseGameController {
       showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
+    showInteraction(sound: GameSoundTypes.tap);
     isSelectionPlayed.value = true;
     final index = peace.id;
     sendCommand({"id": GameCommands.selectPeace, "data": index});

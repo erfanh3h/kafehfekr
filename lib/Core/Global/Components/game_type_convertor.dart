@@ -1,6 +1,7 @@
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GameTypeConvertor {
@@ -191,6 +192,41 @@ class GameTypeConvertor {
         break;
       default:
         result = GameDifficulties.Easy;
+    }
+    return result;
+  }
+
+  String? toGameGuideLink() {
+    String? result;
+    switch (gameType) {
+      case GameTypes.MSweeper:
+        result = GuideLinks.mSweeper;
+        break;
+      case GameTypes.Yatzy:
+        result = GuideLinks.yatzy;
+        break;
+      case GameTypes.Pentago:
+        result = GuideLinks.pentago;
+        break;
+      case GameTypes.Sudoku:
+        result = GuideLinks.sudoku;
+        break;
+      case GameTypes.Chess:
+        result = GuideLinks.chess;
+        break;
+      case GameTypes.Checkers:
+        result = GuideLinks.checkers;
+        break;
+      case GameTypes.Othello:
+        result = GuideLinks.othello;
+        break;
+      case GameTypes.Mill:
+        result = GuideLinks.mill;
+        break;
+      case GameTypes.BackGammon:
+        result = GuideLinks.backGammon;
+        break;
+      default:
     }
     return result;
   }
