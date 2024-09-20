@@ -122,7 +122,7 @@ class GlobalController extends BaseController {
       // if (gameTypeData != null) {
       //   activeGameType = gameTypeData;
       // }
-      activeGameType = "FekrBekr";
+      activeGameType = "Pentago";
     }
     isLoadingProfile.value = false;
   }

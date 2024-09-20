@@ -30,6 +30,7 @@ class GameWaitTimes {
   static const int dotBoxTurnTime = 15;
   static const int yatzyTurnTime = 60;
   static const int fourInRowTurnTime = 15;
+  static const int pentagoTurnTime = 25;
   static const int sudokuGameTime = 1200;
   static const int fekrBekrBoardTime = 60;
   static const int fekrBekrTurnTime = 60;
@@ -56,11 +57,13 @@ abstract class GameCommands {
   static const rollResult = "RollResult";
   static const outOfMove = "OutOfMove";
   static const selectPeace = "SelectPeace";
+  static const rotatePeace = "RotatePeace";
   static const selectPeaceResult = "SelectPeaceResult";
   static const swapPeace = "SwapPeace";
   static const removePeace = "RemovePeace";
   static const selectRemovePeace = "SelectRemovePeace";
   static const peaceSelected = "PeaceSelected";
+  static const peaceRotated = "PeaceRotated";
   static const peaceSwaped = "PeaceSwaped";
   static const peaceRemoved = "PeaceRemoved";
   static const newTurnRound = "NewTurnRound";

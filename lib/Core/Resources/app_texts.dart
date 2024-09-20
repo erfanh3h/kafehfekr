@@ -153,6 +153,7 @@ abstract class AppTexts {
   static const cantSelect = "cantSelect";
   static const bombExploded = "bombExploded";
   static const selectedBefore = "selectedBefore";
+  static const youSelectedBefore = "youSelectedBefore";
   static const selectedWrongPlace = "selectedWrongPlace";
   static const selectAllShips = "selectAllShips";
   static const cantRemoveYourPiece = "cantRemoveYourPiece";
@@ -160,6 +161,7 @@ abstract class AppTexts {
   static const cantSwapEnemyPiece = "cantSwapEnemyPiece";
   static const outOfDice = "outOfDice";
   static const selectDiceFirst = "selectDiceFirst";
+  static const selectPieceFirst = "SelectPieceFirst";
   static const bringInOutedPiece = "bringInOutedPiece";
   static const selectNumber = "selectNumber";
   static const playerThisRound = "playerThisRound";

@@ -18,6 +18,7 @@ import 'package:kafehfekr/Feature/MNumbers/Pages/mnumbers_page.dart';
 import 'package:kafehfekr/Feature/MSweeper/Pages/msweeper_page.dart';
 import 'package:kafehfekr/Feature/Mill/Pages/mill_page.dart';
 import 'package:kafehfekr/Feature/Othello/Pages/othello_page.dart';
+import 'package:kafehfekr/Feature/Pentago/Pages/pentago_page.dart';
 import 'package:kafehfekr/Feature/RPC/Pages/rpc_page.dart';
 import 'package:kafehfekr/Feature/Sudoku/Pages/sudoku_page.dart';
 import 'package:kafehfekr/Feature/Ten/Pages/ten_page.dart';
@@ -63,6 +64,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.fekrBekr,
       page: FekrBekrPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.pentago,
+      page: PentagoPage.new,
     ),
     GetPage(
       name: AppRoutes.msweeper,
