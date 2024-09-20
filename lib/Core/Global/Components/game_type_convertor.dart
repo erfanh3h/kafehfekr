@@ -17,6 +17,9 @@ class GameTypeConvertor {
       case GameTypes.FekrBekr:
         result = AppImages.tictactoeGame;
         break;
+      case GameTypes.Pentago:
+        result = AppImages.tictactoeGame;
+        break;
       case GameTypes.RPC:
         result = AppImages.rpcGame;
         break;
@@ -76,6 +79,9 @@ class GameTypeConvertor {
       case GameTypes.FekrBekr:
         result = AppTexts.fekrBekrNarrative.tr;
         break;
+      case GameTypes.Pentago:
+        result = AppTexts.pentagoNarrative.tr;
+        break;
       case GameTypes.RPC:
         result = AppTexts.rpcNarrative.tr;
         break;
@@ -133,6 +139,9 @@ class GameTypeConvertor {
         result = GameDifficulties.Easy;
         break;
       case GameTypes.FekrBekr:
+        result = GameDifficulties.Normal;
+        break;
+      case GameTypes.Pentago:
         result = GameDifficulties.Normal;
         break;
       case GameTypes.RPC:

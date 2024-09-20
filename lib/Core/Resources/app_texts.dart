@@ -92,6 +92,7 @@ abstract class AppTexts {
   static const battleship = "BattleShip";
   static const boxFour = "BoxFour";
   static const fekrBekr = "FekrBekr";
+  static const pentago = "Pentago";
   static const backGammon = "BackGammon";
   static const tictactoeGuide = "tictactoeGuide";
   static const rpcGuide = "rpcGuide";
@@ -109,6 +110,7 @@ abstract class AppTexts {
   static const battleshipGuide = "battleshipGuide";
   static const boxFourGuide = "boxfourGuide";
   static const fekrBekrGuide = "FekrBekrGuide";
+  static const pentagoGuide = "PentagoGuide";
   static const backGammonGuide = "backgammonGuide";
   static const tictactoeGameGuide = "tictactoeGameGuide";
   static const rpcGameGuide = "rpcGameGuide";
@@ -126,6 +128,7 @@ abstract class AppTexts {
   static const battleshipGameGuide = "battleshipGameGuide";
   static const boxFourGameGuide = "boxfourGameGuide";
   static const fekrBekrGameGuide = "FekrBekrGameGuide";
+  static const pentagoGameGuide = "PentagoGameGuide";
   static const backGammonGameGuide = "backgammonGameGuide";
   static const tictactoeNarrative = "tictactoeNarrative";
   static const rpcNarrative = "rpcNarrative";
@@ -143,6 +146,7 @@ abstract class AppTexts {
   static const battleshipNarrative = "battleshipNarrative";
   static const boxFourNarrative = "boxFourNarrative";
   static const fekrBekrNarrative = "FekrBekrNarrative";
+  static const pentagoNarrative = "PentagoNarrative";
   static const backGammonNarrative = "backGammonNarrative";
 
   static const notYourTurn = "notYourTurn";

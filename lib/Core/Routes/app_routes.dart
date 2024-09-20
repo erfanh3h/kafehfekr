@@ -22,5 +22,6 @@ abstract class AppRoutes {
   static const battleship = '/BattleShip';
   static const boxFour = '/BoxFour';
   static const fekrBekr = '/FekrBekr';
+  static const pentago = '/Pentago';
   static const backGammon = '/BackGammon';
 }
