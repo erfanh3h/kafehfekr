@@ -189,7 +189,7 @@ class BackGammonController extends BaseGameController {
     if (timerData['is_user_turn']) {
       final int time =
           GameWaitTimes.backGammonTurnTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.backGammonTurnTime));
+      changetimerValue(time.clamp(0, GameWaitTimes.backGammonTurnTime));
     }
   }
 

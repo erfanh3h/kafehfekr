@@ -43,7 +43,7 @@ class GlobalButtonWidget extends StatelessWidget {
       child: Container(
         padding: AppSpacings.s5Vertical3Horizental,
         height: height ?? 40.h,
-        width: height ?? 140,
+        width: width ?? 140,
         decoration: BoxDecoration(
           color: color ?? AppColors.blueWarmColor,
           borderRadius: BorderRadius.circular(8),

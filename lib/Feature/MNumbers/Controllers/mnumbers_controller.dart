@@ -129,7 +129,7 @@ class MNumbersController extends BaseGameController {
     if (timerData['is_user_turn']) {
       final int time =
           GameWaitTimes.mnumbersTurnTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.mnumbersTurnTime));
+      changetimerValue(time.clamp(0, GameWaitTimes.mnumbersTurnTime));
     }
   }
 
@@ -198,9 +198,13 @@ class MNumbersController extends BaseGameController {
         peaces[i].value =
             peaces[i].value.removeStatus(status: PeaceStatusTypes.isLoading);
       }
-      if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed)) {
-        peaces[i].value =
-            peaces[i].value.removeStatus(status: PeaceStatusTypes.lastTurnPlayed);
+      if (peaces[i]
+          .value
+          .currentStatuses
+          .contains(PeaceStatusTypes.lastTurnPlayed)) {
+        peaces[i].value = peaces[i]
+            .value
+            .removeStatus(status: PeaceStatusTypes.lastTurnPlayed);
       }
     }
   }

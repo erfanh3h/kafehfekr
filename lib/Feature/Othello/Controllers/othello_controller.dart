@@ -131,7 +131,7 @@ class OthelloController extends BaseGameController {
     }
     if (timerData['is_user_turn']) {
       final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.millSelectTime));
+      changetimerValue(time.clamp(0, GameWaitTimes.millSelectTime));
     }
   }
 

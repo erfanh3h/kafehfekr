@@ -7,6 +7,7 @@ import 'package:refreshed/refreshed.dart';
 
 class GameMenuController extends BaseController {
   RxInt currentPage = RxInt(0);
+  final PageController pageController = PageController();
 
   changePage(int value) {
     currentPage.value = value;

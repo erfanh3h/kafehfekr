@@ -87,7 +87,7 @@ class FourInRowController extends BaseGameController {
     player1Pawns.value = gameData['pawns_count'][0];
     player2Pawns.value = gameData['pawns_count'][1];
     for (var i = 0; i < boardData.length; i++) {
-      changePeaceSelectedUser(i, boardData[i] , fromRec: true);
+      changePeaceSelectedUser(i, boardData[i], fromRec: true);
     }
     if (currentTurn.value == myGameId) {
       canSelectPeace.value = true;
@@ -97,7 +97,7 @@ class FourInRowController extends BaseGameController {
     if (timerData['is_user_turn']) {
       final int time =
           GameWaitTimes.fourInRowTurnTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.fourInRowTurnTime));
+      changetimerValue(time.clamp(0, GameWaitTimes.fourInRowTurnTime));
     }
   }
 

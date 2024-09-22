@@ -91,12 +91,12 @@ class BattleShipController extends BaseGameController {
       isWaiting.value = isPlayerRdy;
       final int time =
           GameWaitTimes.battleshipBoardTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.battleshipBoardTime));
+      changetimerValue(time.clamp(0, GameWaitTimes.battleshipBoardTime));
     } else {
       isWaiting.value = false;
       final int time =
           GameWaitTimes.battleshipTurnTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.battleshipTurnTime));
+      changetimerValue(time.clamp(0, GameWaitTimes.battleshipTurnTime));
     }
     for (var i = 0; i < player1BoardData.length; i++) {
       player1Pieces[i].value =
@@ -114,7 +114,7 @@ class BattleShipController extends BaseGameController {
     // if (isUserTurn) {
     //   final int time =
     //       GameWaitTimes.battleshipTurnTime - timerData['time'] as int;
-    //   changetimerValue(time.clamp(1, GameWaitTimes.battleshipTurnTime));
+    //   changetimerValue(time.clamp(0, GameWaitTimes.battleshipTurnTime));
     // }
   }
 

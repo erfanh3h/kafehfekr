@@ -9,17 +9,30 @@ import 'package:kafehfekr/Feature/General/Widgets/game_circle_dot_widget.dart';
 import 'package:kafehfekr/Feature/General/Widgets/game_menu_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
-class GameMenuPage extends StatelessWidget {
+class GameMenuPage extends StatefulWidget {
   const GameMenuPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final GameMenuController controller = Get.find<GameMenuController>();
-    final gameTypesParts = GameTypes.values.toList();
-    final PageController pageController = PageController();
-    final int gamesLength = marketType == MarketTypes.Bazaar
+  State<GameMenuPage> createState() => _GameMenuPageState();
+}
+
+class _GameMenuPageState extends State<GameMenuPage>
+    with AutomaticKeepAliveClientMixin {
+  final GameMenuController controller = Get.find<GameMenuController>();
+  final gameTypesParts = GameTypes.values.toList();
+  int gamesLength = 0;
+
+  @override
+  void initState() {
+    gamesLength = marketType == MarketTypes.Bazaar
         ? gameTypesParts.length - 1
         : gameTypesParts.length;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
     // we use this because cafe bazaar wont let backgamoon :/
     return Container(
       constraints: BoxConstraints(maxHeight: Get.width * 5 / 6),
@@ -27,13 +40,13 @@ class GameMenuPage extends StatelessWidget {
         children: [
           Expanded(
             child: PageView.builder(
-              controller: pageController,
+              controller: controller.pageController,
               onPageChanged: controller.changePage,
               itemBuilder: (ctx, index) => Row(
                 children: [
                   IconButton(
                     onPressed: () {
-                      pageController.animateToPage(
+                      controller.pageController.animateToPage(
                         index != 0 ? index - 1 : (gamesLength - 1),
                         duration:
                             Duration(milliseconds: index != 0 ? 300 : 1000),
@@ -58,7 +71,7 @@ class GameMenuPage extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      pageController.animateToPage(
+                      controller.pageController.animateToPage(
                         index != (gamesLength - 1) ? index + 1 : 0,
                         duration: Duration(
                             milliseconds:
@@ -84,7 +97,7 @@ class GameMenuPage extends StatelessWidget {
               children: [
                 for (int i = 0; i < gamesLength; i++)
                   GameCircleDotWidget(
-                    pageController: pageController,
+                    pageController: controller.pageController,
                     i: i,
                     controller: controller,
                   )
@@ -96,4 +109,7 @@ class GameMenuPage extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

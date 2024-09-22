@@ -118,7 +118,7 @@ class MillController extends BaseGameController {
     }
     // if (timerData['is_user_turn']) {
     final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-    changetimerValue(time.clamp(1, time));
+    changetimerValue(time.clamp(0, time));
     // }
   }
 

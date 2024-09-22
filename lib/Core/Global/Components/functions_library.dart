@@ -25,6 +25,7 @@ class FunctionsLibraryClass {
         AppTexts.gameDrawed.tr,
         GeneralIcons.draw,
         AppColors.drawColor,
+        letBackPage: false,
       );
     } else {
       String dialogMessage = "";
@@ -46,6 +47,7 @@ class FunctionsLibraryClass {
         dialogMessage,
         dialogIcon,
         dialogColor,
+        letBackPage: false,
       );
     }
   }

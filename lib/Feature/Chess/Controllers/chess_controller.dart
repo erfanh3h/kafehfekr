@@ -98,7 +98,7 @@ class ChessController extends BaseGameController {
     }
     if (timerData['is_user_turn']) {
       final int time = GameWaitTimes.chessTurnTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.chessTurnTime));
+      changetimerValue(time.clamp(0, GameWaitTimes.chessTurnTime));
     }
   }
 

@@ -24,23 +24,31 @@ class FekrBekrEnemyChoicesBox extends StatelessWidget {
           const SizedBox(height: 5),
           Directionality(
             textDirection: TextDirection.ltr,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int i = 0; i < controller.myBoard.length; i++)
-                  FekrBekrSelectionRowBox(
-                    value: controller.myBoard[i],
+            child: SizedBox(
+              width: double.maxFinite,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        for (int i = 0; i < controller.myBoard.length; i++)
+                          FekrBekrSelectionRowBox(
+                            value: controller.myBoard[i],
+                          ),
+                      ],
+                    ),
                   ),
-                Expanded(
-                  child: Text(
+                  Text(
                     AppTexts.yourBoard.tr,
                     style: const TextStyle(
                       color: AppColors.lightColor,
                       fontSize: 20,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           const Divider(color: AppColors.lightColor, height: 20),

@@ -86,7 +86,7 @@ class DotBoxController extends BaseGameController {
     player1Score.value = gameData['scores'][0];
     player2Score.value = gameData['scores'][1];
     for (var i = 0; i < linesBoardData.length; i++) {
-      changeLinePeaceSelectedUser(i, linesBoardData[i] , fromRec: true);
+      changeLinePeaceSelectedUser(i, linesBoardData[i], fromRec: true);
     }
     for (var i = 0; i < boxesBoardData.length; i++) {
       changeBoxPeaceSelectedUser(i, boxesBoardData[i]);
@@ -98,7 +98,7 @@ class DotBoxController extends BaseGameController {
     }
     if (timerData['is_user_turn']) {
       final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, GameWaitTimes.millSelectTime));
+      changetimerValue(time.clamp(0, GameWaitTimes.millSelectTime));
     }
   }
 

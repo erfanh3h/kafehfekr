@@ -146,6 +146,16 @@ class SoundPlayerComponent extends BaseController {
     await _musicPlayer.play();
   }
 
+  stopMusic() {
+    if (!letPlayMusic.value) {
+      return;
+    }
+    if (isMusicPlaying) {
+      isMusicPlaying = false;
+      _musicPlayer.stop();
+    }
+  }
+
   pauseMusic() {
     if (!letPlayMusic.value) {
       return;

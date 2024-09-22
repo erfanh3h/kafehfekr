@@ -133,7 +133,7 @@ class GlobalGameHeader extends StatelessWidget {
                             controller.myData.value!.xp),
                         style: const TextStyle(
                           fontFamily: FontFamilies.dastnevis,
-                          fontSize: 20,
+                          fontSize: 19,
                           color: AppColors.lightColor,
                         ),
                         textDirection: TextDirection.ltr,
@@ -156,7 +156,7 @@ class GlobalGameHeader extends StatelessWidget {
                             .toString(),
                         style: const TextStyle(
                           fontFamily: FontFamilies.playPen,
-                          fontSize: 20,
+                          fontSize: 19,
                           color: AppColors.lightColor,
                         ),
                         textDirection: TextDirection.ltr,

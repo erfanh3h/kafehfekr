@@ -22,16 +22,18 @@ class FekrBekrResultRowWidget extends StatelessWidget {
       textDirection: TextDirection.ltr,
       child: Row(
         children: [
-          Card(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int i = 0; i < selectionData.length; i++)
-                  FekrBekrSelectionRowBox(value: selectionData[i]),
-              ],
+          Expanded(
+            child: Card(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = 0; i < selectionData.length; i++)
+                    FekrBekrSelectionRowBox(value: selectionData[i]),
+                ],
+              ),
             ),
           ),
-          const Spacer(),
+          // const Spacer(),
           Container(
             width: 55,
             height: 55,

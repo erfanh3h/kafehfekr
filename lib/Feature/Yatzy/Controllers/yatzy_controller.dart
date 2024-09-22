@@ -83,7 +83,7 @@ class YatzyController extends BaseGameController {
     update();
     if (timerData['is_user_turn']) {
       final int time = GameWaitTimes.yatzyTurnTime - timerData['time'] as int;
-      changetimerValue(time.clamp(1, time));
+      changetimerValue(time.clamp(0, time));
     }
   }
 

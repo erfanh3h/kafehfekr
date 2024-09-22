@@ -33,6 +33,7 @@ class BaseGameController extends BaseController {
 
   RxBool letPlaySound = RxBool(true);
   RxBool isGameStarted = RxBool(false);
+  RxBool isGameFinished = RxBool(false);
 
   late GameTypes gameType;
 
@@ -201,6 +202,7 @@ class BaseGameController extends BaseController {
   }
 
   void finishGameFunction(Map data) {
+    isGameFinished.value = true;
     Map newData = data['data'];
     Get.find<GlobalController>().finishGame();
     Get.find<GameSocketManager>().disconnect();

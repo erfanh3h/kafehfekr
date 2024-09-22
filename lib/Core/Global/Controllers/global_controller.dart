@@ -194,7 +194,7 @@ class GlobalController extends BaseController {
     isLoadingProfile.value = false;
     fetchMyHistoryData();
     fetchUserData();
-    Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
+    Get.find<SoundPlayerComponent>().stopMusic();
   }
 
   void changeLanguegue() {

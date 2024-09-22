@@ -105,7 +105,7 @@ class BoxFourController extends BaseGameController {
       canSelectPeace.value = false;
     }
     final int time = GameWaitTimes.boxFourTurnTime - timerData['time'] as int;
-    changetimerValue(time.clamp(1, GameWaitTimes.boxFourTurnTime));
+    changetimerValue(time.clamp(0, GameWaitTimes.boxFourTurnTime));
   }
 
   changePieceValue(int pieceId, int? selectedUser, int? value) {
