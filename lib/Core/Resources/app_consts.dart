@@ -46,6 +46,7 @@ class FontFamilies {
   static const vazir = "Vazir";
   static const dastnevis = "Dastnevis";
   static const playPen = "PlayPen";
+  static const hekayat = "Hekayat";
 }
 
 abstract class GameCommands {
@@ -90,36 +91,6 @@ abstract class GameCommands {
   static const notEnoughCoin = "NotEnoughCoin";
 }
 
-class CupsCount {
-  static const tictactoeWin = 1;
-  static const tictactoeLose = -1;
-  static const rpcWin = 1;
-  static const rpcLose = -1;
-  static const millWin = 1;
-  static const millLose = -1;
-  static const msweeperWin = 1;
-  static const msweeperLose = -1;
-  static const mnumbersWin = 1;
-  static const mnumbersLose = -1;
-  static const checkersWin = 1;
-  static const checkersLose = -1;
-}
-
-class CoinsCount {
-  static const tictactoeWin = 2;
-  static const tictactoeLose = -2;
-  static const rpcWin = 1;
-  static const rpcLose = -1;
-  static const millWin = 1;
-  static const millLose = -1;
-  static const msweeperWin = 1;
-  static const msweeperLose = -1;
-  static const mnumbersWin = 1;
-  static const mnumbersLose = -1;
-  static const checkersWin = 1;
-  static const checkersLose = -1;
-}
-
 class GeneralGameConsts {
   static const double maxGameWidth = 500;
   static const int maxDisconnectTime = 120;
@@ -153,4 +124,16 @@ List<IconData> bottomNavigationIcons = [
   CupertinoIcons.game_controller_solid,
   CupertinoIcons.book_solid,
   CupertinoIcons.shopping_cart,
+];
+
+List<String> koris = [
+  "عجب حرکت هوشمندانه‌ای!",
+  "خیلی خوب بود!",
+  "توپ بودی!",
+  "بازی رو از دست دادی!",
+  "خیلی راحت بود!",
+  "این بود تمام توانت؟",
+  "شکست دیگه عادتت شده!",
+  "برنده فقط منم!",
+  "بازی شروع نشده، تمومه!",
 ];

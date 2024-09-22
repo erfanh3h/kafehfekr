@@ -55,6 +55,8 @@ abstract class AppTexts {
   static const kafehFekr = "kafekFekr";
   static const howToPlay = "howToPlay";
   static const gamePlay = "gamePlay";
+  static const kori = "kori";
+  static const sticker = "sticker";
   static const soon = "soon";
   static const chancePaper = "chancePaper";
   static const gameFinished = "gameFinished";

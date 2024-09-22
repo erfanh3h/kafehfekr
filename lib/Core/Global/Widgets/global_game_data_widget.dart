@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_reaction_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -71,14 +71,24 @@ class GlobalGameDataWidget extends StatelessWidget {
                             Icons.desktop_access_disabled,
                             color: Colors.white,
                           )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: Image.asset(
-                              AvatarIcons().generalAvatarPath(
-                                player1Data.userImage,
+                        : (player1Data.reactionId != null &&
+                                player1Data.reactionId! <= 100)
+                            ? FadeIn(
+                                child: Image.asset(
+                                  ReactionIcons().generalIconsPath(
+                                      player1Data.reactionId!),
+                                  width: 20,
+                                  height: 20,
+                                ),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image.asset(
+                                  AvatarIcons().generalAvatarPath(
+                                    player1Data.userImage,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
                   ),
                 ),
                 Stack(
@@ -131,15 +141,28 @@ class GlobalGameDataWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                    if (player1Data.reactionId != null)
-                      Positioned(
-                        bottom: -35,
-                        left: 40,
-                        child: GlobalReactionBox(
-                          reactionId: player1Data.reactionId,
-                          color: AppColors.imageRedColor,
-                        ),
-                      ),
+                    // if (player1Data.reactionId != null &&
+                    //     player1Data.reactionId! > 100)
+                    //   Positioned(
+                    //     bottom: -50,
+                    //     right: -15,
+                    //     child: ElasticInDown(
+                    //       child: Card(
+                    //         color: AppColors.lightColor,
+                    //         child: Padding(
+                    //           padding: AppSpacings.s10All,
+                    //           child: Text(
+                    //             koris[player1Data.reactionId! - 101],
+                    //             style: const TextStyle(
+                    //               color: AppColors.darkColor,
+                    //               fontFamily: FontFamilies.hekayat,
+                    //               fontSize: 16,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
                   ],
                 ),
                 const SizedBox(width: 5),
@@ -192,15 +215,28 @@ class GlobalGameDataWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                    if (player2Data.reactionId != null)
-                      Positioned(
-                        bottom: -35,
-                        left: 40,
-                        child: GlobalReactionBox(
-                          reactionId: player2Data.reactionId,
-                          color: AppColors.imageBlueColor,
-                        ),
-                      ),
+                    // if (player2Data.reactionId != null &&
+                    //     player2Data.reactionId! > 100)
+                    //   Positioned(
+                    //     bottom: -50,
+                    //     left: -15,
+                    //     child: ElasticInDown(
+                    //       child: Card(
+                    //         color: AppColors.lightColor,
+                    //         child: Padding(
+                    //           padding: AppSpacings.s10All,
+                    //           child: Text(
+                    //             koris[player2Data.reactionId! - 101],
+                    //             style: const TextStyle(
+                    //               color: AppColors.darkColor,
+                    //               fontFamily: FontFamilies.hekayat,
+                    //               fontSize: 16,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
                   ],
                 ),
                 InkWell(
@@ -223,14 +259,24 @@ class GlobalGameDataWidget extends StatelessWidget {
                             Icons.desktop_access_disabled,
                             color: Colors.white,
                           )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: Image.asset(
-                              AvatarIcons().generalAvatarPath(
-                                player2Data.userImage,
+                        : (player2Data.reactionId != null &&
+                                player2Data.reactionId! <= 100)
+                            ? FadeIn(
+                                child: Image.asset(
+                                  ReactionIcons().generalIconsPath(
+                                      player2Data.reactionId!),
+                                  width: 20,
+                                  height: 20,
+                                ),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image.asset(
+                                  AvatarIcons().generalAvatarPath(
+                                    player2Data.userImage,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
                   ),
                 ),
               ],
@@ -339,13 +385,14 @@ class UserRowData extends StatelessWidget {
     return Container(
       padding: AppSpacings.s5Vertical,
       width: 125,
+      height: 65,
       decoration: BoxDecoration(
         gradient: playerData.isDisconnected
             ? null
             : const LinearGradient(
                 begin: Alignment.bottomLeft,
                 end: Alignment.topRight,
-                colors: [Colors.white24, Colors.white70],
+                colors: [Colors.white12, Colors.white60],
               ),
         color: playerData.isDisconnected
             ? AppColors.dcColor
@@ -356,39 +403,59 @@ class UserRowData extends StatelessWidget {
           width: 3,
         ),
       ),
-      child: Stack(
-        alignment: AlignmentDirectional.center,
-        clipBehavior: Clip.none,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisSize: MainAxisSize.max,
+        // alignment: AlignmentDirectional.center,
+        // clipBehavior: Clip.none,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                number != -1 ? number.toString() : '-',
-                style: TextStyle(
-                  fontFamily: FontFamilies.dastnevis,
-                  fontSize: 35,
-                  color: playerData.isDisconnected
-                      ? AppColors.darkColor
-                      : AppColors.lightColor,
-                  height: .8,
+          playerData.reactionId != null && playerData.reactionId! > 100
+              ? Swing(
+                  duration: const Duration(milliseconds: 750),
+                  child: Center(
+                    child: Text(
+                      koris[playerData.reactionId! - 101],
+                      style: const TextStyle(
+                        color: AppColors.lightColor,
+                        fontFamily: FontFamilies.hekayat,
+                        fontSize: 16,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                    ),
+                  ),
+                )
+              : FadeIn(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        number != -1 ? number.toString() : '-',
+                        style: TextStyle(
+                          fontFamily: FontFamilies.dastnevis,
+                          fontSize: 35,
+                          color: playerData.isDisconnected
+                              ? AppColors.darkColor
+                              : AppColors.lightColor,
+                          height: .8,
+                        ),
+                      ),
+                      Text(
+                        playerData.name,
+                        style: TextStyle(
+                          fontFamily: FontFamilies.playPen,
+                          fontSize: 12,
+                          color: playerData.isDisconnected
+                              ? AppColors.darkColor
+                              : AppColors.lightColor,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Text(
-                playerData.name,
-                style: TextStyle(
-                  fontFamily: FontFamilies.playPen,
-                  fontSize: 12,
-                  color: playerData.isDisconnected
-                      ? AppColors.darkColor
-                      : AppColors.lightColor,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
         ],
       ),
     );

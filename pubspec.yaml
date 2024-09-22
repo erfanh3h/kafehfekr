@@ -121,6 +121,9 @@ flutter:
     - family: PlayPen
       fonts:
         - asset: assets/Fonts/PlayPen.ttf
+    - family: Hekayat
+      fonts:
+        - asset: assets/Fonts/hekayat.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

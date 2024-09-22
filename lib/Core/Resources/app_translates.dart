@@ -36,6 +36,8 @@ class AppTranslations extends Translations {
               'باوارد کردن آی دی معرف خود 30 سکه به او هدیه دهید',
           AppTexts.normalGame: 'دوستانه',
           AppTexts.rankGame: 'رقابتی',
+          AppTexts.kori: 'کُری',
+          AppTexts.sticker: 'استیکر',
           AppTexts.gameType: 'انواع سبک بازی',
           AppTexts.games: 'بازی ها',
           AppTexts.chancePaper: 'صفحه شانس',
