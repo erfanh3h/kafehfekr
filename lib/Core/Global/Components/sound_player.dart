@@ -26,6 +26,7 @@ enum GameSoundTypes {
   hit,
   bell,
   queueFinded,
+  chat,
 }
 
 class SoundPlayerComponent extends BaseController {
@@ -100,6 +101,9 @@ class SoundPlayerComponent extends BaseController {
         break;
       case GameSoundTypes.queueFinded:
         sound = AppSounds.queueFinded;
+        break;
+      case GameSoundTypes.chat:
+        sound = AppSounds.chat;
         break;
       default:
         sound = AppSounds.addPeace;

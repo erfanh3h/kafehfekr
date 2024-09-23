@@ -55,6 +55,12 @@ abstract class AppTexts {
   static const kafehFekr = "kafekFekr";
   static const howToPlay = "howToPlay";
   static const gamePlay = "gamePlay";
+  static const enableGameMusic = "enableGameMusic";
+  static const disableGameMusic = "disableGameMusic";
+  static const enableKori = "enableKori";
+  static const disableKori = "disableKori";
+  static const enableSticker = "enableSticker";
+  static const disableSticker = "disableSticker";
   static const kori = "kori";
   static const sticker = "sticker";
   static const soon = "soon";

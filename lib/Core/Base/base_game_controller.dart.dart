@@ -5,7 +5,8 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_reactions_box.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_koris_box.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_stickers_box.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -23,8 +24,10 @@ class BaseGameController extends BaseController {
   int myGameId = 0;
   late String gameId;
   RxBool canSelectPeace = RxBool(false);
-  RxBool showReactions = RxBool(true);
-  RxBool letSendReaction = RxBool(true);
+  RxBool showStickers = RxBool(true);
+  RxBool showKoris = RxBool(true);
+  RxBool letSendSticker = RxBool(true);
+  RxBool letSendKori = RxBool(true);
 
   RxInt currentRound = RxInt(1);
   RxInt player1Score = RxInt(0);
@@ -288,16 +291,22 @@ class BaseGameController extends BaseController {
     Get.find<TimerCompanent>().startTimer(value);
   }
 
-  changePlayerReaction(int? gamerId, int? reactionId, {int? removeTimer}) {
+  changePlayerReaction(int gamerId, int reactionId, {int? removeTimer}) {
     for (var i = 0; i < players.length; i++) {
       if (players[i].value.gamerId == gamerId) {
-        if (showReactions.value) {
+        if ((reactionId <= 100 && showStickers.value) ||
+            (reactionId > 100 && showKoris.value)) {
           players.value[i].value = players.value[i].value
               .changeReactionId(newReactionId: reactionId);
+          showInteraction(sound: GameSoundTypes.chat);
         }
         Future.delayed(Duration(seconds: removeTimer ?? 5)).then((_) {
           players.value[i].value = players.value[i].value.changeReactionId();
-          letSendReaction.value = true;
+          if (reactionId <= 100) {
+            letSendSticker.value = true;
+          } else {
+            letSendKori.value = true;
+          }
         });
         break;
       }
@@ -308,12 +317,12 @@ class BaseGameController extends BaseController {
     Get.find<GameSocketManager>().sendCommand(data);
   }
 
-  void showReactionBox() {
-    if (letSendReaction.value) {
+  void showStickerBox() {
+    if (letSendSticker.value) {
       Get.bottomSheet(
-        GlobalReactionsBox(
+        GlobalStickersBox(
           onTap: () {
-            letSendReaction.value = false;
+            letSendSticker.value = false;
           },
         ),
         backgroundColor: AppColors.darkColor,
@@ -321,8 +330,25 @@ class BaseGameController extends BaseController {
     }
   }
 
-  void changeShowReactionStatus() {
-    showReactions.value = !showReactions.value;
+  void changeShowStickerStatus() {
+    showStickers.value = !showStickers.value;
+  }
+
+  void showKoriBox() {
+    if (letSendKori.value) {
+      Get.bottomSheet(
+        GlobalKorisBox(
+          onTap: () {
+            letSendKori.value = false;
+          },
+        ),
+        backgroundColor: AppColors.darkColor,
+      );
+    }
+  }
+
+  void changeShowKoriStatus() {
+    showKoris.value = !showKoris.value;
   }
 
   void changeLetPlaySound() {

@@ -19,4 +19,5 @@ class AppSounds {
   static const hit = '$_baseSound/hit.m4a';
   static const bell = '$_baseSound/bell.m4a';
   static const queueFinded = '$_baseSound/queue-finded.m4a';
+  static const chat = '$_baseSound/chat.m4a';
 }

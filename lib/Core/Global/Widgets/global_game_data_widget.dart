@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/kori_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -141,28 +142,16 @@ class GlobalGameDataWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                    // if (player1Data.reactionId != null &&
-                    //     player1Data.reactionId! > 100)
-                    //   Positioned(
-                    //     bottom: -50,
-                    //     right: -15,
-                    //     child: ElasticInDown(
-                    //       child: Card(
-                    //         color: AppColors.lightColor,
-                    //         child: Padding(
-                    //           padding: AppSpacings.s10All,
-                    //           child: Text(
-                    //             koris[player1Data.reactionId! - 101],
-                    //             style: const TextStyle(
-                    //               color: AppColors.darkColor,
-                    //               fontFamily: FontFamilies.hekayat,
-                    //               fontSize: 16,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
+                    if (player1Data.reactionId != null &&
+                        player1Data.reactionId! > 100)
+                      Positioned(
+                        bottom: -50,
+                        left: 30,
+                        child: KoriBox(
+                          isLeft: false,
+                          index: player1Data.reactionId! - 101,
+                        ),
+                      ),
                   ],
                 ),
                 const SizedBox(width: 5),
@@ -215,28 +204,16 @@ class GlobalGameDataWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                    // if (player2Data.reactionId != null &&
-                    //     player2Data.reactionId! > 100)
-                    //   Positioned(
-                    //     bottom: -50,
-                    //     left: -15,
-                    //     child: ElasticInDown(
-                    //       child: Card(
-                    //         color: AppColors.lightColor,
-                    //         child: Padding(
-                    //           padding: AppSpacings.s10All,
-                    //           child: Text(
-                    //             koris[player2Data.reactionId! - 101],
-                    //             style: const TextStyle(
-                    //               color: AppColors.darkColor,
-                    //               fontFamily: FontFamilies.hekayat,
-                    //               fontSize: 16,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
+                    if (player2Data.reactionId != null &&
+                        player2Data.reactionId! > 100)
+                      Positioned(
+                        bottom: -50,
+                        right: 30,
+                        child: KoriBox(
+                          isLeft: true,
+                          index: player2Data.reactionId! - 101,
+                        ),
+                      ),
                   ],
                 ),
                 InkWell(
@@ -409,53 +386,54 @@ class UserRowData extends StatelessWidget {
         // alignment: AlignmentDirectional.center,
         // clipBehavior: Clip.none,
         children: [
-          playerData.reactionId != null && playerData.reactionId! > 100
-              ? Swing(
-                  duration: const Duration(milliseconds: 750),
-                  child: Center(
-                    child: Text(
-                      koris[playerData.reactionId! - 101],
-                      style: const TextStyle(
-                        color: AppColors.lightColor,
-                        fontFamily: FontFamilies.hekayat,
-                        fontSize: 16,
-                      ),
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                    ),
-                  ),
-                )
-              : FadeIn(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        number != -1 ? number.toString() : '-',
-                        style: TextStyle(
-                          fontFamily: FontFamilies.dastnevis,
-                          fontSize: 35,
-                          color: playerData.isDisconnected
-                              ? AppColors.darkColor
-                              : AppColors.lightColor,
-                          height: .8,
-                        ),
-                      ),
-                      Text(
-                        playerData.name,
-                        style: TextStyle(
-                          fontFamily: FontFamilies.playPen,
-                          fontSize: 12,
-                          color: playerData.isDisconnected
-                              ? AppColors.darkColor
-                              : AppColors.lightColor,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+          // playerData.reactionId != null && playerData.reactionId! > 100
+          //     ? Swing(
+          //         duration: const Duration(milliseconds: 750),
+          //         child: Center(
+          //           child: Text(
+          //             koris[playerData.reactionId! - 101],
+          //             style: const TextStyle(
+          //               color: AppColors.lightColor,
+          //               fontFamily: FontFamilies.hekayat,
+          //               fontSize: 16,
+          //             ),
+          //             textAlign: TextAlign.center,
+          //             maxLines: 2,
+          //           ),
+          //         ),
+          //       )
+          //     :
+          FadeIn(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  number != -1 ? number.toString() : '-',
+                  style: TextStyle(
+                    fontFamily: FontFamilies.dastnevis,
+                    fontSize: 35,
+                    color: playerData.isDisconnected
+                        ? AppColors.darkColor
+                        : AppColors.lightColor,
+                    height: .8,
                   ),
                 ),
+                Text(
+                  playerData.name,
+                  style: TextStyle(
+                    fontFamily: FontFamilies.playPen,
+                    fontSize: 12,
+                    color: playerData.isDisconnected
+                        ? AppColors.darkColor
+                        : AppColors.lightColor,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

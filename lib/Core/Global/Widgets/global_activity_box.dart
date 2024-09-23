@@ -50,42 +50,98 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                       child: const GlobalActivityButton(
                         icon: GeneralIcons.death,
                         onTap: FunctionsLibraryClass.surrenderFunction,
-                        // color: AppColors.buttonRed,
                       ),
                     ),
                     SizedBox(
                       width: maxWidth / 7,
                       child: Obx(
                         () => GlobalActivityButton(
-                          icon: controller.showReactions.value
-                              ? GeneralIcons.enableReaction
-                              : GeneralIcons.disableReaction,
-                          onTap: controller.changeShowReactionStatus,
-                          // color: controller.showReactions.value
-                          //     ? AppColors.green
-                          //     : AppColors.redWarmColor,
+                          icon: GeneralIcons.kori,
+                          onTap: (controller.letSendKori.value == true &&
+                                  controller.showKoris.value == true)
+                              ? controller.showKoriBox
+                              : null,
+                          backgroundColor:
+                              (controller.letSendKori.value == true &&
+                                      controller.showKoris.value == true)
+                                  ? null
+                                  : Colors.grey,
                         ),
                       ),
                     ),
                     SizedBox(
                       width: maxWidth / 7,
                       child: GlobalActivityButton(
-                        icon: ReactionIcons().generalIconsPath(5),
-                        onTap: controller.showReactionBox,
-                        // color: AppColors.goldenColor,
-                      ),
+                          icon: GeneralIcons.setting,
+                          onTap: () {
+                            Get.bottomSheet(
+                              Padding(
+                                padding: AppSpacings.s40All,
+                                child: ListView(
+                                  children: [
+                                    Obx(
+                                      () => GlobalButtonWidget(
+                                        onTap:
+                                            controller.changeShowStickerStatus,
+                                        text: controller.showStickers.value ==
+                                                false
+                                            ? AppTexts.enableSticker.tr
+                                            : AppTexts.disableSticker.tr,
+                                        color: controller.showStickers.value ==
+                                                false
+                                            ? AppColors.darkGreen
+                                            : AppColors.buttonRed,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Obx(
+                                      () => GlobalButtonWidget(
+                                        onTap: controller.changeShowKoriStatus,
+                                        text:
+                                            controller.showKoris.value == false
+                                                ? AppTexts.enableKori.tr
+                                                : AppTexts.disableKori.tr,
+                                        color:
+                                            controller.showKoris.value == false
+                                                ? AppColors.darkGreen
+                                                : AppColors.buttonRed,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Obx(
+                                      () => GlobalButtonWidget(
+                                        onTap: controller.changeLetPlaySound,
+                                        text: controller.letPlaySound.value ==
+                                                false
+                                            ? AppTexts.enableGameMusic.tr
+                                            : AppTexts.disableGameMusic.tr,
+                                        color: controller.letPlaySound.value ==
+                                                false
+                                            ? AppColors.darkGreen
+                                            : AppColors.buttonRed,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              backgroundColor: AppColors.darkColor,
+                            );
+                          }),
                     ),
                     SizedBox(
                       width: maxWidth / 7,
                       child: Obx(
                         () => GlobalActivityButton(
-                          icon: controller.letPlaySound.value
-                              ? GeneralIcons.soundOn
-                              : GeneralIcons.soundOff,
-                          onTap: controller.changeLetPlaySound,
-                          // color: controller.letPlaySound.value
-                          //     ? AppColors.green
-                          //     : AppColors.redWarmColor,
+                          icon: ReactionIcons().generalIconsPath(5),
+                          onTap: (controller.letSendSticker.value == true &&
+                                  controller.showStickers.value == true)
+                              ? controller.showStickerBox
+                              : null,
+                          backgroundColor:
+                              (controller.letSendSticker.value == true &&
+                                      controller.showStickers.value == true)
+                                  ? null
+                                  : Colors.grey,
                         ),
                       ),
                     ),
@@ -94,7 +150,6 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                       child: GlobalActivityButton(
                         icon: GeneralIcons.info,
                         onTap: controller.showInfo,
-                        // color: AppColors.lightBlue,
                       ),
                     ),
                   ],
