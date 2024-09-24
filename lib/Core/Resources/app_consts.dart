@@ -108,6 +108,7 @@ class StorageKeys {
   static const String token = "token";
   static const String gameId = "gameId";
   static const String gameType = "gameType";
+  static const String gameMusic = "gameMusic";
 }
 
 List<String> bottomNavigationTexts = [

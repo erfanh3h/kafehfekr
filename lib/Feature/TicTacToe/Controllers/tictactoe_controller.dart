@@ -75,6 +75,7 @@ class TicTacToeController extends BaseGameController {
   @override
   void finishRoundFunction(Map data) {
     Map newData = data['data'];
+    currentTurn.value = 0;
     changetimerValue(GameWaitTimes.tictactoeSleepRoundTime);
     int roundWinner = newData['Winner'] ?? 0;
     if (roundWinner == 1) {

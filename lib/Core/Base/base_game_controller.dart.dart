@@ -34,7 +34,7 @@ class BaseGameController extends BaseController {
   RxInt player2Score = RxInt(0);
   RxInt currentTurn = RxInt(0);
 
-  RxBool letPlaySound = RxBool(true);
+  RxBool letPlayMusic = RxBool(true);
   RxBool isGameStarted = RxBool(false);
   RxBool isGameFinished = RxBool(false);
 
@@ -351,9 +351,9 @@ class BaseGameController extends BaseController {
     showKoris.value = !showKoris.value;
   }
 
-  void changeLetPlaySound() {
-    letPlaySound.value = !letPlaySound.value;
-    Get.find<SoundPlayerComponent>().changeLetPlayerSound(letPlaySound.value);
+  void changeLetPlayMusic() {
+    letPlayMusic.value = !letPlayMusic.value;
+    Get.find<SoundPlayerComponent>().changeLetPlayerSound(letPlayMusic.value);
   }
 
   void showInfo() {
@@ -393,6 +393,7 @@ class BaseGameController extends BaseController {
 
   @override
   void onInit() {
+    letPlayMusic.value = Get.find<SoundPlayerComponent>().letPlayMusic.value;
     isPageLoading.value = true;
     myId = Get.find<GlobalController>().userId!;
     gameId =

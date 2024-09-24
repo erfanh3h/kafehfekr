@@ -23,6 +23,7 @@ class GlobalInputBox extends StatefulWidget {
     this.maxLength,
     this.textInputAction,
     this.onlyEnglishLetters = false,
+    this.textAlign = TextAlign.center,
   });
 
   // hint of input box
@@ -60,6 +61,9 @@ class GlobalInputBox extends StatefulWidget {
 
   // text direction of input box
   final TextDirection textDirection;
+
+// text direction of input box
+  final TextAlign textAlign;
 
   // password mode
   final bool hideContent;
@@ -140,6 +144,7 @@ class GlobalInputBoxState extends State<GlobalInputBox> {
             textInputAction: widget.textInputAction,
             minLines: widget.minLines,
             maxLines: widget.maxLines,
+            textAlign: widget.textAlign,
           ),
         ),
       ),

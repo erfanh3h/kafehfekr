@@ -64,6 +64,7 @@ class RPCController extends BaseGameController {
     player2RoundScore.value = 0;
     currentRound.value += 1;
     currentTurnRound.value = 1;
+    currentTurn.value = 0;
     FunctionsLibraryClass.showFinishRoundDialog(roundWinner, myGameId);
     if (roundWinner == 1) {
       player1TotalScore.value += 1;

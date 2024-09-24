@@ -63,9 +63,10 @@ class GlobalController extends BaseController {
             if (activeGameId != null) {
               Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
               Get.toNamed('/$activeGameType', arguments: activeGameId);
-            } else {
-              Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
             }
+            // else {
+            //   Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
+            // }
           });
         }
       } else {
@@ -122,6 +123,18 @@ class GlobalController extends BaseController {
       if (gameTypeData != null) {
         activeGameType = gameTypeData;
       }
+      final gameMusicData =
+          await globalRepo.getDataFromStorage(key: StorageKeys.gameMusic);
+      if (gameMusicData != null) {
+        if (gameMusicData == "0") {
+          Get.find<SoundPlayerComponent>().changeLetPlayerSound(false);
+        } else {
+          Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
+        }
+      } else {
+        Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
+      }
+
       // activeGameType = "Pentago";
     }
     isLoadingProfile.value = false;
@@ -203,6 +216,15 @@ class GlobalController extends BaseController {
     } else {
       Get.updateLocale(const Locale('en'));
     }
+  }
+
+  void changeLetPlayMusic(bool value) async {
+    String result = "0";
+    if (value) {
+      result = "1";
+    }
+    await globalRepo.setDataOnStorage(
+        key: StorageKeys.gameMusic, value: result);
   }
 
   void onQueueStarted() {

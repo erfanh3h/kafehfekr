@@ -114,12 +114,12 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                                     const SizedBox(height: 20),
                                     Obx(
                                       () => GlobalButtonWidget(
-                                        onTap: controller.changeLetPlaySound,
-                                        text: controller.letPlaySound.value ==
+                                        onTap: controller.changeLetPlayMusic,
+                                        text: controller.letPlayMusic.value ==
                                                 false
                                             ? AppTexts.enableGameMusic.tr
                                             : AppTexts.disableGameMusic.tr,
-                                        color: controller.letPlaySound.value ==
+                                        color: controller.letPlayMusic.value ==
                                                 false
                                             ? AppColors.darkGreen
                                             : AppColors.buttonRed,

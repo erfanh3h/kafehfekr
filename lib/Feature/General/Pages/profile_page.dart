@@ -69,9 +69,15 @@ class ProfilePage extends StatelessWidget {
                                 icon: cont.letPlayMusic.value
                                     ? GeneralIcons.soundOn
                                     : GeneralIcons.soundOff,
-                                onTap: () => cont.changeLetPlayerSound(
+                                onTap: () {
+                                  controller.changeLetPlayMusic(
                                     !cont.letPlayMusic.value,
-                                    isGame: false),
+                                  );
+                                  cont.changeLetPlayerSound(
+                                    !cont.letPlayMusic.value,
+                                    isGame: false,
+                                  );
+                                },
                                 color: cont.letPlayMusic.value
                                     ? AppColors.buttonGreen
                                     : AppColors.buttonRed,
