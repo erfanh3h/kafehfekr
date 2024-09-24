@@ -14,6 +14,7 @@ enum PeaceStatusTypes {
 }
 
 enum GameTypes {
+  Yinsh,
   TicTacToe,
   RPC,
   DotBox,

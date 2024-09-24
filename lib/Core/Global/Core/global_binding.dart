@@ -22,6 +22,7 @@ import 'package:kafehfekr/Feature/Sudoku/Core/sudoku_binding.dart';
 import 'package:kafehfekr/Feature/Ten/Core/ten_binding.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Core/tictactoe_binding.dart';
 import 'package:kafehfekr/Feature/Yatzy/Core/yatzy_binding.dart';
+import 'package:kafehfekr/Feature/Yinsh/Core/yinsh_binding.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GlobalBinding implements BindingsInterface {
@@ -50,6 +51,7 @@ class GlobalBinding implements BindingsInterface {
         YatzyBinding().dependencies(),
         FourInRowBinding().dependencies(),
         SudokuBinding().dependencies(),
+        YinshBinding().dependencies(),
         BattleShipBinding().dependencies(),
         BoxFourBinding().dependencies(),
         FekrBekrBinding().dependencies(),

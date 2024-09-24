@@ -57,6 +57,9 @@ class GameTypeConvertor {
       case GameTypes.Sudoku:
         result = AppImages.sudokuGame;
         break;
+      case GameTypes.Yinsh:
+        result = AppImages.tictactoeGame;
+        break;
       case GameTypes.MNumbers:
         result = AppImages.mnumbersGame;
         break;
@@ -115,6 +118,9 @@ class GameTypeConvertor {
         break;
       case GameTypes.Othello:
         result = AppTexts.othelloNarrative.tr;
+        break;
+      case GameTypes.Yinsh:
+        result = AppTexts.yinshNarrative.tr;
         break;
       case GameTypes.Sudoku:
         result = AppTexts.sudokuNarrative.tr;
@@ -176,6 +182,9 @@ class GameTypeConvertor {
         result = GameDifficulties.Hard;
         break;
       case GameTypes.Othello:
+        result = GameDifficulties.Hard;
+        break;
+      case GameTypes.Yinsh:
         result = GameDifficulties.Hard;
         break;
       case GameTypes.Sudoku:

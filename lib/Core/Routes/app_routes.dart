@@ -23,5 +23,6 @@ abstract class AppRoutes {
   static const boxFour = '/BoxFour';
   static const fekrBekr = '/FekrBekr';
   static const pentago = '/Pentago';
+  static const yinsh = '/Yinsh';
   static const backGammon = '/BackGammon';
 }
