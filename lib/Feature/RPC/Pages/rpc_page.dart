@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Feature/RPC/Controllers/rpc_controller.dart';
@@ -37,18 +38,36 @@ class RPCPage extends BaseView<RPCController> {
                   player1Number2: controller.player1TotalScore.value,
                   player2Number2: controller.player2TotalScore.value,
                   roundText:
-                      "${controller.maxTurnRound} / ${controller.currentTurnRound.value}",
+                      "${controller.maxRound} / ${controller.currentRound.value}",
                 ),
-                Center(
-                  child: Text(
-                    "${controller.maxRound} / ${controller.currentRound.value}",
-                    style: const TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 15,
-                      color: Colors.white,
-                      height: .6,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'دور : ',
+                      style: TextStyle(
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 13,
+                        foreground: Paint()
+                          ..strokeWidth = 1.5
+                          ..color = AppColors.lightColor
+                          ..style = PaintingStyle.stroke,
+                      ),
                     ),
-                  ),
+                    const SizedBox(width: 5),
+                    Text(
+                      "${controller.maxTurnRound} / ${controller.currentTurnRound.value}",
+                      style: TextStyle(
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 15,
+                        foreground: Paint()
+                          ..strokeWidth = 1.5
+                          ..color = AppColors.lightColor
+                          ..style = PaintingStyle.stroke,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

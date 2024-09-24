@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -114,8 +113,8 @@ class FekrBekrController extends BaseGameController {
   }
 
   @override
-  Color returnTimerColor() {
-    return AppColors.darkColor;
+  Color? returnTimerColor() {
+    return null;
   }
 
   @override

@@ -87,7 +87,7 @@ class ChessButton extends StatelessWidget {
                     child: Transform.scale(
                       scale: imageScale,
                       child: ElasticIn(
-                        duration: const Duration(seconds: 1),
+                        duration: const Duration(milliseconds: 750),
                         child: Image.asset(
                           image,
                           color: imageColor,

@@ -43,7 +43,8 @@ class AppTranslations extends Translations {
           AppTexts.chancePaper: 'صفحه شانس',
           AppTexts.notTimeYet: 'هنوز وقتش نرسیده',
           AppTexts.rankHistoryDetails: 'جزئیات بازی های رقابتی',
-          AppTexts.surrender: 'تسلیم شدن',
+          AppTexts.music: 'آهنگ',
+          AppTexts.surrender: 'تسلیم',
           AppTexts.checkLibrary:
               'یادت نره سر به کتابخونه بزنی تا بتونی راحت تر حریفاتو ببری',
           AppTexts.update: 'به روز رسانی',
@@ -57,6 +58,7 @@ class AppTranslations extends Translations {
           AppTexts.accept: 'تایید',
           AppTexts.scoreBase: 'بیشترین امتیاز',
           AppTexts.winBase: 'بیشترین برد',
+          AppTexts.info: 'راهنما',
           AppTexts.win: 'برد',
           AppTexts.lose: 'باخت',
           AppTexts.draw: 'مساوی',

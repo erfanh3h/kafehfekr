@@ -17,7 +17,6 @@ class GeneralIcons {
   static const third = "$generalIconsPath/third.png";
   static const leaderboard = "$generalIconsPath/leaderboard.png";
   static const time = "$generalIconsPath/time.png";
-  static const timecounter = "$generalIconsPath/timecounter.png";
   static const sound = "$generalIconsPath/sound.png";
   static const aim = "$generalIconsPath/aim.png";
   static const check = "$generalIconsPath/check.png";

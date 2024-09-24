@@ -46,9 +46,10 @@ class ProfilePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 35.w,
-                          height: 35.w,
+                          width: 50,
+                          height: 50,
                           child: GlobalActivityButton(
+                            text: AppTexts.exit.tr,
                             icon: GeneralIcons.exit,
                             color: AppColors.buttonRed,
                             onTap: () {
@@ -56,13 +57,15 @@ class ProfilePage extends StatelessWidget {
                             },
                           ),
                         ),
+
                         const SizedBox(width: 5),
                         GetBuilder<SoundPlayerComponent>(builder: (cont) {
                           return Obx(
                             () => SizedBox(
-                              width: 35.w,
-                              height: 35.w,
+                              width: 50,
+                              height: 50,
                               child: GlobalActivityButton(
+                                text: AppTexts.music.tr,
                                 icon: cont.letPlayMusic.value
                                     ? GeneralIcons.soundOn
                                     : GeneralIcons.soundOff,

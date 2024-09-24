@@ -61,6 +61,8 @@ abstract class AppTexts {
   static const disableKori = "disableKori";
   static const enableSticker = "enableSticker";
   static const disableSticker = "disableSticker";
+  static const music = "music";
+  static const info = "info";
   static const kori = "kori";
   static const sticker = "sticker";
   static const soon = "soon";

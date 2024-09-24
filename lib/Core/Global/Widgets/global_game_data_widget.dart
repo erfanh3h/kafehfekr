@@ -33,7 +33,7 @@ class GlobalGameDataWidget extends StatelessWidget {
   final int? player2Number2;
   final int? player2Number3;
   final PlayerModel player2Data;
-  final Color timerColor;
+  final Color? timerColor;
   final String? roundText;
 
   @override
@@ -261,16 +261,33 @@ class GlobalGameDataWidget extends StatelessWidget {
             if (roundText != null)
               Container(
                 margin: AppSpacings.s5Top,
-                child: Text(
-                  roundText!,
-                  style: TextStyle(
-                    fontFamily: FontFamilies.dastnevis,
-                    fontSize: 30,
-                    foreground: Paint()
-                      ..strokeWidth = 1.5
-                      ..color = AppColors.lightColor
-                      ..style = PaintingStyle.stroke,
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'راند : ',
+                      style: TextStyle(
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 16,
+                        foreground: Paint()
+                          ..strokeWidth = 1.5
+                          ..color = AppColors.lightColor
+                          ..style = PaintingStyle.stroke,
+                      ),
+                    ),
+                    Text(
+                      roundText!,
+                      style: TextStyle(
+                        fontFamily: FontFamilies.dastnevis,
+                        fontSize: 20,
+                        foreground: Paint()
+                          ..strokeWidth = 1.5
+                          ..color = AppColors.lightColor
+                          ..style = PaintingStyle.stroke,
+                      ),
+                    ),
+                  ],
                 ),
               ),
           ],

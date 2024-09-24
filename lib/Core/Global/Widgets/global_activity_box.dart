@@ -22,6 +22,7 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         maxWidth: GeneralGameConsts.maxGameWidth,
+        maxHeight: 50,
       ),
       child: LayoutBuilder(builder: (context, cons) {
         double maxWidth = cons.maxWidth;
@@ -47,9 +48,10 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: maxWidth / 7,
-                      child: const GlobalActivityButton(
+                      child: GlobalActivityButton(
                         icon: GeneralIcons.death,
                         onTap: FunctionsLibraryClass.surrenderFunction,
+                        text: AppTexts.surrender.tr,
                       ),
                     ),
                     SizedBox(
@@ -66,6 +68,7 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                                       controller.showKoris.value == true)
                                   ? null
                                   : Colors.grey,
+                          text: AppTexts.kori.tr,
                         ),
                       ),
                     ),
@@ -73,6 +76,7 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                       width: maxWidth / 7,
                       child: GlobalActivityButton(
                           icon: GeneralIcons.setting,
+                          text: AppTexts.settings.tr,
                           onTap: () {
                             Get.bottomSheet(
                               Padding(
@@ -133,6 +137,7 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                       child: Obx(
                         () => GlobalActivityButton(
                           icon: ReactionIcons().generalIconsPath(5),
+                          text: AppTexts.sticker.tr,
                           onTap: (controller.letSendSticker.value == true &&
                                   controller.showStickers.value == true)
                               ? controller.showStickerBox
@@ -148,6 +153,7 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                     SizedBox(
                       width: maxWidth / 7,
                       child: GlobalActivityButton(
+                        text: AppTexts.info.tr,
                         icon: GeneralIcons.info,
                         onTap: controller.showInfo,
                       ),

@@ -32,7 +32,7 @@ class BaseGameController extends BaseController {
   RxInt currentRound = RxInt(1);
   RxInt player1Score = RxInt(0);
   RxInt player2Score = RxInt(0);
-  RxInt currentTurn = RxInt(1);
+  RxInt currentTurn = RxInt(0);
 
   RxBool letPlaySound = RxBool(true);
   RxBool isGameStarted = RxBool(false);
@@ -278,13 +278,13 @@ class BaseGameController extends BaseController {
     return currentTurn.value == gamerId;
   }
 
-  Color returnTimerColor() {
+  Color? returnTimerColor() {
     if (currentTurn.value == 1) {
       return AppColors.imageRedColor;
     } else if (currentTurn.value == 2) {
       return AppColors.imageBlueColor;
     }
-    return AppColors.darkColor;
+    return null;
   }
 
   void changetimerValue(int value) {

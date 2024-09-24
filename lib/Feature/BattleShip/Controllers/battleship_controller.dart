@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -119,15 +118,11 @@ class BattleShipController extends BaseGameController {
   }
 
   @override
-  Color returnTimerColor() {
+  Color? returnTimerColor() {
     if (!isGameInPlayPhase.value) {
-      return AppColors.darkColor;
+      return null;
     } else {
-      if (currentTurn.value == 1) {
-        return AppColors.imageRedColor;
-      } else {
-        return AppColors.imageBlueColor;
-      }
+      return super.returnTimerColor();
     }
   }
 
