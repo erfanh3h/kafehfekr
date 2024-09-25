@@ -394,7 +394,8 @@ class BaseGameController extends BaseController {
   @override
   void onInit() {
     letPlayMusic.value = Get.find<SoundPlayerComponent>().letPlayMusic.value;
-    isPageLoading.value = true;
+    //TODO
+    // isPageLoading.value = true;
     myId = Get.find<GlobalController>().userId!;
     gameId =
         Get.arguments ?? Get.find<GlobalController>().gameIdController.text;

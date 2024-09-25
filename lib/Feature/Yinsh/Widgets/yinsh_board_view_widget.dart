@@ -1,5 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 
 class YinshBoardViewWidget extends StatelessWidget {
@@ -153,13 +152,13 @@ class YinshBoardViewWidget extends StatelessWidget {
       GeneralIcons.triangle,
       width: 40,
       height: 40,
-      color: AppColors.white,
+      color: Colors.white38,
     );
     final Widget iconFlipped = Image.asset(
       GeneralIcons.triangleFlipped,
       width: 40,
       height: 40,
-      color: AppColors.white,
+      color: Colors.white38,
     );
     return Stack(
       alignment: Alignment.center,

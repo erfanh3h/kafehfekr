@@ -58,7 +58,8 @@ class GlobalController extends BaseController {
         if (myData.value!.name == "") {
           Get.offAllNamed(AppRoutes.username);
         } else {
-          Get.offAllNamed(AppRoutes.main);
+          //TODO
+          Get.offAllNamed(AppRoutes.yinsh);
           Future.delayed(const Duration(milliseconds: 500)).then((_) {
             if (activeGameId != null) {
               Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);

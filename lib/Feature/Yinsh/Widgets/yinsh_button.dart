@@ -14,7 +14,16 @@ class YinshButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color? color = const Color.fromARGB(255, 23, 105, 172);
+    Color? color;
+    if (pieceData.selectedRing != null) {
+      color = pieceData.selectedRing == 1
+          ? const Color.fromARGB(255, 233, 55, 55)
+          : const Color.fromARGB(255, 30, 139, 228);
+    } else if (pieceData.selectedDisk != null) {
+      color = pieceData.selectedDisk == 1
+          ? const Color.fromARGB(255, 233, 55, 55)
+          : const Color.fromARGB(255, 30, 139, 228);
+    }
     // late double borderWidth;
     // Color borderColor;
     // final isLastTurnPlayed =
@@ -24,23 +33,33 @@ class YinshButton extends StatelessWidget {
         onTap(pieceData);
       },
       child: Transform.translate(
-        offset: const Offset(0, -12),
+        offset: const Offset(0, -15),
         child: Container(
-          width: 30,
-          height: 30,
+          width: 35,
+          height: 35,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             // color: Colors.blue,
-            border: Border.all(
-              color: color,
-              width: 4,
-            ),
+            border: pieceData.selectedRing != null
+                ? Border.all(
+                    color: color!,
+                    width: 5,
+                  )
+                : null,
           ),
           child: Container(
-            margin: AppSpacings.s2All,
+            margin: pieceData.selectedRing != null
+                ? AppSpacings.s2All
+                : AppSpacings.s5All,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: color,
+              color:
+                  pieceData.selectedDisk != null ? color : Colors.transparent,
+              border: pieceData.selectedDisk != null
+                  ? Border.all(
+                      color: Colors.black,
+                    )
+                  : null,
             ),
           ),
         ),

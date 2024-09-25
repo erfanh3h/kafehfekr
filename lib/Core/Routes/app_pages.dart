@@ -24,6 +24,7 @@ import 'package:kafehfekr/Feature/Sudoku/Pages/sudoku_page.dart';
 import 'package:kafehfekr/Feature/Ten/Pages/ten_page.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Pages/tictactoe_page.dart';
 import 'package:kafehfekr/Feature/Yatzy/Pages/yatzy_page.dart';
+import 'package:kafehfekr/Feature/Yinsh/Pages/yinsh_page.dart';
 import 'package:refreshed/refreshed.dart';
 
 abstract class AppPages {
@@ -112,6 +113,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.sudoku,
       page: SudokuPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.yinsh,
+      page: YinshPage.new,
     ),
     GetPage(
       name: AppRoutes.battleship,

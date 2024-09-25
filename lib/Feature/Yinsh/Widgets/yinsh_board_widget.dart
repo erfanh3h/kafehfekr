@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Yinsh/Controllers/yinsh_controller.dart';
-import 'package:kafehfekr/Feature/Yinsh/Models/yinsh_piece_model.dart';
 import 'package:kafehfekr/Feature/Yinsh/Widgets/yinsh_board_view_widget.dart';
 import 'package:kafehfekr/Feature/Yinsh/Widgets/yinsh_button.dart';
 import 'package:refreshed/refreshed.dart';
@@ -14,8 +14,6 @@ class YinshBoardWidget extends StatelessWidget {
 
   final YinshController controller;
 
-  final YinshPieceModel piece =
-      YinshPieceModel(id: 0, currentStatuses: [], directions: []);
   final List<(double, double)> positions = [
     (0, -126),
     (0, -42),
@@ -105,10 +103,11 @@ class YinshBoardWidget extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return SizedBox(
-        width: 350,
-        height: 350,
+    return Transform.scale(
+      scale: .95,
+      child: SizedBox(
+        height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
+        // width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
         child: LayoutBuilder(builder: (context, cons) {
           return Container(
             margin: AppSpacings.s10Vertical,
@@ -132,7 +131,7 @@ class YinshBoardWidget extends StatelessWidget {
                     left: positions[i].$2,
                     right: 0,
                     child: YinshButton(
-                      pieceData: piece,
+                      pieceData: controller.peaces[i].value,
                       onTap: (_) {},
                     ),
                   ),
@@ -140,7 +139,7 @@ class YinshBoardWidget extends StatelessWidget {
             ),
           );
         }),
-      );
-    });
+      ),
+    );
   }
 }
