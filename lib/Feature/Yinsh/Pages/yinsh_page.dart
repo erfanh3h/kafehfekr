@@ -28,8 +28,8 @@ class YinshPage extends BaseView<YinshController> {
               player1Data: controller.players[0].value,
               player2Data: controller.players[1].value,
               timerColor: controller.returnTimerColor(),
-              player1Number1: controller.player2RemovedPeaces.value,
-              player2Number1: controller.player1RemovedPeaces.value,
+              player1Number1: controller.player2RemovedRings.value,
+              player2Number1: controller.player1RemovedRings.value,
               // player1Number2: controller.player1Peaces.value -
               //     controller.player1PlayedPeaces.value,
               // player2Number2: controller.player2Peaces.value -

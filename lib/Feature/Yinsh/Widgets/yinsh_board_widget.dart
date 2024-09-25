@@ -130,9 +130,11 @@ class YinshBoardWidget extends StatelessWidget {
                     top: positions[i].$1,
                     left: positions[i].$2,
                     right: 0,
-                    child: YinshButton(
-                      pieceData: controller.peaces[i].value,
-                      onTap: (_) {},
+                    child: Obx(
+                      () => YinshButton(
+                        pieceData: controller.peaces[i].value,
+                        onTap: controller.onEachButtonTap,
+                      ),
                     ),
                   ),
               ],
