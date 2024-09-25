@@ -79,6 +79,8 @@ class GeneralIcons {
   static const store6 = "$generalIconsPath/store6.png";
   static const kori = "$generalIconsPath/kori.png";
   static const setting = "$generalIconsPath/setting.png";
+  static const triangle = "$generalIconsPath/triangle.png";
+  static const triangleFlipped = "$generalIconsPath/triangle-flipped.png";
   // static const play = "$generalIconsPath/play.png";
   // static const profile = "$generalIconsPath/profile.png";
   // static const clan = "$generalIconsPath/clan.png";

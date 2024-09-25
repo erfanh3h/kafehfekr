@@ -1,58 +1,49 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Yinsh/Models/yinsh_piece_model.dart';
 
 class YinshButton extends StatelessWidget {
   const YinshButton({
     super.key,
-    required this.peaceData,
+    required this.pieceData,
     required this.onTap,
   });
 
-  final YinshPieceModel peaceData;
+  final YinshPieceModel pieceData;
   final Function(YinshPieceModel) onTap;
 
   @override
   Widget build(BuildContext context) {
-    // Color? imageColor;
-    String? image;
+    Color? color = const Color.fromARGB(255, 23, 105, 172);
     // late double borderWidth;
     // Color borderColor;
     // final isLastTurnPlayed =
-    //     peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
+    //     pieceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     return InkWell(
       onTap: () {
-        onTap(peaceData);
+        onTap(pieceData);
       },
-      child: Container(
-        width: 35,
-        height: 35,
-        decoration: BoxDecoration(
-            // gradient: LinearGradient(
-            //   begin: Alignment.bottomLeft,
-            //   end: Alignment.topRight,
-            //   colors: [Colors.white24, (imageColor ?? Colors.white)],
-            //   // stops: imageColor != null ? const [0, 0] : null,
-            // ),
-            // color: AppColors.lightColor,
+      child: Transform.translate(
+        offset: const Offset(0, -12),
+        child: Container(
+          width: 30,
+          height: 30,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            // color: Colors.blue,
             border: Border.all(
-              // color: isLastTurnPlayed ? AppColors.yellow : borderColor,
-              // width: isLastTurnPlayed ? 3 : borderWidth,
+              color: color,
+              width: 4,
             ),
-            shape: BoxShape.circle),
-        child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
-            ? const GlobalLoadingWidget()
-            : image != null
-                ? ElasticIn(
-                    duration: const Duration(seconds: 1),
-                    child: Image.asset(
-                      image,
-                      // color: imageColor,
-                    ),
-                  )
-                : Container(),
+          ),
+          child: Container(
+            margin: AppSpacings.s2All,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: color,
+            ),
+          ),
+        ),
       ),
     );
   }

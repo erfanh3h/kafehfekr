@@ -1,345 +1,145 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
-import 'package:kafehfekr/Feature/Mill/Widgets/mill_button.dart';
 import 'package:kafehfekr/Feature/Yinsh/Controllers/yinsh_controller.dart';
+import 'package:kafehfekr/Feature/Yinsh/Models/yinsh_piece_model.dart';
+import 'package:kafehfekr/Feature/Yinsh/Widgets/yinsh_board_view_widget.dart';
+import 'package:kafehfekr/Feature/Yinsh/Widgets/yinsh_button.dart';
 import 'package:refreshed/refreshed.dart';
 
 class YinshBoardWidget extends StatelessWidget {
-  const YinshBoardWidget({
+  YinshBoardWidget({
     super.key,
     required this.controller,
   });
 
   final YinshController controller;
 
-  final Widget verticalDivider = const VerticalDivider(
-    color: AppColors.lightColor,
-    thickness: 3,
-    width: 10,
-  );
-
-  final Widget horizentalDivider = const Divider(
-    color: AppColors.lightColor,
-    thickness: 3,
-    height: 10,
-  );
+  final YinshPieceModel piece =
+      YinshPieceModel(id: 0, currentStatuses: [], directions: []);
+  final List<(double, double)> positions = [
+    (0, -126),
+    (0, -42),
+    (0, 42),
+    (0, 126),
+    (35, -250),
+    (35, -168),
+    (35, -84),
+    (35, 0),
+    (35, 84),
+    (35, 168),
+    (35, 250),
+    (70, -292),
+    (70, -208),
+    (70, -126),
+    (70, -42),
+    (70, 42),
+    (70, 126),
+    (70, 208),
+    (70, 292),
+    (105, -334),
+    (105, -250),
+    (105, -168),
+    (105, -84),
+    (105, 0),
+    (105, 84),
+    (105, 168),
+    (105, 250),
+    (105, 334),
+    (140, -370),
+    (140, -292),
+    (140, -208),
+    (140, -126),
+    (140, -42),
+    (140, 42),
+    (140, 126),
+    (140, 208),
+    (140, 292),
+    (140, 370),
+    (175, -334),
+    (175, -250),
+    (175, -168),
+    (175, -84),
+    (175, 0),
+    (175, 84),
+    (175, 168),
+    (175, 250),
+    (175, 334),
+    (210, -370),
+    (210, -292),
+    (210, -208),
+    (210, -126),
+    (210, -42),
+    (210, 42),
+    (210, 126),
+    (210, 208),
+    (210, 292),
+    (210, 370),
+    (245, -334),
+    (245, -250),
+    (245, -168),
+    (245, -84),
+    (245, 0),
+    (245, 84),
+    (245, 168),
+    (245, 250),
+    (245, 334),
+    (280, -292),
+    (280, -208),
+    (280, -126),
+    (280, -42),
+    (280, 42),
+    (280, 126),
+    (280, 208),
+    (280, 292),
+    (315, -250),
+    (315, -168),
+    (315, -84),
+    (315, 0),
+    (315, 84),
+    (315, 168),
+    (315, 250),
+    (350, -126),
+    (350, -42),
+    (350, 42),
+    (350, 126),
+  ];
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return Container(
-        padding: AppSpacings.s5All,
-        margin: AppSpacings.s10All,
-        height: 330,
-        width: 330,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [Colors.transparent, Colors.brown],
-            // stops: imageColor != null ? const [0, 0] : null,
-          ),
-          border: Border.all(
-            color: AppColors.darkColor,
-            width: 15,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: 40,
-              left: 13,
-              child: SizedBox(
-                height: 90,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 40,
-              left: 13,
-              child: SizedBox(
-                height: 90,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 40,
-              right: 13,
-              child: SizedBox(
-                height: 90,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 40,
-              right: 13,
-              child: SizedBox(
-                height: 90,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 80,
-              left: 57,
-              child: SizedBox(
-                height: 50,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 80,
-              left: 57,
-              child: SizedBox(
-                height: 50,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 80,
-              right: 57,
-              child: SizedBox(
-                height: 50,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 80,
-              right: 57,
-              child: SizedBox(
-                height: 50,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 40,
-              left: 140,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 80,
-              left: 140,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 40,
-              left: 140,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 80,
-              left: 140,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 120,
-              left: 98,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 162,
-              left: 98,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 120,
-              right: 98,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 162,
-              right: 98,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      return SizedBox(
+        width: 350,
+        height: 350,
+        child: LayoutBuilder(builder: (context, cons) {
+          return Container(
+            margin: AppSpacings.s10Vertical,
+            child: Stack(
+              alignment: Alignment.center,
+              clipBehavior: Clip.none,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MillButton(
-                      peaceData: controller.peaces[0].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[1].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[2].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ],
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  left: 0,
+                  child: SizedBox(
+                    height: cons.maxHeight,
+                    width: cons.maxWidth,
+                    child: const YinshBoardViewWidget(),
+                  ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    MillButton(
-                      peaceData: controller.peaces[3].value,
-                      onTap: controller.onEachButtonTap,
+                for (int i = 0; i < positions.length; i++)
+                  Positioned(
+                    top: positions[i].$1,
+                    left: positions[i].$2,
+                    right: 0,
+                    child: YinshButton(
+                      pieceData: piece,
+                      onTap: (_) {},
                     ),
-                    Expanded(child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[4].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[5].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MillButton(
-                      peaceData: controller.peaces[6].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    SizedBox(
-                      width: 5,
-                      child: horizentalDivider,
-                    ),
-                    MillButton(
-                      peaceData: controller.peaces[7].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    SizedBox(
-                      width: 5,
-                      child: horizentalDivider,
-                    ),
-                    MillButton(
-                      peaceData: controller.peaces[8].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MillButton(
-                      peaceData: controller.peaces[9].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(flex: 2, child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[10].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(flex: 2, child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[11].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    const SizedBox(width: 50),
-                    MillButton(
-                      peaceData: controller.peaces[12].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(flex: 2, child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[13].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(flex: 2, child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[14].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MillButton(
-                      peaceData: controller.peaces[15].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    SizedBox(width: 5, child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[16].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    SizedBox(width: 5, child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[17].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    MillButton(
-                      peaceData: controller.peaces[18].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[19].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[20].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MillButton(
-                      peaceData: controller.peaces[21].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[22].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    MillButton(
-                      peaceData: controller.peaces[23].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ],
-                ),
+                  ),
               ],
             ),
-          ],
-        ),
+          );
+        }),
       );
     });
   }
