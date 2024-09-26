@@ -21,7 +21,8 @@ class YinshButton extends StatelessWidget {
       ringColor = pieceData.selectedRing == 1
           ? const Color.fromARGB(255, 233, 55, 55)
           : const Color.fromARGB(255, 30, 139, 228);
-    } else if (pieceData.selectedDisk != null) {
+    }
+    if (pieceData.selectedDisk != null) {
       diskColor = pieceData.selectedDisk == 1
           ? const Color.fromARGB(255, 233, 55, 55)
           : const Color.fromARGB(255, 30, 139, 228);

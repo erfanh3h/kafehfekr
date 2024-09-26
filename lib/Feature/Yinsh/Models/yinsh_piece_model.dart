@@ -14,6 +14,19 @@ class YinshPieceModel extends PeaceModel {
   int? selectedRing;
   List<(int, int)> directions;
 
+  YinshPieceModel changeDiskRing({
+    required int? newRing,
+    required int? newDisk,
+  }) {
+    return YinshPieceModel(
+      id: id,
+      currentStatuses: currentStatuses,
+      selectedDisk: newDisk,
+      selectedRing: newRing,
+      directions: directions,
+    );
+  }
+
   YinshPieceModel changeDirections({
     required List<(int, int)> newDirections,
   }) {

@@ -17,6 +17,8 @@ class GameWaitTimes {
   static const int tictactoeSleepRoundTime = 5;
   static const int rpcRoundTime = 7;
   static const int rpcSleepRoundTime = 3;
+  static const int yinshTurnTime = 30;
+  static const int yinshRingTime = 20;
   static const int millSelectTime = 15;
   static const int millRemoveTime = 15;
   static const int msweeperGameTime = 600;
@@ -64,6 +66,10 @@ abstract class GameCommands {
   static const removePeace = "RemovePeace";
   static const selectRemovePeace = "SelectRemovePeace";
   static const peaceSelected = "PeaceSelected";
+  static const submitRing = "SubmitRing";
+  static const ringSubmited = "RingSubmited";
+  static const moveRing = "MoveRing";
+  static const ringMoved = "RingMoved";
   static const peaceRotated = "PeaceRotated";
   static const peaceSwaped = "PeaceSwaped";
   static const peaceRemoved = "PeaceRemoved";

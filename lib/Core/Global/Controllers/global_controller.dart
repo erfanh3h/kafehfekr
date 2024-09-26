@@ -58,8 +58,7 @@ class GlobalController extends BaseController {
         if (myData.value!.name == "") {
           Get.offAllNamed(AppRoutes.username);
         } else {
-          //TODO
-          Get.offAllNamed(AppRoutes.yinsh);
+          Get.offAllNamed(AppRoutes.main);
           Future.delayed(const Duration(milliseconds: 500)).then((_) {
             if (activeGameId != null) {
               Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
@@ -113,17 +112,19 @@ class GlobalController extends BaseController {
       if (userIdData != null) {
         userId = userIdData;
       }
-      final gameIdData =
-          await globalRepo.getDataFromStorage(key: StorageKeys.gameId);
-      if (gameIdData != null) {
-        activeGameId = gameIdData;
-      }
-      // activeGameId = "gameId";
-      final gameTypeData =
-          await globalRepo.getDataFromStorage(key: StorageKeys.gameType);
-      if (gameTypeData != null) {
-        activeGameType = gameTypeData;
-      }
+        //TODO
+      // final gameIdData =
+      //     await globalRepo.getDataFromStorage(key: StorageKeys.gameId);
+      // if (gameIdData != null) {
+      //   activeGameId = gameIdData;
+      // }
+      activeGameId = "gameId";
+      // final gameTypeData =
+      //     await globalRepo.getDataFromStorage(key: StorageKeys.gameType);
+      // if (gameTypeData != null) {
+      //   activeGameType = gameTypeData;
+      // }
+      activeGameType = "Yinsh";
       final gameMusicData =
           await globalRepo.getDataFromStorage(key: StorageKeys.gameMusic);
       if (gameMusicData != null) {
@@ -135,8 +136,7 @@ class GlobalController extends BaseController {
       } else {
         Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
       }
-
-      // activeGameType = "Pentago";
+         
     }
     isLoadingProfile.value = false;
   }

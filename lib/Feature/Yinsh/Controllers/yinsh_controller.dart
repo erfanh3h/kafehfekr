@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/Yinsh/Models/yinsh_piece_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -14,31 +15,160 @@ class YinshController extends BaseGameController {
   RxInt player1RemovedRings = RxInt(0);
   RxInt player2RemovedRings = RxInt(0);
 
+  RxInt remainingDisks = RxInt(51);
+
   RxInt equippedPeaceIndex = RxInt(-1);
 
-  RxBool isSetupRingPhase = RxBool(false);
-  RxBool isSelectRingPhase = RxBool(false);
+  RxBool isSetupRingPhase = RxBool(true);
+  RxBool isRingSubmited = RxBool(false);
 
   List<int> directionsList = [1, 2, 3, 4, 5, 6];
 
+  RxInt lastSelectedPieceId = RxInt(-1);
+
+  @override
+  void commandHandler(dynamic data) {
+    super.commandHandler(data);
+    final commandId = data['id'];
+    switch (commandId) {
+      case GameCommands.ringMoved:
+        ringMovedFunction(data);
+        break;
+      case GameCommands.ringSubmited:
+        ringSubmitedFunction(data);
+        break;
+      case GameCommands.removePeace:
+        removePiecefunction(data);
+        break;
+      default:
+    }
+  }
+
   @override
   void currentTurnFunction(Map data) {
-    int turn = data['data'];
+    removeAllPeacesStatus(PeaceStatusTypes.canSelected);
+    lastSelectedPieceId.value = -1;
+    Map turnData = data['data'];
+    int turn = turnData['turn'];
+    bool phase = turnData['is_setup_ring_phase'];
+    isSetupRingPhase.value = phase;
     currentTurn.value = turn;
     if (turn == myGameId) {
       canSelectPeace.value = true;
       showInteraction(sound: GameSoundTypes.startTurn);
+      if (isSetupRingPhase.value) {
+      } else {
+        getListOfPossibleRings(myGameId);
+      }
     } else {
       canSelectPeace.value = false;
     }
-    changetimerValue(GameWaitTimes.millSelectTime);
+    if (isSetupRingPhase.value) {
+      changetimerValue(GameWaitTimes.yinshRingTime);
+    } else {
+      changetimerValue(GameWaitTimes.yinshTurnTime);
+    }
   }
 
   @override
   void peaceSelectedFunction(Map data) {
     Map peaceData = data['data'];
-    // int peaceId = peaceData['target_peace'];
-    // int gamerId = peaceData['user'];
+    int peaceId = peaceData['piece_id'];
+    int gamerId = peaceData['gamer_id'];
+    remainingDisks.value -= 1;
+    peaces[peaceId].value =
+        peaces[peaceId].value.changeselectedDisk(newselectedDisk: gamerId);
+    showInteraction(sound: GameSoundTypes.tapButton);
+    // removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
+    // removeAllPeacesStatus(PeaceStatusTypes.isLoading);
+    // peaces.value[peaceId].value = peaces.value[peaceId].value
+    //     .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
+  }
+
+  @override
+  // ignore: unnecessary_overrides
+  void reconnectDataFuntcion(Map data) {
+    super.reconnectDataFuntcion(data);
+    Map newData = data['data'];
+    Map gameData = newData['game_data'];
+    Map timerData = newData['timer_data'];
+    List boardData = gameData['board'];
+    player1Score.value = gameData['player1_score'];
+    player2Score.value = gameData['player2_score'];
+    player1Rings.value = gameData['player1_rings'];
+    player2Rings.value = gameData['player2_rings'];
+    lastSelectedPieceId.value = gameData['last_selected_piece_id'];
+    currentTurn.value = gameData['current_turn'];
+    isSetupRingPhase.value = gameData['is_setup_ring_phase'];
+    for (var i = 0; i < boardData.length; i++) {
+      peaces[i].value = peaces[i].value.changeDiskRing(
+          newDisk: boardData[i]['disk_user'],
+          newRing: boardData[i]['ring_user']);
+    }
+    if (currentTurn.value == myGameId) {
+      canSelectPeace.value = true;
+      showInteraction(sound: GameSoundTypes.startTurn);
+      if (isSetupRingPhase.value) {
+      } else {
+        getListOfPossibleRings(myGameId);
+      }
+    } else {
+      canSelectPeace.value = false;
+    }
+    if (isSetupRingPhase.value) {
+      final int time = GameWaitTimes.yinshRingTime - timerData['time'] as int;
+      changetimerValue(time.clamp(0, time));
+    } else {
+      final int time = GameWaitTimes.yinshTurnTime - timerData['time'] as int;
+      changetimerValue(time.clamp(0, time));
+    }
+  }
+
+  @override
+  void onEachButtonTap(dynamic tappedPeace) {
+    YinshPieceModel peace = tappedPeace as YinshPieceModel;
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
+    }
+    if (isSetupRingPhase.value) {
+      if (peaces[peace.id].value.selectedRing != null) {
+        showInteraction(text: AppTexts.cantSelect.tr);
+        return;
+      }
+      canSelectPeace.value = false;
+      sendCommand({"id": GameCommands.submitRing, "data": peace.id});
+    } else {
+      if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
+        showInteraction(text: AppTexts.cantSelect.tr);
+        return;
+      }
+      if (lastSelectedPieceId.value == -1) {
+        lastSelectedPieceId.value = peace.id;
+        removeAllPeacesStatus(PeaceStatusTypes.canSelected);
+        getListOfPossibleSelections(peace.id);
+        sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
+      } else {
+        canSelectPeace.value = false;
+        List<int> rotationsList = getListOfRotations(peace.id, myGameId);
+        sendCommand({
+          "id": GameCommands.moveRing,
+          "data": {'target_id': peace.id, 'rotations_list': rotationsList}
+        });
+      }
+    }
+
+    // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
+  }
+
+  void ringMovedFunction(Map data) {
+    Map peaceData = data['data'];
+    int peaceId = peaceData['target_id'];
+    int gamerId = peaceData['gamer_id'];
+    List<int> rotationsList = List<int>.from(peaceData['rotations_list']);
+    moveRingToTarget(peaceId, rotationsList, gamerId);
+    lastSelectedPieceId.value = -1;
+    removeAllPeacesStatus(PeaceStatusTypes.canSelected);
     // if (gamerId == 1) {
     //   player1PlayedPeaces.value += 1;
     // } else {
@@ -52,66 +182,37 @@ class YinshController extends BaseGameController {
     //     .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
   }
 
-  @override
-  // ignore: unnecessary_overrides
-  void reconnectDataFuntcion(Map data) {
-    super.reconnectDataFuntcion(data);
-    // Map newData = data['data'];
-    // Map gameData = newData['game_data'];
-    // Map timerData = newData['timer_data'];
-    // List boardData = gameData['board'];
-    // int currentRemoverGameId = gameData['current_remover'];
-    // player1PlayedPeaces.value = gameData['played_peaces'][0];
-    // player2PlayedPeaces.value = gameData['played_peaces'][1];
-    // player1RemovedPeaces.value = gameData['removed_peaces'][0];
-    // player2RemovedPeaces.value = gameData['removed_peaces'][1];
-    // currentTurn.value = gameData['current_turn'];
-    // currentRemover.value = gameData['current_remover'];
-    // for (var i = 0; i < boardData.length; i++) {
-    //   if (boardData[i] == 0) {
-    //     continue;
-    //   }
-    //   peaces[i].value =
-    //       peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
-    // }
-    // if (currentTurn.value == myGameId) {
-    //   canSelectPeace.value = true;
-    // } else {
-    //   canSelectPeace.value = false;
-    // }
-    // if (currentRemoverGameId == myGameId) {
-    //   letRemovePeace.value = true;
-    //   canSelectPeace.value = true;
-    //   for (var neighborId in getEnemyPeacesIndexes()) {
-    //     addPeaceStatus(neighborId, PeaceStatusTypes.canHitted);
-    //   }
-    // }
-    // // if (timerData['is_user_turn']) {
-    // final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-    // changetimerValue(time.clamp(0, time));
-    // }
+  void ringSubmitedFunction(Map data) {
+    Map peaceData = data['data'];
+    int peaceId = peaceData['piece_id'];
+    int gamerId = peaceData['gamer_id'];
+    if (gamerId == 1) {
+      player1Rings.value -= 1;
+    } else {
+      player2Rings.value -= 1;
+    }
+    // removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
+    removeAllPeacesStatus(PeaceStatusTypes.isLoading);
+    peaces[peaceId].value =
+        peaces[peaceId].value.changeselectedRing(newselectedRing: gamerId);
+    // peaces.value[peaceId].value = peaces.value[peaceId].value
+    //     .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
   }
 
-  @override
-  void onEachButtonTap(dynamic tappedPeace) {
-    YinshPieceModel peace = tappedPeace as YinshPieceModel;
-    removeAllPeacesStatus(PeaceStatusTypes.canSelected);
-    getListOfSelections(peace.id);
-    // if (isRoundPlayed.value) {
-    //   showInteraction(text: AppTexts.playerThisRound.tr);
-    //   return;
-    // }
-    // if (peace.isSelected) {
-    //   showInteraction(text: AppTexts.selectedBefore.tr);
-    //   return;
-    // }
-    // if (equippedIndex != peace.id) {
-    //   showInteraction(sound: GameSoundTypes.tap);
-    //   removePeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
-    //   addPeaceStatus(peace.id, PeaceStatusTypes.equiped);
-    //   equippedIndex = peace.id;
-    // }
-    // sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
+  void removePiecefunction(Map data) {
+    Map peaceData = data['data'];
+    int peaceId = peaceData['piece_id'];
+    peaces[peaceId].value =
+        peaces[peaceId].value.changeselectedDisk(newselectedDisk: null);
+    lastSelectedPieceId.value = -1;
+  }
+
+  getListOfPossibleRings(int gamerId) {
+    for (var peace in peaces.value) {
+      if (peace.value.selectedRing == gamerId) {
+        addPeaceStatus(peace.value.id, PeaceStatusTypes.canSelected);
+      }
+    }
   }
 
   (int, int)? checkPieceHaveNeighbourInDirection(
@@ -151,7 +252,7 @@ class YinshController extends BaseGameController {
     return result;
   }
 
-  getListOfSelections(int pieceId) {
+  getListOfPossibleSelections(int pieceId) {
     Map<int, List<int>> result = {};
     for (var directionId in directionsList) {
       // print(getDirectionIdies(directionId, pieceId));
@@ -180,6 +281,50 @@ class YinshController extends BaseGameController {
     // for (var pId in result) {
     //   addPeaceStatus(pId, PeaceStatusTypes.canSelected);
     // }
+  }
+
+  List<int> getListOfRotations(int pieceId, int gamerId) {
+    Map<int, List<int>> result = {};
+    for (var directionId in directionsList) {
+      // print(getDirectionIdies(directionId, pieceId));
+      result[directionId] =
+          getDirectionIdies(directionId, lastSelectedPieceId.value);
+    }
+    int targetDirectionId = 1;
+    for (var directionId in result.keys) {
+      for (var pId in result[directionId]!) {
+        if (peaces[pId].value.id == pieceId) {
+          targetDirectionId = directionId;
+          break;
+        }
+      }
+    }
+    List<int> finalResult = [];
+    for (var pId in result[targetDirectionId]!) {
+      if (peaces[pId].value.selectedDisk != null) {
+        finalResult.add(pId);
+      }
+    }
+    return finalResult;
+  }
+
+  moveRingToTarget(int pieceId, List<int> rotationsList, int gamerId) {
+    for (var pId in rotationsList) {
+      if (peaces[pId].value.selectedDisk != null) {
+        if (peaces[pId].value.selectedDisk == 1) {
+          peaces[pId].value =
+              peaces[pId].value.changeselectedDisk(newselectedDisk: 2);
+        } else {
+          peaces[pId].value =
+              peaces[pId].value.changeselectedDisk(newselectedDisk: 1);
+        }
+      }
+    }
+    peaces[lastSelectedPieceId.value].value = peaces[lastSelectedPieceId.value]
+        .value
+        .changeselectedRing(newselectedRing: null);
+    peaces[pieceId].value =
+        peaces[pieceId].value.changeselectedRing(newselectedRing: gamerId);
   }
 
   changePeaceDisk(int peaceId, int? userId) {
@@ -315,6 +460,7 @@ class YinshController extends BaseGameController {
     // changePeaceRing(20, 1);
     // changePeaceDisk(42, 1);
     // changePeaceDisk(41, 1);
+    // changePeaceDisk(40, 2);
   }
 
   @override
