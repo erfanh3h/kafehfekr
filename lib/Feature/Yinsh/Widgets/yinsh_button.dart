@@ -45,45 +45,56 @@ class YinshButton extends StatelessWidget {
     //     pieceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     return Transform.translate(
       offset: const Offset(0, -15),
-      child: Container(
+      child: SizedBox(
         width: 35,
         height: 35,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          // color: Colors.blue,
-          border: ringColor != null
-              ? Border.all(
-                  color: ringColor,
-                  width: 5,
-                )
-              : null,
-        ),
-        child: Container(
-          margin: diskColor != null && pieceData.selectedRing != null
-              ? AppSpacings.s2All
-              : AppSpacings.s5All,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: diskColor ?? Colors.transparent,
-            border: diskColor != null
-                ? Border.all(
-                    color: Colors.black,
-                    width: isLastTurnPlayed ? 4 : 1,
-                  )
-                : null,
-          ),
-          child: Center(
-            child: InkWell(
-              onTap: () {
-                onTap(pieceData);
-              },
-              child: const Opacity(
-                opacity: 0,
-                child: Text(
-                  '00',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
+        child: OverflowBox(
+          minHeight: 35,
+          minWidth: 35,
+          maxHeight: 35,
+          maxWidth: 35,
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: ringColor != null
+                  ? Border.all(
+                      color: ringColor,
+                      width: 5,
+                    )
+                  : null,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: diskColor ?? Colors.transparent,
+                border: diskColor != null
+                    ? Border.all(
+                        color: Colors.black,
+                        width: isLastTurnPlayed ? 4 : 1,
+                      )
+                    : null,
+              ),
+              margin: diskColor != null && pieceData.selectedRing != null
+                  ? AppSpacings.s2All
+                  : AppSpacings.s5All,
+              child: Center(
+                child: InkWell(
+                  onTap: () {
+                    onTap(pieceData);
+                  },
+                  child: const SizedBox(
+                    width: 35,
+                    height: 35,
+                    child: Opacity(
+                      opacity: 0,
+                      child: Text(
+                        '00',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),

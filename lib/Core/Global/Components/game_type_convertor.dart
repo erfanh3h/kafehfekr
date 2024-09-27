@@ -58,7 +58,7 @@ class GameTypeConvertor {
         result = AppImages.sudokuGame;
         break;
       case GameTypes.Yinsh:
-        result = AppImages.tictactoeGame;
+        result = AppImages.yinshGame;
         break;
       case GameTypes.MNumbers:
         result = AppImages.mnumbersGame;
@@ -231,6 +231,9 @@ class GameTypeConvertor {
         break;
       case GameTypes.Mill:
         result = GuideLinks.mill;
+        break;
+      case GameTypes.Yinsh:
+        result = GuideLinks.yinsh;
         break;
       case GameTypes.BackGammon:
         result = GuideLinks.backGammon;

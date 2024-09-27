@@ -112,19 +112,18 @@ class GlobalController extends BaseController {
       if (userIdData != null) {
         userId = userIdData;
       }
-        //TODO
-      // final gameIdData =
-      //     await globalRepo.getDataFromStorage(key: StorageKeys.gameId);
-      // if (gameIdData != null) {
-      //   activeGameId = gameIdData;
-      // }
-      activeGameId = "gameId";
-      // final gameTypeData =
-      //     await globalRepo.getDataFromStorage(key: StorageKeys.gameType);
-      // if (gameTypeData != null) {
-      //   activeGameType = gameTypeData;
-      // }
-      activeGameType = "Yinsh";
+      final gameIdData =
+          await globalRepo.getDataFromStorage(key: StorageKeys.gameId);
+      if (gameIdData != null) {
+        activeGameId = gameIdData;
+      }
+      // activeGameId = "gameId";
+      final gameTypeData =
+          await globalRepo.getDataFromStorage(key: StorageKeys.gameType);
+      if (gameTypeData != null) {
+        activeGameType = gameTypeData;
+      }
+      // activeGameType = "Yinsh";
       final gameMusicData =
           await globalRepo.getDataFromStorage(key: StorageKeys.gameMusic);
       if (gameMusicData != null) {

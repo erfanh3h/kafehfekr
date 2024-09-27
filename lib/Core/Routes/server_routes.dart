@@ -40,5 +40,6 @@ abstract class GuideLinks {
   static const checkers = "https://www.aparat.com/v/e02c7mp";
   static const othello = "https://www.aparat.com/v/g1739c7";
   static const mill = "https://www.aparat.com/v/o39z663";
+  static const yinsh = "https://www.aparat.com/v/o99o411";
   static const backGammon = "https://www.aparat.com/v/k90i80w";
 }

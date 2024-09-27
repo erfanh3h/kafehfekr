@@ -91,11 +91,11 @@ class _GameMenuPageState extends State<GameMenuPage>
             ),
           ),
           Padding(
-            padding: AppSpacings.s20Horizental10Vertical,
+            padding: AppSpacings.s20Horizental5Vertical,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < gamesLength; i++)
+                for (int i = 0; i < 10; i++)
                   GameCircleDotWidget(
                     pageController: controller.pageController,
                     i: i,
@@ -104,7 +104,21 @@ class _GameMenuPageState extends State<GameMenuPage>
               ],
             ),
           ),
-          const SizedBox(height: 5),
+          Padding(
+            padding: AppSpacings.s20Horizental,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (int i = 10; i < gamesLength; i++)
+                  GameCircleDotWidget(
+                    pageController: controller.pageController,
+                    i: i,
+                    controller: controller,
+                  )
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
         ],
       ),
     );

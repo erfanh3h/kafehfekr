@@ -104,7 +104,7 @@ class YinshBoardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
-      scale: .95,
+      scale: .9,
       child: SizedBox(
         height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
         // width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,

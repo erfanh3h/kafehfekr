@@ -14,7 +14,6 @@ enum PeaceStatusTypes {
 }
 
 enum GameTypes {
-  Yinsh,
   TicTacToe,
   RPC,
   DotBox,
@@ -28,6 +27,7 @@ enum GameTypes {
   Sudoku,
   BattleShip,
   BoxFour,
+  Yinsh,
   Chess,
   Checkers,
   Othello,

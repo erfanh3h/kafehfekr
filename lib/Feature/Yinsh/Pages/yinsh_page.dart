@@ -51,7 +51,7 @@ class YinshPage extends BaseView<YinshController> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'دیسک باقیمانده : ',
+                        'دیسک : ',
                         style: TextStyle(
                           fontFamily: FontFamilies.dastnevis,
                           fontSize: 16,
