@@ -70,6 +70,7 @@ abstract class GameCommands {
   static const ringSubmited = "RingSubmited";
   static const moveRing = "MoveRing";
   static const ringMoved = "RingMoved";
+  static const winHappened = "WinHappened";
   static const peaceRotated = "PeaceRotated";
   static const peaceSwaped = "PeaceSwaped";
   static const peaceRemoved = "PeaceRemoved";

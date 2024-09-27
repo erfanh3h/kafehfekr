@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/Yinsh/Models/yinsh_piece_model.dart';
 
@@ -17,6 +18,8 @@ class YinshButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? ringColor;
     Color? diskColor;
+    bool isLastTurnPlayed =
+        pieceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     if (pieceData.selectedRing != null) {
       ringColor = pieceData.selectedRing == 1
           ? const Color.fromARGB(255, 233, 55, 55)
@@ -27,9 +30,15 @@ class YinshButton extends StatelessWidget {
           ? const Color.fromARGB(255, 233, 55, 55)
           : const Color.fromARGB(255, 30, 139, 228);
     }
-    if (pieceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-      diskColor = Colors.yellowAccent;
+    if (pieceData.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
+      ringColor = AppColors.yellow;
     }
+    if (pieceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
+      diskColor = AppColors.yellow;
+    }
+    // if (isLastTurnPlayed) {
+    //   diskColor = AppColors.yellow;
+    // }
     // late double borderWidth;
     // Color borderColor;
     // final isLastTurnPlayed =
@@ -59,6 +68,7 @@ class YinshButton extends StatelessWidget {
             border: diskColor != null
                 ? Border.all(
                     color: Colors.black,
+                    width: isLastTurnPlayed ? 4 : 1,
                   )
                 : null,
           ),
