@@ -62,7 +62,8 @@ class GlobalController extends BaseController {
           Future.delayed(const Duration(milliseconds: 500)).then((_) {
             if (activeGameId != null) {
               Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
-              Get.toNamed('/$activeGameType', arguments: activeGameId);
+              Get.toNamed(AppRoutes.gamePlay, arguments: activeGameId);
+              // Get.toNamed('/$activeGameType', arguments: activeGameId);
             }
             // else {
             //   Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
@@ -259,16 +260,16 @@ class GlobalController extends BaseController {
     final commandId = data['id'];
     switch (commandId) {
       case GameCommands.startGame:
-       //TODO:
         isQueueActive.value = true;
         final String gameId = data['data']['game_id'];
         const String gameType = 'activeQueueType.value';
         setActiveGameId(gameId, gameType);
         Get.find<SoundPlayerComponent>()
             .playGameSound(GameSoundTypes.queueFinded);
+        Get.toNamed(AppRoutes.gamePlay, arguments: gameId);
         Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
         Future.delayed(const Duration(seconds: 1)).then((_) {
-          Get.toNamed('/$gameType', arguments: gameId);
+          // Get.toNamed('/$gameType', arguments: gameId);
           stopQueue();
         });
         break;

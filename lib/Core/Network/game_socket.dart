@@ -46,6 +46,26 @@ class GameSocketManager extends BaseController {
     socket.emit(SocketChannels.userReaction, data);
   }
 
+  void changeCommandHandler({required Function(dynamic) commandHandler}) {
+    socket.off(SocketChannels.serverReaction);
+    Future.delayed(const Duration(milliseconds: 500)).then((_) {
+      socket.on(SocketChannels.serverCommand, (data) {
+        print(data);
+        commandHandler(data);
+      });
+    });
+  }
+
+  void changeReactionHandler({required Function(dynamic) reactionHandler}) {
+    socket.off(SocketChannels.serverReaction);
+    Future.delayed(const Duration(milliseconds: 500)).then((_) {
+      socket.on(SocketChannels.serverCommand, (data) {
+        print(data);
+        reactionHandler(data);
+      });
+    });
+  }
+
   void disconnect() {
     socket.disconnect();
   }

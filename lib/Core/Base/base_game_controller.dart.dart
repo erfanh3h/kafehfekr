@@ -12,7 +12,6 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../../../Core/Base/base_controller.dart';
@@ -105,9 +104,6 @@ class BaseGameController extends BaseController {
       case GameCommands.waitTime:
         waitTimeFunction(data);
         break;
-      case GameCommands.gameFinished:
-        deviceFinishGameFunction();
-        break;
       case GameCommands.notPlayedTurns:
         notPlayedTurnsFunction(data);
         break;
@@ -185,12 +181,6 @@ class BaseGameController extends BaseController {
     final playerId = data['playerId'];
     final reactionId = data['reactionId'];
     changePlayerReaction(playerId, reactionId);
-  }
-
-  void deviceFinishGameFunction() {
-    Get.find<GlobalController>().finishGame();
-    Get.back();
-    DialogComponent().showToast(label: AppTexts.gameFinished.tr);
   }
 
   void notPlayedTurnsFunction(dynamic data) {
@@ -398,13 +388,7 @@ class BaseGameController extends BaseController {
     myId = Get.find<GlobalController>().userId!;
     gameId =
         Get.arguments ?? Get.find<GlobalController>().gameIdController.text;
-    Get.put(GameSocketManager());
-    Get.find<GameSocketManager>().initSocket(
-      commandHandler: commandHandler,
-      reactionHandler: reactionHandler,
-      gameId: gameId,
-      myId: myId,
-    );
+    //TODO:
     super.onInit();
   }
 

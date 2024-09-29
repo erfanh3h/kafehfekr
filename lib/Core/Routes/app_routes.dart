@@ -1,5 +1,6 @@
 abstract class AppRoutes {
   static const main = '/main';
+  static const gamePlay = '/gamePlay';
   static const auth = '/auth';
   static const username = '/username';
   static const info = '/info';
