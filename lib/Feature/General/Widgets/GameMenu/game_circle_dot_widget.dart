@@ -29,17 +29,17 @@ class GameCircleDotWidget extends StatelessWidget {
           );
         },
         child: Container(
-          padding: controller.currentPage.value == i.toDouble()
+          padding: controller.normalCurrentPage.value == i.toDouble()
               ? AppSpacings.s8All
               : AppSpacings.s5All,
           margin: AppSpacings.s3All,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: controller.currentPage.value == i.toDouble()
+            color: controller.normalCurrentPage.value == i.toDouble()
                 ? color
                 : AppColors.lightColor,
             border: Border.all(
-              color: controller.currentPage.value != i.toDouble()
+              color: controller.normalCurrentPage.value != i.toDouble()
                   ? color
                   : AppColors.lightColor,
             ),

@@ -81,6 +81,8 @@ class GeneralIcons {
   static const setting = "$generalIconsPath/setting.png";
   static const triangle = "$generalIconsPath/triangle.png";
   static const triangleFlipped = "$generalIconsPath/triangle-flipped.png";
+  static const rank = "$generalIconsPath/rank.png";
+  static const normal = "$generalIconsPath/normal.png";
   // static const play = "$generalIconsPath/play.png";
   // static const profile = "$generalIconsPath/profile.png";
   // static const clan = "$generalIconsPath/clan.png";

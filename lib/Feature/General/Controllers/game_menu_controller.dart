@@ -6,11 +6,17 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GameMenuController extends BaseController {
-  RxInt currentPage = RxInt(0);
-  final PageController pageController = PageController();
+  RxInt selectedTab = RxInt(0);
 
-  changePage(int value) {
-    currentPage.value = value;
+  RxInt normalCurrentPage = RxInt(0);
+  final PageController normalPageController = PageController();
+
+  changeTab(int value) {
+    selectedTab.value = value;
+  }
+
+  changeNormalPage(int value) {
+    normalCurrentPage.value = value;
   }
 
   Color getGameColor(int index) {

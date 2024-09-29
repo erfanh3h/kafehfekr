@@ -12,8 +12,8 @@ import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
 
-class GameMenuGamePartWidget extends StatelessWidget {
-  const GameMenuGamePartWidget({
+class NormalGameMenuGamePartWidget extends StatelessWidget {
+  const NormalGameMenuGamePartWidget({
     super.key,
     required this.game,
     required this.onTap,
