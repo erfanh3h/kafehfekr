@@ -18,9 +18,12 @@ abstract class AppTexts {
   static const enemySurrenderGame = "enemySurrenderGame";
   static const normalGame = "normalGame";
   static const rankGame = "rankGame";
+  static const startGame = "startGame";
   static const rankHistoryDetails = "rankHistoryDetails";
   static const surrender = "surrender";
   static const taturialLink = "taturialLink";
+  static const rankGameMenu = "rankGameMenu";
+  static const select5Games = "select5Games";
 
   static const win = "win";
   static const lose = "lose";

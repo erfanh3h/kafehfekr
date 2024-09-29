@@ -6,7 +6,7 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
 import 'package:kafehfekr/Feature/General/Widgets/GameMenu/game_circle_dot_widget.dart';
-import 'package:kafehfekr/Feature/General/Widgets/GameMenu/normal_game_menu_game_part_widget.dart';
+import 'package:kafehfekr/Feature/General/Widgets/GameMenu/normal_menu_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 class NormalGamePartWidget extends StatelessWidget {
@@ -51,9 +51,11 @@ class NormalGamePartWidget extends StatelessWidget {
                   child: Obx(
                     () => NormalGameMenuGamePartWidget(
                       game: gameTypesParts[index],
-                      onTap: Get.find<GlobalController>().startQueue,
+                      onTap: controller.startNormalGame,
+                      onGuideTap: controller.openGameGuide,
                       showButtons:
                           !Get.find<GlobalController>().isQueueActive.value,
+                      difficultyColor: controller.getGameColor(index),
                     ),
                   ),
                 ),

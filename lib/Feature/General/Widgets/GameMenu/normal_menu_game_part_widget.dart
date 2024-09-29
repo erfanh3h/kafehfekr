@@ -1,10 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_gold_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -17,37 +15,20 @@ class NormalGameMenuGamePartWidget extends StatelessWidget {
     super.key,
     required this.game,
     required this.onTap,
+    required this.onGuideTap,
     required this.showButtons,
+    required this.difficultyColor,
   });
 
   final GameTypes game;
-  final Function(String, String) onTap;
+  final Function(GameTypes) onTap;
+  final Function(GameTypes) onGuideTap;
   final bool showButtons;
+  final Color difficultyColor;
+
   @override
   Widget build(BuildContext context) {
     final gameConvertor = GameTypeConvertor(gameType: game);
-    final List<int> gameRewards = gameConvertor.toGameRewards();
-    final GameDifficulties difficulty =
-        GameTypeConvertor(gameType: game).toGameDifficallty();
-    Color difficultyFontColor;
-    final Color difficultyColor;
-    switch (difficulty) {
-      case GameDifficulties.Easy:
-        difficultyColor = AppColors.darkGreen;
-        difficultyFontColor = AppColors.lightColor;
-        break;
-      case GameDifficulties.Normal:
-        difficultyColor = AppColors.yellow;
-        difficultyFontColor = AppColors.darkColor;
-        break;
-      case GameDifficulties.Hard:
-        difficultyColor = AppColors.buttonRed;
-        difficultyFontColor = AppColors.lightColor;
-        break;
-      default:
-        difficultyColor = AppColors.green;
-        difficultyFontColor = AppColors.lightColor;
-    }
     return Container(
       margin: AppSpacings.s20Vertical,
       padding: AppSpacings.s10All,
@@ -115,40 +96,22 @@ class NormalGameMenuGamePartWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 5),
-                Image.asset(
-                  GeneralIcons.cup,
-                  width: 30,
-                  height: 30,
-                  color: AppColors.goldenColor,
-                ),
-                Text(
-                  gameRewards[1].toString(),
-                  style: const TextStyle(
+                IconButton(
+                  onPressed: () {
+                    onGuideTap(game);
+                  },
+                  icon: Image.asset(
+                    GeneralIcons.info,
+                    width: 30,
+                    height: 30,
                     color: AppColors.lightColor,
-                    fontFamily: FontFamilies.dastnevis,
-                    fontSize: 20,
                   ),
                 ),
-                const SizedBox(width: 15),
-                Image.asset(
-                  GeneralIcons.exp,
-                  height: 30,
-                  width: 30,
-                  color: AppColors.goldenColor,
-                ),
-                Text(
-                  gameRewards[2].toString(),
-                  style: const TextStyle(
-                    color: AppColors.lightColor,
-                    fontFamily: FontFamilies.dastnevis,
-                    fontSize: 20,
-                  ),
-                ),
-                const SizedBox(width: 10),
+                const SizedBox(width: 5),
               ],
             ),
           ),
-          const SizedBox(height: 15),
+          // const SizedBox(height: 10),
           Expanded(
             child: FadeInUp(
               delay: const Duration(milliseconds: 400),
@@ -171,38 +134,17 @@ class NormalGameMenuGamePartWidget extends StatelessWidget {
             ),
           ),
           if (showButtons)
-            Row(
-              children: [
-                Expanded(
-                  child: FadeInRight(
-                    delay: const Duration(milliseconds: 500),
-                    child: GlobalButtonWidget(
-                      onTap: () {
-                        onTap(game.name, "Normal");
-                      },
-                      text: AppTexts.normalGame.tr,
-                      color: AppColors.blueWarmColor,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 5),
-                Expanded(
-                  child: FadeInLeft(
-                    delay: const Duration(milliseconds: 500),
-                    child: GlobalGoldButtonWidget(
-                      onTap: () {
-                        onTap(game.name, "Rank");
-                      },
-                      goldCount: gameRewards[0],
-                      text: AppTexts.rankGame.tr,
-                      fontColor: difficultyFontColor,
-                      color: difficultyColor,
-                      height: 40.h,
-                    ),
-                  ),
-                ),
-              ],
-            )
+            FadeInRight(
+              delay: const Duration(milliseconds: 500),
+              child: GlobalButtonWidget(
+                onTap: () {
+                  onTap(game);
+                },
+                text: AppTexts.startGame.tr,
+                color: AppColors.goldenColor,
+                width: double.maxFinite,
+              ),
+            ),
         ],
       ),
     );
