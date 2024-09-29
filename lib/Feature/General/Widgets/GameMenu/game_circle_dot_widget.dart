@@ -30,9 +30,9 @@ class GameCircleDotWidget extends StatelessWidget {
         },
         child: Container(
           padding: controller.normalCurrentPage.value == i.toDouble()
-              ? AppSpacings.s8All
-              : AppSpacings.s5All,
-          margin: AppSpacings.s3All,
+              ? AppSpacings.s7All
+              : AppSpacings.s4All,
+          margin: AppSpacings.s2All,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: controller.normalCurrentPage.value == i.toDouble()

@@ -87,6 +87,7 @@ class DialogComponent {
     Color iconColor, {
     bool letBackPage = true,
     double fontSize = 22,
+    Color? fontColor,
   }) {
     Get.dialog(
       barrierDismissible: false,
@@ -162,6 +163,7 @@ class DialogComponent {
                   },
                   text: AppTexts.ok.tr,
                   color: iconColor,
+                  fontColor: fontColor ?? AppColors.darkColor,
                 ),
               ),
             ],

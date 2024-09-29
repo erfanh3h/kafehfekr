@@ -28,6 +28,10 @@ class GameMenuController extends BaseController {
   }
 
   onEachRankGameTap(GameTypes game) {
+    if (Get.find<GlobalController>().isQueueActive.value) {
+      DialogComponent().showToast(label: AppTexts.stopPrevoiusQueue.tr);
+      return;
+    }
     if (selectedRankGames.contains(game)) {
       selectedRankGames.remove(game);
     } else {
@@ -66,11 +70,15 @@ class GameMenuController extends BaseController {
       DialogComponent().showToast(label: AppTexts.select5Games.tr);
       return;
     }
+    List<String> gameTypes = [];
+    for (var gameType in selectedRankGames) {
+      gameTypes.add(gameType.name);
+    }
+    Get.find<GlobalController>().startQueue(gameTypes, 'Rank');
   }
 
   startNormalGame(GameTypes game) {
-    Get.find<GlobalController>().startQueue('', '');
-    // onTap(game.name, "Normal");
+    Get.find<GlobalController>().startQueue([game.name], 'Normal');
   }
 
   @override

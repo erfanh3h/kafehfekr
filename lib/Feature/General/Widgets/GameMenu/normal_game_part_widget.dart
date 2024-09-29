@@ -85,7 +85,7 @@ class NormalGamePartWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              for (int i = 0; i < 10; i++)
+              for (int i = 0; i < gamesLength; i++)
                 GameCircleDotWidget(
                   pageController: controller.normalPageController,
                   i: i,
@@ -94,20 +94,20 @@ class NormalGamePartWidget extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
-          padding: AppSpacings.s20Horizental,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (int i = 10; i < gamesLength; i++)
-                GameCircleDotWidget(
-                  pageController: controller.normalPageController,
-                  i: i,
-                  controller: controller,
-                )
-            ],
-          ),
-        ),
+        // Padding(
+        //   padding: AppSpacings.s20Horizental,
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       for (int i = 10; i < gamesLength; i++)
+        //         GameCircleDotWidget(
+        //           pageController: controller.normalPageController,
+        //           i: i,
+        //           controller: controller,
+        //         )
+        //     ],
+        //   ),
+        // ),
         const SizedBox(height: 10),
       ],
     );

@@ -10,7 +10,7 @@ class QueueSocketManager extends BaseController {
   void initSocket({
     required Function(dynamic) commandHandler,
     required String myId,
-    required String gameType,
+    required List<String> gameTypes,
     required String gameScoreType,
     required Function onQueueStart,
     required Function onQueueError,
@@ -22,7 +22,7 @@ class QueueSocketManager extends BaseController {
       'transports': ['websocket'],
       'auth': {
         'user_id': myId,
-        'game_type': gameType,
+        'game_types': gameTypes,
         'game_score_type': gameScoreType,
         'token': Get.find<GlobalController>().token ?? ""
       },

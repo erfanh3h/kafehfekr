@@ -142,7 +142,7 @@ class AppTranslations extends Translations {
           AppTexts.fekrBekr: 'فکربکر',
           AppTexts.pentago: 'پنتاگو',
           AppTexts.checkers: 'چکرز',
-          AppTexts.yinsh: 'دوزحلقه ای (یینش)',
+          AppTexts.yinsh: 'یینش(دوزحلقه ای)',
           AppTexts.ten: 'ده بساز',
           AppTexts.othello: 'اتللو',
           AppTexts.dotbox: 'نقطه خط',

@@ -1,7 +1,8 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -54,29 +55,68 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
               ),
             ),
           ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: GlobalButtonWidget(
-                  onTap: () => changeIndex(0),
-                  text: AppTexts.gamePlay.tr,
-                  color:
-                      index == 0 ? AppColors.darkGreen : AppColors.goldenColor2,
+          const SizedBox(height: 15),
+          FadeIn(
+            delay: const Duration(milliseconds: 150),
+            child: Center(
+              child: Container(
+                padding: AppSpacings.s5All,
+                width: 250.w,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.lightColor),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: index == 0
+                              ? AppColors.lightColor
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextButton(
+                          onPressed: () => changeIndex(0),
+                          child: Text(
+                            AppTexts.gamePlay.tr,
+                            style: TextStyle(
+                              color: index == 0
+                                  ? AppColors.darkColor
+                                  : AppColors.lightColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: index == 1
+                              ? AppColors.lightColor
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextButton(
+                          onPressed: () => changeIndex(1),
+                          child: Text(
+                            AppTexts.howToPlay.tr,
+                            style: TextStyle(
+                              color: index == 1
+                                  ? AppColors.darkColor
+                                  : AppColors.lightColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                child: GlobalButtonWidget(
-                  onTap: () => changeIndex(1),
-                  text: AppTexts.howToPlay.tr,
-                  color:
-                      index == 1 ? AppColors.darkGreen : AppColors.goldenColor2,
-                ),
-              ),
-            ],
+            ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 15),
           Expanded(
             child: ListView(
               controller: sc,

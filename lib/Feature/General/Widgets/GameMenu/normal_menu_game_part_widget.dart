@@ -134,7 +134,7 @@ class NormalGameMenuGamePartWidget extends StatelessWidget {
             ),
           ),
           if (showButtons)
-            FadeInRight(
+            FadeInUp(
               delay: const Duration(milliseconds: 500),
               child: GlobalButtonWidget(
                 onTap: () {
@@ -144,7 +144,7 @@ class NormalGameMenuGamePartWidget extends StatelessWidget {
                 color: AppColors.goldenColor,
                 width: double.maxFinite,
               ),
-            ),
+            )
         ],
       ),
     );

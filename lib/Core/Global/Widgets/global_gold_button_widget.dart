@@ -79,7 +79,7 @@ class GlobalGoldButtonWidget extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         color: fontColor ?? AppColors.lightColor,
-                        fontFamily: FontFamilies.dastnevis,
+                        fontFamily: FontFamilies.playPen,
                       ),
                       textAlign: TextAlign.center,
                     ),

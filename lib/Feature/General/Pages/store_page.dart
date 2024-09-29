@@ -37,10 +37,16 @@ class StorePage extends StatelessWidget {
             height: 50,
             color: AppColors.lightColor,
           ),
-          FadeIn(
-            delay: const Duration(milliseconds: 300),
-            child: PurchasesBox(controller: controller),
-          ),
+          Expanded(
+            child: FadeIn(
+              delay: const Duration(milliseconds: 300),
+              child: ListView(
+                children: [
+                  PurchasesBox(controller: controller),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

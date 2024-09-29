@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GlobalGameQueueBox extends StatefulWidget {
@@ -52,6 +53,12 @@ class _GlobalGameQueueBoxState extends State<GlobalGameQueueBox>
 
   @override
   Widget build(BuildContext context) {
+    String icon;
+    if (widget.controller.activeQueueScoreType.value == "Rank") {
+      icon = GeneralIcons.rank;
+    } else {
+      icon = GeneralIcons.normal;
+    }
     return Center(
       child: Container(
         height: 60,
@@ -90,19 +97,28 @@ class _GlobalGameQueueBoxState extends State<GlobalGameQueueBox>
                       ),
                     ),
                     const SizedBox(width: 5),
-                    FadeTransition(
-                      opacity: _fadeInFadeOut,
-                      child: Text(
-                        'در جست و جوی بازیکن ${widget.controller.activeQueueType.value.tr} ...',
-                        style: TextStyle(
-                          fontSize: 16,
-                          foreground: Paint()
-                            ..strokeWidth = 1.1
-                            ..color = AppColors.lightColor
-                            ..style = PaintingStyle.stroke,
+                    Expanded(
+                      child: FadeTransition(
+                        opacity: _fadeInFadeOut,
+                        child: Text(
+                          'در جست و جوی حریف ...',
+                          style: TextStyle(
+                            fontSize: 16,
+                            foreground: Paint()
+                              ..strokeWidth = 1.1
+                              ..color = AppColors.lightColor
+                              ..style = PaintingStyle.stroke,
+                          ),
                         ),
                       ),
                     ),
+                    Image.asset(
+                      icon,
+                      width: 35,
+                      height: 35,
+                      color: AppColors.black,
+                    ),
+                    const SizedBox(width: 15),
                   ],
                 ),
         ),

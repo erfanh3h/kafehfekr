@@ -12,6 +12,8 @@ import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart'
 import 'package:kafehfekr/Feature/General/Widgets/GameMenu/rank_menu_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
+import '../../../../Core/Global/Controllers/global_controller.dart';
+
 class RankGamePartWidget extends StatelessWidget {
   const RankGamePartWidget({super.key, required this.controller});
 
@@ -77,20 +79,24 @@ class RankGamePartWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 5),
-          FadeInUp(
-            child: SizedBox(
-              height: 40.h,
-              width: double.maxFinite,
-              // padding: AppSpacings.s20Horizental,
-              child: GlobalGoldButtonWidget(
-                onTap: controller.startRankGame,
-                goldCount: 15,
-                text: AppTexts.startGame.tr,
-                fontColor: AppColors.lightColor,
-                color: AppColors.goldenColor,
-                height: 40.h,
-              ),
-            ),
+          Obx(
+            () => !Get.find<GlobalController>().isQueueActive.value
+                ? FadeInUp(
+                    child: SizedBox(
+                      height: 40.h,
+                      width: double.maxFinite,
+                      // padding: AppSpacings.s20Horizental,
+                      child: GlobalGoldButtonWidget(
+                        onTap: controller.startRankGame,
+                        goldCount: 15,
+                        text: AppTexts.startGame.tr,
+                        fontColor: AppColors.lightColor,
+                        color: AppColors.goldenColor,
+                        height: 40.h,
+                      ),
+                    ),
+                  )
+                : Container(),
           ),
           // const SizedBox(height: 5),
         ],
