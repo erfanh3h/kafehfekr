@@ -6,6 +6,7 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
 
 class TenController extends BaseGameController {
@@ -24,6 +25,7 @@ class TenController extends BaseGameController {
 
   @override
   void currentTurnFunction(Map data) {
+    canSelectPeace.value = true;
     List<int> listNumbers = List<int>.from(data['data']);
     currentNumbers = listNumbers;
     setNumbers();
@@ -238,6 +240,10 @@ class TenController extends BaseGameController {
   }
 
   sendResult() {
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
+    }
     if (!letSendResult.value) {
       return;
     }
@@ -290,6 +296,7 @@ class TenController extends BaseGameController {
   void onInit() async {
     super.onInit();
     gameType = GameTypes.Ten;
+    canSelectPeace.value = true;
     addOperators();
     addNumbers();
   }

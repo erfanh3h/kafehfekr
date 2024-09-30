@@ -4,6 +4,7 @@ import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/RPC/Models/rpc_peace_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -105,6 +106,7 @@ class RPCController extends BaseGameController {
 
   void resetPeaces() {
     peaceSelected.value = false;
+    canSelectPeace.value = true;
     player1SelectedPeace.value = null;
     player2SelectedPeace.value = null;
     thisTurnRoundWinner.value = 0;
@@ -128,6 +130,11 @@ class RPCController extends BaseGameController {
   }
 
   void acceptSelection() {
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
+    }
+    canSelectPeace.value = false;
     sendCommand(
         {"id": GameCommands.selectPeace, "data": selectedPeace.value.name});
     peaceSelected.value = true;

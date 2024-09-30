@@ -115,21 +115,24 @@ class NormalGameMenuGamePartWidget extends StatelessWidget {
           Expanded(
             child: FadeInUp(
               delay: const Duration(milliseconds: 400),
-              child: ListView(
-                children: [
-                  Text(
-                    gameConvertor.toGameNarrative(),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontFamily: FontFamilies.dastnevis,
-                      color: AppColors.lightColor,
-                      height: 1.75,
+              child: Padding(
+                padding: AppSpacings.s5All,
+                child: ListView(
+                  children: [
+                    Text(
+                      gameConvertor.toGameNarrative(),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: FontFamilies.dastnevis,
+                        color: AppColors.lightColor,
+                        height: 1.75,
+                      ),
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 25,
                     ),
-                    textAlign: TextAlign.start,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 25,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -141,7 +144,8 @@ class NormalGameMenuGamePartWidget extends StatelessWidget {
                   onTap(game);
                 },
                 text: AppTexts.startGame.tr,
-                color: AppColors.goldenColor,
+                color: const Color.fromARGB(255, 12, 63, 32),
+                fontColor: AppColors.lightColor,
                 width: double.maxFinite,
               ),
             )

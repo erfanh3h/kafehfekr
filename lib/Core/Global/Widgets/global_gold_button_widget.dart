@@ -46,18 +46,18 @@ class GlobalGoldButtonWidget extends StatelessWidget {
         height: height,
         width: height,
         decoration: BoxDecoration(
-          // color: color ?? AppColors.blueWarmColor,
+          color: color ?? AppColors.blueWarmColor,
           borderRadius: BorderRadius.circular(8),
           border:
               Border.all(color: borderColor ?? AppColors.darkColor, width: 2),
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              const Color.fromARGB(1, 212, 133, 126),
-              color ?? AppColors.blueWarmColor,
-            ],
-          ),
+          // gradient: LinearGradient(
+          //   begin: Alignment.bottomLeft,
+          //   end: Alignment.topRight,
+          //   colors: [
+          //     const Color.fromARGB(1, 212, 133, 126),
+          //     color ?? AppColors.blueWarmColor,
+          //   ],
+          // ),
         ),
         child: Center(
           child: isLoading

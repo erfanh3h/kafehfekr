@@ -163,6 +163,10 @@ class YatzyController extends BaseGameController {
   }
 
   void rollDice() {
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
+    }
     if (remainingDice.value == 0) {
       showInteraction(text: AppTexts.outOfDice.tr);
       return;
@@ -179,7 +183,10 @@ class YatzyController extends BaseGameController {
   }
 
   void sendResult() {
-    // resetRound();
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
+    }
     isRoundPlayed.value = true;
     sendCommand(
       {
@@ -286,6 +293,7 @@ class YatzyController extends BaseGameController {
     remainingDice.value = 2;
     equippedIndex = 0;
     isRoundPlayed.value = false;
+    canSelectPeace.value = true;
   }
 
   @override

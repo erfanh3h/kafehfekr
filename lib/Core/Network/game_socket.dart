@@ -27,12 +27,10 @@ class GameSocketManager extends BaseController {
       print('connect');
     });
     socket.on(SocketChannels.serverReaction, (data) {
-      print(data);
       reactionHandler(data);
     });
 
     socket.on(SocketChannels.serverCommand, (data) {
-      print(data);
       commandHandler(data);
     });
     socket.onDisconnect((_) => print('disconnect'));
@@ -47,10 +45,9 @@ class GameSocketManager extends BaseController {
   }
 
   void changeCommandHandler({required Function(dynamic) commandHandler}) {
-    socket.off(SocketChannels.serverReaction);
-    Future.delayed(const Duration(milliseconds: 500)).then((_) {
+    socket.off(SocketChannels.serverCommand);
+    Future.delayed(const Duration(milliseconds: 10)).then((_) {
       socket.on(SocketChannels.serverCommand, (data) {
-        print(data);
         commandHandler(data);
       });
     });
@@ -58,9 +55,8 @@ class GameSocketManager extends BaseController {
 
   void changeReactionHandler({required Function(dynamic) reactionHandler}) {
     socket.off(SocketChannels.serverReaction);
-    Future.delayed(const Duration(milliseconds: 500)).then((_) {
-      socket.on(SocketChannels.serverCommand, (data) {
-        print(data);
+    Future.delayed(const Duration(milliseconds: 10)).then((_) {
+      socket.on(SocketChannels.serverReaction, (data) {
         reactionHandler(data);
       });
     });

@@ -12,6 +12,7 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Feature/General/Controllers/game_play_controller.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../../../Core/Base/base_controller.dart';
@@ -107,6 +108,18 @@ class BaseGameController extends BaseController {
       case GameCommands.notPlayedTurns:
         notPlayedTurnsFunction(data);
         break;
+      case GameCommands.gameFinished:
+        Get.find<GamePlayController>().deviceFinishGameFunction();
+        break;
+      case GameCommands.gamePlayData:
+        Get.find<GamePlayController>().gamePlayDataFunction(data);
+        break;
+      case GameCommands.gamePlayNavigate:
+        Get.find<GamePlayController>().navigateToGameFunction(data);
+        break;
+      case GameCommands.gamePlayTime:
+        Get.find<GamePlayController>().changeTimeFunction(data);
+        break;
       default:
     }
   }
@@ -196,9 +209,8 @@ class BaseGameController extends BaseController {
 
   void finishGameFunction(Map data) {
     isGameFinished.value = true;
+    canSelectPeace.value = false;
     Map newData = data['data'];
-    Get.find<GlobalController>().finishGame();
-    Get.find<GameSocketManager>().disconnect();
     Get.find<TimerCompanent>().stopTimer();
     FunctionsLibraryClass.showFinishGameDialog(
       newData['Winner'],
@@ -206,16 +218,6 @@ class BaseGameController extends BaseController {
       gameType,
     );
   }
-
-  // void surrenderFunction(Map data) {
-  //   Map newData = data['data'];
-  //   Get.find<TimerCompanent>().stopTimer();
-  //   FunctionsLibraryClass.showSurrenderDialog(
-  //     newData['gamer_id'],
-  //     myGameId,
-  //     gameType,
-  //   );
-  // }
 
   void finishReconnectTimerFunction(Map data) {
     Map newData = data['data'];
@@ -386,9 +388,10 @@ class BaseGameController extends BaseController {
     letPlayMusic.value = Get.find<SoundPlayerComponent>().letPlayMusic.value;
     isPageLoading.value = true;
     myId = Get.find<GlobalController>().userId!;
-    gameId =
-        Get.arguments ?? Get.find<GlobalController>().gameIdController.text;
-    //TODO:
+    Get.find<GameSocketManager>()
+        .changeCommandHandler(commandHandler: commandHandler);
+    Get.find<GameSocketManager>()
+        .changeReactionHandler(reactionHandler: reactionHandler);
     super.onInit();
   }
 

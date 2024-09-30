@@ -77,6 +77,7 @@ class AppTranslations extends Translations {
           AppTexts.waitOpponent: 'منتظر حریف بمانید ...',
           AppTexts.outOfThisNumber: 'از این عدد دیگه نداری!',
           AppTexts.error: 'خطا',
+          AppTexts.back: 'بازگشت',
           AppTexts.playGame: 'بازی کن',
           AppTexts.profile: 'پروفایل',
           AppTexts.ranking: 'رتبه بندی',

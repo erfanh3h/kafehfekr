@@ -38,7 +38,21 @@ class GamePlayUsersDataWidget extends StatelessWidget {
           children: [
             const SizedBox(height: 15),
             timerValue != null
-                ? TimerWidget(maxTime: timerValue!)
+                ? CircleAvatar(
+                    radius: 15,
+                    backgroundColor: AppColors.lightColor,
+                    child: Text(
+                      timerValue!.toString(),
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: AppColors.darkColor,
+                        fontFamily: FontFamilies.dastnevis,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textDirection: TextDirection.ltr,
+                    ),
+                  )
                 : const SizedBox(height: 30),
             const SizedBox(height: 5),
             Row(

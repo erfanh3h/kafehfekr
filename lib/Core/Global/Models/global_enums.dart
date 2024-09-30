@@ -1,7 +1,4 @@
 // ignore_for_file: constant_identifier_names
-
-enum PlayerStatusTypes { turn, idle, none }
-
 enum PeaceStatusTypes {
   isLoading,
   selected,

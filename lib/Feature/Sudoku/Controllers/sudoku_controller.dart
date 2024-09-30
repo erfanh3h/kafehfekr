@@ -164,6 +164,10 @@ class SudokuController extends BaseGameController {
   }
 
   solveFunction() {
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
+    }
     for (var piece in peaces.value) {
       if (piece.value.value == 0) {
         showInteraction(text: AppTexts.fillAllPieces.tr);
@@ -196,6 +200,7 @@ class SudokuController extends BaseGameController {
         ),
       );
     }
+    canSelectPeace.value = true;
   }
 
   @override

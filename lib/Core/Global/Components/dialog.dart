@@ -163,7 +163,7 @@ class DialogComponent {
                   },
                   text: AppTexts.ok.tr,
                   color: iconColor,
-                  fontColor: fontColor ?? AppColors.darkColor,
+                  fontColor: fontColor ?? AppColors.lightColor,
                 ),
               ),
             ],

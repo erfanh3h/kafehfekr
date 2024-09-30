@@ -34,6 +34,7 @@ abstract class AppTexts {
   static const winBase = "winBase";
   static const cancel = "cancel";
   static const exit = "exit";
+  static const back = "back";
   static const wait = "wait";
   static const waitOpponent = "waitOpponent";
   static const error = "error";
