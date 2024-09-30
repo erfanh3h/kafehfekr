@@ -54,10 +54,11 @@ class FontFamilies {
 abstract class GameCommands {
   static const gameData = "GameData";
   static const gamePlayData = "GamePlayData";
+  static const gamePlayTime = "GamePlayTime";
+  static const gamePlayNavigate = "GamePlayNavigate";
   static const reconnectData = "ReconnectData";
   static const reaction = "Reaction";
   static const currentTurn = "CurrentTurn";
-  static const navigateToGame = "NavigateToGame";
   static const rollDice = "RollDice";
   static const rollResult = "RollResult";
   static const outOfMove = "OutOfMove";
