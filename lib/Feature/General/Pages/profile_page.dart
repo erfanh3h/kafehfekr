@@ -157,57 +157,61 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                FadeIn(
-                  delay: const Duration(milliseconds: 250),
-                  child: Column(
+                Expanded(
+                  child: ListView(
                     children: [
-                      GameHistoryRowWidget(
-                        data: (
-                          controller.myHistoryData.value!.winNormal,
-                          controller.myHistoryData.value!.drawNormal,
-                          controller.myHistoryData.value!.loseNormal,
+                      FadeIn(
+                        delay: const Duration(milliseconds: 250),
+                        child: Column(
+                          children: [
+                            GameHistoryRowWidget(
+                              data: (
+                                controller.myHistoryData.value!.winNormal,
+                                controller.myHistoryData.value!.drawNormal,
+                                controller.myHistoryData.value!.loseNormal,
+                              ),
+                              name: AppTexts.normalGame.tr,
+                            ),
+                            GameHistoryRowWidget(
+                              data: (
+                                controller.myHistoryData.value!.winRank,
+                                controller.myHistoryData.value!.drawRank,
+                                controller.myHistoryData.value!.loseRank,
+                              ),
+                              name: AppTexts.rankGame.tr,
+                            ),
+                          ],
                         ),
-                        name: AppTexts.normalGame.tr,
                       ),
-                      GameHistoryRowWidget(
-                        data: (
-                          controller.myHistoryData.value!.winRank,
-                          controller.myHistoryData.value!.drawRank,
-                          controller.myHistoryData.value!.loseRank,
+                      const SizedBox(height: 15),
+                      Padding(
+                        padding: AppSpacings.s20Horizental,
+                        child: FadeIn(
+                          delay: const Duration(milliseconds: 400),
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              AppTexts.rankHistoryDetails.tr,
+                              style: const TextStyle(
+                                color: AppColors.lightColor,
+                                fontSize: 30,
+                                fontFamily: FontFamilies.dastnevis,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
                         ),
-                        name: AppTexts.rankGame.tr,
                       ),
+                      if (controller.myHistoryData.value != null)
+                        FadeIn(
+                          delay: const Duration(milliseconds: 400),
+                          child: UserGamesHistoryWidget(
+                            data: controller.myHistoryData.value!,
+                          ),
+                        ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 15),
-                Padding(
-                  padding: AppSpacings.s20Horizental,
-                  child: FadeIn(
-                    delay: const Duration(milliseconds: 400),
-                    child: Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        AppTexts.rankHistoryDetails.tr,
-                        style: const TextStyle(
-                          color: AppColors.lightColor,
-                          fontSize: 30,
-                          fontFamily: FontFamilies.dastnevis,
-                        ),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-                  ),
-                ),
-                if (controller.myHistoryData.value != null)
-                  Expanded(
-                    child: FadeIn(
-                      delay: const Duration(milliseconds: 400),
-                      child: UserGamesHistoryWidget(
-                        data: controller.myHistoryData.value!,
-                      ),
-                    ),
-                  ),
+                )
               ],
             ),
     );

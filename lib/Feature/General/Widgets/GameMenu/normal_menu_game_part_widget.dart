@@ -78,39 +78,7 @@ class NormalGameMenuGamePartWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 15),
-          ZoomIn(
-            delay: const Duration(milliseconds: 300),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    game.name.tr,
-                    style: TextStyle(
-                      fontSize: 25,
-                      foreground: Paint()
-                        ..strokeWidth = 1.5
-                        ..color = AppColors.lightColor
-                        ..style = PaintingStyle.stroke,
-                    ),
-                    textAlign: TextAlign.right,
-                  ),
-                ),
-                const SizedBox(width: 5),
-                IconButton(
-                  onPressed: () {
-                    onGuideTap(game);
-                  },
-                  icon: Image.asset(
-                    GeneralIcons.info,
-                    width: 30,
-                    height: 30,
-                    color: AppColors.lightColor,
-                  ),
-                ),
-                const SizedBox(width: 5),
-              ],
-            ),
-          ),
+
           // const SizedBox(height: 10),
           Expanded(
             child: FadeInUp(
@@ -119,6 +87,39 @@ class NormalGameMenuGamePartWidget extends StatelessWidget {
                 padding: AppSpacings.s5All,
                 child: ListView(
                   children: [
+                    ZoomIn(
+                      delay: const Duration(milliseconds: 300),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              game.name.tr,
+                              style: TextStyle(
+                                fontSize: 25,
+                                foreground: Paint()
+                                  ..strokeWidth = 1.5
+                                  ..color = AppColors.lightColor
+                                  ..style = PaintingStyle.stroke,
+                              ),
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          IconButton(
+                            onPressed: () {
+                              onGuideTap(game);
+                            },
+                            icon: Image.asset(
+                              GeneralIcons.info,
+                              width: 30,
+                              height: 30,
+                              color: AppColors.lightColor,
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                        ],
+                      ),
+                    ),
                     Text(
                       gameConvertor.toGameNarrative(),
                       style: const TextStyle(

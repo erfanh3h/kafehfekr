@@ -28,20 +28,20 @@ class StorePage extends StatelessWidget {
               color: AppColors.goldenColor,
             ),
           ),
-          const SizedBox(height: 20),
-          FadeIn(
-            delay: const Duration(milliseconds: 150),
-            child: ChancePaperWidget(controller: controller),
-          ),
-          const Divider(
-            height: 50,
-            color: AppColors.lightColor,
-          ),
           Expanded(
             child: FadeIn(
               delay: const Duration(milliseconds: 300),
               child: ListView(
                 children: [
+                  const SizedBox(height: 20),
+                  FadeIn(
+                    delay: const Duration(milliseconds: 150),
+                    child: ChancePaperWidget(controller: controller),
+                  ),
+                  const Divider(
+                    height: 50,
+                    color: AppColors.lightColor,
+                  ),
                   PurchasesBox(controller: controller),
                 ],
               ),

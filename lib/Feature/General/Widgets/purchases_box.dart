@@ -19,6 +19,7 @@ class PurchasesBox extends StatelessWidget {
       height: 300,
       width: Get.width,
       child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 15,

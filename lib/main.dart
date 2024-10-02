@@ -38,9 +38,9 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.paused) {
-      // try {
+      try {
         Get.find<SoundPlayerComponent>().pauseMusic();
-      // } catch (_) {}
+      } catch (_) {}
     } else if (state == AppLifecycleState.resumed) {
       Get.find<SoundPlayerComponent>().resumeMusic();
     }
@@ -55,27 +55,31 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: (context, child) => GetMaterialApp(
-        title: '10Fact',
-        debugShowCheckedModeBanner: false,
-        popGesture: false,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        localizationsDelegates: const [
-          GlobalCupertinoLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale("fa", "IR"), // OR Locale('ar', 'AE') OR Other RTL locales
-          Locale("en", "US"),
-        ],
-        locale: const Locale("fa", "IR"), //
-        getPages: AppPages.pages,
-        home: const SplashPage(),
-        themeMode: ThemeMode.light,
-        translations: AppTranslations(),
-        defaultTransition: Transition.fadeIn,
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context)
+            .copyWith(textScaler: const TextScaler.linear(1)),
+        child: GetMaterialApp(
+          title: 'کافه فکر',
+          debugShowCheckedModeBanner: false,
+          popGesture: false,
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          localizationsDelegates: const [
+            GlobalCupertinoLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale("fa", "IR"), // OR Locale('ar', 'AE') OR Other RTL locales
+            Locale("en", "US"),
+          ],
+          locale: const Locale("fa", "IR"), //
+          getPages: AppPages.pages,
+          home: const SplashPage(),
+          themeMode: ThemeMode.light,
+          translations: AppTranslations(),
+          defaultTransition: Transition.fadeIn,
+        ),
       ),
     );
   }

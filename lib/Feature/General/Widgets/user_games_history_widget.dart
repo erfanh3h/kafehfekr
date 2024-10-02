@@ -15,8 +15,10 @@ class UserGamesHistoryWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
-      scale: .9,
+      scale: .95,
       child: ListView(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         children: [
           GameHistoryRowWidget(
             data: data.rankTicTacToe,

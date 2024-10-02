@@ -18,7 +18,7 @@ class GlobalInputBox extends StatefulWidget {
     this.minLines = 1,
     this.maxLines = 8,
     this.mustFill = false,
-    this.textDirection = TextDirection.rtl,
+    this.textDirection = TextDirection.ltr,
     this.validator,
     this.maxLength,
     this.textInputAction,

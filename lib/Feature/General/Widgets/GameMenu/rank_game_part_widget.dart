@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_gold_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -82,18 +81,12 @@ class RankGamePartWidget extends StatelessWidget {
           Obx(
             () => !Get.find<GlobalController>().isQueueActive.value
                 ? FadeInUp(
-                    child: SizedBox(
-                      height: 40.h,
-                      width: double.maxFinite,
-                      // padding: AppSpacings.s20Horizental,
-                      child: GlobalGoldButtonWidget(
-                        onTap: controller.startRankGame,
-                        goldCount: 15,
-                        text: AppTexts.startGame.tr,
-                        color: const Color.fromARGB(255, 12, 63, 32),
-                        fontColor: AppColors.lightColor,
-                        height: 40.h,
-                      ),
+                    child: GlobalGoldButtonWidget(
+                      onTap: controller.startRankGame,
+                      goldCount: 15,
+                      text: AppTexts.startGame.tr,
+                      color: const Color.fromARGB(255, 12, 63, 32),
+                      fontColor: AppColors.lightColor,
                     ),
                   )
                 : Container(),
