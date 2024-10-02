@@ -15,6 +15,7 @@ class GameMenuController extends BaseController {
   RxInt normalCurrentPage = RxInt(0);
   final PageController normalPageController = PageController();
 
+  RxList<GameTypes> selectedNormalGames = RxList([]);
   RxList<GameTypes> selectedRankGames = RxList([]);
   changeTab(int value) {
     selectedTab.value = value;
@@ -39,6 +40,21 @@ class GameMenuController extends BaseController {
         return;
       }
       selectedRankGames.add(game);
+    }
+  }
+
+  onEachNormalGameTap(GameTypes game) {
+    if (Get.find<GlobalController>().isQueueActive.value) {
+      DialogComponent().showToast(label: AppTexts.stopPrevoiusQueue.tr);
+      return;
+    }
+    if (selectedNormalGames.contains(game)) {
+      selectedNormalGames.remove(game);
+    } else {
+      if (selectedNormalGames.length >= 5) {
+        return;
+      }
+      selectedNormalGames.add(game);
     }
   }
 
@@ -77,9 +93,21 @@ class GameMenuController extends BaseController {
     Get.find<GlobalController>().startQueue(gameTypes, 'Rank');
   }
 
-  startNormalGame(GameTypes game) {
-    Get.find<GlobalController>().startQueue([game.name], 'Normal');
+  startNormalGame() {
+    if (selectedNormalGames.length < 2) {
+      DialogComponent().showToast(label: AppTexts.select2Games.tr);
+      return;
+    }
+    List<String> gameTypes = [];
+    for (var gameType in selectedNormalGames) {
+      gameTypes.add(gameType.name);
+    }
+    Get.find<GlobalController>().startQueue(gameTypes, 'Normal');
   }
+
+  // startNormalGame(GameTypes game) {
+  //   Get.find<GlobalController>().startQueue([game.name], 'Normal');
+  // }
 
   @override
   void onInit() {

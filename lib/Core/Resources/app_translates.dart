@@ -32,9 +32,12 @@ class AppTranslations extends Translations {
           AppTexts.enterPhoneCorrectly: 'شماره را بدرستی وارد کنید!',
           AppTexts.rId: 'آی دی معرف',
           AppTexts.select5Games: '5 بازی را انتخاب کنید',
+          AppTexts.select2Games: '2 بازی را انتخاب کنید',
           AppTexts.taturialLink: 'لینک آموزش تصویری',
           AppTexts.rIdReward:
               'باوارد کردن آی دی معرف خود 30 سکه به او هدیه دهید',
+          AppTexts.normalGameMenu:
+              '2 بازی را انتخاب کنید.1 بازی از بین بازی های انتخابی شما و حریفتان بطور شانسی برای بازی انتخاب می شود.',
           AppTexts.rankGameMenu:
               '5 بازی را انتخاب کنید.3 بازی از بین بازی های انتخابی شما و حریفتان بطور شانسی برای بازی انتخاب می شود.',
           AppTexts.normalGame: 'دوستانه',

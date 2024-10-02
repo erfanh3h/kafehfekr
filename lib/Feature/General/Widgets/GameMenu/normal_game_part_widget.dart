@@ -1,12 +1,15 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
-import 'package:kafehfekr/Feature/General/Widgets/GameMenu/game_circle_dot_widget.dart';
-import 'package:kafehfekr/Feature/General/Widgets/GameMenu/normal_menu_game_part_widget.dart';
+import 'package:kafehfekr/Feature/General/Widgets/GameMenu/menu_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 class NormalGamePartWidget extends StatelessWidget {
@@ -20,96 +23,79 @@ class NormalGamePartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gameTypesParts = GameTypes.values.toList();
-    final int gamesLength = marketType == MarketTypes.Bazaar
-        ? gameTypesParts.length - 1
-        : gameTypesParts.length;
+    final int gamesLength = gameTypesParts.length - 1;
 
-    return Column(
-      children: [
-        const SizedBox(height: 10),
-        Expanded(
-          child: PageView.builder(
-            controller: controller.normalPageController,
-            onPageChanged: controller.changeNormalPage,
-            itemBuilder: (ctx, index) => Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    controller.normalPageController.animateToPage(
-                      index != 0 ? index - 1 : (gamesLength - 1),
-                      duration: Duration(milliseconds: index != 0 ? 300 : 1000),
-                      curve: Curves.linear,
-                    );
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.chevron_right_square,
-                    size: 30,
+    return Padding(
+      padding: AppSpacings.s10Horizental,
+      child: Column(
+        children: [
+          FadeInDown(
+            child: Padding(
+              padding: AppSpacings.s20All,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      AppTexts.normalGameMenu.tr,
+                      style: const TextStyle(
+                        color: AppColors.lightColor,
+                        fontSize: 15,
+                      ),
+                    ),
                   ),
-                  color: Colors.white,
-                ),
-                Expanded(
-                  child: Obx(
-                    () => NormalGameMenuGamePartWidget(
+                  const SizedBox(width: 10),
+                  Obx(
+                    () => Text(
+                      "${controller.selectedNormalGames.length}/2",
+                      style: const TextStyle(
+                        color: AppColors.lightColor,
+                        fontSize: 20,
+                        fontFamily: FontFamilies.playPen,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: FadeIn(
+              child: ListView.separated(
+                itemBuilder: (ctx, index) => GetBuilder<GameMenuController>(
+                  builder: (cont) => Obx(
+                    () => MenuGamePartWidget(
                       game: gameTypesParts[index],
-                      onTap: controller.startNormalGame,
-                      onGuideTap: controller.openGameGuide,
-                      showButtons:
-                          !Get.find<GlobalController>().isQueueActive.value,
+                      onTap: controller.onEachNormalGameTap,
+                      onOpenGuide: controller.openGameGuide,
+                      isSelected: controller.selectedNormalGames.value.contains(
+                        gameTypesParts[index],
+                      ),
                       difficultyColor: controller.getGameColor(index),
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    controller.normalPageController.animateToPage(
-                      index != (gamesLength - 1) ? index + 1 : 0,
-                      duration: Duration(
-                          milliseconds:
-                              index != (gamesLength - 1) ? 300 : 1000),
-                      curve: Curves.linear,
-                    );
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.chevron_left_square,
-                    size: 30,
-                  ),
-                  color: Colors.white,
-                ),
-              ],
+                separatorBuilder: (ctx, index) => const SizedBox(height: 5),
+                itemCount: gamesLength,
+              ),
             ),
-            itemCount: gamesLength,
           ),
-        ),
-        Padding(
-          padding: AppSpacings.s20Horizental5Vertical,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (int i = 0; i < gamesLength; i++)
-                GameCircleDotWidget(
-                  pageController: controller.normalPageController,
-                  i: i,
-                  controller: controller,
-                )
-            ],
+          const SizedBox(height: 5),
+          Obx(
+            () => !Get.find<GlobalController>().isQueueActive.value
+                ? FadeInUp(
+                    child: GlobalButtonWidget(
+                      onTap: controller.startNormalGame,
+                      text: AppTexts.startGame.tr,
+                      color: const Color.fromARGB(255, 12, 63, 32),
+                      fontColor: AppColors.lightColor,
+                      width: double.maxFinite,
+                    ),
+                  )
+                : Container(),
           ),
-        ),
-        // Padding(
-        //   padding: AppSpacings.s20Horizental,
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: [
-        //       for (int i = 10; i < gamesLength; i++)
-        //         GameCircleDotWidget(
-        //           pageController: controller.normalPageController,
-        //           i: i,
-        //           controller: controller,
-        //         )
-        //     ],
-        //   ),
-        // ),
-        const SizedBox(height: 10),
-      ],
+          // const SizedBox(height: 5),
+        ],
+      ),
     );
   }
 }

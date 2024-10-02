@@ -8,7 +8,7 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
-import 'package:kafehfekr/Feature/General/Widgets/GameMenu/rank_menu_game_part_widget.dart';
+import 'package:kafehfekr/Feature/General/Widgets/GameMenu/menu_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../../../../Core/Global/Controllers/global_controller.dart';
@@ -61,7 +61,7 @@ class RankGamePartWidget extends StatelessWidget {
               child: ListView.separated(
                 itemBuilder: (ctx, index) => GetBuilder<GameMenuController>(
                   builder: (cont) => Obx(
-                    () => RankMenuGamePartWidget(
+                    () => MenuGamePartWidget(
                       game: gameTypesParts[index],
                       onTap: controller.onEachRankGameTap,
                       onOpenGuide: controller.openGameGuide,

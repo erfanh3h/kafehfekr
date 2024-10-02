@@ -7,8 +7,8 @@ import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:refreshed/refreshed.dart';
 
-class RankMenuGamePartWidget extends StatelessWidget {
-  const RankMenuGamePartWidget({
+class MenuGamePartWidget extends StatelessWidget {
+  const MenuGamePartWidget({
     super.key,
     required this.game,
     required this.onTap,
@@ -54,8 +54,8 @@ class RankMenuGamePartWidget extends StatelessWidget {
             FadeInRight(
               delay: const Duration(milliseconds: 200),
               child: Container(
-                width: 50,
-                height: 50,
+                width: 40,
+                height: 40,
                 decoration: BoxDecoration(
                   color: const Color(0xff7c94b6),
                   image: DecorationImage(

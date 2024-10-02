@@ -22,7 +22,9 @@ abstract class AppTexts {
   static const rankHistoryDetails = "rankHistoryDetails";
   static const surrender = "surrender";
   static const taturialLink = "taturialLink";
+  static const normalGameMenu = "normalGameMenu";
   static const rankGameMenu = "rankGameMenu";
+  static const select2Games = "select2Games";
   static const select5Games = "select5Games";
 
   static const win = "win";
