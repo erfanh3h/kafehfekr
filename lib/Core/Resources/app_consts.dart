@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 
-const String appVersion = "1.1.0";
-const MarketTypes marketType = MarketTypes.Myket;
+const String appVersion = "1.2.0";
+const MarketTypes marketType = MarketTypes.Bazaar;
 
 const myketRSA =
     "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCWzTjRpfhobmrMlqNa/gL/3iMUnMjWzpB+CggkB0eqGX8sHrxdb4qPB8e/5wBR1e+gGYttJ5zG0031m+JGwlPf6IJjtfhSTh6m1fdtjdb9wP0btnjqhGVWHwXO2claGmv84GcvvBuzjdpZ6lDPAox05V9ZQ6ut8TkfcMmcApj2bwIDAQAB";
@@ -179,7 +179,7 @@ List<String> koris = [
   "تو از اول هم شانسی نداشتی!",
   "بردم، طبق معمول!",
   "پیشرفتت تو این بازی محسوسه!",
-  "سلیم شو، هنوز وقت داری!",
+  "تسلیم شو، هنوز وقت داری!",
   "بازم ساده بردم!",
   "خیلی خوب کنترل کردی اوضاع رو!",
   "این فقط یه گرم کردن بود!",
@@ -206,7 +206,7 @@ List<String> koris = [
   "دوباره شانس داری، امتحان کن!",
   "فکر کنم هنوز نوبتت نشده!",
   "اون تاکتیک معرکه بود!",
-  "بازی برای شما تفریحه، برای من زندگیه!",
+  "بازی براتو تفریحه، برا من زندگیه!",
   "توی لیگ خودت بازی کن!",
   "چقد خوب دفاع کردی!",
   "این بود تمام توانت؟",

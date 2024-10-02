@@ -38,7 +38,7 @@ class GameHistoryRowWidget extends StatelessWidget {
                     name,
                     style: const TextStyle(
                       color: AppColors.lightColor,
-                      fontSize: 25,
+                      fontSize: 20,
                       fontFamily: FontFamilies.dastnevis,
                     ),
                     textAlign: TextAlign.right,

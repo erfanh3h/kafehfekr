@@ -58,6 +58,7 @@ class RankingPage extends StatelessWidget {
                                     ? AppColors.darkColor
                                     : AppColors.lightColor,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -79,6 +80,7 @@ class RankingPage extends StatelessWidget {
                                     ? AppColors.darkColor
                                     : AppColors.lightColor,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),

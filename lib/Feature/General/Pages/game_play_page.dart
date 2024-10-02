@@ -45,32 +45,40 @@ class GamePlayPage extends BaseView<GamePlayController> {
                 player1Number1: controller.player1Score.value,
                 player2Number1: controller.player2Score.value,
                 timerValue: controller.timerValue.value,
+                isGameFinished: controller.isGameFinished.value,
+                winnerId: controller.winnerId.value,
+              ),
+            if (controller.isGameFinished.value)
+              Padding(
+                padding: AppSpacings.s20Top,
+                child: Center(
+                  child: Text(
+                    controller.finishGameText.value,
+                    style: const TextStyle(
+                      color: AppColors.lightColor,
+                      fontSize: 28,
+                      fontFamily: FontFamilies.dastnevis,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                ),
               ),
             const Spacer(),
             if (controller.gameTypes.isNotEmpty)
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    AppTexts.games.tr,
-                    style: const TextStyle(
-                      color: AppColors.lightColor,
-                      fontSize: 35,
-                      fontFamily: FontFamilies.dastnevis,
-                      letterSpacing: 2.5,
-                    ),
-                  ),
                   Image.asset(
                     controller.gameScoreType == "Rank"
                         ? GeneralIcons.rank
                         : GeneralIcons.normal,
-                    width: 50,
-                    height: 50,
+                    width: 100,
+                    height: 100,
                     color: AppColors.lightColor,
                   ),
                 ],
               ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
             Padding(
               padding: AppSpacings.s20Horizental,
               child: ListView.builder(

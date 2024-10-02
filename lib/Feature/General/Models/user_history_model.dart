@@ -21,6 +21,7 @@ class UserHistoryModel {
   final (int?, int?, int?) rankBackGammon;
   final (int?, int?, int?) rankFekrBekr;
   final (int?, int?, int?) rankPentago;
+  final (int?, int?, int?) rankYinsh;
 
   UserHistoryModel({
     required this.winNormal,
@@ -47,6 +48,7 @@ class UserHistoryModel {
     this.rankBackGammon = (null, null, null),
     this.rankFekrBekr = (null, null, null),
     this.rankPentago = (null, null, null),
+    this.rankYinsh = (null, null, null),
   });
 
   factory UserHistoryModel.fromJson(Map data) {
@@ -92,6 +94,8 @@ class UserHistoryModel {
         (data['fekrbekr_win'], data['fekrbekr_draw'], data['fekrbekr_lose']);
     final (int?, int?, int?) rankPentago =
         (data['pentago_win'], data['pentago_draw'], data['pentago_lose']);
+    final (int?, int?, int?) rankYinsh =
+        (data['yinsh_win'], data['yinsh_draw'], data['yinsh_lose']);
     return UserHistoryModel(
       winNormal: data['win_normal'],
       loseNormal: data['lose_normal'],
@@ -117,6 +121,7 @@ class UserHistoryModel {
       rankBackGammon: rankBackGammon,
       rankFekrBekr: rankFekrBekr,
       rankPentago: rankPentago,
+      rankYinsh: rankYinsh,
     );
   }
   UserHistoryModel copyWith({

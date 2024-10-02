@@ -15,6 +15,8 @@ class GamePlayUsersDataWidget extends StatelessWidget {
     super.key,
     required this.player1Data,
     required this.player2Data,
+    required this.isGameFinished,
+    required this.winnerId,
     this.player1Number1,
     this.player2Number1,
     this.timerValue,
@@ -25,6 +27,8 @@ class GamePlayUsersDataWidget extends StatelessWidget {
   final int? player2Number1;
   final QueuerModel player2Data;
   final int? timerValue;
+  final bool isGameFinished;
+  final int winnerId;
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +105,9 @@ class GamePlayUsersDataWidget extends StatelessWidget {
                     UserRowData(
                       number: player1Number1 ?? 0,
                       playerData: player1Data,
+                      isGameFinished: isGameFinished,
+                      winnerId: winnerId,
+                      gamerId: 1,
                     ),
                     if (player1Data.reactionId != null &&
                         player1Data.reactionId! > 100)
@@ -121,6 +128,9 @@ class GamePlayUsersDataWidget extends StatelessWidget {
                     UserRowData(
                       number: player2Number1 ?? 0,
                       playerData: player2Data,
+                      isGameFinished: isGameFinished,
+                      winnerId: winnerId,
+                      gamerId: 2,
                     ),
                     if (player2Data.reactionId != null &&
                         player2Data.reactionId! > 100)
@@ -183,26 +193,48 @@ class UserRowData extends StatelessWidget {
     super.key,
     required this.number,
     required this.playerData,
+    required this.winnerId,
+    required this.isGameFinished,
+    required this.gamerId,
   });
 
   final int number;
   final QueuerModel playerData;
+  final int winnerId;
+  final bool isGameFinished;
+  final int gamerId;
 
   @override
   Widget build(BuildContext context) {
+    Color backGroundColor = AppColors.lightColor;
+    Color fontGroundColor = AppColors.darkColor;
+    if (isGameFinished) {
+      if (winnerId == 0) {
+        backGroundColor = AppColors.goldenColor;
+        fontGroundColor = AppColors.lightColor;
+      } else {
+        if (gamerId == winnerId) {
+          backGroundColor = AppColors.darkGreen;
+          fontGroundColor = AppColors.lightColor;
+        } else {
+          backGroundColor = AppColors.redWarmColor;
+          fontGroundColor = AppColors.lightColor;
+        }
+      }
+    }
     return Container(
       padding: AppSpacings.s5Vertical,
       width: 125,
       height: 65,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
-          colors: [Colors.white54, AppColors.lightColor],
+          colors: [backGroundColor.withOpacity(.5), backGroundColor],
         ),
-        color: AppColors.lightColor,
+        color: backGroundColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.darkColor, width: 3),
+        border: Border.all(color: AppColors.lightColor, width: 3),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -214,19 +246,19 @@ class UserRowData extends StatelessWidget {
               children: [
                 Text(
                   number != -1 ? number.toString() : '-',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: FontFamilies.dastnevis,
                     fontSize: 35,
-                    color: AppColors.darkColor,
+                    color: fontGroundColor,
                     height: .8,
                   ),
                 ),
                 Text(
                   playerData.name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: FontFamilies.playPen,
                     fontSize: 13,
-                    color: AppColors.darkColor,
+                    color: fontGroundColor,
                   ),
                   textDirection: TextDirection.ltr,
                   maxLines: 1,

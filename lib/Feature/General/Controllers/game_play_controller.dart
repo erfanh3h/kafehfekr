@@ -24,6 +24,8 @@ class GamePlayController extends BaseController {
   Rx<int?> timerValue = Rx(null);
 
   RxBool isGameFinished = RxBool(false);
+  RxInt winnerId = RxInt(-1);
+  RxString finishGameText = RxString("");
 
   void commandHandler(dynamic data) {
     final commandId = data['id'];
@@ -64,6 +66,20 @@ class GamePlayController extends BaseController {
     isGameFinished.value = gameData['is_game_finished'];
     isPageLoading.value = false;
     if (isGameFinished.value) {
+      if (player1Score.value > player2Score.value) {
+        winnerId.value = 1;
+      } else if (player2Score.value > player1Score.value) {
+        winnerId.value = 2;
+      } else {
+        winnerId.value = 0;
+      }
+      if (winnerId.value == 0) {
+        finishGameText.value = "بازی مساوی به اتمام رسید";
+      } else if (winnerId.value == 1) {
+        finishGameText.value = "${queuers[0].name} بازی رو برد";
+      } else if (winnerId.value == 2) {
+        finishGameText.value = "${queuers[1].name} بازی رو برد";
+      }
       Get.find<GlobalController>().finishGame();
       Get.find<GameSocketManager>().disconnect();
     }

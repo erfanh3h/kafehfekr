@@ -71,6 +71,10 @@ class UserGamesHistoryWidget extends StatelessWidget {
             name: AppTexts.boxFour.tr,
           ),
           GameHistoryRowWidget(
+            data: data.rankYinsh,
+            name: AppTexts.yinsh.tr,
+          ),
+          GameHistoryRowWidget(
             data: data.rankChess,
             name: AppTexts.chess.tr,
           ),
