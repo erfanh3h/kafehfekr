@@ -24,7 +24,7 @@ class GameHistoryRowWidget extends StatelessWidget {
         (winNumber + drawNumber + loseNumber) != 0 ? true : false;
     return mustShowBox
         ? Container(
-            margin: AppSpacings.s20Horizental5Vertical,
+            margin: AppSpacings.s10Horizental5Vertical,
             padding: AppSpacings.s5Bottom,
             decoration: const BoxDecoration(
               border: Border(

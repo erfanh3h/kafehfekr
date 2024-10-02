@@ -30,11 +30,17 @@ class FourInRowPage extends BaseView<FourInRowController> {
               player1Number1: controller.player1Pawns.value,
               player2Number1: controller.player2Pawns.value,
             ),
-          const Spacer(flex: 3),
-          FourInRowBoardWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 30),
+          Expanded(
+            child: ListView(
+              children: [
+                FourInRowBoardWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<FourInRowController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

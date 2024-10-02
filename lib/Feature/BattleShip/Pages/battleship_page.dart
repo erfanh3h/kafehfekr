@@ -42,45 +42,51 @@ class BattleShipPage extends BaseView<BattleShipController> {
                   ? controller.player2Score.value
                   : -1,
             ),
-          const Spacer(flex: 3),
-          !controller.isGameStarted.value
-              ? const Expanded(
-                  flex: 10, child: Center(child: GlobalWaitWidget()))
-              : controller.isGameInPlayPhase.value
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Builder(builder: (context) {
-                          return Text(
-                            "     صفحه ${controller.getInActiveGamerUsername()} : ",
-                            style: const TextStyle(
-                              color: AppColors.lightColor,
-                              fontSize: 20,
-                            ),
-                          );
-                        }),
-                        const SizedBox(height: 4),
-                        BattleShipGameBoardWidget(controller: controller),
-                      ],
-                    )
-                  : controller.isWaiting.value
-                      ? const Expanded(
-                          flex: 10, child: Center(child: GlobalWaitWidget()))
-                      : Column(
-                          children: [
-                            BattleShipSelectionBoardWidget(
-                                controller: controller),
-                            const SizedBox(height: 10),
-                            BattleShipShipSelectionBox(controller: controller),
-                            GlobalButtonWidget(
-                              onTap: controller.submitBoard,
-                              text: AppTexts.accept.tr,
-                            ),
-                          ],
-                        ),
-          const Spacer(flex: 4),
+          const SizedBox(height: 50),
+          Expanded(
+            child: ListView(
+              children: [
+                !controller.isGameStarted.value
+                    ? const Center(child: GlobalWaitWidget())
+                    : controller.isGameInPlayPhase.value
+                        ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Builder(builder: (context) {
+                                return Text(
+                                  "     صفحه ${controller.getInActiveGamerUsername()} : ",
+                                  style: const TextStyle(
+                                    color: AppColors.lightColor,
+                                    fontSize: 20,
+                                  ),
+                                );
+                              }),
+                              const SizedBox(height: 4),
+                              BattleShipGameBoardWidget(controller: controller),
+                            ],
+                          )
+                        : controller.isWaiting.value
+                            ? const Center(child: GlobalWaitWidget())
+                            : Column(
+                                children: [
+                                  BattleShipSelectionBoardWidget(
+                                      controller: controller),
+                                  const SizedBox(height: 10),
+                                  BattleShipShipSelectionBox(
+                                      controller: controller),
+                                  GlobalButtonWidget(
+                                    onTap: controller.submitBoard,
+                                    text: AppTexts.accept.tr,
+                                  ),
+                                  const SizedBox(height: 10),
+                                ],
+                              ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<BattleShipController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

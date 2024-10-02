@@ -23,7 +23,7 @@ class TenBoardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Container(
-        // padding: AppSpacings.s20All,
+        padding: AppSpacings.s10All,
         constraints: BoxConstraints(
           minHeight:
               (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,

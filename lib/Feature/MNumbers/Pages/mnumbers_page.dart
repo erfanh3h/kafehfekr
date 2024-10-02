@@ -31,11 +31,17 @@ class MNumbersPage extends BaseView<MNumbersController> {
               player1Number1: controller.player1Score.value,
               player2Number1: controller.player2Score.value,
             ),
-          const Spacer(flex: 3),
-          MNumbersBoardWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 55),
+          Expanded(
+            child: ListView(
+              children: [
+                MNumbersBoardWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<MNumbersController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

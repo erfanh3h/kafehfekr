@@ -33,11 +33,17 @@ class FekrBekrPage extends BaseView<FekrBekrController> {
                   ? "12 / ${controller.currentRound.value}"
                   : null,
             ),
-          const Spacer(flex: 3),
-          FekrBekrBoardWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 35),
+          Expanded(
+            child: ListView(
+              children: [
+                FekrBekrBoardWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<FekrBekrController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

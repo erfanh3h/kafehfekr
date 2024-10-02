@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/BackGammon/Controllers/backgammon_controller.dart';
 import 'package:kafehfekr/Feature/BackGammon/Widgets/backgammon_dice_box.dart';
@@ -18,13 +19,14 @@ class BackGammonDicesBox extends StatelessWidget {
     return Obx(
       () => Directionality(
         textDirection: TextDirection.ltr,
-        child: SizedBox(
+        child: Container(
           height: 40.h,
+          padding: AppSpacings.s20Horizental,
           // width: 180,
           child: controller.dicesRolled.value
               ? Row(
                   mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     for (int i = 0; i < controller.currentDices.length; i++)
                       BackGammonDiceBox(

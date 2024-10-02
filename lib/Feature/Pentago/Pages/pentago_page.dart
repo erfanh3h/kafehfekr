@@ -30,11 +30,17 @@ class PentagoPage extends BaseView<PentagoController> {
               player1Number1: controller.player1Pawns.value,
               player2Number1: controller.player2Pawns.value,
             ),
-          const Spacer(flex: 3),
-          PentagoBoardWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 30),
+          Expanded(
+            child: ListView(
+              children: [
+                PentagoBoardWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<PentagoController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

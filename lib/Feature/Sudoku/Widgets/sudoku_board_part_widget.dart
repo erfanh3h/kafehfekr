@@ -32,6 +32,7 @@ class SudokuBoardPartWidget extends StatelessWidget {
         // ),
       ),
       child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 2,

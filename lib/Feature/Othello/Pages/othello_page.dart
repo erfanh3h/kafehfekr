@@ -32,11 +32,17 @@ class OthelloPage extends BaseView<OthelloController> {
               player2Number1: controller.player2Score.value,
               player2Number2: controller.player2Pawns.value,
             ),
-          const Spacer(flex: 3),
-          OthelloBoarWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 55),
+          Expanded(
+            child: ListView(
+              children: [
+                OthelloBoarWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<OthelloController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

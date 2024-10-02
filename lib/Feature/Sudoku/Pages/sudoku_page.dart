@@ -34,21 +34,28 @@ class SudokuPage extends BaseView<SudokuController> {
               player1Number1: -1,
               player2Number1: -1,
             ),
-          const Spacer(flex: 3),
-          SudokuBoardWidget(controller: controller),
-          SudokuSelectNumberBox(controller: controller),
-          const Spacer(flex: 1),
-          Center(
-            child: GlobalButtonWidget(
-              onTap: controller.solveFunction,
-              text: AppTexts.accept.tr,
+          const SizedBox(height: 50),
+          Expanded(
+            child: ListView(
+              children: [
+                SudokuBoardWidget(controller: controller),
+                SudokuSelectNumberBox(controller: controller),
+                const SizedBox(height: 5),
+                Center(
+                  child: GlobalButtonWidget(
+                    onTap: controller.solveFunction,
+                    text: AppTexts.accept.tr,
+                  ),
+                ),
+                const SizedBox(height: 10),
+              ],
             ),
           ),
-          const Spacer(flex: 4),
+          const SizedBox(height: 10),
           Center(
             child: GlobalActivityBox<SudokuController>(),
           ),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

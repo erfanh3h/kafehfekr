@@ -36,14 +36,21 @@ class BackGammonPage extends BaseView<BackGammonController> {
               player1Number3: controller.players[0].value.notPlayedTurns,
               player2Number3: controller.players[1].value.notPlayedTurns,
             ),
-          const Spacer(flex: 3),
-          if (controller.peaces.length > 12)
-            BackGammonBoardWidget(controller: controller),
-          const Spacer(flex: 1),
-          BackGammonDicesBox(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 50),
+          Expanded(
+            child: ListView(
+              children: [
+                if (controller.peaces.length > 12)
+                  BackGammonBoardWidget(controller: controller),
+                const SizedBox(height: 15),
+                BackGammonDicesBox(controller: controller),
+                const SizedBox(height: 10),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<BackGammonController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

@@ -33,11 +33,17 @@ class TenPage extends BaseView<TenController> {
                 roundText:
                     "${controller.maxRound} / ${controller.currentRound}",
               ),
-            const Spacer(flex: 3),
-            TenBoardWidget(controller: controller),
-            const Spacer(flex: 4),
+            const SizedBox(height: 30),
+            Expanded(
+              child: ListView(
+                children: [
+                  TenBoardWidget(controller: controller),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
             GlobalActivityBox<TenController>(),
-            const Spacer(flex: 1),
+            const SizedBox(height: 20),
           ],
         ),
       ),

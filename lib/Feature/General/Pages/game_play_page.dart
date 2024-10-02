@@ -99,7 +99,7 @@ class GamePlayPage extends BaseView<GamePlayController> {
               Container(
                 width: double.maxFinite,
                 padding: AppSpacings.s10Horizental,
-                margin: AppSpacings.s10Bottom,
+                margin: AppSpacings.s20Bottom,
                 child: GlobalButtonWidget(
                   onTap: () {
                     Get.back();

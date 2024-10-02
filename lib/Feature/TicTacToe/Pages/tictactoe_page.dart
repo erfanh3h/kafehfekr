@@ -31,11 +31,17 @@ class TicTacToePage extends BaseView<TicTacToeController> {
               player2Number1: controller.player2Score.value,
               roundText: "${controller.maxRound} / ${controller.currentRound}",
             ),
-          const Spacer(flex: 3),
-          TicTacToeBoardWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 30),
+          Expanded(
+            child: ListView(
+              children: [
+                TicTacToeBoardWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<TicTacToeController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

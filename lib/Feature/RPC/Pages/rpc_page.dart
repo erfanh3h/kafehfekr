@@ -71,12 +71,18 @@ class RPCPage extends BaseView<RPCController> {
                 ),
               ],
             ),
-          const Spacer(flex: 3),
-          if (controller.isGameStarted.value)
-            RPCMainWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 30),
+          Expanded(
+            child: ListView(
+              children: [
+                if (controller.isGameStarted.value)
+                  RPCMainWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<RPCController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

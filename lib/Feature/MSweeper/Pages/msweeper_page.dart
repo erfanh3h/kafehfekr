@@ -66,13 +66,19 @@ class MSweeperPage extends BaseView<MSweeperController> {
               ],
             ),
           ),
-          const Spacer(flex: 3),
-          MSweeperBoardWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 30),
+          Expanded(
+            child: ListView(
+              children: [
+                MSweeperBoardWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           Center(
             child: GlobalActivityBox<MSweeperController>(),
           ),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

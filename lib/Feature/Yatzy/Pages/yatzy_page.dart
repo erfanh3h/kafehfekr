@@ -32,14 +32,20 @@ class YatzyPage extends BaseView<YatzyController> {
               player2Number1: controller.player2Score.value,
               roundText: "12 / ${controller.currentTurn}",
             ),
-          const Spacer(flex: 3),
-          if (controller.player1Pieces.length == 12 &&
-              controller.player2Pieces.length == 12)
-            YatzyBoardWidget(controller: controller),
-          YatzyInteractionWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 30),
+          Expanded(
+            child: ListView(
+              children: [
+                if (controller.player1Pieces.length == 12 &&
+                    controller.player2Pieces.length == 12)
+                  YatzyBoardWidget(controller: controller),
+                YatzyInteractionWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<YatzyController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

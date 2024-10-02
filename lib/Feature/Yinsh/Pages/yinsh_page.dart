@@ -77,11 +77,17 @@ class YinshPage extends BaseView<YinshController> {
                 ),
               ],
             ),
-          const Spacer(flex: 3),
-          YinshBoardWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 30),
+          Expanded(
+            child: ListView(
+              children: [
+                YinshBoardWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<YinshController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

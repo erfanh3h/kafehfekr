@@ -32,14 +32,20 @@ class CheckersPage extends BaseView<CheckersController> {
               player1Number3: controller.players[0].value.notPlayedTurns,
               player2Number3: controller.players[1].value.notPlayedTurns,
             ),
-          const Spacer(flex: 3),
-          Transform.flip(
-            flipY: controller.myGameId == 1,
-            child: CheckersBoarWidget(controller: controller),
+          const SizedBox(height: 55),
+          Expanded(
+            child: ListView(
+              children: [
+                Transform.flip(
+                  flipY: controller.myGameId == 1,
+                  child: CheckersBoarWidget(controller: controller),
+                ),
+              ],
+            ),
           ),
-          const Spacer(flex: 4),
+          const SizedBox(height: 10),
           GlobalActivityBox<CheckersController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );

@@ -30,11 +30,17 @@ class BoxFourPage extends BaseView<BoxFourController> {
               player1Number1: controller.player1Score.value,
               player2Number1: controller.player2Score.value,
             ),
-          const Spacer(flex: 3),
-          BoxFourBoardWidget(controller: controller),
-          const Spacer(flex: 4),
+          const SizedBox(height: 55),
+          Expanded(
+            child: ListView(
+              children: [
+                BoxFourBoardWidget(controller: controller),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
           GlobalActivityBox<BoxFourController>(),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
         ],
       ),
     );
