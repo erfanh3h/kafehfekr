@@ -59,16 +59,11 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                           child: Obx(
                             () => GlobalActivityButton(
                               icon: GeneralIcons.kori,
-                              onTap: (controller.letSendKori.value == true &&
-                                      controller.showKoris.value == true)
-                                  ? controller.showKoriBox
-                                  : null,
-                              backgroundColor:
-                                  (controller.letSendKori.value == true &&
-                                          controller.showKoris.value == true)
-                                      ? null
-                                      : Colors.grey,
+                              onTap: controller.showKoriBox,
                               text: AppTexts.kori.tr,
+                              isNotActive:
+                                  !(controller.letSendKori.value == true &&
+                                      controller.showKoris.value == true),
                             ),
                           ),
                         ),
@@ -144,15 +139,10 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                             () => GlobalActivityButton(
                               icon: ReactionIcons().generalIconsPath(5),
                               text: AppTexts.sticker.tr,
-                              onTap: (controller.letSendSticker.value == true &&
-                                      controller.showStickers.value == true)
-                                  ? controller.showStickerBox
-                                  : null,
-                              backgroundColor:
-                                  (controller.letSendSticker.value == true &&
-                                          controller.showStickers.value == true)
-                                      ? null
-                                      : Colors.grey,
+                              onTap: controller.showStickerBox,
+                              isNotActive:
+                                  !(controller.letSendSticker.value == true &&
+                                      controller.showStickers.value == true),
                             ),
                           ),
                         ),
