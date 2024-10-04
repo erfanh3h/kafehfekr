@@ -13,6 +13,7 @@ import 'package:kafehfekr/Feature/DotBox/Pages/dotbox_page.dart';
 import 'package:kafehfekr/Feature/FekrBekr/Pages/fekrbekr_page.dart';
 import 'package:kafehfekr/Feature/FourInRow/Pages/four_in_row_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/game_play_page.dart';
+import 'package:kafehfekr/Feature/General/Pages/lobby_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/maintence_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/update_page.dart';
 import 'package:kafehfekr/Feature/MNumbers/Pages/mnumbers_page.dart';
@@ -58,6 +59,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.gamePlay,
       page: GamePlayPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.lobby,
+      page: LobbyPage.new,
     ),
     GetPage(
       name: AppRoutes.tictactoe,

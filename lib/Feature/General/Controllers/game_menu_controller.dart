@@ -7,6 +7,7 @@ import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GameMenuController extends BaseController {
@@ -105,7 +106,9 @@ class GameMenuController extends BaseController {
     Get.find<GlobalController>().startQueue(gameTypes, 'Normal');
   }
 
-  goToLobbiesPage() {}
+  goToLobbiesPage() {
+    Get.toNamed(AppRoutes.lobby);
+  }
 
   // startNormalGame(GameTypes game) {
   //   Get.find<GlobalController>().startQueue([game.name], 'Normal');

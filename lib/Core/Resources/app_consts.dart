@@ -99,6 +99,8 @@ abstract class GameCommands {
   static const gameFinished = "GameFinished";
   static const notPlayedTurns = "NotPlayedTurns";
   static const notEnoughCoin = "NotEnoughCoin";
+  static const lobbyList = "LobbyList";
+
 }
 
 class GeneralGameConsts {
