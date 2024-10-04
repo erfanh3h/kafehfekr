@@ -18,11 +18,14 @@ abstract class AppTexts {
   static const enemySurrenderGame = "enemySurrenderGame";
   static const normalGame = "normalGame";
   static const rankGame = "rankGame";
+  static const lobbyGame = "lobbyGame";
   static const startGame = "startGame";
+  static const goLobbyPage = "goLobbyPage";
   static const rankHistoryDetails = "rankHistoryDetails";
   static const surrender = "surrender";
   static const taturialLink = "taturialLink";
   static const normalGameMenu = "normalGameMenu";
+  static const lobbyGameMenu = "lobbyGameMenu";
   static const rankGameMenu = "rankGameMenu";
   static const select2Games = "select2Games";
   static const select5Games = "select5Games";

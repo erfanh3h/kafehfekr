@@ -105,6 +105,8 @@ class GameMenuController extends BaseController {
     Get.find<GlobalController>().startQueue(gameTypes, 'Normal');
   }
 
+  goToLobbiesPage() {}
+
   // startNormalGame(GameTypes game) {
   //   Get.find<GlobalController>().startQueue([game.name], 'Normal');
   // }

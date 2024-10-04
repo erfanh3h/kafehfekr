@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -23,7 +22,8 @@ class GameMenuTypeSelectorWidget extends StatelessWidget {
       child: Center(
         child: Container(
           padding: AppSpacings.s5All,
-          width: 200.w,
+          margin: AppSpacings.s20Horizental,
+          // width: 200.w,
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.lightColor),
             borderRadius: BorderRadius.circular(15),
@@ -91,6 +91,41 @@ class GameMenuTypeSelectorWidget extends StatelessWidget {
                           Image.asset(
                             GeneralIcons.rank,
                             color: controller.selectedTab.value == 1
+                                ? AppColors.darkColor
+                                : AppColors.lightColor,
+                            width: 25,
+                            height: 25,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: controller.selectedTab.value == 2
+                          ? AppColors.lightColor
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextButton(
+                      onPressed: () => controller.changeTab(2),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            AppTexts.lobbyGame.tr,
+                            style: TextStyle(
+                              color: controller.selectedTab.value == 2
+                                  ? AppColors.darkColor
+                                  : AppColors.lightColor,
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          Image.asset(
+                            GeneralIcons.lobby,
+                            color: controller.selectedTab.value == 2
                                 ? AppColors.darkColor
                                 : AppColors.lightColor,
                             width: 25,

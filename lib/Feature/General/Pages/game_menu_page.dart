@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
 import 'package:kafehfekr/Feature/General/Widgets/GameMenu/game_menu_type_selector_widget.dart';
+import 'package:kafehfekr/Feature/General/Widgets/GameMenu/lobby_game_part_widget.dart';
 import 'package:kafehfekr/Feature/General/Widgets/GameMenu/normal_game_part_widget.dart';
 import 'package:kafehfekr/Feature/General/Widgets/GameMenu/rank_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
@@ -28,9 +29,18 @@ class _GameMenuPageState extends State<GameMenuPage>
           GameMenuTypeSelectorWidget(controller: controller),
           Expanded(
             child: Obx(
-              () => controller.selectedTab.value == 0
-                  ? NormalGamePartWidget(controller: controller)
-                  : RankGamePartWidget(controller: controller),
+              () {
+                switch (controller.selectedTab.value) {
+                  case 0:
+                    return NormalGamePartWidget(controller: controller);
+                  case 1:
+                    return RankGamePartWidget(controller: controller);
+                  case 2:
+                    return LobbyGamePartWidget(controller: controller);
+                  default:
+                    return NormalGamePartWidget(controller: controller);
+                }
+              },
             ),
           ),
         ],

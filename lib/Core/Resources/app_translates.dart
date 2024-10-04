@@ -40,9 +40,13 @@ class AppTranslations extends Translations {
               '2 بازی را انتخاب کنید.1 بازی از بین بازی های انتخابی شما و حریفتان بطور شانسی برای بازی انتخاب می شود.',
           AppTexts.rankGameMenu:
               '5 بازی را انتخاب کنید.3 بازی از بین بازی های انتخابی شما و حریفتان بطور شانسی برای بازی انتخاب می شود.',
+          AppTexts.lobbyGameMenu:
+              'با ورود به صفحه ی لابی ها و ساخت لابی ، با دوستان خود بازی کنید.',
           AppTexts.normalGame: 'دوستانه',
           AppTexts.rankGame: 'رقابتی',
+          AppTexts.lobbyGame: 'لابی',
           AppTexts.startGame: 'شروع بازی',
+          AppTexts.goLobbyPage: 'ورود به لابی ها',
           AppTexts.kori: 'کُری',
           AppTexts.sticker: 'استیکر',
           AppTexts.gameType: 'انواع سبک بازی',
