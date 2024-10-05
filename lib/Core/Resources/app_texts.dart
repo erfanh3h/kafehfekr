@@ -19,6 +19,7 @@ abstract class AppTexts {
   static const normalGame = "normalGame";
   static const rankGame = "rankGame";
   static const lobbyGame = "lobbyGame";
+  static const lobbyList = "lobbyList";
   static const startGame = "startGame";
   static const goLobbyPage = "goLobbyPage";
   static const rankHistoryDetails = "rankHistoryDetails";
@@ -37,6 +38,7 @@ abstract class AppTexts {
   static const accept = "accept";
   static const scoreBase = "scoreBase";
   static const winBase = "winBase";
+  static const createLobby = "createLobby";
   static const cancel = "cancel";
   static const exit = "exit";
   static const back = "back";
@@ -53,6 +55,7 @@ abstract class AppTexts {
   static const ranking = "ranking";
   static const gameMenu = "gameMenu";
   static const gameType = "gameType";
+  static const selectGameType = "selectGameType";
   static const games = "games";
   static const normalGuide = "normalGuide";
   static const rankGuide = "rankGuide";
@@ -202,6 +205,7 @@ abstract class AppTexts {
   static const easy = "Easy";
   static const normal = "Normal";
   static const hard = "Hard";
+  static const lobbyName = "LobbyName";
   static const privacyPolicy = "privacyPolicy";
   static const iAcceptPrivacyPolicy = "iAcceptprivacyPolicy";
   static const acceptPrivacyPolicyFirst = "acceptPrivacyPolicyFirst";

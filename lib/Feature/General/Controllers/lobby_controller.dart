@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Network/lobby_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -11,10 +13,15 @@ class LobbyController extends BaseController {
 
   RxBool isJoinedLobby = RxBool(false);
 
+  Rx<GameTypes?> selectedCreateGameType = Rx(null);
+
+  TextEditingController lobbyNameController = TextEditingController();
   void commandHandler(dynamic data) {
     final commandId = data['id'];
     switch (commandId) {
       case GameCommands.lobbyList:
+        isPageLoading.value = false;
+
         // gamePlayDataFunction(data);
         break;
       default:
@@ -53,6 +60,12 @@ class LobbyController extends BaseController {
     // stopQueue();
     DialogComponent().showToast(label: AppTexts.timeoutError.tr);
   }
+
+  void onChangeGameType(GameTypes? gameType) {
+    selectedCreateGameType.value = gameType;
+  }
+
+  void onCreateLobby() {}
 
   @override
   void onInit() async {
