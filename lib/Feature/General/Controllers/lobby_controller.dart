@@ -16,12 +16,17 @@ class LobbyController extends BaseController {
   Rx<GameTypes?> selectedCreateGameType = Rx(null);
 
   TextEditingController lobbyNameController = TextEditingController();
+
   void commandHandler(dynamic data) {
     final commandId = data['id'];
+    final commandData = data['data'];
+
     switch (commandId) {
       case GameCommands.lobbyList:
         isPageLoading.value = false;
-
+        for (var lobbyData in commandData) {
+          lobbies.add(LobbyModel.fromJson(lobbyData));
+        }
         // gamePlayDataFunction(data);
         break;
       default:
@@ -65,7 +70,25 @@ class LobbyController extends BaseController {
     selectedCreateGameType.value = gameType;
   }
 
-  void onCreateLobby() {}
+  void onCreateLobby() {
+    if (lobbyNameController.text.isEmpty) {
+      return;
+    }
+    if (selectedCreateGameType.value == null) {
+      return;
+    }
+    sendCommand({
+      "id": GameCommands.lobbyCreate,
+      "data": {
+        'lobby_name': lobbyNameController.text,
+        'game_types': [selectedCreateGameType.value!.name],
+      }
+    });
+  }
+
+  void sendCommand(Map data) {
+    Get.find<LobbySocketManager>().sendCommand(data);
+  }
 
   @override
   void onInit() async {

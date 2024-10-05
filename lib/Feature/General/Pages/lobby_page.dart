@@ -31,9 +31,7 @@ class LobbyPage extends BaseView<LobbyController> {
       child: Obx(
         () => controller.isJoinedLobby.value
             ? Container()
-            : LobbyListBox(
-                controller: controller,
-              ),
+            : LobbyListBox(controller: controller),
       ),
     );
   }

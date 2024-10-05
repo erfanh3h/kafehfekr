@@ -1,8 +1,12 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/General/Models/lobby_model.dart';
+import 'package:refreshed/refreshed.dart';
 
 class LobbyRoomRowWidget extends StatelessWidget {
   const LobbyRoomRowWidget({
@@ -13,6 +17,11 @@ class LobbyRoomRowWidget extends StatelessWidget {
   final LobbyModel lobby;
   @override
   Widget build(BuildContext context) {
+    final gameConvertor = GameTypeConvertor(
+        gameType: stringToGameType(
+      lobby.gameTypes.first,
+    ));
+
     Color? color;
     return Container(
       padding: AppSpacings.s10All,
@@ -33,13 +42,74 @@ class LobbyRoomRowWidget extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: Text(
-          lobby.lobbyName,
-          style: const TextStyle(
-            color: AppColors.lightColor,
-            fontSize: 25,
-            fontFamily: FontFamilies.dastnevis,
-          ),
+        child: Row(
+          children: [
+            FadeInRight(
+              delay: const Duration(milliseconds: 200),
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: const Color(0xff7c94b6),
+                  image: DecorationImage(
+                    image: AssetImage(
+                      gameConvertor.toGameImage(),
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                  border: Border.all(
+                    color: AppColors.lightColor,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    lobby.lobbyName,
+                    style: const TextStyle(
+                      color: AppColors.lightColor,
+                      fontSize: 22,
+                      fontFamily: FontFamilies.playPen,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    lobby.gameTypes.first.tr,
+                    style: const TextStyle(
+                      color: AppColors.lightColor,
+                      fontSize: 15,
+                      fontFamily: FontFamilies.dastnevis,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 15),
+            Text(
+              '${lobby.queuers.length} / 2',
+              style: const TextStyle(
+                color: AppColors.lightColor,
+                fontSize: 20,
+                fontFamily: FontFamilies.dastnevis,
+              ),
+              textDirection: TextDirection.ltr,
+            ),
+            const SizedBox(width: 15),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.play_circle_fill_rounded,
+                color: AppColors.lightColor,
+              ),
+            ),
+          ],
         ),
       ),
     );

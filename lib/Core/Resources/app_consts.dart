@@ -100,7 +100,14 @@ abstract class GameCommands {
   static const notPlayedTurns = "NotPlayedTurns";
   static const notEnoughCoin = "NotEnoughCoin";
   static const lobbyList = "LobbyList";
-
+  static const lobbyFull = "LobbyFull";
+  static const lobbyCreate = "LobbyCreate";
+  static const lobbyCreated = "LobbyCreated";
+  static const lobbyJoin = "LobbyJoin";
+  static const lobbyStartGame = "LobbyStartGame";
+  static const lobbyDelete = "LobbyDelete";
+  static const lobbyDeleted = "LobbyDeleted";
+  static const lobbyPlayerReady = "LobbyPlayerReady";
 }
 
 class GeneralGameConsts {

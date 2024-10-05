@@ -42,8 +42,6 @@ class LobbyListBox extends StatelessWidget {
             padding: AppSpacings.s20Horizental,
             child: Obx(
               () => ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (ctx, index) => LobbyRoomRowWidget(
                   lobby: controller.lobbies[index],
                 ),

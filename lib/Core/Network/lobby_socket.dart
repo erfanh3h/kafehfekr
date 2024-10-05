@@ -31,13 +31,14 @@ class LobbySocketManager extends BaseController {
       print(data);
       reactionHandler(data);
     });
-    // socket.onDisconnect((_) => print('disconnect'));
+    socket.onDisconnect((_) => print('disconnect'));
     socket.onConnectError((one) {
       onQueueError();
     });
   }
 
   void sendCommand(Map data) {
+    print(data);
     socket.emit(SocketChannels.userCommand, data);
   }
 

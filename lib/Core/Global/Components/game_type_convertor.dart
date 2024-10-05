@@ -261,3 +261,48 @@ class GameTypeConvertor {
     return result;
   }
 }
+
+GameTypes stringToGameType(String game) {
+  switch (game) {
+    case "TicTacToe":
+      return GameTypes.TicTacToe;
+    case "FekrBekr":
+      return GameTypes.FekrBekr;
+    case "Pentago":
+      return GameTypes.Pentago;
+    case "RPC":
+      return GameTypes.RPC;
+    case "BackGammon":
+      return GameTypes.BackGammon;
+    case "Checkers":
+      return GameTypes.Checkers;
+    case "Chess":
+      return GameTypes.Chess;
+    case "Ten":
+      return GameTypes.Ten;
+    case "BattleShip":
+      return GameTypes.BattleShip;
+    case "DotBox":
+      return GameTypes.DotBox;
+    case "BoxFour":
+      return GameTypes.BoxFour;
+    case "Yatzy":
+      return GameTypes.Yatzy;
+    case "Mill":
+      return GameTypes.Mill;
+    case "Othello":
+      return GameTypes.Othello;
+    case "Sudoku":
+      return GameTypes.Sudoku;
+    case "Yinsh":
+      return GameTypes.Yinsh;
+    case "MNumbers":
+      return GameTypes.MNumbers;
+    case "MSweeper":
+      return GameTypes.MSweeper;
+    case "FourInRow":
+      return GameTypes.FourInRow;
+    default:
+      return GameTypes.TicTacToe;
+  }
+}
