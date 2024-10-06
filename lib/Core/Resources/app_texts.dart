@@ -221,4 +221,7 @@ abstract class AppTexts {
 
   static const rId = "rId";
   static const rIdReward = "rIdReward";
+  static const imReady = "imReady";
+  static const chat = "chat";
+  static const start = "start";
 }

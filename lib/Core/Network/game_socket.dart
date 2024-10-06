@@ -24,7 +24,7 @@ class GameSocketManager extends BaseController {
     });
     socket.connect();
     socket.onConnect((_) {
-      print('connect');
+      // print('connect');
     });
     socket.on(SocketChannels.serverReaction, (data) {
       reactionHandler(data);
@@ -33,7 +33,7 @@ class GameSocketManager extends BaseController {
     socket.on(SocketChannels.serverCommand, (data) {
       commandHandler(data);
     });
-    socket.onDisconnect((_) => print('disconnect'));
+    // socket.onDisconnect((_) => print('disconnect'));
   }
 
   void sendCommand(Map data) {

@@ -100,9 +100,11 @@ abstract class GameCommands {
   static const notPlayedTurns = "NotPlayedTurns";
   static const notEnoughCoin = "NotEnoughCoin";
   static const lobbyList = "LobbyList";
+  static const lobbyData = "LobbyData";
   static const lobbyFull = "LobbyFull";
   static const lobbyCreate = "LobbyCreate";
   static const lobbyCreated = "LobbyCreated";
+  static const yourLobbyCreated = "YourLobbyCreated";
   static const lobbyJoin = "LobbyJoin";
   static const lobbyStartGame = "LobbyStartGame";
   static const lobbyDelete = "LobbyDelete";
@@ -145,7 +147,17 @@ List<IconData> bottomNavigationIcons = [
   CupertinoIcons.book_solid,
   CupertinoIcons.shopping_cart,
 ];
-
+List<String> chats = [
+  "آماده ای ؟",
+  "بزن آماده ام رو",
+  "آماده ام",
+  "برو بریم",
+  "1 دقیقه صبر کن",
+  "نمیتونم",
+  "بدو عجله دارم",
+  "بدو تا کیک نشدی",
+  "ما رفتیم",
+];
 List<String> koris = [
   "شکست دیگه عادتت شده!",
   "عجب حرکت هوشمندانه‌ای بود!",

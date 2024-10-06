@@ -44,6 +44,7 @@ class LobbyListBox extends StatelessWidget {
               () => ListView.builder(
                 itemBuilder: (ctx, index) => LobbyRoomRowWidget(
                   lobby: controller.lobbies[index],
+                  onJoin: controller.onJoinLobby,
                 ),
                 itemCount: controller.lobbies.length,
               ),

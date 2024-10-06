@@ -127,7 +127,10 @@ class AppTranslations extends Translations {
           AppTexts.changeImagePrice:
               'هزینه تغییر عکس 50 سکه است (بار اول رایگان)',
           AppTexts.changeUsernamePrice: 'هزینه تغییر اسم 75 سکه است',
+          AppTexts.imReady: 'آماده ام',
           AppTexts.change: 'تغییر',
+          AppTexts.chat: 'چت',
+          AppTexts.start: 'شروع',
           AppTexts.buyCoin: 'خرید سکه',
           AppTexts.coin8Hours: "هر 8 ساعت میتونی سکه رایگان دریافت کنی",
           AppTexts.coinReady: 'سکه آمادست',

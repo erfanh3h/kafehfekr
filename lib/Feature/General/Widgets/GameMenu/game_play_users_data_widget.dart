@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
-import 'package:kafehfekr/Core/Global/Widgets/kori_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -78,24 +77,14 @@ class GamePlayUsersDataWidget extends StatelessWidget {
                     ),
                     width: 50,
                     height: 50,
-                    child: (player1Data.reactionId != null &&
-                            player1Data.reactionId! <= 100)
-                        ? FadeIn(
-                            child: Image.asset(
-                              ReactionIcons()
-                                  .generalIconsPath(player1Data.reactionId!),
-                              width: 20,
-                              height: 20,
-                            ),
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: Image.asset(
-                              AvatarIcons().generalAvatarPath(
-                                player1Data.userImage,
-                              ),
-                            ),
-                          ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: Image.asset(
+                        AvatarIcons().generalAvatarPath(
+                          player1Data.userImage,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Stack(
@@ -109,16 +98,6 @@ class GamePlayUsersDataWidget extends StatelessWidget {
                       winnerId: winnerId,
                       gamerId: 1,
                     ),
-                    if (player1Data.reactionId != null &&
-                        player1Data.reactionId! > 100)
-                      Positioned(
-                        bottom: -50,
-                        left: 30,
-                        child: KoriBox(
-                          isLeft: false,
-                          index: player1Data.reactionId! - 101,
-                        ),
-                      ),
                   ],
                 ),
                 const SizedBox(width: 5),
@@ -132,16 +111,6 @@ class GamePlayUsersDataWidget extends StatelessWidget {
                       winnerId: winnerId,
                       gamerId: 2,
                     ),
-                    if (player2Data.reactionId != null &&
-                        player2Data.reactionId! > 100)
-                      Positioned(
-                        bottom: -50,
-                        right: 30,
-                        child: KoriBox(
-                          isLeft: true,
-                          index: player2Data.reactionId! - 101,
-                        ),
-                      ),
                   ],
                 ),
                 InkWell(
@@ -159,24 +128,14 @@ class GamePlayUsersDataWidget extends StatelessWidget {
                     ),
                     width: 50,
                     height: 50,
-                    child: (player2Data.reactionId != null &&
-                            player2Data.reactionId! <= 100)
-                        ? FadeIn(
-                            child: Image.asset(
-                              ReactionIcons()
-                                  .generalIconsPath(player2Data.reactionId!),
-                              width: 20,
-                              height: 20,
-                            ),
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(40),
-                            child: Image.asset(
-                              AvatarIcons().generalAvatarPath(
-                                player2Data.userImage,
-                              ),
-                            ),
-                          ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(40),
+                      child: Image.asset(
+                        AvatarIcons().generalAvatarPath(
+                          player2Data.userImage,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
