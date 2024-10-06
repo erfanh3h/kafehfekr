@@ -17,12 +17,16 @@ class LobbyUsersDataWidget extends StatelessWidget {
     required this.player2Data,
     required this.creatorId,
     required this.onKick,
+    required this.isPlayer1Rdy,
+    required this.isPlayer2Rdy,
   });
 
   final QueuerModel? player1Data;
   final QueuerModel? player2Data;
   final String creatorId;
   final Function(QueuerModel?) onKick;
+  final bool isPlayer1Rdy;
+  final bool isPlayer2Rdy;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +76,10 @@ class LobbyUsersDataWidget extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () => onKick(player1Data),
-                        child: UserRowData(playerData: player1Data!),
+                        child: UserRowData(
+                          playerData: player1Data!,
+                          isRdy: isPlayer1Rdy,
+                        ),
                       ),
                     ],
                   ),
@@ -85,6 +92,7 @@ class LobbyUsersDataWidget extends StatelessWidget {
                         onTap: () => onKick(player2Data),
                         child: UserRowData(
                           playerData: player2Data!,
+                          isRdy: isPlayer2Rdy,
                         ),
                       ),
                     ],
@@ -128,9 +136,11 @@ class UserRowData extends StatelessWidget {
   const UserRowData({
     super.key,
     required this.playerData,
+    required this.isRdy,
   });
 
   final QueuerModel playerData;
+  final bool isRdy;
 
   @override
   Widget build(BuildContext context) {
@@ -159,10 +169,8 @@ class UserRowData extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  CupertinoIcons.check_mark,
-                  color: playerData.isRdy != null && playerData.isRdy!
-                      ? Colors.green
-                      : Colors.grey,
+                  CupertinoIcons.check_mark_circled,
+                  color: isRdy ? Colors.black : Colors.red,
                 ),
                 Text(
                   playerData.name,

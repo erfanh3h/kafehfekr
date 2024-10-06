@@ -14,6 +14,7 @@ class GlobalActivityButton extends StatelessWidget {
     this.backgroundColor,
     required this.text,
     this.isNotActive = false,
+    this.needTimerWidget = true,
   });
 
   final VoidCallback? onTap;
@@ -22,6 +23,7 @@ class GlobalActivityButton extends StatelessWidget {
   final Color? backgroundColor;
   final String text;
   final bool isNotActive;
+  final bool needTimerWidget;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -93,7 +95,8 @@ class GlobalActivityButton extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Center(child: TimerWidget(maxTime: 5)),
+                  if (needTimerWidget)
+                    const Center(child: TimerWidget(maxTime: 5)),
                 ],
               ),
       ),

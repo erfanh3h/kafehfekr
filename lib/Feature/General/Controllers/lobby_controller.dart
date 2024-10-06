@@ -19,7 +19,14 @@ class LobbyController extends BaseController {
 
   TextEditingController lobbyNameController = TextEditingController();
 
-  RxBool letSendKori = RxBool(true);
+  RxBool letSendChat = RxBool(true);
+
+  RxList<(bool, int)> joinedLobbyChats = RxList([]);
+
+  RxBool imReadyToStart = RxBool(false);
+
+  RxBool isPlayer1Rdy = RxBool(false);
+  RxBool isPlayer2Rdy = RxBool(false);
 
   void commandHandler(dynamic data) {
     final commandId = data['id'];
@@ -40,13 +47,29 @@ class LobbyController extends BaseController {
         break;
       case GameCommands.lobbyFull:
         break;
+      case GameCommands.lobbyPlayerReady:
+        final userId = commandData['user_id'];
+        if (userId == joinedLobby.value!.queuers[0].userId) {
+          isPlayer1Rdy.value = true;
+        } else {
+          isPlayer2Rdy.value = true;
+        }
+        break;
       default:
     }
   }
 
   void reactionHandler(dynamic data) {
-    // final playerId = data['playerId'];
-    // final reactionId = data['reactionId'];
+    final playerId = data['playerId'];
+    final reactionId = data['reactionId'];
+    bool isLeft = true;
+    if (playerId == joinedLobby.value!.queuers[0].userId) {
+      isLeft = false;
+    }
+    joinedLobbyChats.add((isLeft, reactionId));
+    Future.delayed(const Duration(seconds: 5)).then((_) {
+      letSendChat.value = true;
+    });
   }
 
   void onQueueError() {
@@ -93,11 +116,11 @@ class LobbyController extends BaseController {
   }
 
   void showChatBox() {
-    if (letSendKori.value) {
+    if (letSendChat.value) {
       Get.bottomSheet(
         GlobalChatsBox(
           onTap: () {
-            letSendKori.value = false;
+            letSendChat.value = false;
           },
         ),
         backgroundColor: AppColors.darkColor,
@@ -107,7 +130,12 @@ class LobbyController extends BaseController {
 
   startGame() {}
 
-  readyStartGame() {}
+  readyStartGame() {
+    sendCommand({
+      "id": GameCommands.lobbyPlayerReady,
+    });
+    imReadyToStart.value = true;
+  }
 
   @override
   void onInit() async {
@@ -120,5 +148,4 @@ class LobbyController extends BaseController {
       onQueueError: onQueueError,
     );
   }
-
 }

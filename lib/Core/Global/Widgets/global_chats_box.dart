@@ -1,4 +1,4 @@
-import 'package:kafehfekr/Core/Network/game_socket.dart';
+import 'package:kafehfekr/Core/Network/lobby_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -26,7 +26,7 @@ class GlobalChatsBox extends StatelessWidget {
         ),
         itemBuilder: (ctx, index) => InkWell(
           onTap: () {
-            Get.find<GameSocketManager>().sendReaction(index + 101);
+            Get.find<LobbySocketManager>().sendReaction(index);
             Get.closeAllBottomSheets();
             if (onTap != null) {
               onTap!();
