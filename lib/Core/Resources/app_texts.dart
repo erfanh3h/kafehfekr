@@ -224,4 +224,9 @@ abstract class AppTexts {
   static const imReady = "imReady";
   static const chat = "chat";
   static const start = "start";
+  static const lobbyDeleted = "lobbyDelete";
+  static const lobbyIsFull = "lobbIsFull";
+  static const lobbyNotFound = "lobbNotFound";
+  static const lobbyKicked = "lobbKicked";
+  static const cantKickYourself = "cantKickYourself";
 }

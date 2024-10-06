@@ -15,7 +15,7 @@ class LobbyUsersDataWidget extends StatelessWidget {
     super.key,
     required this.player1Data,
     required this.player2Data,
-    required this.creatorId,
+    required this.isMyLobby,
     required this.onKick,
     required this.isPlayer1Rdy,
     required this.isPlayer2Rdy,
@@ -23,8 +23,8 @@ class LobbyUsersDataWidget extends StatelessWidget {
 
   final QueuerModel? player1Data;
   final QueuerModel? player2Data;
-  final String creatorId;
-  final Function(QueuerModel?) onKick;
+  final bool isMyLobby;
+  final Function(String) onKick;
   final bool isPlayer1Rdy;
   final bool isPlayer2Rdy;
 
@@ -74,12 +74,11 @@ class LobbyUsersDataWidget extends StatelessWidget {
                     alignment: AlignmentDirectional.topStart,
                     clipBehavior: Clip.none,
                     children: [
-                      InkWell(
-                        onTap: () => onKick(player1Data),
-                        child: UserRowData(
-                          playerData: player1Data!,
-                          isRdy: isPlayer1Rdy,
-                        ),
+                      UserRowData(
+                        playerData: player1Data!,
+                        isRdy: isPlayer1Rdy,
+                        onKick: onKick,
+                        isMyLobby: isMyLobby,
                       ),
                     ],
                   ),
@@ -88,12 +87,11 @@ class LobbyUsersDataWidget extends StatelessWidget {
                   Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      InkWell(
-                        onTap: () => onKick(player2Data),
-                        child: UserRowData(
-                          playerData: player2Data!,
-                          isRdy: isPlayer2Rdy,
-                        ),
+                      UserRowData(
+                        playerData: player2Data!,
+                        isRdy: isPlayer2Rdy,
+                        onKick: onKick,
+                        isMyLobby: isMyLobby,
                       ),
                     ],
                   ),
@@ -137,10 +135,14 @@ class UserRowData extends StatelessWidget {
     super.key,
     required this.playerData,
     required this.isRdy,
+    required this.onKick,
+    required this.isMyLobby,
   });
 
   final QueuerModel playerData;
   final bool isRdy;
+  final Function(String) onKick;
+  final bool isMyLobby;
 
   @override
   Widget build(BuildContext context) {
@@ -160,30 +162,41 @@ class UserRowData extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: AppColors.lightColor, width: 2),
       ),
-      child: Column(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          FadeIn(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  CupertinoIcons.check_mark_circled,
-                  color: isRdy ? Colors.black : Colors.red,
-                ),
-                Text(
-                  playerData.name,
-                  style: TextStyle(
-                    fontFamily: FontFamilies.playPen,
-                    fontSize: 13,
-                    color: fontGroundColor,
+          if (isMyLobby)
+            IconButton(
+              color: AppColors.redWarmColor,
+              onPressed: () => onKick(playerData.userId),
+              icon: const Icon(
+                Icons.close_rounded,
+                color: AppColors.darkRed,
+              ),
+            ),
+          Expanded(
+            child: FadeIn(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    CupertinoIcons.check_mark_circled,
+                    color: isRdy ? Colors.black : AppColors.redWarmColor,
                   ),
-                  textDirection: TextDirection.ltr,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+                  Text(
+                    playerData.name,
+                    style: TextStyle(
+                      fontFamily: FontFamilies.playPen,
+                      fontSize: 13,
+                      color: fontGroundColor,
+                    ),
+                    textDirection: TextDirection.ltr,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
           ),
         ],

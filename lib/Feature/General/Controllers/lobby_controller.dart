@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_chats_box.dart';
 import 'package:kafehfekr/Core/Network/lobby_socket.dart';
@@ -46,6 +47,7 @@ class LobbyController extends BaseController {
         joinedLobby.value = DetailedLobbyModel.fromJson(commandData);
         break;
       case GameCommands.lobbyFull:
+        DialogComponent().showToast(label: AppTexts.lobbyIsFull.tr);
         break;
       case GameCommands.lobbyPlayerReady:
         final userId = commandData['user_id'];
@@ -54,6 +56,14 @@ class LobbyController extends BaseController {
         } else {
           isPlayer2Rdy.value = true;
         }
+        break;
+      case GameCommands.lobbyDeleted:
+        DialogComponent().showToast(label: AppTexts.lobbyDeleted.tr);
+        Get.back();
+        break;
+      case GameCommands.lobbyKick:
+        DialogComponent().showToast(label: AppTexts.lobbyKicked.tr);
+        Get.back();
         break;
       default:
     }
@@ -135,6 +145,26 @@ class LobbyController extends BaseController {
       "id": GameCommands.lobbyPlayerReady,
     });
     imReadyToStart.value = true;
+  }
+
+  kickPlayer(String userId) {
+    String myUserId = Get.find<GlobalController>().userId ?? "";
+    if (userId == myUserId) {
+      DialogComponent().showToast(label: AppTexts.cantKickYourself.tr);
+      return;
+    }
+    sendCommand({
+      "id": GameCommands.lobbyKick,
+      "data": {
+        'user_id': userId,
+      }
+    });
+    isPlayer2Rdy.value = false;
+    joinedLobby.value = joinedLobby.value!.removeQueuer(userId);
+  }
+
+  bool isMyLobby() {
+    return Get.find<GlobalController>().userId == joinedLobby.value!.creatorId;
   }
 
   @override

@@ -21,14 +21,19 @@ class JoinedLobbyWidget extends StatelessWidget {
       () => Column(
         children: [
           const SizedBox(height: 15),
-          LobbyUsersDataWidget(
-            player1Data: lobby.queuers.isNotEmpty ? lobby.queuers.first : null,
-            player2Data: lobby.queuers.length > 1 ? lobby.queuers[1] : null,
-            creatorId: lobby.creatorId,
-            onKick: (_) {},
-            isPlayer1Rdy: controller.isPlayer1Rdy.value,
-            isPlayer2Rdy: controller.isPlayer2Rdy.value,
-          ),
+          Builder(builder: (context) {
+            return Obx(
+              () => LobbyUsersDataWidget(
+                player1Data:
+                    lobby.queuers.isNotEmpty ? lobby.queuers.first : null,
+                player2Data: lobby.queuers.length > 1 ? lobby.queuers[1] : null,
+                isMyLobby: controller.isMyLobby(),
+                onKick: controller.kickPlayer,
+                isPlayer1Rdy: controller.isPlayer1Rdy.value,
+                isPlayer2Rdy: controller.isPlayer2Rdy.value,
+              ),
+            );
+          }),
           const SizedBox(height: 20),
           Expanded(
             child: ListView.builder(

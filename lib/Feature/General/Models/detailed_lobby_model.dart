@@ -28,6 +28,24 @@ class DetailedLobbyModel extends LobbyModel {
     );
   }
 
+  DetailedLobbyModel removeQueuer(String queuerId) {
+    final List<QueuerModel> queuersList = queuers;
+    for (var queuerData in queuersList) {
+      if (queuerData.userId == queuerId) {
+        queuersList.remove(queuerData);
+        break;
+      }
+    }
+    return DetailedLobbyModel(
+      lobbyId: lobbyId,
+      lobbyName: lobbyName,
+      creatorId: creatorId,
+      gameTypes: gameTypes,
+      queuers: queuersList,
+      queuersLength: queuersLength,
+    );
+  }
+
   @override
   DetailedLobbyModel copyWith({
     final String? lobbyId,
