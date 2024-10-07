@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_chats_box.dart';
@@ -8,6 +9,7 @@ import 'package:kafehfekr/Core/Network/lobby_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Feature/General/Models/detailed_lobby_model.dart';
 import 'package:kafehfekr/Feature/General/Models/lobby_model.dart';
 import 'package:kafehfekr/Feature/General/Widgets/LobbyPage/create_lobby_widget.dart';
@@ -35,6 +37,17 @@ class LobbyController extends BaseController {
     final commandData = data['data'];
 
     switch (commandId) {
+      case GameCommands.startGame:
+        final String gameId = data['data']['game_id'];
+        const String gameType = 'activeQueueType.value';
+        Future.delayed(const Duration(seconds: 1)).then((_) {
+          Get.offAndToNamed(AppRoutes.gamePlay, arguments: gameId);
+          Get.find<GlobalController>().setActiveGameId(gameId, gameType);
+          Get.find<SoundPlayerComponent>()
+              .playGameSound(GameSoundTypes.queueFinded);
+          Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
+        });
+        break;
       case GameCommands.lobbyList:
         isPageLoading.value = false;
         for (var lobbyData in commandData) {
@@ -110,6 +123,9 @@ class LobbyController extends BaseController {
   }
 
   void onJoinLobby(LobbyModel lobby) {
+    if (lobby.queuersLength >= 2) {
+      return;
+    }
     sendCommand({
       "id": GameCommands.lobbyJoin,
       "data": {
@@ -139,7 +155,14 @@ class LobbyController extends BaseController {
     }
   }
 
-  startGame() {}
+  startGame() {
+    if (!isPlayer1Rdy.value || !isPlayer2Rdy.value) {
+      DialogComponent().showToast(label: AppTexts.twoPlayersMustRdy.tr);
+      return;
+    }
+    sendCommand({"id": GameCommands.lobbyStartGame});
+    isPageLoading.value = true;
+  }
 
   readyStartGame() {
     sendCommand({

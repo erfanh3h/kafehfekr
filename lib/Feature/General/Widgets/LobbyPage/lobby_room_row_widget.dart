@@ -1,8 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/General/Models/lobby_model.dart';
 import 'package:refreshed/refreshed.dart';
@@ -18,10 +20,10 @@ class LobbyRoomRowWidget extends StatelessWidget {
   final Function(LobbyModel) onJoin;
   @override
   Widget build(BuildContext context) {
-    final gameConvertor = GameTypeConvertor(
-        gameType: stringToGameType(
+    final gameType = stringToGameType(
       lobby.gameTypes.first,
-    ));
+    );
+    final gameConvertor = GameTypeConvertor(gameType: gameType);
 
     Color? color;
     return InkWell(
@@ -105,11 +107,20 @@ class LobbyRoomRowWidget extends StatelessWidget {
                 textDirection: TextDirection.ltr,
               ),
               const SizedBox(width: 15),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.play_circle_fill_rounded,
-                  color: AppColors.lightColor,
+              FadeInLeft(
+                child: IconButton(
+                  onPressed: () {
+                    Get.bottomSheet(
+                      GlobalGameGuideWidget(gameType: gameType),
+                      backgroundColor: AppColors.darkColor,
+                    );
+                  },
+                  icon: Image.asset(
+                    GeneralIcons.info,
+                    color: AppColors.lightColor,
+                    width: 30,
+                    height: 30,
+                  ),
                 ),
               ),
             ],

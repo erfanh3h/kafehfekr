@@ -71,7 +71,9 @@ class GamePlayPage extends BaseView<GamePlayController> {
                   Image.asset(
                     controller.gameScoreType == "Rank"
                         ? GeneralIcons.rank
-                        : GeneralIcons.normal,
+                        : controller.gameScoreType == "Lobby"
+                            ? GeneralIcons.lobby
+                            : GeneralIcons.normal,
                     width: 100,
                     height: 100,
                     color: AppColors.lightColor,

@@ -70,14 +70,15 @@ class LobbyActivityBox extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: maxWidth / 7,
-                        child: GlobalActivityButton(
-                          icon: GeneralIcons.rank,
-                          onTap: controller.startGame,
-                          text: AppTexts.start.tr,
+                      if (controller.isMyLobby())
+                        SizedBox(
+                          width: maxWidth / 7,
+                          child: GlobalActivityButton(
+                            icon: GeneralIcons.rank,
+                            onTap: controller.startGame,
+                            text: AppTexts.start.tr,
+                          ),
                         ),
-                      ),
                       SizedBox(
                         width: maxWidth / 7,
                         child: GlobalActivityButton(

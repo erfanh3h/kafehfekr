@@ -127,6 +127,7 @@ class AppTranslations extends Translations {
           AppTexts.changeImagePrice:
               'هزینه تغییر عکس 50 سکه است (بار اول رایگان)',
           AppTexts.changeUsernamePrice: 'هزینه تغییر اسم 75 سکه است',
+          AppTexts.twoPlayersMustRdy: '2 بازیکن باید آماده باشند',
           AppTexts.imReady: 'آماده ام',
           AppTexts.change: 'تغییر',
           AppTexts.chat: 'چت',
