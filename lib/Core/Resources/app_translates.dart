@@ -130,6 +130,7 @@ class AppTranslations extends Translations {
           AppTexts.twoPlayersMustRdy: '2 بازیکن باید آماده باشند',
           AppTexts.imReady: 'آماده ام',
           AppTexts.change: 'تغییر',
+          AppTexts.refresh: 'رفرش',
           AppTexts.chat: 'چت',
           AppTexts.start: 'شروع',
           AppTexts.cantKickYourself: 'نمیتونی خودتو کیک کنی',

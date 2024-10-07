@@ -45,6 +45,15 @@ class LobbyActivityBox extends StatelessWidget {
                           text: AppTexts.createLobby.tr,
                         ),
                       ),
+                      const SizedBox(width: 10),
+                      SizedBox(
+                        width: maxWidth / 7,
+                        child: GlobalActivityButton(
+                          icon: GeneralIcons.refresh,
+                          onTap: controller.requestData,
+                          text: AppTexts.refresh.tr,
+                        ),
+                      ),
                     ],
                   )
                 : Row(

@@ -17,45 +17,48 @@ class LobbyListBox extends StatelessWidget {
   final LobbyController controller;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        Padding(
-          padding: AppSpacings.s20Top,
-          child: Center(
-            child: Text(
-              AppTexts.lobbyList.tr,
-              style: const TextStyle(
-                color: AppColors.lightColor,
-                fontSize: 28,
-                fontFamily: FontFamilies.dastnevis,
-                letterSpacing: 2,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        Expanded(
-          child: Padding(
-            padding: AppSpacings.s20Horizental,
-            child: Obx(
-              () => ListView.builder(
-                itemBuilder: (ctx, index) => LobbyRoomRowWidget(
-                  lobby: controller.lobbies[index],
-                  onJoin: controller.onJoinLobby,
+    return RefreshIndicator(
+      onRefresh: () => controller.requestData(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Padding(
+            padding: AppSpacings.s20Top,
+            child: Center(
+              child: Text(
+                AppTexts.lobbyList.tr,
+                style: const TextStyle(
+                  color: AppColors.lightColor,
+                  fontSize: 28,
+                  fontFamily: FontFamilies.dastnevis,
+                  letterSpacing: 2,
                 ),
-                itemCount: controller.lobbies.length,
               ),
             ),
           ),
-        ),
-        Transform.scale(
-          scale: 1.5,
-          child: LobbyActivityBox(controller: controller),
-        ),
-        const SizedBox(height: 30),
-      ],
+          const SizedBox(height: 20),
+          Expanded(
+            child: Padding(
+              padding: AppSpacings.s20Horizental,
+              child: Obx(
+                () => ListView.builder(
+                  itemBuilder: (ctx, index) => LobbyRoomRowWidget(
+                    lobby: controller.lobbies[index],
+                    onJoin: controller.onJoinLobby,
+                  ),
+                  itemCount: controller.lobbies.length,
+                ),
+              ),
+            ),
+          ),
+          Transform.scale(
+            scale: 1.5,
+            child: LobbyActivityBox(controller: controller),
+          ),
+          const SizedBox(height: 30),
+        ],
+      ),
     );
   }
 }

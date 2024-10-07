@@ -111,6 +111,8 @@ abstract class GameCommands {
   static const lobbyDeleted = "LobbyDeleted";
   static const lobbyPlayerReady = "LobbyPlayerReady";
   static const lobbyKick = "LobbyKick";
+  static const lobbyQuit = "LobbyQuit";
+  static const lobbyRequestData = "LobbyRequestData";
 }
 
 class GeneralGameConsts {
@@ -158,6 +160,12 @@ List<String> chats = [
   "بدو عجله دارم",
   "بدو تا کیک نشدی",
   "ما رفتیم",
+  "کیک نکن",
+  "بلدی بازیو؟",
+  "اره",
+  "نه",
+  "2 دقیقه ای باختی",
+  "هه!",
 ];
 List<String> koris = [
   "شکست دیگه عادتت شده!",

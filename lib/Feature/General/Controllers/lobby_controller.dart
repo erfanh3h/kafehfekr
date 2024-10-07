@@ -32,6 +32,16 @@ class LobbyController extends BaseController {
   RxBool isPlayer1Rdy = RxBool(false);
   RxBool isPlayer2Rdy = RxBool(false);
 
+  resetLobbyData() {
+    joinedLobby.value = null;
+    isPlayer1Rdy.value = false;
+    isPlayer2Rdy.value = false;
+    letSendChat.value = true;
+    joinedLobbyChats.clear();
+    lobbies.clear();
+    imReadyToStart.value = false;
+  }
+
   void commandHandler(dynamic data) {
     final commandId = data['id'];
     final commandData = data['data'];
@@ -73,11 +83,14 @@ class LobbyController extends BaseController {
         break;
       case GameCommands.lobbyDeleted:
         DialogComponent().showToast(label: AppTexts.lobbyDeleted.tr);
-        Get.back();
+        resetLobbyData();
         break;
       case GameCommands.lobbyKick:
         DialogComponent().showToast(label: AppTexts.lobbyKicked.tr);
-        Get.back();
+        resetLobbyData();
+        for (var lobbyData in commandData) {
+          lobbies.add(LobbyModel.fromJson(lobbyData));
+        }
         break;
       default:
     }
@@ -124,6 +137,7 @@ class LobbyController extends BaseController {
 
   void onJoinLobby(LobbyModel lobby) {
     if (lobby.queuersLength >= 2) {
+      DialogComponent().showToast(label: AppTexts.lobbyIsFull.tr);
       return;
     }
     sendCommand({
@@ -139,7 +153,13 @@ class LobbyController extends BaseController {
   }
 
   exitLobby() {
-    Get.back();
+    if (isMyLobby()) {
+      resetLobbyData();
+      sendCommand({"id": GameCommands.lobbyDelete});
+    } else {
+      resetLobbyData();
+      sendCommand({"id": GameCommands.lobbyQuit});
+    }
   }
 
   void showChatBox() {
@@ -153,6 +173,11 @@ class LobbyController extends BaseController {
         backgroundColor: AppColors.darkColor,
       );
     }
+  }
+
+  requestData() {
+    lobbies.clear();
+    sendCommand({"id": GameCommands.lobbyRequestData});
   }
 
   startGame() {

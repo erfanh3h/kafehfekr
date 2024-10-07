@@ -40,6 +40,7 @@ abstract class AppTexts {
   static const winBase = "winBase";
   static const createLobby = "createLobby";
   static const cancel = "cancel";
+  static const refresh = "refresh";
   static const exit = "exit";
   static const back = "back";
   static const wait = "wait";
