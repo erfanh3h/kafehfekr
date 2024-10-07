@@ -10,6 +10,7 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/General/Models/detailed_lobby_model.dart';
 import 'package:kafehfekr/Feature/General/Models/lobby_model.dart';
+import 'package:kafehfekr/Feature/General/Widgets/LobbyPage/create_lobby_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 class LobbyController extends BaseController {
@@ -165,6 +166,20 @@ class LobbyController extends BaseController {
 
   bool isMyLobby() {
     return Get.find<GlobalController>().userId == joinedLobby.value!.creatorId;
+  }
+
+  createLobby() {
+    Get.bottomSheet(
+      Obx(
+        () => CreateLobbyWidget(
+          lobbyNameController: lobbyNameController,
+          onCreate: onCreateLobby,
+          onChangeGameType: onChangeGameType,
+          selectedGameType: selectedCreateGameType.value,
+        ),
+      ),
+      backgroundColor: AppColors.darkColor,
+    );
   }
 
   @override

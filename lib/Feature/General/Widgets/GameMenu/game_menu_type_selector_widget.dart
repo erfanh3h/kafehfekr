@@ -45,7 +45,7 @@ class GameMenuTypeSelectorWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            AppTexts.normalGame.tr,
+                            AppTexts.lobbyGame.tr,
                             style: TextStyle(
                               color: controller.selectedTab.value == 0
                                   ? AppColors.darkColor
@@ -80,7 +80,7 @@ class GameMenuTypeSelectorWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            AppTexts.rankGame.tr,
+                            AppTexts.normalGame.tr,
                             style: TextStyle(
                               color: controller.selectedTab.value == 1
                                   ? AppColors.darkColor
@@ -115,7 +115,7 @@ class GameMenuTypeSelectorWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            AppTexts.lobbyGame.tr,
+                            AppTexts.rankGame.tr,
                             style: TextStyle(
                               color: controller.selectedTab.value == 2
                                   ? AppColors.darkColor

@@ -31,11 +31,11 @@ class _GameMenuPageState extends State<GameMenuPage>
             child: Obx(
               () {
                 switch (controller.selectedTab.value) {
-                  case 0:
-                    return NormalGamePartWidget(controller: controller);
                   case 1:
-                    return RankGamePartWidget(controller: controller);
+                    return NormalGamePartWidget(controller: controller);
                   case 2:
+                    return RankGamePartWidget(controller: controller);
+                  case 0:
                     return LobbyGamePartWidget(controller: controller);
                   default:
                     return NormalGamePartWidget(controller: controller);

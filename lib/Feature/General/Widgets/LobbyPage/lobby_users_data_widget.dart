@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -148,6 +147,7 @@ class UserRowData extends StatelessWidget {
   Widget build(BuildContext context) {
     Color backGroundColor = AppColors.lightColor;
     Color fontGroundColor = AppColors.darkColor;
+    Color borderColor = isRdy ? AppColors.darkGreen : AppColors.white;
     return Container(
       padding: AppSpacings.s5Vertical,
       width: 125,
@@ -160,7 +160,7 @@ class UserRowData extends StatelessWidget {
         ),
         color: backGroundColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.lightColor, width: 2),
+        border: Border.all(color: borderColor, width: 6),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -176,26 +176,17 @@ class UserRowData extends StatelessWidget {
             ),
           Expanded(
             child: FadeIn(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    CupertinoIcons.check_mark_circled,
-                    color: isRdy ? Colors.black : AppColors.redWarmColor,
-                  ),
-                  Text(
-                    playerData.name,
-                    style: TextStyle(
-                      fontFamily: FontFamilies.playPen,
-                      fontSize: 13,
-                      color: fontGroundColor,
-                    ),
-                    textDirection: TextDirection.ltr,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+              child: Text(
+                playerData.name,
+                style: TextStyle(
+                  fontFamily: FontFamilies.playPen,
+                  fontSize: 13,
+                  color: fontGroundColor,
+                ),
+                textDirection: TextDirection.ltr,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
               ),
             ),
           ),

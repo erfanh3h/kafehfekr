@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/General/Controllers/lobby_controller.dart';
-import 'package:kafehfekr/Feature/General/Widgets/LobbyPage/create_lobby_widget.dart';
+import 'package:kafehfekr/Feature/General/Widgets/LobbyPage/lobby_activity_box.dart';
 import 'package:kafehfekr/Feature/General/Widgets/LobbyPage/lobby_room_row_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -51,48 +50,11 @@ class LobbyListBox extends StatelessWidget {
             ),
           ),
         ),
-        // const Spacer(
-        //   flex: 2,
-        // ),
-        Container(
-          margin: AppSpacings.s20Bottom,
-          padding: AppSpacings.s10All,
-          child: Row(
-            children: [
-              Expanded(
-                child: GlobalButtonWidget(
-                  onTap: () {
-                    Get.bottomSheet(
-                      Obx(
-                        () => CreateLobbyWidget(
-                          lobbyNameController: controller.lobbyNameController,
-                          onCreate: controller.onCreateLobby,
-                          onChangeGameType: controller.onChangeGameType,
-                          selectedGameType:
-                              controller.selectedCreateGameType.value,
-                        ),
-                      ),
-                      backgroundColor: AppColors.darkColor,
-                    );
-                  },
-                  text: AppTexts.createLobby.tr,
-                  color: AppColors.blueWarmColor,
-                ),
-              ),
-              Expanded(
-                child: GlobalButtonWidget(
-                  onTap: () {
-                    Get.back();
-                  },
-                  text: AppTexts.back.tr,
-                  color: AppColors.buttonRed,
-                ),
-              ),
-            ],
-          ),
-        )
-        // GlobalActivityBox<FourInRowController>(),
-        // const Spacer(flex: 1),
+        Transform.scale(
+          scale: 1.5,
+          child: LobbyActivityBox(controller: controller),
+        ),
+        const SizedBox(height: 30),
       ],
     );
   }
