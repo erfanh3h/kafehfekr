@@ -30,9 +30,9 @@ class JoinedLobbyWidget extends StatelessWidget {
                 controller.joinedLobby.value!.lobbyName,
                 style: const TextStyle(
                   color: AppColors.lightColor,
-                  fontSize: 25,
+                  fontSize: 30,
                   fontFamily: FontFamilies.playPen,
-                  letterSpacing: 6,
+                  // letterSpacing: 6,
                 ),
               ),
               const SizedBox(height: 4),
@@ -64,8 +64,14 @@ class JoinedLobbyWidget extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               itemBuilder: (ctx, index) => ChatBox(
-                isLeft: controller.joinedLobbyChats[index].$1,
-                index: controller.joinedLobbyChats[index].$2,
+                isLeft: controller
+                    .joinedLobbyChats[
+                        controller.joinedLobbyChats.length - 1 - index]
+                    .$1,
+                index: controller
+                    .joinedLobbyChats[
+                        controller.joinedLobbyChats.length - 1 - index]
+                    .$2,
               ),
               itemCount: controller.joinedLobbyChats.length,
             ),

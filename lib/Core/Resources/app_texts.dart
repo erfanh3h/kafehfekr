@@ -58,6 +58,7 @@ abstract class AppTexts {
   static const gameType = "gameType";
   static const selectGameType = "selectGameType";
   static const games = "games";
+  static const lobbyGuide = "lobbyGuide";
   static const normalGuide = "normalGuide";
   static const rankGuide = "rankGuide";
   static const clan = "clan";
@@ -177,6 +178,25 @@ abstract class AppTexts {
   static const pentagoNarrative = "PentagoNarrative";
   static const yinshNarrative = "yinshNarrative";
   static const backGammonNarrative = "backGammonNarrative";
+  static const tictactoeTime = "tictactoeTime";
+  static const rpcTime = "rpcTime";
+  static const millTime = "millTime";
+  static const msweeperTime = "msweeperTime";
+  static const mnumbersTime = "mnumbersTime";
+  static const chessTime = "chessTime";
+  static const checkersTime = "checkersTime";
+  static const tenTime = "tenTime";
+  static const othelloTime = "othelloTime";
+  static const dotboxTime = "dotboxTime";
+  static const yatzyTime = "yatzyTime";
+  static const fourInRowTime = "fourInRowTime";
+  static const sudokuTime = "sudokuTime";
+  static const battleshipTime = "battleshipTime";
+  static const boxFourTime = "boxFourTime";
+  static const fekrBekrTime = "FekrBekrTime";
+  static const pentagoTime = "PentagoTime";
+  static const yinshTime = "yinshTime";
+  static const backGammonTime = "backGammonTime";
 
   static const notYourTurn = "notYourTurn";
   static const cantSelect = "cantSelect";
@@ -201,6 +221,7 @@ abstract class AppTexts {
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
   static const notEnoughCoin = "notEnoughCoin";
+  static const overview = "overview";
 
   static const difficultyLevel = "difficultyLevel";
   static const level = "level";

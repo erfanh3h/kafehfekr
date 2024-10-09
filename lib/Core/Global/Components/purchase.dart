@@ -28,16 +28,16 @@ class PurchaseComponent {
   Future<(bool, String?)> purchase(String id, String userId) async {
     if (marketType == MarketTypes.Bazaar) {
       try {
-          // return (true, "24261909103423");
-          PurchaseInfo? response = await FlutterPoolakey.purchase(
-            id,
-            payload: {'user_id': userId}.toString(),
-          );
-          if (response.purchaseToken != "") {
-            await FlutterPoolakey.consume(response.purchaseToken);
-            return (true, response.purchaseToken);
-          }
-          return (false, null);
+      // return (true, "24261909103423");
+      PurchaseInfo? response = await FlutterPoolakey.purchase(
+        id,
+        payload: {'user_id': userId}.toString(),
+      );
+      if (response.purchaseToken != "") {
+        await FlutterPoolakey.consume(response.purchaseToken);
+        return (true, response.purchaseToken);
+      }
+      return (false, null);
       } catch (_) {
           DialogComponent().showToast(label: AppTexts.purchaseCanceled.tr);
           return (false, null);
@@ -49,16 +49,16 @@ class PurchaseComponent {
       // );
       // // 6 for not found
       // try {
-      // final res = result['result'] as IabResult;
-      // if (res.mResponse == -1005) {
-      //   DialogComponent().showToast(label: AppTexts.purchaseCanceled.tr);
-      //   return (false, null);
-      // }
-      // if (res.mResponse == 0) {
-      //   final purchase = result['purchase'] as Purchase;
-      //   Map re = await MyketIAP.consume(purchase: purchase);
-      //   return (true, purchase.mToken);
-      // }
+      //   final res = result['result'] as IabResult;
+      //   if (res.mResponse == -1005) {
+      //     DialogComponent().showToast(label: AppTexts.purchaseCanceled.tr);
+      //     return (false, null);
+      //   }
+      //   if (res.mResponse == 0) {
+      //     final purchase = result['purchase'] as Purchase;
+      //     Map re = await MyketIAP.consume(purchase: purchase);
+      //     return (true, purchase.mToken);
+      //   }
       // } catch (_) {}
     }
     return (false, null);

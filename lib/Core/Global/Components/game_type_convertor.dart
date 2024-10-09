@@ -139,6 +139,71 @@ class GameTypeConvertor {
     return result;
   }
 
+  String toGameTime() {
+    String result = '';
+    switch (gameType) {
+      case GameTypes.TicTacToe:
+        result = AppTexts.tictactoeTime.tr;
+        break;
+      case GameTypes.FekrBekr:
+        result = AppTexts.fekrBekrTime.tr;
+        break;
+      case GameTypes.Pentago:
+        result = AppTexts.pentagoTime.tr;
+        break;
+      case GameTypes.RPC:
+        result = AppTexts.rpcTime.tr;
+        break;
+      case GameTypes.BackGammon:
+        result = AppTexts.backGammonTime.tr;
+        break;
+      case GameTypes.Checkers:
+        result = AppTexts.checkersTime.tr;
+        break;
+      case GameTypes.Chess:
+        result = AppTexts.chessTime.tr;
+        break;
+      case GameTypes.Ten:
+        result = AppTexts.tenTime.tr;
+        break;
+      case GameTypes.BattleShip:
+        result = AppTexts.battleshipTime.tr;
+        break;
+      case GameTypes.DotBox:
+        result = AppTexts.dotboxTime.tr;
+        break;
+      case GameTypes.BoxFour:
+        result = AppTexts.boxFourTime.tr;
+        break;
+      case GameTypes.Yatzy:
+        result = AppTexts.yatzyTime.tr;
+        break;
+      case GameTypes.Mill:
+        result = AppTexts.millTime.tr;
+        break;
+      case GameTypes.Othello:
+        result = AppTexts.othelloTime.tr;
+        break;
+      case GameTypes.Yinsh:
+        result = AppTexts.yinshTime.tr;
+        break;
+      case GameTypes.Sudoku:
+        result = AppTexts.sudokuTime.tr;
+        break;
+      case GameTypes.MNumbers:
+        result = AppTexts.mnumbersTime.tr;
+        break;
+      case GameTypes.MSweeper:
+        result = AppTexts.msweeperTime.tr;
+        break;
+      case GameTypes.FourInRow:
+        result = AppTexts.fourInRowTime.tr;
+        break;
+      default:
+    }
+    return result;
+  }
+
   GameDifficulties toGameDifficallty() {
     GameDifficulties result;
     switch (gameType) {

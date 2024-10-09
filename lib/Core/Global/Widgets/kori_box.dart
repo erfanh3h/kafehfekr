@@ -17,45 +17,35 @@ class KoriBox extends StatelessWidget {
     return SlideInDown(
       duration: const Duration(milliseconds: 300),
       from: 30,
-      child: Column(
-        children: [
-          ClipPath(
-            clipper: CustomTriangleClipper(isLeft: isLeft),
-            child: Container(
-              width: 125,
-              height: 60,
-              padding: AppSpacings.s2All,
-              decoration: BoxDecoration(
-                // color: AppColors.goldenColor2,
-                gradient: LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [
-                    Color.fromARGB(isLeft ? 200 : 50, 212, 133, 126),
-                    Color.fromARGB(isLeft ? 50 : 200, 214, 172, 168),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(7),
-              ),
-              child: Padding(
-                padding: AppSpacings.s10Top,
-                child: Center(
-                  child: Text(
-                    koris[index],
-                    style: const TextStyle(
-                      fontFamily: FontFamilies.hekayat,
-                      fontSize: 17,
-                      color: Colors.white,
-                      height: 1.1,
-                    ),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                  ),
-                ),
-              ),
-            ),
+      child: Container(
+        width: 125,
+        height: 50,
+        padding: AppSpacings.s2All,
+        decoration: BoxDecoration(
+          // color: AppColors.goldenColor2,
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [
+              Color.fromARGB(isLeft ? 200 : 50, 212, 133, 126),
+              Color.fromARGB(isLeft ? 50 : 200, 214, 172, 168),
+            ],
           ),
-        ],
+          borderRadius: BorderRadius.circular(7),
+        ),
+        child: Center(
+          child: Text(
+            koris[index],
+            style: const TextStyle(
+              fontFamily: FontFamilies.hekayat,
+              fontSize: 17,
+              color: Colors.white,
+              height: 1.1,
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+          ),
+        ),
       ),
     );
   }

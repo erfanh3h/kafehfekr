@@ -1,10 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
@@ -26,6 +26,10 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
   int index = 0;
   final ScrollController sc = ScrollController();
   String? guideLink;
+  String? gameNarrative;
+  String? gameImage;
+  String? gameTime;
+  GameDifficulties? gameDifficulty;
   changeIndex(int newIndex) {
     sc.jumpTo(0);
     setState(() {
@@ -35,7 +39,12 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
 
   @override
   void initState() {
-    guideLink = GameTypeConvertor(gameType: widget.gameType).toGameGuideLink();
+    final convertor = GameTypeConvertor(gameType: widget.gameType);
+    guideLink = convertor.toGameGuideLink();
+    gameNarrative = convertor.toGameNarrative();
+    gameImage = convertor.toGameImage();
+    gameTime = convertor.toGameTime();
+    gameDifficulty = convertor.toGameDifficallty();
     super.initState();
   }
 
@@ -55,13 +64,14 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
               ),
             ),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 10),
           FadeIn(
             delay: const Duration(milliseconds: 150),
             child: Center(
               child: Container(
                 padding: AppSpacings.s5All,
-                width: 250.w,
+                margin: AppSpacings.s10Horizental,
+                // width: 250.w,
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.lightColor),
                   borderRadius: BorderRadius.circular(15),
@@ -79,7 +89,7 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
                         child: TextButton(
                           onPressed: () => changeIndex(0),
                           child: Text(
-                            AppTexts.gamePlay.tr,
+                            AppTexts.overview.tr,
                             style: TextStyle(
                               color: index == 0
                                   ? AppColors.darkColor
@@ -100,9 +110,30 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
                         child: TextButton(
                           onPressed: () => changeIndex(1),
                           child: Text(
-                            AppTexts.howToPlay.tr,
+                            AppTexts.gamePlay.tr,
                             style: TextStyle(
                               color: index == 1
+                                  ? AppColors.darkColor
+                                  : AppColors.lightColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: index == 2
+                              ? AppColors.lightColor
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextButton(
+                          onPressed: () => changeIndex(2),
+                          child: Text(
+                            AppTexts.howToPlay.tr,
+                            style: TextStyle(
+                              color: index == 2
                                   ? AppColors.darkColor
                                   : AppColors.lightColor,
                             ),
@@ -118,44 +149,158 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
           ),
           const SizedBox(height: 15),
           Expanded(
-            child: ListView(
-              controller: sc,
-              children: [
-                if (guideLink != null && index == 0)
-                  Container(
-                    margin: AppSpacings.s20Bottom,
-                    child: Center(
-                      child: InkWell(
-                        onTap: () async {
-                          final Uri url = Uri.parse(guideLink!);
-                          await launchUrl(url);
-                        },
-                        child: Text(
-                          AppTexts.taturialLink.tr,
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontFamily: FontFamilies.vazir,
-                            color: AppColors.lightColor,
-                            height: 2,
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColors.lightColor,
+            child: Padding(
+              padding: AppSpacings.s10All,
+              child: ListView(
+                controller: sc,
+                children: index == 0
+                    ? [
+                        Row(
+                          children: [
+                            FadeInRight(
+                              child: Padding(
+                                padding: AppSpacings.s20Horizental,
+                                child: Container(
+                                  width: 150,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xff7c94b6),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                        gameImage ?? "",
+                                      ),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    border: Border.all(
+                                      color: AppColors.lightColor,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  FadeInDown(
+                                    delay: const Duration(milliseconds: 150),
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          GeneralIcons.time,
+                                          color: AppColors.lightColor,
+                                          width: 40,
+                                          height: 40,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Expanded(
+                                          child: Text(
+                                            gameTime?.tr ?? "",
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              fontFamily: FontFamilies.playPen,
+                                              color: AppColors.lightColor,
+                                              height: 1.75,
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 15),
+                                  FadeInUp(
+                                    delay: const Duration(milliseconds: 250),
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          ReactionIcons().generalIconsPath(4),
+                                          color: AppColors.lightColor,
+                                          width: 40,
+                                          height: 40,
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Expanded(
+                                          child: Text(
+                                            gameDifficulty?.name.tr ?? "",
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                              color: AppColors.lightColor,
+                                              height: 1.75,
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 15),
+                        Padding(
+                          padding: AppSpacings.s5All,
+                          child: FadeIn(
+                            delay: const Duration(milliseconds: 400),
+                            child: Text(
+                              gameNarrative ?? "",
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontFamily: FontFamilies.dastnevis,
+                                color: AppColors.lightColor,
+                                height: 1.75,
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                Text(
-                  index == 0
-                      ? '${widget.gameType.name.toLowerCase()}Guide'.tr
-                      : '${widget.gameType.name.toLowerCase()}GameGuide'.tr,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontFamily: FontFamilies.vazir,
-                    color: AppColors.lightColor,
-                    height: 2,
-                  ),
-                ),
-              ],
+                      ]
+                    : [
+                        if (guideLink != null && index == 1)
+                          Container(
+                            margin: AppSpacings.s20Bottom,
+                            child: Center(
+                              child: InkWell(
+                                onTap: () async {
+                                  final Uri url = Uri.parse(guideLink!);
+                                  await launchUrl(url);
+                                },
+                                child: Text(
+                                  AppTexts.taturialLink.tr,
+                                  style: const TextStyle(
+                                    fontSize: 25,
+                                    fontFamily: FontFamilies.vazir,
+                                    color: AppColors.lightColor,
+                                    height: 2,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.lightColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        FadeIn(
+                          delay: const Duration(milliseconds: 100),
+                          child: Text(
+                            index == 1
+                                ? '${widget.gameType.name.toLowerCase()}Guide'
+                                    .tr
+                                : '${widget.gameType.name.toLowerCase()}GameGuide'
+                                    .tr,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontFamily: FontFamilies.vazir,
+                              color: AppColors.lightColor,
+                              height: 2,
+                            ),
+                          ),
+                        ),
+                      ],
+              ),
             ),
           ),
         ],

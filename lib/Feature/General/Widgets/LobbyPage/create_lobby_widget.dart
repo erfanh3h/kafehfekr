@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
@@ -29,42 +30,40 @@ class CreateLobbyWidget extends StatelessWidget {
     final int gamesLength = marketType == MarketTypes.Bazaar
         ? gameTypesParts.length - 1
         : gameTypesParts.length;
-    List<DropdownMenuItem<GameTypes>>? items = [];
+    List<DropdownMenuEntry<GameTypes>>? items = [];
     for (var i = 0; i < gamesLength; i++) {
       final value = gameTypesParts[i];
       final gameConvertor = GameTypeConvertor(gameType: value);
-      items.add(DropdownMenuItem<GameTypes>(
-        value: value,
-        child: Row(
-          children: [
-            Container(
-              width: 25,
-              height: 25,
-              decoration: BoxDecoration(
-                color: const Color(0xff7c94b6),
-                image: DecorationImage(
-                  image: AssetImage(
-                    gameConvertor.toGameImage(),
-                  ),
-                  fit: BoxFit.cover,
+      items.add(
+        DropdownMenuEntry<GameTypes>(
+          value: value,
+          label: value.name.tr,
+          leadingIcon: Container(
+            width: 25,
+            height: 25,
+            decoration: BoxDecoration(
+              color: const Color(0xff7c94b6),
+              image: DecorationImage(
+                image: AssetImage(
+                  gameConvertor.toGameImage(),
                 ),
-                border: Border.all(
-                  color: AppColors.lightColor,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(10),
+                fit: BoxFit.cover,
               ),
-            ),
-            const SizedBox(width: 5),
-            Text(
-              value.name.tr,
-              style: const TextStyle(
-                color: AppColors.lightColor,
+              border: Border.all(
+                color: AppColors.darkColor,
+                width: 1,
               ),
+              borderRadius: BorderRadius.circular(5),
             ),
-          ],
+          ),
+          labelWidget: Text(
+            value.name.tr,
+            style: const TextStyle(
+              color: AppColors.darkColor,
+            ),
+          ),
         ),
-      ));
+      );
     }
     return Container(
       padding: AppSpacings.s20All,
@@ -73,6 +72,7 @@ class CreateLobbyWidget extends StatelessWidget {
           Row(
             children: [
               Expanded(
+                flex: 2,
                 child: Text(
                   AppTexts.lobbyName.tr,
                   style: const TextStyle(
@@ -82,6 +82,7 @@ class CreateLobbyWidget extends StatelessWidget {
                 ),
               ),
               Expanded(
+                flex: 3,
                 child: GlobalInputBox(
                   label: AppTexts.lobbyName.tr,
                   controller: lobbyNameController,
@@ -95,6 +96,7 @@ class CreateLobbyWidget extends StatelessWidget {
           Row(
             children: [
               Expanded(
+                flex: 2,
                 child: Text(
                   AppTexts.selectGameType.tr,
                   style: const TextStyle(
@@ -104,12 +106,15 @@ class CreateLobbyWidget extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: DropdownButton<GameTypes>(
-                  items: items,
-                  onChanged: onChangeGameType,
-                  value: selectedGameType,
-                  dropdownColor: AppColors.darkRed,
-                  underline: null,
+                flex: 3,
+                child: DropdownMenu<GameTypes>(
+                  onSelected: onChangeGameType,
+                  dropdownMenuEntries: items,
+                  textStyle: const TextStyle(color: AppColors.lightColor),
+                  trailingIcon: const Icon(
+                    CupertinoIcons.chevron_down,
+                    color: AppColors.lightColor,
+                  ),
                 ),
               ),
             ],

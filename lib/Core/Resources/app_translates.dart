@@ -42,6 +42,7 @@ class AppTranslations extends Translations {
               '5 بازی را انتخاب کنید.3 بازی از بین بازی های انتخابی شما و حریفتان بطور شانسی برای بازی انتخاب می شود.',
           AppTexts.lobbyGameMenu:
               'با ورود به صفحه ی لابی ها و ساخت لابی ، با دوستان خود بازی کنید.',
+          AppTexts.overview: 'نمای کلی',
           AppTexts.normalGame: 'دوستانه',
           AppTexts.rankGame: 'رقابتی',
           AppTexts.lobbyGame: 'لابی',
@@ -174,10 +175,11 @@ class AppTranslations extends Translations {
           AppTexts.battleship: 'نبردکشتی',
           AppTexts.boxFour: 'چهارطرفه',
           AppTexts.backGammon: 'تخته نرد',
-          AppTexts.normalGuide: '''
-بازی دوستانه برای اوناس که میخوان فقط از بازی لذت ببرن. برای بازی دوستانه ، نیازی به پرداخت سکه نیست و میتونی  بینهایت سرگرم بشی. در بازی دوستانه ، بُرد یا باخت بازی تاثیری در امتیاز نداره.
-برای بازی های دوستانه فقط آمار کلی بُرد و باخت و مساوی ذخیره میشه.
+          AppTexts.lobbyGuide: '''
+لابی برای اوناس که میخوان فقط از بازی لذت ببرن. برای لابی ، نیازی به پرداخت سکه نیست و میتونی  بینهایت سرگرم بشی. در لابی ، بُرد یا باخت بازی تاثیری در امتیاز نداره و نتایج بازی ها جایی ذخیره نمیشه.
 ''',
+          AppTexts.normalGuide: '''
+بازی دوستانه شبیه به بازی رقابتیه. با این تفاوت که باید 2 بازی انتخاب کنی و یکیش رو بطور شانسی با حریفت بازی کنی.برای بازی دوستانه نیازی به پرداخت سکه نیست. در بازی دوستانه ، بُرد یا باخت بازی تاثیری در امتیاز نداره. برای بازی های دوستانه فقط آمار کلی بُرد و باخت و مساوی ذخیره میشه.''',
           AppTexts.rankGuide: '''
 بازی های رقابتی هیجان وجذابیت بیشتری داره  و باید مهارت بیشتری در بازی ها داشته باشی. نحوه ی انجام بازی رقابتی به این صورته که ابتدا باید 5 تا از بازی هارو به طور دلخواه انتخاب کنی.سپس دکمه ی شروع رو بزنی.پس از پیدا شدن حریف ، بازی بطور شانسی از بین 5 بازی تو و 5 بازی حریفت ، 3 تا بازی رو انتخاب میکنه که بازی کنید.کسی که بیشترین برد رو در این 3 بازی داشته باشه برنده بازیه.
 برای انجام بازی رقابتی ، باید 15 سکه پرداخت کنی که البته اگر ببری سکه هات رو کامل پس میگیری.اگر بازی مساوی بشه ، هر بازیکن 5 سکه رو پس میگیرن. 
@@ -1016,7 +1018,26 @@ class AppTranslations extends Translations {
           AppTexts.pentagoNarrative:
               'در دنیای پنتاگو، هر مهره‌ داستانی را روایت می‌کند و هر چرخش تخته، درختی از احتمالات را می‌رویاند. استراتژی همچون شعری است که در ذهن شما نقش می‌بندد، و در این رقص فکری، بازیکنان با دقت و شتاب به دنبال افق‌های پیروزی می‌گردند. این بازی، ترکیبی از ذکاوت و زیبایی است که در آن هر لحظه ممکن است سرنوشت تغییر یابد.',
           AppTexts.yinshNarrative:
-              'در دنیای یینش، هر حلقه فرمانده‌ای خاموش است که نشانگرها را به میدان نبردی بی‌رحمانه می‌برد. با هر چرخش، صفحه از بی‌نظمی به نظم و از تاریکی به روشنایی تغییر می‌کند. این بازی، گفتگوی بی‌کلامی است میان استراتژی و شهود، جایی که هر لحظه حامل پیروزی یا شکست است.'
+              'در دنیای یینش، هر حلقه فرمانده‌ای خاموش است که نشانگرها را به میدان نبردی بی‌رحمانه می‌برد. با هر چرخش، صفحه از بی‌نظمی به نظم و از تاریکی به روشنایی تغییر می‌کند. این بازی، گفتگوی بی‌کلامی است میان استراتژی و شهود، جایی که هر لحظه حامل پیروزی یا شکست است.',
+          AppTexts.tictactoeTime: "3-5",
+          AppTexts.rpcTime: "3-5",
+          AppTexts.millTime: "5-20",
+          AppTexts.msweeperTime: "5-10",
+          AppTexts.mnumbersTime: "5-20",
+          AppTexts.chessTime: "15-30",
+          AppTexts.checkersTime: "15-30",
+          AppTexts.tenTime: "3-10",
+          AppTexts.othelloTime: "10-15",
+          AppTexts.dotboxTime: "3-5",
+          AppTexts.yatzyTime: "7-10",
+          AppTexts.fourInRowTime: "3-10",
+          AppTexts.sudokuTime: "5-15",
+          AppTexts.battleshipTime: "5-15",
+          AppTexts.boxFourTime: "5-10",
+          AppTexts.fekrBekrTime: "5-15",
+          AppTexts.pentagoTime: "10-20",
+          AppTexts.yinshTime: "15-30",
+          AppTexts.backGammonTime: "15-40",
         },
         'en': {
           AppTexts.endGame: 'Game Finished',
@@ -1747,6 +1768,25 @@ Backgammon is a blend of strategic planning and luck, with each game offering a 
           AppTexts.battleshipGameGuide: '',
           AppTexts.boxFourGameGuide: '',
           AppTexts.backGammonGameGuide: '',
+          AppTexts.tictactoeTime: "3-5",
+          AppTexts.rpcTime: "3-5",
+          AppTexts.millTime: "5-20",
+          AppTexts.msweeperTime: "5-10",
+          AppTexts.mnumbersTime: "5-20",
+          AppTexts.chessTime: "15-30",
+          AppTexts.checkersTime: "15-30",
+          AppTexts.tenTime: "3-10",
+          AppTexts.othelloTime: "10-15",
+          AppTexts.dotboxTime: "3-5",
+          AppTexts.yatzyTime: "7-10",
+          AppTexts.fourInRowTime: "3-10",
+          AppTexts.sudokuTime: "5-15",
+          AppTexts.battleshipTime: "5-15",
+          AppTexts.boxFourTime: "5-10",
+          AppTexts.fekrBekrTime: "5-15",
+          AppTexts.pentagoTime: "10-20",
+          AppTexts.yinshTime: "15-30",
+          AppTexts.backGammonTime: "15-40",
         },
       };
 }

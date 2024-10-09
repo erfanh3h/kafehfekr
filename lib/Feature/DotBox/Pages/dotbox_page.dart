@@ -31,7 +31,7 @@ class DotBoxPage extends BaseView<DotBoxController> {
               player1Number1: controller.player1Score.value,
               player2Number1: controller.player2Score.value,
             ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 55),
           DotBoxBoardWidget(controller: controller),
           const Spacer(),
           GlobalActivityBox<DotBoxController>(),

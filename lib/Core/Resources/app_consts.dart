@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 
-const String appVersion = "1.2.0";
-const MarketTypes marketType = MarketTypes.Myket;
+const String appVersion = "1.3.0";
+const MarketTypes marketType = MarketTypes.Bazaar;
 
 const myketRSA =
     "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCWzTjRpfhobmrMlqNa/gL/3iMUnMjWzpB+CggkB0eqGX8sHrxdb4qPB8e/5wBR1e+gGYttJ5zG0031m+JGwlPf6IJjtfhSTh6m1fdtjdb9wP0btnjqhGVWHwXO2claGmv84GcvvBuzjdpZ6lDPAox05V9ZQ6ut8TkfcMmcApj2bwIDAQAB";
@@ -109,6 +109,7 @@ abstract class GameCommands {
   static const lobbyStartGame = "LobbyStartGame";
   static const lobbyDelete = "LobbyDelete";
   static const lobbyDeleted = "LobbyDeleted";
+  static const lobbyNotExists = "LobbyNotExists";
   static const lobbyPlayerReady = "LobbyPlayerReady";
   static const lobbyKick = "LobbyKick";
   static const lobbyQuit = "LobbyQuit";
@@ -199,7 +200,7 @@ List<String> koris = [
   "ایده خوبی داشتی، بهش ادامه بده!",
   "مثل همیشه برنده!",
   "یک حرکت و تموم!",
-  "این حرکت غیرمنتظره بود، عالی!",
+  "این حرکت غیرمنتظره بود",
   "بازی رو یاد بگیر!",
   "بهترین بودن سخته!",
   "خیلی خوب مسیر بازی رو تغییر دادی!",

@@ -2,11 +2,13 @@ class QueuerModel {
   final String userId;
   final int userImage;
   final String name;
+  final bool? isRdy;
 
   QueuerModel({
     required this.userId,
     required this.userImage,
     required this.name,
+    this.isRdy,
   });
 
   factory QueuerModel.fromJson(Map data) {
@@ -22,6 +24,7 @@ class QueuerModel {
       userId: data['user_id'],
       userImage: data['image'],
       name: data['name'],
+      isRdy: data['is_rdy'],
     );
   }
 

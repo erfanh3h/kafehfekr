@@ -54,7 +54,7 @@ class GameMenuTypeSelectorWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Image.asset(
-                            GeneralIcons.normal,
+                            GeneralIcons.lobby,
                             color: controller.selectedTab.value == 0
                                 ? AppColors.darkColor
                                 : AppColors.lightColor,
@@ -89,7 +89,7 @@ class GameMenuTypeSelectorWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Image.asset(
-                            GeneralIcons.rank,
+                            GeneralIcons.normal,
                             color: controller.selectedTab.value == 1
                                 ? AppColors.darkColor
                                 : AppColors.lightColor,
@@ -124,7 +124,7 @@ class GameMenuTypeSelectorWidget extends StatelessWidget {
                           ),
                           const SizedBox(width: 5),
                           Image.asset(
-                            GeneralIcons.lobby,
+                            GeneralIcons.rank,
                             color: controller.selectedTab.value == 2
                                 ? AppColors.darkColor
                                 : AppColors.lightColor,

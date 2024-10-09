@@ -50,48 +50,6 @@ class LibraryPage extends StatelessWidget {
                           Padding(
                             padding: AppSpacings.s20All,
                             child: Text(
-                              AppTexts.normalGuide.tr,
-                              style: const TextStyle(
-                                color: AppColors.lightColor,
-                                fontSize: 20,
-                                height: 1.75,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      backgroundColor: AppColors.darkColor,
-                    );
-                  },
-                  child: Container(
-                    height: 75,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent.withOpacity(.25),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        AppTexts.normalGame.tr,
-                        style: const TextStyle(
-                          color: AppColors.lightColor,
-                          fontFamily: FontFamilies.dastnevis,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 5),
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    Get.bottomSheet(
-                      ListView(
-                        children: [
-                          Padding(
-                            padding: AppSpacings.s20All,
-                            child: Text(
                               AppTexts.rankGuide.tr,
                               style: const TextStyle(
                                 color: AppColors.lightColor,
@@ -124,6 +82,96 @@ class LibraryPage extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Get.bottomSheet(
+                      ListView(
+                        children: [
+                          Padding(
+                            padding: AppSpacings.s20All,
+                            child: Text(
+                              AppTexts.normalGuide.tr,
+                              style: const TextStyle(
+                                color: AppColors.lightColor,
+                                fontSize: 20,
+                                height: 1.75,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      backgroundColor: AppColors.darkColor,
+                    );
+                  },
+                  child: Container(
+                    height: 75,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent.withOpacity(.25),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        AppTexts.normalGame.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontFamily: FontFamilies.dastnevis,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 5),
+          Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () {
+                    Get.bottomSheet(
+                      ListView(
+                        children: [
+                          Padding(
+                            padding: AppSpacings.s20All,
+                            child: Text(
+                              AppTexts.lobbyGuide.tr,
+                              style: const TextStyle(
+                                color: AppColors.lightColor,
+                                fontSize: 20,
+                                height: 1.75,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      backgroundColor: AppColors.darkColor,
+                    );
+                  },
+                  child: Container(
+                    height: 75,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent.withOpacity(.25),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        AppTexts.lobbyGame.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontFamily: FontFamilies.dastnevis,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 5),
+              Expanded(child: Container()),
             ],
           ),
           const SizedBox(height: 30),

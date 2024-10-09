@@ -33,7 +33,7 @@ class StorePage extends StatelessWidget {
               delay: const Duration(milliseconds: 300),
               child: ListView(
                 children: [
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   FadeIn(
                     delay: const Duration(milliseconds: 150),
                     child: ChancePaperWidget(controller: controller),

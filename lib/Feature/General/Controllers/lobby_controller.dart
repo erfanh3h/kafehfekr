@@ -69,6 +69,12 @@ class LobbyController extends BaseController {
         break;
       case GameCommands.lobbyData:
         joinedLobby.value = DetailedLobbyModel.fromJson(commandData);
+        if (joinedLobby.value!.queuers.isNotEmpty) {
+          isPlayer1Rdy.value = joinedLobby.value!.queuers[0].isRdy ?? false;
+        }
+        if (joinedLobby.value!.queuers.length > 1) {
+          isPlayer2Rdy.value = joinedLobby.value!.queuers[1].isRdy ?? false;
+        }
         break;
       case GameCommands.lobbyFull:
         DialogComponent().showToast(label: AppTexts.lobbyIsFull.tr);
@@ -80,6 +86,17 @@ class LobbyController extends BaseController {
         } else {
           isPlayer2Rdy.value = true;
         }
+        break;
+      case GameCommands.lobbyNotExists:
+        DialogComponent().showToast(label: AppTexts.lobbyDeleted.tr);
+        final String lobbyId = commandData['lobby_id'];
+        for (var lobby in lobbies) {
+          if (lobby.lobbyId == lobbyId) {
+            lobbies.remove(lobby);
+            break;
+          }
+        }
+        update();
         break;
       case GameCommands.lobbyDeleted:
         DialogComponent().showToast(label: AppTexts.lobbyDeleted.tr);

@@ -52,7 +52,7 @@ class GameMenuController extends BaseController {
     if (selectedNormalGames.contains(game)) {
       selectedNormalGames.remove(game);
     } else {
-      if (selectedNormalGames.length >= 5) {
+      if (selectedNormalGames.length >= 2) {
         return;
       }
       selectedNormalGames.add(game);
