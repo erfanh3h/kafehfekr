@@ -223,6 +223,7 @@ abstract class AppTexts {
   static const twoPlayersMustRdy = "twoPlayersMustRdy";
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
+  static const enterUsernameCorrectly = "enterUsernameCorrectly";
   static const notEnoughCoin = "notEnoughCoin";
   static const overview = "overview";
 

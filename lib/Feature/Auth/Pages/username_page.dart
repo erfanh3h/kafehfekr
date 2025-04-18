@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_text_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -12,22 +13,32 @@ import 'package:refreshed/refreshed.dart';
 
 class UsernamePage extends BaseView<AuthController> {
   const UsernamePage({super.key});
+  @override
+  bool resizeToAvoidBottomInset() {
+    return true;
+  }
 
   @override
   Widget body(BuildContext context) {
     return Center(
       child: Padding(
-        padding: AppSpacings.s15All,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        padding: AppSpacings.s40Horizental,
+        child: ListView(
           children: [
+            SizedBox(height: 75.h),
             Image.asset(
               GeneralIcons.logoTransparent,
               width: 200.w,
               height: 200.w,
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 10.h),
+            Center(
+              child: GlobalFadeInOutTextBox(
+                text: AppTexts.welcomeToCafeFekr.tr,
+                fontSize: 20,
+              ),
+            ),
+            SizedBox(height: 30.h),
             Text(
               AppTexts.enterUsername.tr,
               style: const TextStyle(
@@ -44,7 +55,7 @@ class UsernamePage extends BaseView<AuthController> {
                 maxLength: 30,
               ),
             ),
-            const SizedBox(height: 40),
+            SizedBox(height: 15.h),
             Text(
               AppTexts.rIdReward.tr,
               style: const TextStyle(
@@ -61,7 +72,7 @@ class UsernamePage extends BaseView<AuthController> {
                 maxLength: 6,
               ),
             ),
-            const SizedBox(height: 40),
+            SizedBox(height: 50.h),
             GlobalButtonWidget(
               onTap: controller.sendUsername,
               text: AppTexts.accept.tr,
@@ -69,6 +80,7 @@ class UsernamePage extends BaseView<AuthController> {
               fontColor: AppColors.darkColor,
               isLoading: controller.isSendingData.value,
             ),
+            SizedBox(height: 10.h),
           ],
         ),
       ),

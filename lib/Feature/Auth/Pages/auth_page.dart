@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_text_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -145,74 +146,79 @@ class AuthPage extends BaseView<AuthController> {
                 ],
               )
             else
-              Column(
-                children: [
-                  Text(
-                    "${AppTexts.enterCode.tr} : 0${controller.phoneController.text}",
-                    style: const TextStyle(
+              !controller.isSendingData.value
+                  ? Column(
+                      children: [
+                        Text(
+                          "${AppTexts.enterCode.tr} : 0${controller.phoneController.text}",
+                          style: const TextStyle(
+                            color: AppColors.lightColor,
+                            fontSize: 22,
+                            fontFamily: FontFamilies.hekayat,
+                          ),
+                          textDirection: TextDirection.ltr,
+                        ),
+                        SizedBox(height: 10.h),
+                        Directionality(
+                          textDirection: TextDirection.ltr,
+                          child: Pinput(
+                            onCompleted: (pin) => controller.sendCode(),
+                            controller: controller.codeController,
+                            defaultPinTheme: PinTheme(
+                              width: 56,
+                              height: 56,
+                              textStyle: const TextStyle(
+                                fontSize: 20,
+                                color: AppColors.lightColor,
+                                fontFamily: FontFamilies.playPen,
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: AppColors.lightColor,
+                                  width: 3,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            pinAnimationType: PinAnimationType.fade,
+                          ),
+                        ),
+                        SizedBox(height: 15.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () {},
+                              child: Text(
+                                AppTexts.didntGetCode.tr,
+                                style: const TextStyle(
+                                  color: AppColors.lightColor,
+                                  fontSize: 15,
+                                  decorationColor: AppColors.lightColor,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 10.w),
+                            InkWell(
+                              onTap: () {},
+                              child: Text(
+                                AppTexts.resendCode.tr,
+                                style: const TextStyle(
+                                  color: AppColors.lightColor,
+                                  fontSize: 15,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: AppColors.lightColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  : const GlobalLoadingWidget(
+                      size: 45,
                       color: AppColors.lightColor,
-                      fontSize: 22,
-                      fontFamily: FontFamilies.hekayat,
                     ),
-                    textDirection: TextDirection.ltr,
-                  ),
-                  SizedBox(height: 10.h),
-                  Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: Pinput(
-                      onCompleted: (pin) => controller.sendCode(),
-                      controller: controller.codeController,
-                      defaultPinTheme: PinTheme(
-                        width: 56,
-                        height: 56,
-                        textStyle: const TextStyle(
-                          fontSize: 20,
-                          color: AppColors.lightColor,
-                          fontFamily: FontFamilies.playPen,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: AppColors.lightColor,
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      pinAnimationType: PinAnimationType.fade,
-                    ),
-                  ),
-                  SizedBox(height: 15.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Text(
-                          AppTexts.didntGetCode.tr,
-                          style: const TextStyle(
-                            color: AppColors.lightColor,
-                            fontSize: 15,
-                            decorationColor: AppColors.lightColor,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10.w),
-                      InkWell(
-                        onTap: () {},
-                        child: Text(
-                          AppTexts.resendCode.tr,
-                          style: const TextStyle(
-                            color: AppColors.lightColor,
-                            fontSize: 15,
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColors.lightColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
             SizedBox(height: 10.h),
           ],
         ),

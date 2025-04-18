@@ -36,9 +36,7 @@ class AuthController extends BaseController {
     }
 
     isSendingData.value = true;
-    // Future.delayed(const Duration(seconds: 4))
-    //     .then((_) => isSendingData.value = false);
-    // return;
+
     final result = await authRepo.enterUser(phone: phoneController.text);
     if (result.resultData != null) {
       isPhonePhase.value = !result.resultData!;
@@ -50,6 +48,8 @@ class AuthController extends BaseController {
     // Get.find<GlobalController>().setUserData(idController.text);
     // Get.find<GlobalController>().checkLoginStatus();
     isSendingData.value = true;
+    // await Future.delayed(const Duration(seconds: 4)).then((_) {});
+    // return;
     final result = await authRepo.enterCode(
       phone: phoneController.text,
       code: codeController.text,
@@ -73,6 +73,10 @@ class AuthController extends BaseController {
   }
 
   sendUsername() async {
+    if (usernameController.text.length < 3) {
+      DialogComponent().showToast(label: AppTexts.enterUsernameCorrectly.tr);
+      return;
+    }
     isSendingData.value = true;
     final result = await authRepo.completeUser(
       phone: phoneController.text,

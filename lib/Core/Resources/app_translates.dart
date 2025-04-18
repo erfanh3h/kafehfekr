@@ -35,6 +35,7 @@ class AppTranslations extends Translations {
           AppTexts.select2Games: '2 بازی را انتخاب کنید',
           AppTexts.welcomeToCafeFekr: 'به کافه فکر خوش آمدید',
           AppTexts.didntGetCode: 'کد نیومد؟',
+          AppTexts.enterUsernameCorrectly: 'نام کاربری باید حداقل 3 حرف باشد',
           AppTexts.resendCode: 'ارسال مجدد کد ورود',
           AppTexts.taturialLink: 'لینک آموزش تصویری',
           AppTexts.rIdReward:
