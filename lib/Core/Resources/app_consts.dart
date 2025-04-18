@@ -46,7 +46,7 @@ class GameWaitTimes {
 
 class FontFamilies {
   static const vazir = "Vazir";
-  static const dastnevis = "Dastnevis";
+  static const dastnevis = "Hekayat";
   static const playPen = "PlayPen";
   static const hekayat = "Hekayat";
 }

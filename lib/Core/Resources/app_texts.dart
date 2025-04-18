@@ -30,6 +30,9 @@ abstract class AppTexts {
   static const rankGameMenu = "rankGameMenu";
   static const select2Games = "select2Games";
   static const select5Games = "select5Games";
+  static const welcomeToCafeFekr = "welcomeToCafeFekr";
+  static const didntGetCode = "didntGetCode";
+  static const resendCode = "resendCode";
 
   static const win = "win";
   static const lose = "lose";
@@ -37,7 +40,7 @@ abstract class AppTexts {
   static const ok = "ok";
   static const accept = "accept";
   static const scoreBase = "scoreBase";
-  static const winBase = "winBase";
+  static const winBase = "winBase"; 
   static const createLobby = "createLobby";
   static const cancel = "cancel";
   static const refresh = "refresh";

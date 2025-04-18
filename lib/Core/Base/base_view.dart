@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -79,7 +80,11 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
         extendBodyBehindAppBar: extendBodyBehindAppBar(),
         extendBody: extendBodyBehindNavigationBar(),
         body: controller.isPageLoading.value
-            ? SafeArea(child: loadingWidget())
+            ? const SafeArea(
+                child: GlobalLoadingWidget(
+                  color: AppColors.lightColor,
+                ),
+              )
             : safeAreaState()
                 ? SafeArea(child: body(context))
                 : body(context),

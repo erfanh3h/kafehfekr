@@ -9,7 +9,7 @@ class AppTranslations extends Translations {
           AppTexts.enterCode: 'کد دریافتی را وارد کنید',
           AppTexts.enterUsername: 'نام کاربری مورد نظر خود را وارد کنید',
           AppTexts.kafehfekrNarratie:
-              'در تئاتر بزرگ بازی‌ها، هر چالش صحنه‌ای است که در آن استراتژی و شانس رقصی جاودانه را به نمایش می‌گذارند و هنر ذهن را در هر حرکت و انتخاب آشکار می‌کنند',
+              'در کافه فکر ، هر بازی صحنه‌ای است که در آن استراتژی و شانس رقصی جاودانه را به نمایش می‌گذارند و هنر ذهن را در هر حرکت و انتخاب آشکار می‌کنند',
           AppTexts.timeoutError: 'دقایقی دیگر مجددا امتحان کنید',
           AppTexts.endGame: 'پایان بازی',
           AppTexts.endRound: 'پایان دور',
@@ -33,6 +33,9 @@ class AppTranslations extends Translations {
           AppTexts.rId: 'آی دی معرف',
           AppTexts.select5Games: '5 بازی را انتخاب کنید',
           AppTexts.select2Games: '2 بازی را انتخاب کنید',
+          AppTexts.welcomeToCafeFekr: 'به کافه فکر خوش آمدید',
+          AppTexts.didntGetCode: 'کد نیومد؟',
+          AppTexts.resendCode: 'ارسال مجدد کد ورود',
           AppTexts.taturialLink: 'لینک آموزش تصویری',
           AppTexts.rIdReward:
               'باوارد کردن آی دی معرف خود 30 سکه به او هدیه دهید',
