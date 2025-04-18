@@ -77,8 +77,8 @@ class YatzyButton extends StatelessWidget {
                   end: Alignment.topRight,
                   colors: [
                     Colors.white24,
-                    (color ?? Colors.white).withOpacity(.25),
-                    (color ?? Colors.white).withOpacity(.75),
+                    (color ?? Colors.white).withValues(alpha: .25),
+                    (color ?? Colors.white).withValues(alpha: .75),
                     (color ?? Colors.white)
                   ],
                 )

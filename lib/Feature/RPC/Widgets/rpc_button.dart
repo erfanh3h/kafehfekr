@@ -19,7 +19,7 @@ class RPCButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
-    String? image;
+    String image;
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.selected)) {
       imageColor = AppColors.goldenColor;
     }
@@ -32,9 +32,6 @@ class RPCButton extends StatelessWidget {
         break;
       case RPCPeaceTypes.cutter:
         image = GeneralIcons.cutter;
-        break;
-      default:
-        image = null;
         break;
     }
     return InkWell(
@@ -58,12 +55,7 @@ class RPCButton extends StatelessWidget {
         ),
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
-            : image != null
-                ? Image.asset(
-                    image,
-                    color: imageColor,
-                  )
-                : Container(),
+            : Image.asset(image, color: imageColor),
       ),
     );
   }

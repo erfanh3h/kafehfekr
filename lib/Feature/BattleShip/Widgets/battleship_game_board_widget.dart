@@ -24,7 +24,7 @@ class BattleShipGameBoardWidget extends StatelessWidget {
         child: Directionality(
           textDirection: TextDirection.ltr,
           child: Card(
-            color: AppColors.lightColor.withOpacity(.15),
+            color: AppColors.lightColor.withValues(alpha: .15),
             child: Padding(
               padding: AppSpacings.s15All,
               child: Obx(

@@ -69,8 +69,7 @@ class GameTypeConvertor {
       case GameTypes.FourInRow:
         result = AppImages.fourinrowGame;
         break;
-      default:
-    }
+      }
     return result;
   }
 
@@ -134,7 +133,6 @@ class GameTypeConvertor {
       case GameTypes.FourInRow:
         result = AppTexts.fourInRowNarrative.tr;
         break;
-      default:
     }
     return result;
   }
@@ -199,7 +197,6 @@ class GameTypeConvertor {
       case GameTypes.FourInRow:
         result = AppTexts.fourInRowTime.tr;
         break;
-      default:
     }
     return result;
   }
@@ -264,8 +261,6 @@ class GameTypeConvertor {
       case GameTypes.FourInRow:
         result = GameDifficulties.Normal;
         break;
-      default:
-        result = GameDifficulties.Easy;
     }
     return result;
   }
@@ -321,7 +316,6 @@ class GameTypeConvertor {
       case GameDifficulties.Hard:
         result = [20, 24, 12, 4, 3];
         break;
-      default:
     }
     return result;
   }

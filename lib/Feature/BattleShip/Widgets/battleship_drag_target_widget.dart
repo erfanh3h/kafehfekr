@@ -23,7 +23,7 @@ class BattleShipDragTargetWidget extends StatelessWidget {
           // padding: AppSpacings.s15Vertical5Horizental,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: Colors.white.withOpacity(0.5),
+            color: Colors.white.withValues(alpha: 0.5),
           ),
         ),
       ),

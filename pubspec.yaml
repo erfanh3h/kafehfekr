@@ -35,21 +35,21 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.6
-  refreshed: ^2.8.0
-  flutter_screenutil: ^5.9.1
-  dio: ^5.7.0
-  socket_io_client: ^2.0.3+1
-  just_audio: ^0.9.39
-  just_audio_windows: ^0.2.1
+  cupertino_icons: ^1.0.8
+  refreshed: ^3.0.2
+  flutter_screenutil: ^5.9.3
+  dio: ^5.8.0+1
+  socket_io_client: ^3.1.1
+  just_audio: ^0.10.0
+  just_audio_windows: ^0.2.2
   function_tree: ^0.9.1
   flutter_styled_toast: ^2.2.1
-  shared_preferences: ^2.3.2
-  animate_do: ^3.3.4
-  device_info_plus: ^10.1.2
-  # myket_iap: ^1.1.6
-  flutter_poolakey: ^2.2.0
-  url_launcher: ^6.3.0
+  shared_preferences: ^2.5.3
+  animate_do: ^4.2.0
+  device_info_plus: ^11.3.3
+  # myket_iap: ^1.1.11
+  # flutter_poolakey: ^2.2.0
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:

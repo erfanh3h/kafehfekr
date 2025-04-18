@@ -151,7 +151,7 @@ class GamePlayGameRowBox extends StatelessWidget {
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
           colors: [
-            (color ?? AppColors.transparent).withOpacity(.35),
+            (color ?? AppColors.transparent).withValues(alpha: .35),
             color ?? AppColors.transparent
           ],
         ),

@@ -70,8 +70,6 @@ class GameMenuController extends BaseController {
         return AppColors.yellow;
       case GameDifficulties.Hard:
         return AppColors.buttonRed;
-      default:
-        return AppColors.green;
     }
   }
 

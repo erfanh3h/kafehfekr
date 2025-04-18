@@ -39,7 +39,7 @@ class MenuGamePartWidget extends StatelessWidget {
             end: Alignment.topRight,
             colors: [
               const Color.fromARGB(1, 212, 133, 126),
-              difficultyColor.withOpacity(.5),
+              difficultyColor.withValues(alpha: .5),
             ],
           ),
           border: Border.all(

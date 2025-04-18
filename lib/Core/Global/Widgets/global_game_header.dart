@@ -26,7 +26,7 @@ class GlobalGameHeader extends StatelessWidget {
               padding: AppSpacings.s10All,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: AppColors.lightColor.withOpacity(.5),
+                color: AppColors.lightColor.withValues(alpha: .5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +68,7 @@ class GlobalGameHeader extends StatelessWidget {
               padding: AppSpacings.s10All,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: AppColors.lightColor.withOpacity(.5),
+                color: AppColors.lightColor.withValues(alpha: .5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -113,7 +113,7 @@ class GlobalGameHeader extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: AppColors.lightColor.withOpacity(.5),
+                color: AppColors.lightColor.withValues(alpha: .5),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

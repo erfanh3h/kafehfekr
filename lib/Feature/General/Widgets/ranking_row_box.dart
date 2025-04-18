@@ -63,7 +63,7 @@ class RankingRowBox extends StatelessWidget {
             child: InkWell(
               onTap: () => FunctionsLibraryClass.showUserData(data.userId),
               child: Card(
-                color: AppColors.lightColor.withOpacity(.5),
+                color: AppColors.lightColor.withValues(alpha: .5),
                 child: Padding(
                   padding: AppSpacings.s15All,
                   child: Row(

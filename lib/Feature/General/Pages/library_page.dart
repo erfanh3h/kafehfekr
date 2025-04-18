@@ -66,7 +66,7 @@ class LibraryPage extends StatelessWidget {
                   child: Container(
                     height: 75,
                     decoration: BoxDecoration(
-                      color: Colors.transparent.withOpacity(.25),
+                      color: Colors.transparent.withValues(alpha: .25),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -108,7 +108,7 @@ class LibraryPage extends StatelessWidget {
                   child: Container(
                     height: 75,
                     decoration: BoxDecoration(
-                      color: Colors.transparent.withOpacity(.25),
+                      color: Colors.transparent.withValues(alpha: .25),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -154,7 +154,7 @@ class LibraryPage extends StatelessWidget {
                   child: Container(
                     height: 75,
                     decoration: BoxDecoration(
-                      color: Colors.transparent.withOpacity(.25),
+                      color: Colors.transparent.withValues(alpha: .25),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Center(
@@ -200,7 +200,7 @@ class LibraryPage extends StatelessWidget {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.transparent.withOpacity(.25),
+                    color: Colors.transparent.withValues(alpha: .25),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Center(

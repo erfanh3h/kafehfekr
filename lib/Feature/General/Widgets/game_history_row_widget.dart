@@ -49,7 +49,7 @@ class GameHistoryRowWidget extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: Card(
-                    color: AppColors.lightColor.withOpacity(.35),
+                    color: AppColors.lightColor.withValues(alpha: .35),
                     child: IntrinsicHeight(
                       child: Row(
                         children: [

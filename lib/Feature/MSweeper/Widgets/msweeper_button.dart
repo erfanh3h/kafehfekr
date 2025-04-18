@@ -60,7 +60,7 @@ class MSweeperButton extends StatelessWidget {
             end: Alignment.topRight,
             colors: [
               Colors.white24,
-              (color ?? Colors.white).withOpacity(.5),
+              (color ?? Colors.white).withValues(alpha: .5),
               (color ?? Colors.white)
             ],
             // stops: imageColor != null ? const [0, 0] : null,

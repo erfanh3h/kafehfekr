@@ -100,8 +100,8 @@ class ChancePaperWidget extends StatelessWidget {
                       onTap: controller.getFreeCoin,
                       text: AppTexts.chancePaper.tr,
                       fontColor: AppColors.lightColor,
-                      color: AppColors.goldenColor.withOpacity(
-                          controller.canGetFreeCoin.value ? 1 : .5),
+                      color: AppColors.goldenColor.withValues(
+                          alpha: controller.canGetFreeCoin.value ? 1 : .5),
                       isLoading: controller.isGettingCoin.value,
                     ),
                   ),

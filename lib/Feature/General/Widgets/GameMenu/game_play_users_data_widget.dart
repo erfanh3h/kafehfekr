@@ -189,7 +189,7 @@ class UserRowData extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
-          colors: [backGroundColor.withOpacity(.5), backGroundColor],
+          colors: [backGroundColor.withValues(alpha: .5), backGroundColor],
         ),
         color: backGroundColor,
         borderRadius: BorderRadius.circular(8),

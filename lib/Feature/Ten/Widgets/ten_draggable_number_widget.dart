@@ -40,7 +40,7 @@ class TenDraggableNumberWidget extends StatelessWidget {
       childWhenDragging: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: Colors.white.withOpacity(0.4),
+          color: Colors.white.withValues(alpha: 0.4),
         ),
         width: 50,
         height: 50,

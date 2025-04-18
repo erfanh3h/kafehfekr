@@ -36,7 +36,7 @@ class DotBoxWidget extends StatelessWidget {
           end: Alignment.topRight,
           colors: [
             Colors.white54,
-            (imageColor ?? Colors.white).withOpacity(.5)
+            (imageColor ?? Colors.white).withValues(alpha: .5)
           ],
           stops: imageColor != null ? const [0, 0] : null,
         ),

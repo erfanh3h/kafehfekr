@@ -35,9 +35,6 @@ class RpcLogPeace extends StatelessWidget {
       case RPCPeaceTypes.cutter:
         image = GeneralIcons.cutter;
         break;
-      default:
-        image = GeneralIcons.rock;
-        break;
     }
     return Container(
       padding: AppSpacings.s15All,

@@ -33,7 +33,7 @@ class BackGammonBoardWidget extends StatelessWidget {
                     color: AppColors.goldenColor2,
                     width: 10,
                   ),
-                  color: Colors.transparent.withOpacity(.1),
+                  color: Colors.transparent.withValues(alpha: .1),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Obx(
@@ -85,7 +85,7 @@ class BackGammonBoardWidget extends StatelessWidget {
                     color: AppColors.goldenColor2,
                     width: 10,
                   ),
-                  color: Colors.transparent.withOpacity(.1),
+                  color: Colors.transparent.withValues(alpha: .1),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Obx(

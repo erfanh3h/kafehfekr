@@ -105,8 +105,6 @@ class SoundPlayerComponent extends BaseController {
       case GameSoundTypes.chat:
         sound = AppSounds.chat;
         break;
-      default:
-        sound = AppSounds.addPeace;
     }
     _actionPlayer.setAsset(sound).then((_) {
       _actionPlayer.play();

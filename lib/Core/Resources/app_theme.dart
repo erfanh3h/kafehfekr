@@ -16,7 +16,7 @@ class AppTheme {
       backgroundColor: AppColors.backgroundLight,
       elevation: 10,
       selectedItemColor: AppColors.primaryLight,
-      unselectedItemColor: AppColors.primaryLight.withOpacity(.5),
+      unselectedItemColor: AppColors.primaryLight.withValues(alpha: .5),
       selectedLabelStyle: const TextStyle(fontSize: 10),
       unselectedLabelStyle: const TextStyle(fontSize: 10),
     ),
@@ -35,15 +35,15 @@ class AppTheme {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: AppColors.primaryLight,
     ),
-    cardTheme: CardTheme(color: AppColors.primaryLight.withOpacity(.5)),
+    cardTheme: CardTheme(color: AppColors.primaryLight.withValues(alpha: .5)),
     inputDecorationTheme: const InputDecorationTheme(
       fillColor: Colors.white70,
       hintStyle: TextStyle(color: Colors.black54),
     ),
-    dialogBackgroundColor: AppColors.secondary,
     primaryColor: AppColors.primaryLight,
     fontFamily: FontFamilies.vazir,
     useMaterial3: true,
+    dialogTheme: const DialogThemeData(backgroundColor: AppColors.secondary),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -58,7 +58,7 @@ class AppTheme {
       backgroundColor: AppColors.backgroundDark,
       elevation: 10,
       selectedItemColor: AppColors.primaryDark,
-      unselectedItemColor: AppColors.primaryDark.withOpacity(.5),
+      unselectedItemColor: AppColors.primaryDark.withValues(alpha: .5),
       selectedLabelStyle: const TextStyle(fontSize: 10),
       unselectedLabelStyle: const TextStyle(fontSize: 10),
     ),
@@ -77,10 +77,10 @@ class AppTheme {
       fillColor: Colors.white70,
       hintStyle: TextStyle(color: Colors.white),
     ),
-    dialogBackgroundColor: AppColors.primaryDark,
-    cardTheme: CardTheme(color: AppColors.primaryDark.withOpacity(.5)),
+    cardTheme: CardTheme(color: AppColors.primaryDark.withValues(alpha: .5)),
     primaryColor: AppColors.primaryDark,
     fontFamily: FontFamilies.vazir,
     useMaterial3: true,
+    dialogTheme: const DialogThemeData(backgroundColor: AppColors.primaryDark),
   );
 }

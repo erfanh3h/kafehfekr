@@ -34,7 +34,7 @@ class TenBoardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              controller.result.toStringAsPrecision(2),
+              controller.result.value.toStringAsPrecision(2),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: AppColors.lightColor,
