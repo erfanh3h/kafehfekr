@@ -17,6 +17,7 @@ import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Feature/General/Widgets/change_username_box.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -29,13 +30,21 @@ class ItemData {
 }
 
 final items = [
-  ItemData(bottomNavigationTexts[0], bottomNavigationIcons[0], () {}),
-  ItemData(bottomNavigationTexts[1], bottomNavigationIcons[1], () {}),
-  ItemData(bottomNavigationTexts[2], bottomNavigationIcons[2], () {
-    print("start game");
+  ItemData(bottomNavigationTexts[0], bottomNavigationIcons[0], () {
+    Get.toNamed(AppRoutes.gamesMenu);
   }),
-  ItemData(bottomNavigationTexts[3], bottomNavigationIcons[3], () {}),
-  ItemData(bottomNavigationTexts[4], bottomNavigationIcons[4], () {}),
+  ItemData(bottomNavigationTexts[1], bottomNavigationIcons[1], () {
+    // Get.toNamed(AppRoutes.offlineGamesMenu);
+  }),
+  ItemData(bottomNavigationTexts[2], bottomNavigationIcons[2], () {
+    Get.toNamed(AppRoutes.library);
+  }),
+  ItemData(bottomNavigationTexts[3], bottomNavigationIcons[3], () {
+    Get.toNamed(AppRoutes.ranking);
+  }),
+  ItemData(bottomNavigationTexts[4], bottomNavigationIcons[4], () {
+    // Get.toNamed(AppRoutes.history);
+  }),
 ];
 
 class MainPage extends BaseView<GlobalController> {
@@ -131,7 +140,9 @@ class MainPage extends BaseView<GlobalController> {
                 GlobalActivityButton2(
                   text: AppTexts.store.tr,
                   iconData: Icons.shopify_sharp,
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AppRoutes.store);
+                  },
                 ),
                 GetBuilder<SoundPlayerComponent>(builder: (cont) {
                   return Obx(

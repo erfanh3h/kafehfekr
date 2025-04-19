@@ -1,6 +1,12 @@
 abstract class AppRoutes {
   static const main = '/main';
   static const gamePlay = '/gamePlay';
+  static const gamesMenu = '/gamesMenu';
+  static const offlineGamesMenu = '/offlineGamesMenu';
+  static const library = '/library';
+  static const ranking = '/ranking';
+  static const history = '/history';
+  static const store = '/store';
   static const lobby = '/lobby';
   static const auth = '/auth';
   static const username = '/username';

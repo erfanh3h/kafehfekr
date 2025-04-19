@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -8,27 +9,22 @@ import 'package:kafehfekr/Feature/General/Controllers/ranking_controller.dart';
 import 'package:kafehfekr/Feature/General/Widgets/ranking_row_box.dart';
 import 'package:refreshed/refreshed.dart';
 
-class RankingPage extends StatelessWidget {
+class RankingPage extends BaseView<RankingController> {
   const RankingPage({super.key});
+  @override
+  bool setWillPopScope() {
+    return false;
+  }
 
   @override
-  Widget build(BuildContext context) {
-    final RankingController controller = Get.find<RankingController>();
+  Widget body(BuildContext context) {
     return Obx(
       () => Padding(
         padding: AppSpacings.s10Horizental,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 10),
-            Text(
-              AppTexts.ranking.tr,
-              style: const TextStyle(
-                fontSize: 25,
-                color: AppColors.goldenColor,
-              ),
-            ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 20),
             FadeIn(
               delay: const Duration(milliseconds: 150),
               child: Center(

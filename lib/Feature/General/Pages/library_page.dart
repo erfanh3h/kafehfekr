@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Base/base_view.dart';
+import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -7,11 +9,16 @@ import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
 
-class LibraryPage extends StatelessWidget {
+class LibraryPage extends BaseView<GlobalController> {
   const LibraryPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  bool setWillPopScope() {
+    return false;
+  }
+
+  @override
+  Widget body(BuildContext context) {
     final gameTypesParts = GameTypes.values.toList();
     final int gamesLength = marketType == MarketTypes.Bazaar
         ? gameTypesParts.length - 1
@@ -22,14 +29,6 @@ class LibraryPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 10),
-          Text(
-            AppTexts.library.tr,
-            style: const TextStyle(
-              fontSize: 25,
-              color: AppColors.goldenColor,
-            ),
-          ),
           const SizedBox(height: 20),
           Text(
             AppTexts.gameType.tr,

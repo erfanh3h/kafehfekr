@@ -12,9 +12,13 @@ import 'package:kafehfekr/Feature/Chess/Pages/chess_page.dart';
 import 'package:kafehfekr/Feature/DotBox/Pages/dotbox_page.dart';
 import 'package:kafehfekr/Feature/FekrBekr/Pages/fekrbekr_page.dart';
 import 'package:kafehfekr/Feature/FourInRow/Pages/four_in_row_page.dart';
+import 'package:kafehfekr/Feature/General/Pages/game_menu_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/game_play_page.dart';
+import 'package:kafehfekr/Feature/General/Pages/library_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/lobby_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/maintence_page.dart';
+import 'package:kafehfekr/Feature/General/Pages/ranking_page.dart';
+import 'package:kafehfekr/Feature/General/Pages/store_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/update_page.dart';
 import 'package:kafehfekr/Feature/MNumbers/Pages/mnumbers_page.dart';
 import 'package:kafehfekr/Feature/MSweeper/Pages/msweeper_page.dart';
@@ -35,6 +39,31 @@ abstract class AppPages {
       name: AppRoutes.splash,
       page: SplashPage.new,
       binding: GlobalBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.gamesMenu,
+      page: GameMenuPage.new,
+      transition: Transition.fade,
+    ),
+    // GetPage(
+    //   name: AppRoutes.offlineGamesMenu,
+    //   page: GameMenuPage.new,
+    // ),
+    GetPage(
+      name: AppRoutes.library,
+      page: LibraryPage.new,
+    ),
+    GetPage(
+      name: AppRoutes.ranking,
+      page: RankingPage.new,
+    ),
+    // GetPage(
+    //   name: AppRoutes.history,
+    //   page: GameMenuPage.new,
+    // ),
+    GetPage(
+      name: AppRoutes.store,
+      page: StorePage.new,
     ),
     GetPage(
       name: AppRoutes.username,
