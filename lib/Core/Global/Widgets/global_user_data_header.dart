@@ -98,27 +98,27 @@ class GlobalUserDataHeader extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 3),
+                const SizedBox(height: 5),
                 Stack(
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
+                        borderRadius: BorderRadius.circular(4),
                         color: AppColors.lightColor2,
                       ),
                       width: MediaQuery.of(context).size.width / 2,
-                      height: 4,
+                      height: 6,
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(2),
+                        borderRadius: BorderRadius.circular(4),
                         color: AppColors.goldenColor,
                       ),
                       width: MediaQuery.of(context).size.width /
                           2 *
                           FunctionsLibraryClass.expPercent(
                               controller.myData.value!.xp),
-                      height: 4,
+                      height: 6,
                     ),
                   ],
                 ),

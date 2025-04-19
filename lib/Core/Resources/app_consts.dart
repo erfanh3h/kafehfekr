@@ -137,19 +137,19 @@ class StorageKeys {
 }
 
 List<String> bottomNavigationTexts = [
-  AppTexts.profile,
-  AppTexts.ranking,
-  AppTexts.startGame,
+  AppTexts.onlineGame,
+  AppTexts.offlineGame,
   AppTexts.library,
-  AppTexts.store,
+  AppTexts.ranking,
+  AppTexts.history,
 ];
 
 List<IconData> bottomNavigationIcons = [
-  Icons.person_4_rounded,
-  CupertinoIcons.list_dash,
-  CupertinoIcons.game_controller_solid,
+  CupertinoIcons.game_controller,
+  Icons.wifi_off_outlined,
   CupertinoIcons.book_solid,
-  CupertinoIcons.shopping_cart,
+  CupertinoIcons.list_dash,
+  Icons.history_toggle_off,
 ];
 List<String> chats = [
   "آماده ای ؟",

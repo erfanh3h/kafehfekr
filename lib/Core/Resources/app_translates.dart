@@ -62,6 +62,8 @@ class AppTranslations extends Translations {
           AppTexts.notTimeYet: 'هنوز وقتش نرسیده',
           AppTexts.rankHistoryDetails: 'جزئیات بازی های رقابتی',
           AppTexts.music: 'آهنگ',
+          AppTexts.musicOn: 'وصل آهنگ',
+          AppTexts.musicOff: 'قطع آهنگ',
           AppTexts.surrender: 'تسلیم',
           AppTexts.lobbyName: 'نام لابی',
           AppTexts.checkLibrary:
@@ -131,10 +133,14 @@ class AppTranslations extends Translations {
           AppTexts.playerThisRound: 'این دست رو بازی کردی',
           AppTexts.changeImagePrice:
               'هزینه تغییر عکس 50 سکه است (بار اول رایگان)',
+          AppTexts.changeUsername: ' تغییر نام ',
           AppTexts.changeUsernamePrice: 'هزینه تغییر اسم 75 سکه است',
           AppTexts.twoPlayersMustRdy: '2 بازیکن باید آماده باشند',
           AppTexts.imReady: 'آماده ام',
           AppTexts.change: 'تغییر',
+          AppTexts.history: 'تاریخچه',
+          AppTexts.onlineGame: 'بازی آنلاین',
+          AppTexts.offlineGame: 'بازی آفلاین',
           AppTexts.refresh: 'رفرش',
           AppTexts.chat: 'چت',
           AppTexts.start: 'شروع',

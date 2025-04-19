@@ -56,6 +56,9 @@ abstract class AppTexts {
   static const showDice = "showDice";
   static const playGame = "playGame";
   static const profile = "profile";
+  static const history = "history";
+  static const onlineGame = "onlineGame";
+  static const offlineGame = "offlineGame";
   static const ranking = "ranking";
   static const gameMenu = "gameMenu";
   static const gameType = "gameType";
@@ -79,6 +82,8 @@ abstract class AppTexts {
   static const enableSticker = "enableSticker";
   static const disableSticker = "disableSticker";
   static const music = "music";
+  static const musicOn = "musicOn";
+  static const musicOff = "musicOff";
   static const info = "info";
   static const kori = "kori";
   static const sticker = "sticker";
@@ -237,6 +242,7 @@ abstract class AppTexts {
   static const iAcceptPrivacyPolicy = "iAcceptprivacyPolicy";
   static const acceptPrivacyPolicyFirst = "acceptPrivacyPolicyFirst";
 
+  static const changeUsername = "changeUsername";
   static const changeUsernamePrice = "changeUsernamePrice";
   static const changeImagePrice = "changeImagePrice";
 

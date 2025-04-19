@@ -1,10 +1,14 @@
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_activity_button2.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_widget.dart.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_user_data_header.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -12,6 +16,8 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Feature/General/Widgets/change_username_box.dart';
 import 'package:refreshed/refreshed.dart';
 
 class ItemData {
@@ -112,6 +118,66 @@ class MainPage extends BaseView<GlobalController> {
             ),
           );
         }),
+        Positioned(
+          bottom: 10,
+          left: 10,
+          right: 10,
+          child: FadeInUp(
+            delay: const Duration(seconds: 2),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 15,
+              children: [
+                GlobalActivityButton2(
+                  text: AppTexts.store.tr,
+                  iconData: Icons.shopify_sharp,
+                  onTap: () {},
+                ),
+                GetBuilder<SoundPlayerComponent>(builder: (cont) {
+                  return Obx(
+                    () => GlobalActivityButton2(
+                      text: cont.letPlayMusic.value
+                          ? AppTexts.musicOff.tr
+                          : AppTexts.musicOn.tr,
+                      icon: cont.letPlayMusic.value
+                          ? GeneralIcons.soundOff
+                          : GeneralIcons.soundOn,
+                      onTap: () {
+                        controller.changeLetPlayMusic(
+                          !cont.letPlayMusic.value,
+                        );
+                        cont.changeLetPlayerSound(
+                          !cont.letPlayMusic.value,
+                          isGame: false,
+                        );
+                      },
+                    ),
+                  );
+                }),
+                GlobalActivityButton2(
+                  text: AppTexts.changeUsername.tr,
+                  iconData: CupertinoIcons.pen,
+                  onTap: () {
+                    Get.bottomSheet(
+                      ChangeUsernameBox(
+                        username: controller.myData.value!.name,
+                        onChange: controller.changeUsername,
+                      ),
+                      backgroundColor: AppColors.darkColor,
+                    );
+                  },
+                ),
+                GlobalActivityButton2(
+                  text: AppTexts.exit.tr,
+                  icon: GeneralIcons.exit,
+                  onTap: () {
+                    exit(0);
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
