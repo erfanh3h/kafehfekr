@@ -1,0 +1,195 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
+import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
+import 'package:kafehfekr/Feature/General/Widgets/avatars_selection_box.dart';
+import 'package:refreshed/refreshed.dart';
+
+class GlobalUserDataHeader extends StatelessWidget {
+  const GlobalUserDataHeader({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    GlobalController controller = Get.find<GlobalController>();
+    return Padding(
+      padding: AppSpacings.s10All,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 7,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    // InkWell(
+                    //   onTap: () {
+                    //     controller.changePage(4);
+                    //   },
+                    //   child: const Icon(
+                    //     CupertinoIcons.add_circled_solid,
+                    //     color: AppColors.darkGreen,
+                    //     size: 30,
+                    //   ),
+                    // ),
+                    Obx(
+                      () => Text(
+                        controller.myData.value!.coin.toString(),
+                        style: const TextStyle(
+                          fontFamily: FontFamilies.playPen,
+                          fontSize: 18,
+                          color: AppColors.lightColor,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    const SizedBox(width: 3),
+                    Image.asset(
+                      GeneralIcons.coin,
+                      width: 30,
+                      height: 30,
+                      color: AppColors.lightColor,
+                    ),
+                    const Spacer(),
+                    Obx(
+                      () => Text(
+                        controller.myData.value!.score.toString(),
+                        style: const TextStyle(
+                          fontFamily: FontFamilies.playPen,
+                          fontSize: 18,
+                          color: AppColors.lightColor,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    const SizedBox(width: 3),
+                    Image.asset(
+                      GeneralIcons.cup,
+                      width: 30,
+                      height: 30,
+                      color: AppColors.lightColor,
+                    ),
+                    const Spacer(),
+                    Obx(
+                      () => Text(
+                        FunctionsLibraryClass.expToLevel(
+                                controller.myData.value!.xp)
+                            .toString(),
+                        style: const TextStyle(
+                          fontFamily: FontFamilies.playPen,
+                          fontSize: 18,
+                          color: AppColors.lightColor,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    const SizedBox(width: 3),
+                    Image.asset(
+                      GeneralIcons.exp,
+                      width: 30,
+                      height: 30,
+                      color: AppColors.lightColor,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 3),
+                Stack(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(2),
+                        color: AppColors.lightColor2,
+                      ),
+                      width: MediaQuery.of(context).size.width / 2,
+                      height: 4,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(2),
+                        color: AppColors.goldenColor,
+                      ),
+                      width: MediaQuery.of(context).size.width /
+                          2 *
+                          FunctionsLibraryClass.expPercent(
+                              controller.myData.value!.xp),
+                      height: 4,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 5),
+          Expanded(
+            flex: 5,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  controller.myData.value!.name,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: AppColors.lightColor,
+                    fontFamily: FontFamilies.playPen,
+                    letterSpacing: 2.5,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textDirection: TextDirection.ltr,
+                ),
+                const SizedBox(height: 2),
+                InkWell(
+                  onTap: () {
+                    Clipboard.setData(
+                      ClipboardData(text: controller.myData.value!.id),
+                    );
+                  },
+                  child: Text(
+                    controller.myData.value!.id,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                      fontFamily: FontFamilies.playPen,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 5.w),
+          InkWell(
+            onTap: () {
+              Get.bottomSheet(
+                AvatarsSelectionBox(
+                  onTap: controller.changeProfile,
+                ),
+                backgroundColor: AppColors.darkColor,
+              );
+            },
+            child: Container(
+              width: 55.w,
+              height: 55.w,
+              padding: AppSpacings.s5All,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColors.lightColor, width: 3)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(150),
+                child: Image.asset(
+                  AvatarIcons()
+                      .generalAvatarPath(controller.myData.value!.image),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -217,14 +217,14 @@ class FunctionsLibraryClass {
     return n;
   }
 
-  static String expToLabelExp(int exp) {
+  static double expPercent(int exp) {
     int n = 1;
     while (true) {
       if (pow(n, 2) + (40 * n) - 20 <= exp) {
         n += 1;
       } else {
         int nextValue = (pow(n, 2) + (40 * n) - 20).toInt();
-        return "$exp / $nextValue";
+        return (exp / nextValue);
       }
     }
   }

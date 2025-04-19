@@ -5,18 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_bottom_navigation_bar.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_widget.dart.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_game_header.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_user_data_header.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
-import 'package:kafehfekr/Feature/General/Pages/store_page.dart';
-import 'package:kafehfekr/Feature/General/Pages/game_menu_page.dart';
-import 'package:kafehfekr/Feature/General/Pages/profile_page.dart';
-import 'package:kafehfekr/Feature/General/Pages/ranking_page.dart';
-import 'package:kafehfekr/Feature/General/Pages/library_page.dart';
 import 'package:refreshed/refreshed.dart';
 
 class ItemData {
@@ -47,12 +42,15 @@ class MainPage extends BaseView<GlobalController> {
   }) {
     return Stack(
       children: [
-        // const Positioned(
-        //   top: 0,
-        //   right: 0,
-        //   left: 0,
-        //   child: GlobalGameHeader(),
-        // ),
+        Positioned(
+          top: 0,
+          right: 0,
+          left: 0,
+          child: FadeInDown(
+            delay: const Duration(seconds: 2),
+            child: const GlobalUserDataHeader(),
+          ),
+        ),
         Positioned(
           left: center.dx - 20,
           top: center.dy - 60,
@@ -88,7 +86,7 @@ class MainPage extends BaseView<GlobalController> {
                       Text(
                         items[index].name.tr,
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: AppColors.lightColor,
                           fontSize: 25,
                           fontFamily: FontFamilies.hekayat,
                         ),
@@ -98,11 +96,12 @@ class MainPage extends BaseView<GlobalController> {
                         padding: AppSpacings.s5All,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
+                          border:
+                              Border.all(color: AppColors.lightColor, width: 2),
                         ),
                         child: Icon(
                           items[index].icon,
-                          color: Colors.white,
+                          color: AppColors.lightColor,
                           size: 50,
                         ),
                       ),
