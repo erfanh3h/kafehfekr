@@ -139,7 +139,7 @@ class StorageKeys {
 List<String> bottomNavigationTexts = [
   AppTexts.profile,
   AppTexts.ranking,
-  AppTexts.gameMenu,
+  AppTexts.startGame,
   AppTexts.library,
   AppTexts.store,
 ];
