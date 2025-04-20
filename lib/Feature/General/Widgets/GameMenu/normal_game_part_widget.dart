@@ -1,37 +1,70 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Base/base_view.dart';
+import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_activity_button2.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
 import 'package:kafehfekr/Feature/General/Widgets/GameMenu/menu_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
-class NormalGamePartWidget extends StatelessWidget {
-  const NormalGamePartWidget({
-    super.key,
-    required this.controller,
-  });
-
-  final GameMenuController controller;
+class NormalGamePartWidget extends BaseView<GameMenuController> {
+  const NormalGamePartWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget? floatingActionButton() {
+    return Obx(
+      () => !Get.find<GlobalController>().isQueueActive.value &&
+              controller.selectedNormalGames.length == 2
+          ? FadeInUp(
+              child: Container(
+                height: 75,
+                width: 75,
+                margin: AppSpacings.s5Bottom,
+                child: GlobalActivityButton2(
+                  onTap: controller.startNormalGame,
+                  text: AppTexts.start.tr,
+                  icon: GeneralIcons.normal,
+                  fontColor: AppColors.darkColor,
+                  backgroundColor: AppColors.lightColor,
+                ),
+              ),
+            )
+          : Container(),
+    );
+  }
+
+  @override
+  FloatingActionButtonLocation? floatingActionButtonLocation() {
+    return FloatingActionButtonLocation.centerDocked;
+  }
+
+  @override
+  Widget body(BuildContext context) {
     final gameTypesParts = GameTypes.values.toList();
     final int gamesLength = gameTypesParts.length - 1;
 
-    return Padding(
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(AppImages.background3),
+          fit: BoxFit.fill,
+        ),
+      ),
       padding: AppSpacings.s10Horizental,
       child: Column(
         children: [
+          const SizedBox(height: 10),
           FadeInDown(
             child: Padding(
-              padding: AppSpacings.s20All,
+              padding: AppSpacings.s10All,
               child: Row(
                 children: [
                   Expanded(
@@ -43,7 +76,7 @@ class NormalGamePartWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  const SizedBox(width: 15),
                   Obx(
                     () => Text(
                       "${controller.selectedNormalGames.length}/2",
@@ -58,6 +91,7 @@ class NormalGamePartWidget extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 15),
           Expanded(
             child: FadeIn(
               child: ListView.separated(
@@ -70,30 +104,17 @@ class NormalGamePartWidget extends StatelessWidget {
                       isSelected: controller.selectedNormalGames.value.contains(
                         gameTypesParts[index],
                       ),
-                      difficultyColor: controller.getGameColor(index),
+                      difficulty:
+                          GameTypeConvertor(gameType: GameTypes.values[index])
+                              .toGameDifficallty(),
                     ),
                   ),
                 ),
-                separatorBuilder: (ctx, index) => const SizedBox(height: 5),
+                separatorBuilder: (ctx, index) => const SizedBox(height: 25),
                 itemCount: gamesLength,
               ),
             ),
           ),
-          const SizedBox(height: 5),
-          Obx(
-            () => !Get.find<GlobalController>().isQueueActive.value
-                ? FadeInUp(
-                    child: GlobalButtonWidget(
-                      onTap: controller.startNormalGame,
-                      text: AppTexts.startGame.tr,
-                      color: const Color.fromARGB(255, 12, 63, 32),
-                      fontColor: AppColors.lightColor,
-                      width: double.maxFinite,
-                    ),
-                  )
-                : Container(),
-          ),
-          // const SizedBox(height: 5),
         ],
       ),
     );

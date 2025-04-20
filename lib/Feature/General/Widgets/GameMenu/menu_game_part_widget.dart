@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
 
 class MenuGamePartWidget extends StatelessWidget {
@@ -14,14 +15,14 @@ class MenuGamePartWidget extends StatelessWidget {
     required this.onTap,
     required this.onOpenGuide,
     required this.isSelected,
-    required this.difficultyColor,
+    required this.difficulty,
   });
 
   final GameTypes game;
   final Function(GameTypes) onTap;
   final Function(GameTypes) onOpenGuide;
   final bool isSelected;
-  final Color difficultyColor;
+  final GameDifficulties difficulty;
   @override
   Widget build(BuildContext context) {
     final gameConvertor = GameTypeConvertor(gameType: game);
@@ -34,28 +35,28 @@ class MenuGamePartWidget extends StatelessWidget {
         padding: AppSpacings.s5All,
         // color: Color.fromRGBO(200, index * 10, index * 10, 1),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              const Color.fromARGB(1, 212, 133, 126),
-              difficultyColor.withValues(alpha: .5),
-            ],
-          ),
-          border: Border.all(
-            color: difficultyColor,
-            width: 3,
-          ),
+          // gradient: LinearGradient(
+          //   begin: Alignment.bottomLeft,
+          //   end: Alignment.topRight,
+          //   colors: [
+          //     const Color.fromARGB(1, 212, 133, 126),
+          //     difficultyColor.withValues(alpha: .5),
+          //   ],
+          // ),
+          // border: Border.all(
+          //   color: difficultyColor,
+          //   width: 3,
+          // ),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             FadeInRight(
-              delay: const Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 500),
               child: Container(
-                width: 50,
-                height: 50,
+                width: 60,
+                height: 60,
                 decoration: BoxDecoration(
                   color: const Color(0xff7c94b6),
                   image: DecorationImage(
@@ -64,10 +65,10 @@ class MenuGamePartWidget extends StatelessWidget {
                     ),
                     fit: BoxFit.cover,
                   ),
-                  border: Border.all(
-                    color: difficultyColor,
-                    width: 2,
-                  ),
+                  // border: Border.all(
+                  //   color: difficultyColor,
+                  //   width: 2,
+                  // ),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
@@ -76,16 +77,30 @@ class MenuGamePartWidget extends StatelessWidget {
             Expanded(
               child: FadeIn(
                 delay: const Duration(milliseconds: 300),
-                child: Text(
-                  game.name.tr,
-                  style: TextStyle(
-                    fontSize: 18,
-                    foreground: Paint()
-                      ..strokeWidth = 1.25
-                      ..color = AppColors.lightColor
-                      ..style = PaintingStyle.stroke,
-                  ),
-                  textAlign: TextAlign.right,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      game.name.tr,
+                      style: TextStyle(
+                        fontSize: 18,
+                        foreground: Paint()
+                          ..strokeWidth = 1.25
+                          ..color = AppColors.lightColor
+                          ..style = PaintingStyle.stroke,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                    const SizedBox(height: 3),
+                    Text(
+                      "${AppTexts.difficultyLevel.tr}: ${difficulty.name.tr}",
+                      style: TextStyle(
+                        fontSize: 12,
+                        foreground: Paint()..color = AppColors.lightColor2,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -103,6 +118,7 @@ class MenuGamePartWidget extends StatelessWidget {
             ),
             const SizedBox(width: 5),
             FadeInLeft(
+              duration: const Duration(milliseconds: 500),
               child: Transform.scale(
                 scale: 1.5,
                 child: Checkbox(

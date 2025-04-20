@@ -21,6 +21,7 @@ abstract class AppTexts {
   static const lobbyGame = "lobbyGame";
   static const lobbyList = "lobbyList";
   static const startGame = "startGame";
+  static const findRivel = "findRivel";
   static const goLobbyPage = "goLobbyPage";
   static const rankHistoryDetails = "rankHistoryDetails";
   static const surrender = "surrender";

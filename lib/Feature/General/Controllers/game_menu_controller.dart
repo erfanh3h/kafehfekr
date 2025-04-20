@@ -11,7 +11,7 @@ import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GameMenuController extends BaseController {
-  RxInt selectedTab = RxInt(0);
+  RxInt selectedTab = RxInt(2);
 
   RxInt normalCurrentPage = RxInt(0);
   final PageController normalPageController = PageController();

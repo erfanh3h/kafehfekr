@@ -9,6 +9,7 @@ class GlobalActivityButton2 extends StatelessWidget {
     this.icon,
     this.onTap,
     this.backgroundColor,
+    this.fontColor,
     this.iconData,
     required this.text,
   });
@@ -17,6 +18,7 @@ class GlobalActivityButton2 extends StatelessWidget {
   final String? icon;
   final IconData? iconData;
   final Color? backgroundColor;
+  final Color? fontColor;
   final String text;
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,8 @@ class GlobalActivityButton2 extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: AppSpacings.s2All,
-        decoration: BoxDecoration(color: backgroundColor),
+        decoration: BoxDecoration(
+            color: backgroundColor, borderRadius: BorderRadius.circular(10)),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -35,20 +38,20 @@ class GlobalActivityButton2 extends StatelessWidget {
                   icon!,
                   width: 40,
                   height: 40,
-                  color: AppColors.lightColor,
+                  color: fontColor ?? AppColors.lightColor,
                 )
               else
                 Icon(
                   iconData!,
                   size: 40,
-                  color: AppColors.lightColor,
+                  color: fontColor ?? AppColors.lightColor,
                 ),
               Text(
                 text,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: FontFamilies.hekayat,
                   fontSize: 16,
-                  color: AppColors.lightColor,
+                  color: fontColor ?? AppColors.lightColor,
                 ),
                 textAlign: TextAlign.center,
                 maxLines: 1,

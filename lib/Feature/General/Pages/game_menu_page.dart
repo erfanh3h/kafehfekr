@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
 import 'package:kafehfekr/Feature/General/Widgets/GameMenu/game_menu_type_selector_widget.dart';
 import 'package:kafehfekr/Feature/General/Widgets/GameMenu/lobby_game_part_widget.dart';
@@ -19,27 +21,50 @@ class GameMenuPage extends BaseView<GameMenuController> {
   @override
   Widget body(BuildContext context) {
     super.build(context);
-    return Column(
-      children: [
-        const SizedBox(height: 10),
-        GameMenuTypeSelectorWidget(controller: controller),
-        Expanded(
-          child: Obx(
-            () {
-              switch (controller.selectedTab.value) {
-                case 1:
-                  return NormalGamePartWidget(controller: controller);
-                case 2:
-                  return RankGamePartWidget(controller: controller);
-                case 0:
-                  return LobbyGamePartWidget(controller: controller);
-                default:
-                  return NormalGamePartWidget(controller: controller);
-              }
-            },
-          ),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(AppImages.background3),
+          fit: BoxFit.fill,
         ),
-      ],
+      ),
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                  child: GameMenuTypeSelectorWidget(controller: controller)),
+              IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(
+                  CupertinoIcons.right_chevron,
+                  size: 30,
+                  color: AppColors.lightColor,
+                ),
+              )
+            ],
+          ),
+          Expanded(
+            child: Obx(
+              () {
+                switch (controller.selectedTab.value) {
+                  case 1:
+                    return const NormalGamePartWidget();
+                  case 2:
+                    return const RankGamePartWidget();
+                  case 0:
+                    return LobbyGamePartWidget(controller: controller);
+                  default:
+                    return const NormalGamePartWidget();
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

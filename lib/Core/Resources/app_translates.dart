@@ -70,6 +70,7 @@ class AppTranslations extends Translations {
               'یادت نره سر به کتابخونه بزنی تا بتونی راحت تر حریفاتو ببری',
           AppTexts.update: 'به روز رسانی',
           AppTexts.difficultyLevel: 'سطح دشواری',
+          AppTexts.findRivel: 'یافتن رقیب',
           AppTexts.createLobby: 'ساخت لابی',
           AppTexts.level: 'سطح',
           AppTexts.easy: 'آسان',
