@@ -73,7 +73,14 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
                 margin: AppSpacings.s10Horizental,
                 // width: 250.w,
                 decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.lightColor),
+                  gradient: LinearGradient(
+                    colors: [
+                      AppColors.darkRed,
+                      AppColors.darkRed.withValues(alpha: .6),
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Row(
@@ -161,8 +168,8 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
                               child: Padding(
                                 padding: AppSpacings.s20Horizental,
                                 child: Container(
-                                  width: 150,
-                                  height: 150,
+                                  width: 60,
+                                  height: 60,
                                   decoration: BoxDecoration(
                                     color: const Color(0xff7c94b6),
                                     image: DecorationImage(
@@ -173,75 +180,51 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
                                     ),
                                     border: Border.all(
                                       color: AppColors.lightColor,
-                                      width: 2,
+                                      width: 1.4,
                                     ),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                               ),
                             ),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  FadeInDown(
-                                    delay: const Duration(milliseconds: 150),
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          GeneralIcons.time,
-                                          color: AppColors.lightColor,
-                                          width: 40,
-                                          height: 40,
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: Text(
-                                            gameTime?.tr ?? "",
-                                            style: const TextStyle(
-                                              fontSize: 20,
-                                              fontFamily: FontFamilies.playPen,
-                                              color: AppColors.lightColor,
-                                              height: 1.75,
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  FadeInUp(
-                                    delay: const Duration(milliseconds: 250),
-                                    child: Row(
-                                      children: [
-                                        Image.asset(
-                                          ReactionIcons().generalIconsPath(4),
-                                          color: AppColors.lightColor,
-                                          width: 40,
-                                          height: 40,
-                                        ),
-                                        const SizedBox(width: 10),
-                                        Expanded(
-                                          child: Text(
-                                            gameDifficulty?.name.tr ?? "",
-                                            style: const TextStyle(
-                                              fontSize: 20,
-                                              color: AppColors.lightColor,
-                                              height: 1.75,
-                                            ),
-                                            textAlign: TextAlign.start,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                            const SizedBox(width: 15),
+                            Image.asset(
+                              GeneralIcons.time,
+                              color: AppColors.lightColor,
+                              width: 35,
+                              height: 35,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              gameTime?.tr ?? "",
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontFamily: FontFamilies.playPen,
+                                color: AppColors.lightColor,
+                                height: 1.75,
                               ),
+                              textAlign: TextAlign.start,
+                            ),
+                            const SizedBox(width: 20),
+                            Image.asset(
+                              ReactionIcons().generalIconsPath(4),
+                              color: AppColors.lightColor,
+                              width: 35,
+                              height: 35,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              gameDifficulty?.name.tr ?? "",
+                              style: const TextStyle(
+                                fontSize: 18,
+                                color: AppColors.lightColor,
+                                height: 1.75,
+                              ),
+                              textAlign: TextAlign.start,
                             ),
                           ],
                         ),
-                        const SizedBox(height: 15),
+                        const SizedBox(height: 10),
                         Padding(
                           padding: AppSpacings.s5All,
                           child: FadeIn(
@@ -249,7 +232,7 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
                             child: Text(
                               gameNarrative ?? "",
                               style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: 25,
                                 fontFamily: FontFamilies.dastnevis,
                                 color: AppColors.lightColor,
                                 height: 1.75,
