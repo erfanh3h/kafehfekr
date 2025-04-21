@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -7,11 +8,7 @@ import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/General/Models/ranking_model.dart';
 
 class RankingRowBox extends StatelessWidget {
-  const RankingRowBox({
-    super.key,
-    required this.data,
-    required this.index,
-  });
+  const RankingRowBox({super.key, required this.data, required this.index});
 
   final RankingModel data;
   final int index;
@@ -53,30 +50,24 @@ class RankingRowBox extends StatelessWidget {
         color: AppColors.goldenColor2,
       );
     }
-    return Container(
-      margin: AppSpacings.s15Horizental,
-      child: Row(
-        children: [
-          indexWidget,
-          const SizedBox(width: 15),
-          Expanded(
-            child: InkWell(
-              onTap: () => FunctionsLibraryClass.showUserData(data.userId),
-              child: Card(
-                color: AppColors.lightColor.withValues(alpha: .5),
+    return FadeIn(
+      delay: Duration(milliseconds: (index + 1) * 100),
+      child: Container(
+        margin: AppSpacings.s10Horizental,
+        child: Row(
+          children: [
+            indexWidget,
+            Expanded(
+              child: InkWell(
+                onTap: () => FunctionsLibraryClass.showUserData(data.userId),
                 child: Padding(
                   padding: AppSpacings.s15All,
                   child: Row(
                     children: [
                       const SizedBox(width: 5),
                       Container(
-                        padding: AppSpacings.s2All,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: AppColors.lightColor,
-                          ),
-                          shape: BoxShape.circle,
-                        ),
+                        // padding: AppSpacings.s2All,
+                        decoration: const BoxDecoration(shape: BoxShape.circle),
                         width: 50,
                         height: 50,
                         child: ClipRRect(
@@ -100,8 +91,8 @@ class RankingRowBox extends StatelessWidget {
                       Text(
                         data.number.toString(),
                         style: const TextStyle(
-                          fontFamily: FontFamilies.dastnevis,
-                          fontSize: 25,
+                          fontFamily: FontFamilies.hekayat,
+                          fontSize: 30,
                           color: AppColors.lightColor,
                         ),
                       ),
@@ -111,8 +102,8 @@ class RankingRowBox extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

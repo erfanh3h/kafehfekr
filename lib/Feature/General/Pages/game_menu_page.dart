@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
 import 'package:kafehfekr/Feature/General/Widgets/GameMenu/game_menu_type_selector_widget.dart';
 import 'package:kafehfekr/Feature/General/Widgets/GameMenu/lobby_game_part_widget.dart';
@@ -34,17 +34,9 @@ class GameMenuPage extends BaseView<GameMenuController> {
           Row(
             children: [
               Expanded(
-                  child: GameMenuTypeSelectorWidget(controller: controller)),
-              IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: const Icon(
-                  CupertinoIcons.right_chevron,
-                  size: 30,
-                  color: AppColors.lightColor,
-                ),
-              )
+                child: GameMenuTypeSelectorWidget(controller: controller),
+              ),
+              backButton
             ],
           ),
           Expanded(

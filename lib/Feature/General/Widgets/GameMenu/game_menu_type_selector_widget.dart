@@ -4,6 +4,7 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -24,14 +25,7 @@ class GameMenuTypeSelectorWidget extends StatelessWidget {
         margin: AppSpacings.s10Horizental,
         // width: 200.w,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              AppColors.darkRed,
-              AppColors.darkRed.withValues(alpha: .6),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          gradient: headerGradient,
           // border: Border.all(color: AppColors.lightColor),
           borderRadius: BorderRadius.circular(12),
         ),

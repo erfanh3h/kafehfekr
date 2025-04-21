@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -28,54 +29,48 @@ class UserDataWidget extends StatelessWidget {
         Padding(
           padding: AppSpacings.s20Horizental,
           child: FadeIn(
-            delay: const Duration(milliseconds: 150),
+            delay: const Duration(milliseconds: 100),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                Row(
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          userData.score.toString(),
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: AppColors.goldenColor,
-                            fontFamily: FontFamilies.dastnevis,
-                            letterSpacing: 2.5,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        Image.asset(
-                          GeneralIcons.cup,
-                          width: 30,
-                          height: 30,
-                          color: AppColors.goldenColor,
-                        ),
-                      ],
+                    Text(
+                      userData.score.toString(),
+                      style: const TextStyle(
+                        fontSize: 17,
+                        color: AppColors.lightColor,
+                        fontFamily: FontFamilies.playPen,
+                        letterSpacing: 2.5,
+                      ),
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          FunctionsLibraryClass.expToLevel(userData.xp)
-                              .toString(),
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: AppColors.goldenColor,
-                            fontFamily: FontFamilies.dastnevis,
-                            letterSpacing: 2.5,
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        Image.asset(
-                          GeneralIcons.exp,
-                          width: 30,
-                          height: 30,
-                          color: AppColors.goldenColor,
-                        ),
-                      ],
+                    const SizedBox(width: 3),
+                    Image.asset(
+                      GeneralIcons.cup,
+                      width: 30,
+                      height: 30,
+                      color: AppColors.lightColor,
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 15),
+                Row(
+                  children: [
+                    Text(
+                      FunctionsLibraryClass.expToLevel(userData.xp).toString(),
+                      style: const TextStyle(
+                        fontSize: 17,
+                        color: AppColors.lightColor,
+                        fontFamily: FontFamilies.playPen,
+                        letterSpacing: 2.5,
+                      ),
+                    ),
+                    const SizedBox(width: 3),
+                    Image.asset(
+                      GeneralIcons.exp,
+                      width: 30,
+                      height: 30,
+                      color: AppColors.lightColor,
                     ),
                   ],
                 ),
@@ -91,14 +86,22 @@ class UserDataWidget extends StatelessWidget {
                           fontFamily: FontFamilies.playPen,
                           letterSpacing: 2.5,
                         ),
+                        maxLines: 1,
                       ),
                       const SizedBox(height: 2),
-                      Text(
-                        userData.id,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                          fontFamily: FontFamilies.playPen,
+                      InkWell(
+                        onTap: () {
+                          Clipboard.setData(
+                            ClipboardData(text: userData.id),
+                          );
+                        },
+                        child: Text(
+                          userData.id,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                            fontFamily: FontFamilies.playPen,
+                          ),
                         ),
                       ),
                     ],
@@ -124,11 +127,11 @@ class UserDataWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 30),
-        FadeIn(
-          delay: const Duration(milliseconds: 300),
-          child: Column(
-            children: [
-              GameHistoryRowWidget(
+        Column(
+          children: [
+            FadeIn(
+              delay: const Duration(milliseconds: 200),
+              child: GameHistoryRowWidget(
                 data: (
                   userHistoryData.winNormal,
                   userHistoryData.drawNormal,
@@ -136,7 +139,10 @@ class UserDataWidget extends StatelessWidget {
                 ),
                 name: AppTexts.normalGame.tr,
               ),
-              GameHistoryRowWidget(
+            ),
+            FadeIn(
+              delay: const Duration(milliseconds: 400),
+              child: GameHistoryRowWidget(
                 data: (
                   userHistoryData.winRank,
                   userHistoryData.drawRank,
@@ -144,8 +150,8 @@ class UserDataWidget extends StatelessWidget {
                 ),
                 name: AppTexts.rankGame.tr,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );

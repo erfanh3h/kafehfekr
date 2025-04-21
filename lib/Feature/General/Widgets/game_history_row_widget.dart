@@ -3,6 +3,7 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Feature/General/Widgets/text_number_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -24,13 +25,13 @@ class GameHistoryRowWidget extends StatelessWidget {
         (winNumber + drawNumber + loseNumber) != 0 ? true : false;
     return mustShowBox
         ? Container(
-            margin: AppSpacings.s10Horizental5Vertical,
+            margin: AppSpacings.s10Horizental15Vertical,
             padding: AppSpacings.s5Bottom,
             decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: AppColors.lightColor),
-              ),
-            ),
+                // border: Border(
+                //   bottom: BorderSide(color: AppColors.lightColor),
+                // ),
+                ),
             child: Row(
               children: [
                 Expanded(
@@ -39,17 +40,20 @@ class GameHistoryRowWidget extends StatelessWidget {
                     style: const TextStyle(
                       color: AppColors.lightColor,
                       fontSize: 20,
-                      fontFamily: FontFamilies.dastnevis,
+                      fontFamily: FontFamilies.hekayat,
                     ),
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.center,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Expanded(
                   flex: 3,
-                  child: Card(
-                    color: AppColors.lightColor.withValues(alpha: .35),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        gradient: headerGradient,
+                        borderRadius: BorderRadius.circular(5)),
+                    // color: AppColors.lightColor.withValues(alpha: .35),
                     child: IntrinsicHeight(
                       child: Row(
                         children: [

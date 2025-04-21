@@ -11,6 +11,7 @@ import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Feature/General/Widgets/game_button.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -51,14 +52,7 @@ class LibraryPage extends BaseView<GlobalController> {
                   ),
                 ),
               ),
-              IconButton(
-                onPressed: Get.back,
-                icon: const Icon(
-                  CupertinoIcons.right_chevron,
-                  size: 30,
-                  color: AppColors.lightColor,
-                ),
-              )
+              backButton
             ],
           ),
           const SizedBox(height: 5),

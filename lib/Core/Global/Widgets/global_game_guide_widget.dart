@@ -7,6 +7,7 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:refreshed/refreshed.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -73,14 +74,7 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
                 margin: AppSpacings.s10Horizental,
                 // width: 250.w,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      AppColors.darkRed,
-                      AppColors.darkRed.withValues(alpha: .6),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  gradient: headerGradient,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Row(

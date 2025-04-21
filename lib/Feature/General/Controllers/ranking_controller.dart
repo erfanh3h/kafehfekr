@@ -7,6 +7,7 @@ class RankingController extends BaseController {
   final GeneralRepository repo;
 
   RxInt selectedTab = RxInt(0);
+  RxBool isGettingData = RxBool(false);
 
   RxList<RankingModel> byWinData = RxList([]);
   RxList<RankingModel> byScoreData = RxList([]);
@@ -21,21 +22,22 @@ class RankingController extends BaseController {
   }
 
   getByScoreData() async {
-    isPageLoading.value = true;
+    isGettingData.value = true;
+    // await Future.delayed(const Duration(seconds: 10));
     final result = await repo.getRankingByScore();
     if (result.resultData != null) {
       byScoreData.value = result.resultData!;
     }
-    isPageLoading.value = false;
+    isGettingData.value = false;
   }
 
   getByWinData() async {
-    isPageLoading.value = true;
+    isGettingData.value = true;
     final result = await repo.getRankingByWin();
     if (result.resultData != null) {
       byWinData.value = result.resultData!;
     }
-    isPageLoading.value = false;
+    isGettingData.value = false;
   }
 
   RankingController({required this.repo});

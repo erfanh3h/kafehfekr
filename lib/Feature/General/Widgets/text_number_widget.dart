@@ -29,9 +29,9 @@ class TextNumberWidget extends StatelessWidget {
           Text(
             number.toString(),
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 20,
               color: AppColors.lightColor,
-              fontFamily: FontFamilies.dastnevis,
+              fontFamily: FontFamilies.hekayat,
             ),
           ),
         ],
