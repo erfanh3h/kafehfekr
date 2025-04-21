@@ -148,7 +148,7 @@ List<IconData> bottomNavigationIcons = [
   CupertinoIcons.game_controller,
   Icons.wifi_off_outlined,
   CupertinoIcons.book_solid,
-  CupertinoIcons.list_dash,
+  Icons.format_list_numbered_rtl,
   Icons.history_toggle_off,
 ];
 List<String> chats = [

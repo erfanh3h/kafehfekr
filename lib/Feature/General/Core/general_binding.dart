@@ -1,5 +1,6 @@
 import 'package:kafehfekr/Feature/General/Controllers/game_menu_controller.dart';
 import 'package:kafehfekr/Feature/General/Controllers/game_play_controller.dart';
+import 'package:kafehfekr/Feature/General/Controllers/history_controller.dart';
 import 'package:kafehfekr/Feature/General/Controllers/lobby_controller.dart';
 import 'package:kafehfekr/Feature/General/Controllers/maintence_controlle.dart';
 import 'package:kafehfekr/Feature/General/Controllers/ranking_controller.dart';
@@ -11,8 +12,10 @@ import 'package:refreshed/refreshed.dart';
 class GeneralBinding implements BindingsInterface {
   @override
   void dependencies() => [
-        Get.lazyPut<GeneralRepository>(() => GeneralRepositoryImp(),
-            fenix: true),
+        Get.lazyPut<GeneralRepository>(
+          () => GeneralRepositoryImp(),
+          fenix: true,
+        ),
         Get.lazyPut<UpdateController>(
           () => UpdateController(),
           fenix: true,
@@ -39,6 +42,10 @@ class GeneralBinding implements BindingsInterface {
         ),
         Get.lazyPut<LobbyController>(
           () => LobbyController(),
+          fenix: true,
+        ),
+        Get.lazyPut<HistoryController>(
+          () => HistoryController(),
           fenix: true,
         ),
       ];

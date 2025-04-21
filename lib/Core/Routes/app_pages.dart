@@ -14,6 +14,7 @@ import 'package:kafehfekr/Feature/FekrBekr/Pages/fekrbekr_page.dart';
 import 'package:kafehfekr/Feature/FourInRow/Pages/four_in_row_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/game_menu_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/game_play_page.dart';
+import 'package:kafehfekr/Feature/General/Pages/history_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/library_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/lobby_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/maintence_page.dart';
@@ -57,10 +58,10 @@ abstract class AppPages {
       name: AppRoutes.ranking,
       page: RankingPage.new,
     ),
-    // GetPage(
-    //   name: AppRoutes.history,
-    //   page: GameMenuPage.new,
-    // ),
+    GetPage(
+      name: AppRoutes.history,
+      page: HistoryPage.new,
+    ),
     GetPage(
       name: AppRoutes.store,
       page: StorePage.new,

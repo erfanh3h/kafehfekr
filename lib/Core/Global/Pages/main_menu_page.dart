@@ -43,7 +43,7 @@ final items = [
     Get.toNamed(AppRoutes.ranking);
   }),
   ItemData(bottomNavigationTexts[4], bottomNavigationIcons[4], () {
-    // Get.toNamed(AppRoutes.history);
+    Get.toNamed(AppRoutes.history);
   }),
 ];
 
