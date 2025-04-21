@@ -30,6 +30,8 @@ class AppTranslations extends Translations {
           AppTexts.youOutOfMove: 'امکان حرکتی نداری!',
           AppTexts.enemyOutOfMove: 'حریف امکان حرکتی نداره!',
           AppTexts.enterPhoneCorrectly: 'شماره را بدرستی وارد کنید!',
+          AppTexts.nameChanged: 'نام تغییر کرد',
+          AppTexts.avatarChanged: 'آواتار تغییر کرد',
           AppTexts.rId: 'آی دی معرف',
           AppTexts.getCoin: 'دریافت سکه',
           AppTexts.select5Games: '5 بازی را انتخاب کنید',

@@ -39,7 +39,6 @@ class AvatarsSelectionBox extends StatelessWidget {
               ),
               itemBuilder: (ctx, index) => InkWell(
                 onTap: () {
-                  Get.closeAllBottomSheets();
                   onTap(index + 1);
                 },
                 child: ClipRRect(

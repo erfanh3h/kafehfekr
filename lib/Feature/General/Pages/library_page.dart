@@ -108,7 +108,7 @@ class LibraryPage extends BaseView<GlobalController> {
                     );
                   },
                   image: GeneralIcons.normal,
-                  text: AppTexts.normal,
+                  text: AppTexts.normalGame,
                 ),
               ),
             ],

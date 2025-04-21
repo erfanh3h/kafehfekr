@@ -40,7 +40,6 @@ class GlobalController extends BaseController {
 
   RxBool errorGetData = RxBool(false);
 
-
   changePage(int page) {
     selectedPage.value = page;
     pgCtrl.jumpToPage(page);
@@ -165,6 +164,10 @@ class GlobalController extends BaseController {
       DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
       return;
     }
+    if (index == myData.value!.image) {
+      DialogComponent().showToast(label: AppTexts.error.tr);
+      return;
+    }
     if (myData.value!.image == 0) {
       myData.value = myData.value!.copyWith(image: index);
     } else {
@@ -172,6 +175,8 @@ class GlobalController extends BaseController {
           myData.value!.copyWith(image: index, coin: myData.value!.coin - 50);
     }
     globalRepo.changeProfile(image: index);
+    Get.closeAllBottomSheets();
+    DialogComponent().showToast(label: AppTexts.avatarChanged.tr);
   }
 
   changeUsername(String username) {
@@ -180,10 +185,15 @@ class GlobalController extends BaseController {
       DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
       return;
     }
+    if (username == Get.find<GlobalController>().myData.value!.name) {
+      DialogComponent().showToast(label: AppTexts.error.tr);
+      return;
+    }
     myData.value =
         myData.value!.copyWith(name: username, coin: myData.value!.coin - 75);
     globalRepo.changeUsername(username: username);
     Get.closeAllBottomSheets();
+    DialogComponent().showToast(label: AppTexts.nameChanged.tr);
   }
 
   Future<void> finishGame() async {

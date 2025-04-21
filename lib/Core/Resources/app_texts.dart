@@ -233,6 +233,8 @@ abstract class AppTexts {
   static const enterUsernameCorrectly = "enterUsernameCorrectly";
   static const notEnoughCoin = "notEnoughCoin";
   static const overview = "overview";
+  static const nameChanged = "nameChanged";
+  static const avatarChanged = "avatarChanged";
 
   static const difficultyLevel = "difficultyLevel";
   static const level = "level";

@@ -20,38 +20,49 @@ class ChangeUsernameBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     usernameController.text = username;
-    return ListView(
-      children: [
-        Padding(
-          padding: AppSpacings.s20Horizental10Vertical,
-          child: Text(
-            AppTexts.changeUsernamePrice.tr,
-            style: const TextStyle(
-              color: AppColors.lightColor,
-              fontSize: 20,
+    return SizedBox(
+      height: 150,
+      child: Column(
+        children: [
+          Padding(
+            padding: AppSpacings.s20Horizental10Vertical,
+            child: Text(
+              AppTexts.changeUsernamePrice.tr,
+              style: const TextStyle(
+                color: AppColors.lightColor,
+                fontSize: 20,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
-        ),
-        Padding(
-          padding: AppSpacings.s20All,
-          child: GlobalInputBox(
-            label: AppTexts.enterUsername,
-            controller: usernameController,
-            textDirection: TextDirection.ltr,
-            maxLength: 30,
-            // onlyEnglishLetters: true,
+          Padding(
+            padding: AppSpacings.s10All,
+            child: Row(
+              children: [
+                Expanded(
+                  child: GlobalInputBox(
+                    label: AppTexts.enterUsername,
+                    controller: usernameController,
+                    textDirection: TextDirection.ltr,
+                    maxLength: 30,
+                    // onlyEnglishLetters: true,
+                  ),
+                ),
+                const SizedBox(width: 15),
+                IconButton(
+                  onPressed: () {
+                    onChange(usernameController.text);
+                  },
+                  icon: const Icon(
+                    Icons.save_rounded,
+                    size: 40,
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        Padding(
-          padding: AppSpacings.s40All,
-          child: GlobalGoldButtonWidget(
-            onTap:()=> onChange(usernameController.text),
-            goldCount: 75,
-            text: AppTexts.change.tr,
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

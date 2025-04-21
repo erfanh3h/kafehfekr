@@ -175,6 +175,7 @@ class MainPage extends BaseView<GlobalController> {
                         onChange: controller.changeUsername,
                       ),
                       backgroundColor: AppColors.darkColor,
+                      isScrollControlled: false,
                     );
                   },
                 ),
