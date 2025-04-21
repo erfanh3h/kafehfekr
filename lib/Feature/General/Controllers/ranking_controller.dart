@@ -4,7 +4,7 @@ import 'package:kafehfekr/Feature/General/Models/ranking_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class RankingController extends BaseController {
-  final GeneralRepository repo;
+  final GeneralRepository repo = GeneralRepository();
 
   RxInt selectedTab = RxInt(0);
   RxBool isGettingData = RxBool(false);
@@ -40,7 +40,6 @@ class RankingController extends BaseController {
     isGettingData.value = false;
   }
 
-  RankingController({required this.repo});
   @override
   void onInit() {
     getByScoreData();

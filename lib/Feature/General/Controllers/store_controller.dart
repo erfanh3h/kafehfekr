@@ -10,7 +10,7 @@ import 'package:kafehfekr/Feature/General/Core/general_repository.dart';
 import 'package:refreshed/refreshed.dart';
 
 class StoreController extends BaseController {
-  final GeneralRepository repo;
+  final GeneralRepository repo = GeneralRepository();
 
   RxBool canGetFreeCoin = RxBool(false);
 
@@ -54,8 +54,6 @@ class StoreController extends BaseController {
       });
     });
   }
-
-  StoreController({required this.repo});
 
   checkCanGetFreeCoin() {
     final DateTime lastTimeChance =

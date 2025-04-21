@@ -5,27 +5,10 @@ import 'package:kafehfekr/Core/Network/rest_client.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:kafehfekr/Feature/Auth/Models/user_model.dart';
 
-abstract class AuthRepository {
-  Future<ApiResult<bool>> enterUser({required String phone});
-  Future<ApiResult<(UserModel?, String)>> enterCode({
-    required String phone,
-    required String code,
-  });
-
-  Future<ApiResult<bool>> completeUser({
-    required String phone,
-    required String username,
-    required String rId,
-  });
-}
-
-class AuthRepositoryImp extends AuthRepository {
-  final RestClient _restClient = RestClient();
-
-  @override
+class AuthRepository with RestClient {
   Future<ApiResult<bool>> enterUser({required String phone}) async {
     bool data = false;
-    var response = await _restClient.sendData(ServerRoutes.enterUser,
+    var response = await sendData(ServerRoutes.enterUser,
         needToken: false, data: {'phone': phone});
     NetworkExceptions? errorData;
     if (response.resultData != null) {
@@ -37,12 +20,11 @@ class AuthRepositoryImp extends AuthRepository {
     return result;
   }
 
-  @override
   Future<ApiResult<(UserModel?, String)>> enterCode(
       {required String phone, required String code}) async {
     final deviceId = await FunctionsLibraryClass.getDeviceId();
-    var response = await _restClient
-        .sendData(ServerRoutes.enterCode, needToken: false, data: {
+    var response =
+        await sendData(ServerRoutes.enterCode, needToken: false, data: {
       'phone': phone,
       'code': code,
       'device_id': deviceId,
@@ -61,15 +43,13 @@ class AuthRepositoryImp extends AuthRepository {
     return result;
   }
 
-  @override
   Future<ApiResult<bool>> completeUser({
     required String phone,
     required String username,
     required String rId,
   }) async {
     bool data = false;
-    var response =
-        await _restClient.sendData(ServerRoutes.completeUserData, data: {
+    var response = await sendData(ServerRoutes.completeUserData, data: {
       'phone': phone,
       'username': username,
       'rep_id': rId,

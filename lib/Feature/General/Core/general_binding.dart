@@ -12,10 +12,6 @@ import 'package:refreshed/refreshed.dart';
 class GeneralBinding implements BindingsInterface {
   @override
   void dependencies() => [
-        Get.lazyPut<GeneralRepository>(
-          () => GeneralRepositoryImp(),
-          fenix: true,
-        ),
         Get.lazyPut<UpdateController>(
           () => UpdateController(),
           fenix: true,
@@ -29,11 +25,11 @@ class GeneralBinding implements BindingsInterface {
           fenix: true,
         ),
         Get.lazyPut<StoreController>(
-          () => StoreController(repo: Get.find<GeneralRepository>()),
+          () => StoreController(),
           fenix: true,
         ),
         Get.lazyPut<RankingController>(
-          () => RankingController(repo: Get.find<GeneralRepository>()),
+          () => RankingController(),
           fenix: true,
         ),
         Get.lazyPut<GamePlayController>(

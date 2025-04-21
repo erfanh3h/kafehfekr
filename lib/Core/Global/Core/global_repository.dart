@@ -7,35 +7,11 @@ import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:kafehfekr/Feature/General/Models/user_history_model.dart';
 import 'package:kafehfekr/Feature/Auth/Models/user_model.dart';
 
-abstract class GlobalRepository {
-  Future<ApiResult<UserModel?>> getMyData();
-  Future<ApiResult<ConfigModel?>> getConfigData();
-  Future<ApiResult<UserHistoryModel?>> getMyHistoryData();
-
-  Future<ApiResult<bool>> changeProfile({required int image});
-  Future<ApiResult<bool>> changeUsername({required String username});
-
-  Future<ApiResult<(UserModel?, UserHistoryModel?)>> getUserData(
-      {required String userId});
-
-  Future<String?> getDataFromStorage({required String key});
-
-  Future<void> setDataOnStorage(
-      {required final String key, required final String value});
-
-  Future<String?> removeDataFromStorage({required String key});
-
-  Future<void> logoutRemoveData();
-}
-
-class GlobalRepositoryImp extends GlobalRepository {
-  final RestClient _restClient = RestClient();
-
-  @override
+class GlobalRepository with RestClient {
   Future<ApiResult<bool>> changeProfile({required int image}) async {
     bool data = false;
-    var response = await _restClient
-        .sendData(ServerRoutes.changeImage, data: {'image': image});
+    var response =
+        await sendData(ServerRoutes.changeImage, data: {'image': image});
     NetworkExceptions? errorData;
     if (response.resultData != null) {
       data = true;
@@ -46,11 +22,10 @@ class GlobalRepositoryImp extends GlobalRepository {
     return result;
   }
 
-  @override
   Future<ApiResult<bool>> changeUsername({required String username}) async {
     bool data = false;
-    var response = await _restClient
-        .sendData(ServerRoutes.changeUsername, data: {'username': username});
+    var response = await sendData(ServerRoutes.changeUsername,
+        data: {'username': username});
     NetworkExceptions? errorData;
     if (response.resultData != null) {
       data = true;
@@ -61,10 +36,9 @@ class GlobalRepositoryImp extends GlobalRepository {
     return result;
   }
 
-  @override
   Future<ApiResult<(UserModel?, UserHistoryModel?)>> getUserData(
       {required String userId}) async {
-    var response = await _restClient.getData(ServerRoutes.userData(userId));
+    var response = await getData(ServerRoutes.userData(userId));
     NetworkExceptions? errorData;
     UserModel? user;
     UserHistoryModel? userHistory;
@@ -80,9 +54,8 @@ class GlobalRepositoryImp extends GlobalRepository {
     return result;
   }
 
-  @override
   Future<ApiResult<UserModel?>> getMyData() async {
-    var response = await _restClient.getData(ServerRoutes.myData);
+    var response = await getData(ServerRoutes.myData);
     NetworkExceptions? errorData;
     UserModel? user;
     if (response.resultData != null) {
@@ -94,10 +67,8 @@ class GlobalRepositoryImp extends GlobalRepository {
     return result;
   }
 
-  @override
   Future<ApiResult<ConfigModel?>> getConfigData() async {
-    var response =
-        await _restClient.getData(ServerRoutes.configData, needToken: false);
+    var response = await getData(ServerRoutes.configData, needToken: false);
     NetworkExceptions? errorData;
     ConfigModel? config;
     if (response.resultData != null) {
@@ -112,9 +83,8 @@ class GlobalRepositoryImp extends GlobalRepository {
     return result;
   }
 
-  @override
   Future<ApiResult<UserHistoryModel?>> getMyHistoryData() async {
-    var response = await _restClient.getData(ServerRoutes.myHistory);
+    var response = await getData(ServerRoutes.myHistory);
     NetworkExceptions? errorData;
     UserHistoryModel? user;
     if (response.resultData != null) {
@@ -127,23 +97,19 @@ class GlobalRepositoryImp extends GlobalRepository {
     return result;
   }
 
-  @override
   Future<String?> getDataFromStorage({required String key}) async {
     return await StorageComponent.getData(key);
   }
 
-  @override
   Future<void> setDataOnStorage(
       {required final String key, required final String value}) async {
     await StorageComponent.setData(key, value);
   }
 
-  @override
   Future<String?> removeDataFromStorage({required String key}) async {
     return await StorageComponent.removeData(key);
   }
 
-  @override
   Future<void> logoutRemoveData() async {
     await StorageComponent.clearData();
   }

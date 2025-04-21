@@ -11,9 +11,7 @@ import 'package:kafehfekr/Feature/Auth/Models/user_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class AuthController extends BaseController {
-  final AuthRepository authRepo;
-
-  AuthController({required this.authRepo});
+  final AuthRepository authRepo = AuthRepository();
 
   TextEditingController phoneController = TextEditingController();
   TextEditingController codeController = TextEditingController();

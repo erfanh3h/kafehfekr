@@ -10,7 +10,7 @@ import '../Global/Models/api_result.dart';
 import 'network_exceptions.dart';
 import 'package:dio/dio.dart' as http;
 
-class RestClient {
+mixin RestClient {
   Future<ApiResult<T>> getData<T>(
     final String url, {
     final bool needToken = true,

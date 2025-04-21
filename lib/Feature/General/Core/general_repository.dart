@@ -4,24 +4,10 @@ import 'package:kafehfekr/Core/Network/rest_client.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:kafehfekr/Feature/General/Models/ranking_model.dart';
 
-abstract class GeneralRepository {
-  Future<ApiResult<List<RankingModel>>> getRankingByScore();
-  Future<ApiResult<List<RankingModel>>> getRankingByWin();
-  Future<ApiResult<int>> getFreeCoin();
-  Future<ApiResult<bool>> purchase({
-    required String productId,
-    required String marketType,
-    required String token,
-  });
-}
-
-class GeneralRepositoryImp extends GeneralRepository {
-  final RestClient _restClient = RestClient();
-
-  @override
+class GeneralRepository with RestClient {
   Future<ApiResult<List<RankingModel>>> getRankingByScore() async {
     List<RankingModel> data = [];
-    var response = await _restClient.getData(ServerRoutes.rankingByScore);
+    var response = await getData(ServerRoutes.rankingByScore);
     NetworkExceptions? errorData;
     if (response.resultData != null) {
       for (var rawData in response.resultData['result']) {
@@ -35,10 +21,9 @@ class GeneralRepositoryImp extends GeneralRepository {
     return result;
   }
 
-  @override
   Future<ApiResult<List<RankingModel>>> getRankingByWin() async {
     List<RankingModel> data = [];
-    var response = await _restClient.getData(ServerRoutes.rankingByWin);
+    var response = await getData(ServerRoutes.rankingByWin);
     NetworkExceptions? errorData;
     if (response.resultData != null) {
       for (var rawData in response.resultData['result']) {
@@ -52,10 +37,9 @@ class GeneralRepositoryImp extends GeneralRepository {
     return result;
   }
 
-  @override
   Future<ApiResult<int>> getFreeCoin() async {
     int data = 0;
-    var response = await _restClient.getData(
+    var response = await getData(
       ServerRoutes.getFreeCoin,
       showMessageOnError: false,
     );
@@ -69,15 +53,14 @@ class GeneralRepositoryImp extends GeneralRepository {
     return result;
   }
 
-  @override
   Future<ApiResult<bool>> purchase({
     required String productId,
     required String marketType,
     required String token,
   }) async {
     bool data = true;
-    var response = await _restClient
-        .sendData(ServerRoutes.purchase, showMessageOnError: false, data: {
+    var response =
+        await sendData(ServerRoutes.purchase, showMessageOnError: false, data: {
       'product_id': productId,
       'market_type': marketType,
       'token': token,

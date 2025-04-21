@@ -15,7 +15,7 @@ import 'package:refreshed/refreshed.dart';
 // import '../Core/global_repository.dart';
 
 class GlobalController extends BaseController {
-  final GlobalRepository globalRepo;
+  final GlobalRepository globalRepo = GlobalRepository();
 
   ThemeMode currentTheme = ThemeMode.light;
 
@@ -40,7 +40,6 @@ class GlobalController extends BaseController {
 
   RxBool errorGetData = RxBool(false);
 
-  GlobalController({required this.globalRepo});
 
   changePage(int page) {
     selectedPage.value = page;
