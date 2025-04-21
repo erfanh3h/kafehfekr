@@ -16,14 +16,14 @@ class PurchasesBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 300,
+      // height: 300,
       width: Get.width,
       child: GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 15,
+          crossAxisSpacing: 25,
+          mainAxisSpacing: 20,
         ),
         itemBuilder: (ctx, index) => InkWell(
           onTap: () => controller.purchaseItem(index),
@@ -32,20 +32,20 @@ class PurchasesBox extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.transparent,
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.lightColor),
+              // border: Border.all(color: AppColors.lightColor),
             ),
             child: Column(
               children: [
                 Expanded(
                   child: Padding(
-                    padding: AppSpacings.s10All,
+                    padding: AppSpacings.s2All,
                     child: Row(
                       children: [
                         Text(
                           controller.counts[index].toString(),
                           style: const TextStyle(
-                            fontSize: 21,
-                            fontFamily: FontFamilies.dastnevis,
+                            fontSize: 22,
+                            fontFamily: FontFamilies.playPen,
                             color: AppColors.lightColor,
                           ),
                         ),

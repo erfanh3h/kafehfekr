@@ -41,7 +41,7 @@ abstract class AppTexts {
   static const ok = "ok";
   static const accept = "accept";
   static const scoreBase = "scoreBase";
-  static const winBase = "winBase"; 
+  static const winBase = "winBase";
   static const createLobby = "createLobby";
   static const cancel = "cancel";
   static const refresh = "refresh";
@@ -90,6 +90,7 @@ abstract class AppTexts {
   static const sticker = "sticker";
   static const soon = "soon";
   static const chancePaper = "chancePaper";
+  static const getCoin = "getCoin";
   static const gameFinished = "gameFinished";
   static const stopPrevoiusQueue = "stopPrevoiusQueue";
   static const youOutOfMove = "youOutOfMove";

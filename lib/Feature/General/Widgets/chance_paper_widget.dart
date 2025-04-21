@@ -76,35 +76,30 @@ class ChancePaperWidget extends StatelessWidget {
                   Text(
                     AppTexts.coin8Hours.tr,
                     style: const TextStyle(
-                      fontSize: 15,
-                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 25,
+                      fontFamily: FontFamilies.hekayat,
                       color: AppColors.lightColor,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                   const Spacer(),
                   controller.canGetFreeCoin.value
-                      ? Text(
-                          AppTexts.coinReady.tr,
-                          style: const TextStyle(
-                            color: AppColors.lightColor,
-                            fontSize: 15,
+                      ? SizedBox(
+                          width: double.maxFinite,
+                          child: GlobalButtonWidget(
+                            onTap: controller.getFreeCoin,
+                            text: AppTexts.getCoin.tr,
+                            fontColor: AppColors.lightColor,
+                            color: AppColors.redWarmColor.withValues(
+                                alpha:
+                                    controller.canGetFreeCoin.value ? 1 : .5),
+                            isLoading: controller.isGettingCoin.value,
                           ),
                         )
                       : RemainTimeWidget(
                           maxTime: controller.remainTime.value,
                         ),
                   const Spacer(),
-                  SizedBox(
-                    width: double.maxFinite,
-                    child: GlobalButtonWidget(
-                      onTap: controller.getFreeCoin,
-                      text: AppTexts.chancePaper.tr,
-                      fontColor: AppColors.lightColor,
-                      color: AppColors.goldenColor.withValues(
-                          alpha: controller.canGetFreeCoin.value ? 1 : .5),
-                      isLoading: controller.isGettingCoin.value,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -167,15 +162,17 @@ class _RemainTimeWidgetState extends State<RemainTimeWidget> {
   @override
   Widget build(BuildContext context) {
     return Text(
-      convertedDate,
+      "$convertedDate \nتا شانس مجدد",
       style: const TextStyle(
-        fontSize: 16,
+        fontSize: 21,
         color: Colors.white,
-        fontFamily: FontFamilies.dastnevis,
+        fontFamily: FontFamilies.hekayat,
+        height: .9,
       ),
-      maxLines: 1,
+      maxLines: 2,
       overflow: TextOverflow.ellipsis,
       textDirection: TextDirection.ltr,
+      textAlign: TextAlign.center,
     );
   }
 }

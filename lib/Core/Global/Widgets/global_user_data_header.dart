@@ -131,17 +131,19 @@ class GlobalUserDataHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text(
-                  controller.myData.value!.name,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: AppColors.lightColor,
-                    fontFamily: FontFamilies.playPen,
-                    letterSpacing: 2.5,
+                Obx(
+                  () => Text(
+                    controller.myData.value!.name,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: AppColors.lightColor,
+                      fontFamily: FontFamilies.playPen,
+                      letterSpacing: 2.5,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textDirection: TextDirection.ltr,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textDirection: TextDirection.ltr,
                 ),
                 const SizedBox(height: 2),
                 InkWell(
@@ -181,9 +183,11 @@ class GlobalUserDataHeader extends StatelessWidget {
                   border: Border.all(color: AppColors.lightColor, width: 3)),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(150),
-                child: Image.asset(
-                  AvatarIcons()
-                      .generalAvatarPath(controller.myData.value!.image),
+                child: Obx(
+                  () => Image.asset(
+                    AvatarIcons()
+                        .generalAvatarPath(controller.myData.value!.image),
+                  ),
                 ),
               ),
             ),

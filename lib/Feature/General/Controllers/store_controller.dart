@@ -44,10 +44,11 @@ class StoreController extends BaseController {
     Future.delayed(const Duration(seconds: 3)).then((_) {
       isGettingCoin.value = false;
       DialogComponent().showIconicDialog(
-        'سکه',
-        'برنده ی $coin سکه شدی',
+        'صفحه شانس',
+        '$coin سکه دریافت کردی',
         GeneralIcons.coin,
-        AppColors.goldenColor,
+        AppColors.darkRed,
+        letBackPage: false,
       );
       Get.find<GlobalController>().fetchUserData().then((_) {
         checkCanGetFreeCoin();

@@ -31,6 +31,7 @@ class AppTranslations extends Translations {
           AppTexts.enemyOutOfMove: 'حریف امکان حرکتی نداره!',
           AppTexts.enterPhoneCorrectly: 'شماره را بدرستی وارد کنید!',
           AppTexts.rId: 'آی دی معرف',
+          AppTexts.getCoin: 'دریافت سکه',
           AppTexts.select5Games: '5 بازی را انتخاب کنید',
           AppTexts.select2Games: '2 بازی را انتخاب کنید',
           AppTexts.welcomeToCafeFekr: 'به کافه فکر خوش آمدید',
