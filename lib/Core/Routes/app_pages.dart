@@ -29,6 +29,7 @@ import 'package:kafehfekr/Feature/Pentago/Pages/pentago_page.dart';
 import 'package:kafehfekr/Feature/RPC/Pages/rpc_page.dart';
 import 'package:kafehfekr/Feature/Sudoku/Pages/sudoku_page.dart';
 import 'package:kafehfekr/Feature/Ten/Pages/ten_page.dart';
+import 'package:kafehfekr/Feature/TicTacToe/Pages/tictactoe_offline_page.dart';
 import 'package:kafehfekr/Feature/TicTacToe/Pages/tictactoe_page.dart';
 import 'package:kafehfekr/Feature/Yatzy/Pages/yatzy_page.dart';
 import 'package:kafehfekr/Feature/Yinsh/Pages/yinsh_page.dart';
@@ -169,6 +170,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.backGammon,
       page: BackGammonPage.new,
+    ),
+     GetPage(
+      name: AppRoutes.tictactoeOffline,
+      page: TicTacToeOfflinePage.new,
     ),
   ];
 }

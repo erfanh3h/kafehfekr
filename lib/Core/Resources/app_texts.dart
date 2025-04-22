@@ -45,6 +45,9 @@ abstract class AppTexts {
   static const createLobby = "createLobby";
   static const cancel = "cancel";
   static const refresh = "refresh";
+  static const restart = "restart";
+  static const player1IsWinner = "player1IsWinner";
+  static const player2IsWinner = "player2IsWinner";
   static const exit = "exit";
   static const back = "back";
   static const wait = "wait";

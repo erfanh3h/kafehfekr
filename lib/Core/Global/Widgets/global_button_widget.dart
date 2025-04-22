@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
+import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../Components/sound_player.dart';
@@ -49,14 +50,7 @@ class GlobalButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           border:
               Border.all(color: borderColor ?? AppColors.darkColor, width: 2),
-          // gradient: LinearGradient(
-          //   begin: Alignment.bottomLeft,
-          //   end: Alignment.topRight,
-          //   colors: [
-          //     const Color.fromARGB(1, 212, 133, 126),
-          //     color ?? AppColors.blueWarmColor,
-          //   ],
-          // ),
+          gradient: headerGradient,
         ),
         child: Center(
           child: isLoading

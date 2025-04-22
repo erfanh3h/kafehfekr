@@ -66,4 +66,16 @@ class PlayerModel {
       isDisconnected: isDisconnected,
     );
   }
+
+  factory PlayerModel.fromOfflineGame(int gamerId) {
+    return PlayerModel(
+      userId: gamerId.toString(),
+      gamerId: gamerId,
+      userImage: 0,
+      name: 'بازیکن $gamerId',
+      notPlayedTurns: 0,
+      disconnectTime: 10000,
+      isDisconnected: false,
+    );
+  }
 }

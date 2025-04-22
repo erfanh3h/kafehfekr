@@ -33,4 +33,5 @@ abstract class AppRoutes {
   static const pentago = '/Pentago';
   static const yinsh = '/Yinsh';
   static const backGammon = '/BackGammon';
+  static const tictactoeOffline = '/tictactoeOffline';
 }

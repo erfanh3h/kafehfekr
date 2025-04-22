@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_gold_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
