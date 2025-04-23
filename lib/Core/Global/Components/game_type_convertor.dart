@@ -69,7 +69,7 @@ class GameTypeConvertor {
       case GameTypes.FourInRow:
         result = AppImages.fourinrowGame;
         break;
-      }
+    }
     return result;
   }
 
@@ -301,6 +301,67 @@ class GameTypeConvertor {
       default:
     }
     return result;
+  }
+
+  static GameTypes offlineGameToOnlineGame(OfflineGameTypes data) {
+    switch (data) {
+      case OfflineGameTypes.TicTacToe:
+        return GameTypes.TicTacToe;
+      case OfflineGameTypes.MSweeper:
+        return GameTypes.MSweeper;
+
+      // case GameTypes.Pentago:
+      //   result = AppImages.pentagoGame;
+      //   break;
+      // case GameTypes.RPC:
+      //   result = AppImages.rpcGame;
+      //   break;
+      // case GameTypes.BackGammon:
+      //   result = AppImages.backgammonGame;
+      //   break;
+      // case GameTypes.Checkers:
+      //   result = AppImages.checkersGame;
+      //   break;
+      // case GameTypes.Chess:
+      //   result = AppImages.chessGame;
+      //   break;
+      // case GameTypes.Ten:
+      //   result = AppImages.tenGame;
+      //   break;
+      // case GameTypes.BattleShip:
+      //   result = AppImages.battleshipGame;
+      //   break;
+      // case GameTypes.DotBox:
+      //   result = AppImages.dotboxGame;
+      //   break;
+      // case GameTypes.BoxFour:
+      //   result = AppImages.boxfourGame;
+      //   break;
+      // case GameTypes.Yatzy:
+      //   result = AppImages.yatzyGame;
+      //   break;
+      // case GameTypes.Mill:
+      //   result = AppImages.millGame;
+      //   break;
+      // case GameTypes.Othello:
+      //   result = AppImages.othelloGame;
+      //   break;
+      // case GameTypes.Sudoku:
+      //   result = AppImages.sudokuGame;
+      //   break;
+      // case GameTypes.Yinsh:
+      //   result = AppImages.yinshGame;
+      //   break;
+      // case GameTypes.MNumbers:
+      //   result = AppImages.mnumbersGame;
+      //   break;
+      // case GameTypes.MSweeper:
+      //   result = AppImages.msweeperGame;
+      //   break;
+      // case GameTypes.FourInRow:
+      //   result = AppImages.fourinrowGame;
+      //   break;
+    }
   }
 
   List<int> toGameRewards() {

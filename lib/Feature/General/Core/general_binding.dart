@@ -3,6 +3,7 @@ import 'package:kafehfekr/Feature/General/Controllers/game_play_controller.dart'
 import 'package:kafehfekr/Feature/General/Controllers/history_controller.dart';
 import 'package:kafehfekr/Feature/General/Controllers/lobby_controller.dart';
 import 'package:kafehfekr/Feature/General/Controllers/maintence_controlle.dart';
+import 'package:kafehfekr/Feature/General/Controllers/offline_games_menu_controller.dart';
 import 'package:kafehfekr/Feature/General/Controllers/ranking_controller.dart';
 import 'package:kafehfekr/Feature/General/Controllers/store_controller.dart';
 import 'package:kafehfekr/Feature/General/Controllers/update_controller.dart';
@@ -17,6 +18,10 @@ class GeneralBinding implements BindingsInterface {
         ),
         Get.lazyPut<GameMenuController>(
           () => GameMenuController(),
+          fenix: true,
+        ),
+        Get.lazyPut<OfflineGamesMenuController>(
+          () => OfflineGamesMenuController(),
           fenix: true,
         ),
         Get.lazyPut<MaintenceController>(

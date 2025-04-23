@@ -32,6 +32,28 @@ enum GameTypes {
   BackGammon
 }
 
+enum OfflineGameTypes {
+  TicTacToe,
+  // RPC,
+  // DotBox,
+  // Ten,
+  // MNumbers,
+  MSweeper,
+  // FekrBekr,
+  // Yatzy,
+  // Pentago,
+  // FourInRow,
+  // Sudoku,
+  // BattleShip,
+  // BoxFour,
+  // Yinsh,
+  // Chess,
+  // Checkers,
+  // Othello,
+  // Mill,
+  // BackGammon
+}
+
 enum GameDifficulties { Easy, Normal, Hard }
 
 enum MarketTypes {

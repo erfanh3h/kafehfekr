@@ -4,7 +4,6 @@ import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
-import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Feature/MSweeper/Models/enums.dart';
 import 'package:kafehfekr/Feature/MSweeper/Models/msweeper_peace_model.dart';
 
@@ -63,34 +62,31 @@ class MSweeperOfflineButton extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Padding(
-            padding: AppSpacings.s10All,
-            child: isExplodedMine
-                ? SpinPerfect(
-                    child: Image.asset(
-                      GeneralIcons.bombExplode,
-                      color: Colors.orangeAccent,
-                    ),
-                  )
-                : isEquiped
-                    ? ElasticIn(
-                        child: Image.asset(
-                          GeneralIcons.bomb,
-                          color: AppColors.white,
-                        ),
-                      )
-                    : peaceData.value != null && isSelected
-                        ? ElasticIn(
-                            child: Text(
-                              peaceData.value.toString(),
-                              style: const TextStyle(
-                                fontFamily: FontFamilies.dastnevis,
-                                fontSize: 22,
-                              ),
+          child: isExplodedMine
+              ? SpinPerfect(
+                  child: Image.asset(
+                    GeneralIcons.bombExplode,
+                    color: Colors.orangeAccent,
+                  ),
+                )
+              : isEquiped
+                  ? ElasticIn(
+                      child: Image.asset(
+                        GeneralIcons.bomb,
+                        color: AppColors.white,
+                      ),
+                    )
+                  : peaceData.value != null && isSelected
+                      ? ElasticIn(
+                          child: Text(
+                            peaceData.value.toString(),
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontFamily: FontFamilies.hekayat,
                             ),
-                          )
-                        : Container(),
-          ),
+                          ),
+                        )
+                      : Container(),
         ),
       ),
     );

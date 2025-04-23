@@ -18,6 +18,7 @@ import 'package:kafehfekr/Feature/General/Pages/history_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/library_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/lobby_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/maintence_page.dart';
+import 'package:kafehfekr/Feature/General/Pages/offline_games_menu_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/ranking_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/store_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/update_page.dart';
@@ -48,10 +49,10 @@ abstract class AppPages {
       page: GameMenuPage.new,
       transition: Transition.fade,
     ),
-    // GetPage(
-    //   name: AppRoutes.offlineGamesMenu,
-    //   page: GameMenuPage.new,
-    // ),
+    GetPage(
+      name: AppRoutes.offlineGamesMenu,
+      page: OfflineGamesMenuPage.new,
+    ),
     GetPage(
       name: AppRoutes.library,
       page: LibraryPage.new,

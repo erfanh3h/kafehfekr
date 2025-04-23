@@ -11,19 +11,12 @@ import 'package:refreshed/refreshed.dart';
 class MSweeperOfflineController extends BaseOfflineGameController {
   RxList<Rx<MSweeperPeaceModel>> peaces = RxList();
 
-  RxBool canSelectMine = RxBool(true);
-
   RxInt minesCount = RxInt(10);
   RxInt defusedPieces = RxInt(0);
   RxInt boardSize = RxInt(8);
   RxInt allPiecesCount = RxInt(0);
 
   RxBool isBombHitted = RxBool(false);
-
-  void startGameFunction(Map data) {
-    canSelectMine.value = true;
-    showInteraction(sound: GameSoundTypes.startGame);
-  }
 
   void pieceSelectFunction(int pieceId) {
     if (isPieceMine(pieceId)) {
@@ -35,14 +28,18 @@ class MSweeperOfflineController extends BaseOfflineGameController {
       Future.delayed(const Duration(milliseconds: 350)).then((_) {
         showInteraction(sound: GameSoundTypes.explode);
       });
+      gameResultText.value = AppTexts.youLoseGame.tr;
       return;
     }
     peaces[pieceId].value =
         peaces[pieceId].value.addStatus(status: PeaceStatusTypes.selected);
     defusedPieces.value += 1;
+    clearSafePieces(pieceId);
     isGameFinished.value =
         (allPiecesCount.value - defusedPieces.value == minesCount.value);
-    clearSafePieces(pieceId);
+    if (isGameFinished.value) {
+      gameResultText.value = AppTexts.youWinGame.tr;
+    }
   }
 
   void playerScoreFunction(Map data) {
@@ -62,7 +59,8 @@ class MSweeperOfflineController extends BaseOfflineGameController {
       showInteraction(text: AppTexts.gameFinished.tr);
       return;
     }
-    if (piece.currentStatuses.contains(PeaceStatusTypes.selected)) {
+    if (piece.currentStatuses.contains(PeaceStatusTypes.selected) ||
+        piece.currentStatuses.contains(PeaceStatusTypes.equiped)) {
       showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
@@ -89,10 +87,13 @@ class MSweeperOfflineController extends BaseOfflineGameController {
     }
   }
 
-  void resetPeaces() {
-    for (var i = 0; i < peaces.length; i++) {
-      peaces[i].value = peaces[i].value.resetPeace();
-    }
+  void resetGame() {
+    peaces.clear();
+    isGameFinished.value = false;
+    isBombHitted.value = false;
+    defusedPieces.value = 0;
+    allPiecesCount.value = 0;
+    initPieces();
   }
 
   removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
@@ -144,6 +145,7 @@ class MSweeperOfflineController extends BaseOfflineGameController {
       changePieceValue(index, 0);
       peaces[index].value =
           peaces[index].value.addStatus(status: PeaceStatusTypes.selected);
+      defusedPieces.value += 1;
     }
 
     setPieceAsEmpty(index);
