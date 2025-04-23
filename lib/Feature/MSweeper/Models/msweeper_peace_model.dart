@@ -85,11 +85,7 @@ class MSweeperPeaceModel extends PeaceModel {
 
   MSweeperPeaceModel resetPeace() {
     return MSweeperPeaceModel(
-      id: id,
-      currentStatuses: [],
-      sweeperStatuses: [],
-      value: null,
-    );
+        id: id, currentStatuses: [], sweeperStatuses: [], value: null);
   }
 
   @override

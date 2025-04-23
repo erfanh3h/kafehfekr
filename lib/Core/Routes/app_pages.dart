@@ -22,6 +22,7 @@ import 'package:kafehfekr/Feature/General/Pages/ranking_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/store_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/update_page.dart';
 import 'package:kafehfekr/Feature/MNumbers/Pages/mnumbers_page.dart';
+import 'package:kafehfekr/Feature/MSweeper/Pages/msweeper_offline_page.dart';
 import 'package:kafehfekr/Feature/MSweeper/Pages/msweeper_page.dart';
 import 'package:kafehfekr/Feature/Mill/Pages/mill_page.dart';
 import 'package:kafehfekr/Feature/Othello/Pages/othello_page.dart';
@@ -171,9 +172,13 @@ abstract class AppPages {
       name: AppRoutes.backGammon,
       page: BackGammonPage.new,
     ),
-     GetPage(
+    GetPage(
       name: AppRoutes.tictactoeOffline,
       page: TicTacToeOfflinePage.new,
+    ),
+    GetPage(
+      name: AppRoutes.msweeperOffline,
+      page: MSweeperOfflinePage.new,
     ),
   ];
 }

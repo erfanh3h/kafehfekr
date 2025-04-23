@@ -34,7 +34,7 @@ final items = [
     Get.toNamed(AppRoutes.gamesMenu);
   }),
   ItemData(bottomNavigationTexts[1], bottomNavigationIcons[1], () {
-    Get.toNamed(AppRoutes.tictactoeOffline);
+    Get.toNamed(AppRoutes.msweeperOffline);
   }),
   ItemData(bottomNavigationTexts[2], bottomNavigationIcons[2], () {
     Get.toNamed(AppRoutes.library);

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
@@ -154,15 +153,6 @@ class BaseOfflineGameController extends BaseController {
 
   bool isThisUserTurn(int gamerId) {
     return currentTurn.value == gamerId;
-  }
-
-  Color? returnTimerColor() {
-    if (currentTurn.value == 1) {
-      return AppColors.imageRedColor;
-    } else if (currentTurn.value == 2) {
-      return AppColors.imageBlueColor;
-    }
-    return null;
   }
 
   void nextUser(dynamic data) {}
