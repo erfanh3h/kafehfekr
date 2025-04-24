@@ -34,6 +34,8 @@ class AppTranslations extends Translations {
           AppTexts.avatarChanged: 'آواتار تغییر کرد',
           AppTexts.rId: 'آی دی معرف',
           AppTexts.quest: 'مهمان',
+          AppTexts.tryAgain: 'تلاش مجدد',
+          AppTexts.serverError: 'خطای ارتباط با سرور',
           AppTexts.mostLoginrFirst: 'باید ابتدا وارد حساب شوید',
           AppTexts.enterAsQuest: 'ورود مهمان',
           AppTexts.login: 'ورود به حساب کاربری',

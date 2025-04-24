@@ -15,6 +15,7 @@ mixin RestClient {
     final String url, {
     final bool needToken = true,
     final bool showMessageOnError = true,
+    final int timeout = 10,
   }) async {
     try {
       Map<String, String>? requestHeader = {
@@ -26,7 +27,7 @@ mixin RestClient {
       }
       var dio = http.Dio(http.BaseOptions(
         headers: requestHeader,
-        connectTimeout: const Duration(seconds: 10),
+        connectTimeout: Duration(seconds: timeout),
         receiveTimeout: const Duration(seconds: 10),
       ));
       var response = await dio.get(url);

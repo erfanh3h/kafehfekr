@@ -68,7 +68,8 @@ class GlobalRepository with RestClient {
   }
 
   Future<ApiResult<ConfigModel?>> getConfigData() async {
-    var response = await getData(ServerRoutes.configData, needToken: false);
+    var response =
+        await getData(ServerRoutes.configData, needToken: false, timeout: 3);
     NetworkExceptions? errorData;
     ConfigModel? config;
     if (response.resultData != null) {

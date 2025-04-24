@@ -137,7 +137,7 @@ class MainPage extends BaseView<GlobalController> {
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 15,
               children: [
-                if (controller.token != null)
+                if (controller.token != null && !controller.isNoNetwork.value)
                   GlobalActivityButton2(
                     text: AppTexts.store.tr,
                     iconData: Icons.shopify_sharp,
@@ -166,7 +166,7 @@ class MainPage extends BaseView<GlobalController> {
                     ),
                   );
                 }),
-                if (controller.token != null)
+                if (controller.token != null && !controller.isNoNetwork.value)
                   GlobalActivityButton2(
                     text: AppTexts.changeUsername.tr,
                     iconData: CupertinoIcons.pen,

@@ -256,6 +256,8 @@ abstract class AppTexts {
   static const enterAsQuest = "enterAsQuest";
   static const login = "login";
   static const mostLoginrFirst = "mostLoginrFirst";
+  static const serverError = "serverError";
+  static const tryAgain = "tryAgain";
 
   static const change = "change";
   static const purchaseCanceled = "purchaseCanceled";

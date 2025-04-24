@@ -38,7 +38,7 @@ class GlobalController extends BaseController {
   RxBool isLoadingProfile = RxBool(true);
   RxBool isLoadingHistory = RxBool(false);
 
-  RxBool errorGetData = RxBool(false);
+  // RxBool errorGetData = RxBool(false);
 
   RxBool isNoNetwork = RxBool(false);
 
@@ -47,9 +47,10 @@ class GlobalController extends BaseController {
     pgCtrl.jumpToPage(page);
   }
 
-  void checkLoginStatus() async {
+  checkLoginStatus({bool navigateToMain = true}) async {
     // await removeData();
-    bool isConfigOk = await getConfigData();
+    bool isConfigOk = await getConfigData(navigateToMain: navigateToMain);
+    token = await globalRepo.getDataFromStorage(key: StorageKeys.token);
     if (isConfigOk) {
       await fetchUserData();
       if (token != null) {
@@ -74,7 +75,16 @@ class GlobalController extends BaseController {
     }
   }
 
-  Future<bool> getConfigData() async {
+  tryReconnect() async {
+    DialogComponent().showLoading();
+    await checkLoginStatus(navigateToMain: false);
+    Get.closeAllDialogs();
+    if (myData.value != null) {
+      isNoNetwork.value = false;
+    }
+  }
+
+  Future<bool> getConfigData({bool navigateToMain = true}) async {
     final dataResult = await globalRepo.getConfigData();
     if (dataResult.resultData != null) {
       final ConfigModel data = dataResult.resultData!;
@@ -89,19 +99,19 @@ class GlobalController extends BaseController {
       }
     }
     if (dataResult.errorData != null) {
-      errorGetData.value = true;
+      isNoNetwork.value = true;
+      if (navigateToMain) {
+        Get.offAllNamed(AppRoutes.main);
+      }
       return false;
     }
-    {}
+
     return true;
   }
 
   Future<void> fetchUserData() async {
-    isLoadingProfile.value = true;
-    final tokenData =
-        await globalRepo.getDataFromStorage(key: StorageKeys.token);
-    if (tokenData != null) {
-      token = tokenData;
+    if (token != null) {
+      isLoadingProfile.value = true;
       final dataResult = await globalRepo.getMyData();
       if (dataResult.resultData != null) {
         myData.value = dataResult.resultData!;

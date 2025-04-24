@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -264,6 +265,30 @@ class DialogComponent {
                   ),
                 ],
               )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  showLoading() {
+    Get.dialog(
+      barrierDismissible: false,
+      Dialog(
+        backgroundColor: AppColors.darkRed,
+        child: Padding(
+          padding: AppSpacings.s20All,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                AppTexts.wait.tr,
+                style:
+                    const TextStyle(fontSize: 21, color: AppColors.lightColor),
+              ),
+              const SizedBox(height: 15),
+              const GlobalLoadingWidget(color: AppColors.lightColor),
             ],
           ),
         ),

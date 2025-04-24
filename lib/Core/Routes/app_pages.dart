@@ -49,7 +49,7 @@ abstract class AppPages {
       name: AppRoutes.gamesMenu,
       page: GameMenuPage.new,
       transition: Transition.fade,
-      middlewares: [EnsureAuthMiddleware()],
+      middlewares: [EnsureAuthMiddleware(), EnsureNetworkIsOnMiddleware()],
     ),
     GetPage(
       name: AppRoutes.offlineGamesMenu,
@@ -70,7 +70,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.store,
       page: StorePage.new,
-      middlewares: [EnsureAuthMiddleware()],
+      middlewares: [EnsureAuthMiddleware(), EnsureNetworkIsOnMiddleware()],
     ),
     GetPage(
       name: AppRoutes.username,

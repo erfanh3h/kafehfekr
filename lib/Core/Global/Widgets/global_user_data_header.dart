@@ -23,11 +23,40 @@ class GlobalUserDataHeader extends StatelessWidget {
     GlobalController controller = Get.find<GlobalController>();
     return Padding(
       padding: AppSpacings.s10All,
-      child: controller.isNoNetwork.value
-          ? Container()
-          : controller.token != null
-              ? MainPart(controller: controller)
-              : const QuestPart(),
+      child: Obx(
+        () => controller.isNoNetwork.value
+            ? NoNetworkPart(controller: controller)
+            : controller.token != null
+                ? MainPart(controller: controller)
+                : const QuestPart(),
+      ),
+    );
+  }
+}
+
+class NoNetworkPart extends StatelessWidget {
+  const NoNetworkPart({super.key, required this.controller});
+  final GlobalController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: AppSpacings.s10Top,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text(
+            AppTexts.serverError.tr,
+            style: const TextStyle(color: AppColors.lightColor, fontSize: 18),
+          ),
+          GlobalButtonWidget(
+            onTap: () {
+              controller.tryReconnect();
+            },
+            text: AppTexts.tryAgain.tr,
+          )
+        ],
+      ),
     );
   }
 }
@@ -44,7 +73,7 @@ class QuestPart extends StatelessWidget {
         children: [
           Text(
             AppTexts.quest.tr,
-            style: const TextStyle(color: AppColors.lightColor, fontSize: 25),
+            style: const TextStyle(color: AppColors.lightColor, fontSize: 23),
           ),
           GlobalButtonWidget(
             width: 225.w,

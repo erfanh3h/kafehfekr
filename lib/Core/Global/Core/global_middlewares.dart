@@ -15,16 +15,13 @@ class EnsureAuthMiddleware extends GetMiddleware {
   }
 }
 
-class EnsureNotAuthedMiddleware extends GetMiddleware {
+class EnsureNetworkIsOnMiddleware extends GetMiddleware {
   @override
   Future<RouteDecoder?> redirectDelegate(RouteDecoder route) async {
-    // if (AuthService.to.isLoggedInValue) {
-    //   //NEVER navigate to auth screen, when user is already authed
-    //   return null;
-
-    //   //OR redirect user to another screen
-    //   //return RouteDecoder.fromRoute(Routes.PROFILE);
-    // }
+    if (Get.find<GlobalController>().isNoNetwork.value) {
+      DialogComponent().showToast(label: AppTexts.serverError.tr);
+      return null;
+    }
     return await super.redirectDelegate(route);
   }
 }
