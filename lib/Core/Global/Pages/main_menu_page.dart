@@ -18,7 +18,7 @@ import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
-import 'package:kafehfekr/Feature/General/Widgets/change_username_box.dart';
+import 'package:kafehfekr/Features/General/Widgets/change_username_box.dart';
 import 'package:refreshed/refreshed.dart';
 
 class ItemData {

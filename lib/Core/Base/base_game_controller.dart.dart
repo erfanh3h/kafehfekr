@@ -12,7 +12,7 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Feature/General/Controllers/game_play_controller.dart';
+import 'package:kafehfekr/Features/General/Controllers/game_play_controller.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../../../Core/Base/base_controller.dart';

@@ -8,9 +8,9 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Feature/Auth/Models/user_model.dart';
-import 'package:kafehfekr/Feature/General/Models/user_history_model.dart';
-import 'package:kafehfekr/Feature/General/Widgets/game_history_row_widget.dart';
+import 'package:kafehfekr/Features/Auth/Models/user_model.dart';
+import 'package:kafehfekr/Features/General/Models/user_history_model.dart';
+import 'package:kafehfekr/Features/General/Widgets/game_history_row_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 class UserDataWidget extends StatelessWidget {
