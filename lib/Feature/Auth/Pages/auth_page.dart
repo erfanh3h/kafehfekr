@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_text_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
@@ -143,6 +144,14 @@ class AuthPage extends BaseView<AuthController> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 15.h),
+                  Center(
+                    child: GlobalButtonWidget(
+                      width: 225.w,
+                      onTap: controller.enterAsQuest,
+                      text: AppTexts.enterAsQuest.tr,
+                    ),
+                  )
                 ],
               )
             else

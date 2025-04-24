@@ -12,6 +12,7 @@ import 'package:kafehfekr/Feature/Chess/Pages/chess_page.dart';
 import 'package:kafehfekr/Feature/DotBox/Pages/dotbox_page.dart';
 import 'package:kafehfekr/Feature/FekrBekr/Pages/fekrbekr_page.dart';
 import 'package:kafehfekr/Feature/FourInRow/Pages/four_in_row_page.dart';
+import 'package:kafehfekr/Core/Global/Core/global_middlewares.dart';
 import 'package:kafehfekr/Feature/General/Pages/game_menu_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/game_play_page.dart';
 import 'package:kafehfekr/Feature/General/Pages/history_page.dart';
@@ -48,6 +49,7 @@ abstract class AppPages {
       name: AppRoutes.gamesMenu,
       page: GameMenuPage.new,
       transition: Transition.fade,
+      middlewares: [EnsureAuthMiddleware()],
     ),
     GetPage(
       name: AppRoutes.offlineGamesMenu,
@@ -68,6 +70,7 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.store,
       page: StorePage.new,
+      middlewares: [EnsureAuthMiddleware()],
     ),
     GetPage(
       name: AppRoutes.username,

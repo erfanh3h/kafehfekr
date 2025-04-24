@@ -252,6 +252,10 @@ abstract class AppTexts {
   static const changeUsername = "changeUsername";
   static const changeUsernamePrice = "changeUsernamePrice";
   static const changeImagePrice = "changeImagePrice";
+  static const quest = "quest";
+  static const enterAsQuest = "enterAsQuest";
+  static const login = "login";
+  static const mostLoginrFirst = "mostLoginrFirst";
 
   static const change = "change";
   static const purchaseCanceled = "purchaseCanceled";

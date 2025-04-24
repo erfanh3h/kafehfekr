@@ -105,6 +105,10 @@ class AuthController extends BaseController {
     pricavyPolicyAccepted.value = value ?? false;
   }
 
+  enterAsQuest() {
+    Get.offAllNamed(AppRoutes.main);
+  }
+
   @override
   void onInit() async {
     final GlobalController globalcontroller = Get.find<GlobalController>();

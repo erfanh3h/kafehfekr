@@ -40,6 +40,8 @@ class GlobalController extends BaseController {
 
   RxBool errorGetData = RxBool(false);
 
+  RxBool isNoNetwork = RxBool(false);
+
   changePage(int page) {
     selectedPage.value = page;
     pgCtrl.jumpToPage(page);
