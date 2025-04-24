@@ -228,6 +228,11 @@ class MSweeperOfflineController extends BaseOfflineGameController {
 
   @override
   void onInit() async {
+    final List<int>? args = Get.arguments;
+    if (args != null) {
+      boardSize.value = args[0];
+      minesCount.value = args[1];
+    }
     super.onInit();
     gameType = GameTypes.MSweeper;
     initPieces();

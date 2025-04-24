@@ -55,6 +55,8 @@ class AppTranslations extends Translations {
               '5 بازی را انتخاب کنید.3 بازی از بین بازی های انتخابی شما و حریفتان بطور شانسی برای بازی انتخاب می شود.',
           AppTexts.lobbyGameMenu:
               'با ورود به صفحه ی لابی ها و ساخت لابی ، با دوستان خود بازی کنید.',
+          AppTexts.minesCount: 'تعداد مین ها',
+          AppTexts.boardSize: 'سایز صفحه',
           AppTexts.overview: 'نمای کلی',
           AppTexts.normalGame: 'دوستانه',
           AppTexts.rankGame: 'رقابتی',
