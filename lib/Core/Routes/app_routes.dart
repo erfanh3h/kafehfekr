@@ -37,4 +37,5 @@ abstract class AppRoutes {
   static const msweeperOffline = '/msweeperOffline';
   static const mnumbersOffline = '/mnumbersOffline';
   static const tenOffline = '/tenOffline';
+  static const fekrBekrOffline = '/fekrBekrOffline';
 }

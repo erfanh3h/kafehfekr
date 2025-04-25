@@ -18,6 +18,9 @@ class OfflineGamesMenuController extends BaseController {
       case GameTypes.Ten:
         Get.toNamed(AppRoutes.tenOffline);
         return;
+      case GameTypes.FekrBekr:
+        Get.toNamed(AppRoutes.fekrBekrOffline);
+        return;
       case GameTypes.MSweeper:
         openMSweeperSelector();
       case GameTypes.MNumbers:

@@ -39,7 +39,7 @@ enum OfflineGameTypes {
   Ten,
   MNumbers,
   MSweeper,
-  // FekrBekr,
+  FekrBekr,
   // Yatzy,
   // Pentago,
   // FourInRow,

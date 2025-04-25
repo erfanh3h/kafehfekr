@@ -10,6 +10,7 @@ import 'package:kafehfekr/Games/BoxFour/Pages/boxfour_page.dart';
 import 'package:kafehfekr/Games/Checkers/Pages/checkers_page.dart';
 import 'package:kafehfekr/Games/Chess/Pages/chess_page.dart';
 import 'package:kafehfekr/Games/DotBox/Pages/dotbox_page.dart';
+import 'package:kafehfekr/Games/FekrBekr/Pages/fekrbekr_offline_page.dart';
 import 'package:kafehfekr/Games/FekrBekr/Pages/fekrbekr_page.dart';
 import 'package:kafehfekr/Games/FourInRow/Pages/four_in_row_page.dart';
 import 'package:kafehfekr/Core/Global/Core/global_middlewares.dart';
@@ -193,6 +194,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.tenOffline,
       page: TenOfflinePage.new,
+    ),
+    GetPage(
+      name: AppRoutes.fekrBekrOffline,
+      page: FekrBekrOfflinePage.new,
     ),
   ];
 }

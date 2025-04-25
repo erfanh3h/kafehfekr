@@ -1,4 +1,5 @@
 import 'package:kafehfekr/Games/FekrBekr/Controllers/fekrbekr_controller.dart';
+import 'package:kafehfekr/Games/FekrBekr/Controllers/fekrbekr_offline_controller.dart';
 import 'package:refreshed/refreshed.dart';
 
 class FekrBekrBinding implements BindingsInterface {
@@ -6,6 +7,10 @@ class FekrBekrBinding implements BindingsInterface {
   void dependencies() => [
         Get.lazyPut<FekrBekrController>(
           () => FekrBekrController(),
+          fenix: true,
+        ),
+        Get.lazyPut<FekrBekrOfflineController>(
+          () => FekrBekrOfflineController(),
           fenix: true,
         ),
       ];
