@@ -309,7 +309,8 @@ class GameTypeConvertor {
         return GameTypes.TicTacToe;
       case OfflineGameTypes.MSweeper:
         return GameTypes.MSweeper;
-
+      case OfflineGameTypes.MNumbers:
+        return GameTypes.MNumbers;
       // case GameTypes.Pentago:
       //   result = AppImages.pentagoGame;
       //   break;

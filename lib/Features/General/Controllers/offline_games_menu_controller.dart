@@ -10,9 +10,6 @@ import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
 
 class OfflineGamesMenuController extends BaseController {
-  RxInt boardSize = RxInt(8);
-  RxInt minesCont = RxInt(10);
-
   onEachGameTap(GameTypes game) {
     switch (game) {
       case GameTypes.TicTacToe:
@@ -20,6 +17,8 @@ class OfflineGamesMenuController extends BaseController {
         return;
       case GameTypes.MSweeper:
         openMSweeperSelector();
+      case GameTypes.MNumbers:
+        openMNumbersSelector();
       default:
     }
   }
@@ -31,13 +30,78 @@ class OfflineGamesMenuController extends BaseController {
     );
   }
 
-  openMSweeperSelector() {
+  openMNumbersSelector() {
+    RxInt boardSize = RxInt(6);
+    List<int> sizes = [4, 6, 8, 10];
     Get.dialog(
       Dialog(
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            color: AppColors.lightColor,
+            color: AppColors.lightColor2,
+          ),
+          height: 150.h,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "${AppTexts.boardSize.tr}: ",
+                    style: const TextStyle(
+                      color: AppColors.darkColor,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  DropdownButton<int>(
+                    value: boardSize.value,
+                    items: sizes.map((number) {
+                      return DropdownMenuItem(
+                        value: number,
+                        child: Text(
+                          number.toString(),
+                          style: const TextStyle(
+                            color: AppColors.darkColor,
+                            fontSize: 18,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (value) {
+                      boardSize.value = value ?? 6;
+                    },
+                  ),
+                ],
+              ),
+              GlobalButtonWidget(
+                onTap: () {
+                  Get.closeAllDialogs();
+                  Get.toNamed(
+                    AppRoutes.mnumbersOffline,
+                    arguments: boardSize.value,
+                  );
+                },
+                text: AppTexts.start.tr,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  openMSweeperSelector() {
+    RxInt minesCont = RxInt(10);
+    RxInt boardSize = RxInt(8);
+    Get.dialog(
+      Dialog(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: AppColors.lightColor2,
           ),
           height: 150.h,
           child: Column(

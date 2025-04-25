@@ -91,6 +91,7 @@ class TicTacToeOfflineController extends BaseOfflineGameController {
     return true;
   }
 
+  @override
   void resetGame() {
     for (var i = 0; i < peaces.length; i++) {
       peaces[i].value = peaces[i].value.resetPeace();

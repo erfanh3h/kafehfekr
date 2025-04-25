@@ -1,14 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_offline_games_activity_buttons.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
-import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/TicTacToe/Controllers/tictactoe_offline_controller.dart';
 import 'package:kafehfekr/Games/TicTacToe/Widgets/tictactoe_offline_board_widget.dart';
-import 'package:refreshed/get_utils/get_utils.dart';
 
 class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
   const TicTacToeOfflinePage({super.key});
@@ -64,22 +62,7 @@ class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
             flex: 3,
             child: TicTacToeOfflineBoardWidget(controller: controller),
           ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                if (controller.isGameFinished.value)
-                  GlobalButtonWidget(
-                    onTap: controller.resetGame,
-                    text: AppTexts.restart.tr,
-                  ),
-                GlobalButtonWidget(
-                  onTap: controller.exitGame,
-                  text: AppTexts.exit.tr,
-                ),
-              ],
-            ),
-          )
+          Expanded(child: OfflineActivityButtons(controller: controller))
         ],
       ),
     );

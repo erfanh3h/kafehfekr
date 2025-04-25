@@ -192,6 +192,7 @@ class BaseOfflineGameController extends BaseController {
     return "";
   }
 
+  resetGame() {}
   exitGame() {
     Get.back();
   }

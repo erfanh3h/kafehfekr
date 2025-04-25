@@ -23,6 +23,7 @@ import 'package:kafehfekr/Features/General/Pages/offline_games_menu_page.dart';
 import 'package:kafehfekr/Features/General/Pages/ranking_page.dart';
 import 'package:kafehfekr/Features/General/Pages/store_page.dart';
 import 'package:kafehfekr/Features/General/Pages/update_page.dart';
+import 'package:kafehfekr/Games/MNumbers/Pages/mnumbers_offline_page.dart';
 import 'package:kafehfekr/Games/MNumbers/Pages/mnumbers_page.dart';
 import 'package:kafehfekr/Games/MSweeper/Pages/msweeper_offline_page.dart';
 import 'package:kafehfekr/Games/MSweeper/Pages/msweeper_page.dart';
@@ -183,6 +184,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.msweeperOffline,
       page: MSweeperOfflinePage.new,
+    ),
+    GetPage(
+      name: AppRoutes.mnumbersOffline,
+      page: MNumbersOfflinePage.new,
     ),
   ];
 }

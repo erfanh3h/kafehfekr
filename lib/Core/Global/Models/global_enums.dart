@@ -37,7 +37,7 @@ enum OfflineGameTypes {
   // RPC,
   // DotBox,
   // Ten,
-  // MNumbers,
+  MNumbers,
   MSweeper,
   // FekrBekr,
   // Yatzy,

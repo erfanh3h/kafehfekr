@@ -35,4 +35,5 @@ abstract class AppRoutes {
   static const backGammon = '/BackGammon';
   static const tictactoeOffline = '/tictactoeOffline';
   static const msweeperOffline = '/msweeperOffline';
+  static const mnumbersOffline = '/mnumbersOffline';
 }

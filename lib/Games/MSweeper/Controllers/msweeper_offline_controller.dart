@@ -25,7 +25,7 @@ class MSweeperOfflineController extends BaseOfflineGameController {
           .value
           .addSweeperStatus(newStatus: MineSweeperStatusTypes.isExplodedMine);
       isGameFinished.value = true;
-      Future.delayed(const Duration(milliseconds: 350)).then((_) {
+      Future.delayed(const Duration(milliseconds: 200)).then((_) {
         showInteraction(sound: GameSoundTypes.explode);
       });
       gameResultText.value = AppTexts.youLoseGame.tr;
@@ -87,6 +87,7 @@ class MSweeperOfflineController extends BaseOfflineGameController {
     }
   }
 
+  @override
   void resetGame() {
     peaces.clear();
     isGameFinished.value = false;
