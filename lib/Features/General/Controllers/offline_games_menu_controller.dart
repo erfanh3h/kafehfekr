@@ -56,23 +56,25 @@ class OfflineGamesMenuController extends BaseController {
                     ),
                   ),
                   SizedBox(width: 10.w),
-                  DropdownButton<int>(
-                    value: boardSize.value,
-                    items: sizes.map((number) {
-                      return DropdownMenuItem(
-                        value: number,
-                        child: Text(
-                          number.toString(),
-                          style: const TextStyle(
-                            color: AppColors.darkColor,
-                            fontSize: 18,
+                  Obx(
+                    () => DropdownButton<int>(
+                      value: boardSize.value,
+                      items: sizes.map((number) {
+                        return DropdownMenuItem(
+                          value: number,
+                          child: Text(
+                            number.toString(),
+                            style: const TextStyle(
+                              color: AppColors.darkColor,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      boardSize.value = value ?? 6;
-                    },
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        boardSize.value = value ?? 6;
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -119,24 +121,26 @@ class OfflineGamesMenuController extends BaseController {
                     ),
                   ),
                   SizedBox(width: 10.w),
-                  DropdownButton<int>(
-                    value: boardSize.value,
-                    items: List.generate(6, (index) {
-                      int number = index + 5; // از ۵ تا ۱۰
-                      return DropdownMenuItem(
-                        value: number,
-                        child: Text(
-                          number.toString(),
-                          style: const TextStyle(
-                            color: AppColors.darkColor,
-                            fontSize: 18,
+                  Obx(
+                    () => DropdownButton<int>(
+                      value: boardSize.value,
+                      items: List.generate(6, (index) {
+                        int number = index + 5; // از ۵ تا ۱۰
+                        return DropdownMenuItem(
+                          value: number,
+                          child: Text(
+                            number.toString(),
+                            style: const TextStyle(
+                              color: AppColors.darkColor,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                      );
-                    }),
-                    onChanged: (value) {
-                      boardSize.value = value ?? 8;
-                    },
+                        );
+                      }),
+                      onChanged: (value) {
+                        boardSize.value = value ?? 8;
+                      },
+                    ),
                   ),
                 ],
               ),

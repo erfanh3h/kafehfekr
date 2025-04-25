@@ -185,7 +185,6 @@ class MSweeperOfflineController extends BaseOfflineGameController {
       if (isPieceMine(randomIndex)) {
         continue;
       }
-      print(randomIndex);
       changePieceStatus(randomIndex, MineSweeperStatusTypes.isMine);
       (int, int) coordinate = indexToCoordinate(randomIndex);
       for (var i = coordinate.$1 - 1; i < coordinate.$1 + 2; i++) {
