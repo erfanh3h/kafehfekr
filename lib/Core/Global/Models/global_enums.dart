@@ -36,7 +36,7 @@ enum OfflineGameTypes {
   TicTacToe,
   // RPC,
   // DotBox,
-  // Ten,
+  Ten,
   MNumbers,
   MSweeper,
   // FekrBekr,

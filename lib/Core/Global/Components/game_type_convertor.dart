@@ -311,6 +311,8 @@ class GameTypeConvertor {
         return GameTypes.MSweeper;
       case OfflineGameTypes.MNumbers:
         return GameTypes.MNumbers;
+      case OfflineGameTypes.Ten:
+        return GameTypes.Ten;
       // case GameTypes.Pentago:
       //   result = AppImages.pentagoGame;
       //   break;
