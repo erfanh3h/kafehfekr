@@ -137,11 +137,11 @@ class TenOfflineBoardWidget extends StatelessWidget {
               padding: AppSpacings.s20All,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                border: Border.all(color: Colors.white70),
+                // border: Border.all(color: Colors.white70),
                 gradient: const LinearGradient(
                   begin: Alignment.bottomLeft,
                   end: Alignment.topRight,
-                  colors: [Colors.transparent, Colors.black54],
+                  colors: [Colors.transparent, Colors.black],
                 ),
               ),
               child: Column(
@@ -184,13 +184,11 @@ class TenOfflineBoardWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 25),
-            Opacity(
-              opacity: controller.letSendResult.value ? 1 : .5,
-              child: GlobalButtonWidget(
+            if (!controller.isGameFinished.value)
+              GlobalButtonWidget(
                 onTap: controller.sendResult,
                 text: AppTexts.accept.tr,
               ),
-            ),
           ],
         ),
       ),

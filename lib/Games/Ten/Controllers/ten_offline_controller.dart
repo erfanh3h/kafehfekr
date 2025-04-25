@@ -1,63 +1,24 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
+
 import 'package:function_tree/function_tree.dart';
-import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
-import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
+import 'package:kafehfekr/Core/Base/base_offline_game_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Global/Components/timer.dart';
-import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Games/Ten/Models/numbers.dart';
 import 'package:refreshed/refreshed.dart';
 
-class TenOfflineController extends BaseGameController {
+class TenOfflineController extends BaseOfflineGameController {
   RxList<RxString> operators = RxList();
   RxList<RxInt> numbers = RxList();
 
   RxList<RxString> operatorValues = RxList();
   RxList<RxInt> numberValues = RxList();
 
-  int maxRound = GameRoundCounts.tenRoundCount;
-
   RxBool letSendResult = RxBool(false);
   RxDouble result = RxDouble(0);
 
   List<int> currentNumbers = [];
-
-  @override
-  void currentTurnFunction(Map data) {
-    canSelectPeace.value = true;
-    List<int> listNumbers = List<int>.from(data['data']);
-    currentNumbers = listNumbers;
-    setNumbers();
-    showInteraction(sound: GameSoundTypes.startGame);
-    changetimerValue(GameWaitTimes.tenRoundTime);
-  }
-
-  @override
-  void newRoundFunction(Map data) {
-    int newRound = data['data'];
-    currentRound.value = newRound;
-    resetValues();
-  }
-
-  @override
-  void finishRoundFunction(Map data) {
-    Map newData = data['data'];
-    Get.find<TimerCompanent>().stopTimer();
-    int roundWinner = newData['Winner'] ?? 0;
-    if (roundWinner == 1) {
-      player1Score.value += 1;
-    } else if (roundWinner == 2) {
-      player2Score.value += 1;
-    }
-    if (roundWinner == myGameId) {
-      showInteraction(sound: GameSoundTypes.win);
-    } else {
-      showInteraction(sound: GameSoundTypes.lose);
-    }
-    FunctionsLibraryClass.showFinishRoundDialog(roundWinner, myGameId);
-    changetimerValue(GameWaitTimes.tenSleepRoundTime);
-  }
 
   bool checkOperatorsHaveValue(String value) {
     bool result = false;
@@ -70,33 +31,18 @@ class TenOfflineController extends BaseGameController {
     return result;
   }
 
-  @override
-  void reconnectDataFuntcion(Map data) {
-    super.reconnectDataFuntcion(data);
-    Map newData = data['data'];
-    Map gameData = newData['game_data'];
-    Map timerData = newData['timer_data'];
-    List<int> listNumbers = List<int>.from(gameData['current_numbers']);
-    currentNumbers = listNumbers;
-    setNumbers();
-    currentRound.value = gameData['current_round'];
-    player1Score.value = gameData['scores'][0];
-    player2Score.value = gameData['scores'][1];
-    final int time = GameWaitTimes.tenRoundTime - timerData['time'] as int;
-    changetimerValue(time.clamp(0, time));
-  }
-
-  @override
-  Color? returnTimerColor() {
-    return null;
-  }
-
   onOperatorRemove(int index) {
+    if (isGameFinished.value) {
+      return;
+    }
     operatorValues[index].value = "";
     calculateResult();
   }
 
   onOperatorAccept(String value, int index) {
+    if (isGameFinished.value) {
+      return;
+    }
     if (index == 4 && value != ')') {
       return;
     }
@@ -167,6 +113,9 @@ class TenOfflineController extends BaseGameController {
   }
 
   onNumberRemove(int index) {
+    if (isGameFinished.value) {
+      return;
+    }
     numberValues[index].value = -1;
     calculateResult();
   }
@@ -240,14 +189,17 @@ class TenOfflineController extends BaseGameController {
   }
 
   sendResult() {
-    if (!canSelectPeace.value) {
-      showInteraction(text: AppTexts.notYourTurn.tr);
+    if (isGameFinished.value) {
       return;
     }
-    if (!letSendResult.value) {
-      return;
+    if (letSendResult.value) {
+      isGameFinished.value = true;
+      showInteraction(
+          sound: GameSoundTypes.tapWrong, text: AppTexts.youWinGame.tr);
+    } else {
+      showInteraction(
+          sound: GameSoundTypes.tapWrong, text: AppTexts.wrongAnswer.tr);
     }
-    sendCommand({"id": GameCommands.solve});
   }
 
   void resetValues() {
@@ -258,13 +210,6 @@ class TenOfflineController extends BaseGameController {
       numberValues[i].value = -1;
     }
     result.value = 0;
-  }
-
-  setNumbers() {
-    numbers[0].value = currentNumbers[0];
-    numbers[1].value = currentNumbers[1];
-    numbers[2].value = currentNumbers[2];
-    numbers[3].value = currentNumbers[3];
   }
 
   addOperators() {
@@ -292,11 +237,34 @@ class TenOfflineController extends BaseGameController {
     numberValues.add(RxInt(-1));
   }
 
+  initNumbers() {
+    currentNumbers = tenNumberSets[Random().nextInt(tenNumberSets.length)];
+    numbers.add(RxInt(currentNumbers[0]));
+    numbers.add(RxInt(currentNumbers[1]));
+    numbers.add(RxInt(currentNumbers[2]));
+    numbers.add(RxInt(currentNumbers[3]));
+    showInteraction(sound: GameSoundTypes.startGame);
+  }
+
+  @override
+  resetGame() {
+    operators.clear();
+    numbers.clear();
+    operatorValues.clear();
+    numberValues.clear();
+    letSendResult.value = false;
+    result.value = 0;
+    currentNumbers.clear();
+    initNumbers();
+    addOperators();
+    addNumbers();
+  }
+
   @override
   void onInit() async {
     super.onInit();
     gameType = GameTypes.Ten;
-    canSelectPeace.value = true;
+    initNumbers();
     addOperators();
     addNumbers();
   }

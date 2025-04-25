@@ -261,10 +261,10 @@ class TenController extends BaseGameController {
   }
 
   setNumbers() {
-    numbers[0].value = currentNumbers[0];
-    numbers[1].value = currentNumbers[1];
-    numbers[2].value = currentNumbers[2];
-    numbers[3].value = currentNumbers[3];
+    numbers.add(RxInt(currentNumbers[0]));
+    numbers.add(RxInt(currentNumbers[1]));
+    numbers.add(RxInt(currentNumbers[2]));
+    numbers.add(RxInt(currentNumbers[3]));
   }
 
   addOperators() {

@@ -42,6 +42,7 @@ abstract class AppTexts {
   static const lose = "lose";
   static const draw = "draw";
   static const ok = "ok";
+  static const wrongAnswer = "wrongAnswer";
   static const accept = "accept";
   static const scoreBase = "scoreBase";
   static const winBase = "winBase";

@@ -57,6 +57,7 @@ class AppTranslations extends Translations {
               'با ورود به صفحه ی لابی ها و ساخت لابی ، با دوستان خود بازی کنید.',
           AppTexts.minesCount: 'تعداد مین ها',
           AppTexts.boardSize: 'سایز صفحه',
+          AppTexts.wrongAnswer: 'پاسخ نادرست',
           AppTexts.overview: 'نمای کلی',
           AppTexts.normalGame: 'دوستانه',
           AppTexts.rankGame: 'رقابتی',
