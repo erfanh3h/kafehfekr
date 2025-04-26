@@ -23,27 +23,28 @@ import 'package:refreshed/refreshed.dart';
 
 class ItemData {
   final String name;
-  final IconData icon;
+  final String? icon;
+  final IconData? iconData;
   final Function onTap;
   final double? scale;
-  ItemData(this.name, this.icon, this.onTap, {this.scale = 1.0});
+  ItemData(this.name, this.onTap, {this.scale = 1.0, this.iconData, this.icon});
 }
 
 final items = [
-  ItemData(bottomNavigationTexts[0], bottomNavigationIcons[0], () {
+  ItemData(AppTexts.onlineGame, icon: GeneralIcons.rank, () {
     Get.toNamed(AppRoutes.gamesMenu);
   }),
-  ItemData(bottomNavigationTexts[1], bottomNavigationIcons[1], () {
+  ItemData(AppTexts.lobby, icon: GeneralIcons.lobby, () {
+    Get.toNamed(AppRoutes.gamesMenu);
+  }),
+  ItemData(AppTexts.offlineGame, iconData: Icons.wifi_off_outlined, () {
     Get.toNamed(AppRoutes.offlineGamesMenu);
   }),
-  ItemData(bottomNavigationTexts[2], bottomNavigationIcons[2], () {
+  ItemData(AppTexts.library, iconData: CupertinoIcons.book_solid, () {
     Get.toNamed(AppRoutes.library);
   }),
-  ItemData(bottomNavigationTexts[3], bottomNavigationIcons[3], () {
+  ItemData(AppTexts.ranking, iconData: Icons.format_list_numbered_rtl, () {
     Get.toNamed(AppRoutes.ranking);
-  }),
-  ItemData(bottomNavigationTexts[4], bottomNavigationIcons[4], () {
-    Get.toNamed(AppRoutes.history);
   }),
 ];
 
@@ -114,11 +115,18 @@ class MainPage extends BaseView<GlobalController> {
                           border:
                               Border.all(color: AppColors.lightColor, width: 2),
                         ),
-                        child: Icon(
-                          items[index].icon,
-                          color: AppColors.lightColor,
-                          size: 50,
-                        ),
+                        child: items[index].iconData != null
+                            ? Icon(
+                                items[index].iconData,
+                                color: AppColors.lightColor,
+                                size: 50,
+                              )
+                            : Image.asset(
+                                items[index].icon!,
+                                width: 50,
+                                height: 50,
+                                color: AppColors.lightColor,
+                              ),
                       ),
                     ],
                   ),
@@ -144,6 +152,12 @@ class MainPage extends BaseView<GlobalController> {
                     onTap: () {
                       Get.toNamed(AppRoutes.store);
                     },
+                  ),
+                if (controller.token != null && !controller.isNoNetwork.value)
+                  GlobalActivityButton2(
+                    text: AppTexts.history.tr,
+                    iconData: Icons.history_toggle_off,
+                    onTap: () {},
                   ),
                 GetBuilder<SoundPlayerComponent>(builder: (cont) {
                   return Obx(

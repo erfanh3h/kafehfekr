@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Core/Resources/app_texts.dart';
 
 const String appVersion = "1.3.0";
 const MarketTypes marketType = MarketTypes.Myket;
@@ -136,21 +133,6 @@ class StorageKeys {
   static const String gameMusic = "gameMusic";
 }
 
-List<String> bottomNavigationTexts = [
-  AppTexts.onlineGame,
-  AppTexts.offlineGame,
-  AppTexts.library,
-  AppTexts.ranking,
-  AppTexts.history,
-];
-
-List<IconData> bottomNavigationIcons = [
-  CupertinoIcons.game_controller,
-  Icons.wifi_off_outlined,
-  CupertinoIcons.book_solid,
-  Icons.format_list_numbered_rtl,
-  Icons.history_toggle_off,
-];
 List<String> chats = [
   "آماده ای ؟",
   "بزن آماده ام رو",

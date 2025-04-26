@@ -26,7 +26,7 @@ void main() async {
       // titleBarStyle: TitleBarStyle.hidden,
       // fullScreen: true,
       minimumSize: Size(450, 900),
-      maximumSize: Size(1920, 1080),
+      maximumSize: Size(450, 900),
       // alwaysOnTop: false,
       windowButtonVisibility: false,
     );

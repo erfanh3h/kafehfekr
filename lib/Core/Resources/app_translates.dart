@@ -62,6 +62,7 @@ class AppTranslations extends Translations {
           AppTexts.overview: 'نمای کلی',
           AppTexts.normalGame: 'دوستانه',
           AppTexts.rankGame: 'رقابتی',
+          AppTexts.lobby: 'لابی دوستانه',
           AppTexts.lobbyGame: 'لابی',
           AppTexts.startGame: 'شروع بازی',
           AppTexts.goLobbyPage: 'ورود به لابی ها',
