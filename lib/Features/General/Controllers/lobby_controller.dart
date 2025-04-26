@@ -18,7 +18,7 @@ import 'package:refreshed/refreshed.dart';
 class LobbyController extends BaseController {
   RxList<LobbyModel> lobbies = RxList([]);
 
-  Rx<GameTypes?> selectedCreateGameType = Rx(null);
+  GameTypes? selectedCreateGameType;
   Rx<DetailedLobbyModel?> joinedLobby = Rx(null);
 
   TextEditingController lobbyNameController = TextEditingController();
@@ -131,22 +131,21 @@ class LobbyController extends BaseController {
     DialogComponent().showToast(label: AppTexts.timeoutError.tr);
   }
 
-  void onChangeGameType(GameTypes? gameType) {
-    selectedCreateGameType.value = gameType;
-  }
-
-  void onCreateLobby() {
+  void onCreateLobby(int index) {
     if (lobbyNameController.text.isEmpty) {
       return;
     }
-    if (selectedCreateGameType.value == null) {
+    if (index == -1) {
       return;
     }
+    final gameTypesParts = GameTypes.values.toList();
+
+    selectedCreateGameType = gameTypesParts[index];
     sendCommand({
       "id": GameCommands.lobbyCreate,
       "data": {
         'lobby_name': lobbyNameController.text,
-        'game_types': [selectedCreateGameType.value!.name],
+        'game_types': [selectedCreateGameType!.name],
       }
     });
     Get.closeAllBottomSheets();
@@ -235,13 +234,9 @@ class LobbyController extends BaseController {
 
   createLobby() {
     Get.bottomSheet(
-      Obx(
-        () => CreateLobbyWidget(
-          lobbyNameController: lobbyNameController,
-          onCreate: onCreateLobby,
-          onChangeGameType: onChangeGameType,
-          selectedGameType: selectedCreateGameType.value,
-        ),
+      CreateLobbyWidget(
+        lobbyNameController: lobbyNameController,
+        onCreate: onCreateLobby,
       ),
       backgroundColor: AppColors.darkColor,
     );

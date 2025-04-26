@@ -30,26 +30,33 @@ class LobbyRoomRowWidget extends StatelessWidget {
       onTap: () => onJoin(lobby),
       child: Container(
         padding: AppSpacings.s10All,
-        margin: AppSpacings.s10All,
+        margin: AppSpacings.s5All,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: AppColors.lightColor,
-            width: 2,
-          ),
+          // border: Border.all(
+          //   color: AppColors.lightColor,
+          //   width: 2,
+          // ),
           gradient: LinearGradient(
             begin: Alignment.bottomLeft,
             end: Alignment.topRight,
             colors: [
-              (color ?? AppColors.transparent).withValues(alpha: .35),
-              color ?? AppColors.transparent
+              (color ?? AppColors.darkRed).withValues(alpha: .35),
+              color ?? AppColors.darkRed
             ],
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.transparent.withValues(alpha: .35),
+              blurRadius: 5,
+              offset: const Offset(4, 8), // Shadow position
+            ),
+          ],
         ),
         child: Center(
           child: Row(
             children: [
-              FadeInRight(
+              FadeIn(
                 delay: const Duration(milliseconds: 200),
                 child: Container(
                   width: 50,
@@ -89,25 +96,25 @@ class LobbyRoomRowWidget extends StatelessWidget {
                       lobby.gameTypes.first.tr,
                       style: const TextStyle(
                         color: AppColors.lightColor,
-                        fontSize: 15,
+                        fontSize: 14,
                         fontFamily: FontFamilies.dastnevis,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 15),
-              Text(
-                '${lobby.queuersLength} / 2',
-                style: const TextStyle(
-                  color: AppColors.lightColor,
-                  fontSize: 20,
-                  fontFamily: FontFamilies.dastnevis,
-                ),
-                textDirection: TextDirection.ltr,
-              ),
-              const SizedBox(width: 15),
-              FadeInLeft(
+              // const SizedBox(width: 15),
+              // Text(
+              //   '${lobby.queuersLength} / 2',
+              //   style: const TextStyle(
+              //     color: AppColors.lightColor,
+              //     fontSize: 20,
+              //     fontFamily: FontFamilies.dastnevis,
+              //   ),
+              //   textDirection: TextDirection.ltr,
+              // ),
+              const SizedBox(width: 5),
+              FadeIn(
                 child: IconButton(
                   onPressed: () {
                     Get.bottomSheet(
@@ -120,6 +127,17 @@ class LobbyRoomRowWidget extends StatelessWidget {
                     color: AppColors.lightColor,
                     width: 30,
                     height: 30,
+                  ),
+                ),
+              ),
+              FadeIn(
+                child: IconButton(
+                  onPressed: () {
+                    onJoin(lobby);
+                  },
+                  icon: const Icon(
+                    Icons.play_arrow_rounded,
+                    color: AppColors.lightColor,
                   ),
                 ),
               ),

@@ -35,7 +35,7 @@ final items = [
     Get.toNamed(AppRoutes.gamesMenu);
   }),
   ItemData(AppTexts.lobby, icon: GeneralIcons.lobby, () {
-    Get.toNamed(AppRoutes.gamesMenu);
+    Get.toNamed(AppRoutes.lobby);
   }),
   ItemData(AppTexts.offlineGame, iconData: Icons.wifi_off_outlined, () {
     Get.toNamed(AppRoutes.offlineGamesMenu);

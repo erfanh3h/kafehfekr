@@ -35,7 +35,7 @@ class LobbyPage extends BaseView<LobbyController> {
                 lobby: controller.joinedLobby.value!,
                 controller: controller,
               )
-            : LobbyListBox(controller: controller),
+            : const LobbyListBox(),
       ),
     );
   }

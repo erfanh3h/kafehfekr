@@ -23,17 +23,13 @@ void main() async {
       size: Size(450, 900),
       center: true,
       skipTaskbar: false,
-      // titleBarStyle: TitleBarStyle.hidden,
-      // fullScreen: true,
       minimumSize: Size(450, 900),
       maximumSize: Size(450, 900),
-      // alwaysOnTop: false,
       windowButtonVisibility: false,
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
       await windowManager.focus();
-      // await WindowManager.instance.maximize();
     });
   } else if (Platform.isAndroid) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);

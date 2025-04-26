@@ -10,11 +10,13 @@ class GameButtonWidget extends StatelessWidget {
     required this.image,
     required this.text,
     this.imageColor = AppColors.lightColor,
+    this.fontSize,
   });
 
   final Function() onTap;
   final String image, text;
   final Color? imageColor;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +46,10 @@ class GameButtonWidget extends StatelessWidget {
               left: 0,
               child: Text(
                 text.tr,
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.lightColor,
                   fontFamily: FontFamilies.dastnevis,
-                  fontSize: 35,
+                  fontSize: fontSize ?? 35,
                 ),
                 textAlign: TextAlign.center,
                 maxLines: 1,

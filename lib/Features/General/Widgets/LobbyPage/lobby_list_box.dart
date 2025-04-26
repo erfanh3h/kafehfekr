@@ -1,40 +1,66 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Features/General/Controllers/lobby_controller.dart';
 import 'package:kafehfekr/Features/General/Widgets/LobbyPage/lobby_activity_box.dart';
 import 'package:kafehfekr/Features/General/Widgets/LobbyPage/lobby_room_row_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
-class LobbyListBox extends StatelessWidget {
-  const LobbyListBox({
-    super.key,
-    required this.controller,
-  });
+class LobbyListBox extends BaseView<LobbyController> {
+  const LobbyListBox({super.key});
 
-  final LobbyController controller;
   @override
-  Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () => controller.requestData(),
+  Widget? floatingActionButton() {
+    return FloatingActionButton(
+      onPressed: controller.createLobby,
+      child: const Icon(
+        Icons.add,
+        color: AppColors.lightColor,
+      ),
+    );
+  }
+
+  @override
+  Widget body(BuildContext context) {
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(AppImages.background3),
+          fit: BoxFit.fill,
+        ),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
+          const SizedBox(height: 20),
           Padding(
-            padding: AppSpacings.s20Top,
-            child: Center(
-              child: Text(
-                AppTexts.lobbyList.tr,
-                style: const TextStyle(
-                  color: AppColors.lightColor,
-                  fontSize: 28,
-                  fontFamily: FontFamilies.dastnevis,
-                  letterSpacing: 2,
+            padding: AppSpacings.s10Horizental,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    AppTexts.lobby.tr,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      color: AppColors.lightColor,
+                    ),
+                  ),
                 ),
-              ),
+                IconButton(
+                  onPressed: controller.requestData,
+                  icon: const Icon(
+                    Icons.refresh,
+                    size: 30,
+                    color: AppColors.lightColor,
+                  ),
+                ),
+                backButton
+              ],
             ),
           ),
           const SizedBox(height: 20),

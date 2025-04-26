@@ -24,39 +24,8 @@ class LobbyActivityBox extends StatelessWidget {
         builder: (context, cons) {
           double maxWidth = cons.maxWidth;
           return Obx(
-            () => controller.joinedLobby.value == null
+            () => controller.joinedLobby.value != null
                 ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: maxWidth / 7,
-                        child: GlobalActivityButton(
-                          icon: GeneralIcons.exit,
-                          onTap: Get.back,
-                          text: AppTexts.back.tr,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      SizedBox(
-                        width: maxWidth / 7,
-                        child: GlobalActivityButton(
-                          icon: GeneralIcons.dice6,
-                          onTap: controller.createLobby,
-                          text: AppTexts.createLobby.tr,
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      SizedBox(
-                        width: maxWidth / 7,
-                        child: GlobalActivityButton(
-                          icon: GeneralIcons.refresh,
-                          onTap: controller.requestData,
-                          text: AppTexts.refresh.tr,
-                        ),
-                      ),
-                    ],
-                  )
-                : Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       SizedBox(
@@ -99,7 +68,8 @@ class LobbyActivityBox extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
+                  )
+                : Container(),
           );
         },
       ),
