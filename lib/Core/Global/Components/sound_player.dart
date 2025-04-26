@@ -40,7 +40,7 @@ class SoundPlayerComponent extends BaseController {
   bool isMusicPaused = false;
 
   void playGameSound(GameSoundTypes soundType) {
-    if (!letPlaySound) {
+    if (!letPlayMusic.value || Platform.isWindows) {
       return;
     }
     String sound = "";

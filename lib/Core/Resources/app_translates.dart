@@ -32,6 +32,7 @@ class AppTranslations extends Translations {
           AppTexts.enterPhoneCorrectly: 'شماره را بدرستی وارد کنید!',
           AppTexts.nameChanged: 'نام تغییر کرد',
           AppTexts.avatarChanged: 'آواتار تغییر کرد',
+          AppTexts.addedBefore: 'قبلا اضافه شده',
           AppTexts.rId: 'آی دی معرف',
           AppTexts.quest: 'مهمان',
           AppTexts.tryAgain: 'تلاش مجدد',

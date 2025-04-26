@@ -1,127 +1,86 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
+import 'package:kafehfekr/Core/Base/base_offline_game_controller.dart';
+import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/FekrBekr/Models/fekrbekr_piece_model.dart';
 import 'package:refreshed/refreshed.dart';
 
-class FekrBekrOfflineController extends BaseGameController {
+class FekrBekrOfflineController extends BaseOfflineGameController {
   RxList<Rx<FekrBekrPeaceModel>> peaces = RxList();
 
-  RxBool isGameInPlayPhase = RxBool(false);
-  RxBool isWaiting = RxBool(false);
-
-  RxList<List<int>> player1Choices = RxList([]);
-  RxList<List<int>> player2Choices = RxList([]);
-
-  RxList<List<int>> player1Results = RxList([]);
-  RxList<List<int>> player2Results = RxList([]);
-
-  RxList<int> currentResult = RxList([0, 0, 0, 0]);
+  RxList<List<int>> playerChoices = RxList([]);
+  RxList<List<int>> playerResults = RxList([]);
 
   RxInt selectedPeaceIndex = RxInt(-1);
   RxInt selectedNumber = RxInt(-1);
 
-  List<int> myBoard = [0, 0, 0, 0];
+  List<int> baseBoard = [];
 
   final ScrollController historyController = ScrollController();
-  @override
-  void currentTurnFunction(Map data) {
-    isGameInPlayPhase.value = true;
-    isWaiting.value = false;
-    selectedPeaceIndex.value = -1;
+
+  bool checkBoardContainsNumber(int number) {
+    for (var i = 0; i < baseBoard.length; i++) {
+      if (baseBoard[i] == number) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool checkChoicesContainsNumber(int number) {
+    for (var i = 0; i < peaces.length; i++) {
+      if (number == peaces[i].value.value) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void submitChoice() {
+    final List<int> selectionData = [
+      peaces[0].value.value,
+      peaces[1].value.value,
+      peaces[2].value.value,
+      peaces[3].value.value,
+    ];
+    if (selectionData.contains(0)) {
+      showInteraction(text: AppTexts.fillAllPieces.tr);
+      return;
+    }
+    List<int> result = [];
+    for (var i = 0; i < selectionData.length; i++) {
+      if (selectionData[i] == baseBoard[i]) {
+        result.add(2);
+        continue;
+      }
+      bool checkBoardResult = checkBoardContainsNumber(selectionData[i]);
+      if (checkBoardResult) {
+        result.add(1);
+        continue;
+      }
+      result.add(0);
+    }
+    result.shuffle();
+    playerChoices.value.add(selectionData);
+    playerResults.value.add(result);
+    update();
+    if (listEquals(result, [2, 2, 2, 2])) {
+      DialogComponent().showToast(label: AppTexts.youWinGame.tr);
+      isGameFinished.value = true;
+    } else {}
     selectedNumber.value = -1;
     resetPieces();
-    int turn = data['data']['current_round'];
-    currentRound.value = turn;
-    canSelectPeace.value = true;
-    showInteraction(sound: GameSoundTypes.startTurn);
-    changetimerValue(GameWaitTimes.fekrBekrTurnTime);
   }
 
-  @override
-  void startGameFunction(Map data) {
-    showInteraction(sound: GameSoundTypes.startGame);
-    changetimerValue(GameWaitTimes.fekrBekrBoardTime);
-    canSelectPeace.value = true;
-  }
-
-  @override
-  void peaceSelectedFunction(Map data) {
-    Map newData = data['data'];
-    List<int> selectionData = List<int>.from(newData['data']);
-    List<int> result = List<int>.from(newData['result']);
-    int gamerId = newData['gamer_id'];
-    if (gamerId == 1) {
-      player1Choices.value.add(selectionData);
-      player1Results.value.add(result);
-    } else {
-      player2Choices.value.add(selectionData);
-      player2Results.value.add(result);
-    }
-    if (gamerId == myGameId) {
-      currentResult.value = result;
-    }
-    update();
-    Future.delayed(const Duration(milliseconds: 500)).then((_) =>
-        historyController.jumpTo(historyController.position.maxScrollExtent));
-  }
-
-  @override
-  void reconnectDataFuntcion(Map data) {
-    super.reconnectDataFuntcion(data);
-    Map newData = data['data'];
-    Map gameData = newData['game_data'];
-    Map timerData = newData['timer_data'];
-    myBoard = List<int>.from(gameData['board']);
-    for (var data in gameData['player1_choices']) {
-      player1Choices.value.add(List<int>.from(data));
-    }
-    for (var data in gameData['player2_choices']) {
-      player2Choices.value.add(List<int>.from(data));
-    }
-    for (var data in gameData['player1_results']) {
-      player1Results.value.add(List<int>.from(data));
-    }
-    for (var data in gameData['player2_results']) {
-      player2Results.value.add(List<int>.from(data));
-    }
-    Future.delayed(const Duration(milliseconds: 500)).then((_) =>
-        historyController.jumpTo(historyController.position.maxScrollExtent));
-    isGameInPlayPhase.value = gameData['is_play_phase'];
-    currentRound.value = gameData['current_round'];
-    if (!isGameInPlayPhase.value) {
-      isWaiting.value = gameData['is_player_rdy'];
-    } else {
-      isWaiting.value = gameData['is_turn_played'];
-    }
-    if (!isWaiting.value) {
-      canSelectPeace.value = true;
-    }
-    update();
-    if (!isGameInPlayPhase.value) {
-      final int time =
-          GameWaitTimes.fekrBekrTurnTime - timerData['time'] as int;
-      changetimerValue(time.clamp(0, time));
-    } else {
-      final int time =
-          GameWaitTimes.fekrBekrBoardTime - timerData['time'] as int;
-      changetimerValue(time.clamp(0, time));
-    }
-  }
-
-  @override
-  Color? returnTimerColor() {
-    return null;
-  }
-
-  @override
   void onEachButtonTap(dynamic tappedPeace) {
     FekrBekrPeaceModel piece = tappedPeace as FekrBekrPeaceModel;
-    if (!canSelectPeace.value) {
-      showInteraction(text: AppTexts.notYourTurn.tr);
+    if (isGameFinished.value) {
+      showInteraction(text: AppTexts.gameFinished.tr);
       return;
     }
     showInteraction(sound: GameSoundTypes.tap);
@@ -133,9 +92,12 @@ class FekrBekrOfflineController extends BaseGameController {
         peaces.value[piece.id].value =
             peaces.value[piece.id].value.changeValue(newValue: 0);
       } else {
-        peaces.value[piece.id].value = peaces.value[piece.id].value.changeValue(
-          newValue: selectedNumber.value,
-        );
+        if (checkChoicesContainsNumber(selectedNumber.value)) {
+          showInteraction(text: AppTexts.addedBefore.tr);
+        } else {
+          peaces.value[piece.id].value = peaces.value[piece.id].value
+              .changeValue(newValue: selectedNumber.value);
+        }
       }
     }
   }
@@ -148,26 +110,6 @@ class FekrBekrOfflineController extends BaseGameController {
     }
   }
 
-  sendResult(String command) {
-    for (var peace in peaces) {
-      if (peace.value.value == 0) {
-        showInteraction(sound: GameSoundTypes.tapWrong);
-        return;
-      }
-    }
-
-    canSelectPeace.value = false;
-    List<int> result = [];
-    for (var peace in peaces) {
-      result.add(peace.value.value);
-    }
-    if (command == GameCommands.saveBoard) {
-      myBoard = result;
-    }
-    sendCommand({"id": command, "data": result});
-    isWaiting.value = true;
-  }
-
   resetPieces() {
     for (var i = 0; i < 4; i++) {
       peaces.value[i].value = peaces.value[i].value.changeValue(newValue: 0);
@@ -178,6 +120,26 @@ class FekrBekrOfflineController extends BaseGameController {
     for (var i = 0; i < 4; i++) {
       peaces.add(Rx(FekrBekrPeaceModel(id: i, currentStatuses: [], value: 0)));
     }
+    for (var i = 0; i < 4; i++) {
+      final int randomNumber = Random().nextInt(8) + 1;
+      if (!baseBoard.contains(randomNumber)) {
+        baseBoard.add(randomNumber);
+      } else {
+        i--;
+      }
+    }
+  }
+
+  @override
+  resetGame() {
+    peaces.clear();
+    playerChoices.clear();
+    playerResults.clear();
+    selectedPeaceIndex.value = -1;
+    selectedNumber.value = -1;
+    baseBoard.clear();
+    isGameFinished.value = false;
+    initPieces();
   }
 
   @override

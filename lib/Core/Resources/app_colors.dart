@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const primary = Color(0XFF327565);
-  static const primaryLight = Color(0XFF327565);
+  static const primaryLight = Color.fromARGB(255, 94, 6, 16);
   static const primaryDark = Color(0xffD27722);
 
   static const backgroundLight = Color.fromARGB(255, 237, 240, 240);
@@ -49,7 +49,7 @@ class AppColors {
   static const blueWarmColor = Color.fromARGB(255, 69, 71, 158);
   static const redWarmColor = Color.fromARGB(255, 163, 45, 65);
   static const darkRed = Color.fromARGB(255, 94, 6, 16);
-  
+
   static const winColor = Color.fromRGBO(0, 114, 87, 1);
   static const loseColor = Color.fromRGBO(172, 49, 27, 1);
   static const drawColor = Color.fromARGB(255, 163, 156, 59);

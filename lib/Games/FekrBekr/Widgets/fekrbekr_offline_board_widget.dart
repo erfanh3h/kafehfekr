@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
-import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Games/FekrBekr/Controllers/fekrbekr_controller.dart';
 import 'package:kafehfekr/Games/FekrBekr/Controllers/fekrbekr_offline_controller.dart';
 import 'package:kafehfekr/Games/FekrBekr/Widgets/fekrbekr_button.dart';
 import 'package:kafehfekr/Games/FekrBekr/Widgets/fekrbekr_offline_select_numbers_box.dart';
@@ -22,115 +17,92 @@ class FekrBekrOfflineBoardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Center(
-        child: Container(
-          padding: AppSpacings.s15All,
-          height:
-              (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) + 100,
-          width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              controller.isGameInPlayPhase.value
-                  ? Expanded(
-                      child: GetBuilder<FekrBekrController>(
-                        builder: (context) {
-                          return Container(
-                            padding: AppSpacings.s5All,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: AppColors.lightColor),
-                            ),
-                            child: Obx(
-                              () => ListView.builder(
-                                controller: controller.historyController,
-                                itemBuilder: (ctx, index) =>
-                                    FekrBekrResultRowWidget(
-                                  selectionData: controller.myGameId == 1
-                                      ? controller.player1Choices[index]
-                                      : controller.player2Choices[index],
-                                  resultData: controller.myGameId == 1
-                                      ? controller.player1Results[index]
-                                      : controller.player2Results[index],
-                                  index: index,
+    return Center(
+      child: Container(
+        padding: AppSpacings.s15All,
+        // height:
+        //     (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) + 100,
+        // width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Card(
+                  child: Directionality(
+                    textDirection: TextDirection.ltr,
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 20),
+                        IconButton(
+                          onPressed: controller.submitChoice,
+                          icon: const Icon(
+                            Icons.check,
+                            size: 35,
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              for (int i = 0; i < 4; i++)
+                                Obx(
+                                  () => FekrBekrButton(
+                                    peaceData: controller.peaces[i].value,
+                                    onTap: controller.onEachButtonTap,
+                                  ),
                                 ),
-                                itemCount: controller.myGameId == 1
-                                    ? controller.player1Results.length
-                                    : controller.player2Results.length,
-                              ),
-                            ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: Get.size.width,
+                  child: FekrBekrOfflineSelectNumbersBox(
+                    controller: controller,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+
+            Expanded(
+              child: GetBuilder<FekrBekrOfflineController>(
+                builder: (context) {
+                  return Container(
+                    padding: AppSpacings.s5All,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: AppColors.lightColor, width: 3),
+                    ),
+                    child: Obx(
+                      () => ListView.builder(
+                        controller: controller.historyController,
+                        itemBuilder: (ctx, index) {
+                          final int reversedIndex =
+                              controller.playerResults.length - index - 1;
+                          return FekrBekrResultRowWidget(
+                            selectionData:
+                                controller.playerChoices[reversedIndex],
+                            resultData: controller.playerResults[reversedIndex],
+                            index: reversedIndex,
                           );
                         },
-                      ),
-                    )
-                  : Text(
-                      AppTexts.selectBoard.tr,
-                      style: const TextStyle(
-                        color: AppColors.lightColor,
-                        fontSize: 22,
+                        itemCount: controller.playerResults.length,
                       ),
                     ),
-              const SizedBox(height: 20),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Card(
-                      child: Directionality(
-                        textDirection: TextDirection.ltr,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            for (int i = 0; i < 4; i++)
-                              Obx(
-                                () => FekrBekrButton(
-                                  peaceData: controller.peaces[i].value,
-                                  onTap: controller.onEachButtonTap,
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Expanded(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: FekrBekrOfflineSelectNumbersBox(
-                              controller: controller,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Column(
-                            children: [
-                              controller.isWaiting.value
-                                  ? const Padding(
-                                      padding: AppSpacings.s10Vertical,
-                                      child: GlobalWaitWidget(),
-                                    )
-                                  : GlobalButtonWidget(
-                                      onTap: () => controller.sendResult(
-                                        controller.isGameInPlayPhase.value
-                                            ? GameCommands.selectPeace
-                                            : GameCommands.saveBoard,
-                                      ),
-                                      text: AppTexts.accept.tr,
-                                    ),
-                              const SizedBox(height: 3),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
-              // const Divider(color: AppColors.lightColor, height: 30),
-            ],
-          ),
+            ),
+            // const Divider(color: AppColors.lightColor, height: 30),
+          ],
         ),
       ),
     );

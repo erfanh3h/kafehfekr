@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Games/FekrBekr/Controllers/fekrbekr_controller.dart';
 import 'package:kafehfekr/Games/FekrBekr/Controllers/fekrbekr_offline_controller.dart';
 import 'package:kafehfekr/Games/FekrBekr/Widgets/fekrbekr_select_number_button.dart';
 import 'package:refreshed/refreshed.dart';
@@ -16,11 +15,13 @@ class FekrBekrOfflineSelectNumbersBox extends StatelessWidget {
     return Center(
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 4,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+          crossAxisCount: 8,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
         ),
-        itemBuilder: (ctx, i) => GetBuilder<FekrBekrController>(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (ctx, i) => GetBuilder<FekrBekrOfflineController>(
           builder: (context) => Obx(
             () => FekrBekrSelectNumberButton(
               number: i + 1,
