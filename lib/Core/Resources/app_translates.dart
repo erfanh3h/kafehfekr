@@ -87,7 +87,7 @@ class AppTranslations extends Translations {
           AppTexts.update: 'به روز رسانی',
           AppTexts.restart: 'شروع مجدد',
           AppTexts.difficultyLevel: 'سطح دشواری',
-          AppTexts.findRivel: 'یافتن رقیب',
+          AppTexts.findRivel: 'درجست و جوی رقیب ...',
           AppTexts.createLobby: 'ساخت لابی',
           AppTexts.level: 'سطح',
           AppTexts.easy: 'آسان',

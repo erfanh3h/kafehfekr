@@ -5,7 +5,6 @@ import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Core/global_repository.dart';
 import 'package:kafehfekr/Core/Global/Models/config_model.dart';
-import 'package:kafehfekr/Core/Network/queue_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
@@ -19,10 +18,8 @@ class GlobalController extends BaseController {
 
   ThemeMode currentTheme = ThemeMode.light;
 
-  RxBool isQueueActive = RxBool(false);
-  RxBool isQueueLoading = RxBool(false);
   // RxString activeQueueType = RxString('');
-  RxString activeQueueScoreType = RxString('');
+  // RxString activeQueueScoreType = RxString('');
 
   PageController pgCtrl = PageController(initialPage: 2);
   RxInt selectedPage = RxInt(2);
@@ -234,68 +231,6 @@ class GlobalController extends BaseController {
     }
     await globalRepo.setDataOnStorage(
         key: StorageKeys.gameMusic, value: result);
-  }
-
-  void onQueueStarted() {
-    isQueueLoading.value = false;
-  }
-
-  void onQueueError() {
-    stopQueue();
-    DialogComponent().showToast(label: AppTexts.timeoutError.tr);
-  }
-
-  void startQueue(List<String> gameTypes, String gameScoreType) {
-    if (isQueueActive.value) {
-      DialogComponent().showToast(label: AppTexts.stopPrevoiusQueue.tr);
-      return;
-    }
-    isQueueActive.value = true;
-    isQueueLoading.value = true;
-    Get.put(QueueSocketManager());
-    Get.find<QueueSocketManager>().initSocket(
-      commandHandler: queueCommandHandler,
-      gameTypes: gameTypes,
-      gameScoreType: gameScoreType,
-      myId: userId!,
-      onQueueStart: onQueueStarted,
-      onQueueError: onQueueError,
-    );
-    // activeQueueType.value = gameType;
-    activeQueueScoreType.value = gameScoreType;
-  }
-
-  void queueCommandHandler(dynamic data) {
-    final commandId = data['id'];
-    switch (commandId) {
-      case GameCommands.startGame:
-        isQueueActive.value = true;
-        final String gameId = data['data']['game_id'];
-        const String gameType = 'activeQueueType.value';
-        setActiveGameId(gameId, gameType);
-        Get.find<SoundPlayerComponent>()
-            .playGameSound(GameSoundTypes.queueFinded);
-        Get.toNamed(AppRoutes.gamePlay, arguments: gameId);
-        Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
-        Future.delayed(const Duration(seconds: 1)).then((_) {
-          // Get.toNamed('/$gameType', arguments: gameId);
-          stopQueue();
-        });
-        break;
-      case GameCommands.notEnoughCoin:
-        DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
-        stopQueue();
-      default:
-    }
-  }
-
-  void stopQueue() {
-    // Get.find<QueueSocketManager>().disconnect();
-    Get.delete<QueueSocketManager>();
-    isQueueActive.value = false;
-    isQueueLoading.value = false;
-    // activeQueueType.value = "";
-    activeQueueScoreType.value = "";
   }
 
   Future<void> removeData() async {

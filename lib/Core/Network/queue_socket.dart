@@ -10,8 +10,6 @@ class QueueSocketManager extends BaseController {
   void initSocket({
     required Function(dynamic) commandHandler,
     required String myId,
-    required List<String> gameTypes,
-    required String gameScoreType,
     required Function onQueueStart,
     required Function onQueueError,
   }) {
@@ -22,21 +20,19 @@ class QueueSocketManager extends BaseController {
       'transports': ['websocket'],
       'auth': {
         'user_id': myId,
-        'game_types': gameTypes,
-        'game_score_type': gameScoreType,
         'token': Get.find<GlobalController>().token ?? ""
       },
     });
     socket.connect();
     socket.onConnect((_) {
-      // print('connect');
+      print('connect queue');
       onQueueStart();
     });
     // socket.onConnectTimeout((_) {
     //   print('timeout');
     // });
     socket.on(SocketChannels.serverCommand, (data) {
-      // print(data);
+      print(data);
       commandHandler(data);
     });
     // socket.onDisconnect((_) => print('disconnect'));

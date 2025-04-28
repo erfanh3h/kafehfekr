@@ -2,61 +2,84 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
+import 'package:kafehfekr/Core/Network/queue_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GameMenuController extends BaseController {
-  RxInt selectedTab = RxInt(2);
+  RxBool isQueueActive = RxBool(false);
+  RxBool isQueueLoading = RxBool(false);
 
-  RxInt normalCurrentPage = RxInt(0);
-  final PageController normalPageController = PageController();
+  RxBool isPreGameMode = RxBool(false);
 
-  RxList<GameTypes> selectedNormalGames = RxList([]);
-  RxList<GameTypes> selectedRankGames = RxList([]);
-  changeTab(int value) {
-    selectedTab.value = value;
-    if (value == 0) {
-      normalCurrentPage.value = 0;
-    }
+  void onQueueStarted() {
+    isQueueLoading.value = false;
   }
 
-  changeNormalPage(int value) {
-    normalCurrentPage.value = value;
+  void onQueueError() {
+    stopQueue();
+    DialogComponent().showToast(label: AppTexts.timeoutError.tr);
   }
 
-  onEachRankGameTap(GameTypes game) {
-    if (Get.find<GlobalController>().isQueueActive.value) {
+  void startQueue() {
+    if (isQueueActive.value) {
       DialogComponent().showToast(label: AppTexts.stopPrevoiusQueue.tr);
       return;
     }
-    if (selectedRankGames.contains(game)) {
-      selectedRankGames.remove(game);
-    } else {
-      if (selectedRankGames.length >= 5) {
-        return;
-      }
-      selectedRankGames.add(game);
+    isQueueActive.value = true;
+    isQueueLoading.value = true;
+    final userId = Get.find<GlobalController>().userId ?? "";
+    Get.put(QueueSocketManager());
+    Get.find<QueueSocketManager>().initSocket(
+      commandHandler: queueCommandHandler,
+      myId: userId,
+      onQueueStart: onQueueStarted,
+      onQueueError: onQueueError,
+    );
+    // activeQueueType.value = gameType;
+    // activeQueueScoreType.value = gameScoreType;
+  }
+
+  void queueCommandHandler(dynamic data) {
+    final commandId = data['id'];
+    switch (commandId) {
+      case GameCommands.startGame:
+        isQueueActive.value = true;
+        final String gameId = data['data']['game_id'];
+        const String gameType = 'activeQueueType.value';
+        Get.find<GlobalController>().setActiveGameId(gameId, gameType);
+        Get.find<SoundPlayerComponent>()
+            .playGameSound(GameSoundTypes.queueFinded);
+        Get.toNamed(AppRoutes.gamePlay, arguments: gameId);
+        Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
+        Future.delayed(const Duration(seconds: 1)).then((_) {
+          // Get.toNamed('/$gameType', arguments: gameId);
+          stopQueue();
+        });
+        break;
+      case GameCommands.notEnoughCoin:
+        DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
+        stopQueue();
+      case GameCommands.startPreGame:
+        isPreGameMode.value = true;
+      default:
     }
   }
 
-  onEachNormalGameTap(GameTypes game) {
-    if (Get.find<GlobalController>().isQueueActive.value) {
-      DialogComponent().showToast(label: AppTexts.stopPrevoiusQueue.tr);
-      return;
-    }
-    if (selectedNormalGames.contains(game)) {
-      selectedNormalGames.remove(game);
-    } else {
-      if (selectedNormalGames.length >= 2) {
-        return;
-      }
-      selectedNormalGames.add(game);
-    }
+  void stopQueue() {
+    // Get.find<QueueSocketManager>().disconnect();
+    Get.delete<QueueSocketManager>();
+    isQueueActive.value = false;
+    isQueueLoading.value = false;
+    // activeQueueType.value = "";
+    // activeQueueScoreType.value = "";
   }
 
   Color getGameColor(int index) {
@@ -80,40 +103,9 @@ class GameMenuController extends BaseController {
     );
   }
 
-  startRankGame() {
-    if (selectedRankGames.length < 5) {
-      DialogComponent().showToast(label: AppTexts.select5Games.tr);
-      return;
-    }
-    List<String> gameTypes = [];
-    for (var gameType in selectedRankGames) {
-      gameTypes.add(gameType.name);
-    }
-    Get.find<GlobalController>().startQueue(gameTypes, 'Rank');
-  }
-
-  startNormalGame() {
-    if (selectedNormalGames.length < 2) {
-      DialogComponent().showToast(label: AppTexts.select2Games.tr);
-      return;
-    }
-    List<String> gameTypes = [];
-    for (var gameType in selectedNormalGames) {
-      gameTypes.add(gameType.name);
-    }
-    Get.find<GlobalController>().startQueue(gameTypes, 'Normal');
-  }
-
-  goToLobbiesPage() {
-    Get.toNamed(AppRoutes.lobby);
-  }
-
-  // startNormalGame(GameTypes game) {
-  //   Get.find<GlobalController>().startQueue([game.name], 'Normal');
-  // }
-
   @override
   void onInit() {
+    startQueue();
     super.onInit();
   }
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_widget.dart.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
-import 'package:kafehfekr/Core/Resources/app_theme.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Features/General/Controllers/game_menu_controller.dart';
-import 'package:kafehfekr/Features/General/Widgets/GameMenu/game_menu_type_selector_widget.dart';
-import 'package:kafehfekr/Features/General/Widgets/GameMenu/lobby_game_part_widget.dart';
-import 'package:kafehfekr/Features/General/Widgets/GameMenu/normal_game_part_widget.dart';
-import 'package:kafehfekr/Features/General/Widgets/GameMenu/rank_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GameMenuPage extends BaseView<GameMenuController> {
@@ -22,6 +22,7 @@ class GameMenuPage extends BaseView<GameMenuController> {
   Widget body(BuildContext context) {
     super.build(context);
     return Container(
+      width: double.maxFinite,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(AppImages.background3),
@@ -29,32 +30,28 @@ class GameMenuPage extends BaseView<GameMenuController> {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              Expanded(
-                child: GameMenuTypeSelectorWidget(controller: controller),
-              ),
-              backButton
-            ],
+          const Spacer(),
+          Image.asset(
+            GeneralIcons.logoTransparent,
+            // width: 200,
+            height: 200,
+            color: AppColors.lightColor,
           ),
-          Expanded(
-            child: Obx(
-              () {
-                switch (controller.selectedTab.value) {
-                  case 1:
-                    return const NormalGamePartWidget();
-                  case 2:
-                    return const RankGamePartWidget();
-                  case 0:
-                    return LobbyGamePartWidget(controller: controller);
-                  default:
-                    return const NormalGamePartWidget();
-                }
-              },
+          const SizedBox(height: 20),
+          GlobalFadeInOutWidget(
+            child: Text(
+              AppTexts.findRivel.tr,
+              style: const TextStyle(color: AppColors.lightColor, fontSize: 30),
             ),
           ),
+          const Spacer(),
+          GlobalButtonWidget(
+            onTap: Get.back,
+            text: AppTexts.back.tr,
+          ),
+          const SizedBox(height: 20)
         ],
       ),
     );
