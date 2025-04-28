@@ -8,7 +8,6 @@ import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Resources/app_theme.dart';
-import 'package:kafehfekr/Features/General/Controllers/game_menu_controller.dart';
 import 'package:kafehfekr/Features/General/Controllers/offline_games_menu_controller.dart';
 import 'package:kafehfekr/Features/General/Widgets/GameMenu/offline_menu_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
@@ -53,12 +52,10 @@ class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
           Expanded(
             child: FadeIn(
               child: ListView.separated(
-                itemBuilder: (ctx, index) => GetBuilder<GameMenuController>(
-                  builder: (cont) => OfflineMenuGamePartWidget(
-                    game: gameTypesParts[index],
-                    onTap: controller.onEachGameTap,
-                    onOpenGuide: controller.openGameGuide,
-                  ),
+                itemBuilder: (ctx, index) => OfflineMenuGamePartWidget(
+                  game: gameTypesParts[index],
+                  onTap: controller.onEachGameTap,
+                  onOpenGuide: controller.openGameGuide,
                 ),
                 separatorBuilder: (ctx, index) => const SizedBox(height: 25),
                 itemCount: gamesLength,

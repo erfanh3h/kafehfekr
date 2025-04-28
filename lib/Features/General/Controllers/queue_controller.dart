@@ -13,7 +13,7 @@ import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
 
-class GameMenuController extends BaseController {
+class QueueController extends BaseController {
   RxBool isQueueActive = RxBool(false);
   RxBool isQueueLoading = RxBool(false);
 

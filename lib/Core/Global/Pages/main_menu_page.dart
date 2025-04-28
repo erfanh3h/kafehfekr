@@ -32,7 +32,7 @@ class ItemData {
 
 final items = [
   ItemData(AppTexts.onlineGame, icon: GeneralIcons.rank, () {
-    Get.toNamed(AppRoutes.gamesMenu);
+    Get.toNamed(AppRoutes.queue);
   }),
   ItemData(AppTexts.lobby, icon: GeneralIcons.lobby, () {
     Get.toNamed(AppRoutes.lobby);

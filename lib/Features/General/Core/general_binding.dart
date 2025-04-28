@@ -1,4 +1,4 @@
-import 'package:kafehfekr/Features/General/Controllers/game_menu_controller.dart';
+import 'package:kafehfekr/Features/General/Controllers/queue_controller.dart';
 import 'package:kafehfekr/Features/General/Controllers/game_play_controller.dart';
 import 'package:kafehfekr/Features/General/Controllers/history_controller.dart';
 import 'package:kafehfekr/Features/General/Controllers/lobby_controller.dart';
@@ -16,8 +16,8 @@ class GeneralBinding implements BindingsInterface {
           () => UpdateController(),
           fenix: true,
         ),
-        Get.lazyPut<GameMenuController>(
-          () => GameMenuController(),
+        Get.lazyPut<QueueController>(
+          () => QueueController(),
           fenix: true,
         ),
         Get.lazyPut<OfflineGamesMenuController>(

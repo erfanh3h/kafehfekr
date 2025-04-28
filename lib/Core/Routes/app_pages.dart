@@ -14,7 +14,7 @@ import 'package:kafehfekr/Games/FekrBekr/Pages/fekrbekr_offline_page.dart';
 import 'package:kafehfekr/Games/FekrBekr/Pages/fekrbekr_page.dart';
 import 'package:kafehfekr/Games/FourInRow/Pages/four_in_row_page.dart';
 import 'package:kafehfekr/Core/Global/Core/global_middlewares.dart';
-import 'package:kafehfekr/Features/General/Pages/game_menu_page.dart';
+import 'package:kafehfekr/Features/General/Pages/queue_page.dart';
 import 'package:kafehfekr/Features/General/Pages/game_play_page.dart';
 import 'package:kafehfekr/Features/General/Pages/history_page.dart';
 import 'package:kafehfekr/Features/General/Pages/library_page.dart';
@@ -49,8 +49,8 @@ abstract class AppPages {
       binding: GlobalBinding(),
     ),
     GetPage(
-      name: AppRoutes.gamesMenu,
-      page: GameMenuPage.new,
+      name: AppRoutes.queue,
+      page: QueuePage.new,
       transition: Transition.fade,
       middlewares: [EnsureAuthMiddleware(), EnsureNetworkIsOnMiddleware()],
     ),
