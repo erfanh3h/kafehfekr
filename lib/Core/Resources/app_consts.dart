@@ -113,7 +113,8 @@ abstract class GameCommands {
   static const lobbyRequestData = "LobbyRequestData";
   static const startPreGame = "StartPreGame";
   static const selectGame = "SelectGame";
-  static const banGame = "BanGame";
+  static const selectedGame = "SelectedGame";
+  static const systemBannedGames = "SystemBannedGames";
 }
 
 class GeneralGameConsts {

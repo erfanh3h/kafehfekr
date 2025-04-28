@@ -11,14 +11,30 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
+import 'package:kafehfekr/Features/General/Models/queuer_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class QueueController extends BaseController {
   RxBool isQueueActive = RxBool(false);
   RxBool isQueueLoading = RxBool(false);
-
   RxBool isPreGameMode = RxBool(false);
 
+  RxList<QueuerModel> queuers = RxList([]);
+  RxList<GameTypes> systemBannedGames = RxList();
+  Rx<GameTypes?> systemSelectedGame = Rx(null);
+  RxList<GameTypes> gamer1BannedGames = RxList();
+  RxList<GameTypes> gamer2BannedGames = RxList();
+  Rx<GameTypes?> player1SelectedGame = Rx(null);
+  Rx<GameTypes?> player2SelectedGame = Rx(null);
+
+  RxList<GameTypes> allGames = RxList();
+
+  RxInt selectedGameIndex = RxInt(-1);
+
+  late String myId;
+  String? preGameId;
+
+  RxBool letSelectGame = RxBool(false);
   void onQueueStarted() {
     isQueueLoading.value = false;
   }
@@ -32,6 +48,9 @@ class QueueController extends BaseController {
     if (isQueueActive.value) {
       DialogComponent().showToast(label: AppTexts.stopPrevoiusQueue.tr);
       return;
+    }
+    for (var element in GameTypes.values) {
+      allGames.add(element);
     }
     isQueueActive.value = true;
     isQueueLoading.value = true;
@@ -68,9 +87,56 @@ class QueueController extends BaseController {
         DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
         stopQueue();
       case GameCommands.startPreGame:
+        List queuersData = data['data']['queuers'];
+        for (var queuer in queuersData) {
+          queuers.add(QueuerModel.fromJson(queuer));
+        }
         isPreGameMode.value = true;
+        preGameId = data['data']['id'];
+      case GameCommands.systemBannedGames:
+        List<String> newData = List<String>.from(data['data']);
+        for (var rawData in newData) {
+          final gameValue = stringToGameType(rawData);
+          allGames.remove(gameValue);
+          systemBannedGames.add(gameValue);
+        }
+      case GameCommands.selectedGame:
+        final gameType = data['data']['game_type'];
+        final int activeIndex = data['data']['active_index'];
+        switch (activeIndex) {
+          case 1:
+            gamer1BannedGames.add(stringToGameType(gameType));
+          case 2:
+            gamer2BannedGames.add(stringToGameType(gameType));
+          case 3:
+            player1SelectedGame.value = stringToGameType(gameType);
+          case 4:
+            player2SelectedGame.value = stringToGameType(gameType);
+          case 5:
+            gamer1BannedGames.add(stringToGameType(gameType));
+          case 6:
+            gamer2BannedGames.add(stringToGameType(gameType));
+        }
+      case GameCommands.selectGame:
+        final targetId = data['data'];
+        if (targetId == myId) letSelectGame.value = true;
       default:
     }
+  }
+
+  void sendCommand(Map data) {
+    Get.find<QueueSocketManager>().sendCommand(data);
+  }
+
+  sendSelection() {
+    letSelectGame.value = false;
+    final selectedGameType = allGames[selectedGameIndex.value];
+    selectedGameIndex.value = -1;
+    sendCommand({
+      'id': GameCommands.selectGame,
+      'game_type': selectedGameType.name,
+      'pre_game_id': preGameId,
+    });
   }
 
   void stopQueue() {
@@ -106,6 +172,7 @@ class QueueController extends BaseController {
   @override
   void onInit() {
     startQueue();
+    myId = Get.find<GlobalController>().userId!;
     super.onInit();
   }
 }
