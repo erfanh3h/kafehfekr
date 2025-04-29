@@ -30,6 +30,7 @@ class QueueController extends BaseController {
   RxList<GameTypes> allGames = RxList();
 
   RxInt selectedGameIndex = RxInt(-1);
+  RxInt activeIndex = RxInt(0);
 
   late String myId;
   String? preGameId;
@@ -76,7 +77,7 @@ class QueueController extends BaseController {
         Get.find<GlobalController>().setActiveGameId(gameId, gameType);
         Get.find<SoundPlayerComponent>()
             .playGameSound(GameSoundTypes.queueFinded);
-        Get.toNamed(AppRoutes.gamePlay, arguments: gameId);
+        Get.offNamed(AppRoutes.gamePlay, arguments: gameId);
         Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
         Future.delayed(const Duration(seconds: 1)).then((_) {
           // Get.toNamed('/$gameType', arguments: gameId);
@@ -100,10 +101,11 @@ class QueueController extends BaseController {
           allGames.remove(gameValue);
           systemBannedGames.add(gameValue);
         }
+        activeIndex.value += 1;
       case GameCommands.selectedGame:
         final gameType = data['data']['game_type'];
-        final int activeIndex = data['data']['active_index'];
-        switch (activeIndex) {
+        activeIndex.value = data['data']['active_index'];
+        switch (activeIndex.value) {
           case 1:
             gamer1BannedGames.add(stringToGameType(gameType));
           case 2:
@@ -122,6 +124,7 @@ class QueueController extends BaseController {
         final gameValue = stringToGameType(gameType);
         allGames.remove(gameValue);
         update();
+        activeIndex.value += 1;
       case GameCommands.selectGame:
         final targetId = data['data'];
         if (targetId == myId) letSelectGame.value = true;

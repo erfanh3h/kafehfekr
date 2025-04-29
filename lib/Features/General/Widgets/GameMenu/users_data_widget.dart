@@ -72,7 +72,7 @@ class GamersDataWidget extends StatelessWidget {
                     children: [
                       UserRowData(
                         playerData: player1Data!,
-                        isPlayerTurn: false,
+                        isPlayerTurn: currentTurn == 1,
                       ),
                     ],
                   ),
@@ -83,7 +83,7 @@ class GamersDataWidget extends StatelessWidget {
                     children: [
                       UserRowData(
                         playerData: player2Data!,
-                        isPlayerTurn: false,
+                        isPlayerTurn: currentTurn == 2,
                       ),
                     ],
                   ),
@@ -137,6 +137,7 @@ class UserRowData extends StatelessWidget {
     Color backGroundColor = AppColors.lightColor;
     Color fontGroundColor = AppColors.darkColor;
     Color borderColor = isPlayerTurn ? AppColors.darkGreen : AppColors.white;
+    double borderSize = isPlayerTurn ? 6 : 2;
     return Container(
       padding: AppSpacings.s5Vertical,
       width: 125,
@@ -149,7 +150,7 @@ class UserRowData extends StatelessWidget {
         ),
         color: backGroundColor,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: borderColor, width: 6),
+        border: Border.all(color: borderColor, width: borderSize),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

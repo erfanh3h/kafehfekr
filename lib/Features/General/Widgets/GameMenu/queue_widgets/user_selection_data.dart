@@ -21,17 +21,19 @@ class UserSelectionData extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: AppSpacings.s10Vertical,
-      margin: AppSpacings.s10Vertical,
+      margin: AppSpacings.s10Horizental,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isBan
               ? [
-                  AppColors.darkRed,
+                  AppColors.darkRed.withValues(alpha: .6),
+                  AppColors.transparent,
                   AppColors.darkRed.withValues(alpha: .6),
                 ]
               : [
-                  AppColors.darkGreen,
-                  AppColors.darkGreen.withValues(alpha: .6),
+                  AppColors.guideGreen,
+                  AppColors.transparent,
+                  AppColors.guideGreen,
                 ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -41,13 +43,13 @@ class UserSelectionData extends StatelessWidget {
       child: Row(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const SizedBox(width: 10),
-          Icon(
-            isBan ? Icons.close_outlined : Icons.check,
-            color: AppColors.lightColor,
-            size: 40,
-          ),
-          const SizedBox(width: 5),
+          const SizedBox(width: 25),
+          // Icon(
+          //   isBan ? Icons.close_outlined : Icons.check,
+          //   color: AppColors.lightColor,
+          //   size: 40,
+          // ),
+          // const SizedBox(width: 5),
           SizedBox(
             width: 75,
             height: 75,
@@ -64,17 +66,26 @@ class UserSelectionData extends StatelessWidget {
                     ),
                   )
                 : const Card(
+                    color: AppColors.lightColor3,
                     elevation: 3,
                     child: Text(""),
                   ),
           ),
-          const Spacer(),
+          Expanded(
+            child: Center(
+              child: Text(
+                isBan ? "حذف" : "انتخاب",
+                style:
+                    const TextStyle(color: AppColors.lightColor, fontSize: 20),
+              ),
+            ),
+          ),
           SizedBox(
             width: 75,
             height: 75,
             child: player2Selection != null
                 ? FadeIn(
-                    duration: const Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 1000),
                     child: GameButtonWidget(
                       onTap: () {},
                       image: GameTypeConvertor(gameType: player2Selection!)
@@ -85,17 +96,18 @@ class UserSelectionData extends StatelessWidget {
                     ),
                   )
                 : const Card(
+                    color: AppColors.lightColor3,
                     elevation: 3,
                     child: Text(""),
                   ),
           ),
-          const SizedBox(width: 5),
-          Icon(
-            isBan ? Icons.close_outlined : Icons.check,
-            color: AppColors.lightColor,
-            size: 40,
-          ),
-          const SizedBox(width: 10),
+          // const SizedBox(width: 5),
+          // Icon(
+          //   isBan ? Icons.close_outlined : Icons.check,
+          //   color: AppColors.lightColor,
+          //   size: 40,
+          // ),
+          const SizedBox(width: 25),
         ],
       ),
     );

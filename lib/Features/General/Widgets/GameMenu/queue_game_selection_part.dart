@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
-import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Features/General/Controllers/queue_controller.dart';
@@ -24,11 +23,12 @@ class QueueGameSelectionPart extends StatelessWidget {
           GamersDataWidget(
             player1Data: controller.queuers[0],
             player2Data: controller.queuers[1],
-            currentTurn: 0,
+            currentTurn: controller.activeIndex.value % 2 == 1 ? 1 : 2,
             systemBannedGames: controller.systemBannedGames,
           ),
           const SizedBox(height: 10),
           SystemSelectionWidget(games: controller.systemBannedGames.value),
+          const SizedBox(height: 5),
           if (controller.queuers.length == 2)
             Expanded(
               child: Obx(
@@ -47,11 +47,13 @@ class QueueGameSelectionPart extends StatelessWidget {
                                 ? controller.gamer2BannedGames[0]
                                 : null,
                       ),
+                      const SizedBox(height: 5),
                       UserSelectionData(
                         player1Selection: controller.player1SelectedGame.value,
                         player2Selection: controller.player2SelectedGame.value,
                         isBan: false,
                       ),
+                      const SizedBox(height: 5),
                       UserSelectionData(
                         player1Selection:
                             controller.gamer1BannedGames.length > 1
@@ -62,7 +64,7 @@ class QueueGameSelectionPart extends StatelessWidget {
                                 ? controller.gamer2BannedGames[1]
                                 : null,
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 5),
                       if (controller.systemSelectedGame.value != null)
                         SystemSelectionWidget(
                           games: [controller.systemSelectedGame.value!],
@@ -70,7 +72,7 @@ class QueueGameSelectionPart extends StatelessWidget {
                         )
                       else
                         const SystemSelectionWidget(
-                          games: [GameTypes.Yinsh],
+                          games: [],
                           isBan: false,
                         )
                     ],
@@ -147,4 +149,3 @@ class QueueGameSelectionPart extends StatelessWidget {
     );
   }
 }
-
