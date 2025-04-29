@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_offline_game_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
@@ -21,8 +20,6 @@ class FekrBekrOfflineController extends BaseOfflineGameController {
 
   List<int> baseBoard = [];
 
-  final ScrollController historyController = ScrollController();
-
   bool checkBoardContainsNumber(int number) {
     for (var i = 0; i < baseBoard.length; i++) {
       if (baseBoard[i] == number) {
@@ -32,13 +29,13 @@ class FekrBekrOfflineController extends BaseOfflineGameController {
     return false;
   }
 
-  bool checkChoicesContainsNumber(int number) {
+  (bool, int?) checkChoicesContainsNumber(int number) {
     for (var i = 0; i < peaces.length; i++) {
       if (number == peaces[i].value.value) {
-        return true;
+        return (true, i);
       }
     }
-    return false;
+    return (false, null);
   }
 
   void submitChoice() {
@@ -92,12 +89,13 @@ class FekrBekrOfflineController extends BaseOfflineGameController {
         peaces.value[piece.id].value =
             peaces.value[piece.id].value.changeValue(newValue: 0);
       } else {
-        if (checkChoicesContainsNumber(selectedNumber.value)) {
-          showInteraction(text: AppTexts.addedBefore.tr);
-        } else {
-          peaces.value[piece.id].value = peaces.value[piece.id].value
-              .changeValue(newValue: selectedNumber.value);
+        final checkRepeat = checkChoicesContainsNumber(selectedNumber.value);
+        if (checkRepeat.$1) {
+          peaces.value[checkRepeat.$2!].value =
+              peaces.value[checkRepeat.$2!].value.changeValue(newValue: 0);
         }
+        peaces.value[piece.id].value = peaces.value[piece.id].value
+            .changeValue(newValue: selectedNumber.value);
       }
     }
   }

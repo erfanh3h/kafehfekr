@@ -94,39 +94,6 @@ class LibraryPage extends BaseView<GlobalController> {
                           Padding(
                             padding: AppSpacings.s20All,
                             child: Text(
-                              AppTexts.normalGuide.tr,
-                              style: const TextStyle(
-                                color: AppColors.lightColor,
-                                fontSize: 20,
-                                height: 1.75,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      backgroundColor: AppColors.darkColor,
-                    );
-                  },
-                  image: GeneralIcons.normal,
-                  text: AppTexts.normalGame,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 5),
-          Row(
-            children: [
-              const Spacer(),
-              Expanded(
-                flex: 2,
-                child: GameButtonWidget(
-                  onTap: () {
-                    Get.bottomSheet(
-                      ListView(
-                        children: [
-                          Padding(
-                            padding: AppSpacings.s20All,
-                            child: Text(
                               AppTexts.lobbyGuide.tr,
                               style: const TextStyle(
                                 color: AppColors.lightColor,
@@ -144,16 +111,12 @@ class LibraryPage extends BaseView<GlobalController> {
                   text: AppTexts.lobbyGame,
                 ),
               ),
-              const Spacer(),
             ],
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 35),
           Text(
             AppTexts.games.tr,
-            style: const TextStyle(
-              fontSize: 25,
-              color: AppColors.lightColor,
-            ),
+            style: const TextStyle(fontSize: 25, color: AppColors.lightColor),
           ),
           const SizedBox(height: 10),
           GridView.builder(

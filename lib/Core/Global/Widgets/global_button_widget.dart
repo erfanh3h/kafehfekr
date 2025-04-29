@@ -46,11 +46,10 @@ class GlobalButtonWidget extends StatelessWidget {
         height: height ?? 40.h,
         width: width ?? 140,
         decoration: BoxDecoration(
-          color: color ?? AppColors.blueWarmColor,
+          // color: color ?? AppColors.blueWarmColor,
           borderRadius: BorderRadius.circular(8),
-          border:
-              Border.all(color: borderColor ?? AppColors.darkColor, width: 2),
-          gradient: headerGradient,
+          border: Border.all(color: borderColor ?? AppColors.black, width: .3),
+          gradient: makeGradient(color ?? AppColors.darkColor, AppColors.black),
         ),
         child: Center(
           child: isLoading

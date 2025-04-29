@@ -83,7 +83,6 @@ class FekrBekrOfflineBoardWidget extends StatelessWidget {
                     ),
                     child: Obx(
                       () => ListView.builder(
-                        controller: controller.historyController,
                         itemBuilder: (ctx, index) {
                           final int reversedIndex =
                               controller.playerResults.length - index - 1;

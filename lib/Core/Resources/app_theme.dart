@@ -96,6 +96,16 @@ final headerGradient = LinearGradient(
   end: Alignment.bottomRight,
 );
 
+LinearGradient makeGradient(Color firstColor, Color secondColor) =>
+    LinearGradient(
+      colors: [
+        firstColor,
+        secondColor.withValues(alpha: .6),
+      ],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    );
+
 final backButton = IconButton(
   onPressed: Get.back,
   icon: const Icon(

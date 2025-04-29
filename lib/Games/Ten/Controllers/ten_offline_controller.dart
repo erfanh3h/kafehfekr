@@ -255,6 +255,7 @@ class TenOfflineController extends BaseOfflineGameController {
     letSendResult.value = false;
     result.value = 0;
     currentNumbers.clear();
+    isGameFinished.value = false;
     initNumbers();
     addOperators();
     addNumbers();
