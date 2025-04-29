@@ -116,7 +116,12 @@ class QueueController extends BaseController {
             gamer1BannedGames.add(stringToGameType(gameType));
           case 6:
             gamer2BannedGames.add(stringToGameType(gameType));
+          case 7:
+            systemSelectedGame.value = stringToGameType(gameType);
         }
+        final gameValue = stringToGameType(gameType);
+        allGames.remove(gameValue);
+        update();
       case GameCommands.selectGame:
         final targetId = data['data'];
         if (targetId == myId) letSelectGame.value = true;
@@ -129,6 +134,10 @@ class QueueController extends BaseController {
   }
 
   sendSelection() {
+    if (selectedGameIndex.value == -1) {
+      DialogComponent().showToast(label: AppTexts.selectGameTypeFirst.tr);
+      return;
+    }
     letSelectGame.value = false;
     final selectedGameType = allGames[selectedGameIndex.value];
     selectedGameIndex.value = -1;
@@ -167,6 +176,14 @@ class QueueController extends BaseController {
       GlobalGameGuideWidget(gameType: gameType),
       backgroundColor: AppColors.darkColor,
     );
+  }
+
+  changeSelectedGame(int index) {
+    if (selectedGameIndex.value == index) {
+      selectedGameIndex.value = -1;
+    } else {
+      selectedGameIndex.value = index;
+    }
   }
 
   @override

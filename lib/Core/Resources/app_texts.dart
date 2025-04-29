@@ -72,6 +72,7 @@ abstract class AppTexts {
   static const gameMenu = "gameMenu";
   static const gameType = "gameType";
   static const selectGameType = "selectGameType";
+  static const selectGameTypeFirst = "selectGameTypeFirst";
   static const games = "games";
   static const lobbyGuide = "lobbyGuide";
   static const normalGuide = "normalGuide";

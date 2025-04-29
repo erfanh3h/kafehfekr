@@ -88,6 +88,7 @@ class AppTranslations extends Translations {
           AppTexts.restart: 'شروع مجدد',
           AppTexts.difficultyLevel: 'سطح دشواری',
           AppTexts.findRivel: 'درجست و جوی رقیب ...',
+          AppTexts.selectGameTypeFirst: 'بازی موردنظر را انتخاب کنید',
           AppTexts.createLobby: 'ساخت لابی',
           AppTexts.level: 'سطح',
           AppTexts.easy: 'آسان',
