@@ -131,6 +131,7 @@ class GamePlayController extends BaseController {
     final myId = Get.find<GlobalController>().userId!;
     final gameId =
         Get.arguments ?? Get.find<GlobalController>().gameIdController.text;
+    Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
     Get.put(GameSocketManager());
     Get.find<GameSocketManager>().initSocket(
       commandHandler: commandHandler,

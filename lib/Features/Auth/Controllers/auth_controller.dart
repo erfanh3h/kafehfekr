@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
+import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -60,7 +61,6 @@ class AuthController extends BaseController {
         if (userData.name != "") {
           await Get.find<GlobalController>().fetchUserData();
           Get.offAllNamed(AppRoutes.main);
-          // Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
         } else {
           Get.offAllNamed(AppRoutes.username);
         }
@@ -84,7 +84,7 @@ class AuthController extends BaseController {
     if (result.resultData != null) {
       Get.find<GlobalController>().fetchUserData().then((_) {
         Get.offAllNamed(AppRoutes.main);
-        // Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
+        Get.find<SoundPlayerComponent>().startPlayMusic();
         Future.delayed(const Duration(seconds: 1)).then((_) {
           DialogComponent().showIconicDialog(
             AppTexts.library.tr,

@@ -29,7 +29,6 @@ class GlobalController extends BaseController {
   String? userId;
   String? token;
   String? activeGameId;
-  String? activeGameType;
 
   Rx<UserModel?> myData = Rx(null);
   RxBool isLoadingProfile = RxBool(true);
@@ -57,13 +56,9 @@ class GlobalController extends BaseController {
           Get.offAllNamed(AppRoutes.main);
           Future.delayed(const Duration(milliseconds: 500)).then((_) {
             if (activeGameId != null) {
-              Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
               Get.toNamed(AppRoutes.gamePlay, arguments: activeGameId);
               // Get.toNamed('/$activeGameType', arguments: activeGameId);
             }
-            // else {
-            //   Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
-            // }
           });
         }
       } else {
@@ -124,22 +119,16 @@ class GlobalController extends BaseController {
         activeGameId = gameIdData;
       }
       // activeGameId = "gameId";
-      final gameTypeData =
-          await globalRepo.getDataFromStorage(key: StorageKeys.gameType);
-      if (gameTypeData != null) {
-        activeGameType = gameTypeData;
-      }
-      // activeGameType = "Yinsh";
       final gameMusicData =
           await globalRepo.getDataFromStorage(key: StorageKeys.gameMusic);
       if (gameMusicData != null) {
         if (gameMusicData == "0") {
           Get.find<SoundPlayerComponent>().changeLetPlayerSound(false);
         } else {
-          Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
+          Get.find<SoundPlayerComponent>().startPlayMusic();
         }
       } else {
-        Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
+        Get.find<SoundPlayerComponent>().startPlayMusic();
       }
     }
     isLoadingProfile.value = false;
@@ -155,12 +144,10 @@ class GlobalController extends BaseController {
     isLoadingProfile.value = false;
   }
 
-  Future<void> setActiveGameId(String id, String type) async {
+  Future<void> setActiveGameId(String id) async {
     isLoadingProfile.value = true;
     await globalRepo.setDataOnStorage(key: StorageKeys.gameId, value: id);
-    await globalRepo.setDataOnStorage(key: StorageKeys.gameType, value: type);
     activeGameId = id;
-    activeGameType = type;
     isLoadingProfile.value = false;
   }
 
@@ -208,9 +195,7 @@ class GlobalController extends BaseController {
   Future<void> finishGame() async {
     isLoadingProfile.value = true;
     await globalRepo.removeDataFromStorage(key: StorageKeys.gameId);
-    await globalRepo.removeDataFromStorage(key: StorageKeys.gameType);
     activeGameId = null;
-    activeGameType = null;
     isLoadingProfile.value = false;
     fetchUserData();
     Get.find<SoundPlayerComponent>().stopMusic();
@@ -237,7 +222,6 @@ class GlobalController extends BaseController {
     token = null;
     userId = null;
     activeGameId = null;
-    activeGameType = null;
     await globalRepo.logoutRemoveData();
   }
 

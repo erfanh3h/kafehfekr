@@ -73,12 +73,10 @@ class QueueController extends BaseController {
       case GameCommands.startGame:
         isQueueActive.value = true;
         final String gameId = data['data']['game_id'];
-        const String gameType = 'activeQueueType.value';
-        Get.find<GlobalController>().setActiveGameId(gameId, gameType);
+        Get.find<GlobalController>().setActiveGameId(gameId);
         Get.find<SoundPlayerComponent>()
             .playGameSound(GameSoundTypes.queueFinded);
         Get.offNamed(AppRoutes.gamePlay, arguments: gameId);
-        Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
         Future.delayed(const Duration(seconds: 1)).then((_) {
           // Get.toNamed('/$gameType', arguments: gameId);
           stopQueue();

@@ -49,13 +49,11 @@ class LobbyController extends BaseController {
     switch (commandId) {
       case GameCommands.startGame:
         final String gameId = data['data']['game_id'];
-        const String gameType = 'activeQueueType.value';
         Future.delayed(const Duration(seconds: 1)).then((_) {
           Get.offAndToNamed(AppRoutes.gamePlay, arguments: gameId);
-          Get.find<GlobalController>().setActiveGameId(gameId, gameType);
+          Get.find<GlobalController>().setActiveGameId(gameId);
           Get.find<SoundPlayerComponent>()
               .playGameSound(GameSoundTypes.queueFinded);
-          Get.find<SoundPlayerComponent>().startPlayMusic(isGame: true);
         });
         break;
       case GameCommands.lobbyList:
