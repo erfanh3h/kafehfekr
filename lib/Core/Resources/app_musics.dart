@@ -14,4 +14,5 @@ class AppMusics {
     '$_baseMusic/game7.mp3',
     '$_baseMusic/game8.mp3',
   ];
+  static const queueMusic = '$_baseMusic/queue.mp3';
 }

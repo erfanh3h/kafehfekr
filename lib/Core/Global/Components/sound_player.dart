@@ -40,7 +40,7 @@ class SoundPlayerComponent extends BaseController {
   bool isMusicPaused = false;
 
   void playGameSound(GameSoundTypes soundType) {
-    if (!letPlayMusic.value || Platform.isWindows) {
+    if (!letPlaySound || Platform.isWindows) {
       return;
     }
     String sound = "";
@@ -138,11 +138,23 @@ class SoundPlayerComponent extends BaseController {
         musicList.add(AudioSource.asset(music));
       }
     }
-    final playlist = ConcatenatingAudioSource(children: musicList);
+    musicList.shuffle();
+    // final playlist = ConcatenatingAudioSource(children: musicList);
+    await _musicPlayer.setAudioSources(musicList);
     await _musicPlayer.setLoopMode(LoopMode.all);
-    await _musicPlayer.setShuffleModeEnabled(true);
-    await _musicPlayer.setAudioSource(playlist);
-    _musicPlayer.setVolume(.15);
+    isMusicPlaying = true;
+    isMusicPaused = false;
+    await _musicPlayer.play();
+  }
+
+  Future startPlayQueueMusic() async {
+    if (!letPlayMusic.value || Platform.isWindows) {
+      return;
+    }
+    _musicPlayer.setAsset(AppMusics.queueMusic).then((_) {
+      _musicPlayer.play();
+    });
+    await _musicPlayer.setLoopMode(LoopMode.one);
     isMusicPlaying = true;
     isMusicPaused = false;
     await _musicPlayer.play();
@@ -181,6 +193,7 @@ class SoundPlayerComponent extends BaseController {
   @override
   void onInit() {
     _actionPlayer.setVolume(.35);
+    _musicPlayer.setVolume(.15);
     super.onInit();
   }
 

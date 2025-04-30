@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/timer_dialog_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -292,6 +293,16 @@ class DialogComponent {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  showTimerDialog({int time = 3}) {
+    Get.dialog(
+      barrierDismissible: false,
+      Dialog(
+        backgroundColor: AppColors.transparent,
+        child: TimerDialogWidget(maxTime: time),
       ),
     );
   }

@@ -88,10 +88,14 @@ class QueueController extends BaseController {
         DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
         stopQueue();
       case GameCommands.startPreGame:
+        // Get.find<SoundPlayerComponent>().stopMusic();
+        Get.find<SoundPlayerComponent>().startPlayQueueMusic();
+        showInteraction(sound: GameSoundTypes.startGame);
         List queuersData = data['data']['queuers'];
         for (var queuer in queuersData) {
           queuers.add(QueuerModel.fromJson(queuer));
         }
+        DialogComponent().showTimerDialog(time: 5);
         isPreGameMode.value = true;
         preGameId = data['data']['id'];
       case GameCommands.systemBannedGames:
@@ -120,6 +124,7 @@ class QueueController extends BaseController {
             gamer2BannedGames.add(stringToGameType(gameType));
           case 7:
             systemSelectedGame.value = stringToGameType(gameType);
+            DialogComponent().showTimerDialog(time: 5);
         }
         final gameValue = stringToGameType(gameType);
         allGames.remove(gameValue);
@@ -127,7 +132,10 @@ class QueueController extends BaseController {
         activeIndex.value += 1;
       case GameCommands.selectGame:
         final targetId = data['data'];
-        if (targetId == myId) letSelectGame.value = true;
+        if (targetId == myId) {
+          showInteraction(sound: GameSoundTypes.startTurn);
+          letSelectGame.value = true;
+        }
       default:
     }
   }
@@ -171,6 +179,14 @@ class QueueController extends BaseController {
         return AppColors.yellow;
       case GameDifficulties.Hard:
         return AppColors.buttonRed;
+    }
+  }
+
+  void showInteraction({String? text, GameSoundTypes? sound}) {
+    Get.find<SoundPlayerComponent>()
+        .playGameSound(sound ?? GameSoundTypes.tapWrong);
+    if (text != null) {
+      DialogComponent().showToast(label: text);
     }
   }
 
