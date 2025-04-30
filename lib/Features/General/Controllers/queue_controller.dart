@@ -62,6 +62,7 @@ class QueueController extends BaseController {
       myId: userId,
       onQueueStart: onQueueStarted,
       onQueueError: onQueueError,
+      preGameId: preGameId,
     );
     // activeQueueType.value = gameType;
     // activeQueueScoreType.value = gameScoreType;
@@ -205,6 +206,7 @@ class QueueController extends BaseController {
 
   @override
   void onInit() {
+    preGameId = Get.arguments;
     startQueue();
     myId = Get.find<GlobalController>().userId!;
     super.onInit();

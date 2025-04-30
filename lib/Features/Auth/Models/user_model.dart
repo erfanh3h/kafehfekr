@@ -6,6 +6,9 @@ class UserModel {
   final String name;
   final int image;
   final int coin;
+  final String openGameId;
+  final String openPreGameId;
+
   final DateTime joinDate;
   final DateTime lastTimeChance;
 
@@ -17,6 +20,8 @@ class UserModel {
     required this.name,
     required this.image,
     required this.coin,
+    required this.openGameId,
+    required this.openPreGameId,
     required this.joinDate,
     required this.lastTimeChance,
   });
@@ -30,6 +35,8 @@ class UserModel {
       name: data['username'] ?? "",
       image: data['image'] ?? 0,
       coin: data['coin'] ?? 0,
+      openGameId: data['open_game_id'] ?? "",
+      openPreGameId: data['open_pre_game_id'] ?? "",
       joinDate: DateTime.tryParse(data['join_date'] ?? "") ?? DateTime.now(),
       lastTimeChance:
           DateTime.tryParse(data['last_time_chance'] ?? "") ?? DateTime.now(),
@@ -44,6 +51,8 @@ class UserModel {
     final String? name,
     final int? image,
     final int? coin,
+    final String? openGameId,
+    final String? openPreGameId,
     final DateTime? joinDate,
     final DateTime? lastTimeChance,
   }) =>
@@ -55,6 +64,8 @@ class UserModel {
         name: name ?? this.name,
         image: image ?? this.image,
         coin: coin ?? this.coin,
+        openGameId: openGameId ?? this.openGameId,
+        openPreGameId: openPreGameId ?? this.openPreGameId,
         joinDate: joinDate ?? this.joinDate,
         lastTimeChance: lastTimeChance ?? this.lastTimeChance,
       );

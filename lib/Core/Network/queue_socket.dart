@@ -12,6 +12,7 @@ class QueueSocketManager extends BaseController {
     required String myId,
     required Function onQueueStart,
     required Function onQueueError,
+    String? preGameId,
   }) {
     socket = io(ServerRoutes.queueSocket, <String, dynamic>{
       'autoConnect': false,
@@ -20,7 +21,8 @@ class QueueSocketManager extends BaseController {
       'transports': ['websocket'],
       'auth': {
         'user_id': myId,
-        'token': Get.find<GlobalController>().token ?? ""
+        'token': Get.find<GlobalController>().token ?? "",
+        'pre_game_id': preGameId,
       },
     });
     socket.connect();

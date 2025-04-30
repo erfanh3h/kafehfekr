@@ -29,6 +29,7 @@ class GlobalController extends BaseController {
   String? userId;
   String? token;
   String? activeGameId;
+  String? activePreGameId;
 
   Rx<UserModel?> myData = Rx(null);
   RxBool isLoadingProfile = RxBool(true);
@@ -55,9 +56,12 @@ class GlobalController extends BaseController {
         } else {
           Get.offAllNamed(AppRoutes.main);
           Future.delayed(const Duration(milliseconds: 500)).then((_) {
-            if (activeGameId != null) {
+            if (activeGameId != null && activeGameId!.isNotEmpty) {
               Get.toNamed(AppRoutes.gamePlay, arguments: activeGameId);
               // Get.toNamed('/$activeGameType', arguments: activeGameId);
+            }
+            if (activePreGameId != null && activePreGameId!.isNotEmpty) {
+              Get.toNamed(AppRoutes.queue, arguments: activePreGameId);
             }
           });
         }
@@ -107,18 +111,15 @@ class GlobalController extends BaseController {
       final dataResult = await globalRepo.getMyData();
       if (dataResult.resultData != null) {
         myData.value = dataResult.resultData!;
+        // activeGameId = "gameId";
+        activeGameId = myData.value!.openGameId;
+        activePreGameId = myData.value!.openPreGameId;
       }
       final userIdData =
           await globalRepo.getDataFromStorage(key: StorageKeys.userId);
       if (userIdData != null) {
         userId = userIdData;
       }
-      final gameIdData =
-          await globalRepo.getDataFromStorage(key: StorageKeys.gameId);
-      if (gameIdData != null) {
-        activeGameId = gameIdData;
-      }
-      // activeGameId = "gameId";
       final gameMusicData =
           await globalRepo.getDataFromStorage(key: StorageKeys.gameMusic);
       if (gameMusicData != null) {
@@ -146,7 +147,6 @@ class GlobalController extends BaseController {
 
   Future<void> setActiveGameId(String id) async {
     isLoadingProfile.value = true;
-    await globalRepo.setDataOnStorage(key: StorageKeys.gameId, value: id);
     activeGameId = id;
     isLoadingProfile.value = false;
   }
@@ -194,7 +194,6 @@ class GlobalController extends BaseController {
 
   Future<void> finishGame() async {
     isLoadingProfile.value = true;
-    await globalRepo.removeDataFromStorage(key: StorageKeys.gameId);
     activeGameId = null;
     isLoadingProfile.value = false;
     fetchUserData();
