@@ -39,16 +39,16 @@ class FourInRowPiece extends StatelessWidget {
     return Container(
       padding: AppSpacings.s5All,
       decoration: BoxDecoration(
-        // color: backgroundColor,
-        gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Colors.white24,
-            (imageColor ?? Colors.white70).withValues(alpha: .5)
-          ],
-          // stops: imageColor != null ? const [0, 0] : null,
-        ),
+        color: AppColors.lightColor3,
+        // gradient: LinearGradient(
+        //   begin: Alignment.bottomLeft,
+        //   end: Alignment.topRight,
+        //   colors: [
+        //     Colors.white24,
+        //     (imageColor ?? Colors.white70).withValues(alpha: .5)
+        //   ],
+        //   // stops: imageColor != null ? const [0, 0] : null,
+        // ),
         border: Border.all(
           color: isLastTurnPlayed ? AppColors.yellow : AppColors.black,
           width: borderSize,
