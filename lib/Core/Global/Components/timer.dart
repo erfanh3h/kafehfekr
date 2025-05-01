@@ -16,9 +16,8 @@ class TimerCompanent extends GetxController {
     _start.value = (timerDuration ?? 0).toDouble();
     timerLabel.value = _start.toInt().toString();
     isCounting.value = true;
-    const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
-      oneSec,
+      const Duration(seconds: 1),
       (Timer timer) {
         if (_start.value == 0) {
           timer.cancel();
@@ -30,12 +29,12 @@ class TimerCompanent extends GetxController {
             endFunction!();
           } catch (_) {}
         } else if (isPaused.value) {
-          print("object");
         } else {
           _start.value = _start.value - 1;
           timerLabel.value = _start.toInt().toString();
           // timerLabel.value = _start.value.toStringAsFixed(1);
           percent.value = _start.value / (timerDuration ?? 1).toDouble();
+          update();
           // timerLabel.value =
           //     DateActionsComponent.formatSecondsToMinutes(_start.value.toInt());
         }
@@ -44,6 +43,7 @@ class TimerCompanent extends GetxController {
   }
 
   void stopTimer() {
+    print("timer stop");
     if (_timer != null) {
       _timer!.cancel();
       _start.value = 0;
@@ -55,8 +55,8 @@ class TimerCompanent extends GetxController {
     }
   }
 
-  void pauseTimer() => isPaused.value = true;
-  void resumeTimer() => isPaused.value = false;
+  // void pauseTimer() => isPaused.value = true;
+  // void resumeTimer() => isPaused.value = false;
 
   @override
   void dispose() {

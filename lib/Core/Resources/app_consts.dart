@@ -39,6 +39,7 @@ class GameWaitTimes {
   static const int boxFourTurnTime = 12;
   static const int backGammonTurnTime = 30;
   static const int backOutOfMoveTime = 5;
+  static const int queuePickTime = 20;
 }
 
 class FontFamilies {

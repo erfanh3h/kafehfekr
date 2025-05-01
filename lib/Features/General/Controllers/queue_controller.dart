@@ -76,11 +76,13 @@ class QueueController extends BaseController {
       case GameCommands.selectedGame:
         selectedGameFunction(data);
       case GameCommands.userDisconnected:
-        pauseTimer();
+        stopTimer();
         DialogComponent().showTimerDialog(
             time: data['data']['time'], text: "منتظر حریف بمانید");
       case GameCommands.userReconnected:
-        resumeTimer();
+        final int timerValue =
+            (GameWaitTimes.queuePickTime - data['data']['time']).toInt();
+        changeTimerValue(timerValue);
         Get.closeDialog();
       case GameCommands.notEnoughCoin:
         DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
@@ -89,11 +91,13 @@ class QueueController extends BaseController {
         Get.back();
         DialogComponent().showToast(label: AppTexts.gameFinished.tr);
       case GameCommands.selectGame:
-        changetimerValue(20);
+        changeTimerValue(GameWaitTimes.queuePickTime);
         final targetId = data['data'];
         if (targetId == myId) {
           showInteraction(sound: GameSoundTypes.startTurn);
           letSelectGame.value = true;
+        } else {
+          letSelectGame.value = false;
         }
       default:
     }
@@ -112,7 +116,15 @@ class QueueController extends BaseController {
 
   void reconnectDataFunction(dynamic data) {
     final Map reconnectData = data['data'];
+    List queuersData = reconnectData['queuers'];
+    if (queuersData.length != 2) {
+      Get.back();
+      return;
+    }
     activeIndex.value = reconnectData['active_index'];
+    final int timerValue =
+        (GameWaitTimes.queuePickTime - reconnectData['timer_value']).toInt();
+    changeTimerValue(timerValue);
     if (reconnectData['system_selected_game'] != null) {
       systemSelectedGame.value =
           stringToGameType(reconnectData['system_selected_game']);
@@ -129,11 +141,7 @@ class QueueController extends BaseController {
       showInteraction(sound: GameSoundTypes.startTurn);
       letSelectGame.value = true;
     }
-    List queuersData = reconnectData['queuers'];
-    if (queuersData.length != 2) {
-      Get.back();
-      return;
-    }
+
     queuers.add(QueuerModel.fromJson(queuersData[0]));
     queuers.add(QueuerModel.fromJson(queuersData[1]));
     for (var bannedGame in queuersData[0]['banned_games']) {
@@ -209,6 +217,7 @@ class QueueController extends BaseController {
   }
 
   void sendCommand(Map data) {
+    changeTimerValue(0);
     Get.find<QueueSocketManager>().sendCommand(data);
   }
 
@@ -254,20 +263,12 @@ class QueueController extends BaseController {
     }
   }
 
-  void changetimerValue(int value) {
+  void changeTimerValue(int value) {
     Get.find<TimerCompanent>().startTimer(value);
   }
 
   stopTimer() {
     Get.find<TimerCompanent>().stopTimer();
-  }
-
-  pauseTimer() {
-    Get.find<TimerCompanent>().pauseTimer();
-  }
-
-  resumeTimer() {
-    Get.find<TimerCompanent>().resumeTimer();
   }
 
   @override
