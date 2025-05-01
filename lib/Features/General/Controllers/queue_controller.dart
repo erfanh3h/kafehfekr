@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
+import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
@@ -74,6 +75,13 @@ class QueueController extends BaseController {
         systemBannedGamesFunction(data);
       case GameCommands.selectedGame:
         selectedGameFunction(data);
+      case GameCommands.userDisconnected:
+        pauseTimer();
+        DialogComponent().showTimerDialog(
+            time: data['data']['time'], text: "منتظر حریف بمانید");
+      case GameCommands.userReconnected:
+        resumeTimer();
+        Get.closeDialog();
       case GameCommands.notEnoughCoin:
         DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
         stopQueue();
@@ -81,6 +89,7 @@ class QueueController extends BaseController {
         Get.back();
         DialogComponent().showToast(label: AppTexts.gameFinished.tr);
       case GameCommands.selectGame:
+        changetimerValue(20);
         final targetId = data['data'];
         if (targetId == myId) {
           showInteraction(sound: GameSoundTypes.startTurn);
@@ -243,6 +252,22 @@ class QueueController extends BaseController {
     } else {
       selectedGameIndex.value = index;
     }
+  }
+
+  void changetimerValue(int value) {
+    Get.find<TimerCompanent>().startTimer(value);
+  }
+
+  stopTimer() {
+    Get.find<TimerCompanent>().stopTimer();
+  }
+
+  pauseTimer() {
+    Get.find<TimerCompanent>().pauseTimer();
+  }
+
+  resumeTimer() {
+    Get.find<TimerCompanent>().resumeTimer();
   }
 
   @override

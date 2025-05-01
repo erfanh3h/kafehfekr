@@ -297,12 +297,15 @@ class DialogComponent {
     );
   }
 
-  showTimerDialog({int time = 3}) {
+  showTimerDialog({int time = 3, String? text}) {
     Get.dialog(
       barrierDismissible: false,
-      Dialog(
-        backgroundColor: AppColors.transparent,
-        child: TimerDialogWidget(maxTime: time),
+      PopScope(
+        canPop: false,
+        child: Dialog(
+          backgroundColor: AppColors.transparent,
+          child: TimerDialogWidget(maxTime: time, text: text),
+        ),
       ),
     );
   }

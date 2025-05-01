@@ -11,9 +11,11 @@ class TimerDialogWidget extends StatefulWidget {
   const TimerDialogWidget({
     super.key,
     this.maxTime = 3,
+    this.text,
   });
 
   final int maxTime;
+  final String? text;
 
   @override
   State<TimerDialogWidget> createState() => _TimerDialogWidgetState();
@@ -56,16 +58,33 @@ class _TimerDialogWidgetState extends State<TimerDialogWidget> {
     return Padding(
       padding: AppSpacings.s20All,
       child: Center(
-        child: GlobalFadeInOutWidget(
-          animationTime: 500,
-          child: Text(
-            maxTime.toString(),
-            style: const TextStyle(
-              fontSize: 120,
-              color: AppColors.lightColor,
-              fontFamily: FontFamilies.playPen,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (widget.text != null)
+              Padding(
+                padding: AppSpacings.s10Bottom,
+                child: Text(
+                  widget.text!,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    color: AppColors.lightColor,
+                    fontFamily: FontFamilies.playPen,
+                  ),
+                ),
+              ),
+            GlobalFadeInOutWidget(
+              animationTime: 500,
+              child: Text(
+                maxTime.toString(),
+                style: const TextStyle(
+                  fontSize: 120,
+                  color: AppColors.lightColor,
+                  fontFamily: FontFamilies.playPen,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

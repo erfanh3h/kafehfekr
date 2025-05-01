@@ -4,6 +4,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_show_timer_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -34,6 +35,8 @@ class GamersDataWidget extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
+            const SizedBox(height: 5),
+            const GlobalShowTimerWidget(),
             const SizedBox(height: 5),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,

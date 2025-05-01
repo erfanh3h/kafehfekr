@@ -7,10 +7,11 @@ class TimerCompanent extends GetxController {
   final RxDouble _start = RxDouble(0);
   RxString timerLabel = RxString('');
   RxBool isCounting = RxBool(false);
+  RxBool isPaused = RxBool(false);
   RxDouble percent = RxDouble(0);
   // end function run when timer fully completed
   void startTimer(int? timerDuration, {Function? endFunction}) {
-    pauseTimer();
+    if (_timer != null) _timer!.cancel();
 
     _start.value = (timerDuration ?? 0).toDouble();
     timerLabel.value = _start.toInt().toString();
@@ -28,6 +29,8 @@ class TimerCompanent extends GetxController {
           try {
             endFunction!();
           } catch (_) {}
+        } else if (isPaused.value) {
+          print("object");
         } else {
           _start.value = _start.value - 1;
           timerLabel.value = _start.toInt().toString();
@@ -38,10 +41,6 @@ class TimerCompanent extends GetxController {
         }
       },
     );
-  }
-
-  void pauseTimer() {
-    if (_timer != null) _timer!.cancel();
   }
 
   void stopTimer() {
@@ -56,8 +55,8 @@ class TimerCompanent extends GetxController {
     }
   }
 
-  void unpauseTimer({Function? endFunction}) =>
-      startTimer(_start.value.toInt(), endFunction: endFunction);
+  void pauseTimer() => isPaused.value = true;
+  void resumeTimer() => isPaused.value = false;
 
   @override
   void dispose() {
