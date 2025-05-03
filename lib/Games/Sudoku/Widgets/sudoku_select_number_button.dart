@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
-import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class SudokuSelectNumberButton extends StatelessWidget {
   const SudokuSelectNumberButton({
@@ -25,7 +24,8 @@ class SudokuSelectNumberButton extends StatelessWidget {
           onTap(number);
         },
         child: Container(
-          padding: AppSpacings.s5All,
+          width: double.maxFinite,
+          // padding: AppSpacings.s5All,
           decoration: BoxDecoration(
             // color: isTapped ? AppColors.green : AppColors.lightColor,
             border: Border.all(
@@ -44,30 +44,26 @@ class SudokuSelectNumberButton extends StatelessWidget {
             ),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(
-                child: Text(
-                  number.toString(),
-                  style: TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 19,
-                      color: isTapped
-                          ? AppColors.lightColor
-                          : AppColors.darkColor),
+              const Spacer(),
+              Text(
+                number.toString(),
+                style: TextStyle(
+                  fontFamily: FontFamilies.hekayat,
+                  fontSize: 23,
+                  color: isTapped ? AppColors.lightColor : AppColors.darkColor,
                 ),
               ),
-              Container(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  count.toString(),
-                  style: TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 12,
-                      color: isTapped
-                          ? AppColors.lightColor
-                          : AppColors.darkColor),
+              Text(
+                count.toString(),
+                style: TextStyle(
+                  fontFamily: FontFamilies.hekayat,
+                  fontSize: 13,
+                  color: isTapped ? AppColors.lightColor : AppColors.darkColor,
                 ),
-              )
+              ),
+              const Spacer(),
             ],
           ),
         ),

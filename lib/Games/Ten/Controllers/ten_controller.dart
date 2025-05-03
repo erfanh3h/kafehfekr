@@ -282,10 +282,6 @@ class TenController extends BaseGameController {
   }
 
   addNumbers() {
-    numbers.add(RxInt(-1));
-    numbers.add(RxInt(-1));
-    numbers.add(RxInt(-1));
-    numbers.add(RxInt(-1));
     numberValues.add(RxInt(-1));
     numberValues.add(RxInt(-1));
     numberValues.add(RxInt(-1));

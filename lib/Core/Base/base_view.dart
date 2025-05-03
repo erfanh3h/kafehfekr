@@ -98,8 +98,10 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
 
   Widget pageContent(final BuildContext context) {
     return setWillPopScope()
-        ? PopScope(
-            canPop: false,
+        ? BackButtonListener(
+            onBackButtonPressed: () {
+              return Future.value(preventPop());
+            },
             child: pageScaffold(context),
           )
         : pageScaffold(context);

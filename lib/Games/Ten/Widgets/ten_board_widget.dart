@@ -21,6 +21,7 @@ class TenBoardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(controller.numbers);
     return Obx(
       () => Container(
         padding: AppSpacings.s10All,
@@ -146,19 +147,20 @@ class TenBoardWidget extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TenDraggableNumberWidget(
-                          value: controller.numbers[0].value),
-                      TenDraggableNumberWidget(
-                          value: controller.numbers[1].value),
-                      TenDraggableNumberWidget(
-                          value: controller.numbers[2].value),
-                      TenDraggableNumberWidget(
-                          value: controller.numbers[3].value),
-                    ],
-                  ),
+                  if (controller.numbers.length == 4)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TenDraggableNumberWidget(
+                            value: controller.numbers[0].value),
+                        TenDraggableNumberWidget(
+                            value: controller.numbers[1].value),
+                        TenDraggableNumberWidget(
+                            value: controller.numbers[2].value),
+                        TenDraggableNumberWidget(
+                            value: controller.numbers[3].value),
+                      ],
+                    ),
                   const SizedBox(height: 10),
                   Directionality(
                     textDirection: TextDirection.ltr,
