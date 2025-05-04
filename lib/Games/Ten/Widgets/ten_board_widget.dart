@@ -21,7 +21,6 @@ class TenBoardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(controller.numbers);
     return Obx(
       () => Container(
         padding: AppSpacings.s10All,

@@ -43,7 +43,6 @@ class TimerCompanent extends GetxController {
   }
 
   void stopTimer() {
-    print("timer stop");
     if (_timer != null) {
       _timer!.cancel();
       _start.value = 0;

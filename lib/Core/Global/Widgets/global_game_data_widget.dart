@@ -101,15 +101,6 @@ class GlobalGameDataWidget extends StatelessWidget {
                       color: AppColors.imageRedColor,
                       playerData: player1Data,
                     ),
-                    if (player1Data.isDisconnected)
-                      Positioned(
-                        bottom: -15,
-                        left: 0,
-                        child: DisconnectTimerWidget(
-                          maxTime: player1Data.disconnectTime,
-                          color: AppColors.imageRedColor,
-                        ),
-                      ),
                     if (player1Number2 != null)
                       Positioned(
                         bottom: -15,
@@ -163,15 +154,6 @@ class GlobalGameDataWidget extends StatelessWidget {
                       color: AppColors.imageBlueColor,
                       playerData: player2Data,
                     ),
-                    if (player2Data.isDisconnected)
-                      Positioned(
-                        bottom: -15,
-                        right: 0,
-                        child: DisconnectTimerWidget(
-                          maxTime: player2Data.disconnectTime,
-                          color: AppColors.imageBlueColor,
-                        ),
-                      ),
                     if (player2Number2 != null)
                       Positioned(
                         bottom: -15,

@@ -78,7 +78,7 @@ class QueueController extends BaseController {
       case GameCommands.userDisconnected:
         stopTimer();
         DialogComponent().showTimerDialog(
-            time: data['data']['time'], text: "منتظر حریف بمانید");
+            time: data['data']['time'], text: AppTexts.waitOpponent.tr);
       case GameCommands.userReconnected:
         final int timerValue =
             (GameWaitTimes.queuePickTime - data['data']['time']).toInt();

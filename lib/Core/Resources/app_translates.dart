@@ -111,7 +111,7 @@ class AppTranslations extends Translations {
           AppTexts.disableSticker: 'غیرفعال سازی استیکر',
           AppTexts.cancel: 'نه بیخیالش',
           AppTexts.wait: 'منتظر بمانید ...',
-          AppTexts.waitOpponent: 'منتظر حریف بمانید ...',
+          AppTexts.waitOpponent: 'منتظر حریف بمانید',
           AppTexts.outOfThisNumber: 'از این عدد دیگه نداری!',
           AppTexts.error: 'خطا',
           AppTexts.back: 'بازگشت',

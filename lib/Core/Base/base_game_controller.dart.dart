@@ -12,6 +12,7 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/player_model.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Features/General/Controllers/game_play_controller.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -148,7 +149,7 @@ class BaseGameController extends BaseController {
 
   void waitTimeFunction(Map data) {
     int time = data['data'];
-    Get.find<TimerCompanent>().stopTimer();
+    stopTimer();
     changetimerValue(time);
   }
 
@@ -211,7 +212,7 @@ class BaseGameController extends BaseController {
     isGameFinished.value = true;
     canSelectPeace.value = false;
     Map newData = data['data'];
-    Get.find<TimerCompanent>().stopTimer();
+    stopTimer();
     FunctionsLibraryClass.showFinishGameDialog(
       newData['Winner'],
       myGameId,
@@ -221,7 +222,7 @@ class BaseGameController extends BaseController {
 
   void finishReconnectTimerFunction(Map data) {
     Map newData = data['data'];
-    Get.find<TimerCompanent>().stopTimer();
+    stopTimer();
     FunctionsLibraryClass.showFinishReconnectTimeDialog(
       newData['user_id'],
       myId,
@@ -230,14 +231,15 @@ class BaseGameController extends BaseController {
   }
 
   void onUserDisconnectedFunction(Map data) {
+    stopTimer();
     Map newData = data['data'];
     String userId = newData['user_id'];
     int time = newData['time'];
+    DialogComponent()
+        .showTimerDialog(time: time, text: AppTexts.waitOpponent.tr);
     for (var i = 0; i < players.length; i++) {
       if (players[i].value.userId == userId) {
-        players[i].value = players[i]
-            .value
-            .copyWith(isDisconnected: true, disconnectTime: time);
+        players[i].value = players[i].value.copyWith(isDisconnected: true);
         break;
         // int maxTime = players[i].value.disconnectTime;
         // while (maxTime >= 0) {
@@ -252,6 +254,7 @@ class BaseGameController extends BaseController {
   void onUserReconnectedFunction(Map data) {
     Map newData = data['data'];
     String userId = newData['user_id'];
+    int time = newData['time'];
     for (var i = 0; i < players.length; i++) {
       if (players[i].value.userId == userId) {
         players[i].value = players[i].value.copyWith(isDisconnected: false);
@@ -264,6 +267,8 @@ class BaseGameController extends BaseController {
         // }
       }
     }
+    changetimerValue(time);
+    Get.closeDialog();
   }
 
   bool isThisUserTurn(int gamerId) {
@@ -381,6 +386,10 @@ class BaseGameController extends BaseController {
       return players[0].value.name;
     }
     return "";
+  }
+
+  stopTimer() {
+    Get.find<TimerCompanent>().stopTimer();
   }
 
   @override

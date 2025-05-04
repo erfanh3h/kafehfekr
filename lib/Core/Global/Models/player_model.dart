@@ -4,7 +4,6 @@ class PlayerModel {
   final int userImage;
   final String name;
   final int notPlayedTurns;
-  final int disconnectTime;
   final bool isDisconnected;
   final int? reactionId;
 
@@ -14,7 +13,6 @@ class PlayerModel {
     required this.userImage,
     required this.name,
     required this.notPlayedTurns,
-    required this.disconnectTime,
     this.isDisconnected = false,
     this.reactionId,
   });
@@ -26,7 +24,6 @@ class PlayerModel {
       userImage: data['user_image'],
       name: data['name'],
       notPlayedTurns: data['not_played_turns'],
-      disconnectTime: data['remain_dc_time'],
       isDisconnected: data['is_disconnected'],
     );
   }
@@ -38,7 +35,6 @@ class PlayerModel {
     final String? name,
     final int? reactionId,
     final int? notPlayedTurns,
-    final int? disconnectTime,
     final bool? isDisconnected,
   }) =>
       PlayerModel(
@@ -48,7 +44,6 @@ class PlayerModel {
         name: name ?? this.name,
         reactionId: reactionId ?? this.reactionId,
         notPlayedTurns: notPlayedTurns ?? this.notPlayedTurns,
-        disconnectTime: disconnectTime ?? this.disconnectTime,
         isDisconnected: isDisconnected ?? this.isDisconnected,
       );
 
@@ -62,7 +57,6 @@ class PlayerModel {
       name: name,
       reactionId: newReactionId,
       notPlayedTurns: notPlayedTurns,
-      disconnectTime: disconnectTime,
       isDisconnected: isDisconnected,
     );
   }
@@ -74,7 +68,6 @@ class PlayerModel {
       userImage: 0,
       name: 'بازیکن $gamerId',
       notPlayedTurns: 0,
-      disconnectTime: 10000,
       isDisconnected: false,
     );
   }

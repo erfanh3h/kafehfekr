@@ -3,7 +3,6 @@ import 'package:function_tree/function_tree.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -43,7 +42,7 @@ class TenController extends BaseGameController {
   @override
   void finishRoundFunction(Map data) {
     Map newData = data['data'];
-    Get.find<TimerCompanent>().stopTimer();
+    stopTimer();
     int roundWinner = newData['Winner'] ?? 0;
     if (roundWinner == 1) {
       player1Score.value += 1;
