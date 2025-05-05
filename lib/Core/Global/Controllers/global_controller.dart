@@ -45,7 +45,7 @@ class GlobalController extends BaseController {
   }
 
   checkLoginStatus({bool navigateToMain = true}) async {
-    // await removeData();
+    await removeData();
     bool isConfigOk = await getConfigData(navigateToMain: navigateToMain);
     token.value = await globalRepo.getDataFromStorage(key: StorageKeys.token);
     if (isConfigOk) {

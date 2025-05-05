@@ -50,14 +50,6 @@ class HistoryPage extends BaseView<HistoryController> {
                 children: [
                   GameHistoryRowWidget(
                     data: (
-                      controller.myHistoryData.value!.winNormal,
-                      controller.myHistoryData.value!.drawNormal,
-                      controller.myHistoryData.value!.loseNormal,
-                    ),
-                    name: AppTexts.normalGame.tr,
-                  ),
-                  GameHistoryRowWidget(
-                    data: (
                       controller.myHistoryData.value!.winRank,
                       controller.myHistoryData.value!.drawRank,
                       controller.myHistoryData.value!.loseRank,

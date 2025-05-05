@@ -1,6 +1,4 @@
 class UserHistoryModel {
-  final int winNormal, loseNormal, drawNormal;
-
   final int winRank, loseRank, drawRank;
 
   final (int?, int?, int?) rankTicTacToe;
@@ -24,9 +22,6 @@ class UserHistoryModel {
   final (int?, int?, int?) rankYinsh;
 
   UserHistoryModel({
-    required this.winNormal,
-    required this.loseNormal,
-    required this.drawNormal,
     required this.winRank,
     required this.loseRank,
     required this.drawRank,
@@ -97,9 +92,6 @@ class UserHistoryModel {
     final (int?, int?, int?) rankYinsh =
         (data['yinsh_win'], data['yinsh_draw'], data['yinsh_lose']);
     return UserHistoryModel(
-      winNormal: data['win_normal'],
-      loseNormal: data['lose_normal'],
-      drawNormal: data['draw_normal'],
       winRank: data['win_rank'] ?? 0,
       loseRank: data['lose_rank'] ?? 0,
       drawRank: data['draw_rank'] ?? 0,
@@ -125,17 +117,11 @@ class UserHistoryModel {
     );
   }
   UserHistoryModel copyWith({
-    final int? loseNormal,
-    final int? winNormal,
-    final int? drawNormal,
     final int? loseRank,
     final int? winRank,
     final int? drawRank,
   }) =>
       UserHistoryModel(
-        loseNormal: loseNormal ?? this.loseNormal,
-        winNormal: winNormal ?? this.winNormal,
-        drawNormal: drawNormal ?? this.drawNormal,
         loseRank: loseRank ?? this.loseRank,
         winRank: winRank ?? this.winRank,
         drawRank: drawRank ?? this.drawRank,

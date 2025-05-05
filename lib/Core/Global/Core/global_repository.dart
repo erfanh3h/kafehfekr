@@ -38,7 +38,8 @@ class GlobalRepository with RestClient {
 
   Future<ApiResult<(UserModel?, UserHistoryModel?)>> getUserData(
       {required String userId}) async {
-    var response = await getData(ServerRoutes.userData(userId));
+    var response =
+        await getData(ServerRoutes.userData(userId), needToken: false);
     NetworkExceptions? errorData;
     UserModel? user;
     UserHistoryModel? userHistory;

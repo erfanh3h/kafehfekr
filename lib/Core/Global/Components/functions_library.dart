@@ -172,7 +172,8 @@ class FunctionsLibraryClass {
   }
 
   static showUserData(String userId) {
-    Get.find<GlobalRepository>().getUserData(userId: userId).then((result) {
+    final repo = GlobalRepository();
+    repo.getUserData(userId: userId).then((result) {
       if (result.resultData != null) {
         Get.bottomSheet(
           UserDataWidget(

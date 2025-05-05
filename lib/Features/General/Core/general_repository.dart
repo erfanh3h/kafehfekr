@@ -7,7 +7,7 @@ import 'package:kafehfekr/Features/General/Models/ranking_model.dart';
 class GeneralRepository with RestClient {
   Future<ApiResult<List<RankingModel>>> getRankingByScore() async {
     List<RankingModel> data = [];
-    var response = await getData(ServerRoutes.rankingByScore);
+    var response = await getData(ServerRoutes.rankingByScore, needToken: false);
     NetworkExceptions? errorData;
     if (response.resultData != null) {
       for (var rawData in response.resultData['result']) {
@@ -23,7 +23,7 @@ class GeneralRepository with RestClient {
 
   Future<ApiResult<List<RankingModel>>> getRankingByWin() async {
     List<RankingModel> data = [];
-    var response = await getData(ServerRoutes.rankingByWin);
+    var response = await getData(ServerRoutes.rankingByWin, needToken: false);
     NetworkExceptions? errorData;
     if (response.resultData != null) {
       for (var rawData in response.resultData['result']) {

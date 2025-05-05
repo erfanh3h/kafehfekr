@@ -160,7 +160,9 @@ class MainPage extends BaseView<GlobalController> {
                     GlobalActivityButton2(
                       text: AppTexts.history.tr,
                       iconData: Icons.history_toggle_off,
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(AppRoutes.history);
+                      },
                     ),
                   GetBuilder<SoundPlayerComponent>(builder: (cont) {
                     return Obx(

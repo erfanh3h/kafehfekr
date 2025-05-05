@@ -130,17 +130,6 @@ class UserDataWidget extends StatelessWidget {
         Column(
           children: [
             FadeIn(
-              delay: const Duration(milliseconds: 200),
-              child: GameHistoryRowWidget(
-                data: (
-                  userHistoryData.winNormal,
-                  userHistoryData.drawNormal,
-                  userHistoryData.loseNormal,
-                ),
-                name: AppTexts.normalGame.tr,
-              ),
-            ),
-            FadeIn(
               delay: const Duration(milliseconds: 400),
               child: GameHistoryRowWidget(
                 data: (
