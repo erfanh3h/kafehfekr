@@ -7,28 +7,24 @@ import 'package:kafehfekr/Games/Ten/Widgets/ten_offline_board_widget.dart';
 
 class TenOfflinePage extends BaseView<TenOfflineController> {
   const TenOfflinePage({super.key});
+  @override
+  String? backgroundImage() {
+    return AppImages.background1;
+  }
 
   @override
   Widget body(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.background1),
-          fit: BoxFit.fill,
-        ),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Spacer(),
-            Expanded(
-              flex: 3,
-              child: TenOfflineBoardWidget(controller: controller),
-            ),
-            Expanded(child: OfflineActivityButtons(controller: controller))
-          ],
-        ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Spacer(),
+          Expanded(
+            flex: 3,
+            child: TenOfflineBoardWidget(controller: controller),
+          ),
+          Expanded(child: OfflineActivityButtons(controller: controller))
+        ],
       ),
     );
   }

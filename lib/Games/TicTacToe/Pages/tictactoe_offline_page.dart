@@ -10,61 +10,57 @@ import 'package:kafehfekr/Games/TicTacToe/Widgets/tictactoe_offline_board_widget
 
 class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
   const TicTacToeOfflinePage({super.key});
+  @override
+  String? backgroundImage() {
+    return AppImages.background1;
+  }
 
   @override
   Widget body(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.background1),
-          fit: BoxFit.fill,
-        ),
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            child: controller.isGameFinished.value
-                ? Center(
-                    child: Text(
-                      controller.gameResultText.value,
-                      style: const TextStyle(
+    return Column(
+      children: [
+        Expanded(
+          child: controller.isGameFinished.value
+              ? Center(
+                  child: Text(
+                    controller.gameResultText.value,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      color: AppColors.lightColor,
+                    ),
+                  ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "نوبت: ",
+                      style: TextStyle(
                         fontSize: 25,
                         color: AppColors.lightColor,
                       ),
                     ),
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "نوبت: ",
-                        style: TextStyle(
-                          fontSize: 25,
-                          color: AppColors.lightColor,
-                        ),
+                    ElasticIn(
+                      child: Image.asset(
+                        controller.currentTurn.value == 1
+                            ? GeneralIcons.circle1
+                            : GeneralIcons.cross,
+                        color: controller.currentTurn.value == 1
+                            ? AppColors.imageRedColor
+                            : AppColors.imageBlueColor,
+                        width: 50,
+                        height: 50,
                       ),
-                      ElasticIn(
-                        child: Image.asset(
-                          controller.currentTurn.value == 1
-                              ? GeneralIcons.circle1
-                              : GeneralIcons.cross,
-                          color: controller.currentTurn.value == 1
-                              ? AppColors.imageRedColor
-                              : AppColors.imageBlueColor,
-                          width: 50,
-                          height: 50,
-                        ),
-                      )
-                    ],
-                  ),
-          ),
-          Expanded(
-            flex: 3,
-            child: TicTacToeOfflineBoardWidget(controller: controller),
-          ),
-          Expanded(child: OfflineActivityButtons(controller: controller))
-        ],
-      ),
+                    )
+                  ],
+                ),
+        ),
+        Expanded(
+          flex: 3,
+          child: TicTacToeOfflineBoardWidget(controller: controller),
+        ),
+        Expanded(child: OfflineActivityButtons(controller: controller))
+      ],
     );
   }
 }

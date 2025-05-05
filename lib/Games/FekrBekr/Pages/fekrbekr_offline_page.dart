@@ -9,15 +9,14 @@ class FekrBekrOfflinePage extends BaseView<FekrBekrOfflineController> {
   const FekrBekrOfflinePage({super.key});
 
   @override
+  String? backgroundImage() {
+    return AppImages.background1;
+  }
+
+  @override
   Widget body(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.maxFinite,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.background1),
-          fit: BoxFit.fill,
-        ),
-      ),
       child: Column(
         children: [
           Expanded(child: FekrBekrOfflineBoardWidget(controller: controller)),

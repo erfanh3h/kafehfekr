@@ -10,15 +10,14 @@ class FekrBekrPage extends BaseView<FekrBekrController> {
   const FekrBekrPage({super.key});
 
   @override
+  String? backgroundImage() {
+    return AppImages.background1;
+  }
+
+  @override
   Widget body(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.maxFinite,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.background1),
-          fit: BoxFit.fill,
-        ),
-      ),
       child: Column(
         children: [
           const SizedBox(height: 15),
