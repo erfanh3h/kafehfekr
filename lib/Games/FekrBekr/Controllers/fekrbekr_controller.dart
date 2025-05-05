@@ -133,11 +133,24 @@ class FekrBekrController extends BaseGameController {
         peaces.value[piece.id].value =
             peaces.value[piece.id].value.changeValue(newValue: 0);
       } else {
-        peaces.value[piece.id].value = peaces.value[piece.id].value.changeValue(
-          newValue: selectedNumber.value,
-        );
+        final checkRepeat = checkChoicesContainsNumber(selectedNumber.value);
+        if (checkRepeat.$1) {
+          peaces.value[checkRepeat.$2!].value =
+              peaces.value[checkRepeat.$2!].value.changeValue(newValue: 0);
+        }
+        peaces.value[piece.id].value = peaces.value[piece.id].value
+            .changeValue(newValue: selectedNumber.value);
       }
     }
+  }
+
+  (bool, int?) checkChoicesContainsNumber(int number) {
+    for (var i = 0; i < peaces.length; i++) {
+      if (number == peaces[i].value.value) {
+        return (true, i);
+      }
+    }
+    return (false, null);
   }
 
   changeSelectedNumber(int index) {
@@ -151,6 +164,14 @@ class FekrBekrController extends BaseGameController {
   sendResult(String command) {
     for (var peace in peaces) {
       if (peace.value.value == 0) {
+        showInteraction(sound: GameSoundTypes.tapWrong);
+        return;
+      }
+      if (peaces
+              .where((word) => word.value.value == peace.value.value)
+              .length !=
+          1) {
+        // check dont repeated number
         showInteraction(sound: GameSoundTypes.tapWrong);
         return;
       }

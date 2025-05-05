@@ -20,16 +20,17 @@ class GlobalUserDataHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GlobalController controller = Get.find<GlobalController>();
     return Padding(
       padding: AppSpacings.s10All,
-      child: Obx(
-        () => controller.isNoNetwork.value
-            ? NoNetworkPart(controller: controller)
-            : controller.token != null
-                ? MainPart(controller: controller)
-                : const QuestPart(),
-      ),
+      child: GetBuilder<GlobalController>(builder: (controller) {
+        return Obx(
+          () => controller.isNoNetwork.value
+              ? NoNetworkPart(controller: controller)
+              : controller.token.value != null
+                  ? MainPart(controller: controller)
+                  : const QuestPart(),
+        );
+      }),
     );
   }
 }

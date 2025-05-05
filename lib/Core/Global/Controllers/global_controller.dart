@@ -27,7 +27,7 @@ class GlobalController extends BaseController {
       TextEditingController(text: "gameId");
 
   String? userId;
-  String? token;
+  Rx<String?> token = Rx(null);
   String? activeGameId;
   String? activePreGameId;
 
@@ -47,10 +47,10 @@ class GlobalController extends BaseController {
   checkLoginStatus({bool navigateToMain = true}) async {
     // await removeData();
     bool isConfigOk = await getConfigData(navigateToMain: navigateToMain);
-    token = await globalRepo.getDataFromStorage(key: StorageKeys.token);
+    token.value = await globalRepo.getDataFromStorage(key: StorageKeys.token);
     if (isConfigOk) {
       await fetchUserData();
-      if (token != null) {
+      if (token.value != null) {
         if (myData.value!.name == "") {
           Get.offAllNamed(AppRoutes.username);
         } else {
@@ -106,7 +106,7 @@ class GlobalController extends BaseController {
   }
 
   Future<void> fetchUserData() async {
-    if (token != null) {
+    if (token.value != null) {
       isLoadingProfile.value = true;
       final dataResult = await globalRepo.getMyData();
       if (dataResult.resultData != null) {
@@ -141,8 +141,9 @@ class GlobalController extends BaseController {
         key: StorageKeys.userId, value: newUserId);
     await globalRepo.setDataOnStorage(key: StorageKeys.token, value: newToken);
     userId = newUserId;
-    token = newToken;
+    token.value = newToken;
     isLoadingProfile.value = false;
+    isNoNetwork.value = false;
   }
 
   Future<void> setActiveGameId(String id) async {
@@ -218,7 +219,7 @@ class GlobalController extends BaseController {
   }
 
   Future<void> removeData() async {
-    token = null;
+    token.value = null;
     userId = null;
     activeGameId = null;
     await globalRepo.logoutRemoveData();

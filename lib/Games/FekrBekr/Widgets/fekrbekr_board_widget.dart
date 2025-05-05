@@ -45,16 +45,29 @@ class FekrBekrBoardWidget extends StatelessWidget {
                             child: Obx(
                               () => ListView.builder(
                                 controller: controller.historyController,
-                                itemBuilder: (ctx, index) =>
-                                    FekrBekrResultRowWidget(
-                                  selectionData: controller.myGameId == 1
-                                      ? controller.player1Choices[index]
-                                      : controller.player2Choices[index],
-                                  resultData: controller.myGameId == 1
-                                      ? controller.player1Results[index]
-                                      : controller.player2Results[index],
-                                  index: index,
-                                ),
+                                itemBuilder: (ctx, index) {
+                                  final int reversedIndex =
+                                      (controller.myGameId == 1
+                                              ? controller.player1Results.length
+                                              : controller
+                                                  .player2Results.length) -
+                                          index -
+                                          1;
+
+                                  return FekrBekrResultRowWidget(
+                                    selectionData: controller.myGameId == 1
+                                        ? controller
+                                            .player1Choices[reversedIndex]
+                                        : controller
+                                            .player2Choices[reversedIndex],
+                                    resultData: controller.myGameId == 1
+                                        ? controller
+                                            .player1Results[reversedIndex]
+                                        : controller
+                                            .player2Results[reversedIndex],
+                                    index: reversedIndex,
+                                  );
+                                },
                                 itemCount: controller.myGameId == 1
                                     ? controller.player1Results.length
                                     : controller.player2Results.length,

@@ -54,15 +54,22 @@ class FekrBekrEnemyChoicesBox extends StatelessWidget {
           const Divider(color: AppColors.lightColor, height: 20),
           Expanded(
             child: ListView.builder(
-              itemBuilder: (ctx, index) => FekrBekrResultRowWidget(
-                selectionData: controller.myGameId == 1
-                    ? controller.player2Choices[index]
-                    : controller.player1Choices[index],
-                resultData: controller.myGameId == 1
-                    ? controller.player2Results[index]
-                    : controller.player1Results[index],
-                index: index,
-              ),
+              itemBuilder: (ctx, index) {
+                final int reversedIndex = (controller.myGameId == 1
+                        ? controller.player1Results.length
+                        : controller.player2Results.length) -
+                    index -
+                    1;
+                return FekrBekrResultRowWidget(
+                  selectionData: controller.myGameId == 1
+                      ? controller.player2Choices[reversedIndex]
+                      : controller.player1Choices[reversedIndex],
+                  resultData: controller.myGameId == 1
+                      ? controller.player2Results[reversedIndex]
+                      : controller.player1Results[reversedIndex],
+                  index: reversedIndex,
+                );
+              },
               itemCount: controller.myGameId == 1
                   ? controller.player2Results.length
                   : controller.player1Results.length,

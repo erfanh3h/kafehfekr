@@ -23,7 +23,7 @@ mixin RestClient {
       };
       if (needToken) {
         requestHeader['Authorization'] =
-            Get.find<GlobalController>().token ?? '';
+            Get.find<GlobalController>().token.value ?? '';
       }
       var dio = http.Dio(http.BaseOptions(
         headers: requestHeader,
@@ -72,7 +72,7 @@ mixin RestClient {
       };
       if (needToken) {
         requestHeader['Authorization'] =
-            Get.find<GlobalController>().token ?? '';
+            Get.find<GlobalController>().token.value ?? '';
       }
       var body = isFormData ? http.FormData.fromMap(data ?? {}) : data;
       var dio = http.Dio(
@@ -120,7 +120,7 @@ mixin RestClient {
       };
       if (needToken) {
         requestHeader['Authorization'] =
-            Get.find<GlobalController>().token ?? '';
+            Get.find<GlobalController>().token.value ?? '';
       }
       var dio = http.Dio(http.BaseOptions(
         headers: requestHeader,

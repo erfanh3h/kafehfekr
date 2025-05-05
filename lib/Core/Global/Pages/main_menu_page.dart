@@ -141,68 +141,73 @@ class MainPage extends BaseView<GlobalController> {
           right: 10,
           child: FadeInUp(
             delay: const Duration(seconds: 2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 15,
-              children: [
-                if (controller.token != null && !controller.isNoNetwork.value)
-                  GlobalActivityButton2(
-                    text: AppTexts.store.tr,
-                    iconData: Icons.shopify_sharp,
-                    onTap: () {
-                      Get.toNamed(AppRoutes.store);
-                    },
-                  ),
-                if (controller.token != null && !controller.isNoNetwork.value)
-                  GlobalActivityButton2(
-                    text: AppTexts.history.tr,
-                    iconData: Icons.history_toggle_off,
-                    onTap: () {},
-                  ),
-                GetBuilder<SoundPlayerComponent>(builder: (cont) {
-                  return Obx(
-                    () => GlobalActivityButton2(
-                      text: cont.letPlayMusic.value
-                          ? AppTexts.musicOff.tr
-                          : AppTexts.musicOn.tr,
-                      icon: cont.letPlayMusic.value
-                          ? GeneralIcons.soundOff
-                          : GeneralIcons.soundOn,
+            child: Obx(
+              () => Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 15,
+                children: [
+                  if (controller.token.value != null &&
+                      !controller.isNoNetwork.value)
+                    GlobalActivityButton2(
+                      text: AppTexts.store.tr,
+                      iconData: Icons.shopify_sharp,
                       onTap: () {
-                        controller.changeLetPlayMusic(
-                          !cont.letPlayMusic.value,
-                        );
-                        cont.changeLetPlayerSound(
-                          !cont.letPlayMusic.value,
-                          isGame: false,
+                        Get.toNamed(AppRoutes.store);
+                      },
+                    ),
+                  if (controller.token.value != null &&
+                      !controller.isNoNetwork.value)
+                    GlobalActivityButton2(
+                      text: AppTexts.history.tr,
+                      iconData: Icons.history_toggle_off,
+                      onTap: () {},
+                    ),
+                  GetBuilder<SoundPlayerComponent>(builder: (cont) {
+                    return Obx(
+                      () => GlobalActivityButton2(
+                        text: cont.letPlayMusic.value
+                            ? AppTexts.musicOff.tr
+                            : AppTexts.musicOn.tr,
+                        icon: cont.letPlayMusic.value
+                            ? GeneralIcons.soundOff
+                            : GeneralIcons.soundOn,
+                        onTap: () {
+                          controller.changeLetPlayMusic(
+                            !cont.letPlayMusic.value,
+                          );
+                          cont.changeLetPlayerSound(
+                            !cont.letPlayMusic.value,
+                            isGame: false,
+                          );
+                        },
+                      ),
+                    );
+                  }),
+                  if (controller.token.value != null &&
+                      !controller.isNoNetwork.value)
+                    GlobalActivityButton2(
+                      text: AppTexts.changeUsername.tr,
+                      iconData: CupertinoIcons.pen,
+                      onTap: () {
+                        Get.bottomSheet(
+                          ChangeUsernameBox(
+                            username: controller.myData.value!.name,
+                            onChange: controller.changeUsername,
+                          ),
+                          backgroundColor: AppColors.darkColor,
+                          isScrollControlled: false,
                         );
                       },
                     ),
-                  );
-                }),
-                if (controller.token != null && !controller.isNoNetwork.value)
                   GlobalActivityButton2(
-                    text: AppTexts.changeUsername.tr,
-                    iconData: CupertinoIcons.pen,
+                    text: AppTexts.exit.tr,
+                    icon: GeneralIcons.exit,
                     onTap: () {
-                      Get.bottomSheet(
-                        ChangeUsernameBox(
-                          username: controller.myData.value!.name,
-                          onChange: controller.changeUsername,
-                        ),
-                        backgroundColor: AppColors.darkColor,
-                        isScrollControlled: false,
-                      );
+                      exit(0);
                     },
-                  ),
-                GlobalActivityButton2(
-                  text: AppTexts.exit.tr,
-                  icon: GeneralIcons.exit,
-                  onTap: () {
-                    exit(0);
-                  },
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

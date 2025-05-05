@@ -17,7 +17,7 @@ class LobbySocketManager extends BaseController {
       'timeout': 10000,
       'connect_timeout': 10000,
       'transports': ['websocket'],
-      'auth': {'token': Get.find<GlobalController>().token ?? ""},
+      'auth': {'token': Get.find<GlobalController>().token.value ?? ""},
     });
     socket.connect();
     socket.onConnect((_) {

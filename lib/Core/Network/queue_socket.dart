@@ -21,7 +21,7 @@ class QueueSocketManager extends BaseController {
       'transports': ['websocket'],
       'auth': {
         'user_id': myId,
-        'token': Get.find<GlobalController>().token ?? "",
+        'token': Get.find<GlobalController>().token.value ?? "",
         'pre_game_id': preGameId,
       },
     });

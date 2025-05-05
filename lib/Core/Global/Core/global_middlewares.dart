@@ -7,7 +7,7 @@ import 'package:refreshed/refreshed.dart';
 class EnsureAuthMiddleware extends GetMiddleware {
   @override
   Future<RouteDecoder?> redirectDelegate(RouteDecoder route) async {
-    if (Get.find<GlobalController>().token == null) {
+    if (Get.find<GlobalController>().token.value == null) {
       DialogComponent().showToast(label: AppTexts.mostLoginrFirst.tr);
       return RouteDecoder.fromRoute(AppRoutes.auth);
     }

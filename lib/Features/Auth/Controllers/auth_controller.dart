@@ -23,6 +23,8 @@ class AuthController extends BaseController {
   RxBool isPhonePhase = RxBool(true);
   RxBool isSendingData = RxBool(false);
 
+  bool haveBackButton = false;
+
   enterUser() async {
     if (!pricavyPolicyAccepted.value) {
       DialogComponent().showToast(label: AppTexts.acceptPrivacyPolicyFirst.tr);
@@ -65,6 +67,7 @@ class AuthController extends BaseController {
           Get.offAllNamed(AppRoutes.username);
         }
       }
+      update();
     }
     isSendingData.value = false;
     codeController.text = "";
@@ -97,6 +100,7 @@ class AuthController extends BaseController {
           Get.find<GlobalController>().changePage(3);
         });
       });
+      update();
     }
     isSendingData.value = false;
   }
@@ -111,6 +115,10 @@ class AuthController extends BaseController {
 
   @override
   void onInit() async {
+    if (Get.previousRoute == AppRoutes.main) {
+      // from main we need back button
+      haveBackButton = true;
+    }
     final GlobalController globalcontroller = Get.find<GlobalController>();
     if (globalcontroller.myData.value != null) {
       phoneController.text = globalcontroller.myData.value!.phone;

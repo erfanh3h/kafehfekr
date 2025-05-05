@@ -19,7 +19,7 @@ class GameSocketManager extends BaseController {
       'auth': {
         'user_id': myId,
         'game_id': gameId,
-        'token': Get.find<GlobalController>().token ?? ""
+        'token': Get.find<GlobalController>().token.value ?? ""
       },
     });
     socket.connect();

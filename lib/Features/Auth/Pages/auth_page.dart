@@ -145,12 +145,26 @@ class AuthPage extends BaseView<AuthController> {
                     ),
                   ),
                   SizedBox(height: 15.h),
-                  Center(
-                    child: GlobalButtonWidget(
-                      width: 225.w,
-                      onTap: controller.enterAsQuest,
-                      text: AppTexts.enterAsQuest.tr,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (controller.haveBackButton)
+                        Expanded(
+                          child: GlobalButtonWidget(
+                            width: 125.w,
+                            onTap: Get.back,
+                            text: AppTexts.back.tr,
+                          ),
+                        ),
+                      Expanded(
+                        flex: 2,
+                        child: GlobalButtonWidget(
+                          width: 225.w,
+                          onTap: controller.enterAsQuest,
+                          text: AppTexts.enterAsQuest.tr,
+                        ),
+                      ),
+                    ],
                   )
                 ],
               )
