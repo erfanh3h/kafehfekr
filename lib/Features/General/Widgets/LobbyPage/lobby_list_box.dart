@@ -25,66 +25,63 @@ class LobbyListBox extends BaseView<LobbyController> {
   }
 
   @override
+  String? backgroundImage() {
+    return AppImages.background3;
+  }
+
+  @override
   Widget body(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.background3),
-          fit: BoxFit.fill,
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          const SizedBox(height: 20),
-          Padding(
-            padding: AppSpacings.s10Horizental,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    AppTexts.lobby.tr,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      color: AppColors.lightColor,
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed: controller.requestData,
-                  icon: const Icon(
-                    Icons.refresh,
-                    size: 30,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        const SizedBox(height: 20),
+        Padding(
+          padding: AppSpacings.s10Horizental,
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  AppTexts.lobby.tr,
+                  style: const TextStyle(
+                    fontSize: 25,
                     color: AppColors.lightColor,
                   ),
                 ),
-                backButton
-              ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: Padding(
-              padding: AppSpacings.s20Horizental,
-              child: Obx(
-                () => ListView.builder(
-                  itemBuilder: (ctx, index) => LobbyRoomRowWidget(
-                    lobby: controller.lobbies[index],
-                    onJoin: controller.onJoinLobby,
-                  ),
-                  itemCount: controller.lobbies.length,
+              ),
+              IconButton(
+                onPressed: controller.requestData,
+                icon: const Icon(
+                  Icons.refresh,
+                  size: 30,
+                  color: AppColors.lightColor,
                 ),
+              ),
+              backButton
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        Expanded(
+          child: Padding(
+            padding: AppSpacings.s20Horizental,
+            child: Obx(
+              () => ListView.builder(
+                itemBuilder: (ctx, index) => LobbyRoomRowWidget(
+                  lobby: controller.lobbies[index],
+                  onJoin: controller.onJoinLobby,
+                ),
+                itemCount: controller.lobbies.length,
               ),
             ),
           ),
-          Transform.scale(
-            scale: 1.5,
-            child: LobbyActivityBox(controller: controller),
-          ),
-          const SizedBox(height: 30),
-        ],
-      ),
+        ),
+        Transform.scale(
+          scale: 1.5,
+          child: LobbyActivityBox(controller: controller),
+        ),
+        const SizedBox(height: 30),
+      ],
     );
   }
 }

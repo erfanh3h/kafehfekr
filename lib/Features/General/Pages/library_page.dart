@@ -24,19 +24,18 @@ class LibraryPage extends BaseView<GlobalController> {
   }
 
   @override
+  String? backgroundImage() {
+    return AppImages.background3;
+  }
+
+  @override
   Widget body(BuildContext context) {
     final gameTypesParts = GameTypes.values.toList();
     final int gamesLength = marketType == MarketTypes.Bazaar
         ? gameTypesParts.length - 1
         : gameTypesParts.length;
 
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.background3),
-          fit: BoxFit.fill,
-        ),
-      ),
+    return Padding(
       padding: AppSpacings.s10Horizental,
       child: ListView(
         children: [

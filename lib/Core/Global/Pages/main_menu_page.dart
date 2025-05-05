@@ -51,6 +51,11 @@ final items = [
 class MainPage extends BaseView<GlobalController> {
   const MainPage({super.key});
 
+  @override
+  String? backgroundImage() {
+    return AppImages.background3;
+  }
+
   Widget buildSemiCircularItems({
     required List<ItemData> items,
     required Offset center,
@@ -219,13 +224,7 @@ class MainPage extends BaseView<GlobalController> {
 
   @override
   Widget body(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.background3),
-          fit: BoxFit.fill,
-        ),
-      ),
+    return SizedBox(
       width: Get.size.width,
       height: Get.size.height,
       child: buildSemiCircularItems(

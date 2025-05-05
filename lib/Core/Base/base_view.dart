@@ -30,6 +30,10 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
     return false;
   }
 
+  String? backgroundImage() {
+    return null;
+  }
+
   // You can Override it
   bool resizeToAvoidBottomInset() {
     return false;
@@ -79,16 +83,23 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
         floatingActionButtonLocation: floatingActionButtonLocation(),
         extendBodyBehindAppBar: extendBodyBehindAppBar(),
         extendBody: extendBodyBehindNavigationBar(),
-        body: controller.isPageLoading.value
-            ? const SafeArea(
-                child: GlobalLoadingWidget(
-                  color: AppColors.lightColor,
-                ),
-              )
-            : safeAreaState()
-                ? SafeArea(child: body(context))
-                : body(context),
-
+        body: Container(
+          decoration: backgroundImage() != null
+              ? BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(backgroundImage()!),
+                    fit: BoxFit.fill,
+                  ),
+                )
+              : null,
+          child: controller.isPageLoading.value
+              ? const SafeArea(
+                  child: GlobalLoadingWidget(color: AppColors.lightColor),
+                )
+              : safeAreaState()
+                  ? SafeArea(child: body(context))
+                  : body(context),
+        ),
         drawer: drawer(),
         endDrawer: endDrawer(),
         bottomNavigationBar: bottomNavigationBar(),

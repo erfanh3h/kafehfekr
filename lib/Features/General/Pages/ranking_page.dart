@@ -20,15 +20,14 @@ class RankingPage extends BaseView<RankingController> {
   }
 
   @override
+  String? backgroundImage() {
+    return AppImages.background3;
+  }
+
+  @override
   Widget body(BuildContext context) {
     return Obx(
-      () => Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppImages.background3),
-            fit: BoxFit.fill,
-          ),
-        ),
+      () => Padding(
         padding: AppSpacings.s10Horizental,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

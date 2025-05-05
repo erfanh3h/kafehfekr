@@ -14,16 +14,14 @@ import 'package:refreshed/refreshed.dart';
 
 class HistoryPage extends BaseView<HistoryController> {
   const HistoryPage({super.key});
+  @override
+  String? backgroundImage() {
+    return AppImages.background3;
+  }
 
   @override
   Widget body(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.background3),
-          fit: BoxFit.fill,
-        ),
-      ),
+    return Padding(
       padding: AppSpacings.s10Horizental,
       child: ListView(
         children: [

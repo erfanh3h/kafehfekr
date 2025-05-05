@@ -24,19 +24,16 @@ class AuthPage extends BaseView<AuthController> {
   }
 
   @override
+  String? backgroundImage() {
+    return AppImages.background3;
+  }
+
+  @override
   Widget body(BuildContext context) {
     return Center(
-      child: Container(
+      child: Padding(
         padding: AppSpacings.s40Horizental,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppImages.background3),
-            fit: BoxFit.fill,
-          ),
-        ),
         child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 75.h),
             Image.asset(

@@ -23,16 +23,15 @@ class GamePlayPage extends BaseView<GamePlayController> {
   }
 
   @override
+  String? backgroundImage() {
+    return AppImages.background2;
+  }
+
+  @override
   Widget body(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: Get.size.height,
       width: Get.size.width,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.background2),
-          fit: BoxFit.fill,
-        ),
-      ),
       child: Obx(
         () => Column(
           mainAxisAlignment: MainAxisAlignment.start,

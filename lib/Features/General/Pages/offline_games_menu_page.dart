@@ -16,6 +16,11 @@ class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
   const OfflineGamesMenuPage({super.key});
 
   @override
+  String? backgroundImage() {
+    return AppImages.background3;
+  }
+
+  @override
   Widget body(BuildContext context) {
     List<GameTypes> gameTypesParts = [];
     for (var gameType in OfflineGameTypes.values) {
@@ -23,13 +28,7 @@ class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
     }
     final int gamesLength = gameTypesParts.length;
 
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(AppImages.background3),
-          fit: BoxFit.fill,
-        ),
-      ),
+    return Padding(
       padding: AppSpacings.s10Horizental,
       child: Column(
         children: [
