@@ -21,9 +21,9 @@ class SudokuOfflinePage extends BaseView<SudokuOfflineController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(child: Container()),
+        const Spacer(),
         Expanded(
-          flex: 3,
+          flex: 10,
           child: ListView(
             children: [
               SudokuOfflineBoardWidget(controller: controller),
@@ -39,7 +39,7 @@ class SudokuOfflinePage extends BaseView<SudokuOfflineController> {
             ],
           ),
         ),
-        Expanded(child: OfflineActivityButtons(controller: controller))
+        Expanded(flex: 3, child: OfflineActivityButtons(controller: controller))
       ],
     );
   }

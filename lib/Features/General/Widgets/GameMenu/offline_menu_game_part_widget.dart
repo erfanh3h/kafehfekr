@@ -69,15 +69,15 @@ class OfflineMenuGamePartWidget extends StatelessWidget {
                     ),
                     textAlign: TextAlign.right,
                   ),
-                  const SizedBox(height: 3),
-                  Text(
-                    "تعداد بازیکن: ",
-                    style: TextStyle(
-                      fontSize: 12,
-                      foreground: Paint()..color = AppColors.lightColor2,
-                    ),
-                    textAlign: TextAlign.right,
-                  ),
+                  // const SizedBox(height: 3),
+                  // Text(
+                  //   "تعداد بازیکن: ",
+                  //   style: TextStyle(
+                  //     fontSize: 12,
+                  //     foreground: Paint()..color = AppColors.lightColor2,
+                  //   ),
+                  //   textAlign: TextAlign.right,
+                  // ),
                 ],
               ),
             ),

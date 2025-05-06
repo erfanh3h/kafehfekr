@@ -38,6 +38,7 @@ abstract class AppTexts {
   static const minesCount = "minesCount";
   static const boardSize = "boardSize";
   static const lobby = "lobby";
+  static const emptySize = "emptySize";
 
   static const win = "win";
   static const lose = "lose";

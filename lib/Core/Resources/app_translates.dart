@@ -35,6 +35,7 @@ class AppTranslations extends Translations {
           AppTexts.addedBefore: 'قبلا اضافه شده',
           AppTexts.rId: 'آی دی معرف',
           AppTexts.quest: 'مهمان',
+          AppTexts.emptySize: 'تعداد خانه خالی',
           AppTexts.tryAgain: 'تلاش مجدد',
           AppTexts.serverError: 'خطای ارتباط با سرور',
           AppTexts.mostLoginrFirst: 'باید ابتدا وارد حساب شوید',

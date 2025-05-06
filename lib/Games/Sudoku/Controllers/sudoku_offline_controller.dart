@@ -1,8 +1,10 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_offline_game_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Sudoku/Models/sudoku_peace_model.dart';
@@ -16,29 +18,9 @@ class SudokuOfflineController extends BaseOfflineGameController {
   RxMap eachNumbersCount =
       RxMap({1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0});
 
-  void commandHandler(dynamic data) {
-    final commandId = data['id'];
-    switch (commandId) {
-      case GameCommands.wrongSolve:
-        wrongSolveFunction(data);
-        break;
-      default:
-    }
-  }
-
-  void startGameFunction(Map data) {
-    Map pieceData = data['data'];
-    List boardData = pieceData['board'];
-    for (var i = 0; i < boardData.length; i++) {
-      peaces[i].value = SudokuPeaceModel.fromJson(boardData[i], i);
-    }
-    showInteraction(sound: GameSoundTypes.startGame);
-    getCountOfNumbers();
-  }
-
-  void wrongSolveFunction(data) {
-    DialogComponent().showDialog(AppTexts.error.tr, AppTexts.errorSolve.tr);
-  }
+  late int emptyCells;
+  final base = 3;
+  final size = 3 * 3;
 
   Color? returnTimerColor() {
     return null;
@@ -66,6 +48,10 @@ class SudokuOfflineController extends BaseOfflineGameController {
 
   void onEachButtonTap(dynamic tappedPeace) {
     SudokuPeaceModel peace = tappedPeace as SudokuPeaceModel;
+    if (isGameFinished.value) {
+      showInteraction(text: AppTexts.gameFinished.tr);
+      return;
+    }
     if (peace.isBaseNumber) {
       showInteraction(text: AppTexts.cantSelect.tr);
       return;
@@ -131,13 +117,24 @@ class SudokuOfflineController extends BaseOfflineGameController {
   }
 
   solveFunction() {
+    if (isGameFinished.value) {
+      showInteraction(text: AppTexts.gameFinished.tr);
+      return;
+    }
     for (var piece in peaces.value) {
       if (piece.value.value == 0) {
         showInteraction(text: AppTexts.fillAllPieces.tr);
         return;
       }
     }
-    sendCommand({"id": GameCommands.solve});
+    if (isSolvedCorrectly()) {
+      DialogComponent().showToast(label: AppTexts.youWinGame.tr);
+      isGameFinished.value = true;
+      return;
+    } else {
+      DialogComponent().showToast(label: AppTexts.wrongAnswer.tr);
+    }
+    // sendCommand({"id": GameCommands.solve});
   }
 
   void getCountOfNumbers() {
@@ -153,15 +150,143 @@ class SudokuOfflineController extends BaseOfflineGameController {
   }
 
   initPieces() {
+    peaces.clear();
+    final board = generateFullBoard();
+    final maskedBoard = maskBoard(board);
     for (var i = 0; i < 81; i++) {
+      final coordinate = indexToCoordinate(i);
+      final value = maskedBoard[coordinate.$1][coordinate.$2];
       peaces.add(
-        Rx(SudokuPeaceModel(id: i, currentStatuses: [])),
+        Rx(
+          SudokuPeaceModel(
+            id: i,
+            currentStatuses: [],
+            value: value,
+            isBaseNumber: value != 0,
+          ),
+        ),
       );
     }
+    showInteraction(sound: GameSoundTypes.startGame);
+    getCountOfNumbers();
+  }
+
+  List<int> _range(int start, int stop) =>
+      List.generate(stop - start, (i) => i + start);
+
+  List<int> _shuffled(List<int> list) {
+    final copy = List<int>.from(list);
+    copy.shuffle();
+    return copy;
+  }
+
+  List<List<int>> generateFullBoard() {
+    final rBase = _range(0, base);
+
+    final rows = [
+      for (final g in _shuffled(rBase))
+        for (final r in _shuffled(rBase)) g * base + r
+    ];
+
+    final cols = [
+      for (final g in _shuffled(rBase))
+        for (final c in _shuffled(rBase)) g * base + c
+    ];
+
+    final nums = _shuffled(_range(1, size + 1));
+
+    List<List<int>> board = List.generate(size, (_) => List.filled(size, 0));
+
+    for (int r = 0; r < size; r++) {
+      for (int c = 0; c < size; c++) {
+        int value = nums[(base * (r % base) + r ~/ base + c) % size];
+        board[rows[r]][cols[c]] = value;
+      }
+    }
+
+    return board;
+  }
+
+  List<List<int>> maskBoard(List<List<int>> board) {
+    final puzzle = board.map((row) => List<int>.from(row)).toList();
+    int removed = 0;
+
+    while (removed < emptyCells) {
+      int r = Random().nextInt(size);
+      int c = Random().nextInt(size);
+      if (puzzle[r][c] != 0) {
+        puzzle[r][c] = 0;
+        removed++;
+      }
+    }
+
+    return puzzle;
+  }
+
+  bool isSolvedCorrectly() {
+    final expected = Set.from(List.generate(size, (i) => i + 1));
+    final List<List<int>> board = peacesToList();
+    for (int i = 0; i < size; i++) {
+      // بررسی سطر
+      if (!setEquals(Set.from(board[i]), expected)) return false;
+      // بررسی ستون
+      final col = [for (int j = 0; j < size; j++) board[j][i]];
+      if (!setEquals(Set.from(col), expected)) return false;
+    }
+
+    //بررسی بلوک‌های ۳×۳
+    for (int row = 0; row < size; row += base) {
+      for (int col = 0; col < size; col += base) {
+        final block = <int>[];
+        for (int r = 0; r < base; r++) {
+          for (int c = 0; c < base; c++) {
+            block.add(board[row + r][col + c]);
+          }
+        }
+        if (!setEquals(Set.from(block), expected)) return false;
+      }
+    }
+
+    return true;
+  }
+
+  List<List<int>> peacesToList() {
+    List<List<int>> allBoard = [];
+    for (int i = 0; i < size; i++) {
+      List<int> rowData = [];
+      for (int j = 0; j < size; j++) {
+        final index = coordinateToIndex((i, j));
+        rowData.add(peaces[index].value.value);
+      }
+      allBoard.add(rowData);
+    }
+    return allBoard;
+  }
+
+  (int, int) indexToCoordinate(int index) {
+    final x = index % 9;
+    final y = index ~/ 9;
+    return (y, x);
+  }
+
+  int coordinateToIndex((int, int) position) {
+    final index = position.$1 * 9 + position.$2;
+    return index;
+  }
+
+  @override
+  resetGame() {
+    isGameFinished.value = false;
+    initPieces();
   }
 
   @override
   void onInit() async {
+    if (Get.arguments != null) {
+      emptyCells = Get.arguments;
+    } else {
+      emptyCells = 40;
+    }
     super.onInit();
     gameType = GameTypes.Sudoku;
     initPieces();

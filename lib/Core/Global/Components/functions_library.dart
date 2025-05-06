@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -203,6 +204,16 @@ class FunctionsLibraryClass {
       result = info.userAgent!;
     }
     return result;
+  }
+
+  static List<T> randomSample<T>(List<T> list, int k) {
+    if (k > list.length) {
+      throw ArgumentError('Sample size cannot be greater than list length');
+    }
+
+    List<T> shuffled = List.from(list); // جلوگیری از تغییر لیست اصلی
+    shuffled.shuffle(Random());
+    return shuffled.sublist(0, k);
   }
 
   static int totalExpToLevel(int level, {int base = 20}) {

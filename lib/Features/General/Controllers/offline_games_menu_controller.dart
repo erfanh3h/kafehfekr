@@ -22,7 +22,7 @@ class OfflineGamesMenuController extends BaseController {
         Get.toNamed(AppRoutes.fekrBekrOffline);
         return;
       case GameTypes.Sudoku:
-        Get.toNamed(AppRoutes.sudokuOffline);
+        openSudokuSelector();
         return;
       case GameTypes.MSweeper:
         openMSweeperSelector();
@@ -191,6 +191,71 @@ class OfflineGamesMenuController extends BaseController {
                   Get.toNamed(
                     AppRoutes.msweeperOffline,
                     arguments: [boardSize.value, minesCont.value],
+                  );
+                },
+                text: AppTexts.start.tr,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  openSudokuSelector() {
+    RxInt emptySize = RxInt(40);
+    List<int> sizes = [20, 30, 40, 50, 60];
+    Get.dialog(
+      Dialog(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: AppColors.lightColor2,
+          ),
+          height: 150.h,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "${AppTexts.emptySize.tr}: ",
+                    style: const TextStyle(
+                      color: AppColors.darkColor,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Obx(
+                    () => DropdownButton<int>(
+                      value: emptySize.value,
+                      items: sizes.map((number) {
+                        return DropdownMenuItem(
+                          value: number,
+                          child: Text(
+                            number.toString(),
+                            style: const TextStyle(
+                              color: AppColors.darkColor,
+                              fontSize: 18,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        emptySize.value = value ?? 6;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              GlobalButtonWidget(
+                onTap: () {
+                  Get.closeAllDialogs();
+                  Get.toNamed(
+                    AppRoutes.sudokuOffline,
+                    arguments: emptySize.value,
                   );
                 },
                 text: AppTexts.start.tr,
