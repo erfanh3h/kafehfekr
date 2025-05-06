@@ -151,15 +151,15 @@ class MainPage extends BaseView<GlobalController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 spacing: 15,
                 children: [
-                  if (controller.token.value != null &&
-                      !controller.isNoNetwork.value)
-                    GlobalActivityButton2(
-                      text: AppTexts.store.tr,
-                      iconData: Icons.shopify_sharp,
-                      onTap: () {
-                        Get.toNamed(AppRoutes.store);
-                      },
-                    ),
+                  // if (controller.token.value != null &&
+                  //     !controller.isNoNetwork.value)
+                  //   GlobalActivityButton2(
+                  //     text: AppTexts.store.tr,
+                  //     iconData: Icons.shopify_sharp,
+                  //     onTap: () {
+                  //       Get.toNamed(AppRoutes.store);
+                  //     },
+                  //   ),
                   if (controller.token.value != null &&
                       !controller.isNoNetwork.value)
                     GlobalActivityButton2(

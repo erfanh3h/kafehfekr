@@ -102,7 +102,7 @@ class MainPart extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          flex: 7,
+          flex: 4,
           child: Column(
             children: [
               Row(
@@ -117,24 +117,24 @@ class MainPart extends StatelessWidget {
                   //     size: 30,
                   //   ),
                   // ),
-                  Obx(
-                    () => Text(
-                      controller.myData.value!.coin.toString(),
-                      style: const TextStyle(
-                        fontFamily: FontFamilies.playPen,
-                        fontSize: 17,
-                        color: AppColors.lightColor,
-                      ),
-                      textAlign: TextAlign.end,
-                    ),
-                  ),
-                  const SizedBox(width: 1),
-                  Image.asset(
-                    GeneralIcons.coin,
-                    width: 28,
-                    height: 28,
-                    color: AppColors.lightColor,
-                  ),
+                  // Obx(
+                  //   () => Text(
+                  //     controller.myData.value!.coin.toString(),
+                  //     style: const TextStyle(
+                  //       fontFamily: FontFamilies.playPen,
+                  //       fontSize: 17,
+                  //       color: AppColors.lightColor,
+                  //     ),
+                  //     textAlign: TextAlign.end,
+                  //   ),
+                  // ),
+                  // const SizedBox(width: 1),
+                  // Image.asset(
+                  //   GeneralIcons.coin,
+                  //   width: 28,
+                  //   height: 28,
+                  //   color: AppColors.lightColor,
+                  // ),
                   const Spacer(),
                   Obx(
                     () => Text(
@@ -154,11 +154,12 @@ class MainPart extends StatelessWidget {
                     height: 28,
                     color: AppColors.lightColor,
                   ),
-                  const Spacer(),
+                  const Spacer(flex: 3),
                   Obx(
                     () => Text(
-                      FunctionsLibraryClass.expToLevel(
-                              controller.myData.value!.xp)
+                      (FunctionsLibraryClass.expToLevel(
+                                  controller.myData.value!.xp) +
+                              1)
                           .toString(),
                       style: const TextStyle(
                         fontFamily: FontFamilies.playPen,
@@ -175,6 +176,7 @@ class MainPart extends StatelessWidget {
                     height: 28,
                     color: AppColors.lightColor,
                   ),
+                  const Spacer(),
                 ],
               ),
               const SizedBox(height: 5),

@@ -152,9 +152,9 @@ class GlobalController extends BaseController {
     isLoadingProfile.value = false;
   }
 
-  changeCoin(int value) {
-    myData.value = myData.value!.copyWith(coin: myData.value!.coin + value);
-  }
+  // changeCoin(int value) {
+  //   myData.value = myData.value!.copyWith(coin: myData.value!.coin + value);
+  // }
 
   changeProfile(int index) {
     if (myData.value!.coin < 50 && myData.value!.image != 0) {

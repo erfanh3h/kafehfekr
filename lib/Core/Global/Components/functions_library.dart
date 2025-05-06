@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
@@ -205,28 +205,28 @@ class FunctionsLibraryClass {
     return result;
   }
 
-  static int expToLevel(int exp) {
-    int n = 1;
-    bool resultReached = false;
-    while (!resultReached) {
-      if (pow(n, 2) + (40 * n) - 20 <= exp) {
-        n += 1;
-      } else {
-        resultReached = true;
-      }
+  static int totalExpToLevel(int level, {int base = 20}) {
+    return (base * (level * level)).toInt();
+  }
+
+// exp = base(20) * lvl^2
+  static int expToLevel(int exp, {int base = 20}) {
+    if (exp < base) {
+      return 0;
     }
-    return n;
+    int level = 1;
+    while (totalExpToLevel(level + 1, base: base) <= exp) {
+      level += 1;
+    }
+    return level;
   }
 
   static double expPercent(int exp) {
-    int n = 1;
-    while (true) {
-      if (pow(n, 2) + (40 * n) - 20 <= exp) {
-        n += 1;
-      } else {
-        int nextValue = (pow(n, 2) + (40 * n) - 20).toInt();
-        return (exp / nextValue);
-      }
-    }
+    final level = expToLevel(exp);
+    int currentLevelTotalExp = totalExpToLevel(level);
+    int nextLevelTotalExp = totalExpToLevel(level + 1);
+    int expInCurrentLevel = exp - currentLevelTotalExp;
+    int totalNeededInThisLevel = nextLevelTotalExp - currentLevelTotalExp;
+    return clampDouble(expInCurrentLevel / totalNeededInThisLevel, .01, 1);
   }
 }
