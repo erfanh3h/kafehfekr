@@ -1,7 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
-import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -22,10 +21,7 @@ class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
 
   @override
   Widget body(BuildContext context) {
-    List<GameTypes> gameTypesParts = [];
-    for (var gameType in OfflineGameTypes.values) {
-      gameTypesParts.add(GameTypeConvertor.offlineGameToOnlineGame(gameType));
-    }
+    List<OfflineGameTypes> gameTypesParts = OfflineGameTypes.values.toList();
     final int gamesLength = gameTypesParts.length;
 
     return Padding(

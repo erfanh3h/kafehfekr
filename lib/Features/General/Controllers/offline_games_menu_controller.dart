@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
+import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
@@ -10,34 +11,35 @@ import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
 
 class OfflineGamesMenuController extends BaseController {
-  onEachGameTap(GameTypes game) {
+  onEachGameTap(OfflineGameTypes game) {
     switch (game) {
-      case GameTypes.TicTacToe:
+      case OfflineGameTypes.TicTacToe:
         Get.toNamed(AppRoutes.tictactoeOffline);
         return;
-      case GameTypes.Ten:
+      case OfflineGameTypes.Ten:
         Get.toNamed(AppRoutes.tenOffline);
         return;
-      case GameTypes.FekrBekr:
+      case OfflineGameTypes.FekrBekr:
         Get.toNamed(AppRoutes.fekrBekrOffline);
         return;
-      case GameTypes.Othello:
+      case OfflineGameTypes.Othello:
         Get.toNamed(AppRoutes.othelloOffline);
         return;
-      case GameTypes.Sudoku:
+      case OfflineGameTypes.Sudoku:
         openSudokuSelector();
         return;
-      case GameTypes.MSweeper:
+      case OfflineGameTypes.MSweeper:
         openMSweeperSelector();
-      case GameTypes.MNumbers:
+      case OfflineGameTypes.MNumbers:
         openMNumbersSelector();
-      default:
     }
   }
 
-  openGameGuide(GameTypes gameType) {
+  openGameGuide(OfflineGameTypes gameType) {
     Get.bottomSheet(
-      GlobalGameGuideWidget(gameType: gameType),
+      GlobalGameGuideWidget(
+        gameType: OfflineGameTypeConvertor.offlineGameToOnlineGame(gameType),
+      ),
       backgroundColor: AppColors.darkColor,
     );
   }

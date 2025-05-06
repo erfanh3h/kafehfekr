@@ -303,7 +303,138 @@ class GameTypeConvertor {
     return result;
   }
 
-  static GameTypes offlineGameToOnlineGame(OfflineGameTypes data) {
+  List<int> toGameRewards() {
+    List<int> result = [];
+    GameDifficulties difficulty = toGameDifficallty();
+    switch (difficulty) {
+      case GameDifficulties.Easy:
+        result = [10, 8, 4, 2, 1];
+        break;
+      case GameDifficulties.Normal:
+        result = [15, 16, 8, 3, 2];
+        break;
+      case GameDifficulties.Hard:
+        result = [20, 24, 12, 4, 3];
+        break;
+    }
+    return result;
+  }
+}
+
+class OfflineGameTypeConvertor {
+  static String toGameImage(OfflineGameTypes gameType) {
+    String result = '';
+    switch (gameType) {
+      case OfflineGameTypes.TicTacToe:
+        result = AppImages.tictactoeGame;
+        break;
+      case OfflineGameTypes.FekrBekr:
+        result = AppImages.fekrbekrGame;
+        break;
+      case OfflineGameTypes.Ten:
+        result = AppImages.tenGame;
+        break;
+      case OfflineGameTypes.Othello:
+        result = AppImages.othelloGame;
+        break;
+      case OfflineGameTypes.Sudoku:
+        result = AppImages.sudokuGame;
+        break;
+      case OfflineGameTypes.MNumbers:
+        result = AppImages.mnumbersGame;
+        break;
+      case OfflineGameTypes.MSweeper:
+        result = AppImages.msweeperGame;
+        break;
+    }
+    return result;
+  }
+
+  static String toGameNarrative(OfflineGameTypes gameType) {
+    String result = '';
+    switch (gameType) {
+      case OfflineGameTypes.TicTacToe:
+        result = AppTexts.tictactoeNarrative.tr;
+        break;
+      case OfflineGameTypes.FekrBekr:
+        result = AppTexts.fekrBekrNarrative.tr;
+        break;
+      case OfflineGameTypes.Ten:
+        result = AppTexts.tenNarrative.tr;
+        break;
+      case OfflineGameTypes.Othello:
+        result = AppTexts.othelloNarrative.tr;
+        break;
+      case OfflineGameTypes.Sudoku:
+        result = AppTexts.sudokuNarrative.tr;
+        break;
+      case OfflineGameTypes.MNumbers:
+        result = AppTexts.mnumbersNarrative.tr;
+        break;
+      case OfflineGameTypes.MSweeper:
+        result = AppTexts.msweeperNarrative.tr;
+        break;
+    }
+    return result;
+  }
+
+  static String toGameTime(OfflineGameTypes gameType) {
+    String result = '';
+    switch (gameType) {
+      case OfflineGameTypes.TicTacToe:
+        result = AppTexts.tictactoeTime.tr;
+        break;
+      case OfflineGameTypes.FekrBekr:
+        result = AppTexts.fekrBekrTime.tr;
+        break;
+      case OfflineGameTypes.Ten:
+        result = AppTexts.tenTime.tr;
+        break;
+      case OfflineGameTypes.Othello:
+        result = AppTexts.othelloTime.tr;
+        break;
+      case OfflineGameTypes.Sudoku:
+        result = AppTexts.sudokuTime.tr;
+        break;
+      case OfflineGameTypes.MNumbers:
+        result = AppTexts.mnumbersTime.tr;
+        break;
+      case OfflineGameTypes.MSweeper:
+        result = AppTexts.msweeperTime.tr;
+        break;
+    }
+    return result;
+  }
+
+  static GameDifficulties toGameDifficallty(OfflineGameTypes gameType) {
+    GameDifficulties result;
+    switch (gameType) {
+      case OfflineGameTypes.TicTacToe:
+        result = GameDifficulties.Easy;
+        break;
+      case OfflineGameTypes.FekrBekr:
+        result = GameDifficulties.Normal;
+        break;
+      case OfflineGameTypes.Ten:
+        result = GameDifficulties.Easy;
+        break;
+      case OfflineGameTypes.Othello:
+        result = GameDifficulties.Hard;
+        break;
+      case OfflineGameTypes.Sudoku:
+        result = GameDifficulties.Normal;
+        break;
+      case OfflineGameTypes.MNumbers:
+        result = GameDifficulties.Easy;
+        break;
+      case OfflineGameTypes.MSweeper:
+        result = GameDifficulties.Normal;
+        break;
+    }
+    return result;
+  }
+
+   static GameTypes offlineGameToOnlineGame(OfflineGameTypes data) {
     switch (data) {
       case OfflineGameTypes.TicTacToe:
         return GameTypes.TicTacToe;
@@ -320,23 +451,6 @@ class GameTypeConvertor {
       case OfflineGameTypes.Othello:
         return GameTypes.Othello;
     }
-  }
-
-  List<int> toGameRewards() {
-    List<int> result = [];
-    GameDifficulties difficulty = toGameDifficallty();
-    switch (difficulty) {
-      case GameDifficulties.Easy:
-        result = [10, 8, 4, 2, 1];
-        break;
-      case GameDifficulties.Normal:
-        result = [15, 16, 8, 3, 2];
-        break;
-      case GameDifficulties.Hard:
-        result = [20, 24, 12, 4, 3];
-        break;
-    }
-    return result;
   }
 }
 

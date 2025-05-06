@@ -16,12 +16,11 @@ class OfflineMenuGamePartWidget extends StatelessWidget {
     required this.onOpenGuide,
   });
 
-  final GameTypes game;
-  final Function(GameTypes) onTap;
-  final Function(GameTypes) onOpenGuide;
+  final OfflineGameTypes game;
+  final Function(OfflineGameTypes) onTap;
+  final Function(OfflineGameTypes) onOpenGuide;
   @override
   Widget build(BuildContext context) {
-    final gameConvertor = GameTypeConvertor(gameType: game);
     return Container(
       padding: AppSpacings.s5All,
       decoration: BoxDecoration(
@@ -39,7 +38,7 @@ class OfflineMenuGamePartWidget extends StatelessWidget {
                 color: const Color(0xff7c94b6),
                 image: DecorationImage(
                   image: AssetImage(
-                    gameConvertor.toGameImage(),
+                    OfflineGameTypeConvertor.toGameImage(game),
                   ),
                   fit: BoxFit.cover,
                 ),
