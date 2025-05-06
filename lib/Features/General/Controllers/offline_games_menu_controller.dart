@@ -21,6 +21,9 @@ class OfflineGamesMenuController extends BaseController {
       case GameTypes.FekrBekr:
         Get.toNamed(AppRoutes.fekrBekrOffline);
         return;
+      case GameTypes.Othello:
+        Get.toNamed(AppRoutes.othelloOffline);
+        return;
       case GameTypes.Sudoku:
         openSudokuSelector();
         return;

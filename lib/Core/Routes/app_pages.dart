@@ -29,6 +29,7 @@ import 'package:kafehfekr/Games/MNumbers/Pages/mnumbers_page.dart';
 import 'package:kafehfekr/Games/MSweeper/Pages/msweeper_offline_page.dart';
 import 'package:kafehfekr/Games/MSweeper/Pages/msweeper_page.dart';
 import 'package:kafehfekr/Games/Mill/Pages/mill_page.dart';
+import 'package:kafehfekr/Games/Othello/Pages/othello_offline_page.dart';
 import 'package:kafehfekr/Games/Othello/Pages/othello_page.dart';
 import 'package:kafehfekr/Games/Pentago/Pages/pentago_page.dart';
 import 'package:kafehfekr/Games/RPC/Pages/rpc_page.dart';
@@ -203,6 +204,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.sudokuOffline,
       page: SudokuOfflinePage.new,
+    ),
+    GetPage(
+      name: AppRoutes.othelloOffline,
+      page: OthelloOfflinePage.new,
     ),
   ];
 }

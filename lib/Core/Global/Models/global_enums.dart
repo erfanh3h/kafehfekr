@@ -49,7 +49,7 @@ enum OfflineGameTypes {
   // Yinsh,
   // Chess,
   // Checkers,
-  // Othello,
+  Othello,
   // Mill,
   // BackGammon
 }

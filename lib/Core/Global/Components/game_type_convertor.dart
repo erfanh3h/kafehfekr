@@ -317,6 +317,8 @@ class GameTypeConvertor {
         return GameTypes.FekrBekr;
       case OfflineGameTypes.Sudoku:
         return GameTypes.Sudoku;
+      case OfflineGameTypes.Othello:
+        return GameTypes.Othello;
     }
   }
 
