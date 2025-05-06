@@ -234,7 +234,7 @@ class MSweeperOfflineController extends BaseOfflineGameController {
       minesCount.value = args[1];
     }
     super.onInit();
-    gameType = GameTypes.MSweeper;
+    gameType = OfflineGameTypes.MSweeper;
     initPieces();
   }
 }

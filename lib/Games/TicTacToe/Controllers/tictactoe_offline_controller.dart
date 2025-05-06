@@ -110,7 +110,7 @@ class TicTacToeOfflineController extends BaseOfflineGameController {
     super.onInit();
     players.add(Rx(PlayerModel.fromOfflineGame(1)));
     players.add(Rx(PlayerModel.fromOfflineGame(2)));
-    gameType = GameTypes.TicTacToe;
+    gameType = OfflineGameTypes.TicTacToe;
     initPieces();
   }
 }

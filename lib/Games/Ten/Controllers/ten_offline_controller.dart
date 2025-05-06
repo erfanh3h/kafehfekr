@@ -264,7 +264,7 @@ class TenOfflineController extends BaseOfflineGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.Ten;
+    gameType = OfflineGameTypes.Ten;
     initNumbers();
     addOperators();
     addNumbers();

@@ -288,7 +288,7 @@ class SudokuOfflineController extends BaseOfflineGameController {
       emptyCells = 40;
     }
     super.onInit();
-    gameType = GameTypes.Sudoku;
+    gameType = OfflineGameTypes.Sudoku;
     initPieces();
   }
 }

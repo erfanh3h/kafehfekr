@@ -143,7 +143,7 @@ class FekrBekrOfflineController extends BaseOfflineGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.FekrBekr;
+    gameType = OfflineGameTypes.FekrBekr;
     initPieces();
   }
 }

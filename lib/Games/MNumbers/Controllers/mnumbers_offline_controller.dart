@@ -125,7 +125,7 @@ class MNumbersOfflineController extends BaseOfflineGameController {
       boardSize.value = Get.arguments;
     }
     super.onInit();
-    gameType = GameTypes.MSweeper;
+    gameType = OfflineGameTypes.MSweeper;
     initPieces();
   }
 }
