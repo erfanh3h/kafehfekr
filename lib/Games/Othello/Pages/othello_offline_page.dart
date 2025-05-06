@@ -1,7 +1,11 @@
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_offline_games_activity_buttons.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Games/Othello/Controllers/othello_offline_controller.dart';
+import 'package:kafehfekr/Games/Othello/Widgets/othello_offline_board_widget.dart';
+import 'package:refreshed/refreshed.dart';
 
 class OthelloOfflinePage extends BaseView<OthelloOfflineController> {
   const OthelloOfflinePage({super.key});
@@ -12,10 +16,39 @@ class OthelloOfflinePage extends BaseView<OthelloOfflineController> {
 
   @override
   Widget body(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
+        Expanded(
+          child: Obx(
+            () => Container(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  Text(
+                    controller.isGameOver.value
+                        ? controller.winnerLabel.value
+                        : 'نوبت: ${controller.currentPlayer.value == Disk.black ? 'سیاه' : 'سفید'}',
+                    style: const TextStyle(
+                        fontSize: 22, color: AppColors.lightColor),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    'سیاه: ${controller.blackCount.value}   سفید: ${controller.whiteCount.value}',
+                    style: const TextStyle(
+                        fontSize: 16, color: AppColors.lightColor),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Expanded(
+          flex: 7,
+          child: OthelloOfflineBoardWidget(controller: controller),
+        ),
+        Expanded(flex: 2, child: OfflineActivityButtons(controller: controller))
       ],
     );
   }
