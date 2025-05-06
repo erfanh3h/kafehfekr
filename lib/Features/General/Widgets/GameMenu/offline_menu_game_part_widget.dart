@@ -1,10 +1,8 @@
-import 'package:animate_do/animate_do.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -13,101 +11,60 @@ class OfflineMenuGamePartWidget extends StatelessWidget {
     super.key,
     required this.game,
     required this.onTap,
-    required this.onOpenGuide,
   });
 
   final OfflineGameTypes game;
   final Function(OfflineGameTypes) onTap;
-  final Function(OfflineGameTypes) onOpenGuide;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: AppSpacings.s5All,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          FadeInRight(
-            duration: const Duration(milliseconds: 500),
-            child: Container(
-              width: 60,
-              height: 60,
+    return InkWell(
+      onTap: () {
+        onTap(game);
+      },
+      child: Container(
+        padding: AppSpacings.s5All,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Stack(
+          children: [
+            Container(
               decoration: BoxDecoration(
-                color: const Color(0xff7c94b6),
-                image: DecorationImage(
-                  image: AssetImage(
-                    OfflineGameTypeConvertor.toGameImage(game),
-                  ),
-                  fit: BoxFit.cover,
-                ),
-                // border: Border.all(
-                //   color: difficultyColor,
-                //   width: 2,
-                // ),
                 borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: AppColors.lightColor3, width: .5),
               ),
-            ),
-          ),
-          const SizedBox(width: 15),
-          Expanded(
-            child: FadeIn(
-              delay: const Duration(milliseconds: 300),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    game.name.tr,
-                    style: TextStyle(
-                      fontSize: 18,
-                      foreground: Paint()
-                        ..strokeWidth = 1.25
-                        ..color = AppColors.lightColor
-                        ..style = PaintingStyle.stroke,
+              child: Center(
+                child: Opacity(
+                  opacity: .65,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15),
+                    child: Image.asset(
+                      OfflineGameTypeConvertor.toGameImage(game),
+                      fit: BoxFit.fill,
                     ),
-                    textAlign: TextAlign.right,
                   ),
-                  // const SizedBox(height: 3),
-                  // Text(
-                  //   "تعداد بازیکن: ",
-                  //   style: TextStyle(
-                  //     fontSize: 12,
-                  //     foreground: Paint()..color = AppColors.lightColor2,
-                  //   ),
-                  //   textAlign: TextAlign.right,
-                  // ),
-                ],
+                ),
               ),
             ),
-          ),
-          const SizedBox(width: 15),
-          IconButton(
-            onPressed: () {
-              onOpenGuide(game);
-            },
-            icon: Image.asset(
-              GeneralIcons.info,
-              width: 35,
-              height: 35,
-              color: AppColors.lightColor,
-            ),
-          ),
-          const SizedBox(width: 5),
-          FadeInLeft(
-            duration: const Duration(milliseconds: 500),
-            child: IconButton(
-              onPressed: () {
-                onTap(game);
-              },
-              icon: const Icon(
-                CupertinoIcons.play_circle_fill,
-                size: 45,
-                color: AppColors.lightColor,
+            Positioned(
+              bottom: 0,
+              right: 0,
+              left: 0,
+              child: Text(
+                game.name.tr,
+                style: const TextStyle(
+                  color: AppColors.lightColor,
+                  fontFamily: FontFamilies.dastnevis,
+                  fontSize: 25,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 15),
+          ],
+        ),
       ),
     );
   }

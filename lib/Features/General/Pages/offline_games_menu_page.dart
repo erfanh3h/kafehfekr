@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
@@ -45,16 +44,18 @@ class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
           ),
           const SizedBox(height: 20),
           Expanded(
-            child: FadeIn(
-              child: ListView.separated(
-                itemBuilder: (ctx, index) => OfflineMenuGamePartWidget(
-                  game: gameTypesParts[index],
-                  onTap: controller.onEachGameTap,
-                  onOpenGuide: controller.openGameGuide,
-                ),
-                separatorBuilder: (ctx, index) => const SizedBox(height: 25),
-                itemCount: gamesLength,
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+                childAspectRatio: 1,
               ),
+              itemBuilder: (ctx, index) => OfflineMenuGamePartWidget(
+                game: gameTypesParts[index],
+                onTap: controller.onEachGameTap,
+              ),
+              itemCount: gamesLength,
             ),
           ),
         ],

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
-import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
@@ -33,15 +31,6 @@ class OfflineGamesMenuController extends BaseController {
       case OfflineGameTypes.MNumbers:
         openMNumbersSelector();
     }
-  }
-
-  openGameGuide(OfflineGameTypes gameType) {
-    Get.bottomSheet(
-      GlobalGameGuideWidget(
-        gameType: OfflineGameTypeConvertor.offlineGameToOnlineGame(gameType),
-      ),
-      backgroundColor: AppColors.darkColor,
-    );
   }
 
   openMNumbersSelector() {
