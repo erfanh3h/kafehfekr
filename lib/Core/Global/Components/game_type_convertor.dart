@@ -315,6 +315,8 @@ class GameTypeConvertor {
         return GameTypes.Ten;
       case OfflineGameTypes.FekrBekr:
         return GameTypes.FekrBekr;
+      case OfflineGameTypes.Sudoku:
+        return GameTypes.Sudoku;
     }
   }
 

@@ -43,7 +43,7 @@ enum OfflineGameTypes {
   // Yatzy,
   // Pentago,
   // FourInRow,
-  // Sudoku,
+  Sudoku,
   // BattleShip,
   // BoxFour,
   // Yinsh,
