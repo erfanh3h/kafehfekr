@@ -347,7 +347,7 @@ class OfflineGameTypeConvertor {
         result = AppImages.msweeperGame;
         break;
       case OfflineGameTypes.Mafia:
-        result = AppImages.tictactoeGame;
+        result = AppImages.mafiaGame;
         break;
     }
     return result;

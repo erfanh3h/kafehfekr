@@ -31,8 +31,101 @@ class OfflineGamesMenuController extends BaseController {
       case OfflineGameTypes.MNumbers:
         openMNumbersSelector();
       case OfflineGameTypes.Mafia:
-        Get.toNamed(AppRoutes.mafiaOffline);
+        openMafiaSelector();
     }
+  }
+
+  openMafiaSelector() {
+    RxInt usersCount = RxInt(10);
+    List<int> sizes = [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ];
+    Get.dialog(
+      Dialog(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: AppColors.lightColor2,
+          ),
+          height: 150.h,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "${AppTexts.usersCount.tr}: ",
+                    style: const TextStyle(
+                      color: AppColors.darkColor,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Obx(
+                    () => DropdownButton<int>(
+                      value: usersCount.value,
+                      items: sizes.map((number) {
+                        return DropdownMenuItem(
+                          value: number,
+                          child: Text(
+                            number.toString(),
+                            style: const TextStyle(
+                              color: AppColors.darkColor,
+                              fontSize: 18,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        usersCount.value = value ?? 6;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              GlobalButtonWidget(
+                onTap: () {
+                  Get.closeAllDialogs();
+                  Get.toNamed(
+                    AppRoutes.mafiaOffline,
+                    arguments: usersCount.value,
+                  );
+                },
+                text: AppTexts.start.tr,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   openMNumbersSelector() {

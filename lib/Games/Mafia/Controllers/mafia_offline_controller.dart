@@ -56,8 +56,9 @@ class MafiaOfflineController extends BaseOfflineGameController {
       newUser.changeUserRole(roles[i - 1]);
       users.add(newUser);
     }
-    Get.toNamed(AppRoutes.mafiaRolesOffline);
-    isGamePhase.value = true;
+    Get.toNamed(AppRoutes.mafiaRolesOffline)!.then((_) {
+      isGamePhase.value = true;
+    });
   }
 
   onNextShower() {
@@ -84,6 +85,9 @@ class MafiaOfflineController extends BaseOfflineGameController {
   @override
   void onInit() async {
     super.onInit();
+    if (Get.arguments != null) {
+      playersCount = Get.arguments;
+    }
     gameType = OfflineGameTypes.Mafia;
     activeRoles.value = citizenRoles;
   }

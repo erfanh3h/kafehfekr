@@ -21,7 +21,7 @@ class MafiaGameWidget extends StatelessWidget {
           () => Card(
             color: controller.users[index].isDead.value
                 ? null
-                : AppColors.lightColor3,
+                : AppColors.darkColor.withValues(alpha: .5),
             child: Padding(
               padding: AppSpacings.s10Horizental5Vertical,
               child: Row(

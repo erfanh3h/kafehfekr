@@ -37,6 +37,7 @@ abstract class AppTexts {
 
   static const minesCount = "minesCount";
   static const boardSize = "boardSize";
+  static const usersCount = "usersCount";
   static const lobby = "lobby";
   static const emptySize = "emptySize";
   static const currentRoles = "currentRoles";
@@ -148,7 +149,7 @@ abstract class AppTexts {
   static const pentago = "Pentago";
   static const yinsh = "Yinsh";
   static const backGammon = "BackGammon";
-  static const mafia = "mafia";
+  static const mafia = "Mafia";
   static const spy = "spy";
   static const pantomim = "pantomim";
 
