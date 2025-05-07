@@ -42,4 +42,5 @@ abstract class AppRoutes {
   static const sudokuOffline = '/sudokuOffline';
   static const othelloOffline = '/othelloOffline';
   static const mafiaOffline = '/mafiaOffline';
+  static const mafiaRolesOffline = '/mafiaRolesOffline';
 }

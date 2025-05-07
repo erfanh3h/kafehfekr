@@ -2,6 +2,7 @@ import 'package:kafehfekr/Core/Base/base_offline_game_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Games/Mafia/Models/ciziten_roles.dart';
 import 'package:kafehfekr/Games/Mafia/Models/indipendent_roles.dart';
 import 'package:kafehfekr/Games/Mafia/Models/mafia_roles.dart';
@@ -15,6 +16,7 @@ class MafiaOfflineController extends BaseOfflineGameController {
   RxBool isGamePhase = RxBool(false);
 
   RxInt showerCounter = RxInt(0);
+  RxBool showRole = RxBool(false);
 
   RxList<Map<String, String>> activeRoles = RxList();
 
@@ -54,7 +56,21 @@ class MafiaOfflineController extends BaseOfflineGameController {
       newUser.changeUserRole(roles[i - 1]);
       users.add(newUser);
     }
+    Get.toNamed(AppRoutes.mafiaRolesOffline);
     isGamePhase.value = true;
+  }
+
+  onNextShower() {
+    if (showerCounter.value == playersCount - 1) {
+      Get.back();
+      return;
+    }
+    showRole.value = false;
+    showerCounter += 1;
+  }
+
+  onChangeShowRole() {
+    showRole.value = !showRole.value;
   }
 
   @override

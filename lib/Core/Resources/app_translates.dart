@@ -85,6 +85,7 @@ class AppTranslations extends Translations {
           AppTexts.musicOff: 'قطع آهنگ',
           AppTexts.player1IsWinner: 'بازیکن 1 برد',
           AppTexts.player2IsWinner: 'بازیکن 2 برد',
+          AppTexts.showRole: 'نمایش نقش',
           AppTexts.surrender: 'تسلیم',
           AppTexts.lobbyName: 'نام لابی',
           AppTexts.checkLibrary:
@@ -95,6 +96,7 @@ class AppTranslations extends Translations {
           AppTexts.findRivel: 'درجست و جوی رقیب ...',
           AppTexts.selectGameTypeFirst: 'بازی موردنظر را انتخاب کنید',
           AppTexts.createLobby: 'ساخت لابی',
+          AppTexts.next: 'بعدی',
           AppTexts.level: 'سطح',
           AppTexts.easy: 'آسان',
           AppTexts.normal: 'معمولی',

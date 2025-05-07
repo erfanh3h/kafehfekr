@@ -58,6 +58,7 @@ abstract class AppTexts {
   static const restart = "restart";
   static const player1IsWinner = "player1IsWinner";
   static const player2IsWinner = "player2IsWinner";
+  static const next = "next";
   static const exit = "exit";
   static const back = "back";
   static const wait = "wait";
@@ -67,6 +68,7 @@ abstract class AppTexts {
   static const selectOneOption = "selectOneOption";
   static const fillAllPieces = "fillAllPieces";
   static const fillAllRoles = "fillAllRoles";
+  static const showRole = "showRole";
   static const rollDice = "rollDice";
   static const showDice = "showDice";
   static const playGame = "playGame";
