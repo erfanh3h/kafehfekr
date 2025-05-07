@@ -39,6 +39,10 @@ abstract class AppTexts {
   static const boardSize = "boardSize";
   static const lobby = "lobby";
   static const emptySize = "emptySize";
+  static const currentRoles = "currentRoles";
+  static const citizens = "citizens";
+  static const mafias = "mafias";
+  static const indipendents = "indipendents";
 
   static const win = "win";
   static const lose = "lose";
@@ -141,6 +145,10 @@ abstract class AppTexts {
   static const pentago = "Pentago";
   static const yinsh = "Yinsh";
   static const backGammon = "BackGammon";
+  static const mafia = "mafia";
+  static const spy = "spy";
+  static const pantomim = "pantomim";
+
   static const tictactoeGuide = "tictactoeGuide";
   static const rpcGuide = "rpcGuide";
   static const millGuide = "millGuide";
@@ -160,6 +168,10 @@ abstract class AppTexts {
   static const pentagoGuide = "pentagoGuide";
   static const yinshGuide = "yinshGuide";
   static const backGammonGuide = "backgammonGuide";
+  static const mafiaGuide = "mafiaGuide";
+  static const spyGuide = "spyGuide";
+  static const pantomimGuide = "pantomimGuide";
+
   static const tictactoeGameGuide = "tictactoeGameGuide";
   static const rpcGameGuide = "rpcGameGuide";
   static const millGameGuide = "millGameGuide";
@@ -179,6 +191,10 @@ abstract class AppTexts {
   static const pentagoGameGuide = "pentagoGameGuide";
   static const yinshGameGuide = "yinshGameGuide";
   static const backGammonGameGuide = "backgammonGameGuide";
+  static const mafiaGammonGameGuide = "mafiaGammonGameGuide";
+  static const spyGammonGameGuide = "spyGammonGameGuide";
+  static const pantomimGammonGameGuide = "pantomimGammonGameGuide";
+
   static const tictactoeNarrative = "tictactoeNarrative";
   static const rpcNarrative = "rpcNarrative";
   static const millNarrative = "millNarrative";
@@ -198,6 +214,7 @@ abstract class AppTexts {
   static const pentagoNarrative = "PentagoNarrative";
   static const yinshNarrative = "yinshNarrative";
   static const backGammonNarrative = "backGammonNarrative";
+
   static const tictactoeTime = "tictactoeTime";
   static const rpcTime = "rpcTime";
   static const millTime = "millTime";

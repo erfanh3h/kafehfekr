@@ -13,6 +13,7 @@ import 'package:kafehfekr/Games/FourInRow/Core/four_in_row_binding.dart';
 import 'package:kafehfekr/Features/General/Core/general_binding.dart';
 import 'package:kafehfekr/Games/MNumbers/Core/mnumbers_binding.dart';
 import 'package:kafehfekr/Games/MSweeper/Core/msweeper_binding.dart';
+import 'package:kafehfekr/Games/Mafia/Core/mafia_binding.dart';
 import 'package:kafehfekr/Games/Mill/Core/mill_binding.dart';
 import 'package:kafehfekr/Games/Othello/Core/othello_binding.dart';
 import 'package:kafehfekr/Games/Pentago/Core/pentago_binding.dart';
@@ -50,6 +51,7 @@ class GlobalBinding implements BindingsInterface {
         BoxFourBinding().dependencies(),
         FekrBekrBinding().dependencies(),
         BackGammonBinding().dependencies(),
+        MafiaBinding().dependencies(),
         Get.lazyPut<TimerCompanent>(TimerCompanent.new, fenix: true),
         // Get.lazyPut<SoundPlayerComponent>(
         //   SoundPlayerComponent.new,
