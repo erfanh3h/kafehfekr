@@ -135,6 +135,7 @@ class AppTranslations extends Translations {
           AppTexts.errorSolve: 'درست حل نکردی!',
           AppTexts.selectOneOption: 'یکی رو انتخاب کن',
           AppTexts.fillAllPieces: "همه ی خانه هارا پر کنید",
+          AppTexts.fillAllRoles: "همه ی نقش هارا پر کنید",
           AppTexts.rollDice: 'تاس بریز',
           AppTexts.selectBoard: 'مال خودتو بساز',
           AppTexts.enemyChoices: 'انتخاب های حریف',

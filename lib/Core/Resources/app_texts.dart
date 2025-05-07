@@ -66,6 +66,7 @@ abstract class AppTexts {
   static const errorSolve = "errorSolve";
   static const selectOneOption = "selectOneOption";
   static const fillAllPieces = "fillAllPieces";
+  static const fillAllRoles = "fillAllRoles";
   static const rollDice = "rollDice";
   static const showDice = "showDice";
   static const playGame = "playGame";

@@ -1,20 +1,24 @@
 import 'package:refreshed/refreshed.dart';
 
 class MafiaUserModel {
-  MafiaUserModel({
-    this.selectedUser,
-  });
+  final RxString name = RxString("");
+  final RxString role = RxString("");
+  final RxBool isDead = RxBool(false);
+  final RxBool showRole = RxBool(false);
 
-  int? selectedUser;
-  RxString name = RxString("");
-
-  MafiaUserModel changeSelectedUser({
-    int? newSelectedUser,
-  }) {
-    return MafiaUserModel(selectedUser: newSelectedUser);
+  changeUsername(String newName) {
+    name.value = newName;
   }
 
-  MafiaUserModel resetPeace() {
-    return MafiaUserModel(selectedUser: null);
+  changeUserRole(String newRole) {
+    role.value = newRole;
+  }
+
+  changeIsDead() {
+    isDead.value = !isDead.value;
+  }
+
+  changeShowRole() {
+    showRole.value = !showRole.value;
   }
 }
