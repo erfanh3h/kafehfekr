@@ -30,6 +30,8 @@ class OfflineGamesMenuController extends BaseController {
         openMSweeperSelector();
       case OfflineGameTypes.MNumbers:
         openMNumbersSelector();
+      case OfflineGameTypes.Mafia:
+        Get.toNamed(AppRoutes.mafiaOffline);
     }
   }
 

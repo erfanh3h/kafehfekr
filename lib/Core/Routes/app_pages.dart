@@ -28,6 +28,7 @@ import 'package:kafehfekr/Games/MNumbers/Pages/mnumbers_offline_page.dart';
 import 'package:kafehfekr/Games/MNumbers/Pages/mnumbers_page.dart';
 import 'package:kafehfekr/Games/MSweeper/Pages/msweeper_offline_page.dart';
 import 'package:kafehfekr/Games/MSweeper/Pages/msweeper_page.dart';
+import 'package:kafehfekr/Games/Mafia/Pages/mafia_offline_page.dart';
 import 'package:kafehfekr/Games/Mill/Pages/mill_page.dart';
 import 'package:kafehfekr/Games/Othello/Pages/othello_offline_page.dart';
 import 'package:kafehfekr/Games/Othello/Pages/othello_page.dart';
@@ -208,6 +209,10 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.othelloOffline,
       page: OthelloOfflinePage.new,
+    ),
+    GetPage(
+      name: AppRoutes.mafiaOffline,
+      page: MafiaOfflinePage.new,
     ),
   ];
 }

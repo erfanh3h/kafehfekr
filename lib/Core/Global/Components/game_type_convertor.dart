@@ -346,6 +346,9 @@ class OfflineGameTypeConvertor {
       case OfflineGameTypes.MSweeper:
         result = AppImages.msweeperGame;
         break;
+      case OfflineGameTypes.Mafia:
+        result = AppImages.tictactoeGame;
+        break;
     }
     return result;
   }
@@ -373,6 +376,9 @@ class OfflineGameTypeConvertor {
         break;
       case OfflineGameTypes.MSweeper:
         result = AppTexts.msweeperNarrative.tr;
+        break;
+      case OfflineGameTypes.Mafia:
+        result = "";
         break;
     }
     return result;
@@ -402,6 +408,9 @@ class OfflineGameTypeConvertor {
       case OfflineGameTypes.MSweeper:
         result = AppTexts.msweeperTime.tr;
         break;
+      case OfflineGameTypes.Mafia:
+        result = "";
+        break;
     }
     return result;
   }
@@ -430,11 +439,14 @@ class OfflineGameTypeConvertor {
       case OfflineGameTypes.MSweeper:
         result = GameDifficulties.Normal;
         break;
+      case OfflineGameTypes.Mafia:
+        result = GameDifficulties.Normal;
+        break;
     }
     return result;
   }
 
-   static GameTypes offlineGameToOnlineGame(OfflineGameTypes data) {
+  static GameTypes? offlineGameToOnlineGame(OfflineGameTypes data) {
     switch (data) {
       case OfflineGameTypes.TicTacToe:
         return GameTypes.TicTacToe;
@@ -450,6 +462,8 @@ class OfflineGameTypeConvertor {
         return GameTypes.Sudoku;
       case OfflineGameTypes.Othello:
         return GameTypes.Othello;
+      case OfflineGameTypes.Mafia:
+        return null;
     }
   }
 }

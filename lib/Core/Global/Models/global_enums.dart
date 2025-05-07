@@ -34,24 +34,13 @@ enum GameTypes {
 
 enum OfflineGameTypes {
   TicTacToe,
-  // RPC,
-  // DotBox,
   Ten,
   MNumbers,
   MSweeper,
   FekrBekr,
-  // Yatzy,
-  // Pentago,
-  // FourInRow,
   Sudoku,
-  // BattleShip,
-  // BoxFour,
-  // Yinsh,
-  // Chess,
-  // Checkers,
   Othello,
-  // Mill,
-  // BackGammon
+  Mafia,
 }
 
 enum GameDifficulties { Easy, Normal, Hard }
