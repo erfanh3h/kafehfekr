@@ -349,7 +349,7 @@ class OfflineGameTypeConvertor {
       case OfflineGameTypes.Mafia:
         result = AppImages.mafiaGame;
       case OfflineGameTypes.Spy:
-        result = AppImages.mafiaGame;
+        result = AppImages.spyGame;
         break;
     }
     return result;

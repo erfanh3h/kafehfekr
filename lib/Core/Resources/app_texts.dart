@@ -35,9 +35,12 @@ abstract class AppTexts {
   static const didntGetCode = "didntGetCode";
   static const resendCode = "resendCode";
 
+  static const spiesWin = "spiesWin";
   static const minesCount = "minesCount";
   static const boardSize = "boardSize";
   static const usersCount = "usersCount";
+  static const spiesCount = "spiesCount";
+  static const timerValue = "timerValue";
   static const lobby = "lobby";
   static const emptySize = "emptySize";
   static const currentRoles = "currentRoles";

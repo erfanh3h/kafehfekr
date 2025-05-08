@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Spy/Controllers/spy_offline_controller.dart';
+import 'package:kafehfekr/Games/Spy/Widgets/spy_countdown_timer.dart';
 import 'package:kafehfekr/Games/Spy/Widgets/spy_offline_roles_widget.dart';
 import 'package:refreshed/utils.dart';
 
@@ -26,28 +27,28 @@ class SpyOfflinePage extends BaseView<SpyOfflineController> {
           Expanded(
             flex: 14,
             child: controller.isGamePhase.value
-                ? Container()
+                ? const SpyTimerWidget()
                 : SpyOfflineRolesWidget(controller: controller),
           ),
-          // Expanded(
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     children: [
-          //       GlobalButtonWidget(
-          //         onTap: controller.isGamePhase.value
-          //             ? controller.resetGame
-          //             : controller.startGame,
-          //         text: controller.isGamePhase.value
-          //             ? AppTexts.restart.tr
-          //             : AppTexts.startGame.tr,
-          //       ),
-          //       GlobalButtonWidget(
-          //         onTap: controller.exitGame,
-          //         text: AppTexts.exit.tr,
-          //       ),
-          //     ],
-          //   ),
-          // )
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GlobalButtonWidget(
+                  onTap: controller.isGamePhase.value
+                      ? controller.resetGame
+                      : controller.onNextShower,
+                  text: controller.isGamePhase.value
+                      ? AppTexts.restart.tr
+                      : AppTexts.next.tr,
+                ),
+                GlobalButtonWidget(
+                  onTap: controller.exitGame,
+                  text: AppTexts.exit.tr,
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

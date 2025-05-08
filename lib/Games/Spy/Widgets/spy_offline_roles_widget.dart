@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -48,12 +47,6 @@ class SpyOfflineRolesWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Center(
-              child: GlobalButtonWidget(
-                onTap: controller.onNextShower,
-                text: AppTexts.next.tr,
-              ),
-            ),
           ],
         ),
       ),

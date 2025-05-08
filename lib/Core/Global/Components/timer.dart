@@ -54,8 +54,8 @@ class TimerCompanent extends GetxController {
     }
   }
 
-  // void pauseTimer() => isPaused.value = true;
-  // void resumeTimer() => isPaused.value = false;
+  void pauseTimer() => isPaused.value = true;
+  void resumeTimer() => isPaused.value = false;
 
   @override
   void dispose() {

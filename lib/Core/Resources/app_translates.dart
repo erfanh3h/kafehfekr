@@ -14,6 +14,8 @@ class AppTranslations extends Translations {
           AppTexts.endGame: 'پایان بازی',
           AppTexts.endRound: 'پایان دور',
           AppTexts.usersCount: 'تعداد بازیکن',
+          AppTexts.spiesCount: 'تعداد جاسوس',
+          AppTexts.timerValue: 'زمان تایمر',
           AppTexts.updateAppMessage:
               'نسخه ی جدیدی از بازی دردسترس است.لطفا بازی را به روز رسانی کنید',
           AppTexts.gameDrawed: 'بازی مساوی شد',
@@ -112,6 +114,7 @@ class AppTranslations extends Translations {
           AppTexts.youAreSpy: 'شما جاسوس هستید',
           AppTexts.pantomim: 'پانتومیم',
           AppTexts.showWord: 'نمایش کلمه',
+          AppTexts.spiesWin: 'جاسوس برنده شد',
           AppTexts.win: 'برد',
           AppTexts.lose: 'باخت',
           AppTexts.draw: 'مساوی',

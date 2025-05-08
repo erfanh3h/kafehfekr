@@ -33,42 +33,13 @@ class OfflineGamesMenuController extends BaseController {
       case OfflineGameTypes.Mafia:
         openMafiaSelector();
       case OfflineGameTypes.Spy:
-        Get.toNamed(AppRoutes.spyOffline);
+        openSpySelector();
         return;
     }
   }
 
   openMafiaSelector() {
     RxInt usersCount = RxInt(10);
-    List<int> sizes = [
-      4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10,
-      11,
-      12,
-      13,
-      14,
-      15,
-      16,
-      17,
-      18,
-      19,
-      20,
-      21,
-      22,
-      23,
-      24,
-      25,
-      26,
-      27,
-      28,
-      29,
-      30
-    ];
     Get.dialog(
       Dialog(
         child: Container(
@@ -95,7 +66,8 @@ class OfflineGamesMenuController extends BaseController {
                   Obx(
                     () => DropdownButton<int>(
                       value: usersCount.value,
-                      items: sizes.map((number) {
+                      items: List.generate(40, (index) {
+                        int number = index + 4;
                         return DropdownMenuItem(
                           value: number,
                           child: Text(
@@ -106,9 +78,9 @@ class OfflineGamesMenuController extends BaseController {
                             ),
                           ),
                         );
-                      }).toList(),
+                      }),
                       onChanged: (value) {
-                        usersCount.value = value ?? 6;
+                        usersCount.value = value ?? 10;
                       },
                     ),
                   ),
@@ -256,24 +228,26 @@ class OfflineGamesMenuController extends BaseController {
                     ),
                   ),
                   SizedBox(width: 10.w),
-                  DropdownButton<int>(
-                    value: minesCont.value,
-                    items: List.generate(21, (index) {
-                      int number = index + 5;
-                      return DropdownMenuItem(
-                        value: number,
-                        child: Text(
-                          number.toString(),
-                          style: const TextStyle(
-                            color: AppColors.darkColor,
-                            fontSize: 18,
+                  Obx(
+                    () => DropdownButton<int>(
+                      value: minesCont.value,
+                      items: List.generate(21, (index) {
+                        int number = index + 5;
+                        return DropdownMenuItem(
+                          value: number,
+                          child: Text(
+                            number.toString(),
+                            style: const TextStyle(
+                              color: AppColors.darkColor,
+                              fontSize: 18,
+                            ),
                           ),
-                        ),
-                      );
-                    }),
-                    onChanged: (value) {
-                      minesCont.value = value ?? 8;
-                    },
+                        );
+                      }),
+                      onChanged: (value) {
+                        minesCont.value = value ?? 8;
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -348,6 +322,145 @@ class OfflineGamesMenuController extends BaseController {
                   Get.toNamed(
                     AppRoutes.sudokuOffline,
                     arguments: emptySize.value,
+                  );
+                },
+                text: AppTexts.start.tr,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  openSpySelector() {
+    RxInt usersCount = RxInt(10);
+    RxInt spiesSize = RxInt(2);
+    RxInt timeValue = RxInt(5);
+    Get.dialog(
+      Dialog(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: AppColors.lightColor2,
+          ),
+          height: 200.h,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "${AppTexts.usersCount.tr}: ",
+                    style: const TextStyle(
+                      color: AppColors.darkColor,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Obx(
+                    () => DropdownButton<int>(
+                      value: usersCount.value,
+                      items: List.generate(30, (index) {
+                        int number = index + 3; // از ۵ تا ۱۰
+                        return DropdownMenuItem(
+                          value: number,
+                          child: Text(
+                            number.toString(),
+                            style: const TextStyle(
+                              color: AppColors.darkColor,
+                              fontSize: 18,
+                            ),
+                          ),
+                        );
+                      }),
+                      onChanged: (value) {
+                        usersCount.value = value ?? 10;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "${AppTexts.spiesCount.tr}: ",
+                    style: const TextStyle(
+                      color: AppColors.darkColor,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Obx(
+                    () => DropdownButton<int>(
+                      value: spiesSize.value,
+                      items: List.generate(20, (index) {
+                        int number = index + 1;
+                        return DropdownMenuItem(
+                          value: number,
+                          child: Text(
+                            number.toString(),
+                            style: const TextStyle(
+                              color: AppColors.darkColor,
+                              fontSize: 18,
+                            ),
+                          ),
+                        );
+                      }),
+                      onChanged: (value) {
+                        spiesSize.value = value ?? 2;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "${AppTexts.timerValue.tr}: ",
+                    style: const TextStyle(
+                      color: AppColors.darkColor,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Obx(
+                    () => DropdownButton<int>(
+                      value: timeValue.value,
+                      items: List.generate(10, (index) {
+                        int number = index + 2;
+                        return DropdownMenuItem(
+                          value: number,
+                          child: Text(
+                            number.toString(),
+                            style: const TextStyle(
+                              color: AppColors.darkColor,
+                              fontSize: 18,
+                            ),
+                          ),
+                        );
+                      }),
+                      onChanged: (value) {
+                        timeValue.value = value ?? 5;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              GlobalButtonWidget(
+                onTap: () {
+                  Get.closeAllDialogs();
+                  Get.toNamed(
+                    AppRoutes.spyOffline,
+                    arguments: [
+                      usersCount.value,
+                      spiesSize.value,
+                      timeValue.value
+                    ],
                   );
                 },
                 text: AppTexts.start.tr,
