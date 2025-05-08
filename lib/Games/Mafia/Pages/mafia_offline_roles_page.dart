@@ -33,16 +33,48 @@ class MafiaOfflineRolesPage extends BaseView<MafiaOfflineController> {
             child: Center(
               child: TextButton(
                 onPressed: controller.onChangeShowRole,
-                child: Text(
-                  controller.showRole.value
-                      ? controller
-                          .users[controller.showerCounter.value].role.value
-                      : AppTexts.showRole.tr,
-                  style: const TextStyle(
-                    color: AppColors.lightColor,
-                    fontSize: 40,
-                  ),
-                ),
+                child: controller.showRole.value
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            controller.getUserSideLabel(
+                              controller.showerCounter.value,
+                            ),
+                            style: const TextStyle(
+                              color: AppColors.lightColor,
+                              fontSize: 20,
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          Text(
+                            controller.users[controller.showerCounter.value]
+                                .role.value,
+                            style: const TextStyle(
+                              color: AppColors.lightColor,
+                              fontSize: 60,
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          Text(
+                            controller.getUserSideDescription(
+                              controller.showerCounter.value,
+                            ),
+                            style: const TextStyle(
+                              color: AppColors.lightColor,
+                              fontSize: 20,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      )
+                    : Text(
+                        AppTexts.showRole.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontSize: 40,
+                        ),
+                      ),
               ),
             ),
           ),

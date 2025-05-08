@@ -23,17 +23,23 @@ class MafiaPreGameWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              GlobalButtonWidget(
-                onTap: () => controller.changeSelectorIndex(0),
-                text: AppTexts.citizens.tr,
+              Expanded(
+                child: GlobalButtonWidget(
+                  onTap: () => controller.changeSelectorIndex(0),
+                  text: AppTexts.citizens.tr,
+                ),
               ),
-              GlobalButtonWidget(
-                onTap: () => controller.changeSelectorIndex(1),
-                text: AppTexts.mafia.tr,
+              Expanded(
+                child: GlobalButtonWidget(
+                  onTap: () => controller.changeSelectorIndex(1),
+                  text: AppTexts.mafia.tr,
+                ),
               ),
-              GlobalButtonWidget(
-                onTap: () => controller.changeSelectorIndex(2),
-                text: AppTexts.indipendents.tr,
+              Expanded(
+                child: GlobalButtonWidget(
+                  onTap: () => controller.changeSelectorIndex(2),
+                  text: AppTexts.indipendents.tr,
+                ),
               ),
             ],
           ),

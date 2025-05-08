@@ -5,6 +5,7 @@ class MafiaUserModel {
   final RxString role = RxString("");
   final RxBool isDead = RxBool(false);
   final RxBool showRole = RxBool(false);
+  final Rx<bool?> isCitizen = Rx(null);
 
   changeUsername(String newName) {
     name.value = newName;
@@ -20,5 +21,9 @@ class MafiaUserModel {
 
   changeShowRole() {
     showRole.value = !showRole.value;
+  }
+
+  changeIsCitizen(bool? newIsCitizen) {
+    isCitizen.value = newIsCitizen;
   }
 }

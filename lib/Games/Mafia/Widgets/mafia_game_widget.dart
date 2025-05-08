@@ -36,11 +36,15 @@ class MafiaGameWidget extends StatelessWidget {
                   const Spacer(),
                   Obx(
                     () => controller.users[index].showRole.value
-                        ? Text(
-                            controller.users[index].role.value,
-                            style: const TextStyle(
-                              color: AppColors.lightColor,
-                              fontSize: 17,
+                        ? Expanded(
+                            flex: 10,
+                            child: Text(
+                              '${controller.getUserSideLabel(index)} - ${controller.users[index].role.value}',
+                              style: const TextStyle(
+                                color: AppColors.lightColor,
+                                fontSize: 17,
+                              ),
+                              textAlign: TextAlign.left,
                             ),
                           )
                         : Container(),

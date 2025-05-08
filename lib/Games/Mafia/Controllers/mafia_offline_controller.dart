@@ -54,11 +54,33 @@ class MafiaOfflineController extends BaseOfflineGameController {
       MafiaUserModel newUser = MafiaUserModel();
       newUser.changeUsername('بازیکن $i');
       newUser.changeUserRole(roles[i - 1]);
+      newUser.changeIsCitizen(isRoleCitizen(roles[i - 1]));
       users.add(newUser);
     }
     Get.toNamed(AppRoutes.mafiaRolesOffline)!.then((_) {
       isGamePhase.value = true;
     });
+  }
+
+  String getUserSideLabel(int index) {
+    if (users[index].isCitizen.value == null) {
+      return AppTexts.indipendents.tr;
+    } else if (users[index].isCitizen.value!) {
+      return AppTexts.citizens.tr;
+    }
+    return AppTexts.mafia.tr;
+  }
+
+  String getUserSideDescription(int index) {
+    if (users[index].isCitizen.value == null) {
+      return (independentRoles.firstWhere(
+          (data) => data['name'] == users[index].role.value))['description']!;
+    } else if (users[index].isCitizen.value!) {
+      return (citizenRoles.firstWhere(
+          (data) => data['name'] == users[index].role.value))['description']!;
+    }
+    return (mafiaRoles.firstWhere(
+        (data) => data['name'] == users[index].role.value))['description']!;
   }
 
   onNextShower() {
@@ -74,12 +96,28 @@ class MafiaOfflineController extends BaseOfflineGameController {
     showRole.value = !showRole.value;
   }
 
+  bool? isRoleCitizen(String role) {
+    for (var rawRole in citizenRoles) {
+      if (rawRole['name'] == role) {
+        return true;
+      }
+    }
+    for (var rawRole in mafiaRoles) {
+      if (rawRole['name'] == role) {
+        return false;
+      }
+    }
+    return null;
+  }
+
   @override
   resetGame() {
     roles.clear();
-    users.clear();
     isGamePhase.value = false;
     showerCounter.value = 0;
+    showRole.value = false;
+    activeRoles.value = citizenRoles;
+    users.clear();
   }
 
   @override
