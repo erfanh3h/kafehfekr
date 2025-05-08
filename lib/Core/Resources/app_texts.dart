@@ -69,6 +69,8 @@ abstract class AppTexts {
   static const selectOneOption = "selectOneOption";
   static const fillAllPieces = "fillAllPieces";
   static const fillAllRoles = "fillAllRoles";
+  static const youAreSpy = "youAreSpy";
+  static const showWord = "showWord";
   static const showRole = "showRole";
   static const rollDice = "rollDice";
   static const showDice = "showDice";
@@ -150,8 +152,8 @@ abstract class AppTexts {
   static const yinsh = "Yinsh";
   static const backGammon = "BackGammon";
   static const mafia = "Mafia";
-  static const spy = "spy";
-  static const pantomim = "pantomim";
+  static const spy = "Spy";
+  static const pantomim = "Pantomim";
 
   static const tictactoeGuide = "tictactoeGuide";
   static const rpcGuide = "rpcGuide";

@@ -41,6 +41,7 @@ enum OfflineGameTypes {
   Sudoku,
   Othello,
   Mafia,
+  Spy,
 }
 
 enum GameDifficulties { Easy, Normal, Hard }

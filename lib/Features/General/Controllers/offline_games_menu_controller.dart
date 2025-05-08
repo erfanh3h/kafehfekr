@@ -32,6 +32,9 @@ class OfflineGamesMenuController extends BaseController {
         openMNumbersSelector();
       case OfflineGameTypes.Mafia:
         openMafiaSelector();
+      case OfflineGameTypes.Spy:
+        Get.toNamed(AppRoutes.spyOffline);
+        return;
     }
   }
 
