@@ -153,6 +153,7 @@ abstract class AppTexts {
   static const fekrBekr = "FekrBekr";
   static const pentago = "Pentago";
   static const yinsh = "Yinsh";
+  static const ludo = "Ludo";
   static const backGammon = "BackGammon";
   static const mafia = "Mafia";
   static const spy = "Spy";
@@ -176,6 +177,7 @@ abstract class AppTexts {
   static const fekrBekrGuide = "fekrbekrGuide";
   static const pentagoGuide = "pentagoGuide";
   static const yinshGuide = "yinshGuide";
+  static const ludoGuide = "ludoGuide";
   static const backGammonGuide = "backgammonGuide";
   static const mafiaGuide = "mafiaGuide";
   static const spyGuide = "spyGuide";
@@ -199,6 +201,7 @@ abstract class AppTexts {
   static const fekrBekrGameGuide = "fekrbekrGameGuide";
   static const pentagoGameGuide = "pentagoGameGuide";
   static const yinshGameGuide = "yinshGameGuide";
+  static const ludoGameGuide = "ludoGameGuide";
   static const backGammonGameGuide = "backgammonGameGuide";
   static const mafiaGammonGameGuide = "mafiaGammonGameGuide";
   static const spyGammonGameGuide = "spyGammonGameGuide";
@@ -222,6 +225,7 @@ abstract class AppTexts {
   static const fekrBekrNarrative = "FekrBekrNarrative";
   static const pentagoNarrative = "PentagoNarrative";
   static const yinshNarrative = "yinshNarrative";
+  static const ludoNarrative = "ludoNarrative";
   static const backGammonNarrative = "backGammonNarrative";
 
   static const tictactoeTime = "tictactoeTime";
@@ -242,6 +246,7 @@ abstract class AppTexts {
   static const fekrBekrTime = "FekrBekrTime";
   static const pentagoTime = "PentagoTime";
   static const yinshTime = "yinshTime";
+  static const ludoTime = "ludoTime";
   static const backGammonTime = "backGammonTime";
 
   static const notYourTurn = "notYourTurn";

@@ -69,6 +69,9 @@ class GameTypeConvertor {
       case GameTypes.FourInRow:
         result = AppImages.fourinrowGame;
         break;
+      case GameTypes.Ludo:
+        result = AppImages.ludoGame;
+        break;
     }
     return result;
   }
@@ -132,6 +135,9 @@ class GameTypeConvertor {
         break;
       case GameTypes.FourInRow:
         result = AppTexts.fourInRowNarrative.tr;
+        break;
+      case GameTypes.Ludo:
+        result = AppTexts.ludoNarrative.tr;
         break;
     }
     return result;
@@ -197,6 +203,9 @@ class GameTypeConvertor {
       case GameTypes.FourInRow:
         result = AppTexts.fourInRowTime.tr;
         break;
+      case GameTypes.Ludo:
+        result = AppTexts.ludoTime.tr;
+        break;
     }
     return result;
   }
@@ -260,6 +269,9 @@ class GameTypeConvertor {
         break;
       case GameTypes.FourInRow:
         result = GameDifficulties.Normal;
+        break;
+      case GameTypes.Ludo:
+        result = GameDifficulties.Easy;
         break;
     }
     return result;

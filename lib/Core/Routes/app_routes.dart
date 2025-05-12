@@ -33,6 +33,7 @@ abstract class AppRoutes {
   static const fekrBekr = '/FekrBekr';
   static const pentago = '/Pentago';
   static const yinsh = '/Yinsh';
+  static const ludo = '/Ludo';
   static const backGammon = '/BackGammon';
   static const tictactoeOffline = '/tictactoeOffline';
   static const msweeperOffline = '/msweeperOffline';
@@ -44,5 +45,4 @@ abstract class AppRoutes {
   static const mafiaOffline = '/mafiaOffline';
   static const mafiaRolesOffline = '/mafiaRolesOffline';
   static const spyOffline = '/spyOffline';
-
 }

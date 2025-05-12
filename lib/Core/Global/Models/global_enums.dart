@@ -29,6 +29,7 @@ enum GameTypes {
   Checkers,
   Othello,
   Mill,
+  Ludo,
   BackGammon
 }
 

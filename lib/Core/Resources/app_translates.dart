@@ -219,6 +219,7 @@ class AppTranslations extends Translations {
           AppTexts.sudoku: 'سودوکو',
           AppTexts.battleship: 'نبردکشتی',
           AppTexts.boxFour: 'چهارطرفه',
+          AppTexts.ludo: 'منچ',
           AppTexts.backGammon: 'تخته نرد',
           AppTexts.lobbyGuide: '''
 لابی برای اوناس که میخوان فقط از بازی لذت ببرن. در لابی ، بُرد یا باخت بازی تاثیری در امتیاز نداره و نتایج بازی ها جایی ذخیره نمیشه.

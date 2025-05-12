@@ -1,0 +1,87 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Games/Ludo/Models/ludo_piece_model.dart';
+
+class LudoButton extends StatelessWidget {
+  const LudoButton({
+    super.key,
+    required this.peaceData,
+    required this.onTap,
+  });
+
+  final LudoPieceModel peaceData;
+  final Function(LudoPieceModel) onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    Color? imageColor;
+    String? image;
+    late double borderWidth;
+    Color borderColor;
+    final isLastTurnPlayed =
+        peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
+    switch (peaceData.selectedUser) {
+      case 1:
+        imageColor = AppColors.imageRedColor;
+        image = GeneralIcons.circle2;
+        break;
+      case 2:
+        imageColor = AppColors.imageBlueColor;
+        image = GeneralIcons.circle2;
+        break;
+      default:
+        imageColor = null;
+        image = null;
+        break;
+    }
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected) ||
+        peaceData.currentStatuses.contains(PeaceStatusTypes.equiped)) {
+      borderWidth = 5;
+      borderColor = imageColor ?? AppColors.goldenColor;
+    } else {
+      borderWidth = 1;
+      borderColor = imageColor ?? AppColors.goldenColor;
+    }
+    if (peaceData.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
+      borderWidth = 5;
+      borderColor = AppColors.goldenColor;
+    }
+    return InkWell(
+      onTap: () {
+        onTap(peaceData);
+      },
+      child: Container(
+        width: 35,
+        height: 35,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [Colors.white24, (imageColor ?? Colors.white)],
+              // stops: imageColor != null ? const [0, 0] : null,
+            ),
+            // color: AppColors.lightColor,
+            border: Border.all(
+              color: isLastTurnPlayed ? AppColors.yellow : borderColor,
+              width: isLastTurnPlayed ? 3 : borderWidth,
+            ),
+            shape: BoxShape.circle),
+        child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
+            ? const GlobalLoadingWidget()
+            : image != null
+                ? ElasticIn(
+                    duration: const Duration(seconds: 1),
+                    child: Image.asset(
+                      image,
+                      color: imageColor,
+                    ),
+                  )
+                : Container(),
+      ),
+    );
+  }
+}
