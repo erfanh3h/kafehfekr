@@ -45,6 +45,8 @@ class GlobalController extends BaseController {
   }
 
   checkLoginStatus({bool navigateToMain = true}) async {
+    Get.toNamed(AppRoutes.ludo);
+    return;
     // await removeData();
     bool isConfigOk = await getConfigData(navigateToMain: navigateToMain);
     token.value = await globalRepo.getDataFromStorage(key: StorageKeys.token);

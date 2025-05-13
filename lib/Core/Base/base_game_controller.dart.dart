@@ -396,11 +396,13 @@ class BaseGameController extends BaseController {
   void onInit() {
     letPlayMusic.value = Get.find<SoundPlayerComponent>().letPlayMusic.value;
     isPageLoading.value = true;
-    myId = Get.find<GlobalController>().userId!;
-    Get.find<GameSocketManager>()
-        .changeCommandHandler(commandHandler: commandHandler);
-    Get.find<GameSocketManager>()
-        .changeReactionHandler(reactionHandler: reactionHandler);
+    //TODO : fix this
+    myId = Get.find<GlobalController>().userId ?? "1";
+    // myId = Get.find<GlobalController>().userId!;
+    // Get.find<GameSocketManager>()
+    //     .changeCommandHandler(commandHandler: commandHandler);
+    // Get.find<GameSocketManager>()
+    //     .changeReactionHandler(reactionHandler: reactionHandler);
     super.onInit();
   }
 

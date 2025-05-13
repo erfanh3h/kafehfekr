@@ -3,344 +3,140 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Ludo/Controllers/ludo_controller.dart';
 import 'package:kafehfekr/Games/Ludo/Widgets/ludo_button.dart';
+import 'package:kafehfekr/Games/Ludo/Widgets/ludo_user_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
 class LudoBoardWidget extends StatelessWidget {
-  const LudoBoardWidget({
+  LudoBoardWidget({
     super.key,
     required this.controller,
   });
 
   final LudoController controller;
 
-  final Widget verticalDivider = const VerticalDivider(
-    color: AppColors.lightColor,
-    thickness: 3,
-    width: 10,
-  );
-
-  final Widget horizentalDivider = const Divider(
-    color: AppColors.lightColor,
-    thickness: 3,
-    height: 10,
-  );
+  final List<(double, double, Color?)> positions = [
+    (0, 130, null),
+    (0, 160, null),
+    (0, 190, AppColors.blueWarmColor),
+    (30, 130, null),
+    (30, 160, AppColors.blueWarmColor),
+    (30, 190, null),
+    (60, 130, null),
+    (60, 160, AppColors.blueWarmColor),
+    (60, 190, null),
+    (90, 130, null),
+    (90, 160, AppColors.blueWarmColor),
+    (90, 190, null),
+    (120, 10, AppColors.yellow),
+    (120, 40, null),
+    (120, 70, null),
+    (120, 100, null),
+    (120, 130, null),
+    (120, 160, AppColors.blueWarmColor),
+    (120, 190, null),
+    (120, 220, null),
+    (120, 250, null),
+    (120, 280, null),
+    (120, 310, null),
+    (120, 130, null),
+    (120, 160, AppColors.blueWarmColor),
+    (120, 190, null),
+    (150, 10, null),
+    (150, 40, AppColors.yellow),
+    (150, 70, AppColors.yellow),
+    (150, 100, AppColors.yellow),
+    (150, 130, AppColors.yellow),
+    // empty
+    (150, 190, AppColors.darkGreen),
+    (150, 220, AppColors.darkGreen),
+    (150, 250, AppColors.darkGreen),
+    (150, 280, AppColors.darkGreen),
+    (150, 310, null),
+    (180, 10, null),
+    (180, 40, null),
+    (180, 70, null),
+    (180, 100, null),
+    (180, 130, null),
+    (180, 160, AppColors.redWarmColor),
+    (180, 190, null),
+    (180, 220, null),
+    (180, 250, null),
+    (180, 280, null),
+    (180, 310, AppColors.darkGreen),
+    (210, 130, null),
+    (210, 160, AppColors.redWarmColor),
+    (210, 190, null),
+    (240, 130, null),
+    (240, 160, AppColors.redWarmColor),
+    (240, 190, null),
+    (270, 130, null),
+    (270, 160, AppColors.redWarmColor),
+    (270, 190, null),
+    (300, 130, AppColors.redWarmColor),
+    (300, 160, null),
+    (300, 190, null),
+  ];
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Container(
-        padding: AppSpacings.s5All,
-        margin: AppSpacings.s10All,
-        height: 330,
-        width: 330,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [Colors.transparent, Colors.brown],
-            // stops: imageColor != null ? const [0, 0] : null,
-          ),
-          border: Border.all(
-            color: AppColors.darkColor,
-            width: 15,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Stack(
-          children: [
-            Positioned(
-              top: 40,
-              left: 13,
-              child: SizedBox(
-                height: 90,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 40,
-              left: 13,
-              child: SizedBox(
-                height: 90,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 40,
-              right: 13,
-              child: SizedBox(
-                height: 90,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 40,
-              right: 13,
-              child: SizedBox(
-                height: 90,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 80,
-              left: 57,
-              child: SizedBox(
-                height: 50,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 80,
-              left: 57,
-              child: SizedBox(
-                height: 50,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 80,
-              right: 57,
-              child: SizedBox(
-                height: 50,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 80,
-              right: 57,
-              child: SizedBox(
-                height: 50,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 40,
-              left: 140,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 80,
-              left: 140,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 40,
-              left: 140,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              bottom: 80,
-              left: 140,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 120,
-              left: 98,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 162,
-              left: 98,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 120,
-              right: 98,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Positioned(
-              top: 162,
-              right: 98,
-              child: SizedBox(
-                height: 8,
-                child: verticalDivider,
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return SizedBox(
+      width: 350,
+      height: 350,
+      // decoration: BoxDecoration(
+      //   gradient: const LinearGradient(
+      //     begin: Alignment.bottomLeft,
+      //     end: Alignment.topRight,
+      //     colors: [Colors.transparent, Colors.brown],
+      //   ),
+      //   borderRadius: BorderRadius.circular(15),
+      // ),
+      // width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
+      child: LayoutBuilder(builder: (context, cons) {
+        return Container(
+          margin: AppSpacings.s10Vertical,
+          child: Center(
+            child: Stack(
+              alignment: Alignment.center,
+              clipBehavior: Clip.none,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LudoButton(
-                      peaceData: controller.peaces[0].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[1].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[2].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ],
+                const Positioned(
+                  top: 30,
+                  left: 30,
+                  child: LudoUserWidget(count: 0, color: AppColors.yellow),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    LudoButton(
-                      peaceData: controller.peaces[3].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[4].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[5].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    const Spacer(),
-                  ],
+                const Positioned(
+                  bottom: 30,
+                  left: 30,
+                  child:
+                      LudoUserWidget(count: 0, color: AppColors.redWarmColor),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LudoButton(
-                      peaceData: controller.peaces[6].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    SizedBox(
-                      width: 5,
-                      child: horizentalDivider,
-                    ),
-                    LudoButton(
-                      peaceData: controller.peaces[7].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    SizedBox(
-                      width: 5,
-                      child: horizentalDivider,
-                    ),
-                    LudoButton(
-                      peaceData: controller.peaces[8].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ],
+                const Positioned(
+                  bottom: 30,
+                  right: 35,
+                  child: LudoUserWidget(count: 0, color: AppColors.darkGreen),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LudoButton(
-                      peaceData: controller.peaces[9].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(flex: 2, child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[10].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(flex: 2, child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[11].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    const SizedBox(width: 50),
-                    LudoButton(
-                      peaceData: controller.peaces[12].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(flex: 2, child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[13].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(flex: 2, child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[14].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ],
+                const Positioned(
+                  top: 30,
+                  right: 35,
+                  child:
+                      LudoUserWidget(count: 0, color: AppColors.blueWarmColor),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LudoButton(
-                      peaceData: controller.peaces[15].value,
-                      onTap: controller.onEachButtonTap,
+                for (int i = 0; i < positions.length; i++)
+                  Positioned(
+                    top: positions[i].$1,
+                    left: positions[i].$2,
+                    child: Obx(
+                      () => LudoButton(
+                        pieceData: controller.peaces[i].value,
+                        onTap: controller.onEachButtonTap,
+                        color: positions[i].$3,
+                      ),
                     ),
-                    SizedBox(width: 5, child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[16].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    SizedBox(width: 5, child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[17].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    LudoButton(
-                      peaceData: controller.peaces[18].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[19].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[20].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    const Spacer(),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LudoButton(
-                      peaceData: controller.peaces[21].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[22].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                    Expanded(child: horizentalDivider),
-                    LudoButton(
-                      peaceData: controller.peaces[23].value,
-                      onTap: controller.onEachButtonTap,
-                    ),
-                  ],
-                ),
+                  ),
               ],
             ),
-          ],
-        ),
-      );
-    });
+          ),
+        );
+      }),
+    );
   }
 }

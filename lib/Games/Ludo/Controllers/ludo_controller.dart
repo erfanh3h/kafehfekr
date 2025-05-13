@@ -376,7 +376,7 @@ class LudoController extends BaseGameController {
   }
 
   initPieces() {
-    for (var i = 0; i < 24; i++) {
+    for (var i = 0; i < 100; i++) { //TODO : must be 56
       peaces.add(Rx(LudoPieceModel(id: i, currentStatuses: [])));
     }
   }
@@ -386,5 +386,6 @@ class LudoController extends BaseGameController {
     super.onInit();
     gameType = GameTypes.Ludo;
     initPieces();
+    isPageLoading.value = false;
   }
 }

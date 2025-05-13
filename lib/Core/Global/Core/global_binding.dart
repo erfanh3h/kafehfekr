@@ -11,6 +11,7 @@ import 'package:kafehfekr/Games/DotBox/Core/dotbox_binding.dart';
 import 'package:kafehfekr/Games/FekrBekr/Core/fekrbekr_binding.dart';
 import 'package:kafehfekr/Games/FourInRow/Core/four_in_row_binding.dart';
 import 'package:kafehfekr/Features/General/Core/general_binding.dart';
+import 'package:kafehfekr/Games/Ludo/Core/ludo_binding.dart';
 import 'package:kafehfekr/Games/MNumbers/Core/mnumbers_binding.dart';
 import 'package:kafehfekr/Games/MSweeper/Core/msweeper_binding.dart';
 import 'package:kafehfekr/Games/Mafia/Core/mafia_binding.dart';
@@ -49,6 +50,7 @@ class GlobalBinding implements BindingsInterface {
         SudokuBinding().dependencies(),
         YinshBinding().dependencies(),
         BattleShipBinding().dependencies(),
+        LudoBinding().dependencies(),
         BoxFourBinding().dependencies(),
         FekrBekrBinding().dependencies(),
         BackGammonBinding().dependencies(),
