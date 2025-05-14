@@ -6,18 +6,22 @@ class LudoPieceModel extends PeaceModel {
     required super.id,
     required super.currentStatuses,
     this.selectedUser,
+    this.count = 0,
   });
 
   int? selectedUser;
+  int count;
 
   LudoPieceModel changeSelectedUser({
     int? newSelectedUser,
+    int newCount = 1,
   }) {
     final data = super.addStatus(status: PeaceStatusTypes.selected);
     return LudoPieceModel(
       id: id,
       currentStatuses: data.currentStatuses,
       selectedUser: newSelectedUser,
+      count: newCount,
     );
   }
 
@@ -26,7 +30,14 @@ class LudoPieceModel extends PeaceModel {
       id: id,
       currentStatuses: [],
       selectedUser: null,
+      count: 0,
     );
+  }
+
+  bool isEnemySpot(int gamerId) {
+    return (selectedUser != null &&
+        selectedUser != 0 &&
+        selectedUser != gamerId);
   }
 
   @override

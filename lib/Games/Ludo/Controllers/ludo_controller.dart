@@ -1,86 +1,129 @@
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Ludo/Models/ludo_piece_model.dart';
 import 'package:refreshed/refreshed.dart';
 
+Map<int, Map<int, Map<int, bool?>>> gamerPiecesWinMap = {
+  1: {
+    34: {1: false, 2: false, 3: false, 4: false, 5: false, 6: true},
+    35: {1: false, 2: false, 3: false, 4: false, 5: true, 6: true},
+    36: {1: false, 2: false, 3: false, 4: true, 5: true, 6: true},
+    37: {1: false, 2: false, 3: true, 4: true, 5: true, 6: true},
+    38: {1: false, 2: true, 3: true, 4: true, 5: true, 6: null},
+    39: {1: true, 2: true, 3: true, 4: true, 5: null, 6: null}
+  },
+  2: {
+    14: {1: false, 2: false, 3: false, 4: false, 5: false, 6: true},
+    15: {1: false, 2: false, 3: false, 4: false, 5: true, 6: true},
+    16: {1: false, 2: false, 3: false, 4: true, 5: true, 6: true},
+    17: {1: false, 2: false, 3: true, 4: true, 5: true, 6: true},
+    18: {1: false, 2: true, 3: true, 4: true, 5: true, 6: null},
+    19: {1: true, 2: true, 3: true, 4: true, 5: null, 6: null}
+  },
+  3: {
+    24: {1: false, 2: false, 3: false, 4: false, 5: false, 6: true},
+    25: {1: false, 2: false, 3: false, 4: false, 5: true, 6: true},
+    26: {1: false, 2: false, 3: false, 4: true, 5: true, 6: true},
+    27: {1: false, 2: false, 3: true, 4: true, 5: true, 6: true},
+    28: {1: false, 2: true, 3: true, 4: true, 5: true, 6: null},
+    29: {1: true, 2: true, 3: true, 4: true, 5: null, 6: null}
+  },
+  4: {
+    4: {1: false, 2: false, 3: false, 4: false, 5: false, 6: true},
+    5: {1: false, 2: false, 3: false, 4: false, 5: true, 6: true},
+    6: {1: false, 2: false, 3: false, 4: true, 5: true, 6: true},
+    7: {1: false, 2: false, 3: true, 4: true, 5: true, 6: true},
+    8: {1: false, 2: true, 3: true, 4: true, 5: true, 6: null},
+    9: {1: true, 2: true, 3: true, 4: true, 5: null, 6: null}
+  },
+};
+
+Map<int, Map<int, Map<int, int>>> gamerWinIndexesMap = {
+  1: {
+    34: {6: 40},
+    35: {5: 40, 6: 41},
+    36: {4: 40, 5: 41, 6: 42},
+    37: {3: 40, 4: 41, 5: 42, 6: 43},
+    38: {2: 40, 3: 41, 4: 42, 5: 43},
+    39: {1: 40, 2: 41, 3: 42, 4: 43}
+  },
+  2: {
+    14: {6: 44},
+    15: {5: 44, 6: 45},
+    16: {4: 44, 5: 45, 6: 46},
+    17: {3: 44, 4: 45, 5: 46, 6: 47},
+    18: {2: 44, 3: 45, 4: 46, 5: 47},
+    19: {1: 44, 2: 45, 3: 46, 4: 47}
+  },
+  3: {
+    24: {6: 48},
+    25: {5: 48, 6: 49},
+    26: {4: 48, 5: 49, 6: 50},
+    27: {3: 48, 4: 49, 5: 50, 6: 51},
+    28: {2: 48, 3: 49, 4: 50, 5: 51},
+    29: {1: 48, 2: 49, 3: 50, 4: 51}
+  },
+  4: {
+    4: {6: 52},
+    5: {5: 52, 6: 53},
+    6: {4: 52, 5: 53, 6: 54},
+    7: {3: 52, 4: 53, 5: 54, 6: 55},
+    8: {2: 52, 3: 53, 4: 54, 5: 55},
+    9: {1: 52, 2: 53, 3: 54, 4: 55}
+  },
+};
+
 class LudoController extends BaseGameController {
   RxList<Rx<LudoPieceModel>> peaces = RxList();
 
-  RxInt player1Peaces = RxInt(9);
-  RxInt player2Peaces = RxInt(9);
+  int playersCount = 2;
 
-  RxInt player1PlayedPeaces = RxInt(0);
-  RxInt player2PlayedPeaces = RxInt(0);
+  RxList<int> playersOutPieces = RxList();
 
-  RxInt player1RemovedPeaces = RxInt(0);
-  RxInt player2RemovedPeaces = RxInt(0);
+  RxInt currentDice = RxInt(0);
+  RxBool currentTurnPlayerRolled = RxBool(false);
+  RxBool hasMoreDice = RxBool(false);
 
-  RxInt equippedPeaceIndex = RxInt(-1);
+  RxList<int> currentAvailableIndexes = RxList();
 
-  RxInt currentRemover = RxInt(0);
-
-  RxBool letRemovePeace = RxBool(false);
-
-  Map<int, List<int>> neighborsData = {
-    0: [1, 9],
-    1: [0, 2, 4],
-    2: [1, 14],
-    3: [4, 10],
-    4: [1, 3, 5, 7],
-    5: [4, 13],
-    6: [7, 11],
-    7: [4, 6, 8],
-    8: [7, 12],
-    9: [0, 10, 21],
-    10: [3, 9, 11, 18],
-    11: [6, 10, 15],
-    12: [8, 13, 17],
-    13: [5, 12, 14, 20],
-    14: [2, 13, 23],
-    15: [11, 16],
-    16: [15, 17, 19],
-    17: [12, 16],
-    18: [10, 19],
-    19: [16, 18, 20, 22],
-    20: [13, 19],
-    21: [9, 22],
-    22: [19, 21, 23],
-    23: [14, 22]
-  };
+  @override
+  void commandHandler(dynamic data) {
+    print(data);
+    super.commandHandler(data);
+    final commandId = data['id'];
+    switch (commandId) {
+      case GameCommands.rollResult:
+        rollResultFunction(data);
+        break;
+      default:
+    }
+  }
 
   @override
   void currentTurnFunction(Map data) {
-    int turn = data['data'];
+    releasePeaces();
+    int turn = data['data']['turn'];
     currentTurn.value = turn;
-    if (turn == myGameId) {
-      canSelectPeace.value = true;
-      showInteraction(sound: GameSoundTypes.startTurn);
-    } else {
-      canSelectPeace.value = false;
-    }
-    changetimerValue(GameWaitTimes.millSelectTime);
-    resetAllPeacesStates();
+    currentTurnPlayerRolled.value = false;
+    // if (turn == myGameId) {
+    canSelectPeace.value = true;
+    showInteraction(sound: GameSoundTypes.startTurn);
+    // } else {
+    //   canSelectPeace.value = false;
+    // }
+    // changetimerValue(GameWaitTimes.millSelectTime);
   }
 
   @override
   void peaceSelectedFunction(Map data) {
-    Map peaceData = data['data'];
-    int peaceId = peaceData['target_peace'];
-    int gamerId = peaceData['user'];
-    if (gamerId == 1) {
-      player1PlayedPeaces.value += 1;
-    } else {
-      player2PlayedPeaces.value += 1;
-    }
-    removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
-    removeAllPeacesStatus(PeaceStatusTypes.isLoading);
-    peaces[peaceId].value =
-        peaces[peaceId].value.changeSelectedUser(newSelectedUser: gamerId);
-    peaces.value[peaceId].value = peaces.value[peaceId].value
-        .addStatus(status: PeaceStatusTypes.lastTurnPlayed);
+    Map pieceData = data['data'];
+    int index = pieceData['index'];
+    int gamerId = pieceData['gamer_id'];
+    movePiece(index, gamerId);
+    releasePeaces();
   }
 
   @override
@@ -90,235 +133,186 @@ class LudoController extends BaseGameController {
     Map gameData = newData['game_data'];
     Map timerData = newData['timer_data'];
     List boardData = gameData['board'];
-    int currentRemoverGameId = gameData['current_remover'];
-    player1PlayedPeaces.value = gameData['played_peaces'][0];
-    player2PlayedPeaces.value = gameData['played_peaces'][1];
-    player1RemovedPeaces.value = gameData['removed_peaces'][0];
-    player2RemovedPeaces.value = gameData['removed_peaces'][1];
     currentTurn.value = gameData['current_turn'];
-    currentRemover.value = gameData['current_remover'];
+    currentDice.value = gameData['current_dice'];
+    currentTurnPlayerRolled.value = gameData['current_turn_player_rolled'];
+    playersOutPieces.value = List<int>.from(gameData['players_out_pieces']);
     for (var i = 0; i < boardData.length; i++) {
-      if (boardData[i] == 0) {
+      if (boardData[i]['equipped_user'] == 0) {
         continue;
       }
-      peaces[i].value =
-          peaces[i].value.changeSelectedUser(newSelectedUser: boardData[i]);
+      changePieceSelecteUser(i, boardData[i]['equipped_user'],
+          count: boardData[i]['count']);
     }
-    if (currentTurn.value == myGameId) {
-      canSelectPeace.value = true;
-    } else {
-      canSelectPeace.value = false;
+    // if (currentTurn.value == myGameId) {
+    canSelectPeace.value = true;
+    if (currentTurnPlayerRolled.value) {
+      setAvailableMoves();
     }
-    if (currentRemoverGameId == myGameId) {
-      letRemovePeace.value = true;
-      canSelectPeace.value = true;
-      for (var neighborId in getEnemyPeacesIndexes()) {
-        addPeaceStatus(neighborId, PeaceStatusTypes.canHitted);
-      }
-    }
+    // } else {
+    //   canSelectPeace.value = false;
+    // }
     // if (timerData['is_user_turn']) {
-    final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-    changetimerValue(time.clamp(0, time));
+    // final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
+    // changetimerValue(time.clamp(0, time));
     // }
   }
 
   @override
-  void peaceSwapedFunction(Map data) {
-    Map peaceData = data['data'];
-    int sourcePeaceId = peaceData['source_peace'];
-    int targetPeaceId = peaceData['target_peace'];
-    int gamerId = peaceData['user'];
-    for (final peace in peaces) {
-      if (peace.value.id == sourcePeaceId) {
-        peace.value = peace.value.changeSelectedUser(newSelectedUser: null);
-        removePeaceStatus(sourcePeaceId, PeaceStatusTypes.isLoading);
-      } else if (peace.value.id == targetPeaceId) {
-        removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
-        peace.value = peace.value.changeSelectedUser(newSelectedUser: gamerId);
-        peace.value =
-            peace.value.addStatus(status: PeaceStatusTypes.lastTurnPlayed);
-        removePeaceStatus(targetPeaceId, PeaceStatusTypes.isLoading);
-      }
-    }
-  }
-
-  @override
-  void peaceRemovedFunction(Map data) {
-    showInteraction(sound: GameSoundTypes.hit);
-    Map peaceData = data['data'];
-    int peaceId = peaceData['target_peace'];
-    int gamerId = peaceData['user'];
-    if (gamerId == 1) {
-      player2RemovedPeaces.value += 1;
-    } else {
-      player1RemovedPeaces.value += 1;
-    }
-    for (final peace in peaces) {
-      if (peace.value.id == peaceId) {
-        peace.value = peace.value.changeSelectedUser(newSelectedUser: null);
-        removePeaceStatus(peaceId, PeaceStatusTypes.isLoading);
-        break;
-      }
-    }
-    currentRemover.value = 0;
-  }
-
-  @override
-  void selectRemovePeaceFunction(Map data) {
-    int removerId = data['data'];
-    currentRemover.value = removerId;
-    changetimerValue(GameWaitTimes.millRemoveTime);
-    if (removerId == myGameId) {
-      letRemovePeace.value = true;
-      canSelectPeace.value = true;
-      for (var neighborId in getEnemyPeacesIndexes()) {
-        addPeaceStatus(neighborId, PeaceStatusTypes.canHitted);
-      }
-    }
-  }
-
-  @override
   void onEachButtonTap(dynamic tappedPeace) {
-    LudoPieceModel peace = tappedPeace as LudoPieceModel;
-    if (!canSelectPeace.value) {
-      showInteraction(text: AppTexts.notYourTurn.tr);
-      return;
-    }
-
-    if (letRemovePeace.value) {
-      //remove
-      if (!peace.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
-        showInteraction(text: AppTexts.cantRemoveThisPiece.tr);
-        return;
-      }
-      // if (checkPeaceIsEmpty(peace.id) || peace.selectedUser == myGameId) {
-      //   showInteraction(text: AppTexts.cantRemoveYourPiece.tr);
-      //   return;
-      // }
-      letRemovePeace.value = false;
-      canSelectPeace.value = false;
-      sendCommand({"id": GameCommands.selectRemovePeace, "data": peace.id});
-      addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-      removePeaceStatus(peace.id, PeaceStatusTypes.canHitted);
-      for (var neighborId in getEnemyPeacesIndexes()) {
-        removePeaceStatus(neighborId, PeaceStatusTypes.canHitted);
-      }
-      showInteraction(sound: GameSoundTypes.removePeace);
-    } else {
-      if (checkAllOfMyPeacesPlaced()) {
-        //swap
-        if (equippedPeaceIndex.value != -1) {
-          if (equippedPeaceIndex.value == peace.id) {
-            releasePeace();
-          } else if (peace.selectedUser == myGameId) {
-            releasePeace();
-            equipPeace(peace.id);
-          } else {
-            if (peace.selectedUser != myGameId && peace.selectedUser != null) {
-              showInteraction(text: AppTexts.cantSwapEnemyPiece.tr);
-              return;
-            }
-            if (!peace.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
-              showInteraction(text: AppTexts.cantSelect.tr);
-              return;
-            }
-            if (equippedPeaceIndex.value == peace.id) {
-              showInteraction(sound: GameSoundTypes.removePeace);
-              return;
-            }
-            if (!checkPeaceIsEmpty(peace.id)) {
-              showInteraction(text: AppTexts.selectedBefore.tr);
-              return;
-            }
-
-            canSelectPeace.value = false;
-            sendCommand({
-              "id": GameCommands.swapPeace,
-              "data": {
-                "source": equippedPeaceIndex.value,
-                "target": peace.id,
-              },
-            });
-            addPeaceStatus(
-                equippedPeaceIndex.value, PeaceStatusTypes.isLoading);
-            addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-            releasePeace();
-            showInteraction(sound: GameSoundTypes.movePeace);
-          }
-        } else {
-          equipPeace(peace.id);
-        }
-      } else {
-        //normal select
-        if (!checkPeaceIsEmpty(peace.id)) {
-          showInteraction(text: AppTexts.selectedBefore.tr);
-          return;
-        }
-        canSelectPeace.value = false;
-        showInteraction(sound: GameSoundTypes.tap);
-        sendCommand({"id": GameCommands.selectPeace, "data": peace.id});
-        addPeaceStatus(peace.id, PeaceStatusTypes.isLoading);
-      }
-    }
-  }
-
-  void equipPeace(int index) {
-    if (peaces[index].value.selectedUser != myGameId) {
+    LudoPieceModel piece = tappedPeace as LudoPieceModel;
+    // if (!canSelectPeace.value) {
+    //   showInteraction(text: AppTexts.notYourTurn.tr);
+    //   return;
+    // }
+    if ((piece.selectedUser != null &&
+            currentTurn.value != piece.selectedUser) ||
+        piece.selectedUser == null) {
       showInteraction(text: AppTexts.cantSelect.tr);
       return;
     }
-    showInteraction(sound: GameSoundTypes.tap);
-    equippedPeaceIndex.value = index;
-    addPeaceStatus(index, PeaceStatusTypes.equiped);
-    int currentPeaceLeft = 0;
-    if (myGameId == 1) {
-      currentPeaceLeft = player1Peaces.value - player1RemovedPeaces.value;
-    } else {
-      currentPeaceLeft = player2Peaces.value - player2RemovedPeaces.value;
+    sendCommand({
+      "id": GameCommands.selectPeace,
+      "data": {'index': piece.id}
+    });
+  }
+
+  void onOutTap() {
+    sendCommand({
+      "id": GameCommands.selectPeace,
+      "data": {'index': -1}
+    });
+    releasePeaces();
+  }
+
+  bool checkIndexAvailable(int index) {
+    final gamerId = peaces[index].value.selectedUser!;
+    if (gamerId == 1 && index <= 33) {
+      return true;
     }
-    if (currentPeaceLeft <= 3) {
-      for (var peace in peaces.value) {
-        final index = peace.value.id;
-        if (checkPeaceIsEmpty(index)) {
-          addPeaceStatus(index, PeaceStatusTypes.canSelected);
-        }
+    if (gamerId == 2 && (index <= 13 || index >= 20)) {
+      return true;
+    }
+    if (gamerId == 3 && (index <= 23 || index >= 30)) {
+      return true;
+    }
+    if (gamerId == 4 && (index <= 3 || index >= 10)) {
+      return true;
+    }
+    final isIndexWinable =
+        gamerPiecesWinMap[gamerId]![index]![currentDice.value];
+    if (isIndexWinable == null) {
+      return false;
+    }
+    if (isIndexWinable) {
+      final winIndex = gamerWinIndexesMap[gamerId]![index]![currentDice.value]!;
+      if (peaces[winIndex].value.selectedUser == null) {
+        return true;
       }
-    } else {
-      for (var neighborId in neighborsData[index] ?? []) {
-        if (checkPeaceIsEmpty(neighborId)) {
-          addPeaceStatus(neighborId, PeaceStatusTypes.canSelected);
-        }
+      return false;
+    }
+
+    return true;
+  }
+
+  List<int> getMyPieceIndexes(gamerId) {
+    List<int> result = [];
+    for (var i = 0; i < (peaces.length); i++) {
+      if (peaces[i].value.selectedUser == gamerId) {
+        result.add(i);
       }
+    }
+
+    return result;
+  }
+
+  bool checkGamerPieceIsOut(int gamerId) {
+    if (playersOutPieces.value[gamerId - 1] > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  setAvailableMoves() {
+    final List<int> pieces = getMyPieceIndexes(currentTurn.value);
+    for (var pieceIndex in pieces) {
+      if (checkIndexAvailable(pieceIndex)) {
+        currentAvailableIndexes.add(pieceIndex);
+        addPeaceStatus(pieceIndex, PeaceStatusTypes.canSelected);
+      }
+    }
+
+    final havePieceOut = checkGamerPieceIsOut(currentTurn.value);
+    if (havePieceOut) {
+      currentAvailableIndexes.add(-1);
     }
   }
 
-  void releasePeace() {
-    removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
-    try {
-      removePeaceStatus(equippedPeaceIndex.value, PeaceStatusTypes.equiped);
-    } catch (_) {}
+  movePiece(int index, int gamerId) {
+    int targetIndex = 0;
+    if (index == -1) {
+      if (gamerId == 1) {
+        targetIndex = currentDice.value;
+      } else if (gamerId == 2) {
+        targetIndex = 20 + currentDice.value;
+      } else if (gamerId == 3) {
+        targetIndex = 30 + currentDice.value;
+      } else if (gamerId == 4) {
+        targetIndex = 10 + currentDice.value;
+      }
+      playersOutPieces[gamerId - 1] -= 1;
+    } else if ((gamerId == 1 && index <= 33) ||
+        (gamerId == 2 && (index <= 13 || index >= 20)) ||
+        (gamerId == 3 && (index <= 23 || index >= 30)) ||
+        (gamerId == 4 && (index <= 3 || index >= 10))) {
+      targetIndex = (index + currentDice.value) % 40;
+    } else {
+      final isIndexWinable =
+          gamerPiecesWinMap[gamerId]![index]![currentDice.value];
+      if (isIndexWinable == null) {
+      } else if (isIndexWinable) {
+        targetIndex = gamerWinIndexesMap[gamerId]![index]![currentDice.value]!;
+      } else {
+        targetIndex = (index + currentDice.value) % 40;
+      }
+    }
+
+    if (targetIndex < 40) {
+      if ((gamerId != 1 && targetIndex == 0) ||
+          (gamerId != 2 && targetIndex == 20) ||
+          (gamerId != 3 && targetIndex == 30) ||
+          (gamerId != 4 && targetIndex == 1)) {
+        targetIndex += 1;
+      } //other players cant enter others home
+      if (peaces[targetIndex].value.isEnemySpot(gamerId)) {
+        final enemyIndex = peaces[targetIndex].value.selectedUser!;
+        final enemyCount = peaces[targetIndex].value.count;
+        playersOutPieces[enemyIndex] += enemyCount;
+        peaces[targetIndex].value.resetPeace();
+      } //hit enemy
+    } // win not happens
+    removePiece(index);
+    changePieceSelecteUser(targetIndex, gamerId);
+    update();
+  }
+
+  rollDice() {
+    sendCommand({
+      "id": GameCommands.rollDice,
+      "data": {'dice': 6}
+    });
+  }
+
+  void rollResultFunction(Map data) {
+    currentTurnPlayerRolled.value = true;
+    Map turnData = data['data'];
+    currentDice.value = turnData['dice'];
+    showInteraction(sound: GameSoundTypes.dice);
+    setAvailableMoves();
+  }
+
+  void releasePeaces() {
     removeAllPeacesStatus(PeaceStatusTypes.canSelected);
-    equippedPeaceIndex.value = -1;
-  }
-
-  bool checkSelectedPeaceIsNeighborOfSource(int targetId) {
-    return (neighborsData[equippedPeaceIndex.value] ?? []).contains(targetId);
-  }
-
-  bool checkAllOfMyPeacesPlaced() {
-    if (myGameId == 1) {
-      if (player1PlayedPeaces.value < player1Peaces.value) {
-        return false;
-      } else {
-        return true;
-      }
-    } else {
-      if (player2PlayedPeaces.value < player2Peaces.value) {
-        return false;
-      } else {
-        return true;
-      }
-    }
   }
 
   bool checkPeaceIsEmpty(int index) {
@@ -336,16 +330,14 @@ class LudoController extends BaseGameController {
     return result;
   }
 
-  void resetAllPeacesStates() {
-    for (var neighborId in getEnemyPeacesIndexes()) {
-      removePeaceStatus(neighborId, PeaceStatusTypes.canSelected);
-      removePeaceStatus(neighborId, PeaceStatusTypes.canHitted);
-      removePeaceStatus(neighborId, PeaceStatusTypes.isLoading);
-    }
-    letRemovePeace.value = false;
-    if (equippedPeaceIndex.value != -1) {
-      releasePeace();
-    }
+  removePiece(int index) {
+    peaces[index].value = peaces[index].value.resetPeace();
+  }
+
+  changePieceSelecteUser(int index, int gamerId, {int count = 1}) {
+    peaces[index].value = peaces[index]
+        .value
+        .changeSelectedUser(newSelectedUser: gamerId, newCount: count);
   }
 
   void resetPeaces() {
@@ -376,8 +368,11 @@ class LudoController extends BaseGameController {
   }
 
   initPieces() {
-    for (var i = 0; i < 100; i++) { //TODO : must be 56
+    for (var i = 0; i < 56; i++) {
       peaces.add(Rx(LudoPieceModel(id: i, currentStatuses: [])));
+    }
+    for (var i = 0; i < playersCount; i++) {
+      playersOutPieces.add(4);
     }
   }
 

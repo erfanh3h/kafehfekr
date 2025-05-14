@@ -6,10 +6,16 @@ class LudoUserWidget extends StatelessWidget {
     super.key,
     required this.count,
     required this.color,
+    required this.onTap,
+    required this.canEquip,
+    required this.outCount,
   });
 
   final int count;
   final Color color;
+  final Function onTap;
+  final bool canEquip;
+  final int outCount;
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +26,15 @@ class LudoUserWidget extends StatelessWidget {
         // spacing: 8.0,
         // runSpacing: 4.0,
         children: List.generate(
-          4,
+          outCount,
           (index) {
             return UseButton(
-              onTap: () {},
+              onTap: () {
+                onTap();
+              },
               color: index < count ? color : AppColors.transparent,
               borderColor: color,
+              canEquip: index < count && canEquip,
             );
           },
         ),
@@ -40,11 +49,13 @@ class UseButton extends StatelessWidget {
     required this.onTap,
     required this.color,
     required this.borderColor,
+    required this.canEquip,
   });
 
   final Function onTap;
   final Color? color;
   final Color? borderColor;
+  final bool canEquip;
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +76,10 @@ class UseButton extends StatelessWidget {
             color: Colors.transparent,
             // color: AppColors.lightColor,
             border: Border.all(
-              color: borderColor ?? AppColors.lightColor,
-              width: 2,
+              color: canEquip
+                  ? AppColors.goldenColor
+                  : borderColor ?? AppColors.lightColor,
+              width: canEquip ? 5 : 2,
             ),
             shape: BoxShape.circle),
         child: Stack(
