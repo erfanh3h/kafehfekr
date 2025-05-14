@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Games/Ludo/Models/ludo_piece_model.dart';
 
 class LudoButton extends StatelessWidget {
@@ -79,10 +80,16 @@ class LudoButton extends StatelessWidget {
                         ),
                         child: const Text(" "),
                       ),
-                      // const Text(
-                      //   "2",
-                      //   style: TextStyle(color: AppColors.lightColor),
-                      // ),
+                      if (pieceData.count > 1)
+                        Text(
+                          pieceData.count.toString(),
+                          style: const TextStyle(
+                            color: AppColors.lightColor,
+                            fontSize: 13,
+                            fontFamily: FontFamilies.hekayat,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                     ],
                   )
                 : Container(),

@@ -26,11 +26,13 @@ class LudoUserWidget extends StatelessWidget {
         // spacing: 8.0,
         // runSpacing: 4.0,
         children: List.generate(
-          outCount,
+          4,
           (index) {
             return UseButton(
               onTap: () {
-                onTap();
+                if (canEquip) {
+                  onTap();
+                }
               },
               color: index < count ? color : AppColors.transparent,
               borderColor: color,

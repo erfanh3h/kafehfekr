@@ -34,6 +34,33 @@ class LudoPieceModel extends PeaceModel {
     );
   }
 
+  LudoPieceModel addPiece(int newSelected, {int addCount = 1}) {
+    final newCount = count + addCount;
+    final data = super.addStatus(status: PeaceStatusTypes.selected);
+    return LudoPieceModel(
+      id: id,
+      currentStatuses: data.currentStatuses,
+      selectedUser: newSelected,
+      count: newCount,
+    );
+  }
+
+  LudoPieceModel reducePiece({int reduceCount = 1}) {
+    final newCount = count - reduceCount;
+    int newSelected = selectedUser ?? 0;
+    List<PeaceStatusTypes> newStatuses = currentStatuses;
+    if (newCount == 0) {
+      newSelected = 0;
+      newStatuses.clear();
+    }
+    return LudoPieceModel(
+      id: id,
+      currentStatuses: newStatuses,
+      selectedUser: newSelected,
+      count: newCount,
+    );
+  }
+
   bool isEnemySpot(int gamerId) {
     return (selectedUser != null &&
         selectedUser != 0 &&
@@ -47,6 +74,7 @@ class LudoPieceModel extends PeaceModel {
       id: data.id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
+      count: count,
     );
   }
 
@@ -57,6 +85,7 @@ class LudoPieceModel extends PeaceModel {
       id: data.id,
       currentStatuses: data.currentStatuses,
       selectedUser: selectedUser,
+      count: count,
     );
   }
 }
