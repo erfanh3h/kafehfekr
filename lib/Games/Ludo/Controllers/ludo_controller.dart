@@ -48,7 +48,7 @@ Map<int, Map<int, Map<int, int>>> gamerWinIndexesMap = {
     32: {4: 36, 5: 37, 6: 38},
     33: {3: 36, 4: 37, 5: 38, 6: 39},
     34: {2: 36, 3: 37, 4: 38, 5: 39},
-    35: {1: 46, 2: 37, 3: 38, 4: 39}
+    35: {1: 36, 2: 37, 3: 38, 4: 39}
   },
   2: {
     12: {6: 40},
@@ -73,6 +73,33 @@ Map<int, Map<int, Map<int, int>>> gamerWinIndexesMap = {
     6: {3: 48, 4: 49, 5: 50, 6: 51},
     7: {2: 48, 3: 49, 4: 50, 5: 51},
     8: {1: 48, 2: 49, 3: 50, 4: 51}
+  },
+};
+
+Map<int, Map<int, Map<int, int>>> gamerInWinIndexesMap = {
+  1: {
+    36: {1: 37, 2: 38, 3: 39},
+    37: {1: 38, 2: 39},
+    38: {1: 39},
+    39: {}
+  },
+  2: {
+    40: {1: 41, 2: 42, 3: 43},
+    41: {1: 42, 2: 43},
+    42: {1: 43},
+    43: {}
+  },
+  3: {
+    44: {1: 45, 2: 46, 3: 47},
+    45: {1: 46, 2: 47},
+    46: {1: 47},
+    47: {}
+  },
+  4: {
+    48: {1: 49, 2: 50, 3: 51},
+    49: {1: 50, 2: 41},
+    50: {1: 51},
+    51: {}
   },
 };
 
@@ -109,12 +136,12 @@ class LudoController extends BaseGameController {
     int turn = data['data']['turn'];
     currentTurn.value = turn;
     currentTurnPlayerRolled.value = false;
-    // if (turn == myGameId) {
-    canSelectPeace.value = true;
-    showInteraction(sound: GameSoundTypes.startTurn);
-    // } else {
-    //   canSelectPeace.value = false;
-    // }
+    if (turn == myGameId) {
+      canSelectPeace.value = true;
+      showInteraction(sound: GameSoundTypes.startTurn);
+    } else {
+      canSelectPeace.value = false;
+    }
     // changetimerValue(GameWaitTimes.millSelectTime);
   }
 
@@ -134,7 +161,9 @@ class LudoController extends BaseGameController {
     Map turnData = data['data'];
     currentDice.value = turnData['dice'];
     showInteraction(sound: GameSoundTypes.dice);
-    setAvailableMoves();
+    if (currentTurn.value == myGameId) {
+      setAvailableMoves();
+    }
   }
 
   @override
@@ -163,14 +192,15 @@ class LudoController extends BaseGameController {
       changeStartPieceSelectedUser(i, startBoardData[i]['equipped_user'],
           count: startBoardData[i]['count']);
     }
-    // if (currentTurn.value == myGameId) {
-    canSelectPeace.value = true;
-    if (currentTurnPlayerRolled.value) {
-      setAvailableMoves();
+    if (currentTurn.value == myGameId) {
+      canSelectPeace.value = true;
+      if (currentTurnPlayerRolled.value) {
+        setAvailableMoves();
+      }
+    } else {
+      canSelectPeace.value = false;
     }
-    // } else {
-    //   canSelectPeace.value = false;
-    // }
+    print(isGameStarted.value);
     // if (timerData['is_user_turn']) {
     // final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
     // changetimerValue(time.clamp(0, time));
@@ -221,6 +251,16 @@ class LudoController extends BaseGameController {
       "data": {'index': -2}
     });
     releasePeaces();
+  }
+
+  bool checkWinIndexAvailable(int index) {
+    final gamerId = peaces[index].value.selectedUser!;
+    final isWinPieceTouchable =
+        gamerInWinIndexesMap[gamerId]![index]!.keys.contains(currentDice.value);
+    if (isWinPieceTouchable) {
+      return true;
+    }
+    return false;
   }
 
   bool checkIndexAvailable(int index) {
@@ -274,7 +314,14 @@ class LudoController extends BaseGameController {
   setAvailableMoves() {
     final List<int> pieces = getMyPieceIndexes(currentTurn.value);
     for (var pieceIndex in pieces) {
-      if (checkIndexAvailable(pieceIndex)) {
+      bool mustAdd = false;
+      if (pieceIndex >= 36) {
+        //this check uses for win pieces
+        mustAdd = checkWinIndexAvailable(pieceIndex);
+      } else {
+        mustAdd = checkIndexAvailable(pieceIndex);
+      }
+      if (mustAdd) {
         currentAvailableIndexes.add(pieceIndex);
         addPeaceStatus(pieceIndex, PeaceStatusTypes.canSelected);
       }
@@ -283,6 +330,8 @@ class LudoController extends BaseGameController {
     final havePieceOut = checkGamerPieceIsOut(currentTurn.value);
     if (havePieceOut && currentDice.value == 6) {
       currentAvailableIndexes.add(-1);
+    }
+    if (startPieces[currentTurn.value - 1].value.count != 0) {
       addStartPeaceStatus(currentTurn.value - 1, PeaceStatusTypes.canSelected);
     }
   }
@@ -319,7 +368,7 @@ class LudoController extends BaseGameController {
   rollDice() {
     sendCommand({
       "id": GameCommands.rollDice,
-      "data": {'dice': 4}
+      "data": {'dice': 0}
     });
   }
 
