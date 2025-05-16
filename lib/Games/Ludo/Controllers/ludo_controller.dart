@@ -126,12 +126,15 @@ class LudoController extends BaseGameController {
       case GameCommands.rollResult:
         rollResultFunction(data);
         break;
+      case GameCommands.outOfMove:
+        outOfMoveFunction(data);
+        break;
       default:
     }
   }
 
   @override
-  void currentTurnFunction(Map data) {
+  void currentTurnFunction(Map data) async {
     releasePeaces();
     int turn = data['data']['turn'];
     currentTurn.value = turn;
@@ -142,7 +145,7 @@ class LudoController extends BaseGameController {
     } else {
       canSelectPeace.value = false;
     }
-    // changetimerValue(GameWaitTimes.millSelectTime);
+    changetimerValue(GameWaitTimes.ludoTurnTime);
   }
 
   @override
@@ -164,6 +167,23 @@ class LudoController extends BaseGameController {
     if (currentTurn.value == myGameId) {
       setAvailableMoves();
     }
+  }
+
+  void outOfMoveFunction(Map data) {
+    currentTurnPlayerRolled.value = true;
+    Map turnData = data['data'];
+    int turn = turnData['turn'];
+    currentDice.value = turnData['dice'];
+    if (turn == myGameId) {
+      canSelectPeace.value = false;
+      showInteraction(
+        sound: GameSoundTypes.tapWrong,
+        text: AppTexts.youOutOfMove.tr,
+      );
+    } else {
+      showInteraction(text: AppTexts.enemyOutOfMove.tr);
+    }
+    changetimerValue(GameWaitTimes.ludoOutOfMoveTime);
   }
 
   @override
@@ -200,11 +220,10 @@ class LudoController extends BaseGameController {
     } else {
       canSelectPeace.value = false;
     }
-    print(isGameStarted.value);
-    // if (timerData['is_user_turn']) {
-    // final int time = GameWaitTimes.millSelectTime - timerData['time'] as int;
-    // changetimerValue(time.clamp(0, time));
-    // }
+    if (timerData['is_user_turn']) {
+      final int time = GameWaitTimes.ludoTurnTime - timerData['time'] as int;
+      changetimerValue(time.clamp(0, time));
+    }
   }
 
   @override
@@ -262,7 +281,11 @@ class LudoController extends BaseGameController {
     final isWinPieceTouchable =
         gamerInWinIndexesMap[gamerId]![index]!.keys.contains(currentDice.value);
     if (isWinPieceTouchable) {
-      return true;
+      final targetIndex =
+          gamerInWinIndexesMap[gamerId]![index]![currentDice.value]!;
+      if (peaces[targetIndex].value.count == 0) {
+        return true;
+      }
     }
     return false;
   }
@@ -288,6 +311,7 @@ class LudoController extends BaseGameController {
     }
     if (isIndexWinable) {
       final winIndex = gamerWinIndexesMap[gamerId]![index]![currentDice.value]!;
+      print(peaces[winIndex].value.selectedUser);
       if (peaces[winIndex].value.selectedUser == null) {
         return true;
       }
@@ -405,10 +429,11 @@ class LudoController extends BaseGameController {
     startPieces[index].value = startPieces[index].value.reducePiece();
   }
 
-  changePieceSelecteUser(int index, int gamerId, {int count = 1}) {
+  changePieceSelecteUser(int index, int gamerId, {int? count}) {
+    final newCount = count ?? (peaces[index].value.count + 1);
     peaces[index].value = peaces[index]
         .value
-        .changeSelectedUser(newSelectedUser: gamerId, newCount: count);
+        .changeSelectedUser(newSelectedUser: gamerId, newCount: newCount);
   }
 
   changeStartPieceSelectedUser(int index, int gamerId, {int count = 1}) {

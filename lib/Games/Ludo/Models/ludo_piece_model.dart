@@ -47,10 +47,10 @@ class LudoPieceModel extends PeaceModel {
 
   LudoPieceModel reducePiece({int reduceCount = 1}) {
     final newCount = count - reduceCount;
-    int newSelected = selectedUser ?? 0;
+    int? newSelected = selectedUser;
     List<PeaceStatusTypes> newStatuses = currentStatuses;
     if (newCount == 0) {
-      newSelected = 0;
+      newSelected = null;
       newStatuses.clear();
     }
     return LudoPieceModel(

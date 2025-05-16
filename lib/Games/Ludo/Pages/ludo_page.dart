@@ -1,3 +1,4 @@
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
@@ -31,18 +32,28 @@ class LudoPage extends BaseView<LudoController> {
             playersData: controller.players.value,
             timerColor: controller.returnTimerColor(),
           ),
-          const SizedBox(height: 40),
-          LudoBoardWidget(controller: controller),
-          const SizedBox(height: 10),
-          controller.currentTurnPlayerRolled.value
-              ? LudoDiceBox(dice: controller.currentDice.value)
-              : controller.canSelectPeace.value
-                  ? GlobalButtonWidget(
-                      onTap: controller.rollDice,
-                      text: AppTexts.rollDice.tr,
-                    )
-                  : const GlobalWaitWidget(),
-          const Spacer(),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 10),
+                LudoBoardWidget(controller: controller),
+                const SizedBox(height: 15),
+                controller.currentTurnPlayerRolled.value
+                    ? LudoDiceBox(dice: controller.currentDice.value)
+                    : controller.canSelectPeace.value
+                        ? GlobalButtonWidget(
+                            onTap: controller.rollDice,
+                            text: AppTexts.rollDice.tr,
+                          )
+                        : SizedBox(
+                            height: 40.h, child: const GlobalWaitWidget()),
+                const SizedBox(height: 10),
+              ],
+            ),
+          ),
+
+          // const Spacer(),
           GlobalActivityBox<LudoController>(),
           const SizedBox(height: 20),
         ],
