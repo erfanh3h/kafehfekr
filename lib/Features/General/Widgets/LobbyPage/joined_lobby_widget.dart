@@ -23,8 +23,9 @@ class JoinedLobbyWidget extends StatelessWidget {
       () => Column(
         children: [
           const SizedBox(height: 15),
-          Column(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 controller.joinedLobby.value!.lobbyName,
@@ -35,18 +36,18 @@ class JoinedLobbyWidget extends StatelessWidget {
                   // letterSpacing: 6,
                 ),
               ),
-              const SizedBox(height: 4),
+              // const SizedBox(width: 25),
               Text(
-                controller.joinedLobby.value!.gameTypes.first.tr,
+                "  (${controller.joinedLobby.value!.gameTypes.first.tr})",
                 style: const TextStyle(
                   color: AppColors.lightColor,
-                  fontSize: 20,
-                  fontFamily: FontFamilies.dastnevis,
+                  fontSize: 16,
+                  fontFamily: FontFamilies.hekayat,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 15),
           Builder(builder: (context) {
             return Obx(
               () => LobbyUsersDataWidget(

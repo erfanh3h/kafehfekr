@@ -8,10 +8,16 @@ class KoriBox extends StatelessWidget {
     super.key,
     required this.isLeft,
     required this.index,
+    this.fontSize,
+    this.maxLine,
+    this.fontColor,
   });
 
   final bool isLeft;
   final int index;
+  final double? fontSize;
+  final int? maxLine;
+  final Color? fontColor;
   @override
   Widget build(BuildContext context) {
     return SlideInDown(
@@ -36,14 +42,14 @@ class KoriBox extends StatelessWidget {
         child: Center(
           child: Text(
             koris[index],
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: FontFamilies.hekayat,
-              fontSize: 17,
-              color: Colors.white,
+              fontSize: fontSize ?? 17,
+              color: fontColor ?? Colors.white,
               height: 1.1,
             ),
             textAlign: TextAlign.center,
-            maxLines: 2,
+            maxLines: maxLine ?? 2,
           ),
         ),
       ),

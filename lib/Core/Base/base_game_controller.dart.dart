@@ -276,12 +276,10 @@ class BaseGameController extends BaseController {
   }
 
   Color? returnTimerColor() {
-    if (currentTurn.value == 1) {
-      return AppColors.imageRedColor;
-    } else if (currentTurn.value == 2) {
-      return AppColors.imageBlueColor;
+    if (currentTurn.value <= 0) {
+      return null;
     }
-    return null;
+    return playerColors[currentTurn.value - 1];
   }
 
   void changetimerValue(int value) {

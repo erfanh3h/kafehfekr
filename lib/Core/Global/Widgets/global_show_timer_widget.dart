@@ -12,9 +12,11 @@ class GlobalShowTimerWidget extends StatelessWidget {
   const GlobalShowTimerWidget({
     super.key,
     this.color,
+    this.needTimerIcon = true,
   });
 
   final Color? color;
+  final bool needTimerIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class GlobalShowTimerWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (color != null) const SizedBox(width: 30),
+          if (color != null && needTimerIcon) const SizedBox(width: 30),
           Container(
             padding: AppSpacings.s10All,
             width: 75,
@@ -63,8 +65,8 @@ class GlobalShowTimerWidget extends StatelessWidget {
               );
             }),
           ),
-          if (color != null) const SizedBox(width: 5),
-          if (color != null)
+          if (color != null && needTimerIcon) const SizedBox(width: 5),
+          if (color != null && needTimerIcon)
             GlobalFadeInOutWidget(
               child: Image.asset(
                 GeneralIcons.timeCounter,

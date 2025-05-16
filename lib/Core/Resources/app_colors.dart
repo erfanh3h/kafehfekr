@@ -30,6 +30,7 @@ class AppColors {
   static const onSecondary = Color(0xffFFFFFF);
 
   static const yellow = Color(0xffFBC020); //for strong pass
+  static const darlYellow = Color.fromARGB(255, 221, 170, 31); //for strong pass
   static const green = Color(0xff76BF4C); //for strong pass
   static const white = Color(0xffffffff); //for strong pass
   static const black = Color(0xff000000); //for strong pass
@@ -72,3 +73,10 @@ class AppColors {
 
   static const lightBlue = Color.fromARGB(255, 48, 141, 202);
 }
+
+final playerColors = [
+  AppColors.imageRedColor,
+  AppColors.imageBlueColor,
+  AppColors.darkGreen,
+  AppColors.goldenColor
+];

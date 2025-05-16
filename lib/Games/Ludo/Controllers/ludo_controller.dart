@@ -210,10 +210,10 @@ class LudoController extends BaseGameController {
   @override
   void onEachButtonTap(dynamic tappedPeace) {
     LudoPieceModel piece = tappedPeace as LudoPieceModel;
-    // if (!canSelectPeace.value) {
-    //   showInteraction(text: AppTexts.notYourTurn.tr);
-    //   return;
-    // }
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
+    }
     if ((piece.selectedUser != null &&
             currentTurn.value != piece.selectedUser) ||
         piece.selectedUser == null ||
@@ -229,10 +229,10 @@ class LudoController extends BaseGameController {
 
   void onEachStartTap(dynamic tappedPeace) {
     LudoPieceModel piece = tappedPeace as LudoPieceModel;
-    // if (!canSelectPeace.value) {
-    //   showInteraction(text: AppTexts.notYourTurn.tr);
-    //   return;
-    // }
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
+    }
     if ((piece.selectedUser != null &&
             currentTurn.value != piece.selectedUser) ||
         piece.selectedUser == null) {
@@ -246,6 +246,10 @@ class LudoController extends BaseGameController {
   }
 
   void onOutTap() {
+    if (!canSelectPeace.value) {
+      showInteraction(text: AppTexts.notYourTurn.tr);
+      return;
+    }
     sendCommand({
       "id": GameCommands.selectPeace,
       "data": {'index': -2}
