@@ -81,6 +81,7 @@ abstract class GameCommands {
   static const newRound = "NewRound";
   static const finishTurnRound = "FinishTurnRound";
   static const finishRound = "FinishRound";
+  static const message = "Message";
   static const startGame = "StartGame";
   static const finishGame = "FinishGame";
   static const selectMine = "SelectMine";

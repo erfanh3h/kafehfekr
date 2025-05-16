@@ -45,6 +45,8 @@ enum OfflineGameTypes {
   Spy,
 }
 
+enum MultiGameTypes { Ludo }
+
 enum GameDifficulties { Easy, Normal, Hard }
 
 enum MarketTypes {

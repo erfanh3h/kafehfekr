@@ -1,3 +1,4 @@
+import 'package:kafehfekr/Features/General/Controllers/multi_queue_controller.dart';
 import 'package:kafehfekr/Features/General/Controllers/queue_controller.dart';
 import 'package:kafehfekr/Features/General/Controllers/game_play_controller.dart';
 import 'package:kafehfekr/Features/General/Controllers/history_controller.dart';
@@ -18,6 +19,10 @@ class GeneralBinding implements BindingsInterface {
         ),
         Get.lazyPut<QueueController>(
           () => QueueController(),
+          fenix: true,
+        ),
+        Get.lazyPut<MultiQueueController>(
+          () => MultiQueueController(),
           fenix: true,
         ),
         Get.lazyPut<OfflineGamesMenuController>(

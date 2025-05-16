@@ -80,7 +80,8 @@ abstract class AppTexts {
   static const playGame = "playGame";
   static const profile = "profile";
   static const history = "history";
-  static const onlineGame = "onlineGame";
+  static const twoPlayersGame = "twoPlayersGame";
+  static const multiPlayersGame = "multiPlayersGame";
   static const offlineGame = "offlineGame";
   static const ranking = "ranking";
   static const gameMenu = "gameMenu";

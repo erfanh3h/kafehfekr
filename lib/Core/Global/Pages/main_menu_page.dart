@@ -18,6 +18,7 @@ import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
+import 'package:kafehfekr/Features/General/Widgets/GameMenu/queue_widgets/select_multi_queue_game_widget.dart';
 import 'package:kafehfekr/Features/General/Widgets/change_username_box.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -31,8 +32,14 @@ class ItemData {
 }
 
 final items = [
-  ItemData(AppTexts.onlineGame, icon: GeneralIcons.rank, () {
+  ItemData(AppTexts.twoPlayersGame, icon: GeneralIcons.rank, () {
     Get.toNamed(AppRoutes.queue);
+  }),
+  ItemData(AppTexts.multiPlayersGame, icon: GeneralIcons.rank, () {
+    Get.bottomSheet(
+      const SelectMultiQueueGameWidget(),
+      backgroundColor: AppColors.darkColor,
+    );
   }),
   ItemData(AppTexts.lobby, icon: GeneralIcons.lobby, () {
     Get.toNamed(AppRoutes.lobby);
@@ -42,9 +49,6 @@ final items = [
   }),
   ItemData(AppTexts.library, iconData: CupertinoIcons.book_solid, () {
     Get.toNamed(AppRoutes.library);
-  }),
-  ItemData(AppTexts.ranking, iconData: Icons.format_list_numbered_rtl, () {
-    Get.toNamed(AppRoutes.ranking);
   }),
 ];
 
@@ -160,6 +164,15 @@ class MainPage extends BaseView<GlobalController> {
                   //       Get.toNamed(AppRoutes.store);
                   //     },
                   //   ),
+                  if (controller.token.value != null &&
+                      !controller.isNoNetwork.value)
+                    GlobalActivityButton2(
+                      text: AppTexts.ranking.tr,
+                      iconData: Icons.format_list_numbered_rtl,
+                      onTap: () {
+                        Get.toNamed(AppRoutes.ranking);
+                      },
+                    ),
                   if (controller.token.value != null &&
                       !controller.isNoNetwork.value)
                     GlobalActivityButton2(

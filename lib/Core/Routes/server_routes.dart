@@ -6,6 +6,7 @@ class ServerRoutes {
   static const baseServer = 'http://192.168.1.5:5001';
   static const gameSocket = '$baseSocket/game';
   static const queueSocket = '$baseSocket/queue';
+  static const multiQueueSocket = '$baseSocket/multi-queue';
   static const lobbySocket = '$baseSocket/lobby';
   static const enterUser = '$baseServer/enter';
   static const enterCode = '$baseServer/code';

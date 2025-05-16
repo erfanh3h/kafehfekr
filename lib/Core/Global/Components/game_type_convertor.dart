@@ -490,6 +490,47 @@ class OfflineGameTypeConvertor {
   }
 }
 
+class MultiGameTypeConvertor {
+  static String toGameImage(MultiGameTypes gameType) {
+    String result = '';
+    switch (gameType) {
+      case MultiGameTypes.Ludo:
+        result = AppImages.ludoGame;
+        break;
+    }
+    return result;
+  }
+
+  static String toGameNarrative(MultiGameTypes gameType) {
+    String result = '';
+    switch (gameType) {
+      case MultiGameTypes.Ludo:
+        result = AppTexts.ludoNarrative.tr;
+        break;
+    }
+    return result;
+  }
+
+  static String toGameTime(MultiGameTypes gameType) {
+    String result = '';
+    switch (gameType) {
+      case MultiGameTypes.Ludo:
+        result = AppTexts.ludoTime.tr;
+        break;
+    }
+    return result;
+  }
+
+  static GameDifficulties toGameDifficallty(MultiGameTypes gameType) {
+    GameDifficulties result;
+    switch (gameType) {
+      case MultiGameTypes.Ludo:
+        result = GameDifficulties.Easy;
+    }
+    return result;
+  }
+}
+
 GameTypes stringToGameType(String game) {
   switch (game) {
     case "TicTacToe":
