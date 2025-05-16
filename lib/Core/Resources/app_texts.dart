@@ -294,6 +294,7 @@ abstract class AppTexts {
   static const changeImagePrice = "changeImagePrice";
   static const quest = "quest";
   static const enterAsQuest = "enterAsQuest";
+  static const enterText = "enterText";
   static const login = "login";
   static const mostLoginrFirst = "mostLoginrFirst";
   static const serverError = "serverError";

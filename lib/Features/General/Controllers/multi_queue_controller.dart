@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
@@ -9,6 +10,7 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
+import 'package:kafehfekr/Features/General/Models/message_model.dart';
 import 'package:kafehfekr/Features/General/Models/queuer_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -19,6 +21,9 @@ class MultiQueueController extends BaseController {
   late MultiGameTypes gameType;
 
   late String myId;
+
+  RxList<MessageModel> messages = RxList();
+  TextEditingController messageCtrl = TextEditingController();
 
   void onQueueStarted() {}
 
@@ -46,6 +51,13 @@ class MultiQueueController extends BaseController {
       case GameCommands.startGame:
         startGameFunction(data);
       case GameCommands.message:
+        final newMesaage = MessageModel(
+          username: data['data']['name'],
+          content: data['data']['content'],
+          time: DateTime.now(),
+        );
+        messages.insert(0, newMesaage);
+        update();
       default:
     }
   }
@@ -60,8 +72,13 @@ class MultiQueueController extends BaseController {
     });
   }
 
-  void sendCommand(Map data) {
-    Get.find<MultiQueueSocketManager>().sendCommand(data);
+  void sendMessage() {
+    if (messageCtrl.text.isEmpty) {
+      return;
+    }
+    Get.find<MultiQueueSocketManager>()
+        .sendCommand({'id': GameCommands.message, 'content': messageCtrl.text});
+    messageCtrl.text = "";
   }
 
   void stopQueue() {

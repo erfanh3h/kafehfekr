@@ -119,7 +119,6 @@ class LudoController extends BaseGameController {
 
   @override
   void commandHandler(dynamic data) {
-    print(data);
     super.commandHandler(data);
     final commandId = data['id'];
     switch (commandId) {
@@ -311,7 +310,6 @@ class LudoController extends BaseGameController {
     }
     if (isIndexWinable) {
       final winIndex = gamerWinIndexesMap[gamerId]![index]![currentDice.value]!;
-      print(peaces[winIndex].value.selectedUser);
       if (peaces[winIndex].value.selectedUser == null) {
         return true;
       }
