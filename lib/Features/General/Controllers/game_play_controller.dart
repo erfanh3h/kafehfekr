@@ -1,6 +1,7 @@
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
+import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -19,12 +20,9 @@ class GamePlayController extends BaseController {
   String gameScoreType = '';
 
   RxInt currentGameIndex = RxInt(0);
-  RxInt player1Score = RxInt(0);
-  RxInt player2Score = RxInt(0);
-  Rx<int?> timerValue = Rx(null);
+  RxList<int> playerScores = RxList();
 
   RxBool isGameFinished = RxBool(false);
-  RxInt winnerId = RxInt(-1);
   RxString finishGameText = RxString("");
 
   void commandHandler(dynamic data) {
@@ -53,6 +51,7 @@ class GamePlayController extends BaseController {
   }
 
   void gamePlayDataFunction(data) {
+    queuers.clear();
     Map gameData = data['data'];
     gameScoreType = gameData['game_score_type'];
     for (var userDataJson in gameData['gamers']) {
@@ -61,25 +60,11 @@ class GamePlayController extends BaseController {
     gameTypes.value = List<String>.from(gameData['games']);
     winners.value = List<int>.from(gameData['winners']);
     currentGameIndex.value = gameData['current_game_index'];
-    player1Score.value = gameData['gamer1_score'];
-    player2Score.value = gameData['gamer2_score'];
+    playerScores.value = List<int>.from(gameData['scores']);
     isGameFinished.value = gameData['is_game_finished'];
     isPageLoading.value = false;
     if (isGameFinished.value) {
-      if (player1Score.value > player2Score.value) {
-        winnerId.value = 1;
-      } else if (player2Score.value > player1Score.value) {
-        winnerId.value = 2;
-      } else {
-        winnerId.value = 0;
-      }
-      if (winnerId.value == 0) {
-        finishGameText.value = "بازی مساوی به اتمام رسید";
-      } else if (winnerId.value == 1) {
-        finishGameText.value = "${queuers[0].name} بازی رو برد";
-      } else if (winnerId.value == 2) {
-        finishGameText.value = "${queuers[1].name} بازی رو برد";
-      }
+      finishGameText.value = extractWinText(gameData['game_winner_id']);
       Get.find<GlobalController>().finishGame();
       Get.find<GameSocketManager>().disconnect();
     }
@@ -89,19 +74,9 @@ class GamePlayController extends BaseController {
     Map gameData = data['data'];
     int time = gameData['time'];
     if (currentGameIndex.value == 0) {
-      timerValue.value = 5 - time + 1;
-      while (timerValue.value! > 0) {
-        await Future.delayed(const Duration(seconds: 1));
-        timerValue.value = timerValue.value! - 1;
-      }
-      timerValue.value = null;
+      Get.find<TimerCompanent>().startTimer(5 - time + 1);
     } else {
-      timerValue.value = 20 - time + 1;
-      while (timerValue.value! > 0) {
-        await Future.delayed(const Duration(seconds: 1));
-        timerValue.value = timerValue.value! - 1;
-      }
-      timerValue.value = null;
+      Get.find<TimerCompanent>().startTimer(20 - time + 1);
     }
   }
 
@@ -122,6 +97,15 @@ class GamePlayController extends BaseController {
     }
     DialogComponent().showToast(label: AppTexts.gameFinished.tr);
     Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
+  }
+
+  extractWinText(String winnerId) {
+    for (var gamer in queuers.value) {
+      if (gamer.userId == winnerId) {
+        return "${gamer.name} بازی رو برد";
+      }
+    }
+    return "بازی مساوی به اتمام رسید";
   }
 
   @override

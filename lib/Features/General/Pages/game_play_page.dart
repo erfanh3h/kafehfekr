@@ -39,13 +39,8 @@ class GamePlayPage extends BaseView<GamePlayController> {
           children: [
             if (controller.queuers.length > 1)
               GamePlayUsersDataWidget(
-                player1Data: controller.queuers[0],
-                player2Data: controller.queuers[1],
-                player1Number1: controller.player1Score.value,
-                player2Number1: controller.player2Score.value,
-                timerValue: controller.timerValue.value,
-                isGameFinished: controller.isGameFinished.value,
-                winnerId: controller.winnerId.value,
+                playersData: controller.queuers.value,
+                playerScores: controller.playerScores,
               ),
             if (controller.isGameFinished.value)
               Padding(

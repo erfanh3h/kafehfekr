@@ -571,6 +571,8 @@ GameTypes stringToGameType(String game) {
       return GameTypes.MSweeper;
     case "FourInRow":
       return GameTypes.FourInRow;
+    case "Ludo":
+      return GameTypes.Ludo;
     default:
       return GameTypes.TicTacToe;
   }
