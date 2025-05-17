@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Features/General/Models/queuer_model.dart';
@@ -106,6 +107,16 @@ class GamePlayController extends BaseController {
       }
     }
     return "بازی مساوی به اتمام رسید";
+  }
+
+  String typeToImage() {
+    if (gameScoreType == "Rank") {
+      return GeneralIcons.rank;
+    } else if (gameScoreType == "Lobby") {
+      return GeneralIcons.lobby;
+    } else {
+      return GeneralIcons.multiRank;
+    }
   }
 
   @override

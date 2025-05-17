@@ -106,12 +106,18 @@ class LudoBoardWidget extends StatelessWidget {
                 Positioned(
                   top: 30,
                   left: 30,
-                  child: LudoUserWidget(
-                    count: 0,
-                    color: AppColors.yellow,
-                    onTap: controller.onOutTap,
-                    canEquip: false,
-                    outCount: 0,
+                  child: Obx(
+                    () => controller.playersOutPieces.length == 4
+                        ? LudoUserWidget(
+                            count: controller.playersOutPieces.value[3],
+                            color: AppColors.darkGreen,
+                            onTap: controller.onOutTap,
+                            canEquip: controller.currentTurn.value == 4 &&
+                                controller.currentAvailableIndexes.value
+                                    .contains(-1),
+                            outCount: controller.playersOutPieces.value[3],
+                          )
+                        : Container(),
                   ),
                 ),
                 Positioned(
@@ -131,12 +137,18 @@ class LudoBoardWidget extends StatelessWidget {
                 Positioned(
                   bottom: 30,
                   right: 35,
-                  child: LudoUserWidget(
-                    count: 0,
-                    color: AppColors.darkGreen,
-                    onTap: controller.onOutTap,
-                    canEquip: false,
-                    outCount: 0,
+                  child: Obx(
+                    () => controller.playersOutPieces.length == 3
+                        ? LudoUserWidget(
+                            count: controller.playersOutPieces.value[2],
+                            color: AppColors.darkGreen,
+                            onTap: controller.onOutTap,
+                            canEquip: controller.currentTurn.value == 3 &&
+                                controller.currentAvailableIndexes.value
+                                    .contains(-1),
+                            outCount: controller.playersOutPieces.value[2],
+                          )
+                        : Container(),
                   ),
                 ),
                 Positioned(

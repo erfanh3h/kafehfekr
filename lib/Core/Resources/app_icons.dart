@@ -82,7 +82,7 @@ class GeneralIcons {
   static const triangle = "$generalIconsPath/triangle.png";
   static const triangleFlipped = "$generalIconsPath/triangle-flipped.png";
   static const rank = "$generalIconsPath/rank.png";
-  static const normal = "$generalIconsPath/normal.png";
+  static const multiRank = "$generalIconsPath/multi-rank.png";
   static const lobby = "$generalIconsPath/lobby.png";
   static const refresh = "$generalIconsPath/refresh.png";
   // static const play = "$generalIconsPath/play.png";

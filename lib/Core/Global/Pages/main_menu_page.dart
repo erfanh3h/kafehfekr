@@ -35,7 +35,7 @@ final items = [
   ItemData(AppTexts.twoPlayersGame, icon: GeneralIcons.rank, () {
     Get.toNamed(AppRoutes.queue);
   }),
-  ItemData(AppTexts.multiPlayersGame, icon: GeneralIcons.rank, () {
+  ItemData(AppTexts.multiPlayersGame, icon: GeneralIcons.multiRank, () {
     Get.bottomSheet(
       const SelectMultiQueueGameWidget(),
       backgroundColor: AppColors.darkColor,

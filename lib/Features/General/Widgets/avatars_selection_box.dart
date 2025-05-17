@@ -1,9 +1,6 @@
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:refreshed/refreshed.dart';
 
 class AvatarsSelectionBox extends StatelessWidget {
   const AvatarsSelectionBox({
@@ -19,17 +16,17 @@ class AvatarsSelectionBox extends StatelessWidget {
       padding: AppSpacings.s15All,
       child: Column(
         children: [
-          Padding(
-            padding: AppSpacings.s20Horizental10Vertical,
-            child: Text(
-              AppTexts.changeImagePrice.tr,
-              style: const TextStyle(
-                color: AppColors.lightColor,
-                fontSize: 18,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          // Padding(
+          //   padding: AppSpacings.s20Horizental10Vertical,
+          //   child: Text(
+          //     AppTexts.changeImagePrice.tr,
+          //     style: const TextStyle(
+          //       color: AppColors.lightColor,
+          //       fontSize: 18,
+          //     ),
+          //     textAlign: TextAlign.center,
+          //   ),
+          // ),
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

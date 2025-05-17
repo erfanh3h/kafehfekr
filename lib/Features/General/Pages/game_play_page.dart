@@ -4,7 +4,6 @@ import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -63,11 +62,7 @@ class GamePlayPage extends BaseView<GamePlayController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    controller.gameScoreType == "Rank"
-                        ? GeneralIcons.rank
-                        : controller.gameScoreType == "Lobby"
-                            ? GeneralIcons.lobby
-                            : GeneralIcons.normal,
+                    controller.typeToImage(),
                     width: 100,
                     height: 100,
                     color: AppColors.lightColor,
