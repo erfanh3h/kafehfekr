@@ -271,6 +271,7 @@ abstract class AppTexts {
   static const timeoutError = "timeoutError";
   static const notTimeYet = "notTimeYet";
   static const twoPlayersMustRdy = "twoPlayersMustRdy";
+  static const allPlayersMustRdy = "allPlayersMustRdy";
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
   static const enterUsernameCorrectly = "enterUsernameCorrectly";

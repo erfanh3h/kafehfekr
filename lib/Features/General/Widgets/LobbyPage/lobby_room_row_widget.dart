@@ -20,9 +20,7 @@ class LobbyRoomRowWidget extends StatelessWidget {
   final Function(LobbyModel) onJoin;
   @override
   Widget build(BuildContext context) {
-    final gameType = stringToGameType(
-      lobby.gameTypes.first,
-    );
+    final gameType = stringToGameType(lobby.gameType);
     final gameConvertor = GameTypeConvertor(gameType: gameType);
 
     Color? color;
@@ -93,7 +91,7 @@ class LobbyRoomRowWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 5),
                     Text(
-                      lobby.gameTypes.first.tr,
+                      lobby.gameType.tr,
                       style: const TextStyle(
                         color: AppColors.lightColor,
                         fontSize: 14,
@@ -104,15 +102,15 @@ class LobbyRoomRowWidget extends StatelessWidget {
                 ),
               ),
               // const SizedBox(width: 15),
-              // Text(
-              //   '${lobby.queuersLength} / 2',
-              //   style: const TextStyle(
-              //     color: AppColors.lightColor,
-              //     fontSize: 20,
-              //     fontFamily: FontFamilies.dastnevis,
-              //   ),
-              //   textDirection: TextDirection.ltr,
-              // ),
+              Text(
+                '${lobby.queuersLength} / ${lobby.lobbyCount} ',
+                style: const TextStyle(
+                  color: AppColors.lightColor,
+                  fontSize: 20,
+                  fontFamily: FontFamilies.dastnevis,
+                ),
+                textDirection: TextDirection.ltr,
+              ),
               const SizedBox(width: 5),
               FadeIn(
                 child: IconButton(

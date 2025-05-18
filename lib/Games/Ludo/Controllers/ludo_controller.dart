@@ -180,7 +180,7 @@ class LudoController extends BaseGameController {
         text: AppTexts.youOutOfMove.tr,
       );
     } else {
-      showInteraction(text: AppTexts.enemyOutOfMove.tr);
+      // showInteraction(text: AppTexts.enemyOutOfMove.tr);
     }
     changetimerValue(GameWaitTimes.ludoOutOfMoveTime);
   }

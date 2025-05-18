@@ -32,10 +32,12 @@ class QueuerModel {
     final String? userId,
     final int? userImage,
     final String? name,
+    final bool? isRdy,
   }) =>
       QueuerModel(
         userId: userId ?? this.userId,
         userImage: userImage ?? this.userImage,
         name: name ?? this.name,
+        isRdy: isRdy ?? this.isRdy,
       );
 }

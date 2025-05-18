@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_chats_box.dart';
 import 'package:kafehfekr/Core/Network/lobby_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
-import 'package:kafehfekr/Features/General/Models/detailed_lobby_model.dart';
 import 'package:kafehfekr/Features/General/Models/lobby_model.dart';
+import 'package:kafehfekr/Features/General/Models/queuer_model.dart';
 import 'package:kafehfekr/Features/General/Widgets/LobbyPage/create_lobby_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -19,27 +21,28 @@ class LobbyController extends BaseController {
   RxList<LobbyModel> lobbies = RxList([]);
 
   GameTypes? selectedCreateGameType;
-  Rx<DetailedLobbyModel?> joinedLobby = Rx(null);
 
   TextEditingController lobbyNameController = TextEditingController();
 
   RxBool letSendChat = RxBool(true);
 
-  RxList<(bool, int)> joinedLobbyChats = RxList([]);
+  RxList<(String, int)> joinedLobbyChats = RxList([]);
 
   RxBool imReadyToStart = RxBool(false);
 
-  RxBool isPlayer1Rdy = RxBool(false);
-  RxBool isPlayer2Rdy = RxBool(false);
+  RxInt lobbyCount = RxInt(2);
+
+  Rx<LobbyModel?> joinedLobby = Rx(null);
+  RxList<Rx<QueuerModel>> joinedLobbyQueuers = RxList();
 
   resetLobbyData() {
-    joinedLobby.value = null;
-    isPlayer1Rdy.value = false;
-    isPlayer2Rdy.value = false;
+    lobbyCount.value = 2;
     letSendChat.value = true;
     joinedLobbyChats.clear();
     lobbies.clear();
     imReadyToStart.value = false;
+    joinedLobby.value = null;
+    joinedLobbyQueuers.clear();
   }
 
   void commandHandler(dynamic data) {
@@ -64,25 +67,25 @@ class LobbyController extends BaseController {
         // gamePlayDataFunction(data);
         break;
       case GameCommands.yourLobbyCreated:
+        isPageLoading.value = false;
         break;
       case GameCommands.lobbyData:
-        joinedLobby.value = DetailedLobbyModel.fromJson(commandData);
-        if (joinedLobby.value!.queuers.isNotEmpty) {
-          isPlayer1Rdy.value = joinedLobby.value!.queuers[0].isRdy ?? false;
+        joinedLobby.value = LobbyModel.fromJson(commandData);
+        List<Rx<QueuerModel>> queuers = [];
+        for (var element in commandData['queuers']) {
+          queuers.add(Rx(QueuerModel.fromLobbyJson(element)));
         }
-        if (joinedLobby.value!.queuers.length > 1) {
-          isPlayer2Rdy.value = joinedLobby.value!.queuers[1].isRdy ?? false;
-        }
+        joinedLobbyQueuers.value = queuers;
         break;
       case GameCommands.lobbyFull:
         DialogComponent().showToast(label: AppTexts.lobbyIsFull.tr);
         break;
       case GameCommands.lobbyPlayerReady:
         final userId = commandData['user_id'];
-        if (userId == joinedLobby.value!.queuers[0].userId) {
-          isPlayer1Rdy.value = true;
-        } else {
-          isPlayer2Rdy.value = true;
+        int? userIndex = userIdToUserIndex(userId);
+        if (userIndex != null) {
+          joinedLobbyQueuers.value[userIndex].value =
+              joinedLobbyQueuers.value[userIndex].value.copyWith(isRdy: true);
         }
         break;
       case GameCommands.lobbyNotExists:
@@ -114,11 +117,8 @@ class LobbyController extends BaseController {
   void reactionHandler(dynamic data) {
     final playerId = data['playerId'];
     final reactionId = data['reactionId'];
-    bool isLeft = true;
-    if (playerId == joinedLobby.value!.queuers[0].userId) {
-      isLeft = false;
-    }
-    joinedLobbyChats.add((isLeft, reactionId));
+    final username = userIdToUsername(playerId);
+    joinedLobbyChats.add((username, reactionId));
     Future.delayed(const Duration(seconds: 5)).then((_) {
       letSendChat.value = true;
     });
@@ -129,6 +129,20 @@ class LobbyController extends BaseController {
     DialogComponent().showToast(label: AppTexts.timeoutError.tr);
   }
 
+  void onCreateLobbyServer(int index) async {
+    isPageLoading.value = true;
+    final gameTypesParts = GameTypes.values.toList();
+    selectedCreateGameType = gameTypesParts[index];
+    sendCommand({
+      "id": GameCommands.lobbyCreate,
+      "data": {
+        'lobby_name': lobbyNameController.text,
+        'game_type': selectedCreateGameType!.name,
+        'lobby_count': lobbyCount.value,
+      }
+    });
+  }
+
   void onCreateLobby(int index) {
     if (lobbyNameController.text.isEmpty) {
       return;
@@ -136,17 +150,70 @@ class LobbyController extends BaseController {
     if (index == -1) {
       return;
     }
-    final gameTypesParts = GameTypes.values.toList();
-
-    selectedCreateGameType = gameTypesParts[index];
-    sendCommand({
-      "id": GameCommands.lobbyCreate,
-      "data": {
-        'lobby_name': lobbyNameController.text,
-        'game_types': [selectedCreateGameType!.name],
-      }
-    });
     Get.closeAllBottomSheets();
+    if (index == 18) {
+      // in ludo we must get players count
+      Get.dialog(
+        Dialog(
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: AppColors.lightColor2,
+            ),
+            height: 150.h,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "${AppTexts.usersCount.tr}: ",
+                      style: const TextStyle(
+                        color: AppColors.darkColor,
+                        fontSize: 20,
+                      ),
+                    ),
+                    SizedBox(width: 10.w),
+                    Obx(
+                      () => DropdownButton<int>(
+                        value: lobbyCount.value,
+                        items: List.generate(3, (index) {
+                          int number = index + 2;
+                          return DropdownMenuItem(
+                            value: number,
+                            child: Text(
+                              number.toString(),
+                              style: const TextStyle(
+                                color: AppColors.darkColor,
+                                fontSize: 18,
+                              ),
+                            ),
+                          );
+                        }),
+                        onChanged: (value) {
+                          lobbyCount.value = value ?? 2;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                GlobalButtonWidget(
+                  onTap: () {
+                    Get.closeAllDialogs();
+                    onCreateLobbyServer(index);
+                  },
+                  text: AppTexts.start.tr,
+                )
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      onCreateLobbyServer(index);
+    }
   }
 
   void onJoinLobby(LobbyModel lobby) {
@@ -168,12 +235,11 @@ class LobbyController extends BaseController {
 
   exitLobby() {
     if (isMyLobby()) {
-      resetLobbyData();
       sendCommand({"id": GameCommands.lobbyDelete});
     } else {
-      resetLobbyData();
       sendCommand({"id": GameCommands.lobbyQuit});
     }
+    resetLobbyData();
   }
 
   void showChatBox() {
@@ -195,10 +261,13 @@ class LobbyController extends BaseController {
   }
 
   startGame() {
-    if (!isPlayer1Rdy.value || !isPlayer2Rdy.value) {
-      DialogComponent().showToast(label: AppTexts.twoPlayersMustRdy.tr);
-      return;
+    for (var queuer in joinedLobbyQueuers.value) {
+      if (!(queuer.value.isRdy ?? true)) {
+        DialogComponent().showToast(label: AppTexts.allPlayersMustRdy.tr);
+        return;
+      }
     }
+
     sendCommand({"id": GameCommands.lobbyStartGame});
     isPageLoading.value = true;
   }
@@ -222,8 +291,7 @@ class LobbyController extends BaseController {
         'user_id': userId,
       }
     });
-    isPlayer2Rdy.value = false;
-    joinedLobby.value = joinedLobby.value!.removeQueuer(userId);
+    joinedLobbyQueuers.removeWhere((data) => data.value.userId == userId);
   }
 
   bool isMyLobby() {
@@ -238,6 +306,24 @@ class LobbyController extends BaseController {
       ),
       backgroundColor: AppColors.darkColor,
     );
+  }
+
+  String userIdToUsername(String userId) {
+    for (var queuer in joinedLobbyQueuers.value) {
+      if (queuer.value.userId == userId) {
+        return queuer.value.name;
+      }
+    }
+    return "";
+  }
+
+  int? userIdToUserIndex(String userId) {
+    for (var index = 0; index < joinedLobbyQueuers.value.length; index++) {
+      if (joinedLobbyQueuers.value[index].value.userId == userId) {
+        return index;
+      }
+    }
+    return null;
   }
 
   @override

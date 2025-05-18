@@ -1,17 +1,18 @@
-
 class LobbyModel {
   final String lobbyId;
   final String lobbyName;
   final String creatorId;
-  final List<String> gameTypes;
+  final String gameType;
   final int queuersLength;
+  final int lobbyCount;
 
   LobbyModel({
     required this.lobbyId,
     required this.lobbyName,
     required this.creatorId,
-    required this.gameTypes,
+    required this.gameType,
     required this.queuersLength,
+    required this.lobbyCount,
   });
 
   factory LobbyModel.fromJson(Map data) {
@@ -19,8 +20,9 @@ class LobbyModel {
       lobbyId: data['lobby_id'],
       lobbyName: data['lobby_name'],
       creatorId: data['creator_id'],
-      gameTypes: List<String>.from(data['game_types']),
+      gameType: data['game_type'],
       queuersLength: data['queuers_length'],
+      lobbyCount: data['lobby_count'],
     );
   }
 
@@ -28,14 +30,16 @@ class LobbyModel {
     final String? lobbyId,
     final String? lobbyName,
     final String? creatorId,
-    final List<String>? gameTypes,
+    final String? gameType,
     final int? queuersLength,
+    final int? lobbyCount,
   }) =>
       LobbyModel(
         lobbyId: lobbyId ?? this.lobbyId,
         lobbyName: lobbyName ?? this.lobbyName,
         creatorId: creatorId ?? this.creatorId,
-        gameTypes: gameTypes ?? this.gameTypes,
+        gameType: gameType ?? this.gameType,
         queuersLength: queuersLength ?? this.queuersLength,
+        lobbyCount: lobbyCount ?? this.lobbyCount,
       );
 }

@@ -172,6 +172,7 @@ class AppTranslations extends Translations {
           AppTexts.changeUsername: ' تغییر نام ',
           AppTexts.changeUsernamePrice: 'هزینه تغییر اسم 75 سکه است',
           AppTexts.twoPlayersMustRdy: '2 بازیکن باید آماده باشند',
+          AppTexts.allPlayersMustRdy: '!بازیکنان باید آماده باشند',
           AppTexts.imReady: 'آماده ام',
           AppTexts.change: 'تغییر',
           AppTexts.history: 'تاریخچه',
