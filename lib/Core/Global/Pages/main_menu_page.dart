@@ -41,14 +41,14 @@ final items = [
       backgroundColor: AppColors.darkColor,
     );
   }),
+  ItemData(AppTexts.chats, iconData: Icons.comment_outlined, () {
+    Get.toNamed(AppRoutes.chat);
+  }),
   ItemData(AppTexts.lobby, icon: GeneralIcons.lobby, () {
     Get.toNamed(AppRoutes.lobby);
   }),
   ItemData(AppTexts.offlineGame, iconData: Icons.wifi_off_outlined, () {
     Get.toNamed(AppRoutes.offlineGamesMenu);
-  }),
-  ItemData(AppTexts.library, iconData: CupertinoIcons.book_solid, () {
-    Get.toNamed(AppRoutes.library);
   }),
 ];
 
@@ -164,6 +164,13 @@ class MainPage extends BaseView<GlobalController> {
                   //       Get.toNamed(AppRoutes.store);
                   //     },
                   //   ),
+                  GlobalActivityButton2(
+                    text: AppTexts.library.tr,
+                    iconData: CupertinoIcons.book_solid,
+                    onTap: () {
+                      Get.toNamed(AppRoutes.library);
+                    },
+                  ),
                   if (controller.token.value != null &&
                       !controller.isNoNetwork.value)
                     GlobalActivityButton2(

@@ -4,6 +4,7 @@ import 'package:kafehfekr/Core/Global/Pages/splash.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Features/Auth/Pages/auth_page.dart';
 import 'package:kafehfekr/Features/Auth/Pages/username_page.dart';
+import 'package:kafehfekr/Features/General/Pages/chats_page.dart';
 import 'package:kafehfekr/Features/General/Pages/multi_queue_page.dart';
 import 'package:kafehfekr/Games/BackGammon/Pages/backgammon_page.dart';
 import 'package:kafehfekr/Games/BattleShip/Pages/battleship_page.dart';
@@ -64,6 +65,12 @@ abstract class AppPages {
     GetPage(
       name: AppRoutes.multiQueue,
       page: MultiQueuePage.new,
+      transition: Transition.fade,
+      middlewares: [EnsureAuthMiddleware(), EnsureNetworkIsOnMiddleware()],
+    ),
+    GetPage(
+      name: AppRoutes.chat,
+      page: ChatsPage.new,
       transition: Transition.fade,
       middlewares: [EnsureAuthMiddleware(), EnsureNetworkIsOnMiddleware()],
     ),

@@ -311,6 +311,7 @@ abstract class AppTexts {
   static const rIdReward = "rIdReward";
   static const imReady = "imReady";
   static const chat = "chat";
+  static const chats = "chats";
   static const start = "start";
   static const lobbyDeleted = "lobbyDelete";
   static const lobbyIsFull = "lobbIsFull";

@@ -7,6 +7,7 @@ class ServerRoutes {
   static const gameSocket = '$baseSocket/game';
   static const queueSocket = '$baseSocket/queue';
   static const multiQueueSocket = '$baseSocket/multi-queue';
+  static const chat = '$baseSocket/chat';
   static const lobbySocket = '$baseSocket/lobby';
   static const enterUser = '$baseServer/enter';
   static const enterCode = '$baseServer/code';

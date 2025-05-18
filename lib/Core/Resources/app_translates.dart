@@ -181,6 +181,7 @@ class AppTranslations extends Translations {
           AppTexts.offlineGame: 'بازی آفلاین',
           AppTexts.refresh: 'رفرش',
           AppTexts.chat: 'چت',
+          AppTexts.chats: 'گفت و گو',
           AppTexts.start: 'شروع',
           AppTexts.cantKickYourself: 'نمیتونی خودتو کیک کنی',
           AppTexts.lobbyDeleted: 'لابی پاک شد',

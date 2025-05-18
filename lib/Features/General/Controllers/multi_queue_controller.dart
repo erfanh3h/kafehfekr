@@ -53,6 +53,7 @@ class MultiQueueController extends BaseController {
       case GameCommands.message:
         final newMesaage = MessageModel(
           username: data['data']['name'],
+          userId: data['data']['id'],
           content: data['data']['content'],
           time: DateTime.now(),
         );
