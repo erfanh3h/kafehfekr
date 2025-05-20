@@ -53,7 +53,6 @@ class ChatsController extends BaseController {
         messages.insert(0, newMesaage);
         update();
       case GameCommands.usersCount:
-        print("here");
         usersCount.value = data['data'];
       default:
     }

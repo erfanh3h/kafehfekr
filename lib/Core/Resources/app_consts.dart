@@ -113,6 +113,7 @@ abstract class GameCommands {
   static const lobbyDeleted = "LobbyDeleted";
   static const lobbyNotExists = "LobbyNotExists";
   static const lobbyPlayerReady = "LobbyPlayerReady";
+  static const lobbyPlayersUpdate = "LobbyPlayersUpdate";
   static const lobbyKick = "LobbyKick";
   static const lobbyQuit = "LobbyQuit";
   static const lobbyRequestData = "LobbyRequestData";

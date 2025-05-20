@@ -23,13 +23,11 @@ class ChatSocketManager extends BaseController {
     });
     socket.connect();
     socket.onConnect((_) {
-      print('connect multi queue');
     });
     // socket.onConnectTimeout((_) {
     //   print('timeout');
     // });
     socket.on(SocketChannels.serverCommand, (data) {
-      print(data);
       commandHandler(data);
     });
     // socket.onDisconnect((_) => print('disconnect'));

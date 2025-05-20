@@ -67,9 +67,11 @@ class LobbyListBox extends BaseView<LobbyController> {
             padding: AppSpacings.s20Horizental,
             child: Obx(
               () => ListView.builder(
-                itemBuilder: (ctx, index) => LobbyRoomRowWidget(
-                  lobby: controller.lobbies[index],
-                  onJoin: controller.onJoinLobby,
+                itemBuilder: (ctx, index) => Obx(
+                  () => LobbyRoomRowWidget(
+                    lobby: controller.lobbies[index].value,
+                    onJoin: controller.onJoinLobby,
+                  ),
                 ),
                 itemCount: controller.lobbies.length,
               ),

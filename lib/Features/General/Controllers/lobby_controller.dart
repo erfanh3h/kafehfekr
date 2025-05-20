@@ -18,7 +18,7 @@ import 'package:kafehfekr/Features/General/Widgets/LobbyPage/create_lobby_widget
 import 'package:refreshed/refreshed.dart';
 
 class LobbyController extends BaseController {
-  RxList<LobbyModel> lobbies = RxList([]);
+  RxList<Rx<LobbyModel>> lobbies = RxList([]);
 
   GameTypes? selectedCreateGameType;
 
@@ -62,7 +62,7 @@ class LobbyController extends BaseController {
       case GameCommands.lobbyList:
         isPageLoading.value = false;
         for (var lobbyData in commandData) {
-          lobbies.add(LobbyModel.fromJson(lobbyData));
+          lobbies.add(Rx(LobbyModel.fromJson(lobbyData)));
         }
         // gamePlayDataFunction(data);
         break;
@@ -88,11 +88,26 @@ class LobbyController extends BaseController {
               joinedLobbyQueuers.value[userIndex].value.copyWith(isRdy: true);
         }
         break;
+      case GameCommands.lobbyPlayersUpdate:
+        String lobbyId = data['data']['lobby_id'];
+        int count = data['data']['count'];
+        for (var i = 0; i < lobbies.length; i++) {
+          if (lobbies[i].value.lobbyId == lobbyId) {
+            if (count != 0) {
+              lobbies[i].value =
+                  lobbies[i].value.copyWith(queuersLength: count);
+            } else {
+              lobbies.removeAt(i);
+            }
+            update();
+            return;
+          }
+        }
       case GameCommands.lobbyNotExists:
         DialogComponent().showToast(label: AppTexts.lobbyDeleted.tr);
         final String lobbyId = commandData['lobby_id'];
         for (var lobby in lobbies) {
-          if (lobby.lobbyId == lobbyId) {
+          if (lobby.value.lobbyId == lobbyId) {
             lobbies.remove(lobby);
             break;
           }
@@ -107,8 +122,11 @@ class LobbyController extends BaseController {
         DialogComponent().showToast(label: AppTexts.lobbyKicked.tr);
         resetLobbyData();
         for (var lobbyData in commandData) {
-          lobbies.add(LobbyModel.fromJson(lobbyData));
+          lobbies.add(Rx(LobbyModel.fromJson(lobbyData)));
         }
+        break;
+      case GameCommands.lobbyCreated:
+        lobbies.add(Rx(LobbyModel.fromJson(data['data'])));
         break;
       default:
     }
