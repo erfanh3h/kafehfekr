@@ -217,7 +217,7 @@ class LobbyController extends BaseController {
   }
 
   void onJoinLobby(LobbyModel lobby) {
-    if (lobby.queuersLength >= 2) {
+    if (lobby.queuersLength >= lobby.lobbyCount) {
       DialogComponent().showToast(label: AppTexts.lobbyIsFull.tr);
       return;
     }

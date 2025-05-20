@@ -32,6 +32,12 @@ class LudoButton extends StatelessWidget {
       case 2:
         color = AppColors.blueWarmColor;
         break;
+      case 3:
+        color = AppColors.darkGreen;
+        break;
+      case 4:
+        color = AppColors.yellow;
+        break;
       default:
         color = Colors.transparent;
         break;

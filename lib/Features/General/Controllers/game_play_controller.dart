@@ -65,7 +65,11 @@ class GamePlayController extends BaseController {
     isGameFinished.value = gameData['is_game_finished'];
     isPageLoading.value = false;
     if (isGameFinished.value) {
-      finishGameText.value = extractWinText(gameData['game_winner_id']);
+      if (gameData['game_winner_id'] != null) {
+        finishGameText.value = extractWinText(gameData['game_winner_id']);
+      } else {
+        //TODO : add this
+      }
       Get.find<GlobalController>().finishGame();
       Get.find<GameSocketManager>().disconnect();
     }

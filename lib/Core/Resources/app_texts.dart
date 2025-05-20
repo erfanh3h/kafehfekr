@@ -14,6 +14,8 @@ abstract class AppTexts {
   static const youWinGame = "youWinGame";
   static const youLoseGame = "youLoseGame";
   static const youSurrenderGame = "youSurrenderGame";
+  static const youAreRank1= "youAreRank1";
+  static const youAreRank2= "youAreRank2";
   static const wanaSurrenderGame = "wanaSurrenderGame";
   static const enemySurrenderGame = "enemySurrenderGame";
   static const normalGame = "normalGame";
@@ -250,6 +252,7 @@ abstract class AppTexts {
   static const ludoTime = "ludoTime";
   static const backGammonTime = "backGammonTime";
 
+  static const opponentTurn = "opponentTurn";
   static const notYourTurn = "notYourTurn";
   static const cantSelect = "cantSelect";
   static const bombExploded = "bombExploded";

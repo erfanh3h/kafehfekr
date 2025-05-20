@@ -107,7 +107,7 @@ class LudoBoardWidget extends StatelessWidget {
                   top: 30,
                   left: 30,
                   child: Obx(
-                    () => controller.playersOutPieces.length == 4
+                    () => controller.players.length == 4
                         ? LudoUserWidget(
                             count: controller.playersOutPieces.value[3],
                             color: AppColors.darkGreen,
@@ -138,7 +138,7 @@ class LudoBoardWidget extends StatelessWidget {
                   bottom: 30,
                   right: 35,
                   child: Obx(
-                    () => controller.playersOutPieces.length == 3
+                    () => controller.players.length == 3
                         ? LudoUserWidget(
                             count: controller.playersOutPieces.value[2],
                             color: AppColors.darkGreen,

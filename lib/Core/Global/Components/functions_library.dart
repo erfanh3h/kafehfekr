@@ -53,6 +53,36 @@ class FunctionsLibraryClass {
     }
   }
 
+  static void showFinishMultiplayerGameDialog(
+      int rank1, int rank2, int myGameId, GameTypes gameType) {
+    String dialogMessage = "";
+    String dialogIcon = "";
+    Color dialogColor = Colors.white;
+    if (rank1 == myGameId) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.win);
+      dialogMessage = AppTexts.youAreRank1.tr;
+      dialogIcon = GeneralIcons.win;
+      dialogColor = AppColors.winColor;
+    } else if (rank2 == myGameId) {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.draw);
+      dialogMessage = AppTexts.youAreRank2.tr;
+      dialogIcon = GeneralIcons.draw;
+      dialogColor = AppColors.drawColor;
+    } else {
+      Get.find<SoundPlayerComponent>().playGameSound(GameSoundTypes.lose);
+      dialogMessage = AppTexts.youLoseGame.tr;
+      dialogIcon = GeneralIcons.lose;
+      dialogColor = AppColors.loseColor;
+    }
+    DialogComponent().showIconicDialog(
+      AppTexts.endGame.tr,
+      dialogMessage,
+      dialogIcon,
+      dialogColor,
+      letBackPage: false,
+    );
+  }
+
   static void showSurrenderDialog(
       int gamerId, int myGameId, GameTypes gameType) {
     String dialogMessage = "";

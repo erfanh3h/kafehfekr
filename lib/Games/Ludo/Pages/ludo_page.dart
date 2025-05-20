@@ -31,6 +31,7 @@ class LudoPage extends BaseView<LudoController> {
           GlobalMultyGameDataWidget(
             playersData: controller.players.value,
             timerColor: controller.returnTimerColor(),
+            activePlayerIndexes: controller.activePlayerIndexes.value,
           ),
           Expanded(
             child: Column(
@@ -47,7 +48,11 @@ class LudoPage extends BaseView<LudoController> {
                             text: AppTexts.rollDice.tr,
                           )
                         : SizedBox(
-                            height: 40.h, child: const GlobalWaitWidget()),
+                            height: 40.h,
+                            child: GlobalWaitWidget(
+                              text: AppTexts.opponentTurn.tr,
+                            ),
+                          ),
                 const SizedBox(height: 10),
               ],
             ),

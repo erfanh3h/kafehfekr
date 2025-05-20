@@ -88,9 +88,6 @@ class BaseGameController extends BaseController {
       case GameCommands.finishGame:
         finishGameFunction(data);
         break;
-      // case GameCommands.surrender:
-      //   surrenderFunction(data);
-      //   break;
       case GameCommands.userDisconnected:
         onUserDisconnectedFunction(data);
         break;

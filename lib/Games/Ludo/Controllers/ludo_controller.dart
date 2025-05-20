@@ -1,4 +1,5 @@
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
+import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -116,6 +117,7 @@ class LudoController extends BaseGameController {
   RxBool hasMoreDice = RxBool(false);
 
   RxList<int> currentAvailableIndexes = RxList();
+  RxList<int> activePlayerIndexes = RxList();
 
   @override
   void commandHandler(dynamic data) {
@@ -128,8 +130,32 @@ class LudoController extends BaseGameController {
       case GameCommands.outOfMove:
         outOfMoveFunction(data);
         break;
+      case GameCommands.surrender:
+        surrenderFunction(data);
+        break;
       default:
     }
+  }
+
+  @override
+  void gameDataFunction(Map data) async {
+    super.gameDataFunction(data);
+    activePlayerIndexes.clear();
+    for (var i = 0; i < players.length; i++) {
+      activePlayerIndexes.value.add(i + 1);
+    }
+  }
+
+  @override
+  void finishGameFunction(Map data) {
+    isGameFinished.value = true;
+    canSelectPeace.value = false;
+    Map newData = data['data'];
+    int rank1 = newData['rank1'];
+    int rank2 = newData['rank2'];
+    stopTimer();
+    FunctionsLibraryClass.showFinishMultiplayerGameDialog(
+        rank1, rank2, myGameId, gameType);
   }
 
   @override
@@ -196,6 +222,8 @@ class LudoController extends BaseGameController {
     currentTurn.value = gameData['current_turn'];
     currentDice.value = gameData['current_dice'];
     currentTurnPlayerRolled.value = gameData['current_turn_player_rolled'];
+    activePlayerIndexes.value =
+        List<int>.from(gameData['active_player_indexes']);
     playersOutPieces.value = List<int>.from(gameData['players_out_pieces']);
     for (var i = 0; i < boardData.length; i++) {
       if (boardData[i]['equipped_user'] == 0) {
@@ -261,6 +289,18 @@ class LudoController extends BaseGameController {
       "id": GameCommands.selectPeace,
       "data": {'index': -1}
     });
+  }
+
+  void surrenderFunction(Map data) async {
+    int gamerId = data['data']['gamer_id'];
+    activePlayerIndexes.remove(gamerId);
+    playersOutPieces.value[gamerId - 1] = 4;
+    for (var i = 0; i < peaces.length; i++) {
+      if (peaces[i].value.selectedUser == gamerId) {
+        peaces[i].value = peaces[i].value.resetPeace();
+      }
+    }
+    update();
   }
 
   void onOutTap() {
@@ -482,9 +522,6 @@ class LudoController extends BaseGameController {
       peaces.add(Rx(LudoPieceModel(id: i, currentStatuses: [])));
     }
     for (var i = 0; i < 4; i++) {
-      startPieces.add(Rx(LudoPieceModel(id: i, currentStatuses: [])));
-    }
-    for (var i = 0; i < playersCount; i++) {
       startPieces.add(Rx(LudoPieceModel(id: i, currentStatuses: [])));
       playersOutPieces.add(4);
     }

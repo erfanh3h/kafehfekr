@@ -15,12 +15,14 @@ class GlobalMultyGameDataWidget extends StatelessWidget {
     super.key,
     required this.playersData,
     required this.timerColor,
+    required this.activePlayerIndexes,
     this.roundText,
   });
 
   final List<Rx<PlayerModel>> playersData;
   final Color? timerColor;
   final String? roundText;
+  final List<int> activePlayerIndexes;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,7 @@ class GlobalMultyGameDataWidget extends StatelessWidget {
                     () => UserRowWidget(
                       data: item.value,
                       color: playerColors[index],
+                      isActive: activePlayerIndexes.contains(index + 1),
                     ),
                   );
                 },
@@ -96,87 +99,93 @@ class UserRowWidget extends StatelessWidget {
     super.key,
     required this.data,
     required this.color,
+    required this.isActive,
   });
 
   final PlayerModel data;
   final Color color;
+  final bool isActive;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      color: AppColors.lightColor2,
-      child: InkWell(
-        onTap: () => FunctionsLibraryClass.showUserData(data.userId),
-        child: Container(
-          // height: 150,
-          constraints: const BoxConstraints(maxWidth: 75),
-          padding: AppSpacings.s5All,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              (data.reactionId != null)
-                  ? data.reactionId! <= 100
-                      ? FadeIn(
-                          child: Image.asset(
-                            ReactionIcons().generalIconsPath(data.reactionId!),
+    return Opacity(
+      opacity: isActive ? 1 : .5,
+      child: Card(
+        elevation: 3,
+        color: AppColors.lightColor2,
+        child: InkWell(
+          onTap: () => FunctionsLibraryClass.showUserData(data.userId),
+          child: Container(
+            // height: 150,
+            constraints: const BoxConstraints(maxWidth: 75),
+            padding: AppSpacings.s5All,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                (data.reactionId != null)
+                    ? data.reactionId! <= 100
+                        ? FadeIn(
+                            child: Image.asset(
+                              ReactionIcons()
+                                  .generalIconsPath(data.reactionId!),
+                              width: 60,
+                              height: 60,
+                              color: AppColors.darkColor,
+                            ),
+                          )
+                        : Container(
                             width: 60,
                             height: 60,
-                            color: AppColors.darkColor,
+                            decoration: BoxDecoration(
+                              // color: AppColors.goldenColor2,
+                              gradient: const LinearGradient(
+                                begin: Alignment.bottomLeft,
+                                end: Alignment.topRight,
+                                colors: [
+                                  Color.fromARGB(200, 212, 133, 126),
+                                  Color.fromARGB(50, 214, 172, 168),
+                                ],
+                              ),
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            child: KoriBox(
+                              isLeft: false,
+                              index: data.reactionId! - 101,
+                              fontSize: 12,
+                              maxLine: 3,
+                              fontColor: AppColors.darkColor,
+                            ),
+                          )
+                    : ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          AvatarIcons().generalAvatarPath(
+                            data.userImage,
                           ),
-                        )
-                      : Container(
                           width: 60,
                           height: 60,
-                          decoration: BoxDecoration(
-                            // color: AppColors.goldenColor2,
-                            gradient: const LinearGradient(
-                              begin: Alignment.bottomLeft,
-                              end: Alignment.topRight,
-                              colors: [
-                                Color.fromARGB(200, 212, 133, 126),
-                                Color.fromARGB(50, 214, 172, 168),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          child: KoriBox(
-                            isLeft: false,
-                            index: data.reactionId! - 101,
-                            fontSize: 12,
-                            maxLine: 3,
-                            fontColor: AppColors.darkColor,
-                          ),
-                        )
-                  : ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        AvatarIcons().generalAvatarPath(
-                          data.userImage,
                         ),
-                        width: 60,
-                        height: 60,
                       ),
-                    ),
-              const SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                width: 65,
-                child: Text(
-                  data.name,
-                  style: const TextStyle(
-                    fontFamily: FontFamilies.playPen,
-                    fontSize: 13,
-                    color: AppColors.lightColor,
+                const SizedBox(height: 10),
+                Container(
+                  decoration: BoxDecoration(
+                    color: color,
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
+                  width: 65,
+                  child: Text(
+                    data.name,
+                    style: const TextStyle(
+                      fontFamily: FontFamilies.playPen,
+                      fontSize: 13,
+                      color: AppColors.lightColor,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
