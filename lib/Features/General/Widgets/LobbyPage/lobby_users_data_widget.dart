@@ -134,12 +134,14 @@ class UserRowData extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 if (isMyLobby)
-                  IconButton(
-                    color: AppColors.redWarmColor,
-                    onPressed: () => onKick(playerData!.userId),
-                    icon: const Icon(
-                      Icons.close_rounded,
-                      color: AppColors.darkRed,
+                  Padding(
+                    padding: AppSpacings.s5Top,
+                    child: InkWell(
+                      onTap: () => onKick(playerData!.userId),
+                      child: const Icon(
+                        Icons.close_rounded,
+                        color: AppColors.darkRed,
+                      ),
                     ),
                   ),
               ],

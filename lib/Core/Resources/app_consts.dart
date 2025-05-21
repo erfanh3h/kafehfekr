@@ -120,6 +120,10 @@ abstract class GameCommands {
   static const startPreGame = "StartPreGame";
   static const selectGame = "SelectGame";
   static const selectedGame = "SelectedGame";
+  static const acceptGame = "AcceptGame";
+  static const accept = "Accept";
+  static const reject = "Reject";
+  static const gameCanceled = "GameCanceled";
   static const systemBannedGames = "SystemBannedGames";
 }
 

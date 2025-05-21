@@ -117,6 +117,7 @@ abstract class AppTexts {
   static const soon = "soon";
   static const chancePaper = "chancePaper";
   static const getCoin = "getCoin";
+  static const gameCanceled = "gameCanceled";
   static const gameFinished = "gameFinished";
   static const stopPrevoiusQueue = "stopPrevoiusQueue";
   static const youOutOfMove = "youOutOfMove";
@@ -313,6 +314,7 @@ abstract class AppTexts {
   static const rId = "rId";
   static const rIdReward = "rIdReward";
   static const imReady = "imReady";
+  static const areYouRdyToStart = "areYouRdyToStart";
   static const chat = "chat";
   static const chats = "chats";
   static const start = "start";

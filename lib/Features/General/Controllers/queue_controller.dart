@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
@@ -12,6 +14,7 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Features/General/Models/queuer_model.dart';
+import 'package:kafehfekr/Features/General/Widgets/GameMenu/queue_widgets/accept_game_box.dart';
 import 'package:refreshed/refreshed.dart';
 
 class QueueController extends BaseController {
@@ -65,6 +68,26 @@ class QueueController extends BaseController {
   void queueCommandHandler(dynamic data) {
     final commandId = data['id'];
     switch (commandId) {
+      case GameCommands.acceptGame:
+        Get.dialog(
+          barrierDismissible: false,
+          PopScope(
+            canPop: false,
+            child: Dialog(
+              backgroundColor: AppColors.darkColor,
+              child: AcceptGameBox(
+                onAccept: () {
+                  Get.find<QueueSocketManager>().sendCommand(
+                      {'id': GameCommands.accept, 'user_id': myId});
+                },
+                onReject: () {
+                  Get.find<QueueSocketManager>().sendCommand(
+                      {'id': GameCommands.reject, 'user_id': myId});
+                },
+              ),
+            ),
+          ),
+        );
       case GameCommands.startGame:
         startGameFunction(data);
       case GameCommands.reconnectData:
@@ -90,6 +113,10 @@ class QueueController extends BaseController {
       case GameCommands.gameFinished:
         Get.back();
         DialogComponent().showToast(label: AppTexts.gameFinished.tr);
+      case GameCommands.gameCanceled:
+        Get.closeAllDialogs();
+        Get.back();
+        DialogComponent().showToast(label: AppTexts.gameCanceled.tr);
       case GameCommands.selectGame:
         changeTimerValue(GameWaitTimes.queuePickTime);
         final targetId = data['data'];
@@ -169,6 +196,7 @@ class QueueController extends BaseController {
   }
 
   startPreGameFunction(dynamic data) {
+    Get.closeAllDialogs();
     Get.find<SoundPlayerComponent>().startPlayQueueMusic();
     showInteraction(sound: GameSoundTypes.startGame);
     List queuersData = data['data']['queuers'];
