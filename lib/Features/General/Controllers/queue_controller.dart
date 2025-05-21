@@ -37,6 +37,7 @@ class QueueController extends BaseController {
   String? preGameId;
 
   RxBool letSelectGame = RxBool(false);
+
   void onQueueStarted() {}
 
   void onQueueError() {
@@ -225,8 +226,14 @@ class QueueController extends BaseController {
       case 6:
         gamer2BannedGames.add(stringToGameType(gameType));
       case 7:
-        systemSelectedGame.value = stringToGameType(gameType);
-        DialogComponent().showTimerDialog(time: 5);
+        changeTimerValue(2);
+        Future.delayed(const Duration(seconds: 2)).then((_) {
+          systemSelectedGame.value = stringToGameType(gameType);
+          changeTimerValue(5);
+          Future.delayed(const Duration(seconds: 5)).then((_) {
+            DialogComponent().showTimerDialog(time: 5);
+          });
+        });
     }
     final gameValue = stringToGameType(gameType);
     allGames.remove(gameValue);
@@ -234,10 +241,11 @@ class QueueController extends BaseController {
     activeIndex.value += 1;
   }
 
-  systemBannedGamesFunction(dynamic data) {
+  systemBannedGamesFunction(dynamic data) async {
     List<String> newData = List<String>.from(data['data']);
     for (var rawData in newData) {
       final gameValue = stringToGameType(rawData);
+      await Future.delayed(const Duration(seconds: 1));
       allGames.remove(gameValue);
       systemBannedGames.add(gameValue);
     }
@@ -301,6 +309,7 @@ class QueueController extends BaseController {
 
   @override
   void onInit() {
+    Get.find<TimerCompanent>();
     preGameId = Get.arguments;
     startQueue();
     myId = Get.find<GlobalController>().userId!;

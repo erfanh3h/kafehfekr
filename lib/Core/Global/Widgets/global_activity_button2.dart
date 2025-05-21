@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_focus_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -22,7 +23,7 @@ class GlobalActivityButton2 extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GlobalFocusWidget(
       onTap: onTap,
       child: Container(
         padding: AppSpacings.s2All,

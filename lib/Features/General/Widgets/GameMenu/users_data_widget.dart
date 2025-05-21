@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
@@ -175,69 +173,6 @@ class UserRowData extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class TimerWidget extends StatefulWidget {
-  const TimerWidget({
-    super.key,
-    required this.maxTime,
-  });
-
-  final int maxTime;
-
-  @override
-  State<TimerWidget> createState() => _TimerWidgetState();
-}
-
-class _TimerWidgetState extends State<TimerWidget> {
-  int maxTime = 0;
-  late Timer? timer;
-  @override
-  void initState() {
-    setState(() {
-      maxTime = widget.maxTime;
-    });
-    timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (Timer timer) {
-        if (maxTime == 0) {
-          timer.cancel();
-        } else {
-          setState(() {
-            maxTime -= 1;
-          });
-        }
-      },
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    try {
-      timer!.cancel();
-    } catch (_) {}
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: 15,
-      backgroundColor: AppColors.lightColor,
-      child: Text(
-        maxTime.toString(),
-        style: const TextStyle(
-          fontSize: 18,
-          color: AppColors.darkColor,
-          fontFamily: FontFamilies.dastnevis,
-        ),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        textDirection: TextDirection.ltr,
       ),
     );
   }

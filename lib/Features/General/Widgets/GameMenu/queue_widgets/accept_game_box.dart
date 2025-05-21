@@ -24,11 +24,23 @@ class AcceptGameBox extends StatefulWidget {
 }
 
 class _AcceptGameBoxState extends State<AcceptGameBox> {
+  final timerController = TimerCompanent();
   bool isLoading = false;
+
+  @override
+  void initState() {
+    timerController.startTimer(widget.duration);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    timerController.stopTimer();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final timerController = Get.find<TimerCompanent>();
-    timerController.startTimer(widget.duration);
     return Container(
       padding: AppSpacings.s10All,
       child: Column(
@@ -41,19 +53,18 @@ class _AcceptGameBoxState extends State<AcceptGameBox> {
                 const SizedBox(height: 50),
               ]
             : [
-                GetBuilder<TimerCompanent>(builder: (context) {
-                  return Obx(
-                    () => Text(
-                      timerController.timerLabel.value,
-                      style: const TextStyle(
-                        fontFamily: FontFamilies.dastnevis,
-                        fontSize: 50,
-                        color: AppColors.lightColor,
-                      ),
-                      textAlign: TextAlign.center,
+                Obx(
+                  () => Text(
+                    timerController.timerLabel.value,
+                    style: const TextStyle(
+                      fontFamily: FontFamilies.dastnevis,
+                      fontSize: 50,
+                      color: AppColors.lightColor,
                     ),
-                  );
-                }),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
                 // const SizedBox(height: 20),
                 Text(
                   AppTexts.areYouRdyToStart.tr,

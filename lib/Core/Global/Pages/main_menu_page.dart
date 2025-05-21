@@ -10,6 +10,7 @@ import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_button2.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_widget.dart.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_focus_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_user_data_header.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -220,82 +221,48 @@ class MainPage extends BaseView<GlobalController> {
   }
 }
 
-class EachMenuItemWidget extends StatefulWidget {
+class EachMenuItemWidget extends StatelessWidget {
   const EachMenuItemWidget({
     super.key,
     required this.index,
   });
 
   final int index;
-
-  @override
-  State<EachMenuItemWidget> createState() => _EachMenuItemWidgetState();
-}
-
-class _EachMenuItemWidgetState extends State<EachMenuItemWidget> {
-  double baseHover = 1;
-
-  @override
-  void initState() {
-    baseHover = items[widget.index].scale ?? 1;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => items[widget.index].onTap(),
-      onHover: (value) async {
-        if (value) {
-          for (var i = 0; i < 30; i++) {
-            await Future.delayed(const Duration(milliseconds: 1));
-            setState(() {
-              baseHover += .01;
-            });
-          }
-        } else {
-          for (var i = 0; i < 30; i++) {
-            await Future.delayed(const Duration(milliseconds: 1));
-            setState(() {
-              baseHover -= .01;
-            });
-          }
-        }
-      },
-      child: Transform.scale(
-        scale: baseHover,
-        child: Row(
-          children: [
-            Text(
-              items[widget.index].name.tr,
-              style: const TextStyle(
-                color: AppColors.lightColor,
-                fontSize: 25,
-                fontFamily: FontFamilies.hekayat,
-              ),
+    return GlobalFocusWidget(
+      onTap: () => items[index].onTap(),
+      child: Row(
+        children: [
+          Text(
+            items[index].name.tr,
+            style: const TextStyle(
+              color: AppColors.lightColor,
+              fontSize: 25,
+              fontFamily: FontFamilies.hekayat,
             ),
-            SizedBox(width: 5.w),
-            Container(
-              padding: AppSpacings.s5All,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColors.lightColor, width: 2),
-              ),
-              child: items[widget.index].iconData != null
-                  ? Icon(
-                      items[widget.index].iconData,
-                      color: AppColors.lightColor,
-                      size: 50,
-                    )
-                  : Image.asset(
-                      items[widget.index].icon!,
-                      width: 50,
-                      height: 50,
-                      color: AppColors.lightColor,
-                    ),
+          ),
+          SizedBox(width: 5.w),
+          Container(
+            padding: AppSpacings.s5All,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.lightColor, width: 2),
             ),
-          ],
-        ),
+            child: items[index].iconData != null
+                ? Icon(
+                    items[index].iconData,
+                    color: AppColors.lightColor,
+                    size: 50,
+                  )
+                : Image.asset(
+                    items[index].icon!,
+                    width: 50,
+                    height: 50,
+                    color: AppColors.lightColor,
+                  ),
+          ),
+        ],
       ),
     );
   }
