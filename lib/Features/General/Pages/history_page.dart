@@ -2,11 +2,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_page_header.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Features/General/Controllers/history_controller.dart';
 import 'package:kafehfekr/Features/General/Widgets/game_history_row_widget.dart';
 import 'package:kafehfekr/Features/General/Widgets/user_games_history_widget.dart';
@@ -26,20 +26,7 @@ class HistoryPage extends BaseView<HistoryController> {
       child: ListView(
         children: [
           const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  AppTexts.history.tr,
-                  style: const TextStyle(
-                    fontSize: 25,
-                    color: AppColors.lightColor,
-                  ),
-                ),
-              ),
-              backButton
-            ],
-          ),
+          GlobalPageHeader(label: AppTexts.history.tr),
           const SizedBox(height: 5),
           if (controller.myHistoryData.value != null)
             FadeIn(

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_page_header.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Features/General/Controllers/chats_controller.dart';
 import 'package:kafehfekr/Features/General/Widgets/GameMenu/queue_widgets/message_widget.dart';
 import 'package:refreshed/refreshed.dart';
@@ -35,22 +34,9 @@ class ChatsPage extends BaseView<ChatsController> {
       width: double.maxFinite,
       child: Column(
         children: [
-          Padding(
-            padding: AppSpacings.s10All,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    '${AppTexts.chats.tr} (${controller.usersCount.value} آنلاین)',
-                    style: const TextStyle(
-                      fontSize: 25,
-                      color: AppColors.lightColor,
-                    ),
-                  ),
-                ),
-                backButton
-              ],
-            ),
+          GlobalPageHeader(
+            label:
+                '${AppTexts.chats.tr} (${controller.usersCount.value} آنلاین)',
           ),
           const SizedBox(height: 20),
           Expanded(

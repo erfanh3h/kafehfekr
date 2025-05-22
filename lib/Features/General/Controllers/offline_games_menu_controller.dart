@@ -3,9 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_dialog_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_images.dart';
-import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
@@ -45,15 +44,7 @@ class OfflineGamesMenuController extends BaseController {
     Get.dialog(
       Dialog(
         backgroundColor: Colors.transparent,
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(AppImages.dialog),
-              fit: BoxFit.fill,
-            ),
-            // borderRadius: BorderRadius.circular(5),
-            // color: AppColors.transparent,
-          ),
+        child: GlobalDialogWrapper(
           height: 150.h,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,7 +56,7 @@ class OfflineGamesMenuController extends BaseController {
                   Text(
                     "${AppTexts.usersCount.tr}: ",
                     style: const TextStyle(
-                      color: AppColors.darkColor,
+                      color: AppColors.lightColor,
                       fontSize: 20,
                     ),
                   ),
@@ -73,6 +64,7 @@ class OfflineGamesMenuController extends BaseController {
                   Obx(
                     () => DropdownButton<int>(
                       value: usersCount.value,
+                      iconEnabledColor: AppColors.lightColor,
                       items: List.generate(40, (index) {
                         int number = index + 4;
                         return DropdownMenuItem(
@@ -115,11 +107,8 @@ class OfflineGamesMenuController extends BaseController {
     List<int> sizes = [4, 6, 8, 10];
     Get.dialog(
       Dialog(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: AppColors.lightColor2,
-          ),
+        backgroundColor: Colors.transparent,
+        child: GlobalDialogWrapper(
           height: 150.h,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -131,7 +120,7 @@ class OfflineGamesMenuController extends BaseController {
                   Text(
                     "${AppTexts.boardSize.tr}: ",
                     style: const TextStyle(
-                      color: AppColors.darkColor,
+                      color: AppColors.lightColor,
                       fontSize: 20,
                     ),
                   ),
@@ -139,6 +128,7 @@ class OfflineGamesMenuController extends BaseController {
                   Obx(
                     () => DropdownButton<int>(
                       value: boardSize.value,
+                      iconEnabledColor: AppColors.lightColor,
                       items: sizes.map((number) {
                         return DropdownMenuItem(
                           value: number,
@@ -180,11 +170,8 @@ class OfflineGamesMenuController extends BaseController {
     RxInt boardSize = RxInt(8);
     Get.dialog(
       Dialog(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: AppColors.lightColor2,
-          ),
+        backgroundColor: Colors.transparent,
+        child: GlobalDialogWrapper(
           height: 150.h,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -196,7 +183,7 @@ class OfflineGamesMenuController extends BaseController {
                   Text(
                     "${AppTexts.boardSize.tr}: ",
                     style: const TextStyle(
-                      color: AppColors.darkColor,
+                      color: AppColors.lightColor,
                       fontSize: 20,
                     ),
                   ),
@@ -204,6 +191,7 @@ class OfflineGamesMenuController extends BaseController {
                   Obx(
                     () => DropdownButton<int>(
                       value: boardSize.value,
+                      iconEnabledColor: AppColors.lightColor,
                       items: List.generate(6, (index) {
                         int number = index + 5; // از ۵ تا ۱۰
                         return DropdownMenuItem(
@@ -230,7 +218,7 @@ class OfflineGamesMenuController extends BaseController {
                   Text(
                     "${AppTexts.minesCount.tr}: ",
                     style: const TextStyle(
-                      color: AppColors.darkColor,
+                      color: AppColors.lightColor,
                       fontSize: 20,
                     ),
                   ),
@@ -238,6 +226,7 @@ class OfflineGamesMenuController extends BaseController {
                   Obx(
                     () => DropdownButton<int>(
                       value: minesCont.value,
+                      iconEnabledColor: AppColors.lightColor,
                       items: List.generate(21, (index) {
                         int number = index + 5;
                         return DropdownMenuItem(
@@ -347,17 +336,8 @@ class OfflineGamesMenuController extends BaseController {
     Get.dialog(
       Dialog(
         backgroundColor: Colors.transparent,
-        child: Container(
-          padding: AppSpacings.s20All,
-          decoration: const BoxDecoration(
-            // borderRadius: BorderRadius.circular(5),
-            // color: AppColors.lightColor2,
-            image: DecorationImage(
-              image: AssetImage(AppImages.dialog),
-              fit: BoxFit.fill,
-            ),
-          ),
-          height: 200.h,
+        child: GlobalDialogWrapper(
+          height: 300,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -368,7 +348,7 @@ class OfflineGamesMenuController extends BaseController {
                   Text(
                     "${AppTexts.usersCount.tr}: ",
                     style: const TextStyle(
-                      color: AppColors.darkColor,
+                      color: AppColors.lightColor,
                       fontSize: 20,
                     ),
                   ),
@@ -376,6 +356,8 @@ class OfflineGamesMenuController extends BaseController {
                   Obx(
                     () => DropdownButton<int>(
                       value: usersCount.value,
+                      dropdownColor: Colors.red,
+                      iconEnabledColor: AppColors.lightColor,
                       items: List.generate(30, (index) {
                         int number = index + 3; // از ۵ تا ۱۰
                         return DropdownMenuItem(
@@ -402,7 +384,7 @@ class OfflineGamesMenuController extends BaseController {
                   Text(
                     "${AppTexts.spiesCount.tr}: ",
                     style: const TextStyle(
-                      color: AppColors.darkColor,
+                      color: AppColors.lightColor,
                       fontSize: 20,
                     ),
                   ),
@@ -410,6 +392,7 @@ class OfflineGamesMenuController extends BaseController {
                   Obx(
                     () => DropdownButton<int>(
                       value: spiesSize.value,
+                      iconEnabledColor: AppColors.lightColor,
                       items: List.generate(20, (index) {
                         int number = index + 1;
                         return DropdownMenuItem(
@@ -436,7 +419,7 @@ class OfflineGamesMenuController extends BaseController {
                   Text(
                     "${AppTexts.timerValue.tr}: ",
                     style: const TextStyle(
-                      color: AppColors.darkColor,
+                      color: AppColors.lightColor,
                       fontSize: 20,
                     ),
                   ),
@@ -444,6 +427,7 @@ class OfflineGamesMenuController extends BaseController {
                   Obx(
                     () => DropdownButton<int>(
                       value: timeValue.value,
+                      iconEnabledColor: AppColors.lightColor,
                       items: List.generate(10, (index) {
                         int number = index + 2;
                         return DropdownMenuItem(

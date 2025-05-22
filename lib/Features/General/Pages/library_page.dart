@@ -5,13 +5,13 @@ import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_game_guide_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_page_header.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Features/General/Widgets/game_button.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -40,20 +40,7 @@ class LibraryPage extends BaseView<GlobalController> {
       child: ListView(
         children: [
           const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  AppTexts.gameType.tr,
-                  style: const TextStyle(
-                    fontSize: 25,
-                    color: AppColors.lightColor,
-                  ),
-                ),
-              ),
-              backButton
-            ],
-          ),
+          GlobalPageHeader(label: AppTexts.gameType.tr),
           const SizedBox(height: 5),
           Row(
             children: [

@@ -1,10 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_page_header.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Features/General/Controllers/store_controller.dart';
 import 'package:kafehfekr/Features/General/Widgets/chance_paper_widget.dart';
 import 'package:kafehfekr/Features/General/Widgets/purchases_box.dart';
@@ -27,20 +26,7 @@ class StorePage extends BaseView<StoreController> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  AppTexts.store.tr,
-                  style: const TextStyle(
-                    fontSize: 25,
-                    color: AppColors.lightColor,
-                  ),
-                ),
-              ),
-              backButton
-            ],
-          ),
+          GlobalPageHeader(label: AppTexts.store.tr),
           const SizedBox(height: 20),
           FadeIn(
             delay: const Duration(milliseconds: 150),

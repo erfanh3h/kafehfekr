@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_page_header.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Features/General/Controllers/offline_games_menu_controller.dart';
 import 'package:kafehfekr/Features/General/Widgets/GameMenu/offline_menu_game_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
@@ -28,28 +27,7 @@ class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
       child: Column(
         children: [
           const SizedBox(height: 20),
-          Row(
-            children: [
-              Container(
-                padding: AppSpacings.s20Vertical40Horizental,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(AppImages.frame2),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                child: Text(
-                  AppTexts.offlineGame.tr,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: AppColors.lightColor,
-                  ),
-                ),
-              ),
-              const Spacer(),
-              backButton
-            ],
-          ),
+          GlobalPageHeader(label: AppTexts.offlineGame.tr),
           const SizedBox(height: 20),
           Expanded(
             child: GridView.builder(
