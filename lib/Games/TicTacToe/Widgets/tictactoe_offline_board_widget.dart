@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/TicTacToe/Controllers/tictactoe_offline_controller.dart';
 import 'package:kafehfekr/Games/TicTacToe/Widgets/tictactoe_button.dart';
 import 'package:refreshed/refreshed.dart';
@@ -17,15 +18,15 @@ class TicTacToeOfflineBoardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        // padding: AppSpacings.s5All,
+        padding: AppSpacings.s30All,
         height:
             (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
         width:
             (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
         decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.darkColor,
-            width: 25,
+          image: const DecorationImage(
+            image: AssetImage(AppImages.board),
+            fit: BoxFit.fill,
           ),
           borderRadius: BorderRadius.circular(20),
         ),

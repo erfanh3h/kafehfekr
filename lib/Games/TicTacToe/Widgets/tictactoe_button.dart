@@ -4,6 +4,7 @@ import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/TicTacToe/Models/tictactoe_peace_model.dart';
 
@@ -21,11 +22,9 @@ class TicTacToeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? imageColor;
     String? image;
-    final isLastTurnPlayed =
-        peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     switch (peaceData.selectedUser) {
       case 1:
-        imageColor = AppColors.imageRedColor;
+        imageColor = AppColors.darkRed;
         image = GeneralIcons.circle1;
         break;
       case 2:
@@ -44,15 +43,9 @@ class TicTacToeButton extends StatelessWidget {
       child: Container(
         padding: AppSpacings.s15All,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [Colors.white24, Colors.white70],
-          ),
-          // color: AppColors.lightColor,
-          border: Border.all(
-            color: isLastTurnPlayed ? AppColors.yellow : AppColors.darkColor,
-            width: 3,
+          image: const DecorationImage(
+            image: AssetImage(AppImages.button4),
+            fit: BoxFit.fill,
           ),
           borderRadius: BorderRadius.circular(8),
         ),

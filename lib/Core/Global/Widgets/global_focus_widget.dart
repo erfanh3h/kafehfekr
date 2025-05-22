@@ -30,14 +30,14 @@ class _GlobalFocusWidgetState extends State<GlobalFocusWidget> {
     return InkWell(
       onHover: (value) async {
         if (value) {
-          for (var i = 0; i < 30; i++) {
+          for (var i = 0; i < 20; i++) {
             await Future.delayed(const Duration(milliseconds: 1));
             setState(() {
               baseHover += .01;
             });
           }
         } else {
-          for (var i = 0; i < 30; i++) {
+          for (var i = 0; i < 20; i++) {
             await Future.delayed(const Duration(milliseconds: 1));
             setState(() {
               baseHover -= .01;

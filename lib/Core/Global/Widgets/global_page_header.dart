@@ -16,10 +16,11 @@ class GlobalPageHeader extends StatelessWidget {
     return Row(
       children: [
         Container(
+          margin: AppSpacings.s10Horizental,
           padding: AppSpacings.s20Vertical40Horizental,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(AppImages.frame2),
+              image: AssetImage(AppImages.frame4),
               fit: BoxFit.fill,
             ),
           ),

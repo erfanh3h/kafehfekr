@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_offline_games_activity_buttons.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -19,19 +20,22 @@ class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
   Widget body(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: controller.isGameFinished.value
-              ? Center(
-                  child: Text(
-                    controller.gameResultText.value,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      color: AppColors.lightColor,
-                    ),
+        const SizedBox(height: 20),
+        controller.isGameFinished.value
+            ? Center(
+                child: Text(
+                  controller.gameResultText.value,
+                  style: const TextStyle(
+                    fontSize: 25,
+                    color: AppColors.lightColor,
                   ),
-                )
-              : Row(
+                ),
+              )
+            : GlobalFrameWrapper(
+                frame: AppImages.frame3,
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
                       "نوبت: ",
@@ -46,7 +50,7 @@ class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
                             ? GeneralIcons.circle1
                             : GeneralIcons.cross,
                         color: controller.currentTurn.value == 1
-                            ? AppColors.imageRedColor
+                            ? AppColors.darkRed
                             : AppColors.imageBlueColor,
                         width: 50,
                         height: 50,
@@ -54,9 +58,9 @@ class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
                     )
                   ],
                 ),
-        ),
+              ),
         Expanded(
-          flex: 3,
+          flex: 5,
           child: TicTacToeOfflineBoardWidget(controller: controller),
         ),
         Expanded(child: OfflineActivityButtons(controller: controller))
