@@ -1,8 +1,12 @@
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
+import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Network/game_socket.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Ludo/Models/ludo_piece_model.dart';
 import 'package:refreshed/refreshed.dart';
@@ -119,6 +123,8 @@ class LudoController extends BaseGameController {
   RxList<int> currentAvailableIndexes = RxList();
   RxList<int> activePlayerIndexes = RxList();
 
+  RxBool canExitGame = RxBool(false);
+
   @override
   void commandHandler(dynamic data) {
     super.commandHandler(data);
@@ -224,6 +230,9 @@ class LudoController extends BaseGameController {
     currentTurnPlayerRolled.value = gameData['current_turn_player_rolled'];
     activePlayerIndexes.value =
         List<int>.from(gameData['active_player_indexes']);
+    if (!activePlayerIndexes.contains(myGameId)) {
+      canExitGame.value = true;
+    }
     playersOutPieces.value = List<int>.from(gameData['players_out_pieces']);
     for (var i = 0; i < boardData.length; i++) {
       if (boardData[i]['equipped_user'] == 0) {
@@ -525,6 +534,31 @@ class LudoController extends BaseGameController {
       startPieces.add(Rx(LudoPieceModel(id: i, currentStatuses: [])));
       playersOutPieces.add(4);
     }
+  }
+
+  surrenderByUserFunction() {
+    DialogComponent().showIconicSelectionDialog(
+      AppTexts.surrender.tr,
+      AppTexts.wanaSurrenderGame.tr,
+      GeneralIcons.death,
+      AppColors.loseColor,
+      () {
+        Get.find<GameSocketManager>()
+            .sendCommand({"id": GameCommands.surrender});
+        Get.closeAllDialogs();
+        canExitGame.value = true;
+      },
+      () {
+        Get.closeAllDialogs();
+      },
+    );
+  }
+
+  exitGame() {
+    sendCommand({"id": GameCommands.exitGame, "data": {}});
+    Get.closeAllDialogs();
+    Get.back();
+    Get.back();
   }
 
   @override

@@ -14,9 +14,12 @@ import 'package:refreshed/refreshed.dart';
 class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
   GlobalActivityBox({
     super.key,
+    this.surrenderFunction,
   });
 
   final T controller = Get.find<T>();
+
+  final Function()? surrenderFunction;
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -50,7 +53,8 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                           width: maxWidth / 7,
                           child: GlobalActivityButton(
                             icon: GeneralIcons.death,
-                            onTap: FunctionsLibraryClass.surrenderFunction,
+                            onTap: surrenderFunction ??
+                                FunctionsLibraryClass.surrenderFunction,
                             text: AppTexts.surrender.tr,
                           ),
                         ),

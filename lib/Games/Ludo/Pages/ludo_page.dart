@@ -59,7 +59,14 @@ class LudoPage extends BaseView<LudoController> {
           ),
 
           // const Spacer(),
-          GlobalActivityBox<LudoController>(),
+          controller.canExitGame.value && !controller.isGameFinished.value
+              ? GlobalButtonWidget(
+                  onTap: controller.exitGame,
+                  text: AppTexts.exit.tr,
+                )
+              : GlobalActivityBox<LudoController>(
+                  surrenderFunction: controller.surrenderByUserFunction,
+                ),
           const SizedBox(height: 20),
         ],
       ),

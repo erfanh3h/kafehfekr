@@ -99,6 +99,7 @@ abstract class GameCommands {
   static const userReconnected = "UserReconnected";
   static const finishReconnectTime = "FinishReconnectTime";
   static const gameFinished = "GameFinished";
+  static const exitGame = "ExitGame";
   static const notPlayedTurns = "NotPlayedTurns";
   static const notEnoughCoin = "NotEnoughCoin";
   static const lobbyList = "LobbyList";
