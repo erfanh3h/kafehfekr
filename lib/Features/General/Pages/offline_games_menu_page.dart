@@ -30,15 +30,23 @@ class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
           const SizedBox(height: 20),
           Row(
             children: [
-              Expanded(
+              Container(
+                padding: AppSpacings.s20Vertical40Horizental,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AppImages.frame2),
+                    fit: BoxFit.fill,
+                  ),
+                ),
                 child: Text(
                   AppTexts.offlineGame.tr,
                   style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     color: AppColors.lightColor,
                   ),
                 ),
               ),
+              const Spacer(),
               backButton
             ],
           ),

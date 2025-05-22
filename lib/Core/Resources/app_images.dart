@@ -4,6 +4,15 @@ class AppImages {
   static const background1 = '$_base/background1.jpg';
   static const background2 = '$_base/background2.png';
   static const background3 = '$_base/background3.png';
+  static const button = '$_base/button.png';
+  static const button2 = '$_base/button2.png';
+  static const button3 = '$_base/button3.png';
+  static const button4 = '$_base/button4.png';
+  static const frame = '$_base/frame.png';
+  static const frame2 = '$_base/frame2.png';
+  static const left = '$_base/left.png';
+  static const dialog = '$_base/dialog.png';
+  static const imageFrame = '$_base/image-frame.png';
   static const tictactoeGame = '$_gameImages/tictactoe.jpg';
   static const rpcGame = '$_gameImages/rpc.jpg';
   static const backgammonGame = '$_gameImages/backgammon.jpg';

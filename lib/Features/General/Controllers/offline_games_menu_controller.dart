@@ -4,6 +4,8 @@ import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
@@ -42,10 +44,15 @@ class OfflineGamesMenuController extends BaseController {
     RxInt usersCount = RxInt(10);
     Get.dialog(
       Dialog(
+        backgroundColor: Colors.transparent,
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: AppColors.lightColor2,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(AppImages.dialog),
+              fit: BoxFit.fill,
+            ),
+            // borderRadius: BorderRadius.circular(5),
+            // color: AppColors.transparent,
           ),
           height: 150.h,
           child: Column(
@@ -339,10 +346,16 @@ class OfflineGamesMenuController extends BaseController {
     RxInt timeValue = RxInt(5);
     Get.dialog(
       Dialog(
+        backgroundColor: Colors.transparent,
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: AppColors.lightColor2,
+          padding: AppSpacings.s20All,
+          decoration: const BoxDecoration(
+            // borderRadius: BorderRadius.circular(5),
+            // color: AppColors.lightColor2,
+            image: DecorationImage(
+              image: AssetImage(AppImages.dialog),
+              fit: BoxFit.fill,
+            ),
           ),
           height: 200.h,
           child: Column(

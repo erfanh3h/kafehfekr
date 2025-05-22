@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:refreshed/refreshed.dart';
 
 class AppTheme {
@@ -108,9 +108,15 @@ LinearGradient makeGradient(Color firstColor, Color secondColor) =>
 
 final backButton = IconButton(
   onPressed: Get.back,
-  icon: const Icon(
-    CupertinoIcons.right_chevron,
-    size: 30,
-    color: AppColors.lightColor,
+  icon: Container(
+    width: 40,
+    height: 40,
+    decoration: const BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage(AppImages.left),
+        fit: BoxFit.fill,
+      ),
+    ),
+    child: const Text(" "),
   ),
 );

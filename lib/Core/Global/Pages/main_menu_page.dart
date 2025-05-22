@@ -3,7 +3,6 @@ import 'dart:math' as math;
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
@@ -73,18 +72,28 @@ class MainPage extends BaseView<GlobalController> {
           right: 0,
           left: 0,
           child: FadeInDown(
-            delay: const Duration(seconds: 2),
+            delay: const Duration(milliseconds: 1200),
             child: const GlobalUserDataHeader(),
           ),
         ),
         Positioned(
-          left: center.dx - 20,
+          left: center.dx - 30,
           top: center.dy - 60,
           child: GlobalFadeInOutWidget(
-            child: Image.asset(
-              GeneralIcons.logoTransparent,
-              width: 150,
-              height: 150,
+            child: Container(
+              padding: AppSpacings.s10All,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage(AppImages.button2),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              child: Image.asset(
+                GeneralIcons.logoTransparent,
+                width: 125,
+                height: 125,
+              ),
             ),
           ),
         ),
@@ -102,7 +111,7 @@ class MainPage extends BaseView<GlobalController> {
             left: center.dx + x,
             top: center.dy + y - 20,
             child: FadeInRight(
-              delay: Duration(milliseconds: index * 500),
+              delay: Duration(milliseconds: index * 300),
               child: EachMenuItemWidget(
                 index: index,
               ),
@@ -114,11 +123,11 @@ class MainPage extends BaseView<GlobalController> {
           left: 10,
           right: 10,
           child: FadeInUp(
-            delay: const Duration(seconds: 2),
+            delay: const Duration(milliseconds: 1200),
             child: Obx(
               () => Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 15,
+                spacing: 5,
                 children: [
                   // if (controller.token.value != null &&
                   //     !controller.isNoNetwork.value)
@@ -232,37 +241,47 @@ class EachMenuItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalFocusWidget(
       onTap: () => items[index].onTap(),
-      child: Row(
-        children: [
-          Text(
-            items[index].name.tr,
-            style: const TextStyle(
-              color: AppColors.lightColor,
-              fontSize: 25,
-              fontFamily: FontFamilies.hekayat,
-            ),
+      child: Container(
+        padding: AppSpacings.s10All,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(AppImages.button),
+            fit: BoxFit.fill,
           ),
-          SizedBox(width: 5.w),
-          Container(
-            padding: AppSpacings.s5All,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.lightColor, width: 2),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              items[index].name.tr,
+              style: const TextStyle(
+                color: AppColors.lightColor,
+                fontSize: 25,
+                fontFamily: FontFamilies.hekayat,
+              ),
             ),
-            child: items[index].iconData != null
-                ? Icon(
-                    items[index].iconData,
-                    color: AppColors.lightColor,
-                    size: 50,
-                  )
-                : Image.asset(
-                    items[index].icon!,
-                    width: 50,
-                    height: 50,
-                    color: AppColors.lightColor,
-                  ),
-          ),
-        ],
+            const SizedBox(width: 3),
+            Container(
+              padding: AppSpacings.s5All,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                // border: Border.all(color: AppColors.lightColor, width: 2),
+              ),
+              child: items[index].iconData != null
+                  ? Icon(
+                      items[index].iconData,
+                      color: AppColors.lightColor,
+                      size: 30,
+                    )
+                  : Image.asset(
+                      items[index].icon!,
+                      width: 30,
+                      height: 30,
+                      color: AppColors.lightColor,
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }

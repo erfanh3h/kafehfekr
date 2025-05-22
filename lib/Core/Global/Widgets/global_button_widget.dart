@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
-import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:refreshed/refreshed.dart';
 
 import '../Components/sound_player.dart';
@@ -45,12 +45,19 @@ class GlobalButtonWidget extends StatelessWidget {
         padding: AppSpacings.s5Vertical3Horizental,
         height: height ?? 40.h,
         width: width ?? 140,
-        decoration: BoxDecoration(
-          // color: color ?? AppColors.blueWarmColor,
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: borderColor ?? AppColors.black, width: .3),
-          gradient: makeGradient(color ?? AppColors.darkColor, AppColors.black),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(AppImages.button),
+            fit: BoxFit.fill,
+          ),
         ),
+        // BoxDecoration(
+
+        //   // color: color ?? AppColors.blueWarmColor,
+        //   borderRadius: BorderRadius.circular(8),
+        //   border: Border.all(color: borderColor ?? AppColors.black, width: .3),
+        //   gradient: makeGradient(color ?? AppColors.darkColor, AppColors.black),
+        // ),
         child: Center(
           child: isLoading
               ? GlobalLoadingWidget(color: fontColor ?? AppColors.lightColor)

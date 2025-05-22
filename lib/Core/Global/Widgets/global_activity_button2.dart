@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_focus_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
-import 'package:kafehfekr/Core/Resources/app_spacings.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 
 class GlobalActivityButton2 extends StatelessWidget {
   const GlobalActivityButton2({
@@ -26,9 +26,18 @@ class GlobalActivityButton2 extends StatelessWidget {
     return GlobalFocusWidget(
       onTap: onTap,
       child: Container(
-        padding: AppSpacings.s2All,
-        decoration: BoxDecoration(
-            color: backgroundColor, borderRadius: BorderRadius.circular(10)),
+        width: 50,
+        height: 50,
+        // padding: AppSpacings.s5All,
+        decoration: const BoxDecoration(
+          // shape: BoxShape.circle,
+          image: DecorationImage(
+            image: AssetImage(AppImages.button4),
+            fit: BoxFit.fill,
+          ),
+          // color: backgroundColor,
+          // borderRadius: BorderRadius.circular(10),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -37,21 +46,21 @@ class GlobalActivityButton2 extends StatelessWidget {
               if (icon != null)
                 Image.asset(
                   icon!,
-                  width: 40,
-                  height: 40,
+                  width: 18,
+                  height: 18,
                   color: fontColor ?? AppColors.lightColor,
                 )
               else
                 Icon(
                   iconData!,
-                  size: 40,
+                  size: 18,
                   color: fontColor ?? AppColors.lightColor,
                 ),
               Text(
                 text,
                 style: TextStyle(
                   fontFamily: FontFamilies.hekayat,
-                  fontSize: 16,
+                  fontSize: 14,
                   color: fontColor ?? AppColors.lightColor,
                 ),
                 textAlign: TextAlign.center,

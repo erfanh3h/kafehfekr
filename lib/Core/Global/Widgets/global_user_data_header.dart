@@ -7,6 +7,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
@@ -136,45 +137,72 @@ class MainPart extends StatelessWidget {
                   //   color: AppColors.lightColor,
                   // ),
                   const Spacer(),
-                  Obx(
-                    () => Text(
-                      controller.myData.value!.score.toString(),
-                      style: const TextStyle(
-                        fontFamily: FontFamilies.playPen,
-                        fontSize: 17,
-                        color: AppColors.lightColor,
+
+                  Container(
+                    padding: AppSpacings.s10All,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(AppImages.button2),
+                        fit: BoxFit.fill,
                       ),
-                      textAlign: TextAlign.end,
                     ),
-                  ),
-                  const SizedBox(width: 1),
-                  Image.asset(
-                    GeneralIcons.cup,
-                    width: 28,
-                    height: 28,
-                    color: AppColors.lightColor,
+                    child: Row(
+                      children: [
+                        Obx(
+                          () => Text(
+                            controller.myData.value!.score.toString(),
+                            style: const TextStyle(
+                              fontFamily: FontFamilies.playPen,
+                              fontSize: 16,
+                              color: AppColors.lightColor,
+                            ),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                        const SizedBox(width: 1),
+                        Image.asset(
+                          GeneralIcons.cup,
+                          width: 25,
+                          height: 25,
+                          color: AppColors.lightColor,
+                        )
+                      ],
+                    ),
                   ),
                   const Spacer(flex: 3),
-                  Obx(
-                    () => Text(
-                      (FunctionsLibraryClass.expToLevel(
-                                  controller.myData.value!.xp) +
-                              1)
-                          .toString(),
-                      style: const TextStyle(
-                        fontFamily: FontFamilies.playPen,
-                        fontSize: 17,
-                        color: AppColors.lightColor,
+                  Container(
+                    padding: AppSpacings.s10All,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(AppImages.button2),
+                        fit: BoxFit.fill,
                       ),
-                      textAlign: TextAlign.end,
                     ),
-                  ),
-                  const SizedBox(width: 1),
-                  Image.asset(
-                    GeneralIcons.exp,
-                    width: 28,
-                    height: 28,
-                    color: AppColors.lightColor,
+                    child: Row(
+                      children: [
+                        Obx(
+                          () => Text(
+                            (FunctionsLibraryClass.expToLevel(
+                                        controller.myData.value!.xp) +
+                                    1)
+                                .toString(),
+                            style: const TextStyle(
+                              fontFamily: FontFamilies.playPen,
+                              fontSize: 16,
+                              color: AppColors.lightColor,
+                            ),
+                            textAlign: TextAlign.end,
+                          ),
+                        ),
+                        const SizedBox(width: 1),
+                        Image.asset(
+                          GeneralIcons.exp,
+                          width: 25,
+                          height: 25,
+                          color: AppColors.lightColor,
+                        ),
+                      ],
+                    ),
                   ),
                   const Spacer(),
                 ],
@@ -183,9 +211,13 @@ class MainPart extends StatelessWidget {
               Stack(
                 children: <Widget>[
                   Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: AppColors.lightColor2,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(AppImages.button),
+                        fit: BoxFit.fill,
+                      ),
+                      // borderRadius: BorderRadius.circular(4),
+                      // color: AppColors.lightColor2,
                     ),
                     width: MediaQuery.of(context).size.width / 2,
                     height: 6,
