@@ -43,7 +43,7 @@ class SpyOfflineController extends BaseOfflineGameController {
 
   startGame() {
     Get.find<TimerCompanent>()
-        .startTimer(gameMin * 5, endFunction: showWinSpies);
+        .startTimer(gameMin * 60, endFunction: showWinSpies);
     isGamePhase.value = true;
     isTimerCounting.value = true;
   }
@@ -85,6 +85,7 @@ class SpyOfflineController extends BaseOfflineGameController {
     isTimerCounting.value = false;
     showerCounter.value = 0;
     gameText.value = "";
+    showRole.value = false;
     initGame();
   }
 

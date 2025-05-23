@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Spy/Controllers/spy_offline_controller.dart';
@@ -21,26 +23,34 @@ class SpyOfflineRolesWidget extends StatelessWidget {
           children: [
             const SizedBox(height: 10),
             Center(
-              child: Text(
-                ' ${controller.playersCount} / ${controller.showerCounter.value + 1}',
-                style:
-                    const TextStyle(color: AppColors.lightColor, fontSize: 30),
+              child: GlobalFrameWrapper(
+                frame: AppImages.frame3,
+                padding: AppSpacings.s20Vertical40Horizental,
+                child: Text(
+                  ' ${controller.playersCount} / ${controller.showerCounter.value + 1}',
+                  style: const TextStyle(
+                      color: AppColors.lightColor, fontSize: 30),
+                ),
               ),
             ),
             Expanded(
               child: Center(
-                child: TextButton(
-                  onPressed: controller.onChangeShowRole,
-                  child: Text(
-                    controller.showRole.value
-                        ? controller.users[controller.showerCounter.value].isSpy
-                                .value
-                            ? AppTexts.youAreSpy.tr
-                            : controller.gameText.value
-                        : AppTexts.showWord.tr,
-                    style: const TextStyle(
-                      color: AppColors.lightColor,
-                      fontSize: 40,
+                child: InkWell(
+                  onTap: controller.onChangeShowRole,
+                  child: GlobalFrameWrapper(
+                    frame: AppImages.frame4,
+                    padding: AppSpacings.s30All,
+                    child: Text(
+                      controller.showRole.value
+                          ? controller.users[controller.showerCounter.value]
+                                  .isSpy.value
+                              ? AppTexts.youAreSpy.tr
+                              : controller.gameText.value
+                          : AppTexts.showWord.tr,
+                      style: const TextStyle(
+                        color: AppColors.lightColor,
+                        fontSize: 40,
+                      ),
                     ),
                   ),
                 ),

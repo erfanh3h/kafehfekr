@@ -353,7 +353,6 @@ class OfflineGamesMenuController extends BaseController {
                   Obx(
                     () => DropdownButton<int>(
                       value: usersCount.value,
-                      dropdownColor: Colors.red,
                       iconEnabledColor: AppColors.lightColor,
                       items: List.generate(30, (index) {
                         int number = index + 3; // از ۵ تا ۱۰

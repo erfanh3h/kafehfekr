@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class MafiaButton extends StatelessWidget {
   const MafiaButton({
@@ -21,7 +24,9 @@ class MafiaButton extends StatelessWidget {
           onTap!(text);
         }
       },
-      child: Card(
+      child: GlobalFrameWrapper(
+        frame: AppImages.button4,
+        padding: AppSpacings.s5All,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

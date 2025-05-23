@@ -1,7 +1,9 @@
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -24,55 +26,83 @@ class MafiaOfflineRolesPage extends BaseView<MafiaOfflineController> {
         children: [
           const SizedBox(height: 10),
           Center(
-            child: Text(
-              ' ${controller.playersCount} / ${controller.showerCounter.value + 1}',
-              style: const TextStyle(color: AppColors.lightColor, fontSize: 30),
+            child: GlobalFrameWrapper(
+              frame: AppImages.frame3,
+              padding: AppSpacings.s20Vertical40Horizental,
+              child: Text(
+                ' ${controller.playersCount} / ${controller.showerCounter.value + 1}',
+                style:
+                    const TextStyle(color: AppColors.lightColor, fontSize: 30),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
           Expanded(
             child: Center(
-              child: TextButton(
-                onPressed: controller.onChangeShowRole,
+              child: InkWell(
+                onTap: controller.onChangeShowRole,
                 child: controller.showRole.value
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            controller.getUserSideLabel(
-                              controller.showerCounter.value,
+                    ? GlobalFrameWrapper(
+                        frame: AppImages.frame4,
+                        padding: AppSpacings.s30All,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            GlobalFrameWrapper(
+                              frame: AppImages.frame4,
+                              child: Text(
+                                controller.getUserSideLabel(
+                                  controller.showerCounter.value,
+                                ),
+                                style: const TextStyle(
+                                  color: AppColors.lightColor,
+                                  fontSize: 20,
+                                ),
+                              ),
                             ),
-                            style: const TextStyle(
-                              color: AppColors.lightColor,
-                              fontSize: 20,
+                            const SizedBox(height: 20),
+                            GlobalFrameWrapper(
+                              frame: AppImages.frame2,
+                              padding: AppSpacings.s20Vertical70Horizental,
+                              child: Text(
+                                controller.users[controller.showerCounter.value]
+                                    .role.value,
+                                style: const TextStyle(
+                                  color: AppColors.lightColor,
+                                  fontSize: 50,
+                                  fontFamily: FontFamilies.hekayat,
+                                ),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 40),
-                          Text(
-                            controller.users[controller.showerCounter.value]
-                                .role.value,
-                            style: const TextStyle(
-                              color: AppColors.lightColor,
-                              fontSize: 60,
+                            const SizedBox(height: 5),
+                            GlobalFrameWrapper(
+                              frame: AppImages.frame,
+                              padding: AppSpacings.s25All,
+                              child: Text(
+                                controller.getUserSideDescription(
+                                  controller.showerCounter.value,
+                                ),
+                                style: const TextStyle(
+                                  color: AppColors.lightColor,
+                                  fontSize: 20,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 40),
-                          Text(
-                            controller.getUserSideDescription(
-                              controller.showerCounter.value,
-                            ),
-                            style: const TextStyle(
-                              color: AppColors.lightColor,
-                              fontSize: 20,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
+                            const SizedBox(height: 20),
+                          ],
+                        ),
                       )
-                    : Text(
-                        AppTexts.showRole.tr,
-                        style: const TextStyle(
-                          color: AppColors.lightColor,
-                          fontSize: 40,
+                    : GlobalFrameWrapper(
+                        frame: AppImages.frame4,
+                        padding: AppSpacings.s20Vertical50Horizental,
+                        child: Text(
+                          AppTexts.showRole.tr,
+                          style: const TextStyle(
+                            color: AppColors.lightColor,
+                            fontSize: 40,
+                          ),
                         ),
                       ),
               ),

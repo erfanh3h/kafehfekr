@@ -43,7 +43,7 @@ class AppTranslations extends Translations {
           AppTexts.citizens: 'شهروند',
           AppTexts.indipendents: 'مستقل',
           AppTexts.mafia: 'مافیا',
-          AppTexts.currentRoles: 'نقش های فعلی',
+          AppTexts.currentRoles: 'نقش های انتخابی',
           AppTexts.quest: 'مهمان',
           AppTexts.emptySize: 'تعداد خانه خالی',
           AppTexts.tryAgain: 'تلاش مجدد',

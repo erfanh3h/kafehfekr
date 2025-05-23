@@ -1,7 +1,9 @@
 import 'package:kafehfekr/Core/Global/Components/date_actions.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Games/Spy/Controllers/spy_offline_controller.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -19,12 +21,15 @@ class SpyTimerWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child: Text(
-              DateActionsComponent.formatSecondsToMinutes(
-                  int.tryParse(timerController.timerLabel.value) ?? 0),
-              style: const TextStyle(
-                color: AppColors.lightColor,
-                fontSize: 60,
+            child: GlobalFrameWrapper(
+              frame: AppImages.frame4,
+              child: Text(
+                DateActionsComponent.formatSecondsToMinutes(
+                    int.tryParse(timerController.timerLabel.value) ?? 0),
+                style: const TextStyle(
+                  color: AppColors.lightColor,
+                  fontSize: 60,
+                ),
               ),
             ),
           ),

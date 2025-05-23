@@ -20,6 +20,7 @@ class GlobalButtonWidget extends StatelessWidget {
     this.width,
     this.isLoading = false,
     this.fontSize,
+    this.frame,
   });
 
   final VoidCallback onTap;
@@ -31,6 +32,7 @@ class GlobalButtonWidget extends StatelessWidget {
   final double? width;
   final bool isLoading;
   final double? fontSize;
+  final String? frame;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +47,9 @@ class GlobalButtonWidget extends StatelessWidget {
         padding: AppSpacings.s5Vertical3Horizental,
         height: height ?? 40.h,
         width: width ?? 140,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(AppImages.button),
+            image: AssetImage(frame ?? AppImages.button),
             fit: BoxFit.fill,
           ),
         ),

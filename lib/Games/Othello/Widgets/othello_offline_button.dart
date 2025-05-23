@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Othello/Controllers/othello_offline_controller.dart';
 
 class OthelloOfflineButtonWidget extends StatelessWidget {
@@ -21,33 +24,36 @@ class OthelloOfflineButtonWidget extends StatelessWidget {
     final isHint =
         controller.possibleMoves.value.any((pos) => pos[0] == x && pos[1] == y);
 
-    final baseColor = isHint ? AppColors.white : AppColors.lightColor3;
+    final baseColor = isHint
+        ? controller.currentPlayer.value == Disk.black
+            ? AppColors.darkColor
+            : AppColors.lightColor
+        : AppColors.transparent;
     Color? color;
     if (disk == Disk.black) color = Colors.black;
     if (disk == Disk.white) color = Colors.white;
-    return GestureDetector(
-      onTap: () => controller.placeDisk(x, y),
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [baseColor, AppColors.lightColor],
+    return GlobalFrameWrapper(
+      frame: AppImages.button4,
+      padding: AppSpacings.s2All,
+      child: GestureDetector(
+        onTap: () => controller.placeDisk(x, y),
+        child: Container(
+          decoration: BoxDecoration(
+            color: baseColor,
+            borderRadius: BorderRadius.circular(6),
           ),
-          border: Border.all(color: AppColors.black, width: 1),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Center(
-          child: color != null
-              ? Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: color,
-                    shape: BoxShape.circle,
-                  ),
-                )
-              : null,
+          child: Center(
+            child: color != null
+                ? Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: color,
+                      shape: BoxShape.circle,
+                    ),
+                  )
+                : null,
+          ),
         ),
       ),
     );
