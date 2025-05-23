@@ -1,9 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/MSweeper/Models/enums.dart';
 import 'package:kafehfekr/Games/MSweeper/Models/msweeper_peace_model.dart';
 
@@ -21,7 +24,6 @@ class MSweeperOfflineButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color? color;
     bool isExplodedMine = peaceData.sweeperStatuses
         .contains(MineSweeperStatusTypes.isExplodedMine);
     bool isEquiped =
@@ -30,13 +32,6 @@ class MSweeperOfflineButton extends StatelessWidget {
         peaceData.currentStatuses.contains(PeaceStatusTypes.selected);
     // bool isMine =
     //     peaceData.sweeperStatuses.contains(MineSweeperStatusTypes.isMine);
-    Color? borderColor = Colors.white54;
-    if (isExplodedMine) {
-      color = AppColors.imageRedColor;
-    }
-    if (isEquiped) {
-      color = Colors.amber;
-    }
     return GestureDetector(
       onTap: () {
         onTap(peaceData);
@@ -44,36 +39,22 @@ class MSweeperOfflineButton extends StatelessWidget {
       onLongPress: () {
         onHold(peaceData);
       },
-      child: Container(
-        // padding: AppSpacings.s5All,
-        decoration: BoxDecoration(
-          // color: AppColors.lightColor2,
-          border: Border.all(color: borderColor, width: 1),
-          borderRadius: BorderRadius.circular(6),
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Colors.white24,
-              (color ?? Colors.white).withValues(alpha: .5),
-              (color ?? Colors.white)
-            ],
-            // stops: imageColor != null ? const [0, 0] : null,
-          ),
-        ),
+      child: GlobalFrameWrapper(
+        frame: AppImages.button4,
+        padding: AppSpacings.s2All,
         child: Center(
           child: isExplodedMine
               ? SpinPerfect(
                   child: Image.asset(
                     GeneralIcons.bombExplode,
-                    color: Colors.orangeAccent,
+                    color: AppColors.darkRed,
                   ),
                 )
               : isEquiped
                   ? ElasticIn(
                       child: Image.asset(
                         GeneralIcons.bomb,
-                        color: AppColors.white,
+                        color: AppColors.darkColor,
                       ),
                     )
                   : peaceData.value != null && isSelected

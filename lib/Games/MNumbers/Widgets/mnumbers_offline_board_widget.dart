@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -18,17 +19,11 @@ class MNumbersOfflineBoardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       return Center(
-        child: Container(
+        child: GlobalFrameWrapper(
           padding: AppSpacings.s25All,
           height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
           width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
-          decoration: BoxDecoration(
-            image: const DecorationImage(
-              image: AssetImage(AppImages.board),
-              fit: BoxFit.fill,
-            ),
-            borderRadius: BorderRadius.circular(20),
-          ),
+          frame: AppImages.board,
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: controller.boardSize.value,

@@ -193,10 +193,10 @@ class MainPart extends StatelessWidget {
         Expanded(
           flex: 5,
           child: GlobalFrameWrapper(
-            frame: AppImages.button4,
+            frame: AppImages.frame,
             padding: AppSpacings.s10All,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Obx(
                   () => Text(

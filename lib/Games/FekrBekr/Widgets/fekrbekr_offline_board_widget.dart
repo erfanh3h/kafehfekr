@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/FekrBekr/Controllers/fekrbekr_offline_controller.dart';
 import 'package:kafehfekr/Games/FekrBekr/Widgets/fekrbekr_button.dart';
@@ -26,63 +27,65 @@ class FekrBekrOfflineBoardWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Card(
-                  child: Directionality(
-                    textDirection: TextDirection.ltr,
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 20),
-                        IconButton(
-                          onPressed: controller.submitChoice,
-                          icon: const Icon(
-                            Icons.check,
-                            size: 35,
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              for (int i = 0; i < 4; i++)
-                                Obx(
-                                  () => FekrBekrButton(
-                                    peaceData: controller.peaces[i].value,
-                                    onTap: controller.onEachButtonTap,
-                                  ),
+            GlobalFrameWrapper(
+              frame: AppImages.frame4,
+              padding: AppSpacings.s25All,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      const SizedBox(width: 20),
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            for (int i = 0; i < 4; i++)
+                              Obx(
+                                () => FekrBekrButton(
+                                  peaceData: controller.peaces[i].value,
+                                  onTap: controller.onEachButtonTap,
                                 ),
-                            ],
+                              ),
+                          ],
+                        ),
+                      ),
+                      GlobalFrameWrapper(
+                        padding: AppSpacings.s10All,
+                        frame: AppImages.check,
+                        child: InkWell(
+                          onTap: controller.submitChoice,
+                          child: const SizedBox(
+                            width: 35,
+                            height: 35,
                           ),
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  SizedBox(
+                    width: Get.size.width,
+                    child: FekrBekrOfflineSelectNumbersBox(
+                      controller: controller,
                     ),
                   ),
-                ),
-                const SizedBox(height: 5),
-                SizedBox(
-                  width: Get.size.width,
-                  child: FekrBekrOfflineSelectNumbersBox(
-                    controller: controller,
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(height: 20),
 
             Expanded(
               child: GetBuilder<FekrBekrOfflineController>(
                 builder: (context) {
-                  return Container(
-                    padding: AppSpacings.s5All,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(color: AppColors.lightColor, width: 3),
-                    ),
+                  return GlobalFrameWrapper(
+                    padding: AppSpacings.s25All,
+                    frame: AppImages.board,
                     child: Obx(
-                      () => ListView.builder(
+                      () => ListView.separated(
                         itemBuilder: (ctx, index) {
                           final int reversedIndex =
                               controller.playerResults.length - index - 1;
@@ -93,6 +96,8 @@ class FekrBekrOfflineBoardWidget extends StatelessWidget {
                             index: reversedIndex,
                           );
                         },
+                        separatorBuilder: (ctx, index) =>
+                            const SizedBox(height: 10),
                         itemCount: controller.playerResults.length,
                       ),
                     ),
