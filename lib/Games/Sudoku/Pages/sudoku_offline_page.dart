@@ -23,12 +23,13 @@ class SudokuOfflinePage extends BaseView<SudokuOfflineController> {
       children: [
         const Spacer(),
         Expanded(
-          flex: 10,
+          flex: 12,
           child: ListView(
             children: [
               SudokuOfflineBoardWidget(controller: controller),
-              SudokuOfflineSelectNumberBox(controller: controller),
               const SizedBox(height: 5),
+              SudokuOfflineSelectNumberBox(controller: controller),
+              const SizedBox(height: 15),
               Center(
                 child: GlobalButtonWidget(
                   onTap: controller.solveFunction,

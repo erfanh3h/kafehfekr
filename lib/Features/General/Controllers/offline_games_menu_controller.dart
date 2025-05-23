@@ -269,11 +269,8 @@ class OfflineGamesMenuController extends BaseController {
     List<int> sizes = [20, 30, 40, 50, 60];
     Get.dialog(
       Dialog(
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: AppColors.lightColor2,
-          ),
+        backgroundColor: Colors.transparent,
+        child: GlobalDialogWrapper(
           height: 150.h,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -285,7 +282,7 @@ class OfflineGamesMenuController extends BaseController {
                   Text(
                     "${AppTexts.emptySize.tr}: ",
                     style: const TextStyle(
-                      color: AppColors.darkColor,
+                      color: AppColors.lightColor,
                       fontSize: 20,
                     ),
                   ),
