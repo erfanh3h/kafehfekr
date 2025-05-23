@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_text_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -32,7 +33,7 @@ class AuthPage extends BaseView<AuthController> {
   Widget body(BuildContext context) {
     return Center(
       child: Padding(
-        padding: AppSpacings.s40Horizental,
+        padding: AppSpacings.s20Horizental,
         child: ListView(
           children: [
             SizedBox(height: 75.h),
@@ -50,43 +51,57 @@ class AuthPage extends BaseView<AuthController> {
             ),
             SizedBox(height: 30.h),
             if (controller.isPhonePhase.value)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppTexts.enterPhone.tr,
-                    style: const TextStyle(
-                      color: AppColors.lightColor,
-                      fontSize: 16,
-                      fontFamily: FontFamilies.hekayat,
+              GlobalFrameWrapper(
+                frame: AppImages.dialog,
+                padding: AppSpacings.s30All,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: AppSpacings.s30Horizental,
+                      child: Text(
+                        AppTexts.enterPhone.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontSize: 16,
+                          fontFamily: FontFamilies.hekayat,
+                        ),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 10.h),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GlobalInputBox(
-                          label:
-                              controller.isPhonePhase.value ? '9121234567' : '',
-                          controller: controller.isPhonePhase.value
-                              ? controller.phoneController
-                              : controller.codeController,
-                          textType: TextInputType.number,
-                          maxLength: controller.isPhonePhase.value ? 10 : 4,
-                        ),
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: AppSpacings.s20Horizental,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: GlobalInputBox(
+                              label: controller.isPhonePhase.value
+                                  ? '9121234567'
+                                  : '',
+                              controller: controller.isPhonePhase.value
+                                  ? controller.phoneController
+                                  : controller.codeController,
+                              textType: TextInputType.number,
+                              maxLength: controller.isPhonePhase.value ? 10 : 4,
+                            ),
+                          ),
+                          const SizedBox(width: 5),
+                          GlobalFrameWrapper(
+                            frame: AppImages.button2,
+                            padding: AppSpacings.s5All,
+                            child: InkWell(
+                              onTap: controller.enterUser,
+                              child: const Icon(
+                                Icons.arrow_circle_left_outlined,
+                                size: 40,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      IconButton(
-                        onPressed: controller.enterUser,
-                        icon: const Icon(
-                          Icons.arrow_circle_left_outlined,
-                          size: 40,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: AppSpacings.s10Top,
-                    child: Row(
+                    ),
+                    const SizedBox(height: 15),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Transform.scale(
@@ -140,100 +155,102 @@ class AuthPage extends BaseView<AuthController> {
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(height: 15.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (controller.haveBackButton)
-                        Expanded(
-                          child: GlobalButtonWidget(
-                            width: 125.w,
-                            onTap: Get.back,
-                            text: AppTexts.back.tr,
+                    const SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (controller.haveBackButton)
+                          Container(
+                            margin: AppSpacings.s5Left,
+                            child: GlobalButtonWidget(
+                              width: 150,
+                              onTap: Get.back,
+                              text: AppTexts.back.tr,
+                            ),
                           ),
-                        ),
-                      Expanded(
-                        flex: 2,
-                        child: GlobalButtonWidget(
-                          width: 225.w,
+                        GlobalButtonWidget(
+                          width: 150,
                           onTap: controller.enterAsQuest,
                           text: AppTexts.enterAsQuest.tr,
                         ),
-                      ),
-                    ],
-                  )
-                ],
+                      ],
+                    )
+                  ],
+                ),
               )
             else
               !controller.isSendingData.value
-                  ? Column(
-                      children: [
-                        Text(
-                          "${AppTexts.enterCode.tr} : 0${controller.phoneController.text}",
-                          style: const TextStyle(
-                            color: AppColors.lightColor,
-                            fontSize: 22,
-                            fontFamily: FontFamilies.hekayat,
+                  ? GlobalFrameWrapper(
+                      frame: AppImages.dialog,
+                      padding: AppSpacings.s40All,
+                      child: Column(
+                        children: [
+                          Text(
+                            "${AppTexts.enterCode.tr} : 0${controller.phoneController.text}",
+                            style: const TextStyle(
+                              color: AppColors.lightColor,
+                              fontSize: 22,
+                              fontFamily: FontFamilies.hekayat,
+                            ),
+                            textDirection: TextDirection.ltr,
                           ),
-                          textDirection: TextDirection.ltr,
-                        ),
-                        SizedBox(height: 10.h),
-                        Directionality(
-                          textDirection: TextDirection.ltr,
-                          child: Pinput(
-                            onCompleted: (pin) => controller.sendCode(),
-                            controller: controller.codeController,
-                            defaultPinTheme: PinTheme(
-                              width: 56,
-                              height: 56,
-                              textStyle: const TextStyle(
-                                fontSize: 20,
-                                color: AppColors.lightColor,
-                                fontFamily: FontFamilies.playPen,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(
+                          SizedBox(height: 10.h),
+                          Directionality(
+                            textDirection: TextDirection.ltr,
+                            child: Pinput(
+                              onCompleted: (pin) => controller.sendCode(),
+                              controller: controller.codeController,
+                              defaultPinTheme: PinTheme(
+                                width: 56,
+                                height: 56,
+                                textStyle: const TextStyle(
+                                  fontSize: 20,
                                   color: AppColors.lightColor,
-                                  width: 3,
+                                  fontFamily: FontFamilies.playPen,
                                 ),
-                                borderRadius: BorderRadius.circular(10),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: AppColors.lightColor,
+                                    width: 3,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
+                              pinAnimationType: PinAnimationType.fade,
                             ),
-                            pinAnimationType: PinAnimationType.fade,
                           ),
-                        ),
-                        SizedBox(height: 15.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {},
-                              child: Text(
-                                AppTexts.didntGetCode.tr,
-                                style: const TextStyle(
-                                  color: AppColors.lightColor,
-                                  fontSize: 15,
-                                  decorationColor: AppColors.lightColor,
+                          SizedBox(height: 15.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                onTap: () {},
+                                child: Text(
+                                  AppTexts.didntGetCode.tr,
+                                  style: const TextStyle(
+                                    color: AppColors.lightColor,
+                                    fontSize: 15,
+                                    decorationColor: AppColors.lightColor,
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(width: 10.w),
-                            InkWell(
-                              onTap: () {},
-                              child: Text(
-                                AppTexts.resendCode.tr,
-                                style: const TextStyle(
-                                  color: AppColors.lightColor,
-                                  fontSize: 15,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: AppColors.lightColor,
+                              SizedBox(width: 10.w),
+                              InkWell(
+                                onTap: () {},
+                                child: Text(
+                                  AppTexts.resendCode.tr,
+                                  style: const TextStyle(
+                                    color: AppColors.lightColor,
+                                    fontSize: 15,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.lightColor,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     )
                   : const GlobalLoadingWidget(
                       size: 45,

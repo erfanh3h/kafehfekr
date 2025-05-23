@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppSpacings {
   static const EdgeInsets s5r = EdgeInsets.only(right: 5);
   static final EdgeInsets s5Top = EdgeInsets.only(top: 5.h);
+  static const EdgeInsets s5Left = EdgeInsets.only(left: 5);
   static final EdgeInsets s10Top = EdgeInsets.only(top: 10.h);
   static const EdgeInsets s20Top = EdgeInsets.only(top: 20);
   static final EdgeInsets s5Bottom = EdgeInsets.only(bottom: 5.h);
@@ -35,6 +36,7 @@ class AppSpacings {
   static const EdgeInsets s10Horizental = EdgeInsets.symmetric(horizontal: 10);
   static const EdgeInsets s15Horizental = EdgeInsets.symmetric(horizontal: 15);
   static const EdgeInsets s20Horizental = EdgeInsets.symmetric(horizontal: 20);
+  static const EdgeInsets s30Horizental = EdgeInsets.symmetric(horizontal: 30);
   static const EdgeInsets s40Horizental = EdgeInsets.symmetric(horizontal: 40);
   static const EdgeInsets s5Vertical3Horizental = EdgeInsets.symmetric(
     vertical: 5,

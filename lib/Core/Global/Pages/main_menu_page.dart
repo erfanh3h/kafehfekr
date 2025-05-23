@@ -190,13 +190,14 @@ class MainPage extends BaseView<GlobalController> {
                       text: AppTexts.changeUsername.tr,
                       iconData: CupertinoIcons.pen,
                       onTap: () {
-                        Get.bottomSheet(
-                          ChangeUsernameBox(
-                            username: controller.myData.value!.name,
-                            onChange: controller.changeUsername,
+                        Get.dialog(
+                          Dialog(
+                            backgroundColor: Colors.transparent,
+                            child: ChangeUsernameBox(
+                              username: controller.myData.value!.name,
+                              onChange: controller.changeUsername,
+                            ),
                           ),
-                          backgroundColor: AppColors.darkColor,
-                          isScrollControlled: false,
                         );
                       },
                     ),

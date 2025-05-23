@@ -97,7 +97,6 @@ class AuthController extends BaseController {
             letBackPage: false,
             fontSize: 18,
           );
-          Get.find<GlobalController>().changePage(3);
         });
       });
       update();

@@ -72,6 +72,8 @@ class GlobalButtonWidget extends StatelessWidget {
                     //   ..style = PaintingStyle.stroke,
                   ),
                   textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
         ),
       ),

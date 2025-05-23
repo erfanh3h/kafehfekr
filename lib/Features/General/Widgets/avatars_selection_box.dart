@@ -1,4 +1,6 @@
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +14,9 @@ class AvatarsSelectionBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: AppSpacings.s15All,
+    return GlobalFrameWrapper(
+      padding: AppSpacings.s50All,
+      frame: AppImages.dialog,
       child: Column(
         children: [
           // Padding(
@@ -31,18 +34,22 @@ class AvatarsSelectionBox extends StatelessWidget {
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
-                crossAxisSpacing: 25,
+                crossAxisSpacing: 5,
                 mainAxisSpacing: 10,
               ),
               itemBuilder: (ctx, index) => InkWell(
                 onTap: () {
                   onTap(index + 1);
                 },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    AvatarIcons().generalAvatarPath(index + 1),
-                    // color: AppColors.lightColor,
+                child: GlobalFrameWrapper(
+                  frame: AppImages.button2,
+                  padding: AppSpacings.s5All,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.asset(
+                      AvatarIcons().generalAvatarPath(index + 1),
+                      // color: AppColors.lightColor,
+                    ),
                   ),
                 ),
               ),

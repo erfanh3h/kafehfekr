@@ -21,8 +21,6 @@ class GlobalController extends BaseController {
   // RxString activeQueueType = RxString('');
   // RxString activeQueueScoreType = RxString('');
 
-  PageController pgCtrl = PageController(initialPage: 2);
-  RxInt selectedPage = RxInt(2);
   TextEditingController gameIdController =
       TextEditingController(text: "gameId");
 
@@ -38,11 +36,6 @@ class GlobalController extends BaseController {
   // RxBool errorGetData = RxBool(false);
 
   RxBool isNoNetwork = RxBool(false);
-
-  changePage(int page) {
-    selectedPage.value = page;
-    pgCtrl.jumpToPage(page);
-  }
 
   checkLoginStatus({bool navigateToMain = true}) async {
     // Get.toNamed(AppRoutes.ludo);
@@ -179,13 +172,12 @@ class GlobalController extends BaseController {
   }
 
   changeUsername(String username) {
-    if (myData.value!.coin < 75) {
-      Get.closeAllBottomSheets();
-      DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
-      return;
-    }
+    // if (myData.value!.coin < 75) {
+    //   Get.closeAllBottomSheets();
+    //   DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
+    //   return;
+    // }
     if (username == Get.find<GlobalController>().myData.value!.name) {
-      DialogComponent().showToast(label: AppTexts.error.tr);
       return;
     }
     myData.value =

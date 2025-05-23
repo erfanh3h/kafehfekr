@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
@@ -21,17 +22,21 @@ class GlobalUserDataHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: AppSpacings.s10All,
-      child: GetBuilder<GlobalController>(builder: (controller) {
-        return Obx(
-          () => controller.isNoNetwork.value
-              ? NoNetworkPart(controller: controller)
-              : controller.token.value != null
-                  ? MainPart(controller: controller)
-                  : const QuestPart(),
-        );
-      }),
+    return Container(
+      margin: AppSpacings.s20All,
+      child: GlobalFrameWrapper(
+        frame: AppImages.frame4,
+        padding: AppSpacings.s20All,
+        child: GetBuilder<GlobalController>(builder: (controller) {
+          return Obx(
+            () => controller.isNoNetwork.value
+                ? NoNetworkPart(controller: controller)
+                : controller.token.value != null
+                    ? MainPart(controller: controller)
+                    : const QuestPart(),
+          );
+        }),
+      ),
     );
   }
 }
@@ -42,24 +47,18 @@ class NoNetworkPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: AppSpacings.s10Top,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            AppTexts.serverError.tr,
-            style: const TextStyle(color: AppColors.lightColor, fontSize: 18),
-          ),
-          GlobalButtonWidget(
-            onTap: () {
-              controller.tryReconnect();
-            },
-            text: AppTexts.tryAgain.tr,
-          )
-        ],
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      Text(
+        AppTexts.serverError.tr,
+        style: const TextStyle(color: AppColors.lightColor, fontSize: 18),
       ),
-    );
+      GlobalButtonWidget(
+        onTap: () {
+          controller.tryReconnect();
+        },
+        text: AppTexts.tryAgain.tr,
+      )
+    ]);
   }
 }
 
@@ -68,24 +67,21 @@ class QuestPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: AppSpacings.s10Top,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text(
-            AppTexts.quest.tr,
-            style: const TextStyle(color: AppColors.lightColor, fontSize: 23),
-          ),
-          GlobalButtonWidget(
-            width: 225.w,
-            onTap: () {
-              Get.toNamed(AppRoutes.auth);
-            },
-            text: AppTexts.login.tr,
-          )
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text(
+          AppTexts.quest.tr,
+          style: const TextStyle(color: AppColors.lightColor, fontSize: 23),
+        ),
+        GlobalButtonWidget(
+          width: 200,
+          onTap: () {
+            Get.toNamed(AppRoutes.auth);
+          },
+          text: AppTexts.login.tr,
+        )
+      ],
     );
   }
 }
@@ -108,44 +104,10 @@ class MainPart extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  // InkWell(
-                  //   onTap: () {
-                  //     controller.changePage(4);
-                  //   },
-                  //   child: const Icon(
-                  //     CupertinoIcons.add_circled_solid,
-                  //     color: AppColors.darkGreen,
-                  //     size: 30,
-                  //   ),
-                  // ),
-                  // Obx(
-                  //   () => Text(
-                  //     controller.myData.value!.coin.toString(),
-                  //     style: const TextStyle(
-                  //       fontFamily: FontFamilies.playPen,
-                  //       fontSize: 17,
-                  //       color: AppColors.lightColor,
-                  //     ),
-                  //     textAlign: TextAlign.end,
-                  //   ),
-                  // ),
-                  // const SizedBox(width: 1),
-                  // Image.asset(
-                  //   GeneralIcons.coin,
-                  //   width: 28,
-                  //   height: 28,
-                  //   color: AppColors.lightColor,
-                  // ),
                   const Spacer(),
-
-                  Container(
+                  GlobalFrameWrapper(
+                    frame: AppImages.button2,
                     padding: AppSpacings.s10All,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(AppImages.button2),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
                     child: Row(
                       children: [
                         Obx(
@@ -162,22 +124,17 @@ class MainPart extends StatelessWidget {
                         const SizedBox(width: 1),
                         Image.asset(
                           GeneralIcons.cup,
-                          width: 25,
-                          height: 25,
+                          width: 20,
+                          height: 20,
                           color: AppColors.lightColor,
                         )
                       ],
                     ),
                   ),
-                  const Spacer(flex: 3),
-                  Container(
+                  const Spacer(flex: 1),
+                  GlobalFrameWrapper(
                     padding: AppSpacings.s10All,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(AppImages.button2),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
+                    frame: AppImages.button2,
                     child: Row(
                       children: [
                         Obx(
@@ -197,8 +154,8 @@ class MainPart extends StatelessWidget {
                         const SizedBox(width: 1),
                         Image.asset(
                           GeneralIcons.exp,
-                          width: 25,
-                          height: 25,
+                          width: 20,
+                          height: 20,
                           color: AppColors.lightColor,
                         ),
                       ],
@@ -210,17 +167,11 @@ class MainPart extends StatelessWidget {
               const SizedBox(height: 5),
               Stack(
                 children: <Widget>[
-                  Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(AppImages.button),
-                        fit: BoxFit.fill,
-                      ),
-                      // borderRadius: BorderRadius.circular(4),
-                      // color: AppColors.lightColor2,
-                    ),
+                  GlobalFrameWrapper(
+                    frame: AppImages.button,
                     width: MediaQuery.of(context).size.width / 2,
-                    height: 6,
+                    height: 8,
+                    child: Container(),
                   ),
                   Container(
                     decoration: BoxDecoration(
@@ -231,7 +182,7 @@ class MainPart extends StatelessWidget {
                         2 *
                         FunctionsLibraryClass.expPercent(
                             controller.myData.value!.xp),
-                    height: 6,
+                    height: 8,
                   ),
                 ],
               ),
@@ -241,59 +192,62 @@ class MainPart extends StatelessWidget {
         const SizedBox(width: 5),
         Expanded(
           flex: 5,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Obx(
-                () => Text(
-                  controller.myData.value!.name,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: AppColors.lightColor,
-                    fontFamily: FontFamilies.playPen,
-                    letterSpacing: 2.5,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textDirection: TextDirection.ltr,
-                ),
-              ),
-              const SizedBox(height: 2),
-              InkWell(
-                onTap: () {
-                  Clipboard.setData(
-                    ClipboardData(text: controller.myData.value!.id),
-                  );
-                },
-                child: Text(
-                  controller.myData.value!.id,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                    fontFamily: FontFamilies.playPen,
+          child: GlobalFrameWrapper(
+            frame: AppImages.button4,
+            padding: AppSpacings.s10All,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Obx(
+                  () => Text(
+                    controller.myData.value!.name,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: AppColors.lightColor,
+                      fontFamily: FontFamilies.playPen,
+                      letterSpacing: 2.5,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textDirection: TextDirection.ltr,
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 2),
+                InkWell(
+                  onTap: () {
+                    Clipboard.setData(
+                      ClipboardData(text: controller.myData.value!.id),
+                    );
+                  },
+                  child: Text(
+                    "id: ${controller.myData.value!.id}",
+                    style: const TextStyle(
+                      fontSize: 9,
+                      color: AppColors.lightColor2,
+                      fontFamily: FontFamilies.playPen,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         SizedBox(width: 5.w),
         InkWell(
           onTap: () {
             Get.bottomSheet(
-              AvatarsSelectionBox(
-                onTap: controller.changeProfile,
-              ),
-              backgroundColor: AppColors.darkColor,
+              AvatarsSelectionBox(onTap: controller.changeProfile),
+              backgroundColor: AppColors.transparent,
             );
           },
-          child: Container(
-            width: 55.w,
-            height: 55.w,
+          child: GlobalFrameWrapper(
+            width: 55,
+            height: 55,
             padding: AppSpacings.s5All,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: AppColors.lightColor, width: 3)),
+            frame: AppImages.button2,
+            // decoration: BoxDecoration(
+            //     shape: BoxShape.circle,
+            //     border: Border.all(color: AppColors.lightColor, width: 3)),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(150),
               child: Obx(

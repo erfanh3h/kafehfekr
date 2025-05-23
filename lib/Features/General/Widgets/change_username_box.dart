@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 
@@ -17,8 +19,10 @@ class ChangeUsernameBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     usernameController.text = username;
-    return SizedBox(
-      height: 100,
+    return GlobalFrameWrapper(
+      frame: AppImages.dialog,
+      height: 200,
+      padding: AppSpacings.s20Vertical40Horizental,
       child: Column(
         children: [
           // Padding(
@@ -32,32 +36,25 @@ class ChangeUsernameBox extends StatelessWidget {
           //     textAlign: TextAlign.center,
           //   ),
           // ),
-          Padding(
-            padding: AppSpacings.s10All,
-            child: Row(
-              children: [
-                Expanded(
-                  child: GlobalInputBox(
-                    label: AppTexts.enterUsername,
-                    controller: usernameController,
-                    textDirection: TextDirection.ltr,
-                    maxLength: 30,
-                    // onlyEnglishLetters: true,
-                  ),
-                ),
-                const SizedBox(width: 15),
-                IconButton(
-                  onPressed: () {
-                    onChange(usernameController.text);
-                  },
-                  icon: const Icon(
-                    Icons.save_rounded,
-                    size: 40,
-                  ),
-                )
-              ],
+          const Spacer(),
+          GlobalInputBox(
+            label: AppTexts.enterUsername,
+            controller: usernameController,
+            textDirection: TextDirection.ltr,
+            maxLength: 30,
+            // onlyEnglishLetters: true,
+          ),
+          const Spacer(),
+          GlobalFrameWrapper(
+            frame: AppImages.check,
+            child: InkWell(
+              onTap: () {
+                onChange(usernameController.text);
+              },
+              child: const SizedBox(width: 35, height: 35),
             ),
           ),
+          const Spacer(),
         ],
       ),
     );
