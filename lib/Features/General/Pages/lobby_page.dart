@@ -20,7 +20,7 @@ class LobbyPage extends BaseView<LobbyController> {
 
   @override
   String? backgroundImage() {
-    return AppImages.background2;
+    return AppImages.background1;
   }
 
   @override

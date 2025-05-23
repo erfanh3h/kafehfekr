@@ -23,7 +23,9 @@ class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
       children: [
         const SizedBox(height: 20),
         controller.isGameFinished.value
-            ? Center(
+            ? GlobalFrameWrapper(
+                frame: AppImages.frame3,
+                padding: AppSpacings.s20Vertical50Horizental,
                 child: Text(
                   controller.gameResultText.value,
                   style: const TextStyle(

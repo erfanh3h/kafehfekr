@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Features/General/Widgets/game_button.dart';
@@ -81,12 +83,15 @@ class _CreateLobbyWidgetState extends State<CreateLobbyWidget> {
                 ),
               ),
               const SizedBox(width: 20),
-              IconButton(
-                onPressed: () => widget.onCreate(selectedLobbyIndex),
-                icon: const Icon(
-                  Icons.check,
-                  color: AppColors.lightColor,
-                  size: 35,
+              InkWell(
+                onTap: () => widget.onCreate(selectedLobbyIndex),
+                child: const GlobalFrameWrapper(
+                  padding: AppSpacings.s10All,
+                  frame: AppImages.check,
+                  child: SizedBox(
+                    height: 25,
+                    width: 25,
+                  ),
                 ),
               )
             ],

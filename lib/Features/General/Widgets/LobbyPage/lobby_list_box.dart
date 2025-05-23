@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_page_header.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -15,11 +15,14 @@ class LobbyListBox extends BaseView<LobbyController> {
 
   @override
   Widget? floatingActionButton() {
-    return FloatingActionButton(
-      onPressed: controller.createLobby,
-      child: const Icon(
-        Icons.add,
-        color: AppColors.lightColor,
+    return InkWell(
+      onTap: controller.createLobby,
+      child: const GlobalFrameWrapper(
+        frame: AppImages.add,
+        child: SizedBox(
+          width: 50,
+          height: 50,
+        ),
       ),
     );
   }

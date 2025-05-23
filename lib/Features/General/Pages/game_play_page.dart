@@ -23,7 +23,7 @@ class GamePlayPage extends BaseView<GamePlayController> {
 
   @override
   String? backgroundImage() {
-    return AppImages.background2;
+    return AppImages.background1;
   }
 
   @override

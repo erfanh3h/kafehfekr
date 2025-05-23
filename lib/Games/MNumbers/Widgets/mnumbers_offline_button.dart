@@ -50,7 +50,7 @@ class MNumbersOfflineButton extends StatelessWidget {
           ),
           child: text != null
               ? ElasticIn(
-                  duration: const Duration(milliseconds: 750),
+                  duration: const Duration(milliseconds: 500),
                   child: Center(
                     child: Text(
                       text,

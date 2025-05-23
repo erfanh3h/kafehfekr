@@ -1,9 +1,11 @@
 class AppImages {
   static const _base = 'assets/Images';
   static const _gameImages = '$_base/games';
-  static const background1 = '$_base/background1.jpg';
-  static const background2 = '$_base/background2.png';
+  static const background1 = '$_base/background1.png';
+  // static const background2 = '$_base/background2.png';
   static const background3 = '$_base/background3.png';
+  static const add = '$_base/add.png';
+  static const check = '$_base/check.png';
   static const button = '$_base/button.png';
   static const button2 = '$_base/button2.png';
   static const button3 = '$_base/button3.png';
