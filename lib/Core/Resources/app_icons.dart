@@ -4,8 +4,8 @@ class ReactionIcons {
 }
 
 class AvatarIcons {
-  String generalAvatarPath(int id) => "assets/Icons/Avatars/$id.jpg";
-  static const avatarsCount = 100;
+  String generalAvatarPath(int id) => "assets/Icons/Avatars/$id.png";
+  static const avatarsCount = 4;
 }
 
 class GeneralIcons {

@@ -241,8 +241,8 @@ class MainPart extends StatelessWidget {
             );
           },
           child: GlobalFrameWrapper(
-            width: 55,
-            height: 55,
+            width: 75,
+            height: 75,
             padding: AppSpacings.s5All,
             frame: AppImages.button2,
             // decoration: BoxDecoration(

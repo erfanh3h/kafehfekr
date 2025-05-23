@@ -152,10 +152,10 @@ class GlobalController extends BaseController {
   // }
 
   changeProfile(int index) {
-    if (myData.value!.coin < 50 && myData.value!.image != 0) {
-      DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
-      return;
-    }
+    // if (myData.value!.coin < 50 && myData.value!.image != 0) {
+    //   DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
+    //   return;
+    // }
     if (index == myData.value!.image) {
       DialogComponent().showToast(label: AppTexts.error.tr);
       return;
