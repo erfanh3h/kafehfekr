@@ -6,6 +6,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_offline_games_activity_butt
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/TicTacToe/Controllers/tictactoe_offline_controller.dart';
 import 'package:kafehfekr/Games/TicTacToe/Widgets/tictactoe_offline_board_widget.dart';
 
@@ -33,6 +34,7 @@ class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
               )
             : GlobalFrameWrapper(
                 frame: AppImages.frame3,
+                padding: AppSpacings.s20Vertical50Horizental,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,

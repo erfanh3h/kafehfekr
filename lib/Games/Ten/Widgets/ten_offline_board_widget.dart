@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Ten/Controllers/ten_offline_controller.dart';
@@ -33,15 +35,19 @@ class TenOfflineBoardWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              controller.result.value.toStringAsPrecision(2),
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: AppColors.lightColor,
-                fontSize: 45,
-                fontFamily: FontFamilies.dastnevis,
+            GlobalFrameWrapper(
+              frame: AppImages.frame3,
+              padding: AppSpacings.s20Vertical50Horizental,
+              child: Text(
+                controller.result.value.toStringAsPrecision(2),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: AppColors.lightColor,
+                  fontSize: 45,
+                  fontFamily: FontFamilies.dastnevis,
+                ),
+                textDirection: TextDirection.ltr,
               ),
-              textDirection: TextDirection.ltr,
             ),
             const SizedBox(height: 15),
             Directionality(

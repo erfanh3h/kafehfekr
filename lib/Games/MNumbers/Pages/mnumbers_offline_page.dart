@@ -1,5 +1,6 @@
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_offline_games_activity_buttons.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -21,20 +22,25 @@ class MNumbersOfflinePage extends BaseView<MNumbersOfflineController> {
       width: double.maxFinite,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
+          const SizedBox(height: 10),
+          GlobalFrameWrapper(
+            frame: AppImages.frame3,
+            width: 250,
             child: Center(
               child: Text(
                 'حرکت انجام شده :  ${controller.tappedTimes.value}',
                 style: const TextStyle(
-                    fontFamily: FontFamilies.hekayat,
-                    fontSize: 30,
-                    color: AppColors.lightColor),
+                  fontFamily: FontFamilies.hekayat,
+                  fontSize: 25,
+                  color: AppColors.lightColor,
+                ),
               ),
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 5,
             child: MNumbersOfflineBoardWidget(controller: controller),
           ),
           Expanded(child: OfflineActivityButtons(controller: controller))

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class TenDraggableNumberWidget extends StatelessWidget {
   const TenDraggableNumberWidget({
@@ -13,24 +16,17 @@ class TenDraggableNumberWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Draggable<int>(
       data: value,
-      feedback: Container(
-        width: 50,
+      feedback: GlobalFrameWrapper(
+        padding: AppSpacings.s10Vertical20Horizental,
         height: 50,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [Colors.white24, Colors.white54],
-            // stops: imageColor != null ? const [0, 0] : null,
-          ),
-        ),
+        frame: AppImages.button4,
         child: Center(
           child: Text(
             value.toString(),
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 25,
-              fontFamily: FontFamilies.dastnevis,
+              fontSize: 20,
+              fontFamily: FontFamilies.playPen,
               decoration: TextDecoration.none,
             ),
             textDirection: TextDirection.ltr,
@@ -46,24 +42,17 @@ class TenDraggableNumberWidget extends StatelessWidget {
         height: 50,
       ),
       onDraggableCanceled: (_, __) {},
-      child: Container(
-        width: 50,
+      child: GlobalFrameWrapper(
+        padding: AppSpacings.s10Vertical20Horizental,
         height: 50,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          gradient: const LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [Colors.white24, Colors.white],
-          ),
-        ),
+        frame: AppImages.button4,
         child: Center(
           child: Text(
             value.toString(),
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 25,
-              fontFamily: FontFamilies.dastnevis,
+              fontSize: 20,
+              fontFamily: FontFamilies.playPen,
             ),
             textDirection: TextDirection.ltr,
           ),

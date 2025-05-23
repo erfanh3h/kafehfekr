@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/MNumbers/Controllers/mnumbers_offline_controller.dart';
 import 'package:kafehfekr/Games/MNumbers/Widgets/mnumbers_offline_button.dart';
@@ -19,15 +19,15 @@ class MNumbersOfflineBoardWidget extends StatelessWidget {
     return Obx(() {
       return Center(
         child: Container(
-          padding: AppSpacings.s5All,
+          padding: AppSpacings.s25All,
           height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
           width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
           decoration: BoxDecoration(
-            border: Border.all(
-              color: AppColors.darkColor,
-              width: 15,
+            image: const DecorationImage(
+              image: AssetImage(AppImages.board),
+              fit: BoxFit.fill,
             ),
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

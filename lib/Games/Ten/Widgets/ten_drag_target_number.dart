@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class TenDragTargetNumberWidget extends StatelessWidget {
@@ -22,25 +24,16 @@ class TenDragTargetNumberWidget extends StatelessWidget {
       builder: (context, candidateData, rejectedData) {
         return InkWell(
           onTap: () => onRemove(index),
-          child: Container(
+          child: GlobalFrameWrapper(
             padding: AppSpacings.s15Vertical5Horizental,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                colors: [Colors.white54, Colors.white],
-                // stops: imageColor != null ? const [0, 0] : null,
-              ),
-              borderRadius: BorderRadius.circular(5),
-              // color: Colors.white.withOpacity(0.5),
-            ),
+            frame: AppImages.button4,
             child: Center(
               child: Text(
                 value >= 0 ? value.toString() : "",
                 style: const TextStyle(
-                  fontSize: 22,
-                  color: AppColors.darkColor,
-                  fontFamily: FontFamilies.dastnevis,
+                  fontSize: 17,
+                  color: AppColors.lightColor,
+                  fontFamily: FontFamilies.playPen,
                 ),
               ),
             ),
