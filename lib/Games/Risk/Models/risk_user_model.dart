@@ -1,91 +1,54 @@
-import 'package:kafehfekr/Core/Global/Models/peace_model.dart';
-import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Games/Risk/Models/card_models.dart';
 
-class LudoPieceModel extends PeaceModel {
-  LudoPieceModel({
-    required super.id,
-    required super.currentStatuses,
-    this.selectedUser,
-    this.count = 0,
+class RiskUserModel {
+  RiskUserModel({
+    required this.index,
+    this.strategies,
+    this.strategiesCount,
+    required this.continents,
+    required this.tokens,
   });
 
-  int? selectedUser;
-  int count;
+  int index;
+  List<StrategyTypes>? strategies;
+  int? strategiesCount;
+  Map<ContinentTypes, int> continents;
+  List<ContinentTypes> tokens;
 
-  LudoPieceModel changeSelectedUser({
-    int? newSelectedUser,
-    int newCount = 1,
-  }) {
-    final data = super.addStatus(status: PeaceStatusTypes.selected);
-    return LudoPieceModel(
-      id: id,
-      currentStatuses: data.currentStatuses,
-      selectedUser: newSelectedUser,
-      count: newCount,
-    );
-  }
-
-  LudoPieceModel resetPeace() {
-    return LudoPieceModel(
-      id: id,
-      currentStatuses: [],
-      selectedUser: null,
-      count: 0,
-    );
-  }
-
-  LudoPieceModel addPiece(int newSelected, {int addCount = 1}) {
-    final newCount = count + addCount;
-    final data = super.addStatus(status: PeaceStatusTypes.selected);
-    return LudoPieceModel(
-      id: id,
-      currentStatuses: data.currentStatuses,
-      selectedUser: newSelected,
-      count: newCount,
-    );
-  }
-
-  LudoPieceModel reducePiece({int reduceCount = 1}) {
-    final newCount = count - reduceCount;
-    int? newSelected = selectedUser;
-    List<PeaceStatusTypes> newStatuses = currentStatuses;
-    if (newCount == 0) {
-      newSelected = null;
-      newStatuses.clear();
+  factory RiskUserModel.fromGlobalJson(Map data) {
+    Map<ContinentTypes, int> finalContinents = {};
+    List<ContinentTypes> finalTokens = [];
+    for (var continent in data['continents'].keys) {
+      final ContinentTypes continentName = ContinentTypes.values.firstWhere(
+        (e) {
+          return e.name == continent;
+        },
+        orElse: () => ContinentTypes.Asia,
+      );
+      finalContinents[continentName] = data['continents'][continent];
     }
-    return LudoPieceModel(
-      id: id,
-      currentStatuses: newStatuses,
-      selectedUser: newSelected,
-      count: newCount,
+    for (var continent in data['tokens']) {
+      final ContinentTypes continentName = ContinentTypes.values.firstWhere(
+        (e) => e.toString() == continent,
+        orElse: () => ContinentTypes.Asia,
+      );
+      finalTokens.add(continentName);
+    }
+
+    return RiskUserModel(
+      index: data['index'],
+      continents: finalContinents,
+      strategiesCount: data['strategies_count'],
+      tokens: finalTokens,
     );
   }
 
-  bool isEnemySpot(int gamerId) {
-    return (selectedUser != null &&
-        selectedUser != 0 &&
-        selectedUser != gamerId);
-  }
-
-  @override
-  LudoPieceModel addStatus({required PeaceStatusTypes status}) {
-    final data = super.addStatus(status: status);
-    return LudoPieceModel(
-      id: data.id,
-      currentStatuses: data.currentStatuses,
-      selectedUser: selectedUser,
-      count: count,
-    );
-  }
-
-  @override
-  LudoPieceModel removeStatus({required PeaceStatusTypes status}) {
-    final data = super.removeStatus(status: status);
-    return LudoPieceModel(
-      id: data.id,
-      currentStatuses: data.currentStatuses,
-      selectedUser: selectedUser,
-      count: count,
+  factory RiskUserModel.fromPrivateJson(Map data) {
+    return RiskUserModel(
+      index: data['index'],
+      continents: data['continents'],
+      strategies: data['strategies'],
+      tokens: data['tokens'],
     );
   }
 }

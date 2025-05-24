@@ -5,7 +5,6 @@ import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_multy_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Games/Ludo/Controllers/ludo_controller.dart';
 import 'package:kafehfekr/Games/Risk/Controllers/risk_controller.dart';
 import 'package:refreshed/get_utils/get_utils.dart';
 
@@ -34,7 +33,20 @@ class RiskPage extends BaseView<RiskController> {
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [],
+              children: [
+                Text(
+                  controller.continentsCount.value.toString(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                Text(
+                  controller.strategiesCount.value.toString(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                Text(
+                  controller.tokensCount.value.toString(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ],
             ),
           ),
 
@@ -46,7 +58,7 @@ class RiskPage extends BaseView<RiskController> {
                   width: 100,
                   height: 60,
                 )
-              : GlobalActivityBox<LudoController>(
+              : GlobalActivityBox<RiskController>(
                   surrenderFunction: controller.surrenderByUserFunction,
                 ),
           const SizedBox(height: 20),
