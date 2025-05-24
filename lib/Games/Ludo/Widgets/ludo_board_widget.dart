@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Ludo/Controllers/ludo_controller.dart';
 import 'package:kafehfekr/Games/Ludo/Widgets/ludo_button.dart';
@@ -55,20 +57,20 @@ class LudoBoardWidget extends StatelessWidget {
     (180, 70, null, 5),
     (180, 100, null, 4),
     (180, 130, null, 3),
-    (180, 160, AppColors.redWarmColor, 39),
+    (180, 160, AppColors.darkRed, 39),
     (180, 190, null, 30),
     (180, 220, null, 29),
     (180, 250, null, 28),
     (180, 280, null, 27),
     //base green
     (210, 130, null, 2),
-    (210, 160, AppColors.redWarmColor, 38),
+    (210, 160, AppColors.darkRed, 38),
     (210, 190, null, 31),
     (240, 130, null, 1),
-    (240, 160, AppColors.redWarmColor, 37),
+    (240, 160, AppColors.darkRed, 37),
     (240, 190, null, 32),
     (270, 130, null, 0),
-    (270, 160, AppColors.redWarmColor, 36),
+    (270, 160, AppColors.darkRed, 36),
     (270, 190, null, 33),
     //base red
     (300, 160, null, 35),
@@ -76,125 +78,121 @@ class LudoBoardWidget extends StatelessWidget {
   ];
 
   final List<(double, double, Color?, int)> startPiecesData = [
-    (300, 130, AppColors.redWarmColor, 0),
+    (300, 130, AppColors.darkRed, 0),
     (0, 190, AppColors.blueWarmColor, 1),
     (180, 310, AppColors.darkGreen, 2),
     (120, 10, AppColors.yellow, 3),
   ];
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 350,
-      height: 350,
-      // decoration: BoxDecoration(
-      //   gradient: const LinearGradient(
-      //     begin: Alignment.bottomLeft,
-      //     end: Alignment.topRight,
-      //     colors: [Colors.transparent, Colors.brown],
-      //   ),
-      //   borderRadius: BorderRadius.circular(15),
-      // ),
-      // width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
-      child: LayoutBuilder(builder: (context, cons) {
-        return Container(
-          margin: AppSpacings.s10Vertical,
-          child: Center(
-            child: Stack(
-              alignment: Alignment.center,
-              clipBehavior: Clip.none,
-              children: [
-                Positioned(
-                  top: 30,
-                  left: 30,
-                  child: Obx(
-                    () => controller.players.length == 4
-                        ? LudoUserWidget(
-                            count: controller.playersOutPieces.value[3],
-                            color: AppColors.darkGreen,
-                            onTap: controller.onOutTap,
-                            canEquip: controller.currentTurn.value == 4 &&
-                                controller.currentAvailableIndexes.value
-                                    .contains(-1),
-                            outCount: controller.playersOutPieces.value[3],
-                          )
-                        : Container(),
-                  ),
-                ),
-                Positioned(
-                  bottom: 30,
-                  left: 30,
-                  child: Obx(
-                    () => LudoUserWidget(
-                      count: controller.playersOutPieces.value[0],
-                      color: AppColors.redWarmColor,
-                      onTap: controller.onOutTap,
-                      canEquip: controller.currentTurn.value == 1 &&
-                          controller.currentAvailableIndexes.value.contains(-1),
-                      outCount: controller.playersOutPieces.value[0],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 30,
-                  right: 35,
-                  child: Obx(
-                    () => controller.players.length == 3
-                        ? LudoUserWidget(
-                            count: controller.playersOutPieces.value[2],
-                            color: AppColors.darkGreen,
-                            onTap: controller.onOutTap,
-                            canEquip: controller.currentTurn.value == 3 &&
-                                controller.currentAvailableIndexes.value
-                                    .contains(-1),
-                            outCount: controller.playersOutPieces.value[2],
-                          )
-                        : Container(),
-                  ),
-                ),
-                Positioned(
-                  top: 30,
-                  right: 35,
-                  child: Obx(
-                    () => LudoUserWidget(
-                      count: controller.playersOutPieces.value[1],
-                      color: AppColors.blueWarmColor,
-                      onTap: controller.onOutTap,
-                      canEquip: controller.currentTurn.value == 2 &&
-                          controller.currentAvailableIndexes.value.contains(-1),
-                      outCount: controller.playersOutPieces.value[1],
-                    ),
-                  ),
-                ),
-                for (int i = 0; i < piecesData.length; i++)
+    return GlobalFrameWrapper(
+      frame: AppImages.board,
+      child: SizedBox(
+        width: 350,
+        height: 350,
+        child: LayoutBuilder(builder: (context, cons) {
+          return Container(
+            margin: AppSpacings.s10Vertical,
+            child: Center(
+              child: Stack(
+                alignment: Alignment.center,
+                clipBehavior: Clip.none,
+                children: [
                   Positioned(
-                    top: piecesData[i].$1,
-                    left: piecesData[i].$2,
+                    top: 30,
+                    left: 30,
                     child: Obx(
-                      () => LudoButton(
-                        pieceData: controller.peaces[piecesData[i].$4].value,
-                        onTap: controller.onEachButtonTap,
-                        baseColor: piecesData[i].$3,
+                      () => controller.players.length == 4
+                          ? LudoUserWidget(
+                              count: controller.playersOutPieces.value[3],
+                              color: AppColors.darkGreen,
+                              onTap: controller.onOutTap,
+                              canEquip: controller.currentTurn.value == 4 &&
+                                  controller.currentAvailableIndexes.value
+                                      .contains(-1),
+                              outCount: controller.playersOutPieces.value[3],
+                            )
+                          : Container(),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 30,
+                    left: 30,
+                    child: Obx(
+                      () => LudoUserWidget(
+                        count: controller.playersOutPieces.value[0],
+                        color: AppColors.darkRed,
+                        onTap: controller.onOutTap,
+                        canEquip: controller.currentTurn.value == 1 &&
+                            controller.currentAvailableIndexes.value
+                                .contains(-1),
+                        outCount: controller.playersOutPieces.value[0],
                       ),
                     ),
                   ),
-                for (int i = 0; i < startPiecesData.length; i++)
                   Positioned(
-                    top: startPiecesData[i].$1,
-                    left: startPiecesData[i].$2,
+                    bottom: 30,
+                    right: 35,
                     child: Obx(
-                      () => LudoButton(
-                        pieceData:
-                            controller.startPieces[startPiecesData[i].$4].value,
-                        onTap: controller.onEachStartTap,
-                        baseColor: startPiecesData[i].$3,
+                      () => controller.players.length == 3
+                          ? LudoUserWidget(
+                              count: controller.playersOutPieces.value[2],
+                              color: AppColors.darkGreen,
+                              onTap: controller.onOutTap,
+                              canEquip: controller.currentTurn.value == 3 &&
+                                  controller.currentAvailableIndexes.value
+                                      .contains(-1),
+                              outCount: controller.playersOutPieces.value[2],
+                            )
+                          : Container(),
+                    ),
+                  ),
+                  Positioned(
+                    top: 30,
+                    right: 35,
+                    child: Obx(
+                      () => LudoUserWidget(
+                        count: controller.playersOutPieces.value[1],
+                        color: AppColors.blueWarmColor,
+                        onTap: controller.onOutTap,
+                        canEquip: controller.currentTurn.value == 2 &&
+                            controller.currentAvailableIndexes.value
+                                .contains(-1),
+                        outCount: controller.playersOutPieces.value[1],
                       ),
                     ),
                   ),
-              ],
+                  for (int i = 0; i < piecesData.length; i++)
+                    Positioned(
+                      top: piecesData[i].$1,
+                      left: piecesData[i].$2,
+                      child: Obx(
+                        () => LudoButton(
+                          pieceData: controller.peaces[piecesData[i].$4].value,
+                          onTap: controller.onEachButtonTap,
+                          baseColor: piecesData[i].$3,
+                        ),
+                      ),
+                    ),
+                  for (int i = 0; i < startPiecesData.length; i++)
+                    Positioned(
+                      top: startPiecesData[i].$1,
+                      left: startPiecesData[i].$2,
+                      child: Obx(
+                        () => LudoButton(
+                          pieceData: controller
+                              .startPieces[startPiecesData[i].$4].value,
+                          onTap: controller.onEachStartTap,
+                          baseColor: startPiecesData[i].$3,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        }),
+      ),
     );
   }
 }

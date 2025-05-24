@@ -41,7 +41,7 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                     color: AppColors.buttonRed,
                     fontColor: AppColors.lightColor,
                     height: 70,
-                    width: double.maxFinite,
+                    width: 100,
                   ),
                 )
               : !controller.isGameStarted.value

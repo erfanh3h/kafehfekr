@@ -27,11 +27,12 @@ class LudoPage extends BaseView<LudoController> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const SizedBox(height: 15),
+          const SizedBox(height: 5),
           GlobalMultyGameDataWidget(
             playersData: controller.players.value,
             timerColor: controller.returnTimerColor(),
             activePlayerIndexes: controller.activePlayerIndexes.value,
+            currentTurn: controller.currentTurn.value,
           ),
           Expanded(
             child: Column(
@@ -63,6 +64,8 @@ class LudoPage extends BaseView<LudoController> {
               ? GlobalButtonWidget(
                   onTap: controller.exitGame,
                   text: AppTexts.exit.tr,
+                  width: 100,
+                  height: 60,
                 )
               : GlobalActivityBox<LudoController>(
                   surrenderFunction: controller.surrenderByUserFunction,

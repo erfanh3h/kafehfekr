@@ -20,6 +20,21 @@ class GamePlayUsersDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> widgetData = List.generate(
+      playersData.length,
+      (index) {
+        final item = playersData[index];
+        return UserRowWidget(
+          data: item,
+          color: playerColors[index],
+          score: playerScores[index],
+        );
+      },
+    );
+    widgetData.insert(
+      0,
+      const GlobalShowTimerWidget(),
+    );
     return Container(
       constraints: const BoxConstraints(
         maxWidth: GeneralGameConsts.maxGameWidth,
@@ -29,21 +44,9 @@ class GamePlayUsersDataWidget extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            const GlobalShowTimerWidget(needTimerIcon: false),
-            const SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(
-                playersData.length,
-                (index) {
-                  final item = playersData[index];
-                  return UserRowWidget(
-                    data: item,
-                    color: playerColors[index],
-                    score: playerScores[index],
-                  );
-                },
-              ),
+              children: widgetData,
             ),
           ],
         ),
@@ -65,72 +68,57 @@ class UserRowWidget extends StatelessWidget {
   final int score;
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      color: AppColors.lightColor2,
-      child: InkWell(
-        onTap: () => FunctionsLibraryClass.showUserData(data.userId),
-        child: Container(
-          // height: 150,
-          constraints: const BoxConstraints(maxWidth: 75),
-          padding: AppSpacings.s5All,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      AvatarIcons().generalAvatarPath(
-                        data.userImage,
-                      ),
-                      width: 60,
-                      height: 60,
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.transparent.withValues(alpha: .5),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    width: 60,
-                    height: 60,
-                    child: Center(
-                      child: Text(
-                        score.toString(),
-                        style: const TextStyle(
-                          color: AppColors.lightColor,
-                          fontSize: 25,
-                          fontFamily: FontFamilies.playPen,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  color: color,
-                  borderRadius: BorderRadius.circular(5),
+    return InkWell(
+      onTap: () => FunctionsLibraryClass.showUserData(data.userId),
+      child: Container(
+        // height: 150,
+        constraints: const BoxConstraints(maxWidth: 75),
+        padding: AppSpacings.s5All,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                AvatarIcons().generalAvatarPath(
+                  data.userImage,
                 ),
-                width: 65,
+                width: 60,
+                height: 60,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              decoration: BoxDecoration(
+                color: color,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              width: 65,
+              child: Text(
+                data.name,
+                style: const TextStyle(
+                  fontFamily: FontFamilies.playPen,
+                  fontSize: 13,
+                  color: AppColors.lightColor,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            if (score != 0)
+              Center(
                 child: Text(
-                  data.name,
+                  'امتیاز : ${score.toString()}',
                   style: const TextStyle(
-                    fontFamily: FontFamilies.playPen,
-                    fontSize: 13,
                     color: AppColors.lightColor,
+                    fontSize: 13,
+                    fontFamily: FontFamilies.hekayat,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
+                  textDirection: TextDirection.rtl,
                 ),
               ),
-            ],
-          ),
+          ],
         ),
       ),
     );

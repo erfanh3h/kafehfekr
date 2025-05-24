@@ -1,6 +1,7 @@
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -58,37 +59,42 @@ class GamePlayPage extends BaseView<GamePlayController> {
               ),
             const Spacer(),
             if (controller.gameTypes.isNotEmpty)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    controller.typeToImage(),
-                    width: 100,
-                    height: 100,
-                    color: AppColors.lightColor,
-                  ),
-                ],
-              ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: AppSpacings.s20Horizental,
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (ctx, index) => GamePlayGameRowBox(
-                  gameType: controller.gameTypes[index],
-                  isActiveGame: controller.currentGameIndex.value == index,
-                  isFinished: index < controller.currentGameIndex.value,
+              GlobalFrameWrapper(
+                frame: AppImages.board,
+                padding: AppSpacings.s30All,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      controller.typeToImage(),
+                      width: 100,
+                      height: 100,
+                      color: AppColors.lightColor,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (ctx, index) => Padding(
+                          padding: AppSpacings.s10Horizental,
+                          child: GamePlayGameRowBox(
+                            gameType: controller.gameTypes[index],
+                            isActiveGame:
+                                controller.currentGameIndex.value == index,
+                            isFinished:
+                                index < controller.currentGameIndex.value,
+                            index: index + 1,
+                          ),
+                        ),
+                        itemCount: controller.gameTypes.length,
+                      ),
+                    ),
+                  ],
                 ),
-                itemCount: controller.gameTypes.length,
               ),
-            ),
-            const Spacer(
-              flex: 2,
-            ),
+            const Spacer(flex: 2),
             if (controller.isGameFinished.value)
               Container(
-                width: double.maxFinite,
                 padding: AppSpacings.s10Horizental,
                 margin: AppSpacings.s20Bottom,
                 child: GlobalButtonWidget(
@@ -97,6 +103,8 @@ class GamePlayPage extends BaseView<GamePlayController> {
                   },
                   text: AppTexts.exit.tr,
                   color: AppColors.buttonRed,
+                  height: 60,
+                  width: 100,
                 ),
               )
             // GlobalActivityBox<FourInRowController>(),
@@ -114,46 +122,58 @@ class GamePlayGameRowBox extends StatelessWidget {
     required this.gameType,
     required this.isActiveGame,
     required this.isFinished,
+    required this.index,
   });
 
   final String gameType;
   final bool isActiveGame;
   final bool isFinished;
+  final int index;
   @override
   Widget build(BuildContext context) {
-    Color? color;
-    if (isFinished) {
-      color = AppColors.darkRed;
-    } else if (isActiveGame) {
-      color = AppColors.darkGreen;
-    }
-    return Container(
+    return GlobalFrameWrapper(
+      frame: AppImages.frame4,
       padding: AppSpacings.s10All,
-      margin: AppSpacings.s10All,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.lightColor,
-          width: 2,
-        ),
-        gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            (color ?? AppColors.transparent).withValues(alpha: .35),
-            color ?? AppColors.transparent
-          ],
-        ),
-      ),
-      child: Center(
-        child: Text(
-          gameType.tr,
-          style: const TextStyle(
-            color: AppColors.lightColor,
-            fontSize: 25,
-            fontFamily: FontFamilies.dastnevis,
+      child: Row(
+        children: [
+          const SizedBox(width: 5),
+          GlobalFrameWrapper(
+            frame: AppImages.button2,
+            padding: AppSpacings.s2All,
+            width: 40,
+            height: 40,
+            child: Center(
+              child: Text(
+                index.toString(),
+                style: const TextStyle(
+                  color: AppColors.lightColor,
+                  fontSize: 30,
+                  fontFamily: FontFamilies.dastnevis,
+                ),
+              ),
+            ),
           ),
-        ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              gameType.tr,
+              style: const TextStyle(
+                color: AppColors.lightColor,
+                fontSize: 25,
+                fontFamily: FontFamilies.dastnevis,
+              ),
+            ),
+          ),
+          GlobalFrameWrapper(
+            frame: isFinished ? AppImages.check2 : AppImages.right,
+            padding: AppSpacings.s5All,
+            child: const SizedBox(
+              height: 30,
+              width: 30,
+            ),
+          ),
+          const SizedBox(width: 5),
+        ],
       ),
     );
   }

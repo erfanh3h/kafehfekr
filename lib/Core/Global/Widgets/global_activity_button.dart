@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class GlobalActivityButton extends StatelessWidget {
@@ -26,79 +28,83 @@ class GlobalActivityButton extends StatelessWidget {
   final bool needTimerWidget;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: !isNotActive ? onTap : null,
-      child: Container(
-        padding: AppSpacings.s2All,
-        decoration: BoxDecoration(
-          color: isNotActive ? Colors.grey : backgroundColor,
-          // shape: BoxShape.circle,
-          border: Border.all(color: AppColors.lightColor),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: !isNotActive
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Image.asset(
-                      icon,
-                      width: 25,
-                      height: 25,
-                      color: color ?? AppColors.lightColor,
-                    ),
-                  ),
-                  const SizedBox(height: 3),
-                  Expanded(
-                    child: Text(
-                      text,
-                      style: TextStyle(
-                        fontFamily: FontFamilies.dastnevis,
-                        fontSize: 12,
-                        color: color ?? Colors.white,
+    return GlobalFrameWrapper(
+      frame: AppImages.button5,
+      padding: AppSpacings.s5All,
+      child: InkWell(
+        onTap: !isNotActive ? onTap : null,
+        child: Container(
+          padding: AppSpacings.s2All,
+          decoration: BoxDecoration(
+            color: isNotActive ? Colors.grey : backgroundColor,
+            // shape: BoxShape.circle,
+            // border: Border.all(color: AppColors.lightColor),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: !isNotActive
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Image.asset(
+                        icon,
+                        width: 25,
+                        height: 25,
+                        color: color ?? AppColors.lightColor,
                       ),
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
                     ),
-                  )
-                ],
-              )
-            : Stack(
-                children: [
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Image.asset(
-                            icon,
-                            width: 25,
-                            height: 25,
-                            color: color ?? AppColors.lightColor,
-                          ),
+                    const SizedBox(height: 3),
+                    Expanded(
+                      child: Text(
+                        text,
+                        style: TextStyle(
+                          fontFamily: FontFamilies.dastnevis,
+                          fontSize: 12,
+                          color: color ?? Colors.white,
                         ),
-                        const SizedBox(height: 3),
-                        Expanded(
-                          child: Text(
-                            text,
-                            style: TextStyle(
-                              fontFamily: FontFamilies.dastnevis,
-                              fontSize: 12,
-                              color: color ?? Colors.white,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                      ),
+                    )
+                  ],
+                )
+              : Stack(
+                  children: [
+                    Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Image.asset(
+                              icon,
+                              width: 25,
+                              height: 25,
+                              color: color ?? AppColors.lightColor,
                             ),
-                            textAlign: TextAlign.center,
-                            maxLines: 1,
                           ),
-                        )
-                      ],
+                          const SizedBox(height: 3),
+                          Expanded(
+                            child: Text(
+                              text,
+                              style: TextStyle(
+                                fontFamily: FontFamilies.dastnevis,
+                                fontSize: 12,
+                                color: color ?? Colors.white,
+                              ),
+                              textAlign: TextAlign.center,
+                              maxLines: 1,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  if (needTimerWidget)
-                    const Center(child: TimerWidget(maxTime: 5)),
-                ],
-              ),
+                    if (needTimerWidget)
+                      const Center(child: TimerWidget(maxTime: 5)),
+                  ],
+                ),
+        ),
       ),
     );
   }
