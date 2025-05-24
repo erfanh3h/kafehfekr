@@ -72,6 +72,9 @@ class GameTypeConvertor {
       case GameTypes.Ludo:
         result = AppImages.ludoGame;
         break;
+      case GameTypes.Risk:
+        result = AppImages.riskGame;
+        break;
     }
     return result;
   }
@@ -138,6 +141,9 @@ class GameTypeConvertor {
         break;
       case GameTypes.Ludo:
         result = AppTexts.ludoNarrative.tr;
+        break;
+      case GameTypes.Risk:
+        result = AppTexts.riskNarrative.tr;
         break;
     }
     return result;
@@ -206,6 +212,9 @@ class GameTypeConvertor {
       case GameTypes.Ludo:
         result = AppTexts.ludoTime.tr;
         break;
+      case GameTypes.Risk:
+        result = AppTexts.riskTime.tr;
+        break;
     }
     return result;
   }
@@ -272,6 +281,9 @@ class GameTypeConvertor {
         break;
       case GameTypes.Ludo:
         result = GameDifficulties.Easy;
+        break;
+      case GameTypes.Risk:
+        result = GameDifficulties.Hard;
         break;
     }
     return result;

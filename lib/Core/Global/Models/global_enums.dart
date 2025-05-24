@@ -30,6 +30,7 @@ enum GameTypes {
   Othello,
   Mill,
   Ludo,
+  Risk,
   BackGammon
 }
 

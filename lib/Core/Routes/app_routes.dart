@@ -36,6 +36,7 @@ abstract class AppRoutes {
   static const pentago = '/Pentago';
   static const yinsh = '/Yinsh';
   static const ludo = '/Ludo';
+  static const risk = '/Risk';
   static const backGammon = '/BackGammon';
   static const tictactoeOffline = '/tictactoeOffline';
   static const msweeperOffline = '/msweeperOffline';

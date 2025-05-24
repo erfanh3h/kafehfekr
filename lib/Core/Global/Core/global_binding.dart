@@ -19,6 +19,7 @@ import 'package:kafehfekr/Games/Mill/Core/mill_binding.dart';
 import 'package:kafehfekr/Games/Othello/Core/othello_binding.dart';
 import 'package:kafehfekr/Games/Pentago/Core/pentago_binding.dart';
 import 'package:kafehfekr/Games/RPC/Core/rpc_binding.dart';
+import 'package:kafehfekr/Games/Risk/Core/risk_binding.dart';
 import 'package:kafehfekr/Games/Spy/Core/spy_binding.dart';
 import 'package:kafehfekr/Games/Sudoku/Core/sudoku_binding.dart';
 import 'package:kafehfekr/Games/Ten/Core/ten_binding.dart';
@@ -51,6 +52,7 @@ class GlobalBinding implements BindingsInterface {
         YinshBinding().dependencies(),
         BattleShipBinding().dependencies(),
         LudoBinding().dependencies(),
+        RiskBinding().dependencies(),
         BoxFourBinding().dependencies(),
         FekrBekrBinding().dependencies(),
         BackGammonBinding().dependencies(),

@@ -158,6 +158,7 @@ abstract class AppTexts {
   static const pentago = "Pentago";
   static const yinsh = "Yinsh";
   static const ludo = "Ludo";
+  static const risk = "Risk";
   static const backGammon = "BackGammon";
   static const mafia = "Mafia";
   static const spy = "Spy";
@@ -182,6 +183,7 @@ abstract class AppTexts {
   static const pentagoGuide = "pentagoGuide";
   static const yinshGuide = "yinshGuide";
   static const ludoGuide = "ludoGuide";
+  static const riskGuide = "riskGuide";
   static const backGammonGuide = "backgammonGuide";
   static const mafiaGuide = "mafiaGuide";
   static const spyGuide = "spyGuide";
@@ -206,6 +208,7 @@ abstract class AppTexts {
   static const pentagoGameGuide = "pentagoGameGuide";
   static const yinshGameGuide = "yinshGameGuide";
   static const ludoGameGuide = "ludoGameGuide";
+  static const riskGameGuide = "riskGameGuide";
   static const backGammonGameGuide = "backgammonGameGuide";
   static const mafiaGammonGameGuide = "mafiaGammonGameGuide";
   static const spyGammonGameGuide = "spyGammonGameGuide";
@@ -230,6 +233,7 @@ abstract class AppTexts {
   static const pentagoNarrative = "PentagoNarrative";
   static const yinshNarrative = "yinshNarrative";
   static const ludoNarrative = "ludoNarrative";
+  static const riskNarrative = "riskNarrative";
   static const backGammonNarrative = "backGammonNarrative";
 
   static const tictactoeTime = "tictactoeTime";
@@ -251,6 +255,7 @@ abstract class AppTexts {
   static const pentagoTime = "PentagoTime";
   static const yinshTime = "yinshTime";
   static const ludoTime = "ludoTime";
+  static const riskTime = "riskTime";
   static const backGammonTime = "backGammonTime";
 
   static const opponentTurn = "opponentTurn";

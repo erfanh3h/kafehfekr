@@ -1090,6 +1090,8 @@ class AppTranslations extends Translations {
           AppTexts.fekrBekrTime: "5-15",
           AppTexts.pentagoTime: "10-20",
           AppTexts.yinshTime: "15-30",
+          AppTexts.ludoTime: "15-30",
+          AppTexts.riskTime: "10-60",
           AppTexts.backGammonTime: "15-40",
         },
         'en': {
