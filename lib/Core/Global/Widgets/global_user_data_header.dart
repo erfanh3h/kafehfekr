@@ -106,7 +106,7 @@ class MainPart extends StatelessWidget {
                 children: [
                   const Spacer(),
                   GlobalFrameWrapper(
-                    frame: AppImages.button2,
+                    frame: AppImages.button7,
                     padding: AppSpacings.s10All,
                     child: Row(
                       children: [
@@ -134,7 +134,7 @@ class MainPart extends StatelessWidget {
                   const Spacer(flex: 1),
                   GlobalFrameWrapper(
                     padding: AppSpacings.s10All,
-                    frame: AppImages.button2,
+                    frame: AppImages.button7,
                     child: Row(
                       children: [
                         Obx(
@@ -193,7 +193,7 @@ class MainPart extends StatelessWidget {
         Expanded(
           flex: 5,
           child: GlobalFrameWrapper(
-            frame: AppImages.frame,
+            frame: AppImages.frame4,
             padding: AppSpacings.s10All,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

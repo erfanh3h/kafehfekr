@@ -34,6 +34,7 @@ class GameWaitTimes {
   static const int fekrBekrBoardTime = 60;
   static const int fekrBekrTurnTime = 60;
   static const int ludoTurnTime = 25;
+  static const int riskTurnTime = 30;
   static const int ludoOutOfMoveTime = 3;
   static const int battleshipBoardTime = 60;
   static const int battleshipTurnTime = 12;

@@ -285,6 +285,9 @@ class LobbyController extends BaseController {
         return;
       }
     }
+    if (joinedLobbyQueuers.length != lobbyCount.value) {
+      return;
+    }
 
     sendCommand({"id": GameCommands.lobbyStartGame});
     isPageLoading.value = true;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_focus_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -25,19 +26,11 @@ class GlobalActivityButton2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalFocusWidget(
       onTap: onTap,
-      child: Container(
+      child: GlobalFrameWrapper(
         width: 50,
         height: 50,
-        // padding: AppSpacings.s5All,
-        decoration: const BoxDecoration(
-          // shape: BoxShape.circle,
-          image: DecorationImage(
-            image: AssetImage(AppImages.button4),
-            fit: BoxFit.fill,
-          ),
-          // color: backgroundColor,
-          // borderRadius: BorderRadius.circular(10),
-        ),
+        frame: AppImages.button5,
+        padding: EdgeInsets.zero,
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

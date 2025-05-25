@@ -49,7 +49,7 @@ class GlobalButtonWidget extends StatelessWidget {
         width: width ?? 140,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(frame ?? AppImages.button),
+            image: AssetImage(frame ?? AppImages.button6),
             fit: BoxFit.fill,
           ),
         ),

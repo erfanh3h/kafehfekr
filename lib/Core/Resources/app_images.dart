@@ -13,6 +13,7 @@ class AppImages {
   static const button4 = '$_base/button4.png';
   static const button5 = '$_base/button5.png';
   static const button6 = '$_base/button6.png';
+  static const button7 = '$_base/button7.png';
   static const frame = '$_base/frame.png';
   static const frame2 = '$_base/frame2.png';
   static const frame3 = '$_base/frame3.png';

@@ -139,17 +139,9 @@ class TenOfflineBoardWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            Container(
+            GlobalFrameWrapper(
               padding: AppSpacings.s20All,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                // border: Border.all(color: Colors.white70),
-                gradient: const LinearGradient(
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  colors: [Colors.transparent, Colors.black],
-                ),
-              ),
+              frame: AppImages.board,
               child: Column(
                 children: [
                   Row(

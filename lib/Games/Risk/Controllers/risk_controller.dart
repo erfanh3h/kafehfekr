@@ -88,7 +88,7 @@ class RiskController extends BaseGameController {
     if (turn == myGameId) {
       showInteraction(sound: GameSoundTypes.startTurn);
     } else {}
-    changetimerValue(GameWaitTimes.ludoTurnTime);
+    changetimerValue(GameWaitTimes.riskTurnTime);
     gameState(RiskGameStates.Draw);
   }
 
@@ -165,31 +165,12 @@ class RiskController extends BaseGameController {
     Map newData = data['data'];
     Map gameData = newData['game_data'];
     applyGameData(gameData);
-    // Map timerData = newData['timer_data'];
-    // List boardData = gameData['board'];
-    // List startBoardData = gameData['start_board'];
-    // currentTurn.value = gameData['current_turn'];
-    // currentDice.value = gameData['current_dice'];
-    // currentTurnPlayerRolled.value = gameData['current_turn_player_rolled'];
+    Map timerData = newData['timer_data'];
+    currentTurn.value = gameData['current_turn'];
     // activePlayerIndexes.value =
     //     List<int>.from(gameData['active_player_indexes']);
     // if (!activePlayerIndexes.contains(myGameId)) {
     //   canExitGame.value = true;
-    // }
-    // playersOutPieces.value = List<int>.from(gameData['players_out_pieces']);
-    // for (var i = 0; i < boardData.length; i++) {
-    //   if (boardData[i]['equipped_user'] == 0) {
-    //     continue;
-    //   }
-    //   changePieceSelecteUser(i, boardData[i]['equipped_user'],
-    //       count: boardData[i]['count']);
-    // }
-    // for (var i = 0; i < startBoardData.length; i++) {
-    //   if (startBoardData[i]['equipped_user'] == 0) {
-    //     continue;
-    //   }
-    //   changeStartPieceSelectedUser(i, startBoardData[i]['equipped_user'],
-    //       count: startBoardData[i]['count']);
     // }
     // if (currentTurn.value == myGameId) {
     //   canSelectPeace.value = true;
@@ -199,10 +180,10 @@ class RiskController extends BaseGameController {
     // } else {
     //   canSelectPeace.value = false;
     // }
-    // if (timerData['is_user_turn']) {
-    //   final int time = GameWaitTimes.ludoTurnTime - timerData['time'] as int;
-    //   changetimerValue(time.clamp(0, time));
-    // }
+    if (timerData['is_user_turn']) {
+      final int time = GameWaitTimes.riskTurnTime - timerData['time'] as int;
+      changetimerValue(time.clamp(0, time));
+    }
   }
 
   applyGameData(Map data) {

@@ -10,6 +10,7 @@ import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_button2.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_widget.dart.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_focus_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_user_data_header.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -80,19 +81,16 @@ class MainPage extends BaseView<GlobalController> {
           left: center.dx - 30,
           top: center.dy - 60,
           child: GlobalFadeInOutWidget(
-            child: Container(
-              padding: AppSpacings.s10All,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage(AppImages.button2),
-                  fit: BoxFit.fill,
+            child: GlobalFrameWrapper(
+              padding: AppSpacings.s10Bottom,
+              frame: AppImages.button7,
+              child: Padding(
+                padding: AppSpacings.s10All,
+                child: Image.asset(
+                  GeneralIcons.logoTransparent,
+                  width: 105,
+                  height: 105,
                 ),
-              ),
-              child: Image.asset(
-                GeneralIcons.logoTransparent,
-                width: 125,
-                height: 125,
               ),
             ),
           ),
@@ -242,14 +240,9 @@ class EachMenuItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalFocusWidget(
       onTap: () => items[index].onTap(),
-      child: Container(
+      child: GlobalFrameWrapper(
         padding: AppSpacings.s10All,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppImages.button),
-            fit: BoxFit.fill,
-          ),
-        ),
+        frame: AppImages.button6,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_widget.dart.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
@@ -21,20 +23,15 @@ class GlobalLoadingWidget extends StatelessWidget {
             maxWidth: (size ?? 100).r, maxHeight: (size ?? 100).r),
         child: GlobalFadeInOutWidget(
           animationTime: 500,
-          child: Container(
-            padding: AppSpacings.s10All,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage(AppImages.button2),
-                fit: BoxFit.fill,
+          child: GlobalFrameWrapper(
+            padding: AppSpacings.s10Bottom,
+            frame: AppImages.button7,
+            child: Padding(
+              padding: AppSpacings.s5All,
+              child: Image.asset(
+                GeneralIcons.logoTransparent,
+                color: color ?? AppColors.lightColor,
               ),
-            ),
-            child: Image.asset(
-              GeneralIcons.logoTransparent,
-              // width: (size ?? 35).r,
-              // height: (size ?? 35).r,
-              color: color ?? Colors.black,
             ),
           ),
         ),

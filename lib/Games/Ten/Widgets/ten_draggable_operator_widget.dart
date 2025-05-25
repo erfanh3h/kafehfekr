@@ -24,7 +24,7 @@ class TenDraggableOperatorWidget extends StatelessWidget {
             value,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 20,
+              fontSize: 25,
               decoration: TextDecoration.none,
             ),
             textDirection: TextDirection.ltr,
@@ -58,7 +58,7 @@ class TenDraggableOperatorWidget extends StatelessWidget {
         child: Center(
           child: Text(
             value,
-            style: const TextStyle(color: Colors.white, fontSize: 20),
+            style: const TextStyle(color: Colors.white, fontSize: 25),
             textDirection: TextDirection.ltr,
           ),
         ),
