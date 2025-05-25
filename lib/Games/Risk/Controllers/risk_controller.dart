@@ -8,6 +8,7 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Games/Risk/Models/enums.dart';
 import 'package:kafehfekr/Games/Risk/Models/risk_user_model.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -26,19 +27,24 @@ class RiskController extends BaseGameController {
   RxInt continentsCount = RxInt(42);
   RxInt tokensCount = RxInt(6);
 
+  RxString gameLog = RxString("");
+
+  Rx<RiskGameStates> gameState = Rx(RiskGameStates.StartGame);
+
   @override
   void commandHandler(dynamic data) {
     print(data);
     super.commandHandler(data);
     final commandId = data['id'];
     switch (commandId) {
+      case GameCommands.drawCard:
+        drawCardFunction(data);
+        break;
       case GameCommands.userData:
         myData.value = RiskUserModel.fromPrivateJson(data['data']);
         break;
-      case GameCommands.drawCard:
-        int userIndex = data['data']['gamer_index'];
-        usersData[userIndex].value =
-            RiskUserModel.fromPrivateJson(data['data']['new_data']);
+      case GameCommands.drawResult:
+        drawResultFunction(data);
         break;
       case GameCommands.passTurn:
         break;
@@ -69,17 +75,29 @@ class RiskController extends BaseGameController {
         rank1, rank2, myGameId, gameType);
   }
 
-  @override
-  void currentTurnFunction(Map data) async {
+  void drawCardFunction(Map data) {
     int turn = data['data']['turn'];
     currentTurn.value = turn;
     if (turn == myGameId) {
-      canSelectPeace.value = true;
       showInteraction(sound: GameSoundTypes.startTurn);
-    } else {
-      canSelectPeace.value = false;
-    }
+    } else {}
     changetimerValue(GameWaitTimes.ludoTurnTime);
+    gameState(RiskGameStates.Draw);
+  }
+
+  void drawResultFunction(Map data) {
+    int userIndex = data['data']['gamer_id'];
+    int drawType = data['data']['draw_type'];
+    usersData[userIndex - 1].value =
+        RiskUserModel.fromGlobalJson(data['data']['new_data']);
+    if (drawType == 1) {
+      gameLog.value = AppTexts.twoContinent.tr;
+    } else if (drawType == 2) {
+      gameLog.value = AppTexts.twoStrategy.tr;
+    } else if (drawType == 3) {
+      gameLog.value = AppTexts.oneContinentOneStrategy.tr;
+    }
+    gameState(RiskGameStates.DrawResult);
   }
 
   @override
@@ -146,6 +164,14 @@ class RiskController extends BaseGameController {
       usersData.add(Rx(RiskUserModel.fromGlobalJson(playerData)));
     }
     tokensCount.value = data['tokens'];
+  }
+
+  drawCard(int number) {
+    gameState(RiskGameStates.Loading);
+    sendCommand({
+      'id': GameCommands.drawCard,
+      'draw_type': number,
+    });
   }
 
   surrenderByUserFunction() {

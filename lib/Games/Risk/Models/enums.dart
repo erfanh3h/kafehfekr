@@ -10,3 +10,13 @@ enum ContinentTypes {
   SouthAmerica,
   Australia
 }
+
+enum RiskGameStates {
+  StartGame,
+  Loading,
+  WaitOpponent,
+  Draw,
+  DrawResult,
+  SelectAction,
+  ActionResult
+}

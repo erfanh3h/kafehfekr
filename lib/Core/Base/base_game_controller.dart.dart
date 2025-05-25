@@ -387,6 +387,10 @@ class BaseGameController extends BaseController {
     Get.find<TimerCompanent>().stopTimer();
   }
 
+  bool isMyTurn() {
+    return currentTurn.value == myGameId;
+  }
+
   @override
   void onInit() {
     letPlayMusic.value = Get.find<SoundPlayerComponent>().letPlayMusic.value;

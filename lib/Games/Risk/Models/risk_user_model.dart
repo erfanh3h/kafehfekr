@@ -1,4 +1,4 @@
-import 'package:kafehfekr/Games/Risk/Models/card_models.dart';
+import 'package:kafehfekr/Games/Risk/Models/enums.dart';
 
 class RiskUserModel {
   RiskUserModel({

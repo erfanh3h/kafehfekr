@@ -41,7 +41,7 @@ class AppImages {
   static const pentagoGame = '$_gameImages/pentago.jpg';
   static const yinshGame = '$_gameImages/yinsh.jpg';
   static const ludoGame = '$_gameImages/ludo.jpg';
-  static const riskGame = '$_gameImages/ludo.jpg';
+  static const riskGame = '$_gameImages/risk.jpg';
   static const mafiaGame = '$_gameImages/mafia.jpg';
   static const spyGame = '$_gameImages/spy.jpg';
 }

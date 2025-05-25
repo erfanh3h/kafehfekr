@@ -6,6 +6,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_multy_game_data_widget.dart
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Risk/Controllers/risk_controller.dart';
+import 'package:kafehfekr/Games/Risk/Widgets/risk_board_widget.dart';
 import 'package:refreshed/get_utils/get_utils.dart';
 
 class RiskPage extends BaseView<RiskController> {
@@ -31,25 +32,8 @@ class RiskPage extends BaseView<RiskController> {
             currentTurn: controller.currentTurn.value,
           ),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  controller.continentsCount.value.toString(),
-                  style: const TextStyle(color: Colors.white),
-                ),
-                Text(
-                  controller.strategiesCount.value.toString(),
-                  style: const TextStyle(color: Colors.white),
-                ),
-                Text(
-                  controller.tokensCount.value.toString(),
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
+            child: RiskBoardWidget(gameState: controller.gameState.value),
           ),
-
           // const Spacer(),
           controller.canExitGame.value && !controller.isGameFinished.value
               ? GlobalButtonWidget(
