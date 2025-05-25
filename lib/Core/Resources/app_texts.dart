@@ -294,8 +294,18 @@ abstract class AppTexts {
   static const africa = "Africa";
   static const europe = "Europe";
   static const australia = "Australia";
+  static const army = "Army";
+  static const backup = "Backup";
+  static const bomb = "bomb";
+  static const destroy = "Destroy";
+  static const riskCancel = "Cancel";
+  static const canon = "Canon";
+  static const expand = "Expand";
   static const northAmerica = "NorthAmerica";
   static const southAmerica = "SouthAmerica";
+  static const myContinents = "myContinents";
+  static const myStrategies = "myStrategies";
+  static const myTokens = "myTokens";
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
   static const enterUsernameCorrectly = "enterUsernameCorrectly";

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
@@ -10,6 +11,7 @@ import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Risk/Models/enums.dart';
 import 'package:kafehfekr/Games/Risk/Models/risk_user_model.dart';
+import 'package:kafehfekr/Games/Risk/Widgets/risk_my_continents_detail.dart';
 import 'package:refreshed/refreshed.dart';
 
 class RiskController extends BaseGameController {
@@ -237,6 +239,42 @@ class RiskController extends BaseGameController {
       () {
         Get.closeAllDialogs();
       },
+    );
+  }
+
+  openMyContinents() {
+    if (myData.value == null) {
+      return;
+    }
+    Get.dialog(
+      Dialog(
+        backgroundColor: Colors.transparent,
+        child: RiskMyContinentsWidget(continents: myData.value!.continents),
+      ),
+    );
+  }
+
+  openMyStrategies() {
+    if (myData.value == null) {
+      return;
+    }
+    Get.dialog(
+      Dialog(
+        backgroundColor: Colors.transparent,
+        child: RiskMyContinentsWidget(continents: myData.value!.continents),
+      ),
+    );
+  }
+
+  openMyTokens() {
+    if (myData.value == null) {
+      return;
+    }
+    Get.dialog(
+      Dialog(
+        backgroundColor: Colors.transparent,
+        child: RiskMyContinentsWidget(continents: myData.value!.continents),
+      ),
     );
   }
 

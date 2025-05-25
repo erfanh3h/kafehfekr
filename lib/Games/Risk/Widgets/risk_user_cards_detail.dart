@@ -7,12 +7,8 @@ import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Risk/Models/enums.dart';
 import 'package:kafehfekr/Games/Risk/Models/risk_user_model.dart';
-import 'package:refreshed/get_utils/get_utils.dart';
 import 'package:refreshed/route_manager.dart';
 import 'package:refreshed/utils.dart';
-
-const TextStyle cardTextStyle =
-    TextStyle(color: AppColors.lightColor, fontSize: 12);
 
 class RiskUserCardsDetailsWidget extends StatelessWidget {
   const RiskUserCardsDetailsWidget(
@@ -22,90 +18,8 @@ class RiskUserCardsDetailsWidget extends StatelessWidget {
   final String username;
   @override
   Widget build(BuildContext context) {
-    List<Widget> wrapChildren = List.generate(
-      userData.continents.keys.length,
-      (index) {
-        final continent = userData.continents.keys.toList()[index];
-        final iconData = continentToImage(continent);
-        final text = continent.name.tr;
-        final count = userData.continents[continent];
-        return GlobalFrameWrapper(
-          // padding: AppSpacings.s2All,
-          height: 120,
-          width: 150,
-          frame: AppImages.dialog,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 50,
-                width: 40,
-                child: Stack(
-                  children: [
-                    Image.asset(
-                      iconData,
-                      width: 40,
-                      height: 50,
-                    ),
-                    Container(
-                      width: 40,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent.withValues(alpha: .5),
-                        borderRadius: BorderRadius.circular(150),
-                      ),
-                      child: Center(
-                        child: Text(
-                          count.toString(),
-                          style: const TextStyle(
-                            color: AppColors.white,
-                            fontSize: 30,
-                            fontFamily: FontFamilies.playPen,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              GlobalFrameWrapper(
-                frame: AppImages.frame4,
-                padding: AppSpacings.s2Vertical5Horizental,
-                child: Text(
-                  text,
-                  style: cardTextStyle,
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-    // wrapChildren.add(
-    //   GlobalFrameWrapper(
-    //     padding: AppSpacings.s2All,
-    //     frame: AppImages.dialog,
-    //     height: 120,
-    //     width: 80,
-    //     child: Column(
-    //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //       children: [
-    //         const Icon(
-    //           Icons.circle,
-    //           size: 50,
-    //         ),
-    //         Text(
-    //           "${userData.tokens.length} ${AppTexts.token.tr}",
-    //           style: cardTextStyle,
-    //         )
-    //       ],
-    //     ),
-    //   ),
-    // );
     return GlobalFrameWrapper(
       frame: AppImages.board,
-      // padding: AppSpacings.s10All,
       height: Get.size.height * 3 / 5,
       width: Get.size.width,
       child: Column(
@@ -170,7 +84,8 @@ class RiskUserCardsDetailsWidget extends StatelessWidget {
                         const SizedBox(height: 5),
                         Text(
                           text,
-                          style: cardTextStyle,
+                          style: const TextStyle(
+                              color: AppColors.lightColor, fontSize: 12),
                           textAlign: TextAlign.center,
                           maxLines: 1,
                         ),
@@ -182,11 +97,6 @@ class RiskUserCardsDetailsWidget extends StatelessWidget {
               ),
             ),
           ),
-          // Wrap(
-          //   spacing: 1.0,
-          //   runSpacing: 1.0,
-          //   children: wrapChildren,
-          // ),
           GlobalFrameWrapper(
             padding: AppSpacings.s2All,
             frame: AppImages.frame4,
@@ -213,7 +123,6 @@ class RiskUserCardsDetailsWidget extends StatelessWidget {
               ),
             ),
           ),
-
           const SizedBox(height: 10),
         ],
       ),

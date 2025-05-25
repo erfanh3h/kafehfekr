@@ -34,9 +34,39 @@ class RiskPage extends BaseView<RiskController> {
           ),
           Expanded(
             child: Center(
-                child: RiskBoardWidget(gameState: controller.gameState.value)),
+              child: RiskBoardWidget(gameState: controller.gameState.value),
+            ),
           ),
-          // const Spacer(),
+          Row(
+            spacing: 5,
+            children: [
+              Expanded(
+                flex: 3,
+                child: GlobalButtonWidget(
+                  onTap: controller.openMyContinents,
+                  text: AppTexts.myContinents.tr,
+                  height: 60,
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: GlobalButtonWidget(
+                  onTap: controller.openMyStrategies,
+                  text: AppTexts.myStrategies.tr,
+                  height: 60,
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: GlobalButtonWidget(
+                  onTap: controller.openMyTokens,
+                  text: AppTexts.myTokens.tr,
+                  height: 60,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
           controller.canExitGame.value && !controller.isGameFinished.value
               ? GlobalButtonWidget(
                   onTap: controller.exitGame,

@@ -39,3 +39,24 @@ String continentToImage(ContinentTypes continent) {
       return GeneralIcons.northAmerica;
   }
 }
+
+String strategyToImage(StrategyTypes strategy) {
+  switch (strategy) {
+    case StrategyTypes.Army:
+      return GeneralIcons.army;
+    case StrategyTypes.Backup:
+      return GeneralIcons.backup;
+    case StrategyTypes.Bomb:
+      return GeneralIcons.bomb;
+    case StrategyTypes.Destroy:
+      return GeneralIcons.destroy;
+    case StrategyTypes.Cancel:
+      return GeneralIcons.cancel;
+    case StrategyTypes.Canon:
+      return GeneralIcons.canon;
+    case StrategyTypes.Expand:
+      return GeneralIcons.expand;
+    case StrategyTypes.Spy:
+      return GeneralIcons.spy;
+  }
+}

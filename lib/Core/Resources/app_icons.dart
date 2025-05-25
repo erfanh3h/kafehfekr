@@ -91,6 +91,15 @@ class GeneralIcons {
   static const australia = "$generalIconsPath/Australia.png";
   static const southAmerica = "$generalIconsPath/South-America.png";
   static const northAmerica = "$generalIconsPath/North-America.png";
+  static const army = "$generalIconsPath/army.png";
+  static const spy = "$generalIconsPath/spy.png";
+  static const canon = "$generalIconsPath/canon.png";
+  static const cancel = "$generalIconsPath/cancel.png";
+  static const expand = "$generalIconsPath/expand.png";
+  static const backup = "$generalIconsPath/backup.png";
+  static const destroy = "$generalIconsPath/destroy.png";
+  static const riskBomb = "$generalIconsPath/risk-bomb.png";
+
   // static const play = "$generalIconsPath/play.png";
   // static const profile = "$generalIconsPath/profile.png";
   // static const clan = "$generalIconsPath/clan.png";
