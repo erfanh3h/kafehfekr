@@ -13,7 +13,7 @@ import 'package:kafehfekr/Games/Risk/Models/risk_user_model.dart';
 import 'package:refreshed/refreshed.dart';
 
 class RiskController extends BaseGameController {
-  RxList<Rx<RiskUserModel>> usersData = RxList();
+  RxList<Rx<RiskUserModel>> riskUsersData = RxList();
   Rx<RiskUserModel?> myData = Rx(null);
 
   int playersCount = 2;
@@ -88,7 +88,7 @@ class RiskController extends BaseGameController {
   void drawResultFunction(Map data) {
     int userIndex = data['data']['gamer_id'];
     int drawType = data['data']['draw_type'];
-    usersData[userIndex - 1].value =
+    riskUsersData[userIndex - 1].value =
         RiskUserModel.fromGlobalJson(data['data']['new_data']);
     if (drawType == 1) {
       gameLog.value = AppTexts.twoContinent.tr;
@@ -161,7 +161,7 @@ class RiskController extends BaseGameController {
     strategiesCount.value = data['strategies'];
     continentsCount.value = data['continents'];
     for (var playerData in data['players_data']) {
-      usersData.add(Rx(RiskUserModel.fromGlobalJson(playerData)));
+      riskUsersData.add(Rx(RiskUserModel.fromGlobalJson(playerData)));
     }
     tokensCount.value = data['tokens'];
   }

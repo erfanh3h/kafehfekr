@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
-import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Games/Risk/Models/enums.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_draw_part_widget.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_draw_result_part_widget.dart';
@@ -33,13 +31,6 @@ class RiskBoardWidget extends StatelessWidget {
       default:
         currentWidget = Container();
     }
-    return GlobalFrameWrapper(
-      frame: AppImages.board,
-      child: SizedBox(
-        width: 350,
-        height: 350,
-        child: currentWidget,
-      ),
-    );
+    return currentWidget;
   }
 }

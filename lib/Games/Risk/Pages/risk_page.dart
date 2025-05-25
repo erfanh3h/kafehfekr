@@ -2,11 +2,11 @@ import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_multy_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Risk/Controllers/risk_controller.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_board_widget.dart';
+import 'package:kafehfekr/Games/Risk/Widgets/risk_game_data_widget.dart';
 import 'package:refreshed/get_utils/get_utils.dart';
 
 class RiskPage extends BaseView<RiskController> {
@@ -25,14 +25,16 @@ class RiskPage extends BaseView<RiskController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SizedBox(height: 5),
-          GlobalMultyGameDataWidget(
+          RiskGameDataWidget(
             playersData: controller.players.value,
+            riskUsersData: controller.riskUsersData,
             timerColor: controller.returnTimerColor(),
             activePlayerIndexes: controller.activePlayerIndexes.value,
             currentTurn: controller.currentTurn.value,
           ),
           Expanded(
-            child: RiskBoardWidget(gameState: controller.gameState.value),
+            child: Center(
+                child: RiskBoardWidget(gameState: controller.gameState.value)),
           ),
           // const Spacer(),
           controller.canExitGame.value && !controller.isGameFinished.value

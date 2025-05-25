@@ -85,6 +85,12 @@ class GeneralIcons {
   static const multiRank = "$generalIconsPath/multi-rank.png";
   static const lobby = "$generalIconsPath/lobby.png";
   static const refresh = "$generalIconsPath/refresh.png";
+  static const asia = "$generalIconsPath/Asia.png";
+  static const africa = "$generalIconsPath/Africa.png";
+  static const europe = "$generalIconsPath/Europe.png";
+  static const australia = "$generalIconsPath/Australia.png";
+  static const southAmerica = "$generalIconsPath/South-America.png";
+  static const northAmerica = "$generalIconsPath/North-America.png";
   // static const play = "$generalIconsPath/play.png";
   // static const profile = "$generalIconsPath/profile.png";
   // static const clan = "$generalIconsPath/clan.png";

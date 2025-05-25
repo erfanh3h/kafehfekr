@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:kafehfekr/Core/Resources/app_icons.dart';
+
 enum StrategyTypes { Army, Backup, Bomb, Destroy, Cancel, Canon, Expand, Spy }
 
 enum ContinentTypes {
@@ -19,4 +21,21 @@ enum RiskGameStates {
   DrawResult,
   SelectAction,
   ActionResult
+}
+
+String continentToImage(ContinentTypes continent) {
+  switch (continent) {
+    case ContinentTypes.Asia:
+      return GeneralIcons.asia;
+    case ContinentTypes.Africa:
+      return GeneralIcons.africa;
+    case ContinentTypes.Europe:
+      return GeneralIcons.europe;
+    case ContinentTypes.Australia:
+      return GeneralIcons.australia;
+    case ContinentTypes.SouthAmerica:
+      return GeneralIcons.southAmerica;
+    case ContinentTypes.NorthAmerica:
+      return GeneralIcons.northAmerica;
+  }
 }

@@ -54,6 +54,7 @@ abstract class AppTexts {
   static const lose = "lose";
   static const draw = "draw";
   static const ok = "ok";
+  static const property = "property";
   static const wrongAnswer = "wrongAnswer";
   static const accept = "accept";
   static const scoreBase = "scoreBase";
@@ -286,6 +287,15 @@ abstract class AppTexts {
   static const twoContinent = "twoContinent";
   static const twoStrategy = "twoStrategy";
   static const oneContinentOneStrategy = "oneContinentOneStrategy";
+  static const continent = "continent";
+  static const strategy = "strategy";
+  static const token = "token";
+  static const asia = "Asia";
+  static const africa = "Africa";
+  static const europe = "Europe";
+  static const australia = "Australia";
+  static const northAmerica = "NorthAmerica";
+  static const southAmerica = "SouthAmerica";
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
   static const enterUsernameCorrectly = "enterUsernameCorrectly";
