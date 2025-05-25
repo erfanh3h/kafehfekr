@@ -391,6 +391,10 @@ class BaseGameController extends BaseController {
     return currentTurn.value == myGameId;
   }
 
+  String getActiveUserUsername() {
+    return players[currentTurn.value - 1].value.name;
+  }
+
   @override
   void onInit() {
     letPlayMusic.value = Get.find<SoundPlayerComponent>().letPlayMusic.value;

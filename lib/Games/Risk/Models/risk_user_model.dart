@@ -44,11 +44,39 @@ class RiskUserModel {
   }
 
   factory RiskUserModel.fromPrivateJson(Map data) {
+    Map<ContinentTypes, int> finalContinents = {};
+    List<StrategyTypes> finalStrategies = [];
+    List<ContinentTypes> finalTokens = [];
+    for (var continent in data['continents'].keys) {
+      final ContinentTypes continentName = ContinentTypes.values.firstWhere(
+        (e) {
+          return e.name == continent;
+        },
+        orElse: () => ContinentTypes.Asia,
+      );
+      finalContinents[continentName] = data['continents'][continent];
+    }
+    for (var strategy in data['strategies']) {
+      final StrategyTypes strategyName = StrategyTypes.values.firstWhere(
+        (e) {
+          return e.name == strategy;
+        },
+        orElse: () => StrategyTypes.Army,
+      );
+      finalStrategies.add(strategyName);
+    }
+    for (var continent in data['tokens']) {
+      final ContinentTypes continentName = ContinentTypes.values.firstWhere(
+        (e) => e.toString() == continent,
+        orElse: () => ContinentTypes.Asia,
+      );
+      finalTokens.add(continentName);
+    }
     return RiskUserModel(
       index: data['index'],
-      continents: data['continents'],
-      strategies: data['strategies'],
-      tokens: data['tokens'],
+      continents: finalContinents,
+      strategies: finalStrategies,
+      tokens: finalTokens,
     );
   }
 }

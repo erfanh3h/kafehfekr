@@ -106,11 +106,12 @@ class RiskUserCardsDetailsWidget extends StatelessWidget {
     return GlobalFrameWrapper(
       frame: AppImages.board,
       // padding: AppSpacings.s10All,
-      height: Get.size.height / 2,
+      height: Get.size.height * 3 / 5,
       width: Get.size.width,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SizedBox(height: 10),
           GlobalFrameWrapper(
             frame: AppImages.frame4,
             padding: AppSpacings.s5All,
@@ -121,67 +122,64 @@ class RiskUserCardsDetailsWidget extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 2,
-                mainAxisSpacing: 3,
-                childAspectRatio: 3 / 4,
-              ),
-              itemBuilder: (ctx, index) {
-                final continent = userData.continents.keys.toList()[index];
-                final iconData = continentToImage(continent);
-                final text = continent.name.tr;
-                final count = userData.continents[continent];
-                return GlobalFrameWrapper(
-                  // padding: AppSpacings.s2All,
-                  // height: 120,
-                  // width: 150,
-                  frame: AppImages.dialog,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(iconData),
-                              fit: BoxFit.fill,
-                            ),
-                            borderRadius: BorderRadius.circular(150),
-                          ),
+            child: Center(
+              child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 2,
+                  mainAxisSpacing: 3,
+                  childAspectRatio: 3 / 4,
+                ),
+                itemBuilder: (ctx, index) {
+                  final continent = userData.continents.keys.toList()[index];
+                  final iconData = continentToImage(continent);
+                  final text = continent.name.tr;
+                  final count = userData.continents[continent];
+                  return GlobalFrameWrapper(
+                    padding: AppSpacings.s5All,
+                    // height: 120,
+                    // width: 150,
+                    frame: AppImages.dialog2,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
                           child: Container(
-                            color: Colors.transparent.withValues(alpha: .5),
-                            alignment: Alignment.center,
-                            child: Text(
-                              count.toString(),
-                              style: const TextStyle(
-                                color: AppColors.white,
-                                fontSize: 30,
-                                fontFamily: FontFamilies.playPen,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(iconData),
+                                fit: BoxFit.fill,
+                              ),
+                              borderRadius: BorderRadius.circular(150),
+                            ),
+                            child: Center(
+                              child: Text(
+                                count.toString(),
+                                style: const TextStyle(
+                                  color: AppColors.darkColor,
+                                  fontSize: 60,
+                                  fontFamily: FontFamilies.playPen,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 5),
-                      GlobalFrameWrapper(
-                        frame: AppImages.frame4,
-                        padding: AppSpacings.s2Vertical5Horizental,
-                        child: Text(
+                        const SizedBox(height: 5),
+                        Text(
                           text,
                           style: cardTextStyle,
                           textAlign: TextAlign.center,
+                          maxLines: 1,
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              itemCount: userData.continents.keys.length,
+                      ],
+                    ),
+                  );
+                },
+                itemCount: userData.continents.keys.length,
+              ),
             ),
           ),
           // Wrap(
@@ -189,7 +187,6 @@ class RiskUserCardsDetailsWidget extends StatelessWidget {
           //   runSpacing: 1.0,
           //   children: wrapChildren,
           // ),
-          const SizedBox(height: 15),
           GlobalFrameWrapper(
             padding: AppSpacings.s2All,
             frame: AppImages.frame4,
@@ -203,6 +200,20 @@ class RiskUserCardsDetailsWidget extends StatelessWidget {
               ),
             ),
           ),
+          GlobalFrameWrapper(
+            padding: AppSpacings.s2All,
+            frame: AppImages.frame4,
+            height: 40,
+            width: 150,
+            child: Center(
+              child: Text(
+                "${userData.tokens.length} ${AppTexts.token.tr}",
+                style:
+                    const TextStyle(color: AppColors.lightColor, fontSize: 20),
+              ),
+            ),
+          ),
+
           const SizedBox(height: 10),
         ],
       ),

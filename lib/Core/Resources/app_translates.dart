@@ -173,7 +173,7 @@ class AppTranslations extends Translations {
           AppTexts.northAmerica: "آمریکای شمالی",
           AppTexts.southAmerica: "آمریکای جنوبی",
           AppTexts.australia: "استرالیا",
-          AppTexts.oneContinentOneStrategy: "1 قاره ، 1 استراتژی",
+          AppTexts.oneContinentOneStrategy: "1 قاره و 1 استراتژی",
           AppTexts.selectedBefore: "این خونه قبلاانتخاب شده!",
           AppTexts.selectedWrongPlace: 'جای اشتباهی انتخاب کردی!',
           AppTexts.selectAllShips: 'همه ی کشتی هارو قرار بده!',

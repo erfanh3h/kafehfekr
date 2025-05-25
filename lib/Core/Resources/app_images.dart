@@ -12,6 +12,7 @@ class AppImages {
   static const button3 = '$_base/button3.png';
   static const button4 = '$_base/button4.png';
   static const button5 = '$_base/button5.png';
+  static const button6 = '$_base/button6.png';
   static const frame = '$_base/frame.png';
   static const frame2 = '$_base/frame2.png';
   static const frame3 = '$_base/frame3.png';
@@ -20,6 +21,8 @@ class AppImages {
   static const right = '$_base/right.png';
   static const board = '$_base/board.png';
   static const dialog = '$_base/dialog.png';
+  static const dialog2 = '$_base/dialog2.png';
+  static const dialog3 = '$_base/dialog3.png';
   static const imageFrame = '$_base/image-frame.png';
   static const tictactoeGame = '$_gameImages/tictactoe.jpg';
   static const rpcGame = '$_gameImages/rpc.jpg';

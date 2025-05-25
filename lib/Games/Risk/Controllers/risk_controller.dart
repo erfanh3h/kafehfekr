@@ -28,6 +28,8 @@ class RiskController extends BaseGameController {
   RxInt tokensCount = RxInt(6);
 
   RxString gameLog = RxString("");
+  RxList<ContinentTypes> drawedContinents = RxList([]);
+  RxList<StrategyTypes> drawedStrategiess = RxList([]);
 
   Rx<RiskGameStates> gameState = Rx(RiskGameStates.StartGame);
 
@@ -45,6 +47,9 @@ class RiskController extends BaseGameController {
         break;
       case GameCommands.drawResult:
         drawResultFunction(data);
+        break;
+      case GameCommands.drawResultPrivate:
+        drawResultPrivateFunction(data);
         break;
       case GameCommands.passTurn:
         break;
@@ -88,16 +93,59 @@ class RiskController extends BaseGameController {
   void drawResultFunction(Map data) {
     int userIndex = data['data']['gamer_id'];
     int drawType = data['data']['draw_type'];
+    final String activeUsername = getActiveGamerUsername();
     riskUsersData[userIndex - 1].value =
         RiskUserModel.fromGlobalJson(data['data']['new_data']);
     if (drawType == 1) {
-      gameLog.value = AppTexts.twoContinent.tr;
+      gameLog.value = "$activeUsername \n ${AppTexts.twoContinent.tr} کشید";
     } else if (drawType == 2) {
-      gameLog.value = AppTexts.twoStrategy.tr;
+      gameLog.value = "$activeUsername \n ${AppTexts.twoStrategy.tr} کشید";
     } else if (drawType == 3) {
-      gameLog.value = AppTexts.oneContinentOneStrategy.tr;
+      gameLog.value =
+          "$activeUsername \n ${AppTexts.oneContinentOneStrategy.tr} کشید";
     }
     gameState(RiskGameStates.DrawResult);
+  }
+
+  void drawResultPrivateFunction(Map data) {
+    int drawType = data['data']['draw_type'];
+    List draws = data['data']['data'];
+    myData.value = RiskUserModel.fromPrivateJson(data['data']['new_user_data']);
+    switch (drawType) {
+      case 1:
+        for (var continent in draws) {
+          final ContinentTypes continentName = ContinentTypes.values.firstWhere(
+            (e) => e.name == continent,
+          );
+          drawedContinents.add(continentName);
+        }
+        break;
+      case 2:
+        for (var strategy in draws) {
+          final StrategyTypes strategyName = StrategyTypes.values.firstWhere(
+            (e) => e.name == strategy,
+          );
+          drawedStrategiess.add(strategyName);
+        }
+        break;
+      case 3:
+        final ContinentTypes continentName = ContinentTypes.values.firstWhere(
+          (e) => e.name == draws[0],
+        );
+        drawedContinents.add(continentName);
+        final StrategyTypes strategyName = StrategyTypes.values.firstWhere(
+          (e) => e.name == draws[1],
+        );
+        drawedStrategiess.add(strategyName);
+        break;
+      case 4:
+        final StrategyTypes strategyName = StrategyTypes.values.firstWhere(
+          (e) => e.name == draws[1],
+        );
+        drawedStrategiess.add(strategyName);
+        break;
+      default:
+    }
   }
 
   @override

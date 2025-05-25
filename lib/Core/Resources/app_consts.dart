@@ -89,6 +89,7 @@ abstract class GameCommands {
   static const solve = "Solve";
   static const drawCard = "DrawCard";
   static const drawResult = "DrawResult";
+  static const drawResultPrivate = "DrawResultPrivate";
   static const attack = "Attack";
   static const passTurn = "PassTurn";
   static const userData = "UserData";
