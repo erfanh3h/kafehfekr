@@ -82,15 +82,12 @@ class MainPage extends BaseView<GlobalController> {
           top: center.dy - 60,
           child: GlobalFadeInOutWidget(
             child: GlobalFrameWrapper(
-              padding: AppSpacings.s10Bottom,
-              frame: AppImages.button7,
-              child: Padding(
-                padding: AppSpacings.s10All,
-                child: Image.asset(
-                  GeneralIcons.logoTransparent,
-                  width: 105,
-                  height: 105,
-                ),
+              padding: AppSpacings.s10All,
+              frame: AppImages.button5,
+              child: Image.asset(
+                GeneralIcons.logoTransparent,
+                width: 125,
+                height: 125,
               ),
             ),
           ),
@@ -242,7 +239,7 @@ class EachMenuItemWidget extends StatelessWidget {
       onTap: () => items[index].onTap(),
       child: GlobalFrameWrapper(
         padding: AppSpacings.s10All,
-        frame: AppImages.button6,
+        frame: AppImages.button,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

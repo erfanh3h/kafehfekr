@@ -47,7 +47,7 @@ class RiskMyTokensWidget extends StatelessWidget {
                 final text = continent.name.tr;
                 return GlobalFrameWrapper(
                   padding: AppSpacings.s5All,
-                  frame: AppImages.button7,
+                  frame: AppImages.button5,
                   child: Center(
                     child: Text(
                       text,

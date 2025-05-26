@@ -13,9 +13,12 @@ class AppImages {
   static const button3 = '$_gameFrames/button3.png';
   static const button4 = '$_gameFrames/button4.png';
   static const button5 = '$_gameFrames/button5.png';
-  static const button6 = '$_gameFrames/button6.png';
-  static const button7 = '$_gameFrames/button7.png';
+  // static const button6 = '$_gameFrames/button6.png';
+  // static const button7 = '$_gameFrames/button7.png';
+  static const bilboard = '$_gameFrames/bilboard.png';
+  static const bilboard2 = '$_gameFrames/bilboard2.png';
   static const level = '$_gameFrames/level.png';
+  static const xpBar = '$_gameFrames/xp-bar.png';
   static const frame = '$_gameFrames/frame.png';
   static const frame2 = '$_gameFrames/frame2.png';
   static const frame3 = '$_gameFrames/frame3.png';

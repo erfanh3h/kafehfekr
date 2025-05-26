@@ -106,7 +106,7 @@ class MainPart extends StatelessWidget {
                 children: [
                   const Spacer(),
                   GlobalFrameWrapper(
-                    frame: AppImages.button7,
+                    frame: AppImages.button5,
                     padding: AppSpacings.s10All,
                     child: Row(
                       children: [
@@ -134,7 +134,7 @@ class MainPart extends StatelessWidget {
                   const Spacer(flex: 1),
                   GlobalFrameWrapper(
                     padding: AppSpacings.s10All,
-                    frame: AppImages.button7,
+                    frame: AppImages.button5,
                     child: Row(
                       children: [
                         Obx(
@@ -152,12 +152,14 @@ class MainPart extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 1),
-                        Image.asset(
-                          GeneralIcons.exp,
-                          width: 20,
-                          height: 20,
-                          color: AppColors.lightColor,
-                        ),
+                        const GlobalFrameWrapper(
+                          frame: AppImages.level,
+                          padding: EdgeInsets.zero,
+                          child: SizedBox(
+                            width: 20,
+                            height: 20,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -168,12 +170,14 @@ class MainPart extends StatelessWidget {
               Stack(
                 children: <Widget>[
                   GlobalFrameWrapper(
-                    frame: AppImages.button,
+                    frame: AppImages.xpBar,
+                    padding: EdgeInsets.zero,
                     width: MediaQuery.of(context).size.width / 2,
-                    height: 8,
+                    height: 10,
                     child: Container(),
                   ),
                   Container(
+                    alignment: Alignment.centerRight,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       color: AppColors.goldenColor,
@@ -241,10 +245,10 @@ class MainPart extends StatelessWidget {
             );
           },
           child: GlobalFrameWrapper(
-            width: 75,
-            height: 75,
+            width: 60,
+            height: 60,
             padding: AppSpacings.s5All,
-            frame: AppImages.button2,
+            frame: AppImages.button5,
             // decoration: BoxDecoration(
             //     shape: BoxShape.circle,
             //     border: Border.all(color: AppColors.lightColor, width: 3)),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/timer.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
@@ -41,8 +43,9 @@ class _AcceptGameBoxState extends State<AcceptGameBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: AppSpacings.s10All,
+    return GlobalFrameWrapper(
+      frame: AppImages.dialog3,
+      padding: AppSpacings.s30All,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,

@@ -25,7 +25,7 @@ class GlobalLoadingWidget extends StatelessWidget {
           animationTime: 500,
           child: GlobalFrameWrapper(
             padding: AppSpacings.s10Bottom,
-            frame: AppImages.button7,
+            frame: AppImages.button5,
             child: Padding(
               padding: AppSpacings.s5All,
               child: Image.asset(

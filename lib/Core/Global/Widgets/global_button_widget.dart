@@ -49,7 +49,7 @@ class GlobalButtonWidget extends StatelessWidget {
         width: width ?? 140,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(frame ?? AppImages.button6),
+            image: AssetImage(frame ?? AppImages.button),
             fit: BoxFit.fill,
           ),
         ),
@@ -66,12 +66,8 @@ class GlobalButtonWidget extends StatelessWidget {
               : Text(
                   text,
                   style: TextStyle(
-                    fontSize: fontSize ?? 18,
+                    fontSize: fontSize ?? 19,
                     color: fontColor ?? AppColors.lightColor,
-                    // foreground: Paint()
-                    //   ..strokeWidth = 1
-                    //   ..color = fontColor ?? AppColors.lightColor
-                    //   ..style = PaintingStyle.stroke,
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 1,

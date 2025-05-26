@@ -43,7 +43,7 @@ class AppTheme {
       hintStyle: TextStyle(color: Colors.black54),
     ),
     primaryColor: AppColors.primaryLight,
-    fontFamily: FontFamilies.vazir,
+    fontFamily: FontFamilies.hekayat,
     useMaterial3: true,
     dialogTheme: const DialogThemeData(backgroundColor: AppColors.secondary),
   );
@@ -81,7 +81,7 @@ class AppTheme {
     ),
     cardTheme: CardTheme(color: AppColors.primaryDark.withValues(alpha: .5)),
     primaryColor: AppColors.primaryDark,
-    fontFamily: FontFamilies.vazir,
+    fontFamily: FontFamilies.hekayat,
     useMaterial3: true,
     dialogTheme: const DialogThemeData(backgroundColor: AppColors.primaryDark),
   );

@@ -29,7 +29,7 @@ class GlobalActivityButton2 extends StatelessWidget {
       child: GlobalFrameWrapper(
         width: 50,
         height: 50,
-        frame: AppImages.button5,
+        frame: AppImages.button3,
         padding: EdgeInsets.zero,
         child: Center(
           child: Column(

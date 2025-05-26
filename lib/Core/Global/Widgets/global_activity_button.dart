@@ -29,7 +29,7 @@ class GlobalActivityButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlobalFrameWrapper(
-      frame: AppImages.button5,
+      frame: AppImages.button3,
       padding: AppSpacings.s5All,
       child: InkWell(
         onTap: !isNotActive ? onTap : null,

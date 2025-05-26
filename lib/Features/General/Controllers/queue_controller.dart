@@ -74,7 +74,7 @@ class QueueController extends BaseController {
           PopScope(
             canPop: false,
             child: Dialog(
-              backgroundColor: AppColors.darkColor,
+              backgroundColor: AppColors.transparent,
               child: AcceptGameBox(
                 onAccept: () {
                   Get.find<QueueSocketManager>().sendCommand(

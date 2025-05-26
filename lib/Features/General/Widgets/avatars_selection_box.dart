@@ -16,7 +16,7 @@ class AvatarsSelectionBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlobalFrameWrapper(
       padding: AppSpacings.s50All,
-      frame: AppImages.dialog,
+      frame: AppImages.dialog3,
       child: Column(
         children: [
           // Padding(
@@ -30,6 +30,7 @@ class AvatarsSelectionBox extends StatelessWidget {
           //     textAlign: TextAlign.center,
           //   ),
           // ),
+          const SizedBox(height: 20),
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -42,7 +43,7 @@ class AvatarsSelectionBox extends StatelessWidget {
                   onTap(index + 1);
                 },
                 child: GlobalFrameWrapper(
-                  frame: AppImages.button2,
+                  frame: AppImages.button5,
                   padding: AppSpacings.s5All,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
