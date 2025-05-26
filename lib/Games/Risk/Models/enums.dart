@@ -47,7 +47,7 @@ String strategyToImage(StrategyTypes strategy) {
     case StrategyTypes.Backup:
       return GeneralIcons.backup;
     case StrategyTypes.Bomb:
-      return GeneralIcons.bomb;
+      return GeneralIcons.riskBomb;
     case StrategyTypes.Destroy:
       return GeneralIcons.destroy;
     case StrategyTypes.Cancel:

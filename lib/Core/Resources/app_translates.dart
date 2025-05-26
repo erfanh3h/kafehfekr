@@ -183,6 +183,8 @@ class AppTranslations extends Translations {
           AppTexts.myContinents: "قاره های من",
           AppTexts.myStrategies: "استراتژی های من",
           AppTexts.myTokens: "توکن های من",
+          AppTexts.drawResult: "نتیجه ی کشیدن کارت",
+          AppTexts.drawed: "کشید",
           AppTexts.oneContinentOneStrategy: "1 قاره و 1 استراتژی",
           AppTexts.selectedBefore: "این خونه قبلاانتخاب شده!",
           AppTexts.selectedWrongPlace: 'جای اشتباهی انتخاب کردی!',

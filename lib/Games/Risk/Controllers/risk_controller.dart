@@ -12,6 +12,8 @@ import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Risk/Models/enums.dart';
 import 'package:kafehfekr/Games/Risk/Models/risk_user_model.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_my_continents_detail.dart';
+import 'package:kafehfekr/Games/Risk/Widgets/risk_my_strategies_detail.dart';
+import 'package:kafehfekr/Games/Risk/Widgets/risk_my_tokens_detail.dart';
 import 'package:refreshed/refreshed.dart';
 
 class RiskController extends BaseGameController {
@@ -110,6 +112,8 @@ class RiskController extends BaseGameController {
   }
 
   void drawResultPrivateFunction(Map data) {
+    drawedContinents.clear();
+    drawedStrategiess.clear();
     int drawType = data['data']['draw_type'];
     List draws = data['data']['data'];
     myData.value = RiskUserModel.fromPrivateJson(data['data']['new_user_data']);
@@ -242,7 +246,8 @@ class RiskController extends BaseGameController {
     Get.dialog(
       Dialog(
         backgroundColor: Colors.transparent,
-        child: RiskMyContinentsWidget(continents: myData.value!.continents),
+        child:
+            RiskMyStrategiesWidget(strategies: myData.value!.strategies ?? []),
       ),
     );
   }
@@ -254,7 +259,7 @@ class RiskController extends BaseGameController {
     Get.dialog(
       Dialog(
         backgroundColor: Colors.transparent,
-        child: RiskMyContinentsWidget(continents: myData.value!.continents),
+        child: RiskMyTokensWidget(tokens: myData.value!.tokens),
       ),
     );
   }

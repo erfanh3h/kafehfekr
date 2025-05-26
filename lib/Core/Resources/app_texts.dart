@@ -296,7 +296,7 @@ abstract class AppTexts {
   static const australia = "Australia";
   static const army = "Army";
   static const backup = "Backup";
-  static const bomb = "bomb";
+  static const bomb = "Bomb";
   static const destroy = "Destroy";
   static const riskCancel = "Cancel";
   static const canon = "Canon";
@@ -306,6 +306,8 @@ abstract class AppTexts {
   static const myContinents = "myContinents";
   static const myStrategies = "myStrategies";
   static const myTokens = "myTokens";
+  static const drawResult = "drawResult";
+  static const drawed = "drawed";
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
   static const enterUsernameCorrectly = "enterUsernameCorrectly";

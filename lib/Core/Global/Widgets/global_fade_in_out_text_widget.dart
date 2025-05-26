@@ -1,5 +1,7 @@
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 
 class GlobalFadeInOutTextBox extends StatefulWidget {
   const GlobalFadeInOutTextBox({
@@ -53,14 +55,15 @@ class _GlobalFadeInOutTextBoxState extends State<GlobalFadeInOutTextBox>
   Widget build(BuildContext context) {
     return FadeTransition(
       opacity: _fadeInFadeOut,
-      child: Text(
-        widget.text,
-        style: TextStyle(
-          fontSize: widget.fontSize,
-          foreground: Paint()
-            ..strokeWidth = 1.5
-            ..color = AppColors.lightColor
-            ..style = PaintingStyle.stroke,
+      child: GlobalFrameWrapper(
+        frame: AppImages.frame4,
+        child: Text(
+          widget.text,
+          style: TextStyle(
+            fontSize: widget.fontSize,
+            color: AppColors.lightColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

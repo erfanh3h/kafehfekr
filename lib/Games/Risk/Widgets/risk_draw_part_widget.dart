@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Risk/Controllers/risk_controller.dart';
 import 'package:refreshed/refreshed.dart';
@@ -19,11 +21,14 @@ class RiskDrawPartWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 spacing: 15,
                 children: [
-                  Text(
-                    AppTexts.selectDrawType.tr,
-                    style: const TextStyle(
-                      color: AppColors.lightColor,
-                      fontSize: 20,
+                  GlobalFrameWrapper(
+                    frame: AppImages.dialog3,
+                    child: Text(
+                      AppTexts.selectDrawType.tr,
+                      style: const TextStyle(
+                        color: AppColors.lightColor,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),

@@ -18,6 +18,7 @@ class AppImages {
   static const frame2 = '$_base/frame2.png';
   static const frame3 = '$_base/frame3.png';
   static const frame4 = '$_base/frame4.png';
+  static const close = '$_base/close.png';
   static const left = '$_base/left.png';
   static const right = '$_base/right.png';
   static const board = '$_base/board.png';
