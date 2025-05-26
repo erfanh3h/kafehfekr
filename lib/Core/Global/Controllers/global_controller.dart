@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
+import 'package:kafehfekr/Core/Global/Components/pre_image_loader.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Global/Core/global_repository.dart';
 import 'package:kafehfekr/Core/Global/Models/config_model.dart';
@@ -221,6 +222,10 @@ class GlobalController extends BaseController {
 
   @override
   void onInit() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      //used to preload images
+      PreImageLoader.loadImages();
+    });
     checkLoginStatus();
     super.onInit();
   }
