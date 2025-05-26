@@ -16,7 +16,7 @@ class HistoryPage extends BaseView<HistoryController> {
   const HistoryPage({super.key});
   @override
   String? backgroundImage() {
-    return AppImages.background3;
+    return AppImages.background2;
   }
 
   @override

@@ -14,7 +14,7 @@ class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
 
   @override
   String? backgroundImage() {
-    return AppImages.background3;
+    return AppImages.background2;
   }
 
   @override

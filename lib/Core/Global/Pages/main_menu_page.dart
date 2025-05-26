@@ -58,7 +58,7 @@ class MainPage extends BaseView<GlobalController> {
 
   @override
   String? backgroundImage() {
-    return AppImages.background3;
+    return AppImages.background2;
   }
 
   Widget buildSemiCircularItems({

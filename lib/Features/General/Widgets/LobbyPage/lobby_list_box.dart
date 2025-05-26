@@ -29,7 +29,7 @@ class LobbyListBox extends BaseView<LobbyController> {
 
   @override
   String? backgroundImage() {
-    return AppImages.background3;
+    return AppImages.background2;
   }
 
   @override

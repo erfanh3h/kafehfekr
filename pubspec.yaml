@@ -94,6 +94,7 @@ flutter:
     # - assets/Images/
     - assets/Images/
     - assets/Images/games/
+    - assets/Images/frames/
     - assets/Fonts/
     - assets/Sounds/
     - assets/Icons/Reactions/

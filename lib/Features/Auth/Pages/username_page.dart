@@ -22,7 +22,7 @@ class UsernamePage extends BaseView<AuthController> {
 
   @override
   String? backgroundImage() {
-    return AppImages.background3;
+    return AppImages.background2;
   }
 
   @override
