@@ -308,6 +308,10 @@ abstract class AppTexts {
   static const myTokens = "myTokens";
   static const drawResult = "drawResult";
   static const drawed = "drawed";
+  static const attack = "attack";
+  static const passTurn = "passTurn";
+  static const attackPassed = "attackPassed";
+  static const passedAttack = "passedAttack";
 
   static const enterPhoneCorrectly = "enterPhoneCorrectly";
   static const enterUsernameCorrectly = "enterUsernameCorrectly";

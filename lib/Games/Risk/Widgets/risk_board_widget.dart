@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:kafehfekr/Games/Risk/Models/enums.dart';
+import 'package:kafehfekr/Games/Risk/Widgets/risk_action_result_widget.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_draw_part_widget.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_draw_result_part_widget.dart';
 
@@ -28,6 +29,8 @@ class RiskBoardWidget extends StatelessWidget {
         currentWidget = const RiskDrawResultPartWidget();
       case RiskGameStates.Loading:
         currentWidget = const GlobalWaitWidget();
+      case RiskGameStates.ActionResult:
+        currentWidget = const RiskActionResultWidget();
       default:
         currentWidget = Container();
     }

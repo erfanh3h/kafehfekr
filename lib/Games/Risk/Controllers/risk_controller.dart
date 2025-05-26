@@ -56,6 +56,7 @@ class RiskController extends BaseGameController {
         drawResultPrivateFunction(data);
         break;
       case GameCommands.passTurn:
+        passTurnFunction(data);
         break;
       default:
     }
@@ -101,12 +102,14 @@ class RiskController extends BaseGameController {
     riskUsersData[userIndex - 1].value =
         RiskUserModel.fromGlobalJson(data['data']['new_data']);
     if (drawType == 1) {
-      gameLog.value = "$activeUsername \n ${AppTexts.twoContinent.tr} کشید";
+      gameLog.value =
+          "$activeUsername \n ${AppTexts.twoContinent.tr} ${AppTexts.drawed.tr}";
     } else if (drawType == 2) {
-      gameLog.value = "$activeUsername \n ${AppTexts.twoStrategy.tr} کشید";
+      gameLog.value =
+          "$activeUsername \n ${AppTexts.twoStrategy.tr} ${AppTexts.drawed.tr}";
     } else if (drawType == 3) {
       gameLog.value =
-          "$activeUsername \n ${AppTexts.oneContinentOneStrategy.tr} کشید";
+          "$activeUsername \n ${AppTexts.oneContinentOneStrategy.tr} ${AppTexts.drawed.tr}";
     }
     gameState(RiskGameStates.DrawResult);
   }
@@ -146,7 +149,7 @@ class RiskController extends BaseGameController {
         break;
       case 4:
         final StrategyTypes strategyName = StrategyTypes.values.firstWhere(
-          (e) => e.name == draws[1],
+          (e) => e.name == draws[0],
         );
         drawedStrategiess.add(strategyName);
         break;
@@ -154,13 +157,14 @@ class RiskController extends BaseGameController {
     }
   }
 
-  @override
-  void peaceSelectedFunction(Map data) {
-    Map pieceData = data['data'];
-    // int index = pieceData['index'];
-    // int? targetIndex = pieceData['target_index'];
-    // int gamerId = pieceData['gamer_id'];
-    // String type = pieceData['type'];
+  void passTurnFunction(Map data) {
+    int userIndex = data['data']['gamer_index'];
+    final String activeUsername = getActiveGamerUsername();
+    riskUsersData[userIndex].value =
+        RiskUserModel.fromGlobalJson(data['data']['new_data']);
+    gameLog.value = "$activeUsername \n ${AppTexts.passedAttack.tr}";
+    gameState(RiskGameStates.ActionResult);
+    changetimerValue(GameWaitTimes.riskPassTurnTime);
   }
 
   @override
@@ -209,22 +213,11 @@ class RiskController extends BaseGameController {
     });
   }
 
-  surrenderByUserFunction() {
-    DialogComponent().showIconicSelectionDialog(
-      AppTexts.surrender.tr,
-      AppTexts.wanaSurrenderGame.tr,
-      GeneralIcons.death,
-      AppColors.loseColor,
-      () {
-        Get.find<GameSocketManager>()
-            .sendCommand({"id": GameCommands.surrender});
-        Get.closeAllDialogs();
-        canExitGame.value = true;
-      },
-      () {
-        Get.closeAllDialogs();
-      },
-    );
+  startAttack() {}
+  passTurn() {
+    gameState(RiskGameStates.Loading);
+    sendCommand({'id': GameCommands.passTurn});
+    showInteraction(text: AppTexts.attackPassed.tr);
   }
 
   openMyContinents() {
@@ -261,6 +254,24 @@ class RiskController extends BaseGameController {
         backgroundColor: Colors.transparent,
         child: RiskMyTokensWidget(tokens: myData.value!.tokens),
       ),
+    );
+  }
+
+  surrenderByUserFunction() {
+    DialogComponent().showIconicSelectionDialog(
+      AppTexts.surrender.tr,
+      AppTexts.wanaSurrenderGame.tr,
+      GeneralIcons.death,
+      AppColors.loseColor,
+      () {
+        Get.find<GameSocketManager>()
+            .sendCommand({"id": GameCommands.surrender});
+        Get.closeAllDialogs();
+        canExitGame.value = true;
+      },
+      () {
+        Get.closeAllDialogs();
+      },
     );
   }
 

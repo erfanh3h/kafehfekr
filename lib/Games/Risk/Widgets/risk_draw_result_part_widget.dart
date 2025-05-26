@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -35,7 +36,7 @@ class RiskDrawResultPartWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
-                    height: 100,
+                    height: 140,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -49,8 +50,8 @@ class RiskDrawResultPartWidget extends StatelessWidget {
                             final iconData = strategyToImage(strategy);
                             final text = strategy.name.tr;
                             return SizedBox(
-                              height: 120,
-                              width: 80,
+                              height: 140,
+                              width: 100,
                               child: RiskCardWidget(
                                   iconData: iconData, text: text),
                             );
@@ -68,8 +69,8 @@ class RiskDrawResultPartWidget extends StatelessWidget {
                             final iconData = continentToImage(continent);
                             final text = continent.name.tr;
                             return SizedBox(
-                              height: 120,
-                              width: 80,
+                              height: 140,
+                              width: 100,
                               child: RiskCardWidget(
                                   iconData: iconData, text: text),
                             );
@@ -79,6 +80,24 @@ class RiskDrawResultPartWidget extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GlobalButtonWidget(
+                        onTap: controller.startAttack,
+                        text: AppTexts.attack.tr,
+                        width: 100,
+                        height: 50,
+                      ),
+                      GlobalButtonWidget(
+                        onTap: controller.passTurn,
+                        text: AppTexts.passTurn.tr,
+                        width: 100,
+                        height: 50,
+                      ),
+                    ],
+                  )
                 ],
               ),
             )

@@ -45,7 +45,9 @@ class GlobalActivityBox<T extends BaseGameController> extends StatelessWidget {
                   ),
                 )
               : !controller.isGameStarted.value
-                  ? const GlobalWaitWidget()
+                  ? const GlobalWaitWidget(
+                      padding: AppSpacings.s5All,
+                    )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

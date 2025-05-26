@@ -2,16 +2,19 @@ import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class GlobalFadeInOutTextBox extends StatefulWidget {
   const GlobalFadeInOutTextBox({
     super.key,
     required this.text,
     this.fontSize = 16,
+    this.padding,
   });
 
   final String text;
   final double fontSize;
+  final EdgeInsets? padding;
   @override
   State<GlobalFadeInOutTextBox> createState() => _GlobalFadeInOutTextBoxState();
 }
@@ -57,6 +60,7 @@ class _GlobalFadeInOutTextBoxState extends State<GlobalFadeInOutTextBox>
       opacity: _fadeInFadeOut,
       child: GlobalFrameWrapper(
         frame: AppImages.frame4,
+        padding: widget.padding ?? AppSpacings.s20All,
         child: Text(
           widget.text,
           style: TextStyle(
