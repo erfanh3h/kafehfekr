@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
+import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:refreshed/refreshed.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
@@ -24,6 +27,7 @@ class GlobalInputBox extends StatefulWidget {
     this.textInputAction,
     this.onlyEnglishLetters = false,
     this.textAlign = TextAlign.center,
+    this.fontFamily,
   });
 
   // hint of input box
@@ -72,6 +76,7 @@ class GlobalInputBox extends StatefulWidget {
 
   final TextInputAction? textInputAction;
 
+  final String? fontFamily;
   @override
   GlobalInputBoxState createState() => GlobalInputBoxState();
 }
@@ -95,11 +100,13 @@ class GlobalInputBoxState extends State<GlobalInputBox> {
 
   @override
   Widget build(final BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: context.theme.inputDecorationTheme.fillColor,
-      ),
+    return GlobalFrameWrapper(
+      frame: AppImages.frame4,
+      padding: AppSpacings.s10All,
+      // decoration: BoxDecoration(
+      //   borderRadius: BorderRadius.circular(10.0),
+      //   color: context.theme.inputDecorationTheme.fillColor,
+      // ),
       child: Directionality(
         textDirection: widget.textDirection,
         child: FocusScope(
@@ -130,16 +137,22 @@ class GlobalInputBoxState extends State<GlobalInputBox> {
               contentPadding: AppSpacings.s15All,
               hintText: widget.label,
               hintTextDirection: TextDirection.rtl,
-              // hintStyle:
-              //     Get.textTheme.bodySmall!.copyWith(color: AppColors.grey500),
+              hintStyle: Get.textTheme.bodySmall!.copyWith(
+                color: AppColors.lightColor2,
+                fontSize: 15,
+                fontFamily: widget.fontFamily ?? FontFamilies.playPen,
+              ),
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,
               errorBorder: InputBorder.none,
               focusedErrorBorder: InputBorder.none,
             ),
-            // cursorColor: widget.color,
-            style: Get.textTheme.bodyLarge!
-                .copyWith(fontFamily: FontFamilies.playPen),
+            cursorColor: AppColors.lightColor,
+            style: Get.textTheme.bodyLarge!.copyWith(
+              fontFamily: widget.fontFamily ?? FontFamilies.playPen,
+              color: AppColors.lightColor,
+              fontSize: 20,
+            ),
             keyboardType: widget.textType,
             textInputAction: widget.textInputAction,
             minLines: widget.minLines,

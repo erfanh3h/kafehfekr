@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GameButtonWidget extends StatelessWidget {
@@ -22,20 +24,16 @@ class GameButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Container(
+      child: GlobalFrameWrapper(
         height: 150,
-        decoration: BoxDecoration(
-          color: Colors.transparent.withValues(alpha: .5),
-          borderRadius: BorderRadius.circular(10),
-        ),
+        frame: AppImages.dialog3,
         child: Stack(
           children: [
             Center(
               child: Opacity(
-                opacity: .25,
+                opacity: .35,
                 child: Image.asset(
                   image,
-                  color: imageColor,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -47,7 +45,7 @@ class GameButtonWidget extends StatelessWidget {
               child: Text(
                 text.tr,
                 style: TextStyle(
-                  color: AppColors.lightColor,
+                  color: AppColors.white,
                   fontFamily: FontFamilies.dastnevis,
                   fontSize: fontSize ?? 35,
                 ),

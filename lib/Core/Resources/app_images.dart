@@ -1,7 +1,7 @@
 class AppImages {
   static const _base = 'assets/Images';
   static const _gameImages = '$_base/games';
-  static const _gameFrames= '$_base/frames';
+  static const _gameFrames = '$_base/frames';
   static const background1 = '$_base/background1.png';
   // static const background2 = '$_base/background2.png';
   static const background2 = '$_base/background2.png';

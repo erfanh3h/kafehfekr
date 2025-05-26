@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/date_actions.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Features/General/Models/message_model.dart';
 
@@ -61,14 +63,13 @@ class MessageWidget extends StatelessWidget {
             ],
           ),
         ),
-        Card(
-          child: Container(
-            padding: AppSpacings.s10All,
-            width: double.maxFinite,
-            child: Text(
-              data.content,
-              style: const TextStyle(color: AppColors.lightColor, fontSize: 20),
-            ),
+        GlobalFrameWrapper(
+          padding: AppSpacings.s20All,
+          frame: AppImages.frame4,
+          width: double.maxFinite,
+          child: Text(
+            data.content,
+            style: const TextStyle(color: AppColors.lightColor, fontSize: 20),
           ),
         ),
       ],

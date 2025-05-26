@@ -6,7 +6,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_text_widget.dar
 import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -15,10 +15,6 @@ import 'package:refreshed/refreshed.dart';
 
 class UsernamePage extends BaseView<AuthController> {
   const UsernamePage({super.key});
-  @override
-  bool resizeToAvoidBottomInset() {
-    return true;
-  }
 
   @override
   String? backgroundImage() {
@@ -30,24 +26,18 @@ class UsernamePage extends BaseView<AuthController> {
     return Center(
       child: Padding(
         padding: AppSpacings.s10Horizental,
-        child: ListView(
+        child: Column(
           children: [
-            const SizedBox(height: 75),
-            Image.asset(
-              GeneralIcons.logoTransparent,
-              width: 200.w,
-              height: 200.w,
-            ),
-            const SizedBox(height: 10),
+            const Spacer(),
             Center(
               child: GlobalFadeInOutTextBox(
                 text: AppTexts.welcomeToCafeFekr.tr,
-                fontSize: 20,
+                fontSize: 30,
               ),
             ),
-            const SizedBox(height: 30),
+            const Spacer(),
             GlobalFrameWrapper(
-              frame: AppImages.dialog,
+              frame: AppImages.board,
               padding: AppSpacings.s40All,
               child: Column(
                 children: [
@@ -65,6 +55,7 @@ class UsernamePage extends BaseView<AuthController> {
                       controller: controller.usernameController,
                       textDirection: TextDirection.rtl,
                       maxLength: 30,
+                      fontFamily: FontFamilies.hekayat,
                     ),
                   ),
                   // const SizedBox(height: 10),
@@ -94,7 +85,7 @@ class UsernamePage extends BaseView<AuthController> {
                 ],
               ),
             ),
-            SizedBox(height: 10.h),
+            const Spacer(flex: 3)
           ],
         ),
       ),

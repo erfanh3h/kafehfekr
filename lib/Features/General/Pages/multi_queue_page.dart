@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_widget.dart.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_page_header.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -40,9 +41,29 @@ class MultiQueuePage extends BaseView<MultiQueueController> {
           Expanded(
             child: Column(
               children: [
-                Expanded(
+                GlobalFrameWrapper(
+                  frame: AppImages.bilboard2,
+                  height: 125,
+                  width: Get.size.width / 2,
                   child: Padding(
-                    padding: AppSpacings.s10All,
+                    padding: AppSpacings.s30Top,
+                    child: Center(
+                      child: Text(
+                        AppTexts.multiPlayersGame.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontSize: 50,
+                          fontFamily: FontFamilies.hekayat,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Expanded(
+                  child: GlobalFrameWrapper(
+                    padding: AppSpacings.s30All,
+                    frame: AppImages.board,
                     child: ListView.separated(
                       itemBuilder: (ctx, index) =>
                           MessageWidget(data: controller.messages[index]),
@@ -52,37 +73,10 @@ class MultiQueuePage extends BaseView<MultiQueueController> {
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: Image.asset(MultiGameTypeConvertor.toGameImage(
-                          controller.gameType)),
-                    ),
-                    const SizedBox(width: 5),
-                    Expanded(
-                      child: GlobalFadeInOutWidget(
-                        child: Text(
-                          AppTexts.findRivel.tr,
-                          style: const TextStyle(
-                              color: AppColors.lightColor, fontSize: 20),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    // const Spacer(),
-                    GlobalButtonWidget(
-                      onTap: Get.back,
-                      text: AppTexts.back.tr,
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                )
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 5),
           Padding(
             padding: AppSpacings.s2All,
             child: Row(
@@ -92,8 +86,9 @@ class MultiQueuePage extends BaseView<MultiQueueController> {
                     label: AppTexts.enterText.tr,
                     controller: controller.messageCtrl,
                     textDirection: TextDirection.ltr,
-                    maxLength: 30,
                     textAlign: TextAlign.right,
+                    maxLines: 1,
+                    fontFamily: FontFamilies.hekayat,
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -106,6 +101,21 @@ class MultiQueuePage extends BaseView<MultiQueueController> {
                 )
               ],
             ),
+          ),
+          Row(
+            children: [
+              SizedBox(
+                width: 75,
+                height: 75,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    MultiGameTypeConvertor.toGameImage(controller.gameType),
+                  ),
+                ),
+              ),
+              Expanded(child: GlobalPageHeader(label: AppTexts.findRivel.tr)),
+            ],
           ),
         ],
       ),

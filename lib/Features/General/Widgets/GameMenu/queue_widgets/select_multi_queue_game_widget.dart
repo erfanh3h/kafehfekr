@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Features/General/Widgets/game_button.dart';
@@ -45,13 +47,14 @@ class SelectMultiQueueGameWidget extends StatelessWidget {
         ),
       );
     }
-    return Container(
-      padding: AppSpacings.s10All,
+    return GlobalFrameWrapper(
+      padding: AppSpacings.s50All,
+      frame: AppImages.dialog3,
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 15,
-          mainAxisSpacing: 15,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
           childAspectRatio: 1,
         ),
         itemBuilder: (ctx, index) => Container(

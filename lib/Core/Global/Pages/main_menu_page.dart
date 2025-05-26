@@ -39,7 +39,7 @@ final items = [
   ItemData(AppTexts.multiPlayersGame, icon: GeneralIcons.multiRank, () {
     Get.bottomSheet(
       const SelectMultiQueueGameWidget(),
-      backgroundColor: AppColors.darkColor,
+      backgroundColor: AppColors.transparent,
     );
   }),
   ItemData(AppTexts.chats, iconData: Icons.comment_outlined, () {

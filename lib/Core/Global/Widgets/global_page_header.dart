@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_fade_in_out_widget.dart.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
-import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_theme.dart';
 
 class GlobalPageHeader extends StatelessWidget {
@@ -14,26 +15,27 @@ class GlobalPageHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      spacing: 5,
       children: [
-        Container(
-          margin: AppSpacings.s10Horizental,
-          padding: AppSpacings.s20Vertical40Horizental,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(AppImages.frame4),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 20,
-              color: AppColors.lightColor,
+        const SizedBox(width: 5),
+        Expanded(
+          child: GlobalFrameWrapper(
+            frame: AppImages.frame,
+            child: GlobalFadeInOutWidget(
+              child: Center(
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    color: AppColors.lightColor2,
+                    fontSize: 30,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
-        const Spacer(),
-        backButton
+        backButton,
+        const SizedBox(width: 5),
       ],
     );
   }

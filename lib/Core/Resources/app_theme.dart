@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -106,17 +107,13 @@ LinearGradient makeGradient(Color firstColor, Color secondColor) =>
       end: Alignment.bottomRight,
     );
 
-final backButton = IconButton(
-  onPressed: Get.back,
-  icon: Container(
-    width: 40,
-    height: 40,
-    decoration: const BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage(AppImages.reply),
-        fit: BoxFit.fill,
-      ),
+final backButton = InkWell(
+  onTap: Get.back,
+  child: const GlobalFrameWrapper(
+    frame: AppImages.reply,
+    child: SizedBox(
+      height: 50,
+      width: 50,
     ),
-    child: const Text(" "),
   ),
 );

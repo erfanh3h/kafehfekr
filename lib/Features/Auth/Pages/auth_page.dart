@@ -8,7 +8,6 @@ import 'package:kafehfekr/Core/Global/Widgets/global_input_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
-import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
@@ -20,11 +19,6 @@ class AuthPage extends BaseView<AuthController> {
   const AuthPage({super.key});
 
   @override
-  bool resizeToAvoidBottomInset() {
-    return true;
-  }
-
-  @override
   String? backgroundImage() {
     return AppImages.background2;
   }
@@ -34,25 +28,19 @@ class AuthPage extends BaseView<AuthController> {
     return Center(
       child: Padding(
         padding: AppSpacings.s20Horizental,
-        child: ListView(
+        child: Column(
           children: [
-            SizedBox(height: 75.h),
-            Image.asset(
-              GeneralIcons.logoTransparent,
-              width: 200.w,
-              height: 200.w,
-            ),
-            SizedBox(height: 10.h),
+            const Spacer(),
             Center(
               child: GlobalFadeInOutTextBox(
                 text: AppTexts.welcomeToCafeFekr.tr,
-                fontSize: 20,
+                fontSize: 30,
               ),
             ),
-            SizedBox(height: 30.h),
+            const Spacer(),
             if (controller.isPhonePhase.value)
               GlobalFrameWrapper(
-                frame: AppImages.dialog,
+                frame: AppImages.board,
                 padding: AppSpacings.s30All,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,14 +74,14 @@ class AuthPage extends BaseView<AuthController> {
                             ),
                           ),
                           const SizedBox(width: 5),
-                          GlobalFrameWrapper(
-                            frame: AppImages.button2,
-                            padding: AppSpacings.s5All,
-                            child: InkWell(
-                              onTap: controller.enterUser,
-                              child: const Icon(
-                                Icons.arrow_circle_left_outlined,
-                                size: 40,
+                          InkWell(
+                            onTap: controller.enterUser,
+                            child: const GlobalFrameWrapper(
+                              frame: AppImages.check,
+                              padding: AppSpacings.s5All,
+                              child: SizedBox(
+                                height: 50,
+                                width: 50,
                               ),
                             ),
                           ),
@@ -181,7 +169,7 @@ class AuthPage extends BaseView<AuthController> {
             else
               !controller.isSendingData.value
                   ? GlobalFrameWrapper(
-                      frame: AppImages.dialog,
+                      frame: AppImages.board,
                       padding: AppSpacings.s40All,
                       child: Column(
                         children: [
@@ -256,7 +244,7 @@ class AuthPage extends BaseView<AuthController> {
                       size: 45,
                       color: AppColors.lightColor,
                     ),
-            SizedBox(height: 10.h),
+            const Spacer(flex: 3)
           ],
         ),
       ),
