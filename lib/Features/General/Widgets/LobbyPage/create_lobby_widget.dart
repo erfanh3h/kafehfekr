@@ -33,41 +33,6 @@ class _CreateLobbyWidgetState extends State<CreateLobbyWidget> {
     final int gamesLength = marketType == MarketTypes.Bazaar
         ? gameTypesParts.length - 1
         : gameTypesParts.length;
-    List<DropdownMenuEntry<GameTypes>>? items = [];
-    for (var i = 0; i < gamesLength; i++) {
-      final value = gameTypesParts[i];
-      final gameConvertor = GameTypeConvertor(gameType: value);
-      items.add(
-        DropdownMenuEntry<GameTypes>(
-          value: value,
-          label: value.name.tr,
-          leadingIcon: Container(
-            width: 25,
-            height: 25,
-            decoration: BoxDecoration(
-              color: const Color(0xff7c94b6),
-              image: DecorationImage(
-                image: AssetImage(
-                  gameConvertor.toGameImage(),
-                ),
-                fit: BoxFit.cover,
-              ),
-              border: Border.all(
-                color: AppColors.darkColor,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(5),
-            ),
-          ),
-          labelWidget: Text(
-            value.name.tr,
-            style: const TextStyle(
-              color: AppColors.darkColor,
-            ),
-          ),
-        ),
-      );
-    }
     return Container(
       padding: AppSpacings.s10All,
       child: Column(
@@ -89,8 +54,8 @@ class _CreateLobbyWidgetState extends State<CreateLobbyWidget> {
                   padding: AppSpacings.s10All,
                   frame: AppImages.check,
                   child: SizedBox(
-                    height: 25,
-                    width: 25,
+                    height: 50,
+                    width: 50,
                   ),
                 ),
               )
@@ -100,7 +65,7 @@ class _CreateLobbyWidgetState extends State<CreateLobbyWidget> {
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
+                crossAxisCount: 3,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
                 childAspectRatio: 1,
@@ -135,32 +100,6 @@ class _CreateLobbyWidgetState extends State<CreateLobbyWidget> {
               itemCount: gamesLength,
             ),
           ),
-          // Row(
-          //   children: [
-          //     Expanded(
-          //       flex: 2,
-          //       child: Text(
-          //         AppTexts.selectGameType.tr,
-          //         style: const TextStyle(
-          //           color: AppColors.lightColor,
-          //           fontSize: 22,
-          //         ),
-          //       ),
-          //     ),
-          //     Expanded(
-          //       flex: 3,
-          //       child: DropdownMenu<GameTypes>(
-          //         onSelected: onChangeGameType,
-          //         dropdownMenuEntries: items,
-          //         textStyle: const TextStyle(color: AppColors.lightColor),
-          //         trailingIcon: const Icon(
-          //           CupertinoIcons.chevron_down,
-          //           color: AppColors.lightColor,
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
         ],
       ),
     );

@@ -26,6 +26,7 @@ class AppImages {
   static const close = '$_gameFrames/close.png';
   static const pause = '$_gameFrames/pause.png';
   static const play = '$_gameFrames/play.png';
+  static const info = '$_gameFrames/info.png';
   static const reply = '$_gameFrames/reply.png';
   static const right = '$_gameFrames/right.png';
   static const board = '$_gameFrames/board.png';
