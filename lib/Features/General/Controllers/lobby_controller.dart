@@ -323,7 +323,7 @@ class LobbyController extends BaseController {
         lobbyNameController: lobbyNameController,
         onCreate: onCreateLobby,
       ),
-      backgroundColor: AppColors.darkColor,
+      backgroundColor: AppColors.transparent,
     );
   }
 

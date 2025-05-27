@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Features/General/Widgets/text_number_widget.dart';
 import 'package:refreshed/refreshed.dart';
 
@@ -24,14 +25,9 @@ class GameHistoryRowWidget extends StatelessWidget {
     bool mustShowBox =
         (winNumber + drawNumber + loseNumber) != 0 ? true : false;
     return mustShowBox
-        ? Container(
-            margin: AppSpacings.s10Horizental15Vertical,
-            padding: AppSpacings.s5Bottom,
-            decoration: const BoxDecoration(
-                // border: Border(
-                //   bottom: BorderSide(color: AppColors.lightColor),
-                // ),
-                ),
+        ? GlobalFrameWrapper(
+            frame: AppImages.frame4,
+            padding: AppSpacings.s5All,
             child: Row(
               children: [
                 Expanded(
@@ -48,43 +44,27 @@ class GameHistoryRowWidget extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 3,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        gradient: headerGradient,
-                        borderRadius: BorderRadius.circular(5)),
-                    // color: AppColors.lightColor.withValues(alpha: .35),
-                    child: IntrinsicHeight(
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 5),
-                          Expanded(
-                            flex: 5,
-                            child: TextNumberWidget(
-                                number: drawNumber, text: AppTexts.draw.tr),
-                          ),
-                          const Padding(
-                            padding: AppSpacings.s10Vertical,
-                            child: VerticalDivider(color: AppColors.lightColor),
-                          ),
-                          Expanded(
-                            flex: 7,
-                            child: TextNumberWidget(
-                                number: winNumber, text: AppTexts.win.tr),
-                          ),
-                          const Padding(
-                            padding: AppSpacings.s10Vertical,
-                            child: VerticalDivider(color: AppColors.lightColor),
-                          ),
-                          Expanded(
-                            flex: 5,
-                            child: TextNumberWidget(
-                                number: loseNumber, text: AppTexts.lose.tr),
-                          ),
-                          const SizedBox(width: 5),
-                        ],
+                  flex: 2,
+                  child: Row(
+                    children: [
+                      const SizedBox(width: 5),
+                      Expanded(
+                        flex: 5,
+                        child: TextNumberWidget(
+                            number: drawNumber, text: AppTexts.draw.tr),
                       ),
-                    ),
+                      Expanded(
+                        flex: 7,
+                        child: TextNumberWidget(
+                            number: winNumber, text: AppTexts.win.tr),
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: TextNumberWidget(
+                            number: loseNumber, text: AppTexts.lose.tr),
+                      ),
+                      const SizedBox(width: 5),
+                    ],
                   ),
                 ),
               ],

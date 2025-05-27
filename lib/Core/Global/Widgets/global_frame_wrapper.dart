@@ -10,18 +10,21 @@ class GlobalFrameWrapper extends StatelessWidget {
     this.width,
     this.frame,
     this.padding,
+    this.alignment,
   });
 
   final Widget child;
   final double? height;
   final double? width;
   final String? frame;
+  final AlignmentGeometry? alignment;
   final EdgeInsetsGeometry? padding;
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
       width: width,
+      alignment: alignment,
       padding:padding ?? AppSpacings.s20All,
       decoration: BoxDecoration(
         image: DecorationImage(

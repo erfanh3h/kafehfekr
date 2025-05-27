@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Features/Auth/Models/user_model.dart';
@@ -24,11 +26,12 @@ class UserDataWidget extends StatelessWidget {
   final UserHistoryModel userHistoryData;
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Padding(
-          padding: AppSpacings.s20Horizental,
-          child: FadeIn(
+    return GlobalFrameWrapper(
+      frame: AppImages.dialog3,
+      padding: AppSpacings.s50All,
+      child: ListView(
+        children: [
+          FadeIn(
             delay: const Duration(milliseconds: 100),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -75,46 +78,50 @@ class UserDataWidget extends StatelessWidget {
                   ],
                 ),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        userData.name,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: AppColors.lightColor,
-                          fontFamily: FontFamilies.playPen,
-                          letterSpacing: 2.5,
-                        ),
-                        maxLines: 1,
-                      ),
-                      const SizedBox(height: 2),
-                      InkWell(
-                        onTap: () {
-                          Clipboard.setData(
-                            ClipboardData(text: userData.id),
-                          );
-                        },
-                        child: Text(
-                          userData.id,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                            fontFamily: FontFamilies.playPen,
+                  child: GlobalFrameWrapper(
+                    frame: AppImages.frame4,
+                    padding: AppSpacings.s10All,
+                    child: Center(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            userData.name,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              color: AppColors.lightColor,
+                              fontFamily: FontFamilies.playPen,
+                              letterSpacing: 2.5,
+                            ),
+                            maxLines: 1,
                           ),
-                        ),
+                          const SizedBox(height: 2),
+                          InkWell(
+                            onTap: () {
+                              Clipboard.setData(
+                                ClipboardData(text: userData.id),
+                              );
+                            },
+                            child: Text(
+                              "Id: ${userData.id}",
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                                fontFamily: FontFamilies.playPen,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-                const SizedBox(width: 10),
-                Container(
+                const SizedBox(width: 5),
+                GlobalFrameWrapper(
                   width: 65.w,
                   height: 65.w,
                   padding: AppSpacings.s5All,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
+                  frame: AppImages.button5,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(150),
                     child: Image.asset(
@@ -125,24 +132,20 @@ class UserDataWidget extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        const SizedBox(height: 30),
-        Column(
-          children: [
-            FadeIn(
-              delay: const Duration(milliseconds: 400),
-              child: GameHistoryRowWidget(
-                data: (
-                  userHistoryData.winRank,
-                  userHistoryData.drawRank,
-                  userHistoryData.loseRank,
-                ),
-                name: AppTexts.rankGame.tr,
+          const SizedBox(height: 5),
+          Padding(
+            padding: AppSpacings.s10Horizental,
+            child: GameHistoryRowWidget(
+              data: (
+                userHistoryData.winRank,
+                userHistoryData.drawRank,
+                userHistoryData.loseRank,
               ),
+              name: AppTexts.rankGame.tr,
             ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }

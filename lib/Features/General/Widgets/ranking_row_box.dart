@@ -1,9 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Features/General/Models/ranking_model.dart';
 
@@ -22,7 +24,7 @@ class RankingRowBox extends StatelessWidget {
           index.toString(),
           style: const TextStyle(
             fontFamily: FontFamilies.playPen,
-            fontSize: 30,
+            fontSize: 25,
             color: AppColors.lightColor,
           ),
         ),
@@ -52,22 +54,23 @@ class RankingRowBox extends StatelessWidget {
     }
     return FadeIn(
       delay: Duration(milliseconds: (index + 1) * 100),
-      child: Container(
-        margin: AppSpacings.s10Horizental,
+      child: GlobalFrameWrapper(
+        frame: AppImages.frame4,
+        padding: AppSpacings.s5All,
         child: Row(
           children: [
+            const SizedBox(width: 10),
             indexWidget,
             Expanded(
               child: InkWell(
                 onTap: () => FunctionsLibraryClass.showUserData(data.userId),
                 child: Padding(
-                  padding: AppSpacings.s15All,
+                  padding: AppSpacings.s5All,
                   child: Row(
                     children: [
-                      const SizedBox(width: 5),
-                      Container(
-                        // padding: AppSpacings.s2All,
-                        decoration: const BoxDecoration(shape: BoxShape.circle),
+                      GlobalFrameWrapper(
+                        frame: AppImages.button5,
+                        padding: AppSpacings.s3All,
                         width: 50,
                         height: 50,
                         child: ClipRRect(
@@ -96,7 +99,7 @@ class RankingRowBox extends StatelessWidget {
                           color: AppColors.lightColor,
                         ),
                       ),
-                      const SizedBox(width: 15),
+                      const SizedBox(width: 25),
                     ],
                   ),
                 ),

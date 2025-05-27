@@ -33,8 +33,9 @@ class _CreateLobbyWidgetState extends State<CreateLobbyWidget> {
     final int gamesLength = marketType == MarketTypes.Bazaar
         ? gameTypesParts.length - 1
         : gameTypesParts.length;
-    return Container(
-      padding: AppSpacings.s10All,
+    return GlobalFrameWrapper(
+      frame: AppImages.dialog3,
+      padding: AppSpacings.s50All,
       child: Column(
         children: [
           Row(
@@ -47,7 +48,7 @@ class _CreateLobbyWidgetState extends State<CreateLobbyWidget> {
                   textAlign: TextAlign.right,
                 ),
               ),
-              const SizedBox(width: 20),
+              const SizedBox(width: 5),
               InkWell(
                 onTap: () => widget.onCreate(selectedLobbyIndex),
                 child: const GlobalFrameWrapper(
@@ -61,7 +62,7 @@ class _CreateLobbyWidgetState extends State<CreateLobbyWidget> {
               )
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

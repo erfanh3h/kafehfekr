@@ -2,12 +2,13 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
-import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:refreshed/refreshed.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -51,10 +52,12 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: AppSpacings.s10All,
+    return GlobalFrameWrapper(
+      padding: AppSpacings.s50All,
+      frame: AppImages.dialog3,
       child: Column(
         children: [
+          const SizedBox(height: 10),
           Center(
             child: Text(
               widget.gameType.name.tr,
@@ -69,14 +72,10 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
           FadeIn(
             delay: const Duration(milliseconds: 150),
             child: Center(
-              child: Container(
+              child: GlobalFrameWrapper(
                 padding: AppSpacings.s5All,
-                margin: AppSpacings.s10Horizental,
-                // width: 250.w,
-                decoration: BoxDecoration(
-                  gradient: headerGradient,
-                  borderRadius: BorderRadius.circular(15),
-                ),
+                height: 50,
+                frame: AppImages.frame4,
                 child: Row(
                   children: [
                     Expanded(
@@ -148,7 +147,7 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
               ),
             ),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 5),
           Expanded(
             child: Padding(
               padding: AppSpacings.s10All,
@@ -218,7 +217,6 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
                         Padding(
                           padding: AppSpacings.s5All,
                           child: FadeIn(

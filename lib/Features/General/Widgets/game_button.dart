@@ -3,6 +3,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:refreshed/refreshed.dart';
 
 class GameButtonWidget extends StatelessWidget {
@@ -27,6 +28,7 @@ class GameButtonWidget extends StatelessWidget {
       child: GlobalFrameWrapper(
         height: 150,
         frame: AppImages.dialog3,
+        padding: AppSpacings.s15All,
         child: Stack(
           children: [
             Center(

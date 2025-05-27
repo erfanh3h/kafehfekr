@@ -211,7 +211,7 @@ class FunctionsLibraryClass {
             userData: result.resultData!.$1!,
             userHistoryData: result.resultData!.$2!,
           ),
-          backgroundColor: AppColors.darkColor,
+          backgroundColor: AppColors.transparent,
         );
       }
     });

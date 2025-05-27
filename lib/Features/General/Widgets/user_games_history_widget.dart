@@ -17,8 +17,6 @@ class UserGamesHistoryWidget extends StatelessWidget {
     return Transform.scale(
       scale: .95,
       child: ListView(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
         children: [
           GameHistoryRowWidget(
             data: data.rankTicTacToe,

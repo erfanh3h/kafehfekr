@@ -20,7 +20,7 @@ class ChangeUsernameBox extends StatelessWidget {
   Widget build(BuildContext context) {
     usernameController.text = username;
     return GlobalFrameWrapper(
-      frame: AppImages.dialog,
+      frame: AppImages.dialog3,
       height: 200,
       padding: AppSpacings.s20Vertical40Horizental,
       child: Column(
