@@ -67,7 +67,10 @@ class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
           flex: 5,
           child: TicTacToeOfflineBoardWidget(controller: controller),
         ),
-        Expanded(child: OfflineActivityButtons(controller: controller))
+        Padding(
+          padding: AppSpacings.s10Bottom,
+          child: OfflineActivityButtons(controller: controller),
+        ),
       ],
     );
   }

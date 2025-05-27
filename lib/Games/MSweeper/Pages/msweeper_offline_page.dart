@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_offline_games_activity_butt
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/MSweeper/Controllers/msweeper_offline_controller.dart';
 import 'package:kafehfekr/Games/MSweeper/Widgets/msweeper_offline_board_widget.dart';
 
@@ -41,7 +42,10 @@ class MSweeperOfflinePage extends BaseView<MSweeperOfflineController> {
           flex: 5,
           child: MSweeperOfflineBoardWidget(controller: controller),
         ),
-        Expanded(child: OfflineActivityButtons(controller: controller))
+        Padding(
+          padding: AppSpacings.s10Bottom,
+          child: OfflineActivityButtons(controller: controller),
+        ),
       ],
     );
   }

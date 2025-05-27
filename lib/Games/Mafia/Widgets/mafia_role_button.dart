@@ -9,12 +9,12 @@ class MafiaButton extends StatelessWidget {
     super.key,
     this.onTap,
     required this.text,
-    this.icon = Icons.add,
+    this.icon = AppImages.add,
   });
 
   final Function(String)? onTap;
   final String text;
-  final IconData icon;
+  final String icon;
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +26,30 @@ class MafiaButton extends StatelessWidget {
       },
       child: GlobalFrameWrapper(
         frame: AppImages.button4,
-        padding: AppSpacings.s5All,
+        padding: AppSpacings.s2All,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(
-              text,
-              style: const TextStyle(
-                color: AppColors.lightColor,
-                fontSize: 11,
+            Expanded(
+              child: Text(
+                text,
+                style: const TextStyle(
+                  color: AppColors.lightColor,
+                  fontSize: 14,
+                ),
+                maxLines: 1,
+                textAlign: TextAlign.center,
               ),
             ),
-            Icon(
-              icon,
-              color: AppColors.lightColor,
+            GlobalFrameWrapper(
+              padding: EdgeInsets.zero,
+              frame: icon,
+              child: const SizedBox(
+                width: 30,
+                height: 30,
+              ),
             ),
+            const SizedBox(width: 3),
           ],
         ),
       ),

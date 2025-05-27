@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
@@ -42,66 +43,69 @@ class MafiaOfflineRolesPage extends BaseView<MafiaOfflineController> {
               child: InkWell(
                 onTap: controller.onChangeShowRole,
                 child: controller.showRole.value
-                    ? GlobalFrameWrapper(
-                        frame: AppImages.frame4,
-                        padding: AppSpacings.s30All,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            GlobalFrameWrapper(
-                              frame: AppImages.frame4,
-                              child: Text(
+                    ? FadeIn(
+                        key: Key(controller
+                            .users[controller.showerCounter.value].role.value),
+                        child: GlobalFrameWrapper(
+                          frame: AppImages.frame4,
+                          padding: AppSpacings.s30All,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
                                 controller.getUserSideLabel(
                                   controller.showerCounter.value,
                                 ),
                                 style: const TextStyle(
                                   color: AppColors.lightColor,
-                                  fontSize: 20,
+                                  fontSize: 22,
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 20),
-                            GlobalFrameWrapper(
-                              frame: AppImages.frame2,
-                              padding: AppSpacings.s20Vertical70Horizental,
-                              child: Text(
-                                controller.users[controller.showerCounter.value]
-                                    .role.value,
-                                style: const TextStyle(
-                                  color: AppColors.lightColor,
-                                  fontSize: 50,
-                                  fontFamily: FontFamilies.hekayat,
+                              const SizedBox(height: 15),
+                              GlobalFrameWrapper(
+                                frame: AppImages.frame4,
+                                padding: AppSpacings.s20Vertical70Horizental,
+                                child: Text(
+                                  controller
+                                      .users[controller.showerCounter.value]
+                                      .role
+                                      .value,
+                                  style: const TextStyle(
+                                    color: AppColors.lightColor,
+                                    fontSize: 55,
+                                    fontFamily: FontFamilies.hekayat,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 5),
-                            GlobalFrameWrapper(
-                              frame: AppImages.frame,
-                              padding: AppSpacings.s25All,
-                              child: Text(
+                              const SizedBox(height: 15),
+                              Text(
                                 controller.getUserSideDescription(
                                   controller.showerCounter.value,
                                 ),
                                 style: const TextStyle(
                                   color: AppColors.lightColor,
-                                  fontSize: 20,
+                                  fontSize: 22,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                            ),
-                            const SizedBox(height: 20),
-                          ],
+                              const SizedBox(height: 20),
+                            ],
+                          ),
                         ),
                       )
-                    : GlobalFrameWrapper(
-                        frame: AppImages.frame4,
-                        padding: AppSpacings.s20Vertical50Horizental,
-                        child: Text(
-                          AppTexts.showRole.tr,
-                          style: const TextStyle(
-                            color: AppColors.lightColor,
-                            fontSize: 40,
+                    : FadeIn(
+                        key: Key(controller
+                            .users[controller.showerCounter.value].role.value),
+                        child: GlobalFrameWrapper(
+                          frame: AppImages.frame4,
+                          padding: AppSpacings.s20Vertical50Horizental,
+                          child: Text(
+                            AppTexts.showRole.tr,
+                            style: const TextStyle(
+                              color: AppColors.lightColor,
+                              fontSize: 40,
+                            ),
                           ),
                         ),
                       ),

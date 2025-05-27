@@ -7,11 +7,10 @@ import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_chats_box.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_dialog_wrapper.dart';
 import 'package:kafehfekr/Core/Network/lobby_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
-import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:kafehfekr/Features/General/Models/lobby_model.dart';
@@ -176,8 +175,7 @@ class LobbyController extends BaseController {
       Get.dialog(
         Dialog(
           backgroundColor: Colors.transparent,
-          child: GlobalFrameWrapper(
-            frame: AppImages.dialog3,
+          child: GlobalDialogWrapper(
             height: 150.h,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

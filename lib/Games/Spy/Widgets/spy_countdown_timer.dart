@@ -38,12 +38,14 @@ class SpyTimerWidget extends StatelessWidget {
           ),
           IconButton(
             onPressed: spyController.triggerTimerStatus,
-            icon: Icon(
-              spyController.isTimerCounting.value
-                  ? Icons.pause
-                  : Icons.play_arrow_rounded,
-              color: AppColors.lightColor,
-              size: 100,
+            icon: GlobalFrameWrapper(
+              frame: spyController.isTimerCounting.value
+                  ? AppImages.pause
+                  : AppImages.play,
+              child: const SizedBox(
+                width: 50,
+                height: 50,
+              ),
             ),
           )
         ],

@@ -47,7 +47,10 @@ class OthelloOfflinePage extends BaseView<OthelloOfflineController> {
         const Spacer(),
         OthelloOfflineBoardWidget(controller: controller),
         const Spacer(),
-        Expanded(flex: 2, child: OfflineActivityButtons(controller: controller))
+        Padding(
+          padding: AppSpacings.s10Bottom,
+          child: OfflineActivityButtons(controller: controller),
+        ),
       ],
     );
   }

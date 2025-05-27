@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -34,22 +35,25 @@ class SpyOfflineRolesWidget extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Center(
-                child: InkWell(
-                  onTap: controller.onChangeShowRole,
-                  child: GlobalFrameWrapper(
-                    frame: AppImages.frame4,
-                    padding: AppSpacings.s30All,
-                    child: Text(
-                      controller.showRole.value
-                          ? controller.users[controller.showerCounter.value]
-                                  .isSpy.value
-                              ? AppTexts.youAreSpy.tr
-                              : controller.gameText.value
-                          : AppTexts.showWord.tr,
-                      style: const TextStyle(
-                        color: AppColors.lightColor,
-                        fontSize: 40,
+              child: FadeIn(
+                key: Key(controller.showerCounter.value.toString()),
+                child: Center(
+                  child: InkWell(
+                    onTap: controller.onChangeShowRole,
+                    child: GlobalFrameWrapper(
+                      frame: AppImages.frame4,
+                      padding: AppSpacings.s30All,
+                      child: Text(
+                        controller.showRole.value
+                            ? controller.users[controller.showerCounter.value]
+                                    .isSpy.value
+                                ? AppTexts.youAreSpy.tr
+                                : controller.gameText.value
+                            : AppTexts.showWord.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontSize: 40,
+                        ),
                       ),
                     ),
                   ),

@@ -5,6 +5,7 @@ import 'package:kafehfekr/Core/Global/Widgets/global_offline_games_activity_butt
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/MNumbers/Controllers/mnumbers_offline_controller.dart';
 import 'package:kafehfekr/Games/MNumbers/Widgets/mnumbers_offline_board_widget.dart';
 
@@ -43,7 +44,10 @@ class MNumbersOfflinePage extends BaseView<MNumbersOfflineController> {
             flex: 5,
             child: MNumbersOfflineBoardWidget(controller: controller),
           ),
-          Expanded(child: OfflineActivityButtons(controller: controller))
+          Padding(
+            padding: AppSpacings.s10Bottom,
+            child: OfflineActivityButtons(controller: controller),
+          ),
         ],
       ),
     );

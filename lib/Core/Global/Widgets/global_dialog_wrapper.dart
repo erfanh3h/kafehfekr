@@ -14,7 +14,7 @@ class GlobalDialogWrapper extends StatelessWidget {
       padding: AppSpacings.s10All,
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(AppImages.dialog),
+          image: AssetImage(AppImages.dialog3),
           fit: BoxFit.fill,
         ),
       ),

@@ -74,9 +74,9 @@ class MafiaPreGameWidget extends StatelessWidget {
             frame: AppImages.frame3,
             child: Center(
               child: Text(
-                '${AppTexts.currentRoles.tr} (${controller.roles.length} / ${controller.playersCount})',
+                '${AppTexts.currentRoles.tr} ( ${controller.playersCount} / ${controller.roles.length})',
                 style:
-                    const TextStyle(color: AppColors.lightColor, fontSize: 20),
+                    const TextStyle(color: AppColors.lightColor, fontSize: 25),
               ),
             ),
           ),
@@ -94,7 +94,7 @@ class MafiaPreGameWidget extends StatelessWidget {
               itemBuilder: (context, index) => MafiaButton(
                 onTap: controller.onRemoveRole,
                 text: controller.roles[index],
-                icon: Icons.remove,
+                icon: AppImages.close,
               ),
             ),
           ),

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Mafia/Controllers/mafia_offline_controller.dart';
 import 'package:refreshed/refreshed.dart';
@@ -18,14 +20,13 @@ class MafiaGameWidget extends StatelessWidget {
     return Obx(
       () => ListView.builder(
         itemBuilder: (ctx, index) => Obx(
-          () => Card(
-            color: controller.users[index].isDead.value
-                ? null
-                : AppColors.darkColor.withValues(alpha: .5),
-            child: Padding(
-              padding: AppSpacings.s10Horizental5Vertical,
+          () => Opacity(
+            opacity: controller.users[index].isDead.value ? .5 : 1,
+            child: GlobalFrameWrapper(
+              padding: AppSpacings.s15All,
               child: Row(
                 children: [
+                  const SizedBox(width: 5),
                   Text(
                     controller.users[index].name.value,
                     style: const TextStyle(
@@ -37,14 +38,19 @@ class MafiaGameWidget extends StatelessWidget {
                   Obx(
                     () => controller.users[index].showRole.value
                         ? Expanded(
-                            flex: 10,
-                            child: Text(
-                              '${controller.getUserSideLabel(index)} - ${controller.users[index].role.value}',
-                              style: const TextStyle(
-                                color: AppColors.lightColor,
-                                fontSize: 17,
+                            flex: 1,
+                            child: GlobalFrameWrapper(
+                              padding: AppSpacings.s5All,
+                              child: Center(
+                                child: Text(
+                                  '${controller.getUserSideLabel(index)} - ${controller.users[index].role.value}',
+                                  style: const TextStyle(
+                                    color: AppColors.lightColor,
+                                    fontSize: 17,
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
                               ),
-                              textAlign: TextAlign.left,
                             ),
                           )
                         : Container(),
@@ -61,16 +67,21 @@ class MafiaGameWidget extends StatelessWidget {
                     ),
                   ),
                   Obx(
-                    () => IconButton(
-                      onPressed: controller.users[index].changeIsDead,
-                      icon: Icon(
-                        controller.users[index].isDead.value
-                            ? CupertinoIcons.add
-                            : Icons.close,
-                        color: AppColors.lightColor,
+                    () => InkWell(
+                      onTap: controller.users[index].changeIsDead,
+                      child: GlobalFrameWrapper(
+                        padding: AppSpacings.s2All,
+                        frame: controller.users[index].isDead.value
+                            ? AppImages.add
+                            : AppImages.close,
+                        child: const SizedBox(
+                          width: 30,
+                          height: 30,
+                        ),
                       ),
                     ),
                   ),
+                  const SizedBox(width: 5),
                 ],
               ),
             ),
