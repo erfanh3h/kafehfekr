@@ -14,12 +14,14 @@ class GameButtonWidget extends StatelessWidget {
     required this.text,
     this.imageColor = AppColors.lightColor,
     this.fontSize,
+    this.buttonPadding,
   });
 
   final Function() onTap;
   final String image, text;
   final Color? imageColor;
   final double? fontSize;
+  final EdgeInsets? buttonPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +30,12 @@ class GameButtonWidget extends StatelessWidget {
       child: GlobalFrameWrapper(
         height: 150,
         frame: AppImages.dialog3,
-        padding: AppSpacings.s15All,
+        padding: buttonPadding ?? AppSpacings.s12All,
         child: Stack(
           children: [
             Center(
-              child: Opacity(
-                opacity: .35,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
                 child: Image.asset(
                   image,
                   fit: BoxFit.fill,
@@ -44,16 +46,22 @@ class GameButtonWidget extends StatelessWidget {
               bottom: 0,
               right: 0,
               left: 0,
-              child: Text(
-                text.tr,
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontFamily: FontFamilies.dastnevis,
-                  fontSize: fontSize ?? 35,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.black38,
                 ),
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+                child: Text(
+                  text.tr,
+                  style: TextStyle(
+                    color: AppColors.lightColor2,
+                    fontFamily: FontFamilies.dastnevis,
+                    fontSize: fontSize ?? 35,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ],

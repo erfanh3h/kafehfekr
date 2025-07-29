@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
+import 'package:kafehfekr/Core/Global/Components/game_type_convertor.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_page_header.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Features/General/Controllers/offline_games_menu_controller.dart';
-import 'package:kafehfekr/Features/General/Widgets/GameMenu/offline_menu_game_part_widget.dart';
+import 'package:kafehfekr/Features/General/Widgets/game_button.dart';
 import 'package:refreshed/refreshed.dart';
 
 class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
@@ -33,15 +34,22 @@ class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
+                crossAxisSpacing: 1,
+                mainAxisSpacing: 1,
                 childAspectRatio: 1,
               ),
-              itemBuilder: (ctx, index) => OfflineMenuGamePartWidget(
-                game: gameTypesParts[index],
-                onTap: controller.onEachGameTap,
+              itemBuilder: (ctx, index) => GameButtonWidget(
+                image:
+                    OfflineGameTypeConvertor.toGameImage(gameTypesParts[index]),
+                text: OfflineGameTypes.values[index].name,
+                imageColor: null,
+                fontSize: 18,
+                onTap: () {
+                  controller.onEachGameTap(OfflineGameTypes.values[index]);
+                },
               ),
               itemCount: gamesLength,
+              // padding: AppSpacings.s10All,
             ),
           ),
         ],

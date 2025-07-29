@@ -70,6 +70,7 @@ class SelectMultiQueueGameWidget extends StatelessWidget {
             text: MultiGameTypes.values[index].name,
             imageColor: null,
             fontSize: 18,
+            buttonPadding: AppSpacings.s20All,
           ),
         ),
         itemCount: gamesLength,

@@ -67,8 +67,8 @@ class _CreateLobbyWidgetState extends State<CreateLobbyWidget> {
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
                 childAspectRatio: 1,
               ),
               itemBuilder: (ctx, index) => Container(
