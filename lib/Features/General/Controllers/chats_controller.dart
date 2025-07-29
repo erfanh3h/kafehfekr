@@ -54,6 +54,10 @@ class ChatsController extends BaseController {
         update();
       case GameCommands.usersCount:
         usersCount.value = data['data'];
+      case GameCommands.logout:
+        Get.find<GlobalController>().removeData().then((_) {
+          Get.find<GlobalController>().checkLoginStatus();
+        });
       default:
     }
   }

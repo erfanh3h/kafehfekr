@@ -38,7 +38,7 @@ class AppTheme {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: AppColors.primaryLight,
     ),
-    cardTheme: CardTheme(color: AppColors.primaryLight.withValues(alpha: .5)),
+    cardTheme: CardThemeData(color: AppColors.primaryLight.withValues(alpha: .5)),
     inputDecorationTheme: const InputDecorationTheme(
       fillColor: Colors.white70,
       hintStyle: TextStyle(color: Colors.black54),
@@ -80,7 +80,7 @@ class AppTheme {
       fillColor: Colors.white70,
       hintStyle: TextStyle(color: Colors.white),
     ),
-    cardTheme: CardTheme(color: AppColors.primaryDark.withValues(alpha: .5)),
+    cardTheme: CardThemeData(color: AppColors.primaryDark.withValues(alpha: .5)),
     primaryColor: AppColors.primaryDark,
     fontFamily: FontFamilies.hekayat,
     useMaterial3: true,

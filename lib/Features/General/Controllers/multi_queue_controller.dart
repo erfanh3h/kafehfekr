@@ -59,6 +59,10 @@ class MultiQueueController extends BaseController {
         );
         messages.insert(0, newMesaage);
         update();
+      case GameCommands.logout:
+        Get.find<GlobalController>().removeData().then((_) {
+          Get.find<GlobalController>().checkLoginStatus();
+        });
       default:
     }
   }

@@ -134,6 +134,7 @@ abstract class GameCommands {
   static const reject = "Reject";
   static const gameCanceled = "GameCanceled";
   static const systemBannedGames = "SystemBannedGames";
+  static const logout = "Logout";
 }
 
 class GeneralGameConsts {

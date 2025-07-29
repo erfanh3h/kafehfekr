@@ -129,6 +129,10 @@ class LobbyController extends BaseController {
       case GameCommands.lobbyCreated:
         lobbies.add(Rx(LobbyModel.fromJson(data['data'])));
         break;
+      case GameCommands.logout:
+        Get.find<GlobalController>().removeData().then((_) {
+          Get.find<GlobalController>().checkLoginStatus();
+        });
       default:
     }
   }
