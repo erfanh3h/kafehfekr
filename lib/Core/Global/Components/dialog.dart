@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_dialog_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/timer_dialog_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
@@ -16,12 +17,8 @@ class DialogComponent {
       barrierDismissible: false,
       Dialog(
         backgroundColor: Colors.transparent,
-        child: Container(
-          padding: AppSpacings.s5All,
-          decoration: BoxDecoration(
-            color: AppColors.lightColor,
-            borderRadius: BorderRadius.circular(20),
-          ),
+        child: GlobalDialogWrapper(
+          padding: AppSpacings.s30All,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -96,18 +93,8 @@ class DialogComponent {
       // useSafeArea: false,
       Dialog(
         backgroundColor: Colors.transparent,
-        child: Container(
-          padding: AppSpacings.s20All,
-          // width: Get.size.width.w.clamp(100, GeneralGameConsts.maxGameWidth),
-          // height: Get.size.height * 3 / 10,
-          decoration: BoxDecoration(
-            color: AppColors.lightColor,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: iconColor,
-              width: 5,
-            ),
-          ),
+        child: GlobalDialogWrapper(
+          padding: AppSpacings.s30All,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,12 +117,10 @@ class DialogComponent {
                     child: Text(
                       message,
                       style: TextStyle(
-                        fontSize: fontSize,
-                        foreground: Paint()
-                          ..strokeWidth = 1.25
-                          ..color = Colors.black
-                          ..style = PaintingStyle.stroke,
-                      ),
+                          fontSize: fontSize,
+                          foreground: Paint()
+                            ..strokeWidth = 1.25
+                            ..color = AppColors.lightColor),
                       // maxLines: 3,
                     ),
                   ),
@@ -187,18 +172,8 @@ class DialogComponent {
       barrierDismissible: false,
       Dialog(
         backgroundColor: Colors.transparent,
-        child: Container(
-          padding: AppSpacings.s20All,
-          // width: Get.size.width.w.clamp(100, GeneralGameConsts.maxGameWidth),
-          // height: Get.size.height * 3 / 10,
-          decoration: BoxDecoration(
-            color: AppColors.lightColor,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(
-              color: iconColor,
-              width: 5,
-            ),
-          ),
+        child: GlobalDialogWrapper(
+          padding: AppSpacings.s30All,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,

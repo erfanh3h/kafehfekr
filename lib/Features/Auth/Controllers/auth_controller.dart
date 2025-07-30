@@ -93,7 +93,7 @@ class AuthController extends BaseController {
             AppTexts.library.tr,
             AppTexts.checkLibrary.tr,
             GeneralIcons.info,
-            AppColors.blueWarmColor,
+            AppColors.lightColor,
             letBackPage: false,
             fontSize: 18,
           );
