@@ -30,7 +30,7 @@ class DialogComponent {
                     fontSize: 13,
                     foreground: Paint()
                       ..strokeWidth = 1.25
-                      ..color = Colors.black
+                      ..color = AppColors.lightColor
                       ..style = PaintingStyle.stroke,
                   ),
                 ),
@@ -106,7 +106,7 @@ class DialogComponent {
                   fontSize: 16,
                   foreground: Paint()
                     ..strokeWidth = 1.25
-                    ..color = Colors.black
+                    ..color = AppColors.lightColor
                     ..style = PaintingStyle.stroke,
                 ),
               ),
@@ -126,7 +126,7 @@ class DialogComponent {
                   ),
                   Image.asset(
                     icon,
-                    color: iconColor,
+                    color: AppColors.lightColor,
                     width: Get.size.width.w
                             .clamp(100, GeneralGameConsts.maxGameWidth) /
                         5,
@@ -182,10 +182,10 @@ class DialogComponent {
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 17,
                   foreground: Paint()
                     ..strokeWidth = 1.25
-                    ..color = Colors.black
+                    ..color = AppColors.lightColor
                     ..style = PaintingStyle.stroke,
                 ),
               ),
@@ -210,7 +210,7 @@ class DialogComponent {
                     flex: 1,
                     child: Image.asset(
                       icon,
-                      color: iconColor,
+                      color: AppColors.lightColor,
                       width: Get.size.width.w
                               .clamp(100, GeneralGameConsts.maxGameWidth) /
                           5,

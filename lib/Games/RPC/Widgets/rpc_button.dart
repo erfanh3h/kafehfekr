@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/RPC/Models/rpc_peace_model.dart';
 
@@ -18,10 +20,10 @@ class RPCButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color? imageColor;
+    Color? imageColor = AppColors.lightColor;
     String image;
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.selected)) {
-      imageColor = AppColors.goldenColor;
+      imageColor = AppColors.darkColor;
     }
     switch (peaceData.peaceType) {
       case RPCPeaceTypes.rock:
@@ -38,21 +40,9 @@ class RPCButton extends StatelessWidget {
       onTap: () {
         onTap(peaceData);
       },
-      child: Container(
-        padding: AppSpacings.s15All,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [Colors.white54, Colors.black],
-          ),
-          // color: Colors.white,
-          border: Border.all(
-            color: imageColor ?? AppColors.white,
-            width: 4,
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
+      child: GlobalFrameWrapper(
+        padding: AppSpacings.s20All,
+        frame: AppImages.button4,
         child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
             ? const GlobalLoadingWidget()
             : Image.asset(image, color: imageColor),

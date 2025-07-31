@@ -20,6 +20,7 @@ class GlobalMultyGameDataWidget extends StatelessWidget {
     this.roundText,
     this.currentTurn,
     this.usersNum1,
+    this.usersNum2,
   });
 
   final List<Rx<PlayerModel>> playersData;
@@ -28,6 +29,7 @@ class GlobalMultyGameDataWidget extends StatelessWidget {
   final int? currentTurn;
   final List<int> activePlayerIndexes;
   final List<int>? usersNum1;
+  final List<int>? usersNum2;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +38,12 @@ class GlobalMultyGameDataWidget extends StatelessWidget {
       (index) {
         final item = playersData[index];
         int? num1;
+        int? num2;
         if (usersNum1 != null && index < usersNum1!.length) {
           num1 = usersNum1![index];
+        }
+        if (usersNum2 != null && index < usersNum2!.length) {
+          num2 = usersNum2![index];
         }
         return Obx(
           () => UserRowWidget(
@@ -45,6 +51,7 @@ class GlobalMultyGameDataWidget extends StatelessWidget {
             color: playerColors[index],
             isActive: activePlayerIndexes.contains(index + 1),
             num1: num1,
+            num2: num2,
           ),
         );
       },
@@ -120,12 +127,14 @@ class UserRowWidget extends StatelessWidget {
     required this.color,
     required this.isActive,
     this.num1,
+    this.num2,
   });
 
   final PlayerModel data;
   final Color color;
   final bool isActive;
   final int? num1;
+  final int? num2;
   @override
   Widget build(BuildContext context) {
     return Opacity(
@@ -209,6 +218,21 @@ class UserRowWidget extends StatelessWidget {
                     style: const TextStyle(
                       fontFamily: FontFamilies.playPen,
                       fontSize: 15,
+                      color: AppColors.lightColor,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              if (num2 != null)
+                SizedBox(
+                  width: 50,
+                  child: Text(
+                    num2.toString(),
+                    style: const TextStyle(
+                      fontFamily: FontFamilies.playPen,
+                      fontSize: 10,
                       color: AppColors.lightColor,
                     ),
                     maxLines: 1,

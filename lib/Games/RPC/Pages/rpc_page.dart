@@ -1,7 +1,7 @@
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_multy_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -26,16 +26,21 @@ class RPCPage extends BaseView<RPCController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GlobalGameDataWidget(
-                player1Data: controller.players[0].value,
-                player2Data: controller.players[1].value,
+              GlobalMultyGameDataWidget(
+                playersData: controller.players.value,
                 timerColor: controller.returnTimerColor(),
-                player1Number1: controller.player1RoundScore.value,
-                player2Number1: controller.player2RoundScore.value,
-                player1Number2: controller.player1TotalScore.value,
-                player2Number2: controller.player2TotalScore.value,
+                activePlayerIndexes: const [1, 2],
+                currentTurn: controller.currentTurn.value,
+                usersNum1: [
+                  controller.player1RoundScore.value,
+                  controller.player2RoundScore.value
+                ],
+                usersNum2: [
+                  controller.player1TotalScore.value,
+                  controller.player2TotalScore.value
+                ],
                 roundText:
-                    "${controller.maxRound} / ${controller.currentRound.value}",
+                    "${controller.maxRound} / ${controller.currentRound}",
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
