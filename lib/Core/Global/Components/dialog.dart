@@ -27,7 +27,7 @@ class DialogComponent {
                 child: Text(
                   title,
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 18,
                     foreground: Paint()
                       ..strokeWidth = 1.25
                       ..color = AppColors.lightColor
@@ -85,7 +85,7 @@ class DialogComponent {
     String icon,
     Color iconColor, {
     bool letBackPage = true,
-    double fontSize = 22,
+    double fontSize = 24,
     Color? fontColor,
   }) {
     Get.dialog(
@@ -103,7 +103,7 @@ class DialogComponent {
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 20,
                   foreground: Paint()
                     ..strokeWidth = 1.25
                     ..color = AppColors.lightColor
@@ -182,7 +182,7 @@ class DialogComponent {
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 17,
+                  fontSize: 20,
                   foreground: Paint()
                     ..strokeWidth = 1.25
                     ..color = AppColors.lightColor
@@ -202,6 +202,7 @@ class DialogComponent {
                       message,
                       style: const TextStyle(
                         fontSize: 20,
+                        color: AppColors.lightColor,
                       ),
                     ),
                   ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Games/DotBox/Models/dotbox_peace_model.dart';
 
 class DotBoxWidget extends StatelessWidget {
@@ -17,7 +19,7 @@ class DotBoxWidget extends StatelessWidget {
     Color? imageColor;
     switch (peaceData.selectedUser) {
       case 1:
-        imageColor = AppColors.imageRedColor;
+        imageColor = AppColors.darkRed;
         break;
       case 2:
         imageColor = AppColors.imageBlueColor;
@@ -26,28 +28,28 @@ class DotBoxWidget extends StatelessWidget {
         imageColor = null;
         break;
     }
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(
-        // color: imageColor ?? AppColors.lightColor,
-        gradient: LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            Colors.white54,
-            (imageColor ?? Colors.white).withValues(alpha: .5)
-          ],
-          stops: imageColor != null ? const [0, 0] : null,
-        ),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: AppColors.darkColor,
-        ),
+    return GlobalFrameWrapper(
+      padding: EdgeInsets.zero,
+      frame: AppImages.button4,
+      child: Container(
+        width: 40,
+        height: 40,
+        decoration: imageColor != null
+            ? BoxDecoration(
+                // color: imageColor ?? AppColors.lightColor,
+                gradient: LinearGradient(
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight,
+                  colors: [Colors.white54, imageColor.withValues(alpha: .9)],
+                  stops: const [0, 0],
+                ),
+                borderRadius: BorderRadius.circular(8),
+              )
+            : null,
+        child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
+            ? const GlobalLoadingWidget()
+            : Container(),
       ),
-      child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
-          ? const GlobalLoadingWidget()
-          : Container(),
     );
   }
 }

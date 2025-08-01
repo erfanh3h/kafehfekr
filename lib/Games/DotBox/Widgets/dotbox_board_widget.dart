@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/DotBox/Controllers/dotbox_controller.dart';
 import 'package:kafehfekr/Games/DotBox/Widgets/dotbox_box_widget.dart';
@@ -15,7 +17,9 @@ class DotBoxBoardWidget extends StatelessWidget {
   final DotBoxController controller;
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return GlobalFrameWrapper(
+      padding: AppSpacings.s10All,
+      frame: AppImages.board,
       child: Container(
         padding: AppSpacings.s5All,
         margin: AppSpacings.s10All,
