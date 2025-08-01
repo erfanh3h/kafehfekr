@@ -46,13 +46,15 @@ class GamePlayPage extends BaseView<GamePlayController> {
               Padding(
                 padding: AppSpacings.s20Top,
                 child: Center(
-                  child: Text(
-                    controller.finishGameText.value,
-                    style: const TextStyle(
-                      color: AppColors.lightColor,
-                      fontSize: 28,
-                      fontFamily: FontFamilies.dastnevis,
-                      letterSpacing: 2,
+                  child: GlobalFrameWrapper(
+                    child: Text(
+                      controller.finishGameText.value,
+                      style: const TextStyle(
+                        color: AppColors.lightColor,
+                        fontSize: 28,
+                        fontFamily: FontFamilies.dastnevis,
+                        letterSpacing: 2,
+                      ),
                     ),
                   ),
                 ),

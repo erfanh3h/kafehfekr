@@ -1,9 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/MNumbers/Models/mnumbers_peace_model.dart';
 
 class MNumbersButton extends StatelessWidget {
@@ -49,39 +52,43 @@ class MNumbersButton extends StatelessWidget {
       onTap: () {
         onTap(peaceData);
       },
-      child: Container(
-        // width: 35,
-        // height: 35,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              colors: [Colors.white24, (imageColor ?? Colors.white)],
-              // stops: imageColor != null ? const [0, 0] : null,
-            ),
-            // color: AppColors.lightColor,
-            border: Border.all(
-              color: imageColor ?? AppColors.peaceBorderColor,
-              width: borderWidth,
-            ),
-            shape: BoxShape.circle),
-        child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
-            ? const GlobalLoadingWidget()
-            : text != null
-                ? ElasticIn(
-                    duration: const Duration(milliseconds: 750),
-                    child: Center(
-                      child: Text(
-                        text,
-                        style: const TextStyle(
-                          fontFamily: FontFamilies.dastnevis,
-                          fontSize: 25,
-                          color: AppColors.lightColor,
+      child: GlobalFrameWrapper(
+        padding: AppSpacings.s2All,
+        frame: AppImages.button2,
+        child: Container(
+          // width: 35,
+          // height: 35,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: [Colors.white24, (imageColor ?? Colors.white)],
+                // stops: imageColor != null ? const [0, 0] : null,
+              ),
+              // color: AppColors.lightColor,
+              border: Border.all(
+                color: imageColor ?? AppColors.peaceBorderColor,
+                width: borderWidth,
+              ),
+              shape: BoxShape.circle),
+          child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
+              ? const GlobalLoadingWidget()
+              : text != null
+                  ? ElasticIn(
+                      duration: const Duration(milliseconds: 750),
+                      child: Center(
+                        child: Text(
+                          text,
+                          style: const TextStyle(
+                            fontFamily: FontFamilies.dastnevis,
+                            fontSize: 25,
+                            color: AppColors.darkColor,
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                : Container(),
+                    )
+                  : Container(),
+        ),
       ),
     );
   }

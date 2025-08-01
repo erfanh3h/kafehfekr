@@ -106,18 +106,18 @@ class UserRowWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            if (score != 0)
-              Center(
-                child: Text(
-                  'امتیاز : ${score.toString()}',
-                  style: const TextStyle(
-                    color: AppColors.lightColor,
-                    fontSize: 13,
-                    fontFamily: FontFamilies.hekayat,
-                  ),
-                  textDirection: TextDirection.rtl,
+            const SizedBox(height: 5),
+            Center(
+              child: Text(
+                'امتیاز : ${score.toString()}',
+                style: const TextStyle(
+                  color: AppColors.lightColor,
+                  fontSize: 13,
+                  fontFamily: FontFamilies.hekayat,
                 ),
+                textDirection: TextDirection.rtl,
               ),
+            ),
           ],
         ),
       ),
