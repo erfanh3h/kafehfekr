@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/FekrBekr/Controllers/fekrbekr_controller.dart';
@@ -24,8 +26,10 @@ class FekrBekrEnemyChoicesBox extends StatelessWidget {
           const SizedBox(height: 5),
           Directionality(
             textDirection: TextDirection.ltr,
-            child: SizedBox(
+            child: GlobalFrameWrapper(
+              padding: AppSpacings.s15All,
               width: double.maxFinite,
+              frame: AppImages.board,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -44,9 +48,10 @@ class FekrBekrEnemyChoicesBox extends StatelessWidget {
                     AppTexts.yourBoard.tr,
                     style: const TextStyle(
                       color: AppColors.lightColor,
-                      fontSize: 20,
+                      fontSize: 25,
                     ),
                   ),
+                  const SizedBox(width: 15),
                 ],
               ),
             ),
@@ -54,10 +59,11 @@ class FekrBekrEnemyChoicesBox extends StatelessWidget {
           const Divider(color: AppColors.lightColor, height: 20),
           Expanded(
             child: ListView.builder(
+              physics: const AlwaysScrollableScrollPhysics(),
               itemBuilder: (ctx, index) {
                 final int reversedIndex = (controller.myGameId == 1
-                        ? controller.player1Results.length
-                        : controller.player2Results.length) -
+                        ? controller.player2Results.length
+                        : controller.player1Results.length) -
                     index -
                     1;
                 return FekrBekrResultRowWidget(

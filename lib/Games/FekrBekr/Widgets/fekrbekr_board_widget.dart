@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/FekrBekr/Controllers/fekrbekr_controller.dart';
@@ -36,12 +38,9 @@ class FekrBekrBoardWidget extends StatelessWidget {
                   ? Expanded(
                       child: GetBuilder<FekrBekrController>(
                         builder: (context) {
-                          return Container(
-                            padding: AppSpacings.s5All,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: AppColors.lightColor),
-                            ),
+                          return GlobalFrameWrapper(
+                            padding: AppSpacings.s20All,
+                            frame: AppImages.board,
                             child: Obx(
                               () => ListView.builder(
                                 controller: controller.historyController,
@@ -77,11 +76,14 @@ class FekrBekrBoardWidget extends StatelessWidget {
                         },
                       ),
                     )
-                  : Text(
-                      AppTexts.selectBoard.tr,
-                      style: const TextStyle(
-                        color: AppColors.lightColor,
-                        fontSize: 22,
+                  : GlobalFrameWrapper(
+                      frame: AppImages.frame4,
+                      child: Text(
+                        AppTexts.selectBoard.tr,
+                        style: const TextStyle(
+                          color: AppColors.lightColor,
+                          fontSize: 22,
+                        ),
                       ),
                     ),
               const SizedBox(height: 20),
@@ -90,7 +92,8 @@ class FekrBekrBoardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Card(
+                    GlobalFrameWrapper(
+                      frame: AppImages.board,
                       child: Directionality(
                         textDirection: TextDirection.ltr,
                         child: Row(

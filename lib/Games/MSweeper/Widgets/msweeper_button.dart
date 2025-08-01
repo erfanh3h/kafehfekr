@@ -1,10 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/MSweeper/Models/enums.dart';
 import 'package:kafehfekr/Games/MSweeper/Models/msweeper_peace_model.dart';
@@ -23,7 +25,6 @@ class MSweeperButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color? color;
     bool isSelectedAsBombCorrect = peaceData.sweeperStatuses
         .contains(MineSweeperStatusTypes.isCorrectlySelectedAsMine);
     bool isSelectedAsBombWrong = peaceData.sweeperStatuses
@@ -32,16 +33,6 @@ class MSweeperButton extends StatelessWidget {
         peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading);
     bool isExplodedMine = peaceData.sweeperStatuses
         .contains(MineSweeperStatusTypes.isExplodedMine);
-    Color? borderColor = Colors.white54;
-    if (isExplodedMine) {
-      color = AppColors.imageRedColor;
-    }
-    if (isSelectedAsBombWrong) {
-      color = Colors.amber;
-    }
-    if (isSelectedAsBombCorrect) {
-      color = AppColors.guideGreen;
-    }
     return GestureDetector(
       onTap: () {
         onTap(peaceData);
@@ -49,47 +40,33 @@ class MSweeperButton extends StatelessWidget {
       onLongPress: () {
         onHold(peaceData);
       },
-      child: Container(
-        // padding: AppSpacings.s5All,
-        decoration: BoxDecoration(
-          // color: AppColors.lightColor2,
-          border: Border.all(color: borderColor, width: 1),
-          borderRadius: BorderRadius.circular(6),
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Colors.white24,
-              (color ?? Colors.white).withValues(alpha: .5),
-              (color ?? Colors.white)
-            ],
-            // stops: imageColor != null ? const [0, 0] : null,
-          ),
-        ),
+      child: GlobalFrameWrapper(
+        frame: AppImages.button2,
+        padding: AppSpacings.s2All,
         child: Center(
           child: isLoading
               ? const GlobalLoadingWidget()
               : Padding(
-                  padding: AppSpacings.s10All,
+                  padding: AppSpacings.s5All,
                   child: isExplodedMine
                       ? SpinPerfect(
                           child: Image.asset(
                             GeneralIcons.bombExplode,
-                            color: Colors.orangeAccent,
+                            color: AppColors.darkRed,
                           ),
                         )
                       : isSelectedAsBombWrong
                           ? Spin(
                               child: Image.asset(
                                 GeneralIcons.cross,
-                                color: Colors.white70,
+                                color: AppColors.redWarmColor,
                               ),
                             )
                           : isSelectedAsBombCorrect
                               ? ElasticIn(
                                   child: Image.asset(
                                     GeneralIcons.bomb,
-                                    color: AppColors.white,
+                                    color: AppColors.lightColor,
                                   ),
                                 )
                               : peaceData.value != null

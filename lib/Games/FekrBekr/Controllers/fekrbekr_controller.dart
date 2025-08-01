@@ -65,8 +65,8 @@ class FekrBekrController extends BaseGameController {
       currentResult.value = result;
     }
     update();
-    Future.delayed(const Duration(milliseconds: 500)).then((_) =>
-        historyController.jumpTo(historyController.position.maxScrollExtent));
+    Future.delayed(const Duration(milliseconds: 500))
+        .then((_) => historyController.jumpTo(0));
   }
 
   @override

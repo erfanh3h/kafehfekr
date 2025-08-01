@@ -1,7 +1,8 @@
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_multy_game_data_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
@@ -23,16 +24,20 @@ class MSweeperPage extends BaseView<MSweeperController> {
       children: [
         const SizedBox(height: 15),
         if (controller.players.length > 1)
-          GlobalGameDataWidget(
-            player1Data: controller.players[0].value,
-            player2Data: controller.players[1].value,
+          GlobalMultyGameDataWidget(
+            playersData: controller.players.value,
             timerColor: controller.returnTimerColor(),
-            player1Number1: controller.player1Score.value,
-            player2Number1: controller.player2Score.value,
-            // roundText: "${controller.selectMineRemainingCount.value}",
+            activePlayerIndexes: const [1, 2],
+            currentTurn: controller.currentTurn.value,
+            usersNum1: [
+              controller.player1Score.value,
+              controller.player2Score.value,
+            ],
           ),
-        Container(
-          margin: AppSpacings.s5Top,
+        const SizedBox(height: 5),
+        GlobalFrameWrapper(
+          padding: AppSpacings.s15All,
+          frame: AppImages.frame4,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
