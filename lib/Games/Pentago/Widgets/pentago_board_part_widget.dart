@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Pentago/Controllers/pentago_controller.dart';
 import 'package:kafehfekr/Games/Pentago/Widgets/pentago_piece.dart';
@@ -21,13 +22,9 @@ class PentagoPartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => controller.rotationValues.value[partIndex].value == -1
-          ? Container(
-              padding: AppSpacings.s5All,
-              decoration: BoxDecoration(
-                color: AppColors.lightColor2,
-                border: Border.all(color: Colors.black, width: 2),
-                borderRadius: BorderRadius.circular(6),
-              ),
+          ? GlobalFrameWrapper(
+              frame: AppImages.board,
+              padding: AppSpacings.s10All,
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
@@ -46,13 +43,9 @@ class PentagoPartWidget extends StatelessWidget {
           : AnimatedRotation(
               duration: const Duration(seconds: 1),
               turns: controller.rotationValues.value[partIndex].value,
-              child: Container(
-                padding: AppSpacings.s5All,
-                decoration: BoxDecoration(
-                  color: AppColors.lightColor2,
-                  border: Border.all(color: Colors.black, width: 2),
-                  borderRadius: BorderRadius.circular(6),
-                ),
+              child: GlobalFrameWrapper(
+                frame: AppImages.board,
+                padding: AppSpacings.s10All,
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,

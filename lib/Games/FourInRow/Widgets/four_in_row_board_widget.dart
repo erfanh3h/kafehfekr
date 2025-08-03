@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/FourInRow/Controllers/four_in_row_controller.dart';
 import 'package:kafehfekr/Games/FourInRow/Widgets/four_in_row_piece.dart';
@@ -21,55 +23,54 @@ class FourInRowBoardWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Transform.translate(
-            offset: const Offset(0, 25),
-            child: Container(
-              padding: AppSpacings.s5All,
+            offset: const Offset(0, 15),
+            child: GlobalFrameWrapper(
+              frame: AppImages.board,
+              padding: AppSpacings.s10All,
               height: 70,
               width:
                   (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
               child: Directionality(
                 textDirection: TextDirection.ltr,
-                child: Card(
-                  child: Padding(
-                    padding: AppSpacings.s15Horizental,
-                    child: Row(
-                      children: [
-                        for (int i = 0; i < 8; i++)
-                          Expanded(
-                            child: FourInRowSelectionButton(
-                              index: i,
-                              onTap: controller.onSelectionTap,
-                            ),
-                          )
-                      ],
-                    ),
+                child: Padding(
+                  padding: AppSpacings.s15Horizental,
+                  child: Row(
+                    spacing: 2,
+                    children: [
+                      for (int i = 0; i < 8; i++)
+                        Expanded(
+                          child: FourInRowSelectionButton(
+                            index: i,
+                            onTap: controller.onSelectionTap,
+                          ),
+                        )
+                    ],
                   ),
                 ),
               ),
             ),
           ),
-          Container(
+          GlobalFrameWrapper(
             padding: AppSpacings.s5All,
+            frame: AppImages.board,
             height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
             width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
             child: Obx(
               () => Directionality(
                 textDirection: TextDirection.ltr,
-                child: Card(
-                  child: Padding(
-                    padding: AppSpacings.s15All,
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 8,
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 0,
-                      ),
-                      itemBuilder: (ctx, index) => FourInRowPiece(
-                        peaceData: controller.pieces[index].value,
-                      ),
-                      itemCount: controller.pieces.length,
+                child: Padding(
+                  padding: AppSpacings.s20All,
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 8,
+                      crossAxisSpacing: 1,
+                      mainAxisSpacing: 1,
                     ),
+                    itemBuilder: (ctx, index) => FourInRowPiece(
+                      peaceData: controller.pieces[index].value,
+                    ),
+                    itemCount: controller.pieces.length,
                   ),
                 ),
               ),

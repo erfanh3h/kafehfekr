@@ -1,8 +1,10 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/FourInRow/Models/four_in_row_peace_model.dart';
 
@@ -36,33 +38,26 @@ class FourInRowPiece extends StatelessWidget {
         // backgroundColor = Colors.transparent;
         break;
     }
-    return Container(
+    return GlobalFrameWrapper(
       padding: AppSpacings.s5All,
-      decoration: BoxDecoration(
-        color: AppColors.lightColor3,
-        // gradient: LinearGradient(
-        //   begin: Alignment.bottomLeft,
-        //   end: Alignment.topRight,
-        //   colors: [
-        //     Colors.white24,
-        //     (imageColor ?? Colors.white70).withValues(alpha: .5)
-        //   ],
-        //   // stops: imageColor != null ? const [0, 0] : null,
-        // ),
-        border: Border.all(
-          color: isLastTurnPlayed ? AppColors.yellow : AppColors.black,
-          width: borderSize,
+      frame: AppImages.button4,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: isLastTurnPlayed ? AppColors.yellow : Colors.transparent,
+            width: borderSize,
+          ),
+          borderRadius: BorderRadius.circular(6),
         ),
-        borderRadius: BorderRadius.circular(6),
+        child: image != null
+            ? FadeInDown(
+                child: Image.asset(
+                  image,
+                  color: imageColor,
+                ),
+              )
+            : Container(),
       ),
-      child: image != null
-          ? FadeInDown(
-              child: Image.asset(
-                image,
-                color: imageColor,
-              ),
-            )
-          : Container(),
     );
   }
 }

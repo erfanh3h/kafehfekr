@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/Yatzy/Controllers/yatzy_controller.dart';
@@ -60,20 +61,20 @@ class YatzyInteractionWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
+                        flex: 4,
                         child: Obx(
                           () => ButtonWidget(
                             onSelect: controller.rollDice,
                             remainingCount: controller.remainingDice.value,
                             label: AppTexts.rollDice.tr,
-                            color: AppColors.blueWarmColor,
                           ),
                         ),
                       ),
                       Expanded(
+                        flex: 6,
                         child: ButtonWidget(
                           onSelect: controller.sendResult,
                           label: AppTexts.playGame.tr,
-                          color: AppColors.darkGreen,
                         ),
                       ),
                     ],
@@ -90,27 +91,26 @@ class ButtonWidget extends StatelessWidget {
     super.key,
     required this.onSelect,
     required this.label,
-    required this.color,
     this.remainingCount,
   });
 
   final Function() onSelect;
   final String label;
   final int? remainingCount;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onSelect,
-      child: Container(
+      child: GlobalFrameWrapper(
+        frame: AppImages.button,
         padding: AppSpacings.s10All,
-        margin: AppSpacings.s5All,
-        height: 50,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: color,
-        ),
+        // margin: AppSpacings.s5All,
+        height: 60,
+        // decoration: BoxDecoration(
+        //   borderRadius: BorderRadius.circular(5),
+        //   color: color,
+        // ),
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -136,9 +136,8 @@ class ButtonWidget extends StatelessWidget {
                     child: Text(
                       '(${remainingCount.toString()})',
                       style: const TextStyle(
-                        fontSize: 17,
+                        fontSize: 22,
                         color: Colors.white,
-                        fontFamily: FontFamilies.dastnevis,
                         height: .5,
                       ),
                       textDirection: TextDirection.ltr,

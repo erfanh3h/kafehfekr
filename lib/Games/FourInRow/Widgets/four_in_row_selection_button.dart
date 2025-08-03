@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class FourInRowSelectionButton extends StatelessWidget {
@@ -19,27 +20,13 @@ class FourInRowSelectionButton extends StatelessWidget {
       onTap: () {
         onTap(index);
       },
-      child: Container(
+      child: const GlobalFrameWrapper(
         padding: AppSpacings.s5All,
-        margin: AppSpacings.s2All,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [Colors.white24, Colors.white],
-            // stops: imageColor != null ? const [0, 0] : null,
-          ),
-          // color: AppColors.lightColor,
-          border: Border.all(
-            color: AppColors.black,
-            width: 1,
-          ),
-          borderRadius: BorderRadius.circular(6),
-        ),
+        frame: AppImages.button4,
         child: Icon(
           Icons.arrow_downward_rounded,
-          color: Colors.black,
-          size: 15.r,
+          color: AppColors.lightColor,
+          size: 20,
         ),
       ),
     );

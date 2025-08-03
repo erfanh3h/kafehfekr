@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Pentago/Models/pentago_peace_model.dart';
 
@@ -16,7 +18,6 @@ class PentagoPiece extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
-    double borderSize = 3;
     switch (peaceData.selectedUser) {
       case 1:
         imageColor = AppColors.darkRed;
@@ -33,26 +34,26 @@ class PentagoPiece extends StatelessWidget {
       onTap: () {
         onTap(peaceData);
       },
-      child: Container(
-        padding: AppSpacings.s10All,
-        decoration: BoxDecoration(
-          color: imageColor,
-          shape: BoxShape.circle,
-          // gradient: LinearGradient(
-          //   begin: Alignment.bottomLeft,
-          //   end: Alignment.topRight,
-          //   colors: [
-          //     Colors.white24,
-          //     (imageColor ?? Colors.white70).withOpacity(.5)
-          //   ],
-          //   // stops: imageColor != null ? const [0, 0] : null,
-          // ),
-          border: Border.all(
-            color: AppColors.black,
-            width: borderSize,
+      child: GlobalFrameWrapper(
+        frame: AppImages.button2,
+        padding: AppSpacings.s2All,
+        child: Container(
+          padding: AppSpacings.s10All,
+          decoration: BoxDecoration(
+            color: imageColor,
+            shape: BoxShape.circle,
+            // gradient: LinearGradient(
+            //   begin: Alignment.bottomLeft,
+            //   end: Alignment.topRight,
+            //   colors: [
+            //     Colors.white24,
+            //     (imageColor ?? Colors.white70).withOpacity(.5)
+            //   ],
+            //   // stops: imageColor != null ? const [0, 0] : null,
+            // ),
           ),
+          child: Container(),
         ),
-        child: Container(),
       ),
     );
   }
