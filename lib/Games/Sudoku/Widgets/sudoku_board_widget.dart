@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Games/Sudoku/Controllers/sudoku_controller.dart';
 import 'package:kafehfekr/Games/Sudoku/Widgets/sudoku_board_part_widget.dart';
 import 'package:refreshed/refreshed.dart';
@@ -28,17 +29,8 @@ class SudokuBoardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        constraints: const BoxConstraints(
-          maxWidth: GeneralGameConsts.maxGameWidth,
-        ),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.darkColor,
-            width: 15,
-          ),
-          borderRadius: BorderRadius.circular(15),
-        ),
+      child: GlobalFrameWrapper(
+        frame: AppImages.board,
         // padding: AppSpacings.s10All,
         height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
         width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),

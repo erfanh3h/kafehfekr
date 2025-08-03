@@ -1,7 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
-import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Games/Sudoku/Models/sudoku_peace_model.dart';
 
 class SudokuButton extends StatelessWidget {
@@ -20,38 +20,42 @@ class SudokuButton extends StatelessWidget {
       onTap: () {
         onTap(peaceData);
       },
-      child: Container(
-        decoration: BoxDecoration(
-          // color: peaceData.isBaseNumber
-          //     ? AppColors.lightColor2.withOpacity(.75)
-          //     : AppColors.lightColor.withOpacity(.75),
-          border: Border.all(
-            color: AppColors.darkColor,
-            width: 2,
+      child: GlobalFrameWrapper(
+        frame: AppImages.button4,
+        padding: EdgeInsets.zero,
+        child: Container(
+          decoration: BoxDecoration(
+            // color: peaceData.isBaseNumber
+            //     ? AppColors.lightColor2.withOpacity(.75)
+            //     : AppColors.lightColor.withOpacity(.75),
+            // border: Border.all(
+            //   color: AppColors.darkColor,
+            //   width: 2,
+            // ),
+            borderRadius: BorderRadius.circular(3),
+
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [
+                Colors.white24,
+                (peaceData.isBaseNumber ? Colors.black45 : Colors.white54)
+              ],
+              // stops: imageColor != null ? const [0, 0] : null,
+            ),
           ),
-          borderRadius: BorderRadius.circular(6),
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Colors.white24,
-              (peaceData.isBaseNumber ? Colors.black45 : Colors.white54)
-            ],
-            // stops: imageColor != null ? const [0, 0] : null,
-          ),
-        ),
-        child: Center(
-          child: peaceData.value != 0
-              ? FadeIn(
-                  child: Text(
-                    peaceData.value.toString(),
-                    style: const TextStyle(
-                      fontFamily: FontFamilies.dastnevis,
-                      fontSize: 18,
+          child: Center(
+            child: peaceData.value != 0
+                ? FadeIn(
+                    child: Text(
+                      peaceData.value.toString(),
+                      style: const TextStyle(
+                        fontSize: 19,
+                      ),
                     ),
-                  ),
-                )
-              : Container(),
+                  )
+                : Container(),
+          ),
         ),
       ),
     );

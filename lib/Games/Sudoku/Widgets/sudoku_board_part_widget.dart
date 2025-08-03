@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Sudoku/Controllers/sudoku_controller.dart';
 import 'package:kafehfekr/Games/Sudoku/Widgets/sudoku_button.dart';
@@ -19,10 +18,10 @@ class SudokuBoardPartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       // margin: const EdgeInsets.all(1),
-      padding: AppSpacings.s5All,
+      padding: AppSpacings.s3All,
       decoration: BoxDecoration(
-        color: AppColors.lightColor2,
-        border: Border.all(color: Colors.black, width: 1),
+        // color: AppColors.lightColor2,
+        // border: Border.all(color: Colors.black, width: 1),
         borderRadius: BorderRadius.circular(6),
         // gradient: const LinearGradient(
         //   begin: Alignment.bottomLeft,
