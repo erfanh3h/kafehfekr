@@ -1,9 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/BoxFour/Models/boxfour_peace_model.dart';
 
@@ -20,7 +22,8 @@ class BoxFourButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color? imageColor;
-    double borderSize = 2;
+    Color? borderColor;
+    double borderSize = 0;
     final isLastTurnPlayed =
         peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     switch (peaceData.selectedUser) {
@@ -34,49 +37,57 @@ class BoxFourButton extends StatelessWidget {
         imageColor = null;
         break;
     }
+
+    if (isLastTurnPlayed) {
+      borderColor = AppColors.yellow;
+    }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canSelected)) {
       borderSize = 5;
+      borderColor = AppColors.black;
     }
     return InkWell(
       onTap: () {
         onTap(peaceData);
       },
-      child: Container(
+      child: GlobalFrameWrapper(
         padding: AppSpacings.s5All,
-        decoration: BoxDecoration(
-          // color: imageColor ?? AppColors.transparent,
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [
-              Colors.white24,
-              (imageColor ?? Colors.white70).withValues(alpha: .5)
-            ],
-            stops: imageColor != null ? const [0, 0] : null,
+        frame: AppImages.button4,
+        child: Container(
+          padding: AppSpacings.s5All,
+          decoration: BoxDecoration(
+            // color: imageColor ?? AppColors.transparent,
+            gradient: imageColor != null
+                ? LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [Colors.white24, imageColor.withValues(alpha: 1)],
+                    stops: const [0, 0],
+                  )
+                : null,
+            border: Border.all(
+              color: borderColor ?? Colors.transparent,
+              width: isLastTurnPlayed ? 4 : borderSize,
+            ),
+            borderRadius: BorderRadius.circular(6),
           ),
-          border: Border.all(
-            color: isLastTurnPlayed ? AppColors.yellow : AppColors.black,
-            width: isLastTurnPlayed ? 4 : borderSize,
-          ),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
-            ? const GlobalLoadingWidget()
-            : peaceData.value != 0
-                ? ElasticIn(
-                    duration: const Duration(seconds: 1),
-                    child: Center(
-                      child: Text(
-                        peaceData.value.toString(),
-                        style: const TextStyle(
-                          color: AppColors.lightColor,
-                          fontFamily: FontFamilies.dastnevis,
-                          fontSize: 27,
+          child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
+              ? const GlobalLoadingWidget()
+              : peaceData.value != 0
+                  ? ElasticIn(
+                      duration: const Duration(seconds: 1),
+                      child: Center(
+                        child: Text(
+                          peaceData.value.toString(),
+                          style: const TextStyle(
+                            color: AppColors.lightColor,
+                            fontFamily: FontFamilies.dastnevis,
+                            fontSize: 27,
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                : Container(),
+                    )
+                  : Container(),
+        ),
       ),
     );
   }

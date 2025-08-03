@@ -1,9 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Chess/Models/chess_spot_piece_model.dart';
 
@@ -31,7 +33,7 @@ class ChessButton extends StatelessWidget {
     if (peaceData.piece.gamerId != 0) {
       image = peaceData.piece.image;
       if (peaceData.piece.gamerId == 1) {
-        imageColor = AppColors.imageRedColor;
+        imageColor = AppColors.darkRed;
       } else {
         imageColor = AppColors.imageBlueColor;
       }
@@ -61,41 +63,47 @@ class ChessButton extends StatelessWidget {
       onTap: () {
         onTap(peaceData);
       },
-      child: Container(
-        padding: AppSpacings.s5All,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: (peaceData.id % 2 + peaceData.id ~/ 8) % 2 == 0
-                ? [Colors.white24, Colors.white]
-                : [Colors.white38, Colors.white38],
+      child: GlobalFrameWrapper(
+        frame: AppImages.button4,
+        padding: AppSpacings.s2All,
+        child: Container(
+          padding: AppSpacings.s2All,
+          decoration: BoxDecoration(
+            gradient: (peaceData.id % 2 + peaceData.id ~/ 8) % 2 != 0
+                ? const LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [Colors.white38, Colors.white38],
+                  )
+                : null,
+            border: isLastTurnPlayed
+                ? Border.all(
+                    color: isLastTurnPlayed
+                        ? AppColors.yellow
+                        : borderColor ?? AppColors.black,
+                    width: isLastTurnPlayed ? 3 : borderSize,
+                  )
+                : null,
+            borderRadius: BorderRadius.circular(6),
           ),
-          border: Border.all(
-            color: isLastTurnPlayed
-                ? AppColors.yellow
-                : borderColor ?? AppColors.black,
-            width: isLastTurnPlayed ? 3 : borderSize,
-          ),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
-            ? const GlobalLoadingWidget()
-            : image != null
-                ? Transform.flip(
-                    flipY: mustRotate,
-                    child: Transform.scale(
-                      scale: imageScale,
-                      child: ElasticIn(
-                        duration: const Duration(milliseconds: 750),
-                        child: Image.asset(
-                          image,
-                          color: imageColor,
+          child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
+              ? const GlobalLoadingWidget()
+              : image != null
+                  ? Transform.flip(
+                      flipY: mustRotate,
+                      child: Transform.scale(
+                        scale: imageScale,
+                        child: ElasticIn(
+                          duration: const Duration(milliseconds: 750),
+                          child: Image.asset(
+                            image,
+                            color: imageColor,
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                : Container(),
+                    )
+                  : Container(),
+        ),
       ),
     );
   }
