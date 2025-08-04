@@ -20,6 +20,8 @@ enum RiskGameStates {
   Draw,
   DrawResult,
   SelectAction,
+  DeclareAttack,
+  SelectContinents,
   ActionResult
 }
 

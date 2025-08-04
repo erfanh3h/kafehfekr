@@ -9,6 +9,7 @@ import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
+import 'package:kafehfekr/Games/Risk/Controllers/rist_attack_handler.dart';
 import 'package:kafehfekr/Games/Risk/Models/enums.dart';
 import 'package:kafehfekr/Games/Risk/Models/risk_user_model.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_my_continents_detail.dart';
@@ -36,6 +37,8 @@ class RiskController extends BaseGameController {
   RxList<StrategyTypes> drawedStrategiess = RxList([]);
 
   Rx<RiskGameStates> gameState = Rx(RiskGameStates.StartGame);
+
+  RiskAttackHandler attackHandler = RiskAttackHandler();
 
   @override
   void commandHandler(dynamic data) {
@@ -213,7 +216,6 @@ class RiskController extends BaseGameController {
     });
   }
 
-  startAttack() {}
   passTurn() {
     gameState(RiskGameStates.Loading);
     sendCommand({'id': GameCommands.passTurn});

@@ -93,6 +93,7 @@ abstract class GameCommands {
   static const drawResult = "DrawResult";
   static const drawResultPrivate = "DrawResultPrivate";
   static const attack = "Attack";
+  static const declareAttack = "DeclareAttack";
   static const passTurn = "PassTurn";
   static const userData = "UserData";
   static const saveBoard = "SaveBoard";

@@ -85,7 +85,7 @@ class RiskDrawResultPartWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       GlobalButtonWidget(
-                        onTap: controller.startAttack,
+                        onTap: controller.attackHandler.startAttack,
                         text: AppTexts.attack.tr,
                         width: 100,
                         height: 50,

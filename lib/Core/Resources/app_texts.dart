@@ -288,6 +288,9 @@ abstract class AppTexts {
   static const twoStrategy = "twoStrategy";
   static const oneContinentOneStrategy = "oneContinentOneStrategy";
   static const continent = "continent";
+  static const selectSourceContinent = "selectSourceContinent";
+  static const selectTargetContinent = "selectTargetContinent";
+  static const selectTargetUser = "selectTargetUser";
   static const strategy = "strategy";
   static const token = "token";
   static const asia = "Asia";
