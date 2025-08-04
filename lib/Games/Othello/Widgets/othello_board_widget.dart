@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Othello/Controllers/othello_controller.dart';
 import 'package:kafehfekr/Games/Othello/Widgets/othello_button.dart';
 import 'package:refreshed/refreshed.dart';
@@ -16,16 +18,11 @@ class OthelloBoarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
+      child: GlobalFrameWrapper(
+        padding: AppSpacings.s25All,
+        frame: AppImages.board,
         height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
         width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.darkColor,
-            width: 15,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
         child: Obx(
           () => Directionality(
             textDirection: TextDirection.ltr,

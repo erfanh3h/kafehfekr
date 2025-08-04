@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Mill/Controllers/mill_controller.dart';
 import 'package:kafehfekr/Games/Mill/Widgets/mill_button.dart';
@@ -27,24 +29,11 @@ class MillBoardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return Container(
-        padding: AppSpacings.s5All,
-        margin: AppSpacings.s10All,
+      return GlobalFrameWrapper(
+        frame: AppImages.board,
+        padding: AppSpacings.s20All,
         height: 330,
         width: 330,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [Colors.transparent, Colors.brown],
-            // stops: imageColor != null ? const [0, 0] : null,
-          ),
-          border: Border.all(
-            color: AppColors.darkColor,
-            width: 15,
-          ),
-          borderRadius: BorderRadius.circular(20),
-        ),
         child: Stack(
           children: [
             Positioned(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
-import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/BackGammon/Controllers/backgammon_controller.dart';
@@ -39,10 +38,12 @@ class BackGammonDicesBox extends StatelessWidget {
                   ],
                 )
               : controller.currentTurn.value == controller.myGameId
-                  ? GlobalButtonWidget(
-                      onTap: controller.rollDices,
-                      text: AppTexts.rollDice.tr,
-                      color: AppColors.redWarmColor,
+                  ? UnconstrainedBox(
+                      child: GlobalButtonWidget(
+                        width: Get.size.width / 2,
+                        onTap: controller.rollDices,
+                        text: AppTexts.rollDice.tr,
+                      ),
                     )
                   : Container(),
         ),

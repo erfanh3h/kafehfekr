@@ -1,9 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_icons.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/Mill/Models/mill_peace_model.dart';
 
 class MillButton extends StatelessWidget {
@@ -26,7 +29,7 @@ class MillButton extends StatelessWidget {
         peaceData.currentStatuses.contains(PeaceStatusTypes.lastTurnPlayed);
     switch (peaceData.selectedUser) {
       case 1:
-        imageColor = AppColors.imageRedColor;
+        imageColor = AppColors.darkRed;
         image = GeneralIcons.circle2;
         break;
       case 2:
@@ -44,7 +47,7 @@ class MillButton extends StatelessWidget {
       borderColor = imageColor ?? AppColors.goldenColor;
     } else {
       borderWidth = 1;
-      borderColor = imageColor ?? AppColors.goldenColor;
+      borderColor = Colors.transparent;
     }
     if (peaceData.currentStatuses.contains(PeaceStatusTypes.canHitted)) {
       borderWidth = 5;
@@ -54,33 +57,37 @@ class MillButton extends StatelessWidget {
       onTap: () {
         onTap(peaceData);
       },
-      child: Container(
-        width: 35,
-        height: 35,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              colors: [Colors.white24, (imageColor ?? Colors.white)],
-              // stops: imageColor != null ? const [0, 0] : null,
-            ),
-            // color: AppColors.lightColor,
-            border: Border.all(
-              color: isLastTurnPlayed ? AppColors.yellow : borderColor,
-              width: isLastTurnPlayed ? 3 : borderWidth,
-            ),
-            shape: BoxShape.circle),
-        child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
-            ? const GlobalLoadingWidget()
-            : image != null
-                ? ElasticIn(
-                    duration: const Duration(seconds: 1),
-                    child: Image.asset(
-                      image,
-                      color: imageColor,
-                    ),
-                  )
-                : Container(),
+      child: GlobalFrameWrapper(
+        frame: AppImages.button2,
+        padding: AppSpacings.s5All,
+        child: Container(
+          width: 30,
+          height: 30,
+          decoration: BoxDecoration(
+              // gradient: LinearGradient(
+              //   begin: Alignment.bottomLeft,
+              //   end: Alignment.topRight,
+              //   colors: [Colors.white24, (imageColor ?? Colors.white)],
+              //   // stops: imageColor != null ? const [0, 0] : null,
+              // ),
+              // color: AppColors.lightColor,
+              border: Border.all(
+                color: isLastTurnPlayed ? AppColors.yellow : borderColor,
+                width: isLastTurnPlayed ? 3 : borderWidth,
+              ),
+              shape: BoxShape.circle),
+          child: peaceData.currentStatuses.contains(PeaceStatusTypes.isLoading)
+              ? const GlobalLoadingWidget()
+              : image != null
+                  ? ElasticIn(
+                      duration: const Duration(seconds: 1),
+                      child: Image.asset(
+                        image,
+                        color: imageColor,
+                      ),
+                    )
+                  : Container(),
+        ),
       ),
     );
   }
