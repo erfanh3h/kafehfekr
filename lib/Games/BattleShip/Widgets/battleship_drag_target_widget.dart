@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 
 class BattleShipDragTargetWidget extends StatelessWidget {
@@ -19,11 +21,15 @@ class BattleShipDragTargetWidget extends StatelessWidget {
       margin: AppSpacings.s1All,
       child: InkWell(
         onTap: () => onAccept(index),
-        child: Container(
-          // padding: AppSpacings.s15Vertical5Horizental,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            color: Colors.white.withValues(alpha: 0.5),
+        child: GlobalFrameWrapper(
+          frame: AppImages.button4,
+          padding: AppSpacings.s2All,
+          child: Container(
+            // padding: AppSpacings.s15Vertical5Horizental,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              // color: Colors.white.withValues(alpha: 0.5),
+            ),
           ),
         ),
       ),

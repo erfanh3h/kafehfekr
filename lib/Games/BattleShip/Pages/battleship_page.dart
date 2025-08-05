@@ -2,10 +2,12 @@ import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_activity_box.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
-import 'package:kafehfekr/Core/Global/Widgets/global_game_data_widget.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_multy_game_data_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_wait_widget.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_images.dart';
+import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:kafehfekr/Games/BattleShip/Controllers/battleship_controller.dart';
 import 'package:kafehfekr/Games/BattleShip/Widgets/battleship_game_board_widget.dart';
@@ -29,16 +31,17 @@ class BattleShipPage extends BaseView<BattleShipController> {
         children: [
           const SizedBox(height: 15),
           if (controller.players.length > 1)
-            GlobalGameDataWidget(
-              player1Data: controller.players[0].value,
-              player2Data: controller.players[1].value,
+            GlobalMultyGameDataWidget(
+              playersData: controller.players.value,
               timerColor: controller.returnTimerColor(),
-              player1Number1: controller.isGameInPlayPhase.value
-                  ? controller.player1Score.value
-                  : -1,
-              player2Number1: controller.isGameInPlayPhase.value
-                  ? controller.player2Score.value
-                  : -1,
+              activePlayerIndexes: const [1, 2],
+              currentTurn: controller.currentTurn.value,
+              usersNum1: controller.isGameInPlayPhase.value
+                  ? [
+                      controller.player1Score.value,
+                      controller.player2Score.value,
+                    ]
+                  : null,
             ),
           const SizedBox(height: 50),
           Expanded(
@@ -48,14 +51,18 @@ class BattleShipPage extends BaseView<BattleShipController> {
                     ? const Center(child: GlobalWaitWidget())
                     : controller.isGameInPlayPhase.value
                         ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Builder(builder: (context) {
-                                return Text(
-                                  "     صفحه ${controller.getInActiveGamerUsername()} : ",
-                                  style: const TextStyle(
-                                    color: AppColors.lightColor,
-                                    fontSize: 20,
+                                return GlobalFrameWrapper(
+                                  frame: AppImages.board,
+                                  padding: AppSpacings.s10All,
+                                  child: Text(
+                                    "  زمین ${controller.getInActiveGamerUsername()} ",
+                                    style: const TextStyle(
+                                      color: AppColors.lightColor,
+                                      fontSize: 20,
+                                    ),
                                   ),
                                 );
                               }),

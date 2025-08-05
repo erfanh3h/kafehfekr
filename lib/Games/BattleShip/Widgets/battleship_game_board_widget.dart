@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kafehfekr/Core/Global/Widgets/global_frame_wrapper.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
+import 'package:kafehfekr/Core/Resources/app_images.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Games/BattleShip/Controllers/battleship_controller.dart';
 import 'package:kafehfekr/Games/BattleShip/Widgets/battleship_game_button.dart';
@@ -23,8 +25,8 @@ class BattleShipGameBoardWidget extends StatelessWidget {
         width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
         child: Directionality(
           textDirection: TextDirection.ltr,
-          child: Card(
-            color: AppColors.lightColor.withValues(alpha: .15),
+          child: GlobalFrameWrapper(
+            frame: AppImages.board,
             child: Padding(
               padding: AppSpacings.s15All,
               child: Obx(

@@ -19,7 +19,7 @@ abstract class AppTexts {
   static const wanaSurrenderGame = "wanaSurrenderGame";
   static const enemySurrenderGame = "enemySurrenderGame";
   static const normalGame = "normalGame";
-  static const rankGame = "rankGame";
+  static const rankGame = "Rank";
   static const lobbyGame = "lobbyGame";
   static const lobbyList = "lobbyList";
   static const startGame = "startGame";
@@ -43,7 +43,7 @@ abstract class AppTexts {
   static const usersCount = "usersCount";
   static const spiesCount = "spiesCount";
   static const timerValue = "timerValue";
-  static const lobby = "lobby";
+  static const lobby = "Lobby";
   static const emptySize = "emptySize";
   static const currentRoles = "currentRoles";
   static const citizens = "citizens";

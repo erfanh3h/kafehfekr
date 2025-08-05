@@ -60,41 +60,46 @@ class GamePlayPage extends BaseView<GamePlayController> {
                 ),
               ),
             const Spacer(),
+
+            GlobalFrameWrapper(
+              frame: AppImages.dialog2,
+              padding: AppSpacings.s15All,
+              child: Column(
+                children: [
+                  Image.asset(
+                    controller.typeToImage(),
+                    width: 80,
+                    height: 80,
+                    color: AppColors.lightColor,
+                  ),
+                  Text(
+                    controller.gameScoreType.tr,
+                    style: const TextStyle(color: AppColors.lightColor),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
             if (controller.gameTypes.isNotEmpty)
               GlobalFrameWrapper(
                 frame: AppImages.board,
                 padding: AppSpacings.s30All,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      controller.typeToImage(),
-                      width: 100,
-                      height: 100,
-                      color: AppColors.lightColor,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (ctx, index) => Padding(
+                    padding: AppSpacings.s10Horizental,
+                    child: GamePlayGameRowBox(
+                      gameType: controller.gameTypes[index],
+                      isActiveGame: controller.currentGameIndex.value == index,
+                      isFinished: index < controller.currentGameIndex.value,
+                      index: index + 1,
                     ),
-                    Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (ctx, index) => Padding(
-                          padding: AppSpacings.s10Horizental,
-                          child: GamePlayGameRowBox(
-                            gameType: controller.gameTypes[index],
-                            isActiveGame:
-                                controller.currentGameIndex.value == index,
-                            isFinished:
-                                index < controller.currentGameIndex.value,
-                            index: index + 1,
-                          ),
-                        ),
-                        itemCount: controller.gameTypes.length,
-                      ),
-                    ),
-                  ],
+                  ),
+                  itemCount: controller.gameTypes.length,
                 ),
               ),
-            const Spacer(flex: 2),
+            const Spacer(flex: 3),
             if (controller.isGameFinished.value)
               Container(
                 padding: AppSpacings.s10Horizental,
