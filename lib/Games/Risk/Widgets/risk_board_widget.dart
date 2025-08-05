@@ -4,6 +4,7 @@ import 'package:kafehfekr/Games/Risk/Models/enums.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_action_result_widget.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_draw_part_widget.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_draw_result_part_widget.dart';
+import 'package:kafehfekr/Games/Risk/Widgets/risk_log_widget.dart';
 import 'package:kafehfekr/Games/Risk/Widgets/risk_select_continents_widget.dart';
 
 class RiskBoardWidget extends StatelessWidget {
@@ -34,6 +35,8 @@ class RiskBoardWidget extends StatelessWidget {
         currentWidget = const RiskActionResultWidget();
       case RiskGameStates.SelectContinents:
         currentWidget = const RiskSelectContinentsWidget();
+      case RiskGameStates.DeclareAttack:
+        currentWidget = const RiskLogWidget();
       default:
         currentWidget = Container();
     }

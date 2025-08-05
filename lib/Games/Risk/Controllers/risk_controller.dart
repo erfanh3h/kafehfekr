@@ -61,6 +61,9 @@ class RiskController extends BaseGameController {
       case GameCommands.passTurn:
         passTurnFunction(data);
         break;
+      case GameCommands.declareAttack:
+        declareAttackFunction(data);
+        break;
       default:
     }
   }
@@ -170,6 +173,16 @@ class RiskController extends BaseGameController {
     changetimerValue(GameWaitTimes.riskPassTurnTime);
   }
 
+  void declareAttackFunction(Map data) {
+    int targetIndex = data['data']['target_index'];
+    String sourceContinent = data['data']['source_continent'];
+    String targetContinent = data['data']['target_continent'];
+    final String activeUsername = getActiveGamerUsername();
+    gameLog.value =
+        "$activeUsername \n   از   ${sourceContinent.tr}   به    ${targetContinent.tr}   بازیکن $targetIndex \n حمله می کند.";
+    gameState(RiskGameStates.DeclareAttack);
+  }
+
   @override
   void reconnectDataFuntcion(Map data) {
     super.reconnectDataFuntcion(data);
@@ -178,6 +191,8 @@ class RiskController extends BaseGameController {
     applyGameData(gameData);
     Map timerData = newData['timer_data'];
     currentTurn.value = gameData['current_turn'];
+    gameState(RiskGameStates.values.firstWhere(gameData['game_state']));
+
     // activePlayerIndexes.value =
     //     List<int>.from(gameData['active_player_indexes']);
     // if (!activePlayerIndexes.contains(myGameId)) {
