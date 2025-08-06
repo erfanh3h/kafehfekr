@@ -1,6 +1,6 @@
 import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 
-const String appVersion = "1.3.0";
+const String appVersion = "2.0.0";
 const MarketTypes marketType = MarketTypes.Myket;
 
 const myketRSA =

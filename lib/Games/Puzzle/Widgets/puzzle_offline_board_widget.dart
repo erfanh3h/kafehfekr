@@ -19,16 +19,22 @@ class PuzzleOfflineBoardWidget extends StatelessWidget {
       padding: AppSpacings.s30All,
       height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
       width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: controller.boardSize,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        itemCount: controller.boardSize * controller.boardSize,
-        itemBuilder: (context, index) => PuzzleOfflineButtonWidget(
-          data: controller.board[index],
-          index: index,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: controller.boardSize,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: controller.boardSize * controller.boardSize,
+          itemBuilder: (context, index) => Obx(
+            () => PuzzleOfflineButtonWidget(
+              data: controller.board[index].value,
+              onTap: controller.onButtonTap,
+              index: index,
+            ),
+          ),
         ),
       ),
     );

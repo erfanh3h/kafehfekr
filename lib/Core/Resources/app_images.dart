@@ -57,4 +57,5 @@ class AppImages {
   static const riskGame = '$_gameImages/risk.jpg';
   static const mafiaGame = '$_gameImages/mafia.jpg';
   static const spyGame = '$_gameImages/spy.jpg';
+  static const puzzleGame = '$_gameImages/puzzle.jpg';
 }

@@ -36,7 +36,7 @@ class OfflineGamesMenuController extends BaseController {
       case OfflineGameTypes.Spy:
         openSpySelector();
       case OfflineGameTypes.Puzzle:
-        Get.toNamed(AppRoutes.puzzleOffline);
+        openPuzzleSelector();
         return;
     }
   }
@@ -93,6 +93,69 @@ class OfflineGamesMenuController extends BaseController {
                   Get.toNamed(
                     AppRoutes.mafiaOffline,
                     arguments: usersCount.value,
+                  );
+                },
+                text: AppTexts.start.tr,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  openPuzzleSelector() {
+    RxInt boardSize = RxInt(3);
+    List<int> sizes = [3, 4, 5];
+    Get.dialog(
+      Dialog(
+        backgroundColor: Colors.transparent,
+        child: GlobalDialogWrapper(
+          height: 150.h,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "${AppTexts.boardSize.tr}: ",
+                    style: const TextStyle(
+                      color: AppColors.lightColor,
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(width: 10.w),
+                  Obx(
+                    () => DropdownButton<int>(
+                      value: boardSize.value,
+                      iconEnabledColor: AppColors.lightColor,
+                      items: sizes.map((number) {
+                        return DropdownMenuItem(
+                          value: number,
+                          child: Text(
+                            number.toString(),
+                            style: const TextStyle(
+                              color: AppColors.darkColor,
+                              fontSize: 18,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        boardSize.value = value ?? 6;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              GlobalButtonWidget(
+                onTap: () {
+                  Get.closeAllDialogs();
+                  Get.toNamed(
+                    AppRoutes.puzzleOffline,
+                    arguments: boardSize.value,
                   );
                 },
                 text: AppTexts.start.tr,

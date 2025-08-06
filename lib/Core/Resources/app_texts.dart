@@ -164,6 +164,7 @@ abstract class AppTexts {
   static const mafia = "Mafia";
   static const spy = "Spy";
   static const pantomim = "Pantomim";
+  static const puzzle = "Puzzle";
 
   static const tictactoeGuide = "tictactoeGuide";
   static const rpcGuide = "rpcGuide";

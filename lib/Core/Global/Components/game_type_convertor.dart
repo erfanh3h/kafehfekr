@@ -373,7 +373,7 @@ class OfflineGameTypeConvertor {
       case OfflineGameTypes.Mafia:
         result = AppImages.mafiaGame;
       case OfflineGameTypes.Puzzle:
-        result = AppImages.mafiaGame;
+        result = AppImages.puzzleGame;
       case OfflineGameTypes.Spy:
         result = AppImages.spyGame;
         break;
