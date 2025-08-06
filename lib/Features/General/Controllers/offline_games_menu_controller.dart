@@ -35,6 +35,8 @@ class OfflineGamesMenuController extends BaseController {
         openMafiaSelector();
       case OfflineGameTypes.Spy:
         openSpySelector();
+      case OfflineGameTypes.Puzzle:
+        Get.toNamed(AppRoutes.puzzleOffline);
         return;
     }
   }

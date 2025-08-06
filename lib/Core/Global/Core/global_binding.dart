@@ -18,6 +18,7 @@ import 'package:kafehfekr/Games/Mafia/Core/mafia_binding.dart';
 import 'package:kafehfekr/Games/Mill/Core/mill_binding.dart';
 import 'package:kafehfekr/Games/Othello/Core/othello_binding.dart';
 import 'package:kafehfekr/Games/Pentago/Core/pentago_binding.dart';
+import 'package:kafehfekr/Games/Puzzle/Core/puzzle_binding.dart';
 import 'package:kafehfekr/Games/RPC/Core/rpc_binding.dart';
 import 'package:kafehfekr/Games/Risk/Core/risk_binding.dart';
 import 'package:kafehfekr/Games/Spy/Core/spy_binding.dart';
@@ -58,6 +59,7 @@ class GlobalBinding implements BindingsInterface {
         BackGammonBinding().dependencies(),
         MafiaBinding().dependencies(),
         SpyBinding().dependencies(),
+        PuzzleBinding().dependencies(),
         Get.lazyPut<TimerCompanent>(TimerCompanent.new, fenix: true),
         // Get.lazyPut<SoundPlayerComponent>(
         //   SoundPlayerComponent.new,

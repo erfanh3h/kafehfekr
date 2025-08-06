@@ -44,6 +44,7 @@ enum OfflineGameTypes {
   Othello,
   Mafia,
   Spy,
+  Puzzle,
 }
 
 enum MultiGameTypes { Ludo }

@@ -37,6 +37,7 @@ import 'package:kafehfekr/Games/Mill/Pages/mill_page.dart';
 import 'package:kafehfekr/Games/Othello/Pages/othello_offline_page.dart';
 import 'package:kafehfekr/Games/Othello/Pages/othello_page.dart';
 import 'package:kafehfekr/Games/Pentago/Pages/pentago_page.dart';
+import 'package:kafehfekr/Games/Puzzle/Pages/puzzle_offline_page.dart';
 import 'package:kafehfekr/Games/RPC/Pages/rpc_page.dart';
 import 'package:kafehfekr/Games/Risk/Pages/risk_page.dart';
 import 'package:kafehfekr/Games/Spy/Pages/spy_offline_page.dart';
@@ -122,5 +123,6 @@ abstract class AppPages {
     GetPage(name: AppRoutes.mafiaOffline, page: MafiaOfflinePage.new),
     GetPage(name: AppRoutes.mafiaRolesOffline, page: MafiaOfflineRolesPage.new),
     GetPage(name: AppRoutes.spyOffline, page: SpyOfflinePage.new),
+    GetPage(name: AppRoutes.puzzleOffline, page: PuzzleOfflinePage.new),
   ];
 }
