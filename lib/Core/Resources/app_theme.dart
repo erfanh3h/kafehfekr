@@ -13,7 +13,7 @@ class AppTheme {
       surface: AppColors.backgroundLight,
     ),
     appBarTheme: const AppBarTheme(
-      color: AppColors.primaryLight,
+      backgroundColor: AppColors.primaryLight,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.backgroundLight,
@@ -55,7 +55,7 @@ class AppTheme {
       surface: AppColors.backgroundDark,
     ),
     appBarTheme: const AppBarTheme(
-      color: AppColors.primaryDark,
+      backgroundColor: AppColors.primaryDark,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.backgroundDark,

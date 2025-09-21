@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_button_widget.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_dialog_wrapper.dart';
 import 'package:kafehfekr/Core/Global/Widgets/global_loading_widget.dart';
@@ -9,7 +10,6 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 import 'package:kafehfekr/Core/Resources/app_spacings.dart';
 import 'package:kafehfekr/Core/Resources/app_texts.dart';
 import 'package:refreshed/refreshed.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart' as st;
 
 class DialogComponent {
   void showDialog(String title, String message) {
@@ -292,16 +292,17 @@ class DialogComponent {
     Color? backgroundColor,
     Color? foregroundColor,
   }) {
-    st.showToast(
-      label,
-      context: Get.overlayContext,
-      animation: st.StyledToastAnimation.sizeFade,
-      backgroundColor: backgroundColor ?? AppColors.lightColor,
-      textStyle: TextStyle(
-        fontFamily: FontFamilies.dastnevis,
-        fontSize: fontSize ?? 25,
-      ),
-      textDirection: TextDirection.rtl,
-    );
+    SmartDialog.showToast(label);
+    // st.showToast(
+    //   label,
+    //   context: Get.overlayContext,
+    //   animation: st.StyledToastAnimation.sizeFade,
+    //   backgroundColor: backgroundColor ?? AppColors.lightColor,
+    //   textStyle: TextStyle(
+    //     fontFamily: FontFamilies.dastnevis,
+    //     fontSize: fontSize ?? 25,
+    //   ),
+    //   textDirection: TextDirection.rtl,
+    // );
   }
 }

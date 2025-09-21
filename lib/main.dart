@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
 import 'package:kafehfekr/Core/Resources/app_theme.dart';
 import 'package:kafehfekr/Core/Routes/app_pages.dart';
@@ -86,6 +87,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           popGesture: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
+          navigatorObservers: [FlutterSmartDialog.observer],
+          builder: FlutterSmartDialog.init(),
           localizationsDelegates: const [
             GlobalCupertinoLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
