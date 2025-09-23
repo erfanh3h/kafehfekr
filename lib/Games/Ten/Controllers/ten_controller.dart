@@ -225,12 +225,21 @@ class TenController extends BaseGameController {
     try {
       result.value = expression.interpret().toDouble();
     } catch (_) {}
+    //all center operators must use!
+    if (operatorValues[1].isEmpty ||
+        operatorValues[2].isEmpty ||
+        operatorValues[3].isEmpty) {
+      letSendResult.value = false;
+      return;
+    }
+    //all numbers must use
     for (var dataRaw in numberValues) {
       if (dataRaw.value == -1) {
         letSendResult.value = false;
         return;
       }
     }
+
     if (result.value == 10) {
       letSendResult.value = true;
     } else {
@@ -260,6 +269,7 @@ class TenController extends BaseGameController {
   }
 
   setNumbers() {
+    numbers.clear();
     numbers.add(RxInt(currentNumbers[0]));
     numbers.add(RxInt(currentNumbers[1]));
     numbers.add(RxInt(currentNumbers[2]));

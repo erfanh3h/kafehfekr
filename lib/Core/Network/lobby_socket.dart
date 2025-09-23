@@ -25,11 +25,11 @@ class LobbySocketManager extends BaseController {
       debugPrint('connect');
     });
     socket.on(SocketChannels.serverCommand, (data) {
-      debugPrint(data);
+      debugPrint(data.toString());
       commandHandler(data);
     });
     socket.on(SocketChannels.serverReaction, (data) {
-      debugPrint(data);
+      debugPrint(data.toString());
       reactionHandler(data);
     });
     socket.onDisconnect((_) => debugPrint('disconnect'));

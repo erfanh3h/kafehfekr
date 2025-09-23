@@ -35,7 +35,7 @@ class QueueSocketManager extends BaseController {
     //   print('timeout');
     // });
     socket.on(SocketChannels.serverCommand, (data) {
-      debugPrint(data);
+      debugPrint(data.toString());
       commandHandler(data);
     });
     // socket.onDisconnect((_) => print('disconnect'));

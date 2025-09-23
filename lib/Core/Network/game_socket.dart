@@ -32,7 +32,7 @@ class GameSocketManager extends BaseController {
     });
 
     socket.on(SocketChannels.serverCommand, (data) {
-      debugPrint(data);
+      debugPrint(data.toString());
       commandHandler(data);
     });
     // socket.onDisconnect((_) => print('disconnect'));
