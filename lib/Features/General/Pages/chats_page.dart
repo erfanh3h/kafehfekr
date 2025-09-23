@@ -13,7 +13,7 @@ class ChatsPage extends BaseView<ChatsController> {
   const ChatsPage({super.key});
 
   @override
-  bool setWillPopScope() {
+  bool preventPop() {
     return false;
   }
 

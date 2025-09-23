@@ -10,7 +10,7 @@ class QueuePage extends BaseView<QueueController> {
   const QueuePage({super.key});
 
   @override
-  bool setWillPopScope() {
+  bool preventPop() {
     return false;
   }
 

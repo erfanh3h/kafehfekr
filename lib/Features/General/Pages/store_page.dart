@@ -13,7 +13,7 @@ class StorePage extends BaseView<StoreController> {
   const StorePage({super.key});
 
   @override
-  bool setWillPopScope() {
+  bool preventPop() {
     return false;
   }
 

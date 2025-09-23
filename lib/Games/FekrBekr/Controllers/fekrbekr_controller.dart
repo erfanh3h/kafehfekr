@@ -25,6 +25,7 @@ class FekrBekrController extends BaseGameController {
   RxInt selectedNumber = RxInt(-1);
 
   List<int> myBoard = [0, 0, 0, 0];
+  bool isMyboardSet = false;
 
   final ScrollController historyController = ScrollController();
   @override
@@ -36,6 +37,10 @@ class FekrBekrController extends BaseGameController {
     resetPieces();
     int turn = data['data']['current_round'];
     currentRound.value = turn;
+    if (currentRound.value == 1 && !isMyboardSet) {
+      myBoard = [1, 2, 3, 4];
+      //if user didnt set his board this will auto set in round 1
+    }
     canSelectPeace.value = true;
     showInteraction(sound: GameSoundTypes.startTurn);
     changetimerValue(GameWaitTimes.fekrBekrTurnTime);
@@ -184,6 +189,7 @@ class FekrBekrController extends BaseGameController {
     }
     if (command == GameCommands.saveBoard) {
       myBoard = result;
+      isMyboardSet = true;
     }
     sendCommand({"id": command, "data": result});
     isWaiting.value = true;

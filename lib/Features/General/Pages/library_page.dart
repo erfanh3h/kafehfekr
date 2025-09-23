@@ -20,7 +20,7 @@ class LibraryPage extends BaseView<GlobalController> {
   const LibraryPage({super.key});
 
   @override
-  bool setWillPopScope() {
+  bool preventPop() {
     return false;
   }
 

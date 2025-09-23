@@ -9,10 +9,10 @@ import 'package:kafehfekr/Core/Routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'Core/Global/Pages/splash.dart';
 import 'Core/Resources/app_translates.dart';
 
 void main() async {
@@ -41,6 +41,33 @@ void main() async {
   }
 
   runApp(const MyApp());
+}
+
+class GetRootBackButtonDispatcher extends BackButtonDispatcher
+    with WidgetsBindingObserver {
+  GetRootBackButtonDispatcher();
+
+  @override
+  void addCallback(ValueGetter<Future<bool>> callback) {
+    if (!hasCallbacks) {
+      WidgetsBinding.instance.addObserver(this);
+    }
+    super.addCallback(callback);
+  }
+
+  @override
+  void removeCallback(ValueGetter<Future<bool>> callback) {
+    super.removeCallback(callback);
+    if (!hasCallbacks) {
+      WidgetsBinding.instance.removeObserver(this);
+    }
+  }
+
+  @override
+  Future<bool> didPopRoute() async {
+    return (await Get.rawRoute?.navigator?.maybePop()) ??
+        invokeCallback(Future.value(false));
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -81,7 +108,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       builder: (context, child) => MediaQuery(
         data: MediaQuery.of(context)
             .copyWith(textScaler: const TextScaler.linear(1)),
-        child: GetMaterialApp(
+        child: GetMaterialApp.router(
           title: 'کافه فکر',
           debugShowCheckedModeBanner: false,
           popGesture: false,
@@ -100,7 +127,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           ],
           locale: const Locale("fa", "IR"), //
           getPages: AppPages.pages,
-          home: const SplashPage(),
+          routeInformationParser: GetInformationParser.createInformationParser(
+              initialRoute: AppRoutes.splash),
+          backButtonDispatcher: GetRootBackButtonDispatcher(),
+          // home: const SplashPage(),
           themeMode: ThemeMode.light,
           translations: AppTranslations(),
           defaultTransition: Transition.fadeIn,

@@ -17,7 +17,7 @@ class MultiQueuePage extends BaseView<MultiQueueController> {
   const MultiQueuePage({super.key});
 
   @override
-  bool setWillPopScope() {
+  bool preventPop() {
     return false;
   }
 

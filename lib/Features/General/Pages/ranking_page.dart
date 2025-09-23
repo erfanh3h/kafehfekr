@@ -15,7 +15,7 @@ import 'package:refreshed/refreshed.dart';
 class RankingPage extends BaseView<RankingController> {
   const RankingPage({super.key});
   @override
-  bool setWillPopScope() {
+  bool preventPop() {
     return false;
   }
 

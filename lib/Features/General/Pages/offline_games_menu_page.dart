@@ -12,6 +12,10 @@ import 'package:refreshed/refreshed.dart';
 
 class OfflineGamesMenuPage extends BaseView<OfflineGamesMenuController> {
   const OfflineGamesMenuPage({super.key});
+  @override
+  bool preventPop() {
+    return false;
+  }
 
   @override
   String? backgroundImage() {
