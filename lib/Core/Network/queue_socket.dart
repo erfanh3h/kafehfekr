@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
@@ -27,14 +28,14 @@ class QueueSocketManager extends BaseController {
     });
     socket.connect();
     socket.onConnect((_) {
-      print('connect queue');
+      debugPrint('connect queue');
       onQueueStart();
     });
     // socket.onConnectTimeout((_) {
     //   print('timeout');
     // });
     socket.on(SocketChannels.serverCommand, (data) {
-      print(data);
+      debugPrint(data);
       commandHandler(data);
     });
     // socket.onDisconnect((_) => print('disconnect'));

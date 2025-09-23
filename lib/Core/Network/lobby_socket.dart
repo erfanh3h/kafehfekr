@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Global/Controllers/global_controller.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
@@ -21,24 +22,24 @@ class LobbySocketManager extends BaseController {
     });
     socket.connect();
     socket.onConnect((_) {
-      print('connect');
+      debugPrint('connect');
     });
     socket.on(SocketChannels.serverCommand, (data) {
-      print(data);
+      debugPrint(data);
       commandHandler(data);
     });
     socket.on(SocketChannels.serverReaction, (data) {
-      print(data);
+      debugPrint(data);
       reactionHandler(data);
     });
-    socket.onDisconnect((_) => print('disconnect'));
+    socket.onDisconnect((_) => debugPrint('disconnect'));
     socket.onConnectError((one) {
       onQueueError();
     });
   }
 
   void sendCommand(Map data) {
-    print(data);
+    debugPrint(data.toString());
     socket.emit(SocketChannels.userCommand, data);
   }
 

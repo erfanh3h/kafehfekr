@@ -16,44 +16,42 @@ class RiskDrawPartWidget extends StatelessWidget {
     final RiskController controller = Get.find<RiskController>();
     return Obx(
       () => controller.isMyTurn()
-          ? Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 15,
-                children: [
-                  GlobalFrameWrapper(
-                    frame: AppImages.dialog3,
-                    child: Text(
-                      AppTexts.selectDrawType.tr,
-                      style: const TextStyle(
-                        color: AppColors.lightColor,
-                        fontSize: 20,
-                      ),
-                    ),
+          ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 15,
+            children: [
+              GlobalFrameWrapper(
+                frame: AppImages.dialog3,
+                child: Text(
+                  AppTexts.selectDrawType.tr,
+                  style: const TextStyle(
+                    color: AppColors.lightColor,
+                    fontSize: 20,
                   ),
-                  const SizedBox(height: 20),
-                  GlobalButtonWidget(
-                    onTap: () {
-                      controller.drawCard(1);
-                    },
-                    text: AppTexts.twoContinent.tr,
-                  ),
-                  GlobalButtonWidget(
-                    onTap: () {
-                      controller.drawCard(2);
-                    },
-                    text: AppTexts.twoStrategy.tr,
-                  ),
-                  GlobalButtonWidget(
-                    onTap: () {
-                      controller.drawCard(3);
-                    },
-                    text: AppTexts.oneContinentOneStrategy.tr,
-                    width: 200,
-                  ),
-                ],
+                ),
               ),
-            )
+              const SizedBox(height: 20),
+              GlobalButtonWidget(
+                onTap: () {
+                  controller.drawCard(1);
+                },
+                text: AppTexts.twoContinent.tr,
+              ),
+              GlobalButtonWidget(
+                onTap: () {
+                  controller.drawCard(2);
+                },
+                text: AppTexts.twoStrategy.tr,
+              ),
+              GlobalButtonWidget(
+                onTap: () {
+                  controller.drawCard(3);
+                },
+                text: AppTexts.oneContinentOneStrategy.tr,
+                width: 200,
+              ),
+            ],
+          )
           : GlobalWaitWidget(text: AppTexts.waitOpponent.tr),
     );
   }

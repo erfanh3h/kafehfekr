@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Base/base_controller.dart';
 import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:refreshed/refreshed.dart';
@@ -31,7 +32,7 @@ class GameSocketManager extends BaseController {
     });
 
     socket.on(SocketChannels.serverCommand, (data) {
-      print(data);
+      debugPrint(data);
       commandHandler(data);
     });
     // socket.onDisconnect((_) => print('disconnect'));

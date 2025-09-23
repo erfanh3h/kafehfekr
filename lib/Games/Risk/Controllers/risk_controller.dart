@@ -42,7 +42,6 @@ class RiskController extends BaseGameController {
 
   @override
   void commandHandler(dynamic data) {
-    print(data);
     super.commandHandler(data);
     final commandId = data['id'];
     switch (commandId) {
