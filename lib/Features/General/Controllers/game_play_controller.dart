@@ -51,7 +51,7 @@ class GamePlayController extends BaseController {
     // changePlayerReaction(playerId, reactionId);
   }
 
-  void gamePlayDataFunction(data) {
+  void gamePlayDataFunction(dynamic data) {
     queuers.clear();
     Map gameData = data['data'];
     gameScoreType = gameData['game_score_type'];
@@ -75,7 +75,7 @@ class GamePlayController extends BaseController {
     }
   }
 
-  void changeTimeFunction(data) async {
+  void changeTimeFunction(dynamic data) async {
     Map gameData = data['data'];
     int time = gameData['time'];
     if (currentGameIndex.value == 0) {
@@ -85,7 +85,7 @@ class GamePlayController extends BaseController {
     }
   }
 
-  void navigateToGameFunction(data) {
+  void navigateToGameFunction(dynamic data) {
     Map gameData = data['data'];
     String gameType = gameTypes[gameData['current_game_index']];
     if (Get.currentRoute != AppRoutes.gamePlay) {
@@ -104,7 +104,7 @@ class GamePlayController extends BaseController {
     Get.find<SoundPlayerComponent>().startPlayMusic(isGame: false);
   }
 
-  extractWinText(String winnerId) {
+  String extractWinText(String winnerId) {
     for (var gamer in queuers.value) {
       if (gamer.userId == winnerId) {
         return "${gamer.name} بازی رو برد";

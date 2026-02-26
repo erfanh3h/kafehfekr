@@ -97,7 +97,7 @@ class MSweeperOfflineController extends BaseOfflineGameController {
     initPieces();
   }
 
-  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       if (peaces[i].value.id == peaceId) {
         peaces.value[i].value =
@@ -118,15 +118,15 @@ class MSweeperOfflineController extends BaseOfflineGameController {
     return index;
   }
 
-  changePieceValue(int index, int value) {
+  void changePieceValue(int index, int value) {
     peaces[index].value = peaces[index].value.changeValue(newValue: value);
   }
 
-  addValueToPiece(int index, {int value = 1}) {
+  void addValueToPiece(int index, {int value = 1}) {
     peaces[index].value.value = (peaces[index].value.value ?? 0) + value;
   }
 
-  changePieceStatus(int index, MineSweeperStatusTypes status) {
+  void changePieceStatus(int index, MineSweeperStatusTypes status) {
     peaces[index].value =
         peaces[index].value.addSweeperStatus(newStatus: status);
   }
@@ -138,7 +138,7 @@ class MSweeperOfflineController extends BaseOfflineGameController {
         .contains(MineSweeperStatusTypes.isMine);
   }
 
-  clearSafePieces(int index) {
+  void clearSafePieces(int index) {
     if (peaces[index].value.value != null) {
       return;
     }
@@ -177,7 +177,7 @@ class MSweeperOfflineController extends BaseOfflineGameController {
     }
   }
 
-  addMines() {
+  void addMines() {
     int mineIndex = 0;
     while (mineIndex < minesCount.value) {
       final rng = Random();
@@ -214,7 +214,7 @@ class MSweeperOfflineController extends BaseOfflineGameController {
     }
   }
 
-  initPieces() {
+  void initPieces() {
     allPiecesCount.value = boardSize.value * boardSize.value;
     for (var i = 0; i < allPiecesCount.value; i++) {
       peaces.add(

@@ -111,7 +111,7 @@ class SoundPlayerComponent extends BaseController {
     });
   }
 
-  changeLetPlayerSound(bool value, {bool isGame = true}) {
+  void changeLetPlayerSound(bool value, {bool isGame = true}) {
     letPlayMusic.value = value;
     if (!value) {
       try {
@@ -160,7 +160,7 @@ class SoundPlayerComponent extends BaseController {
     await _musicPlayer.play();
   }
 
-  stopMusic() {
+  void stopMusic() {
     if (!letPlayMusic.value) {
       return;
     }
@@ -170,7 +170,7 @@ class SoundPlayerComponent extends BaseController {
     }
   }
 
-  pauseMusic() {
+  void pauseMusic() {
     if (!letPlayMusic.value) {
       return;
     }
@@ -180,7 +180,7 @@ class SoundPlayerComponent extends BaseController {
     }
   }
 
-  resumeMusic() {
+  void resumeMusic() {
     if (!letPlayMusic.value) {
       return;
     }

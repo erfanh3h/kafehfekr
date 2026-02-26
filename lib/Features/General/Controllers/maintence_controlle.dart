@@ -5,7 +5,7 @@ import 'package:refreshed/refreshed.dart';
 
 class MaintenceController extends BaseController {
   late String fromNow;
-  onTap() {
+  void onTap() {
     exit(0);
   }
 

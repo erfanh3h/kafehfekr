@@ -101,7 +101,7 @@ class FourInRowController extends BaseGameController {
     }
   }
 
-  changePeaceSelectedUser(int peaceId, int? selectedUser,
+  void changePeaceSelectedUser(int peaceId, int? selectedUser,
       {bool fromRec = false}) {
     pieces.value[peaceId].value = pieces.value[peaceId].value
         .changeSelectedUser(newSelectedUser: selectedUser);
@@ -112,14 +112,14 @@ class FourInRowController extends BaseGameController {
     }
   }
 
-  removeAllPiecesStatus(PeaceStatusTypes status) {
+  void removeAllPiecesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < 64; i++) {
       pieces.value[i].value =
           pieces.value[i].value.removeStatus(status: status);
     }
   }
 
-  initPeaces() {
+  void initPeaces() {
     for (var i = 0; i < 64; i++) {
       pieces.add(
           Rx(FourInRowPeaceModel(id: i, currentStatuses: [], selectedUser: 0)));

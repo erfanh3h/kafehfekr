@@ -148,35 +148,35 @@ class MNumbersController extends BaseGameController {
     }
   }
 
-  addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
     if (peaceId != null) {
       peaces.value[peaceId].value =
           peaces.value[peaceId].value.addStatus(status: status);
     }
   }
 
-  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
     if (peaceId != null) {
       peaces.value[peaceId].value =
           peaces.value[peaceId].value.removeStatus(status: status);
     }
   }
 
-  changePeaceValue(int? peaceId, int? value) {
+  void changePeaceValue(int? peaceId, int? value) {
     if (peaceId != null) {
       peaces.value[peaceId].value =
           peaces.value[peaceId].value.changeValue(newValue: value);
     }
   }
 
-  changePeaceSelectedGamer(int? peaceId, int? value) {
+  void changePeaceSelectedGamer(int? peaceId, int? value) {
     if (peaceId != null) {
       peaces.value[peaceId].value = peaces.value[peaceId].value
           .changeSelectedUser(newSelectedUser: value);
     }
   }
 
-  clearEquipStatus() {
+  void clearEquipStatus() {
     for (var i = 0; i < peaces.length; i++) {
       if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.equiped)) {
         peaces[i].value =
@@ -185,7 +185,7 @@ class MNumbersController extends BaseGameController {
     }
   }
 
-  clearAllStatuses() {
+  void clearAllStatuses() {
     for (var i = 0; i < peaces.length; i++) {
       if (peaces[i].value.currentStatuses.contains(PeaceStatusTypes.equiped)) {
         peaces[i].value =
@@ -209,7 +209,7 @@ class MNumbersController extends BaseGameController {
     }
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 36; i++) {
       peaces.add(Rx(MNumbersPeaceModel(id: i, currentStatuses: [])));
     }

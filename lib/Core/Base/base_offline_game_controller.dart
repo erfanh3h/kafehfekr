@@ -20,7 +20,7 @@ class BaseOfflineGameController extends BaseController {
 
   late OfflineGameTypes gameType;
 
-  changeActiveTrun() {
+  void changeActiveTrun() {
     if (currentTurn.value == 1) {
       currentTurn.value = 2;
     } else {
@@ -36,8 +36,8 @@ class BaseOfflineGameController extends BaseController {
     }
   }
 
-  resetGame() {}
-  exitGame() {
+  void resetGame() {}
+  void exitGame() {
     Get.back();
   }
 

@@ -38,7 +38,7 @@ class GlobalController extends BaseController {
 
   RxBool isNoNetwork = RxBool(false);
 
-  checkLoginStatus({bool navigateToMain = true}) async {
+  Future<void> checkLoginStatus({bool navigateToMain = true}) async {
     // Get.toNamed(AppRoutes.ludo);
     // return;
     // await removeData();
@@ -67,7 +67,7 @@ class GlobalController extends BaseController {
     }
   }
 
-  tryReconnect() async {
+  Future<void> tryReconnect() async {
     DialogComponent().showLoading();
     await checkLoginStatus(navigateToMain: false);
     Get.closeAllDialogs();
@@ -152,7 +152,7 @@ class GlobalController extends BaseController {
   //   myData.value = myData.value!.copyWith(coin: myData.value!.coin + value);
   // }
 
-  changeProfile(int index) {
+  void changeProfile(int index) {
     // if (myData.value!.coin < 50 && myData.value!.image != 0) {
     //   DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);
     //   return;
@@ -172,7 +172,7 @@ class GlobalController extends BaseController {
     DialogComponent().showToast(label: AppTexts.avatarChanged.tr);
   }
 
-  changeUsername(String username) {
+  void changeUsername(String username) {
     // if (myData.value!.coin < 75) {
     //   Get.closeAllBottomSheets();
     //   DialogComponent().showToast(label: AppTexts.notEnoughCoin.tr);

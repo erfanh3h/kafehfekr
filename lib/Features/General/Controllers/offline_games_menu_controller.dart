@@ -10,7 +10,7 @@ import 'package:kafehfekr/Core/Routes/app_routes.dart';
 import 'package:refreshed/refreshed.dart';
 
 class OfflineGamesMenuController extends BaseController {
-  onEachGameTap(OfflineGameTypes game) {
+  void onEachGameTap(OfflineGameTypes game) {
     switch (game) {
       case OfflineGameTypes.TicTacToe:
         Get.toNamed(AppRoutes.tictactoeOffline);
@@ -41,7 +41,7 @@ class OfflineGamesMenuController extends BaseController {
     }
   }
 
-  openMafiaSelector() {
+  void openMafiaSelector() {
     RxInt usersCount = RxInt(10);
     Get.dialog(
       Dialog(
@@ -104,7 +104,7 @@ class OfflineGamesMenuController extends BaseController {
     );
   }
 
-  openPuzzleSelector() {
+  void openPuzzleSelector() {
     RxInt boardSize = RxInt(3);
     List<int> sizes = [3, 4, 5];
     Get.dialog(
@@ -167,7 +167,7 @@ class OfflineGamesMenuController extends BaseController {
     );
   }
 
-  openMNumbersSelector() {
+  void openMNumbersSelector() {
     RxInt boardSize = RxInt(6);
     List<int> sizes = [4, 6, 8, 10];
     Get.dialog(
@@ -230,7 +230,7 @@ class OfflineGamesMenuController extends BaseController {
     );
   }
 
-  openMSweeperSelector() {
+  void openMSweeperSelector() {
     RxInt minesCont = RxInt(10);
     RxInt boardSize = RxInt(8);
     Get.dialog(
@@ -329,7 +329,7 @@ class OfflineGamesMenuController extends BaseController {
     );
   }
 
-  openSudokuSelector() {
+  void openSudokuSelector() {
     RxInt emptySize = RxInt(40);
     List<int> sizes = [20, 30, 40, 50, 60];
     Get.dialog(
@@ -391,7 +391,7 @@ class OfflineGamesMenuController extends BaseController {
     );
   }
 
-  openSpySelector() {
+  void openSpySelector() {
     RxInt usersCount = RxInt(10);
     RxInt spiesSize = RxInt(2);
     RxInt timeValue = RxInt(5);

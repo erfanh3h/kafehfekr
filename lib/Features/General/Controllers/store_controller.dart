@@ -30,7 +30,7 @@ class StoreController extends BaseController {
   ];
 
   final PurchaseComponent purchaseComponent = PurchaseComponent();
-  getFreeCoin() async {
+  Future<void> getFreeCoin() async {
     if (!canGetFreeCoin.value) {
       DialogComponent().showToast(label: AppTexts.notTimeYet.tr);
       return;
@@ -56,7 +56,7 @@ class StoreController extends BaseController {
     });
   }
 
-  checkCanGetFreeCoin() {
+  void checkCanGetFreeCoin() {
     final DateTime lastTimeChance =
         Get.find<GlobalController>().myData.value!.lastTimeChance;
     final DateTime possibleDate = DateTime(
@@ -112,7 +112,7 @@ class StoreController extends BaseController {
     return 0;
   }
 
-  purchaseItem(int index) async {
+  Future<void> purchaseItem(int index) async {
     final String productId = (index + 1).toString();
     final result = await purchaseComponent.purchase(
         productId, Get.find<GlobalController>().myData.value!.id);

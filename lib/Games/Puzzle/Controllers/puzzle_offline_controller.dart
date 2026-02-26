@@ -30,7 +30,7 @@ class PuzzleOfflineController extends BaseOfflineGameController {
     return (y, x);
   }
 
-  onButtonTap(int index) {
+  void onButtonTap(int index) {
     if (isGameFinished.value) {
       DialogComponent().showToast(label: AppTexts.gameFinished.tr);
       return;
@@ -70,7 +70,7 @@ class PuzzleOfflineController extends BaseOfflineGameController {
     return false;
   }
 
-  swapTwoPiece(int source, int target) {
+  void swapTwoPiece(int source, int target) {
     int temp = board[source].value.id;
     board[source].value =
         board[source].value.copyWith(id: board[target].value.id);
@@ -90,7 +90,7 @@ class PuzzleOfflineController extends BaseOfflineGameController {
     return true;
   }
 
-  _initializeBoard() {
+  void _initializeBoard() {
     board.clear();
     board.value = List.generate(
       boardSize * boardSize,

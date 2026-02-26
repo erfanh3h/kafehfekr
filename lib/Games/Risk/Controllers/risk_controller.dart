@@ -211,7 +211,7 @@ class RiskController extends BaseGameController {
     }
   }
 
-  applyGameData(Map data) {
+  void applyGameData(Map data) {
     currentTurn.value = data['current_turn'];
     activePlayerIndexes.value = List<int>.from(data['active_player_indexes']);
     strategiesCount.value = data['strategies'];
@@ -222,7 +222,7 @@ class RiskController extends BaseGameController {
     tokensCount.value = data['tokens'];
   }
 
-  drawCard(int number) {
+  void drawCard(int number) {
     gameState(RiskGameStates.Loading);
     sendCommand({
       'id': GameCommands.drawCard,
@@ -230,13 +230,13 @@ class RiskController extends BaseGameController {
     });
   }
 
-  passTurn() {
+  void passTurn() {
     gameState(RiskGameStates.Loading);
     sendCommand({'id': GameCommands.passTurn});
     showInteraction(text: AppTexts.attackPassed.tr);
   }
 
-  openMyContinents() {
+  void openMyContinents() {
     if (myData.value == null) {
       return;
     }
@@ -248,7 +248,7 @@ class RiskController extends BaseGameController {
     );
   }
 
-  openMyStrategies() {
+  void openMyStrategies() {
     if (myData.value == null) {
       return;
     }
@@ -261,7 +261,7 @@ class RiskController extends BaseGameController {
     );
   }
 
-  openMyTokens() {
+  void openMyTokens() {
     if (myData.value == null) {
       return;
     }
@@ -273,7 +273,7 @@ class RiskController extends BaseGameController {
     );
   }
 
-  surrenderByUserFunction() {
+  void surrenderByUserFunction() {
     DialogComponent().showIconicSelectionDialog(
       AppTexts.surrender.tr,
       AppTexts.wanaSurrenderGame.tr,
@@ -291,7 +291,7 @@ class RiskController extends BaseGameController {
     );
   }
 
-  exitGame() {
+  void exitGame() {
     sendCommand({"id": GameCommands.exitGame, "data": {}});
     Get.closeAllDialogs();
     Get.back();

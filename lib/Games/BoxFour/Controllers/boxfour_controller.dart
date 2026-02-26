@@ -108,29 +108,29 @@ class BoxFourController extends BaseGameController {
     changetimerValue(time.clamp(0, GameWaitTimes.boxFourTurnTime));
   }
 
-  changePieceValue(int pieceId, int? selectedUser, int? value) {
+  void changePieceValue(int pieceId, int? selectedUser, int? value) {
     peaces.value[pieceId].value = peaces.value[pieceId].value
         .changeValue(newSelectedUser: selectedUser, newValue: value);
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.removeStatus(status: status);
   }
 
-  removeAllPeacesStatus(PeaceStatusTypes status) {
+  void removeAllPeacesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       peaces.value[i].value =
           peaces.value[i].value.removeStatus(status: status);
     }
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 25; i++) {
       peaces.add(Rx(BoxFourPeaceModel(id: i, currentStatuses: [])));
     }
@@ -150,14 +150,14 @@ class BoxFourController extends BaseGameController {
     return peaces[index].value.selectedUser == gamerId;
   }
 
-  bool isValidCoordinate(cIndex, rIndex) {
+  bool isValidCoordinate(int cIndex, int rIndex) {
     if (rIndex >= 0 && rIndex <= 4 && cIndex >= 0 && cIndex <= 4) {
       return true;
     }
     return false;
   }
 
-  getLegalPieces() {
+  void getLegalPieces() {
     for (var i = 0; i < peaces.length; i++) {
       if (peaces[i].value.selectedUser == myGameId) {
         addPeaceStatus(i, PeaceStatusTypes.canSelected);
@@ -165,7 +165,7 @@ class BoxFourController extends BaseGameController {
     }
   }
 
-  spreadNumber((int, int) position, int gamerId) {
+  void spreadNumber((int, int) position, int gamerId) {
     showInteraction(sound: GameSoundTypes.correct);
     int index = coordinateToIndex(position.$1, position.$2);
     changePieceValue(index, 0, 0);
@@ -184,7 +184,7 @@ class BoxFourController extends BaseGameController {
     }
   }
 
-  submitPieceForUser((int, int) position, gamerId) {
+  void submitPieceForUser((int, int) position, gamerId) {
     int index = coordinateToIndex(position.$1, position.$2);
     int currentValue = peaces[index].value.value;
     if (currentValue < 3) {

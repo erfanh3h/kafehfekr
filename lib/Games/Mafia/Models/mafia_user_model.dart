@@ -7,23 +7,23 @@ class MafiaUserModel {
   final RxBool showRole = RxBool(false);
   final Rx<bool?> isCitizen = Rx(null);
 
-  changeUsername(String newName) {
+  void changeUsername(String newName) {
     name.value = newName;
   }
 
-  changeUserRole(String newRole) {
+  void changeUserRole(String newRole) {
     role.value = newRole;
   }
 
-  changeIsDead() {
+  void changeIsDead() {
     isDead.value = !isDead.value;
   }
 
-  changeShowRole() {
+  void changeShowRole() {
     showRole.value = !showRole.value;
   }
 
-  changeIsCitizen(bool? newIsCitizen) {
+  void changeIsCitizen(bool? newIsCitizen) {
     isCitizen.value = newIsCitizen;
   }
 }

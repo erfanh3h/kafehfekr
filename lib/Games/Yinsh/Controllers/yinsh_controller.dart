@@ -257,7 +257,7 @@ class YinshController extends BaseGameController {
     }
   }
 
-  getListOfPossibleRings(int gamerId) {
+  void getListOfPossibleRings(int gamerId) {
     for (var peace in peaces.value) {
       if (peace.value.selectedRing == gamerId) {
         addPeaceStatus(peace.value.id, PeaceStatusTypes.canSelected);
@@ -302,7 +302,7 @@ class YinshController extends BaseGameController {
     return result;
   }
 
-  getListOfPossibleSelections(int pieceId) {
+  void getListOfPossibleSelections(int pieceId) {
     Map<int, List<int>> result = {};
     for (var directionId in directionsList) {
       result[directionId] = getDirectionIdies(directionId, pieceId);
@@ -354,7 +354,7 @@ class YinshController extends BaseGameController {
     return finalResult;
   }
 
-  moveRingToTarget(
+  void moveRingToTarget(
       int sourceId, int pieceId, List<int> rotationsList, int gamerId) {
     for (var pId in rotationsList) {
       if (peaces[pId].value.selectedDisk != null) {
@@ -373,7 +373,7 @@ class YinshController extends BaseGameController {
         peaces[pieceId].value.changeselectedRing(newselectedRing: gamerId);
   }
 
-  highlightEmptyRings() {
+  void highlightEmptyRings() {
     for (var i = 0; i < 85; i++) {
       if (peaces[i].value.selectedRing == null) {
         peaces[i].value =
@@ -382,38 +382,38 @@ class YinshController extends BaseGameController {
     }
   }
 
-  changePeaceDisk(int peaceId, int? userId) {
+  void changePeaceDisk(int peaceId, int? userId) {
     peaces[peaceId].value =
         peaces[peaceId].value.changeselectedDisk(newselectedDisk: userId);
   }
 
-  changePeaceRing(int peaceId, int? userId) {
+  void changePeaceRing(int peaceId, int? userId) {
     peaces[peaceId].value =
         peaces[peaceId].value.changeselectedRing(newselectedRing: userId);
   }
 
-  addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int? peaceId, PeaceStatusTypes status) {
     if (peaceId != null) {
       peaces.value[peaceId].value =
           peaces.value[peaceId].value.addStatus(status: status);
     }
   }
 
-  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
     if (peaceId != null) {
       peaces.value[peaceId].value =
           peaces.value[peaceId].value.removeStatus(status: status);
     }
   }
 
-  removeAllPeacesStatus(PeaceStatusTypes status) {
+  void removeAllPeacesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       peaces.value[i].value =
           peaces.value[i].value.removeStatus(status: status);
     }
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 85; i++) {
       peaces.add(
         Rx(

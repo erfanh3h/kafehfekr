@@ -4,11 +4,11 @@ class SpyUserModel {
   final RxString name = RxString("");
   final RxBool isSpy = RxBool(false);
 
-  changeUsername(String newName) {
+  void changeUsername(String newName) {
     name.value = newName;
   }
 
-  changeisSpy() {
+  void changeisSpy() {
     isSpy.value = true;
   }
 }

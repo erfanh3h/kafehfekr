@@ -41,7 +41,7 @@ class SudokuController extends BaseGameController {
     getCountOfNumbers();
   }
 
-  void wrongSolveFunction(data) {
+  void wrongSolveFunction(dynamic data) {
     DialogComponent().showDialog(AppTexts.error.tr, AppTexts.errorSolve.tr);
   }
 
@@ -129,7 +129,7 @@ class SudokuController extends BaseGameController {
     getCountOfNumbers();
   }
 
-  changeSelectedNumber(int number) {
+  void changeSelectedNumber(int number) {
     if (number == selectedNumber.value) {
       selectedNumber.value = 0;
     } else {
@@ -143,17 +143,17 @@ class SudokuController extends BaseGameController {
     }
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  changePeaceValue(int peaceId, int number) {
+  void changePeaceValue(int peaceId, int number) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.changeValue(newValue: number);
   }
 
-  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       if (peaces[i].value.id == peaceId) {
         peaces.value[i].value =
@@ -163,7 +163,7 @@ class SudokuController extends BaseGameController {
     }
   }
 
-  solveFunction() {
+  void solveFunction() {
     if (!canSelectPeace.value) {
       showInteraction(text: AppTexts.notYourTurn.tr);
       return;
@@ -189,7 +189,7 @@ class SudokuController extends BaseGameController {
     update();
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 81; i++) {
       peaces.add(
         Rx(

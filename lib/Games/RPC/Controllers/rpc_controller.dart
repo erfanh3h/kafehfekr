@@ -117,12 +117,12 @@ class RPCController extends BaseGameController {
     changetimerValue(GameWaitTimes.rpcRoundTime);
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  clearStatusFromPeaces(PeaceStatusTypes status) {
+  void clearStatusFromPeaces(PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       peaces.value[i].value =
           peaces.value[i].value.removeStatus(status: status);
@@ -144,7 +144,7 @@ class RPCController extends BaseGameController {
     return gamerId == thisTurnRoundWinner.value;
   }
 
-  initPieces() {
+  void initPieces() {
     peaces.add(
       Rx(
         RPCPeaceModel(

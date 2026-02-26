@@ -249,7 +249,7 @@ class DialogComponent {
     );
   }
 
-  showLoading() {
+  void showLoading() {
     Get.dialog(
       barrierDismissible: false,
       Dialog(
@@ -273,7 +273,7 @@ class DialogComponent {
     );
   }
 
-  showTimerDialog({int time = 3, String? text}) {
+  void showTimerDialog({int time = 3, String? text}) {
     Get.dialog(
       barrierDismissible: false,
       PopScope(

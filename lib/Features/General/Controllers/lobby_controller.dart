@@ -36,7 +36,7 @@ class LobbyController extends BaseController {
   Rx<LobbyModel?> joinedLobby = Rx(null);
   RxList<Rx<QueuerModel>> joinedLobbyQueuers = RxList();
 
-  resetLobbyData() {
+  void resetLobbyData() {
     lobbyCount.value = 2;
     letSendChat.value = true;
     joinedLobbyChats.clear();
@@ -253,7 +253,7 @@ class LobbyController extends BaseController {
     Get.find<LobbySocketManager>().sendCommand(data);
   }
 
-  exitLobby() {
+  void exitLobby() {
     if (isMyLobby()) {
       sendCommand({"id": GameCommands.lobbyDelete});
     } else {
@@ -275,12 +275,12 @@ class LobbyController extends BaseController {
     }
   }
 
-  requestData() {
+  void requestData() {
     lobbies.clear();
     sendCommand({"id": GameCommands.lobbyRequestData});
   }
 
-  startGame() {
+  void startGame() {
     for (var queuer in joinedLobbyQueuers.value) {
       if (!(queuer.value.isRdy ?? true)) {
         DialogComponent().showToast(label: AppTexts.allPlayersMustRdy.tr);
@@ -295,14 +295,14 @@ class LobbyController extends BaseController {
     isPageLoading.value = true;
   }
 
-  readyStartGame() {
+  void readyStartGame() {
     sendCommand({
       "id": GameCommands.lobbyPlayerReady,
     });
     imReadyToStart.value = true;
   }
 
-  kickPlayer(String userId) {
+  void kickPlayer(String userId) {
     String myUserId = Get.find<GlobalController>().userId ?? "";
     if (userId == myUserId) {
       DialogComponent().showToast(label: AppTexts.cantKickYourself.tr);
@@ -321,7 +321,7 @@ class LobbyController extends BaseController {
     return Get.find<GlobalController>().userId == joinedLobby.value!.creatorId;
   }
 
-  createLobby() {
+  void createLobby() {
     Get.bottomSheet(
       CreateLobbyWidget(
         lobbyNameController: lobbyNameController,

@@ -13,7 +13,7 @@ import 'package:kafehfekr/Core/Resources/app_consts.dart';
 // import 'package:refreshed/refreshed.dart';
 
 class PurchaseComponent {
-  init() async {
+  Future<void> init() async {
     if (marketType == MarketTypes.Bazaar) {
       // final connected = await FlutterPoolakey.connect(
       //   bazaarRSA,
@@ -64,7 +64,7 @@ class PurchaseComponent {
     return (false, null);
   }
 
-  dispose() async {
+  Future<void> dispose() async {
     if (marketType == MarketTypes.Bazaar) {
     } else if (marketType == MarketTypes.Myket) {
       // await MyketIAP.dispose();

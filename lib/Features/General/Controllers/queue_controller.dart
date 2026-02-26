@@ -195,7 +195,7 @@ class QueueController extends BaseController {
     isPageLoading.value = false;
   }
 
-  startPreGameFunction(dynamic data) {
+  void startPreGameFunction(dynamic data) {
     Get.closeAllDialogs();
     Get.find<SoundPlayerComponent>().startPlayQueueMusic();
     showInteraction(sound: GameSoundTypes.startGame);
@@ -240,7 +240,7 @@ class QueueController extends BaseController {
     activeIndex.value += 1;
   }
 
-  systemBannedGamesFunction(dynamic data) async {
+  Future<void> systemBannedGamesFunction(dynamic data) async {
     List<String> newData = List<String>.from(data['data']);
     for (var rawData in newData) {
       final gameValue = stringToGameType(rawData);
@@ -256,7 +256,7 @@ class QueueController extends BaseController {
     Get.find<QueueSocketManager>().sendCommand(data);
   }
 
-  sendSelection() {
+  void sendSelection() {
     if (selectedGameIndex.value == -1) {
       DialogComponent().showToast(label: AppTexts.selectGameTypeFirst.tr);
       return;
@@ -283,14 +283,14 @@ class QueueController extends BaseController {
     }
   }
 
-  openGameGuide(GameTypes gameType) {
+  void openGameGuide(GameTypes gameType) {
     Get.bottomSheet(
       GlobalGameGuideWidget(gameType: gameType),
       backgroundColor: AppColors.darkColor,
     );
   }
 
-  changeSelectedGame(int index) {
+  void changeSelectedGame(int index) {
     if (selectedGameIndex.value == index) {
       selectedGameIndex.value = -1;
     } else {
@@ -302,7 +302,7 @@ class QueueController extends BaseController {
     Get.find<TimerCompanent>().startTimer(value);
   }
 
-  stopTimer() {
+  void stopTimer() {
     Get.find<TimerCompanent>().stopTimer();
   }
 

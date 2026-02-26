@@ -100,7 +100,7 @@ class FekrBekrOfflineController extends BaseOfflineGameController {
     }
   }
 
-  changeSelectedNumber(int index) {
+  void changeSelectedNumber(int index) {
     if (index == selectedNumber.value) {
       selectedNumber.value = -1;
     } else {
@@ -108,13 +108,13 @@ class FekrBekrOfflineController extends BaseOfflineGameController {
     }
   }
 
-  resetPieces() {
+  void resetPieces() {
     for (var i = 0; i < 4; i++) {
       peaces.value[i].value = peaces.value[i].value.changeValue(newValue: 0);
     }
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 4; i++) {
       peaces.add(Rx(FekrBekrPeaceModel(id: i, currentStatuses: [], value: 0)));
     }

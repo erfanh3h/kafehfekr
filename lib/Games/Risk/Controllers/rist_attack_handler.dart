@@ -6,25 +6,25 @@ import 'package:refreshed/refreshed.dart';
 class RiskAttackHandler {
   ContinentTypes? sourceContinent, targetContinent;
   int? targetIndex;
-  startAttack() {
+  void startAttack() {
     final riskController = Get.find<RiskController>();
     riskController.gameState(RiskGameStates.SelectContinents);
   }
 
-  submitSourceContinent(ContinentTypes continent) {
+  void submitSourceContinent(ContinentTypes continent) {
     sourceContinent = continent;
   }
 
-  submitTargetUserIndex(int index) {
+  void submitTargetUserIndex(int index) {
     targetIndex = index + 1;
   }
 
-  submitTargetContinent(ContinentTypes continent) {
+  void submitTargetContinent(ContinentTypes continent) {
     targetContinent = continent;
     declareAttack();
   }
 
-  declareAttack() {
+  void declareAttack() {
     final riskController = Get.find<RiskController>();
 
     riskController.sendCommand({

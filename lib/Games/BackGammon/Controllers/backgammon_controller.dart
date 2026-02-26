@@ -202,12 +202,12 @@ class BackGammonController extends BaseGameController {
         peaces.value[index].value.selectedUser != (gamerId ?? myGameId);
   }
 
-  changePeaceCount(int peaceId, int gamerId, int value) {
+  void changePeaceCount(int peaceId, int gamerId, int value) {
     peaces.value[peaceId].value = peaces.value[peaceId].value
         .changecount(newcount: value, newSelectedUser: gamerId);
   }
 
-  reducePeaceCount(int peaceId) {
+  void reducePeaceCount(int peaceId) {
     int newValue = peaces.value[peaceId].value.count - 1;
     if (newValue == 0) {
       peaces.value[peaceId].value = peaces.value[peaceId].value
@@ -218,7 +218,7 @@ class BackGammonController extends BaseGameController {
     }
   }
 
-  addPeaceCount(int peaceId, int gamerId) {
+  void addPeaceCount(int peaceId, int gamerId) {
     int newValue = peaces.value[peaceId].value.count + 1;
     removeAllPeacesStatus(PeaceStatusTypes.lastTurnPlayed);
     peaces[peaceId].value = peaces[peaceId]
@@ -233,19 +233,19 @@ class BackGammonController extends BaseGameController {
     }
   }
 
-  changePeaceSelectedGamer(int? peaceId, int? value) {
+  void changePeaceSelectedGamer(int? peaceId, int? value) {
     if (peaceId != null) {
       peaces.value[peaceId].value = peaces.value[peaceId].value
           .changeSelectedUser(newSelectedUser: value);
     }
   }
 
-  changePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void changePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  clearCanSelectedStatus() {
+  void clearCanSelectedStatus() {
     for (var i = 0; i < peaces.length; i++) {
       if (peaces[i]
           .value
@@ -280,7 +280,7 @@ class BackGammonController extends BaseGameController {
   }
 
   // check whether all pieces are in enf phaese
-  checkGamerIsInEndPhase(int gamerId) {
+  void checkGamerIsInEndPhase(int gamerId) {
     if (gamerId == 1) {
       if (peaces[18].value.count +
               peaces[19].value.count +
@@ -310,7 +310,7 @@ class BackGammonController extends BaseGameController {
     }
   }
 
-  movePiece(int index, int dice, int gamerId) {
+  void movePiece(int index, int dice, int gamerId) {
     //come piece from out
     if (index == -1 || index == 24) {
       if (gamerId == 1) {
@@ -429,7 +429,7 @@ class BackGammonController extends BaseGameController {
     return result;
   }
 
-  setActivePossiblePieces() {
+  void setActivePossiblePieces() {
     clearCanSelectedStatus();
     if (equippedDiceIndex.value == -1) {
       return;
@@ -461,11 +461,11 @@ class BackGammonController extends BaseGameController {
     }
   }
 
-  rollDices() {
+  void rollDices() {
     sendCommand({"id": GameCommands.rollDice, "data": {}});
   }
 
-  removeAllPeacesStatus(PeaceStatusTypes status) {
+  void removeAllPeacesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       peaces.value[i].value =
           peaces.value[i].value.removeStatus(status: status);

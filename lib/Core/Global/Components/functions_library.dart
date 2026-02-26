@@ -202,7 +202,7 @@ class FunctionsLibraryClass {
     return true;
   }
 
-  static showUserData(String userId) {
+  static void showUserData(String userId) {
     final repo = GlobalRepository();
     repo.getUserData(userId: userId).then((result) {
       if (result.resultData != null) {

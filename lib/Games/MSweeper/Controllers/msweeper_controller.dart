@@ -193,17 +193,17 @@ class MSweeperController extends BaseGameController {
     }
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  addSweeperPeaceStatus(int peaceId, MineSweeperStatusTypes status) {
+  void addSweeperPeaceStatus(int peaceId, MineSweeperStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addSweeperStatus(newStatus: status);
   }
 
-  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       if (peaces[i].value.id == peaceId) {
         peaces.value[i].value =
@@ -213,7 +213,7 @@ class MSweeperController extends BaseGameController {
     }
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 64; i++) {
       peaces.add(
         Rx(

@@ -144,7 +144,7 @@ class BattleShipController extends BaseGameController {
     });
   }
 
-  checkIsShipCompleted(int number, int gamerId) {
+  void checkIsShipCompleted(int number, int gamerId) {
     if (gamerId == 1) {
       int count = 0;
       for (var piece in player2Pieces) {
@@ -190,7 +190,7 @@ class BattleShipController extends BaseGameController {
     return newPositions;
   }
 
-  checkPositionsAreEmpty(List<int> newPositions) {
+  bool checkPositionsAreEmpty(List<int> newPositions) {
     List<int> positions = [];
     for (var ship in ships) {
       positions.addAll(ship.value.positions);
@@ -203,7 +203,7 @@ class BattleShipController extends BaseGameController {
     return true;
   }
 
-  onPositionAccept(int index) {
+  void onPositionAccept(int index) {
     List<int> newPositions =
         getNewPositions(index, ships[selectedShip.value].value);
     if (newPositions.isNotEmpty && checkPositionsAreEmpty(newPositions)) {
@@ -216,7 +216,7 @@ class BattleShipController extends BaseGameController {
     }
   }
 
-  onRemoveShip(ShipModel ship) {
+  void onRemoveShip(ShipModel ship) {
     ships[ship.id].value = ships[ship.id].value.changeIsLocationSet(false);
     ships[ship.id].value = ships[ship.id].value.changePositions([]);
   }
@@ -239,11 +239,11 @@ class BattleShipController extends BaseGameController {
     ships[ship.id].value = ships[ship.id].value.rotate();
   }
 
-  sendResult() {
+  void sendResult() {
     // sendCommand({"id": GameCommands.solve});
   }
 
-  submitBoard() {
+  void submitBoard() {
     Map<String, List<int>> data = {};
     for (var ship in ships) {
       if (!ship.value.isLocationSet) {
@@ -287,7 +287,7 @@ class BattleShipController extends BaseGameController {
     }
   }
 
-  removeAllPieceStatus(final int pId, PeaceStatusTypes status) {
+  void removeAllPieceStatus(final int pId, PeaceStatusTypes status) {
     if (pId == 1) {
       for (var i = 0; i < player1Pieces.length; i++) {
         player1Pieces.value[i].value =
@@ -301,7 +301,7 @@ class BattleShipController extends BaseGameController {
     }
   }
 
-  initPieces() {
+  void initPieces() {
     // ships.add(Rx(ShipModel(id: 0, length: 5, positions: [0, 8, 16, 24, 32])));
     // ships.add(Rx(ShipModel(id: 1, length: 4, positions: [1, 9, 17, 25])));
     // ships.add(Rx(ShipModel(id: 2, length: 3, positions: [2, 10, 18])));

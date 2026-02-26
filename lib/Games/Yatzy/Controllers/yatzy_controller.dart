@@ -205,7 +205,7 @@ class YatzyController extends BaseGameController {
   //   }
   // }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     if (myGameId == 1) {
       player1Pieces.value[peaceId].value =
           player1Pieces.value[peaceId].value.addStatus(status: status);
@@ -215,7 +215,7 @@ class YatzyController extends BaseGameController {
     }
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     if (myGameId == 1) {
       player1Pieces.value[peaceId].value =
           player1Pieces.value[peaceId].value.removeStatus(status: status);
@@ -225,7 +225,7 @@ class YatzyController extends BaseGameController {
     }
   }
 
-  removeAllPieceStatus(final int pId, PeaceStatusTypes status) {
+  void removeAllPieceStatus(final int pId, PeaceStatusTypes status) {
     if (pId == 1) {
       for (var i = 0; i < player1Pieces.length; i++) {
         player1Pieces.value[i].value =
@@ -243,7 +243,7 @@ class YatzyController extends BaseGameController {
     DialogComponent().showToast(label: text);
   }
 
-  setFirstEmptyIndex() {
+  void setFirstEmptyIndex() {
     if (myGameId == 1) {
       for (var i = 0; i < player1Pieces.value.length; i++) {
         if (!player1Pieces.value[i].value.isSelected) {
@@ -263,7 +263,7 @@ class YatzyController extends BaseGameController {
     }
   }
 
-  changePlayerCalculatedScore(score, index) {
+  void changePlayerCalculatedScore(int score, int index) {
     if (myGameId == 1) {
       player1Pieces.value[index].value = player1Pieces.value[index].value
           .changeCalculatedScore(newScore: score);
@@ -273,7 +273,7 @@ class YatzyController extends BaseGameController {
     }
   }
 
-  resetCalculatedValues() {
+  void resetCalculatedValues() {
     for (var i = 0; i < player1Pieces.length; i++) {
       player1Pieces.value[i].value =
           player1Pieces.value[i].value.changeCalculatedScore(newScore: 0);
@@ -284,7 +284,7 @@ class YatzyController extends BaseGameController {
     }
   }
 
-  resetRound() {
+  void resetRound() {
     removePeaceStatus(equippedIndex, PeaceStatusTypes.equiped);
     removeAllPieceStatus(1, PeaceStatusTypes.lastTurnPlayed);
     removeAllPieceStatus(2, PeaceStatusTypes.lastTurnPlayed);
@@ -329,7 +329,7 @@ class YatzyController extends BaseGameController {
     return calculatedScore;
   }
 
-  calculate3TimesRepeat() {
+  void calculate3TimesRepeat() {
     int calculatedScore = 0;
     for (var i = 1; i <= 6; i++) {
       if (calculateRepeatness(i, 3)) {
@@ -340,7 +340,7 @@ class YatzyController extends BaseGameController {
     changePlayerCalculatedScore(calculatedScore, 6);
   }
 
-  calculate4TimesRepeat() {
+  void calculate4TimesRepeat() {
     int calculatedScore = 0;
     for (var i = 1; i <= 6; i++) {
       if (calculateRepeatness(i, 4)) {
@@ -391,7 +391,7 @@ class YatzyController extends BaseGameController {
     return false;
   }
 
-  calculate5TimesRepeat() {
+  void calculate5TimesRepeat() {
     for (var i = 1; i <= 6; i++) {
       if (calculateRepeatness(i, 5)) {
         showInteraction(sound: GameSoundTypes.correct);
@@ -402,7 +402,7 @@ class YatzyController extends BaseGameController {
     changePlayerCalculatedScore(0, 11);
   }
 
-  calculateScores() {
+  void calculateScores() {
     changePlayerCalculatedScore(calculateSimpleDices(1), 0);
     changePlayerCalculatedScore(calculateSimpleDices(2), 1);
     changePlayerCalculatedScore(calculateSimpleDices(3), 2);
@@ -425,7 +425,7 @@ class YatzyController extends BaseGameController {
     calculate5TimesRepeat();
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 12; i++) {
       player1Pieces
           .add(Rx(YatzyPeaceModel(id: i, currentStatuses: [], gamerId: 1)));

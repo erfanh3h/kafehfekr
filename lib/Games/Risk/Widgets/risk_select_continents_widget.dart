@@ -32,7 +32,7 @@ class _RiskSelectContinentsWidgetState
   ContinentTypes? targetContinent;
   int? targetIndex;
 
-  selectSourceContinent(ContinentTypes continent) {
+  void selectSourceContinent(ContinentTypes continent) {
     if (sourceContinent != null && sourceContinent!.name == continent.name) {
       setState(() {
         sourceContinent = null;
@@ -44,7 +44,7 @@ class _RiskSelectContinentsWidgetState
     }
   }
 
-  selectTargetContinent(ContinentTypes continent) {
+  void selectTargetContinent(ContinentTypes continent) {
     if (targetContinent != null && targetContinent!.name == continent.name) {
       setState(() {
         targetContinent = null;
@@ -56,7 +56,7 @@ class _RiskSelectContinentsWidgetState
     }
   }
 
-  selectTargetIndex(int index) {
+  void selectTargetIndex(int index) {
     if (targetIndex != null && targetIndex == index) {
       setState(() {
         targetIndex = null;
@@ -68,7 +68,7 @@ class _RiskSelectContinentsWidgetState
     }
   }
 
-  back() {
+  void back() {
     if (state == 0) {
       return;
     }
@@ -77,7 +77,7 @@ class _RiskSelectContinentsWidgetState
     });
   }
 
-  submit() {
+  void submit() {
     if (state == 0) {
       controller.attackHandler.submitSourceContinent(sourceContinent!);
       setState(() {

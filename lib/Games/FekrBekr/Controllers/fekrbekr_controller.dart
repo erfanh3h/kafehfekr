@@ -158,7 +158,7 @@ class FekrBekrController extends BaseGameController {
     return (false, null);
   }
 
-  changeSelectedNumber(int index) {
+  void changeSelectedNumber(int index) {
     if (index == selectedNumber.value) {
       selectedNumber.value = -1;
     } else {
@@ -166,7 +166,7 @@ class FekrBekrController extends BaseGameController {
     }
   }
 
-  sendResult(String command) {
+  void sendResult(String command) {
     for (var peace in peaces) {
       if (peace.value.value == 0) {
         showInteraction(sound: GameSoundTypes.tapWrong);
@@ -195,13 +195,13 @@ class FekrBekrController extends BaseGameController {
     isWaiting.value = true;
   }
 
-  resetPieces() {
+  void resetPieces() {
     for (var i = 0; i < 4; i++) {
       peaces.value[i].value = peaces.value[i].value.changeValue(newValue: 0);
     }
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 4; i++) {
       peaces.add(Rx(FekrBekrPeaceModel(id: i, currentStatuses: [], value: 0)));
     }

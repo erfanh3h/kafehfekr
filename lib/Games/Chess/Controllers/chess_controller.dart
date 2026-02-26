@@ -231,7 +231,7 @@ class ChessController extends BaseGameController {
     return result;
   }
 
-  setPiecesMovements() {
+  void setPiecesMovements() {
     List<int> myPiecesindexes = getMyPiecesIndexes();
     int enemyId = 2;
     if (myGameId == 2) {
@@ -257,29 +257,29 @@ class ChessController extends BaseGameController {
     }
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.removeStatus(status: status);
   }
 
-  removeAllPeacesStatus(PeaceStatusTypes status) {
+  void removeAllPeacesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       peaces.value[i].value =
           peaces.value[i].value.removeStatus(status: status);
     }
   }
 
-  addSpotPiece(int peaceId, ChessPieceModel piece) {
+  void addSpotPiece(int peaceId, ChessPieceModel piece) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.changePiece(newPiece: piece);
   }
 
-  initPeaces() {
+  void initPeaces() {
     for (var i = 0; i < 64; i++) {
       peaces.add(
         Rx(ChessSpotModel(
@@ -546,20 +546,6 @@ class ChessController extends BaseGameController {
       }
     }
     return result;
-  }
-
-  bool checkIsLastPeace(cIndex, gamerId) {
-    if (gamerId == 1) {
-      if (cIndex == 7) {
-        return true;
-      }
-      return false;
-    } else {
-      if (cIndex == 0) {
-        return true;
-      }
-      return false;
-    }
   }
 
   bool movePiece(

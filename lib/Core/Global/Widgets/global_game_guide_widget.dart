@@ -32,7 +32,7 @@ class _GlobalGameGuideWidgetState extends State<GlobalGameGuideWidget> {
   String? gameImage;
   String? gameTime;
   GameDifficulties? gameDifficulty;
-  changeIndex(int newIndex) {
+  void changeIndex(int newIndex) {
     sc.jumpTo(0);
     setState(() {
       index = newIndex;

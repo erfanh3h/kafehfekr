@@ -90,12 +90,12 @@ class TenController extends BaseGameController {
     return null;
   }
 
-  onOperatorRemove(int index) {
+  void onOperatorRemove(int index) {
     operatorValues[index].value = "";
     calculateResult();
   }
 
-  onOperatorAccept(String value, int index) {
+  void onOperatorAccept(String value, int index) {
     if (index == 4 && value != ')') {
       return;
     }
@@ -165,12 +165,12 @@ class TenController extends BaseGameController {
     return result;
   }
 
-  onNumberRemove(int index) {
+  void onNumberRemove(int index) {
     numberValues[index].value = -1;
     calculateResult();
   }
 
-  onNumberAccept(int value, int index) {
+  void onNumberAccept(int value, int index) {
     if (!checkNumbersHaveValue(value)) {
       numberValues[index].value = value;
     }
@@ -220,7 +220,7 @@ class TenController extends BaseGameController {
     return expression;
   }
 
-  calculateResult() {
+  void calculateResult() {
     final String expression = calculateExpression();
     try {
       result.value = expression.interpret().toDouble();
@@ -247,7 +247,7 @@ class TenController extends BaseGameController {
     }
   }
 
-  sendResult() {
+  void sendResult() {
     if (!canSelectPeace.value) {
       showInteraction(text: AppTexts.notYourTurn.tr);
       return;
@@ -268,7 +268,7 @@ class TenController extends BaseGameController {
     result.value = 0;
   }
 
-  setNumbers() {
+  void setNumbers() {
     numbers.clear();
     numbers.add(RxInt(currentNumbers[0]));
     numbers.add(RxInt(currentNumbers[1]));
@@ -276,7 +276,7 @@ class TenController extends BaseGameController {
     numbers.add(RxInt(currentNumbers[3]));
   }
 
-  addOperators() {
+  void addOperators() {
     operators.add(RxString('('));
     operators.add(RxString('+'));
     operators.add(RxString('-'));
@@ -290,7 +290,7 @@ class TenController extends BaseGameController {
     operatorValues.add(RxString(''));
   }
 
-  addNumbers() {
+  void addNumbers() {
     numberValues.add(RxInt(-1));
     numberValues.add(RxInt(-1));
     numberValues.add(RxInt(-1));

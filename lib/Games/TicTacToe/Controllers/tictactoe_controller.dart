@@ -109,24 +109,24 @@ class TicTacToeController extends BaseGameController {
     }
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.removeStatus(status: status);
   }
 
-  removeAllPeaceStatus(PeaceStatusTypes status) {
+  void removeAllPeaceStatus(PeaceStatusTypes status) {
     for (var i = 0; i < 9; i++) {
       peaces.value[i].value =
           peaces.value[i].value.removeStatus(status: status);
     }
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 9; i++) {
       peaces.add(Rx(TicTacToePeaceModel(id: i, currentStatuses: [])));
     }

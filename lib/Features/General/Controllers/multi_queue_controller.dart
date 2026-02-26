@@ -98,7 +98,7 @@ class MultiQueueController extends BaseController {
     }
   }
 
-  openGameGuide(GameTypes gameType) {
+  void openGameGuide(GameTypes gameType) {
     Get.bottomSheet(
       GlobalGameGuideWidget(gameType: gameType),
       backgroundColor: AppColors.darkColor,

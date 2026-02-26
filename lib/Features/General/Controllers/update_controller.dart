@@ -5,7 +5,7 @@ import 'package:kafehfekr/Core/Routes/server_routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UpdateController extends BaseController {
-  onTap() async {
+  Future<void> onTap() async {
     String link;
     if (marketType == MarketTypes.Bazaar) {
       link = ServerRoutes.bazaarLink;

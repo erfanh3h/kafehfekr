@@ -164,30 +164,31 @@ class CheckersController extends BaseGameController {
     }
   }
 
-  changePeaceSelectedUser(int peaceId, int? selectedUser, {bool? isSuperPawn}) {
+  void changePeaceSelectedUser(int peaceId, int? selectedUser,
+      {bool? isSuperPawn}) {
     peaces.value[peaceId].value = peaces.value[peaceId].value
         .changeSelectedUser(
             newSelectedUser: selectedUser, newIsSuperPawn: isSuperPawn);
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.removeStatus(status: status);
   }
 
-  removeAllPeacesStatus(PeaceStatusTypes status) {
+  void removeAllPeacesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       peaces.value[i].value =
           peaces.value[i].value.removeStatus(status: status);
     }
   }
 
-  initPeaces() {
+  void initPeaces() {
     for (var i = 0; i < 64; i++) {
       peaces.add(
           Rx(CheckersPeaceModel(id: i, currentStatuses: [], selectedUser: 0)));
@@ -391,7 +392,7 @@ class CheckersController extends BaseGameController {
     return result;
   }
 
-  bool checkIsLastPeace(cIndex, gamerId) {
+  bool checkIsLastPeace(int cIndex, int gamerId) {
     if (gamerId == 1) {
       if (cIndex == 7) {
         return true;

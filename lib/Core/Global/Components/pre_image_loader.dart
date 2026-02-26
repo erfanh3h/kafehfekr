@@ -4,7 +4,7 @@ import 'package:refreshed/get_navigation/get_navigation.dart';
 import 'package:refreshed/state_manager.dart';
 
 class PreImageLoader {
-  static loadImages() async {
+  static Future<void> loadImages() async {
     await precacheImage(
         const AssetImage(AppImages.background1), Get.overlayContext!);
     await precacheImage(

@@ -25,7 +25,7 @@ class AuthController extends BaseController {
 
   bool haveBackButton = false;
 
-  enterUser() async {
+  Future<void> enterUser() async {
     if (!pricavyPolicyAccepted.value) {
       DialogComponent().showToast(label: AppTexts.acceptPrivacyPolicyFirst.tr);
       return;
@@ -45,7 +45,7 @@ class AuthController extends BaseController {
     isSendingData.value = false;
   }
 
-  sendCode() async {
+  Future<void> sendCode() async {
     // Get.find<GlobalController>().setUserData(idController.text);
     // Get.find<GlobalController>().checkLoginStatus();
     isSendingData.value = true;
@@ -73,7 +73,7 @@ class AuthController extends BaseController {
     codeController.text = "";
   }
 
-  sendUsername() async {
+  Future<void> sendUsername() async {
     if (usernameController.text.length < 3) {
       DialogComponent().showToast(label: AppTexts.enterUsernameCorrectly.tr);
       return;
@@ -104,11 +104,11 @@ class AuthController extends BaseController {
     isSendingData.value = false;
   }
 
-  changePrivacyPolicyAccepted(bool? value) {
+  void changePrivacyPolicyAccepted(bool? value) {
     pricavyPolicyAccepted.value = value ?? false;
   }
 
-  enterAsQuest() {
+  void enterAsQuest() {
     Get.offAllNamed(AppRoutes.main);
   }
 

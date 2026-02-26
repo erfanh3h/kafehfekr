@@ -141,29 +141,29 @@ class OthelloController extends BaseGameController {
     }
   }
 
-  changePeaceSelectedUser(int peaceId, int? selectedUser) {
+  void changePeaceSelectedUser(int peaceId, int? selectedUser) {
     peaces.value[peaceId].value = peaces.value[peaceId].value
         .changeSelectedUser(newSelectedUser: selectedUser);
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.removeStatus(status: status);
   }
 
-  removeAllPeacesStatus(PeaceStatusTypes status) {
+  void removeAllPeacesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       peaces.value[i].value =
           peaces.value[i].value.removeStatus(status: status);
     }
   }
 
-  initPeaces() {
+  void initPeaces() {
     for (var i = 0; i < 64; i++) {
       peaces.add(
           Rx(OthelloPeaceModel(id: i, currentStatuses: [], selectedUser: 0)));
@@ -191,7 +191,7 @@ class OthelloController extends BaseGameController {
     return peaces[index].value.selectedUser == gamerId;
   }
 
-  bool isValidCoordinate(rIndex, cIndex) {
+  bool isValidCoordinate(int rIndex, int cIndex) {
     if (rIndex >= 0 && rIndex <= 7 && cIndex >= 0 && cIndex <= 7) {
       return true;
     }

@@ -99,7 +99,7 @@ class TicTacToeOfflineController extends BaseOfflineGameController {
     isGameFinished.value = false;
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 9; i++) {
       peaces.add(Rx(TicTacToePeaceModel(id: i, currentStatuses: [])));
     }

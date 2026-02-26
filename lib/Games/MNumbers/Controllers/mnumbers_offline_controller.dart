@@ -95,17 +95,17 @@ class MNumbersOfflineController extends BaseOfflineGameController {
     initPieces();
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.removeStatus(status: status);
   }
 
-  initPieces() {
+  void initPieces() {
     final numbersCount = (boardSize.value * boardSize.value / 2).toInt();
     List<int> numbers = [];
     for (var i = 1; i <= numbersCount; i++) {

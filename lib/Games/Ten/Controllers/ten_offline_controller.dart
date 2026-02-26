@@ -31,7 +31,7 @@ class TenOfflineController extends BaseOfflineGameController {
     return result;
   }
 
-  onOperatorRemove(int index) {
+  void onOperatorRemove(int index) {
     if (isGameFinished.value) {
       return;
     }
@@ -39,7 +39,7 @@ class TenOfflineController extends BaseOfflineGameController {
     calculateResult();
   }
 
-  onOperatorAccept(String value, int index) {
+  void onOperatorAccept(String value, int index) {
     if (isGameFinished.value) {
       return;
     }
@@ -112,7 +112,7 @@ class TenOfflineController extends BaseOfflineGameController {
     return result;
   }
 
-  onNumberRemove(int index) {
+  void onNumberRemove(int index) {
     if (isGameFinished.value) {
       return;
     }
@@ -120,7 +120,7 @@ class TenOfflineController extends BaseOfflineGameController {
     calculateResult();
   }
 
-  onNumberAccept(int value, int index) {
+  void onNumberAccept(int value, int index) {
     if (!checkNumbersHaveValue(value)) {
       numberValues[index].value = value;
     }
@@ -170,7 +170,7 @@ class TenOfflineController extends BaseOfflineGameController {
     return expression;
   }
 
-  calculateResult() {
+  void calculateResult() {
     final String expression = calculateExpression();
     try {
       result.value = expression.interpret().toDouble();
@@ -188,7 +188,7 @@ class TenOfflineController extends BaseOfflineGameController {
     }
   }
 
-  sendResult() {
+  void sendResult() {
     if (isGameFinished.value) {
       return;
     }
@@ -212,7 +212,7 @@ class TenOfflineController extends BaseOfflineGameController {
     result.value = 0;
   }
 
-  addOperators() {
+  void addOperators() {
     operators.add(RxString('('));
     operators.add(RxString('+'));
     operators.add(RxString('-'));
@@ -226,7 +226,7 @@ class TenOfflineController extends BaseOfflineGameController {
     operatorValues.add(RxString(''));
   }
 
-  addNumbers() {
+  void addNumbers() {
     numbers.add(RxInt(-1));
     numbers.add(RxInt(-1));
     numbers.add(RxInt(-1));
@@ -237,7 +237,7 @@ class TenOfflineController extends BaseOfflineGameController {
     numberValues.add(RxInt(-1));
   }
 
-  initNumbers() {
+  void initNumbers() {
     currentNumbers = tenNumberSets[Random().nextInt(tenNumberSets.length)];
     numbers.add(RxInt(currentNumbers[0]));
     numbers.add(RxInt(currentNumbers[1]));

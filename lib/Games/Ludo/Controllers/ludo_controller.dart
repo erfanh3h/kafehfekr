@@ -368,7 +368,7 @@ class LudoController extends BaseGameController {
     return true;
   }
 
-  List<int> getMyPieceIndexes(gamerId) {
+  List<int> getMyPieceIndexes(int gamerId) {
     List<int> result = [];
     for (var i = 0; i < (peaces.length); i++) {
       if (peaces[i].value.selectedUser == gamerId) {
@@ -386,7 +386,7 @@ class LudoController extends BaseGameController {
     return false;
   }
 
-  setAvailableMoves() {
+  void setAvailableMoves() {
     final List<int> pieces = getMyPieceIndexes(currentTurn.value);
     for (var pieceIndex in pieces) {
       bool mustAdd = false;
@@ -411,7 +411,7 @@ class LudoController extends BaseGameController {
     }
   }
 
-  checkHitEnemy(int targetIndex, int gamerId) {
+  void checkHitEnemy(int targetIndex, int gamerId) {
     //hit enemy
     if (peaces[targetIndex].value.isEnemySpot(gamerId)) {
       final enemyIndex = peaces[targetIndex].value.selectedUser!;
@@ -421,7 +421,7 @@ class LudoController extends BaseGameController {
     }
   }
 
-  movePiece(int index, int? targetIndex, int gamerId, String type) {
+  void movePiece(int index, int? targetIndex, int gamerId, String type) {
     if (type == "out") {
       playersOutPieces[gamerId - 1] -= 1;
       startPieces[gamerId - 1].value =
@@ -440,7 +440,7 @@ class LudoController extends BaseGameController {
     }
   }
 
-  rollDice() {
+  void rollDice() {
     sendCommand({
       "id": GameCommands.rollDice,
       "data": {'dice': 0}
@@ -468,22 +468,22 @@ class LudoController extends BaseGameController {
     return result;
   }
 
-  reducePiece(int index) {
+  void reducePiece(int index) {
     peaces[index].value = peaces[index].value.reducePiece();
   }
 
-  reduceStartPiece(int index) {
+  void reduceStartPiece(int index) {
     startPieces[index].value = startPieces[index].value.reducePiece();
   }
 
-  changePieceSelecteUser(int index, int gamerId, {int? count}) {
+  void changePieceSelecteUser(int index, int gamerId, {int? count}) {
     final newCount = count ?? (peaces[index].value.count + 1);
     peaces[index].value = peaces[index]
         .value
         .changeSelectedUser(newSelectedUser: gamerId, newCount: newCount);
   }
 
-  changeStartPieceSelectedUser(int index, int gamerId, {int count = 1}) {
+  void changeStartPieceSelectedUser(int index, int gamerId, {int count = 1}) {
     startPieces[index].value = startPieces[index]
         .value
         .changeSelectedUser(newSelectedUser: gamerId, newCount: count);
@@ -495,27 +495,27 @@ class LudoController extends BaseGameController {
     }
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  addStartPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addStartPeaceStatus(int peaceId, PeaceStatusTypes status) {
     startPieces.value[peaceId].value =
         startPieces.value[peaceId].value.addStatus(status: status);
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.removeStatus(status: status);
   }
 
-  removeStartPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void removeStartPeaceStatus(int peaceId, PeaceStatusTypes status) {
     startPieces.value[peaceId].value =
         startPieces.value[peaceId].value.removeStatus(status: status);
   }
 
-  removeAllPeacesStatus(PeaceStatusTypes status) {
+  void removeAllPeacesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       peaces.value[i].value =
           peaces.value[i].value.removeStatus(status: status);
@@ -526,7 +526,7 @@ class LudoController extends BaseGameController {
     }
   }
 
-  initPieces() {
+  void initPieces() {
     for (var i = 0; i < 52; i++) {
       peaces.add(Rx(LudoPieceModel(id: i, currentStatuses: [])));
     }
@@ -536,7 +536,7 @@ class LudoController extends BaseGameController {
     }
   }
 
-  surrenderByUserFunction() {
+  void surrenderByUserFunction() {
     DialogComponent().showIconicSelectionDialog(
       AppTexts.surrender.tr,
       AppTexts.wanaSurrenderGame.tr,
@@ -554,7 +554,7 @@ class LudoController extends BaseGameController {
     );
   }
 
-  exitGame() {
+  void exitGame() {
     sendCommand({"id": GameCommands.exitGame, "data": {}});
     Get.closeAllDialogs();
     Get.back();

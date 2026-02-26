@@ -12,7 +12,7 @@ class RankingController extends BaseController {
   RxList<RankingModel> byWinData = RxList([]);
   RxList<RankingModel> byScoreData = RxList([]);
 
-  changeTab(int value) {
+  void changeTab(int value) {
     selectedTab.value = value;
     if (value == 1) {
       getByWinData();
@@ -21,7 +21,7 @@ class RankingController extends BaseController {
     }
   }
 
-  getByScoreData() async {
+  Future<void> getByScoreData() async {
     isGettingData.value = true;
     // await Future.delayed(const Duration(seconds: 10));
     final result = await repo.getRankingByScore();
@@ -31,7 +31,7 @@ class RankingController extends BaseController {
     isGettingData.value = false;
   }
 
-  getByWinData() async {
+  Future<void> getByWinData() async {
     isGettingData.value = true;
     final result = await repo.getRankingByWin();
     if (result.resultData != null) {

@@ -151,29 +151,29 @@ class PentagoController extends BaseGameController {
     }
   }
 
-  changePeaceSelectedUser(int peaceId, int selectedUser) {
+  void changePeaceSelectedUser(int peaceId, int selectedUser) {
     peaces.value[peaceId].value = peaces.value[peaceId].value
         .changeSelectedUser(newSelectedUser: selectedUser);
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  removePeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.removeStatus(status: status);
   }
 
-  removeAllPeacesStatus(PeaceStatusTypes status) {
+  void removeAllPeacesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       peaces.value[i].value =
           peaces.value[i].value.removeStatus(status: status);
     }
   }
 
-  initPeaces() {
+  void initPeaces() {
     for (var i = 0; i < 36; i++) {
       peaces.add(
           Rx(PentagoPeaceModel(id: i, currentStatuses: [], selectedUser: 0)));

@@ -24,7 +24,7 @@ class SpyOfflineController extends BaseOfflineGameController {
 
   RxBool isTimerCounting = RxBool(false);
 
-  initGame() {
+  void initGame() {
     final random = Random();
     final textIndex = random.nextInt(persianWords.length);
     gameText.value = persianWords[textIndex];
@@ -41,14 +41,14 @@ class SpyOfflineController extends BaseOfflineGameController {
     }
   }
 
-  startGame() {
+  void startGame() {
     Get.find<TimerCompanent>()
         .startTimer(gameMin * 60, endFunction: showWinSpies);
     isGamePhase.value = true;
     isTimerCounting.value = true;
   }
 
-  triggerTimerStatus() {
+  void triggerTimerStatus() {
     if (isTimerCounting.value) {
       Get.find<TimerCompanent>().pauseTimer();
       isTimerCounting.value = false;
@@ -58,7 +58,7 @@ class SpyOfflineController extends BaseOfflineGameController {
     }
   }
 
-  onNextShower() {
+  void onNextShower() {
     if (showerCounter.value == playersCount - 1) {
       startGame();
       return;
@@ -67,11 +67,11 @@ class SpyOfflineController extends BaseOfflineGameController {
     showerCounter += 1;
   }
 
-  onChangeShowRole() {
+  void onChangeShowRole() {
     showRole.value = !showRole.value;
   }
 
-  showWinSpies() {
+  void showWinSpies() {
     DialogComponent()
         .showDialog(AppTexts.gameFinished.tr, AppTexts.spiesWin.tr);
     resetGame();

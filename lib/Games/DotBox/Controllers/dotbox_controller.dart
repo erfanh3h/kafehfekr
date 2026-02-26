@@ -160,7 +160,7 @@ class DotBoxController extends BaseGameController {
     }
   }
 
-  changeLinePeaceSelectedUser(int? peaceId, int number,
+  void changeLinePeaceSelectedUser(int? peaceId, int number,
       {bool fromRec = false}) {
     if (peaceId != null) {
       linePeaces.value[peaceId].value = linePeaces.value[peaceId].value
@@ -173,49 +173,49 @@ class DotBoxController extends BaseGameController {
     }
   }
 
-  changeBoxPeaceSelectedUser(int? peaceId, int number) {
+  void changeBoxPeaceSelectedUser(int? peaceId, int number) {
     if (peaceId != null) {
       boxPeaces.value[peaceId].value = boxPeaces.value[peaceId].value
           .changeSelectedUser(newSelectedUser: number);
     }
   }
 
-  addLinePeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void addLinePeaceStatus(int? peaceId, PeaceStatusTypes status) {
     if (peaceId != null) {
       linePeaces.value[peaceId].value =
           linePeaces.value[peaceId].value.addStatus(status: status);
     }
   }
 
-  removeLinePeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void removeLinePeaceStatus(int? peaceId, PeaceStatusTypes status) {
     if (peaceId != null) {
       linePeaces.value[peaceId].value =
           linePeaces.value[peaceId].value.removeStatus(status: status);
     }
   }
 
-  removeLinePeacesStatus(PeaceStatusTypes status) {
+  void removeLinePeacesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < linePeaces.length; i++) {
       linePeaces.value[i].value =
           linePeaces.value[i].value.removeStatus(status: status);
     }
   }
 
-  addBoxPeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void addBoxPeaceStatus(int? peaceId, PeaceStatusTypes status) {
     if (peaceId != null) {
       boxPeaces.value[peaceId].value =
           boxPeaces.value[peaceId].value.addStatus(status: status);
     }
   }
 
-  removeBoxPeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void removeBoxPeaceStatus(int? peaceId, PeaceStatusTypes status) {
     if (peaceId != null) {
       boxPeaces.value[peaceId].value =
           boxPeaces.value[peaceId].value.removeStatus(status: status);
     }
   }
 
-  removeAllPeacesStatus(PeaceStatusTypes status) {
+  void removeAllPeacesStatus(PeaceStatusTypes status) {
     for (var i = 0; i < linePeaces.length; i++) {
       linePeaces.value[i].value =
           linePeaces.value[i].value.removeStatus(status: status);
@@ -226,7 +226,7 @@ class DotBoxController extends BaseGameController {
     }
   }
 
-  initBoxes() {
+  void initBoxes() {
     for (var i = 0; i < 60; i++) {
       linePeaces.add(Rx(DotBoxPeaceModel(
         id: i,

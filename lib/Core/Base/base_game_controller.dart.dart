@@ -283,7 +283,7 @@ class BaseGameController extends BaseController {
     Get.find<TimerCompanent>().startTimer(value);
   }
 
-  changePlayerReaction(int gamerId, int reactionId, {int? removeTimer}) {
+  void changePlayerReaction(int gamerId, int reactionId, {int? removeTimer}) {
     for (var i = 0; i < players.length; i++) {
       if (players[i].value.gamerId == gamerId) {
         if ((reactionId <= 100 && showStickers.value) ||
@@ -383,7 +383,7 @@ class BaseGameController extends BaseController {
     return "";
   }
 
-  stopTimer() {
+  void stopTimer() {
     Get.find<TimerCompanent>().stopTimer();
   }
 

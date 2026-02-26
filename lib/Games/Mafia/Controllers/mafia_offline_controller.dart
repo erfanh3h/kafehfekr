@@ -22,7 +22,7 @@ class MafiaOfflineController extends BaseOfflineGameController {
 
   RxList<MafiaUserModel> users = RxList([]);
 
-  onAddNewRole(String role) {
+  void onAddNewRole(String role) {
     if (roles.length == playersCount) {
       showInteraction(sound: GameSoundTypes.tapWrong);
       return;
@@ -30,11 +30,11 @@ class MafiaOfflineController extends BaseOfflineGameController {
     roles.add(role);
   }
 
-  onRemoveRole(String role) {
+  void onRemoveRole(String role) {
     roles.remove(role);
   }
 
-  changeSelectorIndex(int index) {
+  void changeSelectorIndex(int index) {
     if (index == 0) {
       activeRoles.value = citizenRoles;
     } else if (index == 1) {
@@ -44,7 +44,7 @@ class MafiaOfflineController extends BaseOfflineGameController {
     }
   }
 
-  startGame() {
+  void startGame() {
     if (roles.length != playersCount) {
       showInteraction(text: AppTexts.fillAllRoles.tr);
       return;
@@ -83,7 +83,7 @@ class MafiaOfflineController extends BaseOfflineGameController {
         (data) => data['name'] == users[index].role.value))['description']!;
   }
 
-  onNextShower() {
+  void onNextShower() {
     if (showerCounter.value == playersCount - 1) {
       Get.back();
       return;
@@ -92,7 +92,7 @@ class MafiaOfflineController extends BaseOfflineGameController {
     showerCounter += 1;
   }
 
-  onChangeShowRole() {
+  void onChangeShowRole() {
     showRole.value = !showRole.value;
   }
 

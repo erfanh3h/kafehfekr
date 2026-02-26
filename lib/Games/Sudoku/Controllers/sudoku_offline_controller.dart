@@ -82,7 +82,7 @@ class SudokuOfflineController extends BaseOfflineGameController {
     getCountOfNumbers();
   }
 
-  changeSelectedNumber(int number) {
+  void changeSelectedNumber(int number) {
     if (number == selectedNumber.value) {
       selectedNumber.value = 0;
     } else {
@@ -96,17 +96,17 @@ class SudokuOfflineController extends BaseOfflineGameController {
     }
   }
 
-  addPeaceStatus(int peaceId, PeaceStatusTypes status) {
+  void addPeaceStatus(int peaceId, PeaceStatusTypes status) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.addStatus(status: status);
   }
 
-  changePeaceValue(int peaceId, int number) {
+  void changePeaceValue(int peaceId, int number) {
     peaces.value[peaceId].value =
         peaces.value[peaceId].value.changeValue(newValue: number);
   }
 
-  removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
+  void removePeaceStatus(int? peaceId, PeaceStatusTypes status) {
     for (var i = 0; i < peaces.length; i++) {
       if (peaces[i].value.id == peaceId) {
         peaces.value[i].value =
@@ -116,7 +116,7 @@ class SudokuOfflineController extends BaseOfflineGameController {
     }
   }
 
-  solveFunction() {
+  void solveFunction() {
     if (isGameFinished.value) {
       showInteraction(text: AppTexts.gameFinished.tr);
       return;
@@ -149,7 +149,7 @@ class SudokuOfflineController extends BaseOfflineGameController {
     update();
   }
 
-  initPieces() {
+  void initPieces() {
     peaces.clear();
     final board = generateFullBoard();
     final maskedBoard = maskBoard(board);
