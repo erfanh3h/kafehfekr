@@ -20,26 +20,29 @@ class PuzzleOfflineButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        onTap(index);
-      },
-      child: data.id != 0
-          ? FadeIn(
-              duration: const Duration(milliseconds: 200),
-              child: GlobalFrameWrapper(
-                frame: AppImages.button4,
-                padding: AppSpacings.s2All,
-                child: Center(
-                  child: Text(
-                    data.id.toString(),
-                    style: const TextStyle(
-                        color: AppColors.lightColor, fontSize: 35),
+    return LayoutBuilder(builder: (context, cons) {
+      return GestureDetector(
+        onTap: () {
+          onTap(index);
+        },
+        child: data.id != 0
+            ? FadeIn(
+                duration: const Duration(milliseconds: 200),
+                child: GlobalFrameWrapper(
+                  frame: AppImages.button4,
+                  padding: AppSpacings.s2All,
+                  child: Center(
+                    child: Text(
+                      data.id.toString(),
+                      style: TextStyle(
+                          color: AppColors.lightColor,
+                          fontSize: cons.maxWidth / 2),
+                    ),
                   ),
                 ),
-              ),
-            )
-          : Container(),
-    );
+              )
+            : Container(),
+      );
+    });
   }
 }

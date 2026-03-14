@@ -41,6 +41,7 @@ class AppColors {
   static const lightColor2 = Color.fromARGB(255, 207, 178, 178);
   static const lightColor3 = Color.fromARGB(255, 163, 137, 137);
   static const darkColor = Color.fromARGB(255, 48, 5, 5);
+  static const darkColor2 = Color.fromARGB(255, 148, 43, 11);
 
   static const imageRedColor = Color.fromARGB(255, 138, 49, 49);
   static const imageBlueColor = Color.fromARGB(255, 36, 48, 156);

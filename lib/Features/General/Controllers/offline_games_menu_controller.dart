@@ -67,6 +67,7 @@ class OfflineGamesMenuController extends BaseController {
                     () => DropdownButton<int>(
                       value: usersCount.value,
                       iconEnabledColor: AppColors.lightColor,
+                      dropdownColor: AppColors.darkColor2,
                       items: List.generate(40, (index) {
                         int number = index + 4;
                         return DropdownMenuItem(
@@ -74,7 +75,7 @@ class OfflineGamesMenuController extends BaseController {
                           child: Text(
                             number.toString(),
                             style: const TextStyle(
-                              color: AppColors.darkColor,
+                              color: AppColors.lightColor,
                               fontSize: 18,
                             ),
                           ),
@@ -131,13 +132,14 @@ class OfflineGamesMenuController extends BaseController {
                     () => DropdownButton<int>(
                       value: boardSize.value,
                       iconEnabledColor: AppColors.lightColor,
+                      dropdownColor: AppColors.darkColor2,
                       items: sizes.map((number) {
                         return DropdownMenuItem(
                           value: number,
                           child: Text(
                             number.toString(),
                             style: const TextStyle(
-                              color: AppColors.darkColor,
+                              color: AppColors.lightColor,
                               fontSize: 18,
                             ),
                           ),
@@ -194,13 +196,14 @@ class OfflineGamesMenuController extends BaseController {
                     () => DropdownButton<int>(
                       value: boardSize.value,
                       iconEnabledColor: AppColors.lightColor,
+                      dropdownColor: AppColors.darkColor2,
                       items: sizes.map((number) {
                         return DropdownMenuItem(
                           value: number,
                           child: Text(
                             number.toString(),
                             style: const TextStyle(
-                              color: AppColors.darkColor,
+                              color: AppColors.lightColor,
                               fontSize: 18,
                             ),
                           ),
@@ -240,7 +243,8 @@ class OfflineGamesMenuController extends BaseController {
           height: 150.h,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 3.h,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -257,6 +261,7 @@ class OfflineGamesMenuController extends BaseController {
                     () => DropdownButton<int>(
                       value: boardSize.value,
                       iconEnabledColor: AppColors.lightColor,
+                      dropdownColor: AppColors.darkColor2,
                       items: List.generate(6, (index) {
                         int number = index + 5; // از ۵ تا ۱۰
                         return DropdownMenuItem(
@@ -264,7 +269,7 @@ class OfflineGamesMenuController extends BaseController {
                           child: Text(
                             number.toString(),
                             style: const TextStyle(
-                              color: AppColors.darkColor,
+                              color: AppColors.lightColor,
                               fontSize: 18,
                             ),
                           ),
@@ -292,6 +297,7 @@ class OfflineGamesMenuController extends BaseController {
                     () => DropdownButton<int>(
                       value: minesCont.value,
                       iconEnabledColor: AppColors.lightColor,
+                      dropdownColor: AppColors.darkColor2,
                       items: List.generate(21, (index) {
                         int number = index + 5;
                         return DropdownMenuItem(
@@ -299,7 +305,7 @@ class OfflineGamesMenuController extends BaseController {
                           child: Text(
                             number.toString(),
                             style: const TextStyle(
-                              color: AppColors.darkColor,
+                              color: AppColors.lightColor,
                               fontSize: 18,
                             ),
                           ),
@@ -355,13 +361,15 @@ class OfflineGamesMenuController extends BaseController {
                   Obx(
                     () => DropdownButton<int>(
                       value: emptySize.value,
+                      iconEnabledColor: AppColors.lightColor,
+                      dropdownColor: AppColors.darkColor2,
                       items: sizes.map((number) {
                         return DropdownMenuItem(
                           value: number,
                           child: Text(
                             number.toString(),
                             style: const TextStyle(
-                              color: AppColors.darkColor,
+                              color: AppColors.lightColor,
                               fontSize: 18,
                             ),
                           ),
@@ -402,7 +410,8 @@ class OfflineGamesMenuController extends BaseController {
           height: 300,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
+            spacing: 3.h,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -419,6 +428,7 @@ class OfflineGamesMenuController extends BaseController {
                     () => DropdownButton<int>(
                       value: usersCount.value,
                       iconEnabledColor: AppColors.lightColor,
+                      dropdownColor: AppColors.darkColor2,
                       items: List.generate(30, (index) {
                         int number = index + 3; // از ۵ تا ۱۰
                         return DropdownMenuItem(
@@ -426,7 +436,7 @@ class OfflineGamesMenuController extends BaseController {
                           child: Text(
                             number.toString(),
                             style: const TextStyle(
-                              color: AppColors.darkColor,
+                              color: AppColors.lightColor,
                               fontSize: 18,
                             ),
                           ),
@@ -454,6 +464,7 @@ class OfflineGamesMenuController extends BaseController {
                     () => DropdownButton<int>(
                       value: spiesSize.value,
                       iconEnabledColor: AppColors.lightColor,
+                      dropdownColor: AppColors.darkColor2,
                       items: List.generate(20, (index) {
                         int number = index + 1;
                         return DropdownMenuItem(
@@ -461,7 +472,7 @@ class OfflineGamesMenuController extends BaseController {
                           child: Text(
                             number.toString(),
                             style: const TextStyle(
-                              color: AppColors.darkColor,
+                              color: AppColors.lightColor,
                               fontSize: 18,
                             ),
                           ),
@@ -489,6 +500,7 @@ class OfflineGamesMenuController extends BaseController {
                     () => DropdownButton<int>(
                       value: timeValue.value,
                       iconEnabledColor: AppColors.lightColor,
+                      dropdownColor: AppColors.darkColor2,
                       items: List.generate(10, (index) {
                         int number = index + 2;
                         return DropdownMenuItem(
@@ -496,7 +508,7 @@ class OfflineGamesMenuController extends BaseController {
                           child: Text(
                             number.toString(),
                             style: const TextStyle(
-                              color: AppColors.darkColor,
+                              color: AppColors.lightColor,
                               fontSize: 18,
                             ),
                           ),

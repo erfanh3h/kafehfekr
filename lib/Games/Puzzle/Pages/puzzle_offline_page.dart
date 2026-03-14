@@ -20,7 +20,7 @@ class PuzzleOfflinePage extends BaseView<PuzzleOfflineController> {
   Widget body(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 20),
+        const Spacer(),
         Obx(
           () => GlobalFrameWrapper(
             frame: AppImages.frame3,
@@ -34,7 +34,7 @@ class PuzzleOfflinePage extends BaseView<PuzzleOfflineController> {
             ),
           ),
         ),
-        const Spacer(),
+        const SizedBox(height: 20),
         PuzzleOfflineBoardWidget(controller: controller),
         const Spacer(),
         Padding(

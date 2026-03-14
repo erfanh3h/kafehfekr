@@ -19,25 +19,28 @@ class MSweeperOfflineBoardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: GlobalFrameWrapper(
-        padding: AppSpacings.s25All,
+        padding: AppSpacings.s30Horizental,
         height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
         width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
         frame: AppImages.board,
         child: Obx(
-          () => GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: controller.boardSize.value,
-              crossAxisSpacing: 3,
-              mainAxisSpacing: 3,
-            ),
-            itemBuilder: (ctx, index) => Obx(
-              () => MSweeperOfflineButton(
-                peaceData: controller.peaces[index].value,
-                onTap: controller.onEachButtonTap,
-                onHold: controller.onEachButtonHold,
+          () => Transform.translate(
+            offset: Offset(0, -20),
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: controller.boardSize.value,
+                crossAxisSpacing: 3,
+                mainAxisSpacing: 3,
               ),
+              itemBuilder: (ctx, index) => Obx(
+                () => MSweeperOfflineButton(
+                  peaceData: controller.peaces[index].value,
+                  onTap: controller.onEachButtonTap,
+                  onHold: controller.onEachButtonHold,
+                ),
+              ),
+              itemCount: controller.peaces.length,
             ),
-            itemCount: controller.peaces.length,
           ),
         ),
       ),

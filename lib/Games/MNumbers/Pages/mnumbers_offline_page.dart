@@ -25,7 +25,7 @@ class MNumbersOfflinePage extends BaseView<MNumbersOfflineController> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: 10),
+          Spacer(),
           GlobalFrameWrapper(
             frame: AppImages.frame3,
             width: 250,
@@ -40,10 +40,9 @@ class MNumbersOfflinePage extends BaseView<MNumbersOfflineController> {
               ),
             ),
           ),
-          Expanded(
-            flex: 5,
-            child: MNumbersOfflineBoardWidget(controller: controller),
-          ),
+          const SizedBox(height: 20),
+          MNumbersOfflineBoardWidget(controller: controller),
+          Spacer(),
           Padding(
             padding: AppSpacings.s10Bottom,
             child: OfflineActivityButtons(controller: controller),

@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kafehfekr/Core/Base/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
@@ -80,14 +81,14 @@ class MainPage extends BaseView<GlobalController> {
         Positioned(
           left: center.dx - 30,
           top: center.dy - 60,
-          child: GlobalFadeInOutWidget(
-            child: GlobalFrameWrapper(
-              padding: AppSpacings.s10All,
-              frame: AppImages.button5,
+          child: GlobalFrameWrapper(
+            padding: AppSpacings.s15All,
+            frame: AppImages.button5,
+            child: GlobalFadeInOutWidget(
               child: Image.asset(
                 GeneralIcons.logoTransparent,
-                width: 125,
-                height: 125,
+                width: 90.w,
+                height: 90.w,
               ),
             ),
           ),

@@ -18,7 +18,7 @@ class TicTacToeOfflineBoardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: AppSpacings.s30All,
+        padding: AppSpacings.s30Horizental,
         height:
             (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth) * .95,
         width:
@@ -31,19 +31,22 @@ class TicTacToeOfflineBoardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Obx(
-          () => GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 3,
-              mainAxisSpacing: 3,
-            ),
-            itemBuilder: (ctx, index) => Obx(
-              () => TicTacToeButton(
-                peaceData: controller.peaces[index].value,
-                onTap: controller.onEachButtonTap,
+          () => Transform.translate(
+            offset: Offset(0, -20),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 3,
+                mainAxisSpacing: 3,
               ),
+              itemBuilder: (ctx, index) => Obx(
+                () => TicTacToeButton(
+                  peaceData: controller.peaces[index].value,
+                  onTap: controller.onEachButtonTap,
+                ),
+              ),
+              itemCount: controller.peaces.length,
             ),
-            itemCount: controller.peaces.length,
           ),
         ),
       ),

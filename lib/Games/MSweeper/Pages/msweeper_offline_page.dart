@@ -21,7 +21,7 @@ class MSweeperOfflinePage extends BaseView<MSweeperOfflineController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const SizedBox(height: 10),
+        Spacer(),
         GlobalFrameWrapper(
           frame: AppImages.frame3,
           width: 250,
@@ -38,10 +38,9 @@ class MSweeperOfflinePage extends BaseView<MSweeperOfflineController> {
             ),
           ),
         ),
-        Expanded(
-          flex: 5,
-          child: MSweeperOfflineBoardWidget(controller: controller),
-        ),
+        const SizedBox(height: 20),
+        MSweeperOfflineBoardWidget(controller: controller),
+        Spacer(),
         Padding(
           padding: AppSpacings.s10Bottom,
           child: OfflineActivityButtons(controller: controller),

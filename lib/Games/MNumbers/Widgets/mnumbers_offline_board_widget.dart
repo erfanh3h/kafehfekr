@@ -20,23 +20,26 @@ class MNumbersOfflineBoardWidget extends StatelessWidget {
     return Obx(() {
       return Center(
         child: GlobalFrameWrapper(
-          padding: AppSpacings.s25All,
+          padding: AppSpacings.s30Horizental,
           height: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
           width: (Get.size.width).clamp(100, GeneralGameConsts.maxGameWidth),
           frame: AppImages.board,
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: controller.boardSize.value,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-            ),
-            itemBuilder: (ctx, index) => Obx(
-              () => MNumbersOfflineButton(
-                peaceData: controller.peaces[index].value,
-                onTap: controller.onEachButtonTap,
+          child: Transform.translate(
+            offset: Offset(0, -20),
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: controller.boardSize.value,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
               ),
+              itemBuilder: (ctx, index) => Obx(
+                () => MNumbersOfflineButton(
+                  peaceData: controller.peaces[index].value,
+                  onTap: controller.onEachButtonTap,
+                ),
+              ),
+              itemCount: controller.peaces.length,
             ),
-            itemCount: controller.peaces.length,
           ),
         ),
       );
