@@ -21,7 +21,7 @@ class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
   Widget body(BuildContext context) {
     return Column(
       children: [
-        Spacer(),
+        const SizedBox(height: 20),
         controller.isGameFinished.value
             ? GlobalFrameWrapper(
                 frame: AppImages.frame3,
@@ -63,9 +63,10 @@ class TicTacToeOfflinePage extends BaseView<TicTacToeOfflineController> {
                   ],
                 ),
               ),
-        const SizedBox(height: 20),
-        TicTacToeOfflineBoardWidget(controller: controller),
-        Spacer(),
+        Expanded(
+          flex: 5,
+          child: TicTacToeOfflineBoardWidget(controller: controller),
+        ),
         Padding(
           padding: AppSpacings.s10Bottom,
           child: OfflineActivityButtons(controller: controller),

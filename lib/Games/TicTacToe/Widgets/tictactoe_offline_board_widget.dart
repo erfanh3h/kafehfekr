@@ -32,7 +32,7 @@ class TicTacToeOfflineBoardWidget extends StatelessWidget {
         ),
         child: Obx(
           () => Transform.translate(
-            offset: Offset(0, -20),
+            offset: Offset(0, -(Get.size.width * .05)),
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,

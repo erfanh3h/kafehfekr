@@ -22,7 +22,7 @@ class PuzzleOfflineBoardWidget extends StatelessWidget {
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: Transform.translate(
-          offset: Offset(0, -20),
+          offset: Offset(0, -(Get.size.width * .05)),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: controller.boardSize,
