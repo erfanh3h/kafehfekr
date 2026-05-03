@@ -103,12 +103,8 @@ class DialogComponent {
               Text(
                 title,
                 style: TextStyle(
-                  fontSize: 20,
-                  foreground: Paint()
-                    ..strokeWidth = 1.25
-                    ..color = AppColors.lightColor
-                    ..style = PaintingStyle.stroke,
-                ),
+                    fontSize: 20,
+                    foreground: Paint()..color = AppColors.lightColor),
               ),
               SizedBox(height: 10.h),
               Row(

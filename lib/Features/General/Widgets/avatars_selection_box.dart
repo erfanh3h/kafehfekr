@@ -34,7 +34,7 @@ class AvatarsSelectionBox extends StatelessWidget {
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 4,
+                crossAxisCount: 3,
                 crossAxisSpacing: 5,
                 mainAxisSpacing: 10,
               ),

@@ -73,18 +73,6 @@ class AuthPage extends BaseView<AuthController> {
                               maxLength: controller.isPhonePhase.value ? 10 : 4,
                             ),
                           ),
-                          const SizedBox(width: 5),
-                          InkWell(
-                            onTap: controller.enterUser,
-                            child: const GlobalFrameWrapper(
-                              frame: AppImages.check,
-                              padding: AppSpacings.s5All,
-                              child: SizedBox(
-                                height: 50,
-                                width: 50,
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -92,6 +80,15 @@ class AuthPage extends BaseView<AuthController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        if (controller.haveBackButton)
+                          Container(
+                            margin: AppSpacings.s5Left,
+                            child: GlobalButtonWidget(
+                              width: 100,
+                              onTap: Get.back,
+                              text: AppTexts.back.tr,
+                            ),
+                          ),
                         Transform.scale(
                           scale: 1.25,
                           child: Checkbox(
@@ -147,20 +144,25 @@ class AuthPage extends BaseView<AuthController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (controller.haveBackButton)
-                          Container(
-                            margin: AppSpacings.s5Left,
-                            child: GlobalButtonWidget(
-                              width: 150,
-                              onTap: Get.back,
-                              text: AppTexts.back.tr,
+                        Expanded(
+                          flex: 3,
+                          child: GlobalButtonWidget(
+                            onTap: controller.enterUser,
+                            text: AppTexts.accept.tr,
+                            fontSize: 25,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: TextButton(
+                            onPressed: controller.enterAsQuest,
+                            child: Text(
+                              AppTexts.enterAsQuest.tr,
+                              style: TextStyle(
+                                  color: AppColors.background, fontSize: 20),
                             ),
                           ),
-                        GlobalButtonWidget(
-                          width: 150,
-                          onTap: controller.enterAsQuest,
-                          text: AppTexts.enterAsQuest.tr,
-                        ),
+                        )
                       ],
                     )
                   ],

@@ -3,7 +3,6 @@ import 'package:kafehfekr/Core/Base/base_game_controller.dart.dart';
 import 'package:kafehfekr/Core/Global/Components/dialog.dart';
 import 'package:kafehfekr/Core/Global/Components/functions_library.dart';
 import 'package:kafehfekr/Core/Global/Components/sound_player.dart';
-import 'package:kafehfekr/Core/Global/Models/global_enums.dart';
 import 'package:kafehfekr/Core/Network/game_socket.dart';
 import 'package:kafehfekr/Core/Resources/app_colors.dart';
 import 'package:kafehfekr/Core/Resources/app_consts.dart';
@@ -301,7 +300,7 @@ class RiskController extends BaseGameController {
   @override
   void onInit() async {
     super.onInit();
-    gameType = GameTypes.Risk;
+    // gameType = GameTypes.Risk;
     isPageLoading.value = false;
   }
 }
