@@ -41,7 +41,7 @@ class TenDraggableNumberWidget extends StatelessWidget {
         width: 50,
         height: 50,
       ),
-      onDraggableCanceled: (_, __) {},
+      onDraggableCanceled: (_, _) {},
       child: GlobalFrameWrapper(
         padding: AppSpacings.s10Vertical20Horizental,
         height: 50,

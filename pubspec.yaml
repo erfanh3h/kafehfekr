@@ -19,7 +19,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 2.0.0+7
 
 environment:
-  sdk: ">=3.4.3 <4.0.0"
+  sdk: ^3.12.2
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -35,23 +35,25 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
-  refreshed: ^3.2.0
+  cupertino_icons: ^1.0.9
   flutter_screenutil: ^5.9.3
-  dio: ^5.9.1
-  socket_io_client: ^3.1.4
-  just_audio: ^0.10.5
-  just_audio_windows: ^0.2.2
+  dio: ^5.10.0
+  socket_io_client: ^3.1.6
+  just_audio: ^0.10.6
   function_tree: ^0.9.1
-  flutter_smart_dialog: ^4.9.8+9
-  shared_preferences: ^2.5.4
-  animate_do: ^4.2.0
-  device_info_plus: ^12.3.0
+  flutter_smart_dialog: ^5.1.0
+  shared_preferences: ^2.5.5
+  animate_do: ^5.1.0
+  device_info_plus: ^13.2.0
   # myket_iap: ^1.1.11
   # flutter_poolakey: ^2.2.0+1.0.0
   url_launcher: ^6.3.2
   pinput: ^6.0.2
   window_manager: ^0.5.1
+  refreshed:
+    git:
+      url: https://github.com/erfanh3h/refreshed.git
+      ref: main
 
 dev_dependencies:
   flutter_test:

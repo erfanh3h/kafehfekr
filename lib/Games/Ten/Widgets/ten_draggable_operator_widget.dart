@@ -40,7 +40,7 @@ class TenDraggableOperatorWidget extends StatelessWidget {
         height: 50,
       ),
       // onDragCompleted: () => print("Ss"),
-      onDraggableCanceled: (_, __) {
+      onDraggableCanceled: (_, _) {
         // print('Drag Canceled');
       },
       child: Container(
