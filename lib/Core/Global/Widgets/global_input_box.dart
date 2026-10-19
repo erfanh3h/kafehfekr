@@ -99,7 +99,7 @@ class GlobalInputBoxState extends State<GlobalInputBox> {
   }
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return GlobalFrameWrapper(
       frame: AppImages.frame4,
       padding: AppSpacings.s10All,
@@ -110,7 +110,7 @@ class GlobalInputBoxState extends State<GlobalInputBox> {
       child: Directionality(
         textDirection: widget.textDirection,
         child: FocusScope(
-          onFocusChange: (final val) {
+          onFocusChange: (val) {
             setState(() {
               isTapped = val;
             });

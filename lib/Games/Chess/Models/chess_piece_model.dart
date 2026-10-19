@@ -22,8 +22,8 @@ class ChessPieceModel {
   }
 
   ChessPieceModel copyWith({
-    final int? gamerId,
-    final bool? isFirstMove,
+    int? gamerId,
+    bool? isFirstMove,
   }) =>
       ChessPieceModel(
         gamerId: gamerId??this.gamerId,

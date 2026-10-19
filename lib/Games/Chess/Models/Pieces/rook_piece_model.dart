@@ -19,8 +19,8 @@ class RookPieceModel extends ChessPieceModel {
 
   @override
   ChessPieceModel copyWith({
-    final int? gamerId,
-    final bool? isFirstMove,
+    int? gamerId,
+    bool? isFirstMove,
   }) =>
       RookPieceModel(
         gamerId: gamerId ?? this.gamerId,

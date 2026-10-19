@@ -44,17 +44,17 @@ class UserModel {
   }
 
   UserModel copyWith({
-    final String? id,
-    final String? phone,
-    final int? score,
-    final int? xp,
-    final String? name,
-    final int? image,
-    final int? coin,
-    final String? openGameId,
-    final String? openPreGameId,
-    final DateTime? joinDate,
-    final DateTime? lastTimeChance,
+    String? id,
+    String? phone,
+    int? score,
+    int? xp,
+    String? name,
+    int? image,
+    int? coin,
+    String? openGameId,
+    String? openPreGameId,
+    DateTime? joinDate,
+    DateTime? lastTimeChance,
   }) =>
       UserModel(
         id: id ?? this.id,

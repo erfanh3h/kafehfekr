@@ -19,8 +19,8 @@ class BishopPieceModel extends ChessPieceModel {
 
   @override
   ChessPieceModel copyWith({
-    final int? gamerId,
-    final bool? isFirstMove,
+    int? gamerId,
+    bool? isFirstMove,
   }) =>
       BishopPieceModel(
         gamerId: gamerId??this.gamerId,

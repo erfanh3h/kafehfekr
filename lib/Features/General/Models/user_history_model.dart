@@ -117,9 +117,9 @@ class UserHistoryModel {
     );
   }
   UserHistoryModel copyWith({
-    final int? loseRank,
-    final int? winRank,
-    final int? drawRank,
+    int? loseRank,
+    int? winRank,
+    int? drawRank,
   }) =>
       UserHistoryModel(
         loseRank: loseRank ?? this.loseRank,

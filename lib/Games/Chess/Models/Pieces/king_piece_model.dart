@@ -34,8 +34,8 @@ class KingPieceModel extends ChessPieceModel {
 
   @override
   ChessPieceModel copyWith({
-    final int? gamerId,
-    final bool? isFirstMove,
+    int? gamerId,
+    bool? isFirstMove,
   }) =>
       KingPieceModel(
         gamerId: gamerId ?? this.gamerId,

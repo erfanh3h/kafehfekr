@@ -29,13 +29,13 @@ class PlayerModel {
   }
 
   PlayerModel copyWith({
-    final String? userId,
-    final int? gamerId,
-    final int? userImage,
-    final String? name,
-    final int? reactionId,
-    final int? notPlayedTurns,
-    final bool? isDisconnected,
+    String? userId,
+    int? gamerId,
+    int? userImage,
+    String? name,
+    int? reactionId,
+    int? notPlayedTurns,
+    bool? isDisconnected,
   }) =>
       PlayerModel(
         userId: userId ?? this.userId,

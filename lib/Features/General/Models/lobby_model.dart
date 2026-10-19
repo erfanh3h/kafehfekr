@@ -27,12 +27,12 @@ class LobbyModel {
   }
 
   LobbyModel copyWith({
-    final String? lobbyId,
-    final String? lobbyName,
-    final String? creatorId,
-    final String? gameType,
-    final int? queuersLength,
-    final int? lobbyCount,
+    String? lobbyId,
+    String? lobbyName,
+    String? creatorId,
+    String? gameType,
+    int? queuersLength,
+    int? lobbyCount,
   }) =>
       LobbyModel(
         lobbyId: lobbyId ?? this.lobbyId,

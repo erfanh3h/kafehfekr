@@ -12,10 +12,10 @@ import 'package:dio/dio.dart' as http;
 
 mixin RestClient {
   Future<ApiResult<T>> getData<T>(
-    final String url, {
-    final bool needToken = true,
-    final bool showMessageOnError = true,
-    final int timeout = 10,
+    String url, {
+    bool needToken = true,
+    bool showMessageOnError = true,
+    int timeout = 10,
   }) async {
     try {
       Map<String, String>? requestHeader = {
@@ -60,11 +60,11 @@ mixin RestClient {
 
   // Post request
   Future<ApiResult> sendData(
-    final String url, {
-    final Map<String, dynamic>? data,
-    final bool needToken = true,
-    final bool showMessageOnError = true,
-    final bool isFormData = true,
+    String url, {
+    Map<String, dynamic>? data,
+    bool needToken = true,
+    bool showMessageOnError = true,
+    bool isFormData = true,
   }) async {
     try {
       Map<String, String>? requestHeader = {
@@ -110,9 +110,9 @@ mixin RestClient {
   }
 
   Future<ApiResult> deleteData(
-    final String url, {
-    final bool needToken = true,
-    final bool showMessageOnError = true,
+    String url, {
+    bool needToken = true,
+    bool showMessageOnError = true,
   }) async {
     try {
       Map<String, String>? requestHeader = {
@@ -156,7 +156,7 @@ mixin RestClient {
 
   NetworkExceptions handleErrorStatus(
     http.Response? response, {
-    final String? defaultErrorText,
+    String? defaultErrorText,
   }) {
     String errorText = '';
     if (defaultErrorText != null) {

@@ -287,7 +287,7 @@ class BattleShipController extends BaseGameController {
     }
   }
 
-  void removeAllPieceStatus(final int pId, PeaceStatusTypes status) {
+  void removeAllPieceStatus(int pId, PeaceStatusTypes status) {
     if (pId == 1) {
       for (var i = 0; i < player1Pieces.length; i++) {
         player1Pieces.value[i].value =

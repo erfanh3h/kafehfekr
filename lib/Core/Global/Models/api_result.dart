@@ -8,10 +8,10 @@ class ApiResult<T> {
     this.resultData,
     this.errorData,
   });
-  factory ApiResult.success({required final T data}) {
+  factory ApiResult.success({required T data}) {
     return ApiResult(resultData: data);
   }
-  factory ApiResult.failure({required final NetworkExceptions error}) {
+  factory ApiResult.failure({required NetworkExceptions error}) {
     return ApiResult(errorData: error);
   }
 }

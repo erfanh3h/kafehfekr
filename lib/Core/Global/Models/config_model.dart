@@ -18,10 +18,10 @@ class ConfigModel {
     );
   }
   ConfigModel copyWith({
-    final String? allowedVersion,
-    final String? latestVersion,
-    final bool? isQueueOpen,
-    final DateTime? updateFinishDate,
+    String? allowedVersion,
+    String? latestVersion,
+    bool? isQueueOpen,
+    DateTime? updateFinishDate,
   }) =>
       ConfigModel(
         allowedVersion: allowedVersion ?? this.allowedVersion,

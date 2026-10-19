@@ -104,7 +104,7 @@ class GlobalRepository with RestClient {
   }
 
   Future<void> setDataOnStorage(
-      {required final String key, required final String value}) async {
+      {required String key, required String value}) async {
     await StorageComponent.setData(key, value);
   }
 

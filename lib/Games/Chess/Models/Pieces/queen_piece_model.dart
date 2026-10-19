@@ -19,8 +19,8 @@ class QueenPieceModel extends ChessPieceModel {
 
   @override
   ChessPieceModel copyWith({
-    final int? gamerId,
-    final bool? isFirstMove,
+    int? gamerId,
+    bool? isFirstMove,
   }) =>
       QueenPieceModel(
         gamerId: gamerId??this.gamerId,

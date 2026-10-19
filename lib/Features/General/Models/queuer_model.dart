@@ -29,10 +29,10 @@ class QueuerModel {
   }
 
   QueuerModel copyWith({
-    final String? userId,
-    final int? userImage,
-    final String? name,
-    final bool? isRdy,
+    String? userId,
+    int? userImage,
+    String? name,
+    bool? isRdy,
   }) =>
       QueuerModel(
         userId: userId ?? this.userId,

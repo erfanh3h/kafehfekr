@@ -17,8 +17,8 @@ class PeaceModel {
   }
 
   PeaceModel copyWith({
-    final int? id,
-    final List<PeaceStatusTypes>? currentStatuses,
+    int? id,
+    List<PeaceStatusTypes>? currentStatuses,
   }) =>
       PeaceModel(
         id: id ?? this.id,
@@ -26,7 +26,7 @@ class PeaceModel {
       );
 
   PeaceModel addStatus({
-    required final PeaceStatusTypes status,
+    required PeaceStatusTypes status,
   }) {
     List<PeaceStatusTypes> newStatuses = [];
     for (var oldStatus in currentStatuses) {
@@ -40,7 +40,7 @@ class PeaceModel {
   }
 
   PeaceModel removeStatus({
-    required final PeaceStatusTypes status,
+    required PeaceStatusTypes status,
   }) {
     currentStatuses.remove(status);
     List<PeaceStatusTypes> newStatuses = [];

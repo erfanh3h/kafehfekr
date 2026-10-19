@@ -46,8 +46,8 @@ class PawnPieceModel extends ChessPieceModel {
 
   @override
   ChessPieceModel copyWith({
-    final int? gamerId,
-    final bool? isFirstMove,
+    int? gamerId,
+    bool? isFirstMove,
   }) =>
       PawnPieceModel(
         gamerId: gamerId ?? this.gamerId,

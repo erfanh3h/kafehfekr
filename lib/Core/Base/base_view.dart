@@ -13,7 +13,7 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
 
   T get controller => Get.find<T>(tag: tag);
 
-  AppBar? appBar(final BuildContext context) {
+  AppBar? appBar(BuildContext context) {
     return null;
   }
 
@@ -61,18 +61,18 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
     return false;
   }
 
-  Widget body(final BuildContext context);
+  Widget body(BuildContext context);
 
-  Widget tabletBody(final BuildContext context) => body(context);
+  Widget tabletBody(BuildContext context) => body(context);
 
-  Widget webBody(final BuildContext context) => body(context);
+  Widget webBody(BuildContext context) => body(context);
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     return pageContent(context);
   }
 
-  Widget pageScaffold(final BuildContext context) {
+  Widget pageScaffold(BuildContext context) {
     return Obx(
       () => Scaffold(
         backgroundColor: pageBackgroundColor(context),
@@ -107,7 +107,7 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
     );
   }
 
-  Widget pageContent(final BuildContext context) {
+  Widget pageContent(BuildContext context) {
     return PopScope(
       canPop: !preventPop(),
       onPopInvokedWithResult: (bool didPop, result) async {
@@ -119,9 +119,9 @@ abstract class BaseView<T extends BaseController> extends StatelessWidget {
     );
   }
 
-  Widget showErrorSnackBar(final String message) {
+  Widget showErrorSnackBar(String message) {
     final snackBar = SnackBar(content: Text(message));
-    WidgetsBinding.instance.addPostFrameCallback((final timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(snackBar);
     });
 
